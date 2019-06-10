@@ -21,7 +21,8 @@ public class TransactionOverviewDataModel extends SelectableTableModel<Transacti
 	public static final int ID = 0;
 	public static final int DATE = 1;
 	public static final int DESCRIPTION = 2;
-	public static final int NR_OF_COLS = 3;
+	public static final int TOTAL_AMOUNT = 3;
+	public static final int NR_OF_COLS = 4;
 
 	private HashMap<Integer, String> columnNames = new HashMap<>();
 	private HashMap<Integer, Class> columnClasses = new HashMap<>();
@@ -37,6 +38,7 @@ public class TransactionOverviewDataModel extends SelectableTableModel<Transacti
 		columnNames.put(ID, getBundle("Accounting").getString("NR"));
 		columnNames.put(DATE, getBundle("Accounting").getString("DATE"));
 		columnNames.put(DESCRIPTION, getBundle("Accounting").getString("DESCRIPTION"));
+		columnNames.put(TOTAL_AMOUNT, getBundle("Accounting").getString("TOTAL_AMOUNT"));
 	}
 
 
@@ -44,6 +46,7 @@ public class TransactionOverviewDataModel extends SelectableTableModel<Transacti
 		columnClasses.put(ID, String.class);
 		columnClasses.put(DATE, String.class);
 		columnClasses.put(DESCRIPTION, String.class);
+		columnClasses.put(TOTAL_AMOUNT, BigDecimal.class);
 	}
 
 	public void setJournal(Journal journal) {
@@ -83,6 +86,8 @@ public class TransactionOverviewDataModel extends SelectableTableModel<Transacti
 			}
         } else if (col == DATE) {
 			return Utils.toString(transaction.getDate());
+		} else if (col == TOTAL_AMOUNT) {
+			return transaction.getCreditTotaal();
         } else if (col == DESCRIPTION){
 			return transaction.getDescription();
 		} else return null;
