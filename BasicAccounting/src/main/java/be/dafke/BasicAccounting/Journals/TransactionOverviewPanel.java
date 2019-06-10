@@ -80,13 +80,17 @@ public class TransactionOverviewPanel extends JPanel {
         renderer.setJournal(journal);
         transactionOverviewDataModel.setJournal(journal);
         transactionOverviewDataModel.fireTableDataChanged();
+        Transaction transaction = transactionOverviewTable.getSelectedObject();
+        selectTransaction(transaction);
     }
     
     public void selectTransaction(Transaction transaction){
         int row = transactionOverviewDataModel.getRow(transaction);
-        transactionOverviewTable.setRowSelectionInterval(row, row);
-        Rectangle cellRect = transactionOverviewTable.getCellRect(row, 0, false);
-        transactionOverviewTable.scrollRectToVisible(cellRect);
+        if(row!=-1) {
+            transactionOverviewTable.setRowSelectionInterval(row, row);
+            Rectangle cellRect = transactionOverviewTable.getCellRect(row, 0, false);
+            transactionOverviewTable.scrollRectToVisible(cellRect);
+        }
 
         transactionDataModel.setTransaction(transaction);
         transactionDataModel.fireTableDataChanged();
