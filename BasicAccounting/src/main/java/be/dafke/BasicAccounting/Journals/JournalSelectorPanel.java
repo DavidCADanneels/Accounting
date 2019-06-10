@@ -16,6 +16,8 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 public class JournalSelectorPanel extends JPanel implements ActionListener{
+	public static final String VIEW1 = "View1";
+	public static final String VIEW2 = "View2";
 	private JComboBox<Journal> combo;
 	private JournalEditPanel journalEditPanel;
 
@@ -29,6 +31,30 @@ public class JournalSelectorPanel extends JPanel implements ActionListener{
         combo.addActionListener(this);
 		combo.setEnabled(false);
 		add(combo);
+
+		JRadioButton view1 = new JRadioButton(VIEW1);
+		JRadioButton view2 = new JRadioButton(VIEW2);
+		ButtonGroup group = new ButtonGroup();
+		group.add(view1);
+		group.add(view2);
+
+		view1.setSelected(true);
+		view1.addActionListener(e -> {
+			if(view1.isSelected()) {
+				Main.switchView(VIEW1);
+			} else {
+				Main.switchView(VIEW2);
+			}
+		});
+		view2.addActionListener(e -> {
+			if(view1.isSelected()) {
+				Main.switchView(VIEW1);
+			} else {
+				Main.switchView(VIEW2);
+			}
+		});
+		add(view1);
+		add(view2);
 	}
 
 	public void actionPerformed(ActionEvent ae) {

@@ -32,7 +32,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.WindowConstants;
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -69,6 +69,8 @@ public class Main {
     private static CodaMenu codaMenu;
     private static VATMenu vatMenu;
     private static TransactionOverviewPanel transactionOverviewPanel;
+    private static JPanel cardPanel;
+    private static CardLayout cardLayout;
 
     public static void main(String[] args) {
         readXmlData();
@@ -115,8 +117,11 @@ public class Main {
 
         JPanel accountingMultiPanel = new JPanel();
         accountingMultiPanel.setLayout(new BorderLayout());
-//        JSplitPane splitPane = createSplitPane(journalViewPanel, journalEditPanel, VERTICAL_SPLIT);
-        JSplitPane splitPane = createSplitPane(transactionOverviewPanel, journalEditPanel, VERTICAL_SPLIT);
+        cardLayout = new CardLayout();
+        cardPanel = new JPanel(cardLayout);
+        cardPanel.add(journalViewPanel, JournalSelectorPanel.VIEW1);
+        cardPanel.add(transactionOverviewPanel, JournalSelectorPanel.VIEW2);
+        JSplitPane splitPane = createSplitPane(cardPanel, journalEditPanel, VERTICAL_SPLIT);
 
         JPanel centerPanel = new JPanel(new BorderLayout());
         centerPanel.add(splitPane, BorderLayout.CENTER);
@@ -209,7 +214,7 @@ public class Main {
         accountGuiLeft.setAccounting(accounting);
         accountGuiRight.setAccounting(accounting);
         journalEditPanel.setAccounting(accounting);
-//        journalViewPanel.setAccounting(accounting);
+        journalViewPanel.setAccounting(accounting);
         transactionOverviewPanel.setAccounting(accounting);
         journalSelectorPanel.setAccounting(accounting);
         mortgagesPanel.setMortgages(accounting == null ? null : accounting.getMortgages());
@@ -261,7 +266,7 @@ public class Main {
             accounting.setActiveJournal(journal);  // idem, only needed for XMLWriter
         }
         journalSelectorPanel.setJournal(journal);
-//        journalViewPanel.setJournal(journal);
+        journalViewPanel.setJournal(journal);
         transactionOverviewPanel.setJournal(journal);
         journalEditPanel.setJournal(journal);
         frame.setJournal(journal);
@@ -304,7 +309,7 @@ public class Main {
     public static void fireJournalDataChanged(Journal journal){
         JournalDetailsGUI.fireJournalDataChangedForAll(journal);
         JournalManagementGUI.fireJournalDataChangedForAll();
-//        journalViewPanel.fireJournalDataChanged();
+        journalViewPanel.fireJournalDataChanged();
         transactionOverviewPanel.fireJournalDataChanged();
         journalsMenu.fireJournalDataChanged();
         frame.fireDataChanged();
@@ -326,7 +331,7 @@ public class Main {
         AccountSelectorDialog.fireAccountDataChangedForAll();
         // fireAccountDataChanged in AccountsListGUI is only needed if accounts have been added
         // in AccountsTableGUI it is also needed if the saldo of 1 or more accounts has changed
-//        journalViewPanel.fireJournalDataChanged();
+        journalViewPanel.fireJournalDataChanged();
         transactionOverviewPanel.fireJournalDataChanged();
         accountGuiLeft.fireAccountDataChanged();
         accountGuiRight.fireAccountDataChanged();
@@ -404,7 +409,7 @@ public class Main {
 //    }
 
     public static void selectTransaction(Transaction transaction){
-//        journalViewPanel.selectTransaction(transaction);
+        journalViewPanel.selectTransaction(transaction);
         transactionOverviewPanel.selectTransaction(transaction);
     }
 
@@ -430,5 +435,11 @@ public class Main {
 
     public static void fireMortgageEdited(Mortgage mortgage) {
         MortgageGUI.selectMortgage(mortgage);
+    }
+
+    public static void switchView(String view) {
+        cardLayout.show(cardPanel, view);
+        journalEditPanel.fireTransactionDataChanged();
+        transactionOverviewPanel.fireJournalDataChanged();
     }
 }
