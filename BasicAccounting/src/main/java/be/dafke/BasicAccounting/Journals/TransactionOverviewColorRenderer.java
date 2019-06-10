@@ -1,23 +1,23 @@
 package be.dafke.BasicAccounting.Journals;
 
-import be.dafke.BusinessModel.*;
+import be.dafke.BusinessModel.Journal;
+import be.dafke.BusinessModel.Transaction;
 import be.dafke.ComponentModel.SelectableTableModel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 
-public class JournalColorRenderer extends DefaultTableCellRenderer {
+public class TransactionOverviewColorRenderer<T> extends DefaultTableCellRenderer {
     private Journal journal;
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
                                                    int row, int column) {
         Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-        SelectableTableModel<Booking> model = (SelectableTableModel<Booking>)table.getModel();
-        Booking booking = model.getObject(row, column);
-        if(booking!=null) {
-            Transaction transaction = booking.getTransaction();
+        SelectableTableModel<Transaction> model = (SelectableTableModel<Transaction>)table.getModel();
+        Transaction transaction = model.getObject(row, column);
+        if(transaction!=null) {
             Journal transactionJournal = transaction.getJournal();
             if(isSelected){
                 cell.setBackground(Color.CYAN);
@@ -36,7 +36,6 @@ public class JournalColorRenderer extends DefaultTableCellRenderer {
         }
         return cell;
     }
-
 
     public void setJournal(Journal journal) {
         this.journal = journal;

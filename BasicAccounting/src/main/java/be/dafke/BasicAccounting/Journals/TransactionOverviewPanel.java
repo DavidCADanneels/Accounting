@@ -17,7 +17,7 @@ public class TransactionOverviewPanel extends JPanel {
 
     private final TransactionOverviewDataModel transactionOverviewDataModel;
     private final TransactionDataModel transactionDataModel;
-//    private final JournalColorRenderer renderer;
+    private final TransactionOverviewColorRenderer renderer;
 
     public TransactionOverviewPanel() {
 		setLayout(new BorderLayout());
@@ -32,10 +32,10 @@ public class TransactionOverviewPanel extends JPanel {
         transactionDataTable.setPreferredScrollableViewportSize(new Dimension(800, 200));
         transactionDataTable.setRowSorter(null);
 
-//        renderer = new JournalColorRenderer();
-//        transactionOverviewTable.setDefaultRenderer(String.class, renderer);
-//        transactionOverviewTable.setDefaultRenderer(Account.class, renderer);
-//        transactionOverviewTable.setDefaultRenderer(BigDecimal.class, renderer);
+        renderer = new TransactionOverviewColorRenderer();
+        transactionOverviewTable.setDefaultRenderer(String.class, renderer);
+        transactionOverviewTable.setDefaultRenderer(Account.class, renderer);
+        transactionOverviewTable.setDefaultRenderer(BigDecimal.class, renderer);
 
         transactionOverviewPopupMenu = new TransactionOverviewPopupMenu(transactionOverviewTable);
         transactionDataPopupMenu = new TransactionDataPopupMenu(transactionDataTable);
@@ -62,7 +62,7 @@ public class TransactionOverviewPanel extends JPanel {
     }
 
     public void setJournal(Journal journal) {
-//        renderer.setJournal(journal);
+        renderer.setJournal(journal);
         transactionOverviewDataModel.setJournal(journal);
         transactionOverviewDataModel.fireTableDataChanged();
     }
