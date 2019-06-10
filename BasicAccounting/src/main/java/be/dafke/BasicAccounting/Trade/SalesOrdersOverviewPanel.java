@@ -67,16 +67,23 @@ public class SalesOrdersOverviewPanel extends JPanel {
     }
 
     private void updateSelection() {
-        SalesOrder salesOrder;
         if(multiSelection) {
             ArrayList<SalesOrder> selectedObjects = overviewTable.getSelectedObjects();
-            salesOrder = SalesOrders.mergeOrders(selectedObjects);
+            SalesOrder combinedOrder = SalesOrders.mergeOrders(selectedObjects);
+            detailsTableModel.setOrder(combinedOrder);
+            totalsPanel.fireOrderContentChanged(combinedOrder);
+            salesOrderDetailPanel.setOrder(combinedOrder);
+            salesOrderDetailPanel.disableButtons();
+            // Clear details
+            salesOrderDetailPanel.updateContactDetails(combinedOrder);
+
         } else {
-            salesOrder = overviewTable.getSelectedObject();
+            SalesOrder salesOrder = overviewTable.getSelectedObject();
+            detailsTableModel.setOrder(salesOrder);
+            totalsPanel.fireOrderContentChanged(salesOrder);
+            salesOrderDetailPanel.setOrder(salesOrder);
+            salesOrderDetailPanel.updateButtonsAndCheckBoxes();
         }
-        detailsTableModel.setOrder(salesOrder);
-        totalsPanel.fireOrderContentChanged(salesOrder);
-        salesOrderDetailPanel.setOrder(salesOrder);
     }
 
     private JPanel createFilterPane() {

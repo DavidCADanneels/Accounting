@@ -11,12 +11,13 @@ public class SalesOrders extends BusinessCollection<SalesOrder>{
 
     private int id = 0;
 
-    public static SalesOrder mergeOrders(ArrayList<SalesOrder> orders) {
+    public static SalesOrder mergeOrders(ArrayList<SalesOrder> ordersToAdd) {
         SalesOrder salesOrder = new SalesOrder();
-        for (SalesOrder order:orders) {
-            ArrayList<OrderItem> orderItems = order.getBusinessObjects();
-            for (OrderItem orderitem : orderItems) {
-                salesOrder.addBusinessObject(orderitem);
+        for (SalesOrder orderToAdd:ordersToAdd) {
+            ArrayList<OrderItem> orderItemsToAdd = orderToAdd.getBusinessObjects();
+            for (OrderItem orderitemToAdd : orderItemsToAdd) {
+                OrderItem newItem = new OrderItem(orderitemToAdd);
+                salesOrder.addBusinessObject(newItem);
             }
         }
         return salesOrder;

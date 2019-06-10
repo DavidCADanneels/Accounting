@@ -113,7 +113,7 @@ public class SalesOrderDetailPanel extends JPanel {
         return panel;
     }
 
-    private void disableButtons(){
+    public void disableButtons(){
         editSalesOrder.setEnabled(false);
         placeOrderButton.setEnabled(false);
         deliveredButton.setEnabled(false);
@@ -282,7 +282,7 @@ public class SalesOrderDetailPanel extends JPanel {
         InvoicePDF.createInvoice(xmlPath, pdfPath);
     }
 
-    private void updateButtonsAndCheckBoxes() {
+    public void updateButtonsAndCheckBoxes() {
         Transaction salesTransaction = salesOrder==null?null:salesOrder.getSalesTransaction();
         Transaction paymentTransaction = salesOrder==null?null:salesOrder.getPaymentTransaction();
 
@@ -313,15 +313,19 @@ public class SalesOrderDetailPanel extends JPanel {
             invoiceNr.setText("");
         }
 
+        updateContactDetails(salesOrder);
+
+        salesTransactionButton.setEnabled(salesOrder!=null && salesOrder.getSalesTransaction()==null);
+        gainTransactionButton.setEnabled(salesOrder !=null && salesOrder.getGainTransaction()==null);
+        paymentTransactionButton.setEnabled(salesOrder !=null && paymentTransaction ==null);
+    }
+
+    public void updateContactDetails(SalesOrder salesOrder){
         if(salesOrder!=null&&salesOrder.getCustomer()!=null){
             contactDetailsPanel.setContact(salesOrder.getCustomer());
         } else {
             contactDetailsPanel.clearFields();
         }
-
-        salesTransactionButton.setEnabled(salesOrder!=null && salesOrder.getSalesTransaction()==null);
-        gainTransactionButton.setEnabled(salesOrder !=null && salesOrder.getGainTransaction()==null);
-        paymentTransactionButton.setEnabled(salesOrder !=null && paymentTransaction ==null);
     }
 
     private Contact getCustomer(){
@@ -496,7 +500,6 @@ public class SalesOrderDetailPanel extends JPanel {
 
     public void setOrder(SalesOrder salesOrder){
         this.salesOrder = salesOrder;
-        updateButtonsAndCheckBoxes();
     }
 
     public void setAccounting(Accounting accounting) {

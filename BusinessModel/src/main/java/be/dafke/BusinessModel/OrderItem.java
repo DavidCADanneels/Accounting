@@ -25,6 +25,10 @@ public class OrderItem extends BusinessObject{
         this.article = article;
     }
 
+    public OrderItem(OrderItem orderitem) {
+        this(orderitem.getNumberOfItems(), orderitem.getArticle(), null);
+    }
+
 //    public OrderItem(Integer number, Article article) {
 //        setName(article.getName());
 //        this.numberOfUnits = number==null?0:number;
