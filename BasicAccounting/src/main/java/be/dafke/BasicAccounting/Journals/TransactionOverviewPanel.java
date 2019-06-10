@@ -49,9 +49,24 @@ public class TransactionOverviewPanel extends JPanel {
         center.add(scrollPane1, JSplitPane.TOP);
         center.add(scrollPane2, JSplitPane.BOTTOM);
 		add(center, BorderLayout.CENTER);
-	}
 
-	public void setAccounting(Accounting accounting){
+        DefaultListSelectionModel selectionModel = new DefaultListSelectionModel();
+        selectionModel.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+//                if (multiSelection) {
+//                    ArrayList<Transaction> transactions = transactionOverviewTable.getSelectedObjects();
+//                    selectTransactions(transactions);
+//                } else {
+                Transaction transaction = transactionOverviewTable.getSelectedObject();
+                selectTransaction(transaction);
+//                }
+            }
+        });
+
+        transactionOverviewTable.setSelectionModel(selectionModel);
+    }
+
+    public void setAccounting(Accounting accounting){
         setJournals(accounting==null?null:accounting.getJournals());
         setJournal(accounting==null?null:accounting.getActiveJournal());
     }
@@ -69,12 +84,12 @@ public class TransactionOverviewPanel extends JPanel {
     
     public void selectTransaction(Transaction transaction){
         int row = transactionOverviewDataModel.getRow(transaction);
+        transactionOverviewTable.setRowSelectionInterval(row, row);
+        Rectangle cellRect = transactionOverviewTable.getCellRect(row, 0, false);
+        transactionOverviewTable.scrollRectToVisible(cellRect);
 
-        if(transactionOverviewTable!=null){
-            transactionOverviewTable.setRowSelectionInterval(row, row);
-            Rectangle cellRect = transactionOverviewTable.getCellRect(row, 0, false);
-            transactionOverviewTable.scrollRectToVisible(cellRect);
-        }
+        transactionDataModel.setTransaction(transaction);
+        transactionDataModel.fireTableDataChanged();
     }
 
     public void fireJournalDataChanged() {
