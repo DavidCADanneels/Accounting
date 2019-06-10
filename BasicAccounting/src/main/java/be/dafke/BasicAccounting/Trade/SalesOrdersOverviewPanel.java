@@ -3,15 +3,13 @@ package be.dafke.BasicAccounting.Trade;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Contact;
-import be.dafke.BusinessModel.OrderItem;
-import be.dafke.BusinessModel.SalesOrder;
+import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
 import java.awt.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 public class SalesOrdersOverviewPanel extends JPanel {
     private final SelectableTable<SalesOrder> overviewTable;
@@ -22,6 +20,7 @@ public class SalesOrdersOverviewPanel extends JPanel {
 
     private final SalesOrderDetailPanel salesOrderDetailPanel;
     private final SalesOrderDetailsPopupMenu popup;
+    private boolean multiSelection;
 
     public SalesOrdersOverviewPanel(){
         overviewTableModel = new SalesOrdersOverviewDataTableModel();
@@ -45,16 +44,13 @@ public class SalesOrdersOverviewPanel extends JPanel {
 
         fireSalesOrderAddedOrRemoved();
 
-        DefaultListSelectionModel selection = new DefaultListSelectionModel();
-        selection.addListSelectionListener(e -> {
+        DefaultListSelectionModel selectionModel = new DefaultListSelectionModel();
+        selectionModel.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                SalesOrder salesOrder = overviewTable.getSelectedObject();
-                detailsTableModel.setOrder(salesOrder);
-                totalsPanel.fireOrderContentChanged(salesOrder);
-                salesOrderDetailPanel.setOrder(salesOrder);
+                updateSelection();
             }
         });
-        overviewTable.setSelectionModel(selection);
+        overviewTable.setSelectionModel(selectionModel);
 
         JScrollPane overviewScroll = new JScrollPane(overviewTable);
         JScrollPane detailScroll = new JScrollPane(detailsTable);
@@ -68,6 +64,19 @@ public class SalesOrdersOverviewPanel extends JPanel {
         setLayout(new BorderLayout());
         add(center, BorderLayout.CENTER);
         add(salesOrderDetailPanel, BorderLayout.EAST);
+    }
+
+    private void updateSelection() {
+        SalesOrder salesOrder;
+        if(multiSelection) {
+            ArrayList<SalesOrder> selectedObjects = overviewTable.getSelectedObjects();
+            salesOrder = SalesOrders.mergeOrders(selectedObjects);
+        } else {
+            salesOrder = overviewTable.getSelectedObject();
+        }
+        detailsTableModel.setOrder(salesOrder);
+        totalsPanel.fireOrderContentChanged(salesOrder);
+        salesOrderDetailPanel.setOrder(salesOrder);
     }
 
     private JPanel createFilterPane() {
@@ -102,6 +111,14 @@ public class SalesOrdersOverviewPanel extends JPanel {
         panel.add(all);
         panel.add(invoice);
         panel.add(noInvoice);
+
+        JCheckBox showSummary = new JCheckBox("Combine selected orders");
+        showSummary.setSelected(false);
+        showSummary.addActionListener(e -> {
+            multiSelection = showSummary.isSelected();
+            updateSelection();
+        });
+        panel.add(showSummary);
         return panel;
     }
 
