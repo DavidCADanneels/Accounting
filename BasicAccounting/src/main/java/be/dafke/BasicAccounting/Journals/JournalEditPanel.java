@@ -174,6 +174,10 @@ public class JournalEditPanel extends JPanel implements ActionListener {
 
     public void deleteBookings(ArrayList<Booking> bookings) {
         Set<Transaction> transactions = getTransactions(bookings);
+        deleteTransactions(transactions);
+    }
+
+    public void deleteTransactions(Set<Transaction> transactions){
         for (Transaction transaction : transactions) {
             deleteTransaction(transaction);
         }

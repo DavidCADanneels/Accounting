@@ -23,6 +23,7 @@ public class JournalDetailsDataModel extends SelectableTableModel<Booking> {
 	public static final int CREDIT_AMOUNT = 5;
 	public static final int VATINFO = 6;
 	public static final int DESCRIPTION = 7;
+	public static final int NR_OF_COLS = 8;
 
 	private HashMap<Integer, String> columnNames = new HashMap<>();
 	private HashMap<Integer, Class> columnClasses = new HashMap<>();
@@ -74,7 +75,7 @@ public class JournalDetailsDataModel extends SelectableTableModel<Booking> {
 	}
 
 	public int getColumnCount() {
-		return columnNames.size();
+		return NR_OF_COLS;
 	}
 
 	@Override

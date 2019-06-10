@@ -50,8 +50,8 @@ public class IngredientsPanel extends JPanel {
         allergenesPanel.add(allergenesScrollPane, BorderLayout.CENTER);
 
         JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-        splitPane.add(ingredientsPanel);
-        splitPane.add(allergenesScrollPane);
+        splitPane.add(ingredientsPanel, JSplitPane.TOP);
+        splitPane.add(allergenesScrollPane, JSplitPane.BOTTOM);
 
         setLayout(new BorderLayout());
         add(splitPane, BorderLayout.CENTER);
