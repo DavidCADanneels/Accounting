@@ -93,11 +93,11 @@ public class Main {
         transactionOverviewPanel = new TransactionOverviewPanel();
         journalSelectorPanel = new JournalSelectorPanel(journalEditPanel);
         accountGuiLeft = new AccountsTablePanel(true);
-        accountGuiRight = new AccountsTablePanel( false);
+        accountGuiRight = new AccountsTablePanel(false);
         mortgagesPanel = new MortgagesPanel(journalEditPanel);
     }
 
-    private static void setCloseOperation(){
+    private static void setCloseOperation() {
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -109,7 +109,7 @@ public class Main {
         });
     }
 
-    public static JPanel createContentPanel(){
+    public static JPanel createContentPanel() {
         JPanel links = new JPanel();
         links.setLayout(new BorderLayout());
         links.add(accountGuiLeft, BorderLayout.CENTER);
@@ -135,12 +135,12 @@ public class Main {
 
     public static JSplitPane createSplitPane(JComponent panel1, JComponent panel2, int orientation) {
         JSplitPane splitPane = new JSplitPane(orientation);
-        if(orientation == JSplitPane.VERTICAL_SPLIT){
-            splitPane.add(panel1,TOP);
-            splitPane.add(panel2,BOTTOM);
+        if (orientation == JSplitPane.VERTICAL_SPLIT) {
+            splitPane.add(panel1, TOP);
+            splitPane.add(panel2, BOTTOM);
         } else {
-            splitPane.add(panel1,LEFT);
-            splitPane.add(panel2,RIGHT);
+            splitPane.add(panel1, LEFT);
+            splitPane.add(panel2, RIGHT);
         }
         return splitPane;
     }
@@ -173,7 +173,7 @@ public class Main {
         menuBar.add(codaMenu);
     }
 
-    private static void launchFrame(){
+    private static void launchFrame() {
         Main.addFrame(frame); // MAIN
         frame.pack();
         frame.setVisible(true);
@@ -183,14 +183,14 @@ public class Main {
         accountings = new Accountings();
 
         XMLReader.readAccountings(accountings);
-        for(Accounting accounting:accountings.getBusinessObjects()) {
+        for (Accounting accounting : accountings.getBusinessObjects()) {
             XMLReader.readAccountingSkeleton(accounting);
         }
 
         XMLReader.readSession(accountings);
 
         Accounting accounting = Accountings.getActiveAccounting();
-        if(accounting!=null){
+        if (accounting != null) {
             XMLReader.readAccountingDetails(accounting);
             Accountings.setActiveAccounting(accounting);
             accounting.setRead(true);
@@ -226,7 +226,7 @@ public class Main {
 
     }
 
-    public static void setMenuAccounting(Accounting accounting){
+    public static void setMenuAccounting(Accounting accounting) {
         projectsMenu.setAccounting(accounting);
         morgagesMenu.setAccounting(accounting);
         tradeMenu.setAccounting(accounting);
@@ -239,7 +239,7 @@ public class Main {
         accountingMenu.setAccounting(accounting);
         vatMenu.setAccounting(accounting);
 
-        if(accounting!=null) {
+        if (accounting != null) {
             vatMenu.setVisible(accounting.isVatAccounting());
             morgagesMenu.setVisible(accounting.isMortgagesAccounting());
             tradeMenu.setVisible(accounting.isTradeAccounting());
@@ -251,9 +251,13 @@ public class Main {
         }
     }
 
-    public static void fireShowInputChanged(boolean enabled){
+    public static void fireShowInputChanged(boolean enabled) {
         journalEditPanel.setVisible(enabled);
     }
+
+    public static void fireMultiTransactionChanged(boolean enabled) {
+        transactionOverviewPanel.setMultiSelection(enabled);
+}
 
     public static void fireBalancesChanged(){
         balancesMenu.fireBalancesChanged();

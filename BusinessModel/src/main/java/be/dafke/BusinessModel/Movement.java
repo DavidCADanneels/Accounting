@@ -36,6 +36,11 @@ public class Movement extends BusinessObject{
         count++;
     }
 
+    public Movement(Movement movement) {
+        this.amount = movement.amount;
+        this.debit = movement.debit;
+    }
+
     @Override
     public TreeMap<String, String> getUniqueProperties(){
         TreeMap<String,String> properties = new TreeMap<String, String>();

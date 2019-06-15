@@ -26,7 +26,7 @@ public class TransactionOverviewPanel extends JPanel {
     private final JTextField debet, credit;
     private final VATBookingDataModel vatBookingDataModel;
     private final TransactionDataColorRenderer transactionDataColorRenderer;
-    private final boolean multiSelection = true;
+    private boolean multiSelection = false;
 
     public TransactionOverviewPanel() {
 		setLayout(new BorderLayout());
@@ -82,18 +82,27 @@ public class TransactionOverviewPanel extends JPanel {
         DefaultListSelectionModel selectionModel = new DefaultListSelectionModel();
         selectionModel.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                if (multiSelection) {
-                    ArrayList<Transaction> transactions = transactionOverviewTable.getSelectedObjects();
-                    selectTransactions(transactions);
-                } else {
-                    Transaction transaction = transactionOverviewTable.getSelectedObject();
-                    selectTransaction(transaction);
-                    updateTotals(transaction);
-                }
+                setSelection();
             }
         });
 
         transactionOverviewTable.setSelectionModel(selectionModel);
+    }
+
+    public void setMultiSelection(boolean multiSelection) {
+        this.multiSelection = multiSelection;
+        setSelection();
+        transactionOverviewDataModel.fireTableDataChanged();
+    }
+
+    private void setSelection() {
+        if (multiSelection) {
+            ArrayList<Transaction> transactions = transactionOverviewTable.getSelectedObjects();
+            selectTransactions(transactions);
+        } else {
+            Transaction transaction = transactionOverviewTable.getSelectedObject();
+            selectTransaction(transaction);
+        }
     }
 
     private void updateTotals(Transaction transaction) {
@@ -127,12 +136,14 @@ public class TransactionOverviewPanel extends JPanel {
                 Account account = booking.getAccount();
                 Booking foundBooking = newTransactionData.get(account);
                 if(foundBooking == null){
-                    newTransactionData.put(account, booking);
+                    Booking newBooking = new Booking(booking);
+                    newTransactionData.put(account, newBooking);
                 } else {
                     BigDecimal totalAmount = foundBooking.getAmount().add(booking.getAmount()).setScale(2, BigDecimal.ROUND_HALF_DOWN);
                     foundBooking.setAmount(totalAmount);
                     ArrayList<VATBooking> vatBookings = booking.getVatBookings();
                     vatBookings.forEach(foundBooking::addVatBooking);
+                    newTransactionData.put(account, foundBooking);
                 }
             });
         });
@@ -148,6 +159,7 @@ public class TransactionOverviewPanel extends JPanel {
         transactionDataModel.fireTableDataChanged();
         vatBookingDataModel.setTransaction(transaction);
         vatBookingDataModel.fireTableDataChanged();
+        updateTotals(transaction);
     }
 
     public void fireJournalDataChanged() {

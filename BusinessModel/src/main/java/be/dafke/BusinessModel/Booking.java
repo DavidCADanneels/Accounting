@@ -34,6 +34,12 @@ public class Booking extends BusinessObject {
         movement.setBooking(this);
     }
 
+    public Booking(Booking booking) {
+        this.account = booking.account;
+        this.movement = new Movement(booking.movement);
+        movement.setBooking(this);
+    }
+
     public static Predicate<Booking> withAccount(Account account){
         return booking -> booking.account == account;
     }

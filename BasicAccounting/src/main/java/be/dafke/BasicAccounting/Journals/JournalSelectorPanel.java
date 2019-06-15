@@ -19,7 +19,7 @@ public class JournalSelectorPanel extends JPanel implements ActionListener{
 	public static final String VIEW1 = "View1";
 	public static final String VIEW2 = "View2";
 	private JComboBox<Journal> combo;
-	private JCheckBox showInput;
+	private JCheckBox showInput, mergeTransactions;
 	private JournalEditPanel journalEditPanel;
 
 	public JournalSelectorPanel(JournalEditPanel journalEditPanel){
@@ -63,6 +63,13 @@ public class JournalSelectorPanel extends JPanel implements ActionListener{
 		});
 		showInput.setSelected(true);
 		add(showInput);
+
+		mergeTransactions = new JCheckBox("Merge Transactions");
+		mergeTransactions.addActionListener(e -> {
+			Main.fireMultiTransactionChanged(mergeTransactions.isSelected());
+		});
+		mergeTransactions.setSelected(false);
+		add(mergeTransactions);
 	}
 
 	public void actionPerformed(ActionEvent ae) {
