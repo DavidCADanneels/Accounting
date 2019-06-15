@@ -5,8 +5,11 @@ import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
+import java.util.HashMap;
 import java.awt.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -23,6 +26,7 @@ public class TransactionOverviewPanel extends JPanel {
     private final JTextField debet, credit;
     private final VATBookingDataModel vatBookingDataModel;
     private final TransactionDataColorRenderer transactionDataColorRenderer;
+    private final boolean multiSelection = true;
 
     public TransactionOverviewPanel() {
 		setLayout(new BorderLayout());
@@ -78,14 +82,14 @@ public class TransactionOverviewPanel extends JPanel {
         DefaultListSelectionModel selectionModel = new DefaultListSelectionModel();
         selectionModel.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-//                if (multiSelection) {
-//                    ArrayList<Transaction> transactions = transactionOverviewTable.getSelectedObjects();
-//                    selectTransactions(transactions);
-//                } else {
-                Transaction transaction = transactionOverviewTable.getSelectedObject();
-                selectTransaction(transaction);
-                updateTotals(transaction);
-//                }
+                if (multiSelection) {
+                    ArrayList<Transaction> transactions = transactionOverviewTable.getSelectedObjects();
+                    selectTransactions(transactions);
+                } else {
+                    Transaction transaction = transactionOverviewTable.getSelectedObject();
+                    selectTransaction(transaction);
+                    updateTotals(transaction);
+                }
             }
         });
 
@@ -115,14 +119,31 @@ public class TransactionOverviewPanel extends JPanel {
         selectTransaction(transaction);
     }
     
-    public void selectTransaction(Transaction transaction){
-        int row = transactionOverviewDataModel.getRow(transaction);
-        if(row!=-1) {
-            transactionOverviewTable.setRowSelectionInterval(row, row);
-            Rectangle cellRect = transactionOverviewTable.getCellRect(row, 0, false);
-            transactionOverviewTable.scrollRectToVisible(cellRect);
-        }
+    public void selectTransactions(ArrayList<Transaction> transactions){
+        HashMap<Account,Booking> newTransactionData = new HashMap<>();
+        transactions.forEach(transaction -> {
+            ArrayList<Booking> bookings = transaction.getBusinessObjects();
+            bookings.forEach(booking -> {
+                Account account = booking.getAccount();
+                Booking foundBooking = newTransactionData.get(account);
+                if(foundBooking == null){
+                    newTransactionData.put(account, booking);
+                } else {
+                    BigDecimal totalAmount = foundBooking.getAmount().add(booking.getAmount()).setScale(2, BigDecimal.ROUND_HALF_DOWN);
+                    foundBooking.setAmount(totalAmount);
+                    ArrayList<VATBooking> vatBookings = booking.getVatBookings();
+                    vatBookings.forEach(foundBooking::addVatBooking);
+                }
+            });
+        });
+        Transaction mergedTransaction = new Transaction(Calendar.getInstance(), "");
+        newTransactionData.forEach((account, booking) -> {
+            mergedTransaction.addBusinessObject(booking);
+        });
+        selectTransaction(mergedTransaction);
+    }
 
+    public void selectTransaction(Transaction transaction){
         transactionDataModel.setTransaction(transaction);
         transactionDataModel.fireTableDataChanged();
         vatBookingDataModel.setTransaction(transaction);
