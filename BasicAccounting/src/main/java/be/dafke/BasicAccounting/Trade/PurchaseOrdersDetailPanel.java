@@ -180,7 +180,6 @@ public class PurchaseOrdersDetailPanel extends JPanel {
             // TODO
         }
         Account supplierAccount = StockUtils.getSupplierAccount(supplier, accounting);
-        VATTransaction vatTransaction = new VATTransaction();
 
         boolean creditNote = purchaseOrder.isCreditNote();
 
@@ -189,9 +188,9 @@ public class PurchaseOrdersDetailPanel extends JPanel {
 
         PurchaseType purchaseType = PurchaseType.VAT_81;
         if(!creditNote){
-            AccountActions.addPurchaseVatTransaction(stockBooking, purchaseType, vatTransaction);
+            AccountActions.addPurchaseVatTransaction(stockBooking, purchaseType);
         } else {
-            AccountActions.addPurchaseCnVatTransaction(stockBooking, purchaseType, vatTransaction);
+            AccountActions.addPurchaseCnVatTransaction(stockBooking, purchaseType);
         }
         transaction.addBusinessObject(stockBooking);
 
@@ -203,15 +202,13 @@ public class PurchaseOrdersDetailPanel extends JPanel {
         BigDecimal vatAmount = purchaseOrder.getTotalPurchaseVat();
         if(vatAmount.compareTo(BigDecimal.ZERO) != 0) {
             if(!creditNote) {
-                Booking bookingVat = AccountActions.createPurchaseVatBooking(accounting, vatAmount, vatTransaction);
+                Booking bookingVat = AccountActions.createPurchaseVatBooking(accounting, vatAmount);
                 transaction.addBusinessObject(bookingVat);
             } else {
-                Booking bookingVat = AccountActions.createPurchaseCnVatBooking(accounting, vatAmount, vatTransaction);
+                Booking bookingVat = AccountActions.createPurchaseCnVatBooking(accounting, vatAmount);
                 transaction.addBusinessObject(bookingVat);
             }
         }
-        transaction.addVatTransaction(vatTransaction);
-        vatTransaction.setTransaction(transaction);
 
         Journal journal = StockUtils.getPurchaseJournal(accounting);
         transaction.setJournal(journal);

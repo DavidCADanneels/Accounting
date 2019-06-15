@@ -164,15 +164,10 @@ public class MealOrderCreatePanel extends JPanel {
 
         // VAT
         //
-        VATTransaction vatSalesTransaction = new VATTransaction();
-
-
         Booking customerBooking = new Booking(mealOrderBalanceAccount, totalsPanel.getSalesAmountInclVat(), true);
-        Booking salesVatBooking = AccountActions.createSalesVatBooking(accounting, totalsPanel.getSalesAmountVat(), vatSalesTransaction);
+        Booking salesVatBooking = AccountActions.createSalesVatBooking(accounting, totalsPanel.getSalesAmountVat());
         Booking salesRevenueBooking = new Booking(mealOrderRevenueAccount, totalsPanel.getSalesAmountExclVat(), false);
-        AccountActions.addSalesVatTransaction(salesRevenueBooking, SalesType.VAT_1, vatSalesTransaction);
-
-        transaction.addVatTransaction(vatSalesTransaction);
+        AccountActions.addSalesVatTransaction(salesRevenueBooking, SalesType.VAT_1);
 
         transaction.setJournal(salesJournal);
         Calendar date = transaction.getDate();
@@ -188,17 +183,13 @@ public class MealOrderCreatePanel extends JPanel {
         salesJournal.addBusinessObject(transaction);
 
 
-        VATTransaction vatServiceTransaction = new VATTransaction();
-
         Booking serviceBooking = new Booking(mealOrderServiceAccount, totalsPanel.getServiceAmountExclVat(), true);
-        AccountActions.addPurchaseVatTransaction(serviceBooking, PurchaseType.VAT_82, vatServiceTransaction);
-        Booking serviceVatBooking = AccountActions.createPurchaseVatBooking(accounting, totalsPanel.getServiceAmountVat(), vatServiceTransaction);
+        AccountActions.addPurchaseVatTransaction(serviceBooking, PurchaseType.VAT_82);
+        Booking serviceVatBooking = AccountActions.createPurchaseVatBooking(accounting, totalsPanel.getServiceAmountVat());
         Booking debtsBooking = new Booking(mealOrderBalanceAccount, totalsPanel.getServiceAmountInclVat(), false);
 
         Transaction serviceTransaction = new Transaction(date, description);
         serviceTransaction.setJournal(serviceJournal);
-
-        serviceTransaction.addVatTransaction(vatServiceTransaction);
 
         serviceTransaction.addBusinessObject(serviceBooking);
         serviceTransaction.addBusinessObject(serviceVatBooking);

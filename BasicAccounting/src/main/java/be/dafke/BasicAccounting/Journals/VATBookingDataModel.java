@@ -28,17 +28,15 @@ public class VATBookingDataModel extends SelectableTableModel<VATBooking> {
     @Override
     public VATBooking getObject(int row, int col) {
         if(transaction==null) return null;
-        VATTransaction vatTransaction = transaction.getVatTransaction();
-        ArrayList<VATBooking> vatBookings = vatTransaction.getBusinessObjects();
+        ArrayList<VATBooking> vatBookings = transaction.getVatBookings();
         return vatBookings.get(row);
     }
 
     @Override
     public int getRowCount() {
         if (transaction==null) return 0;
-        VATTransaction vatTransaction = transaction.getVatTransaction();
-        if(vatTransaction==null) return 0;
-        return vatTransaction.getBusinessObjects().size();
+        ArrayList<VATBooking> vatBookings = transaction.getVatBookings();
+        return vatBookings.size();
     }
 
     @Override

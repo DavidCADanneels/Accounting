@@ -35,15 +35,15 @@ public class Transactions extends Journal {
                 mortgage.raiseNrPayed();
             }
 
-            if (accounting.isVatAccounting() && accounting.getVatTransactions() != null) {
-                VATTransaction vatTransaction = transaction.getVatTransaction();
-                if (vatTransaction != null) {
-                    VATTransactions vatTransactions = accounting.getVatTransactions();
-                    // TODO: raise count here, not when creating the VATTransaction (+ set ID)
-                    // TODO: remove below 2 lines
-                    vatTransaction.setId(transactionId);
-                    vatTransactions.addBusinessObject(vatTransaction);
-                }
+            if (accounting.isVatAccounting()){ // && accounting.getVatTransactions() != null) {
+//                ArrayList<VATBooking> vatBookings = transaction.getVatBookings();
+//                if (vatBookings != null) {
+//                    VATTransactions vatTransactions = accounting.getVatTransactions();
+//                    // TODO: raise count here, not when creating the VATTransaction (+ set ID)
+//                    // TODO: remove below 2 lines
+////                    vatBookings.setId(transactionId);
+//                    vatTransactions.addBusinessObject(vatBookings);
+//                }
                 Contact contact = transaction.getContact();
                 BigDecimal turnOverAmount = transaction.getTurnOverAmount();
                 BigDecimal vatAmount = transaction.getVATAmount();
@@ -73,12 +73,12 @@ public class Transactions extends Journal {
             mortgage.decreaseNrPayed();
         }
 
-        if (accounting.isVatAccounting() && accounting.getVatTransactions() != null) {
-            VATTransaction vatTransaction = transaction.getVatTransaction();
-            if (vatTransaction != null) {
-                VATTransactions vatTransactions = accounting.getVatTransactions();
-                vatTransactions.removeBusinessObject(vatTransaction);
-            }
+        if (accounting.isVatAccounting()){ // && accounting.getVatTransactions() != null) {
+//            VATTransaction vatTransaction = transaction.getVatTransaction();
+//            if (vatTransaction != null) {
+//                VATTransactions vatTransactions = accounting.getVatTransactions();
+//                vatTransactions.removeBusinessObject(vatTransaction);
+//            }
             Contact contact = transaction.getContact();
             BigDecimal turnOverAmount = transaction.getTurnOverAmount();
             BigDecimal vatAmount = transaction.getVATAmount();

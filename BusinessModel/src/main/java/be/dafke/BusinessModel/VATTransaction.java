@@ -10,6 +10,9 @@ public class VATTransaction extends BusinessCollection<VATBooking>{
     private Integer id;
     private boolean registered = false;
 
+    public VATTransaction() {
+    }
+
     public Integer getId() {
         return id;
     }

@@ -27,7 +27,7 @@ public class AccountActions {
 
             //
             if (vatType == VATTransaction.VATType.PURCHASE) {
-                purchaseAny(transaction, booking, accounting, component);
+                purchaseAny(booking, accounting, component);
             } else if (vatType == VATTransaction.VATType.CUSTOMER){
                 Contact contact = getContact(account, accounting, Contact.ContactType.CUSTOMERS, component);
                 transaction.setContact(contact);
@@ -110,81 +110,73 @@ public class AccountActions {
     }
 
     // PURCHASE
-    public static void addPurchaseVatTransaction(Booking booking, PurchaseType purchaseType, VATTransaction vatTransaction){
+    public static void addPurchaseVatTransaction(Booking booking, PurchaseType purchaseType){
         BigDecimal amount = booking.getAmount();
         VATBooking costBooking = purchaseType.getCostBooking(amount);
         booking.addVatBooking(costBooking);
-        vatTransaction.addBusinessObject(costBooking);
     }
 
-    public static void addPurchaseVatVatTransaction(Booking booking, VATTransaction vatTransaction){
+    public static void addPurchaseVatVatTransaction(Booking booking){
         BigDecimal amount = booking.getAmount();
         VATBooking vatBooking = PurchaseType.getVatBooking(amount);
         booking.addVatBooking(vatBooking);
-        vatTransaction.addBusinessObject(vatBooking);
     }
 
-    public static void addPurchaseCnVatTransaction(Booking booking, PurchaseType purchaseType, VATTransaction vatTransaction){
+    public static void addPurchaseCnVatTransaction(Booking booking, PurchaseType purchaseType){
         BigDecimal amount = booking.getAmount();
 
         VATBooking costBooking = purchaseType.getCostBooking(amount.negate());
         booking.addVatBooking(costBooking);
-        vatTransaction.addBusinessObject(costBooking);
 
         VATBooking CNCostBooking = PurchaseCNType.VAT_85.getCostBooking(amount);
         booking.addVatBooking(CNCostBooking);
-        vatTransaction.addBusinessObject(CNCostBooking);
     }
 
-    public static Booking createPurchaseVatBooking(Accounting accounting, BigDecimal vatAmount, VATTransaction vatTransaction){
+    public static Booking createPurchaseVatBooking(Accounting accounting, BigDecimal vatAmount){
         Account vatAccount = getVatCreditAccount(accounting);
         Booking booking = new Booking(vatAccount, vatAmount, true);
-        addPurchaseVatVatTransaction(booking, vatTransaction);
+        addPurchaseVatVatTransaction(booking);
         return booking;
     }
 
-    public static Booking createPurchaseCnVatBooking(Accounting accounting, BigDecimal vatAmount, VATTransaction vatTransaction){
+    public static Booking createPurchaseCnVatBooking(Accounting accounting, BigDecimal vatAmount){
         Account vatAccount = getVatCreditAccount(accounting);
         Booking bookingVat = new Booking(vatAccount, vatAmount, false);
         VATBooking vatBooking = PurchaseCNType.getPurchaseCnVatBooking(vatAmount);
         bookingVat.addVatBooking(vatBooking);
-        vatTransaction.addBusinessObject(vatBooking);
         return bookingVat;
     }
 
 
-    public static void addIntraComPurchaseVatBooking(Booking booking, VATTransaction vatTransaction){
+    public static void addIntraComPurchaseVatBooking(Booking booking){
         BigDecimal amount = booking.getAmount();
         VATBooking intraComBooking = PurchaseType.getIntraComBooking(amount);
         booking.addVatBooking(intraComBooking);
-        vatTransaction.addBusinessObject(intraComBooking);
     }
 
-    public static Booking createIntraComPurchaseVatBooking(Accounting accounting,BigDecimal vatAmount, VATTransaction vatTransaction){
+    public static Booking createIntraComPurchaseVatBooking(Accounting accounting,BigDecimal vatAmount){
         Account vatAccount = getVatDebitAccount(accounting);
         Booking bookingVatIntracom = new Booking(vatAccount, vatAmount, false);
         VATBooking intraComVatBooking = PurchaseType.getIntraComVatBooking(vatAmount);
         bookingVatIntracom.addVatBooking(intraComVatBooking);
-        vatTransaction.addBusinessObject(intraComVatBooking);
         return bookingVatIntracom;
     }
 
-    public static void purchaseAny(Transaction transaction, Booking booking, Accounting accounting, Component component){
+    public static void purchaseAny(Booking booking, Accounting accounting, Component component){
         BigDecimal amount = booking.getAmount();
         boolean debit = booking.isDebit();
-        VATTransaction vatTransaction = new VATTransaction();
         if(debit) {
             // Ordinary Purchase
             PurchaseType purchaseType = askPurchaseType(component);
 
             if (purchaseType != null && purchaseType != PurchaseType.VR) {
-                addPurchaseVatTransaction(booking, purchaseType, vatTransaction);
+                addPurchaseVatTransaction(booking, purchaseType);
 
                 int choice = JOptionPane.showConfirmDialog(component, "Intracommunautair?", "Intracommunautair?", JOptionPane.YES_NO_OPTION);
                 boolean intracom = JOptionPane.YES_OPTION==choice;
 
                 if(intracom) {
-                    addIntraComPurchaseVatBooking(booking, vatTransaction);
+                    addIntraComPurchaseVatBooking(booking);
                 }
 
                 Integer pct = intracom?21:getPercentage(accounting, component);
@@ -195,11 +187,11 @@ public class AccountActions {
                     BigDecimal vatAmount = askAmount(vatAccount, suggestedAmount, component);
 
                     if (vatAmount != null) {
-                        Booking bookingVat = createPurchaseVatBooking(accounting, vatAmount, vatTransaction);
+                        Booking bookingVat = createPurchaseVatBooking(accounting, vatAmount);
                         Main.addBooking(bookingVat);
 
                         if(intracom){
-                            Booking bookingVatIntracom = createIntraComPurchaseVatBooking(accounting, vatAmount, vatTransaction);
+                            Booking bookingVatIntracom = createIntraComPurchaseVatBooking(accounting, vatAmount);
                             Main.addBooking(bookingVatIntracom);
                         }
                     }
@@ -210,18 +202,16 @@ public class AccountActions {
             PurchaseType purchaseType = askPurchaseType(component);
             if (purchaseType != null && purchaseType != PurchaseType.VR) {
                 // 81/82/83
-                addPurchaseCnVatTransaction(booking, purchaseType, vatTransaction);
+                addPurchaseCnVatTransaction(booking, purchaseType);
 
                 Account vatAccount = getVatCreditCNAccount(accounting);
                 BigDecimal vatAmount = askAmount(vatAccount, null, component);
                 if (vatAmount != null) {
-                    Booking bookingVat = createPurchaseCnVatBooking(accounting, vatAmount, vatTransaction);
+                    Booking bookingVat = createPurchaseCnVatBooking(accounting, vatAmount);
                     Main.addBooking(bookingVat);
                 }
             }
         }
-        transaction.addVatTransaction(vatTransaction);
-        vatTransaction.setTransaction(transaction);
     }
 
     // SALE
@@ -236,13 +226,12 @@ public class AccountActions {
 
     public static void saleAny(Transaction transaction, Booking booking, Accounting accounting, Component component) {
         boolean debit = booking.isDebit();
-        VATTransaction vatTransaction = new VATTransaction();
         BigDecimal vatAmount = BigDecimal.ZERO.setScale(2);
         if (!debit){
             // Ordinary Sale
             SalesType salesType = askSalesType(component);
             if (salesType != null) {
-                addSalesVatTransaction(booking, salesType, vatTransaction);
+                addSalesVatTransaction(booking, salesType);
 
                 Integer pct = salesType.getPct();
                 if (pct != null && pct != 0) {
@@ -252,26 +241,24 @@ public class AccountActions {
 
                     vatAmount = askAmount(vatAccount, suggestedAmount, component);
                     if (vatAmount != null) {
-                        Booking bookingVat = createSalesVatBooking(accounting, vatAmount, vatTransaction);
+                        Booking bookingVat = createSalesVatBooking(accounting, vatAmount);
                         Main.addBooking(bookingVat);
                     }
                 }
             }
         } else {
             // CN
-            addSalesCnVatTransaction(booking, vatTransaction);
+            addSalesCnVatTransaction(booking);
 
             Account vatAccount = getVatDebitAccount(accounting);
 
             // TODO? ask percentage and calculate suggested amount ?
             vatAmount = askAmount(vatAccount, null, component);
             if(vatAmount!=null) {
-                Booking bookingVat = createSalesCnVatBooking(accounting, vatAmount, vatTransaction);
+                Booking bookingVat = createSalesCnVatBooking(accounting, vatAmount);
                 Main.addBooking(bookingVat);
             }
         }
-        transaction.addVatTransaction(vatTransaction);
-        vatTransaction.setTransaction(transaction);
 
         if (debit){
             BigDecimal amount = booking.getAmount();
@@ -286,41 +273,37 @@ public class AccountActions {
         }
     }
 
-    public static Booking createSalesVatBooking(Accounting accounting, BigDecimal vatAmount, VATTransaction vatTransaction){
+    public static Booking createSalesVatBooking(Accounting accounting, BigDecimal vatAmount){
         Account vatAccount = getVatDebitAccount(accounting);
         Booking booking = new Booking(vatAccount, vatAmount, false);
-        addSalesVatVatTransaction(booking, vatTransaction);
+        addSalesVatVatTransaction(booking);
         return booking;
     }
 
-    public static Booking createSalesCnVatBooking(Accounting accounting, BigDecimal vatAmount, VATTransaction vatTransaction){
+    public static Booking createSalesCnVatBooking(Accounting accounting, BigDecimal vatAmount){
         Account vatAccount = getVatDebitAccount(accounting);
         Booking bookingVat = new Booking(vatAccount, vatAmount, true);
         VATBooking vatBooking = SalesCNType.getSalesCnVatBooking(vatAmount);
         bookingVat.addVatBooking(vatBooking);
-        vatTransaction.addBusinessObject(vatBooking);
         return bookingVat;
     }
 
-    public static void addSalesVatTransaction(Booking booking, SalesType salesType, VATTransaction vatTransaction){
+    public static void addSalesVatTransaction(Booking booking, SalesType salesType){
         BigDecimal amount = booking.getAmount();
         VATBooking revenueBooking = salesType.getRevenueBooking(amount);
         booking.addVatBooking(revenueBooking);
-        vatTransaction.addBusinessObject(revenueBooking);
     }
 
-    public static void addSalesVatVatTransaction(Booking booking, VATTransaction vatTransaction){
+    public static void addSalesVatVatTransaction(Booking booking){
         BigDecimal amount = booking.getAmount();
         VATBooking vatBooking = SalesType.getVatBooking(amount);
         booking.addVatBooking(vatBooking);
-        vatTransaction.addBusinessObject(vatBooking);
     }
 
-    public static void addSalesCnVatTransaction(Booking booking, VATTransaction vatTransaction){
+    public static void addSalesCnVatTransaction(Booking booking){
         BigDecimal amount = booking.getAmount();
         VATBooking cnRevenueBooking = SalesCNType.VAT_49.getSalesCnRevenueBooking(amount);
         booking.addVatBooking(cnRevenueBooking);
-        vatTransaction.addBusinessObject(cnRevenueBooking); // TODO: get rid of this
     }
 
     // Get Accounts

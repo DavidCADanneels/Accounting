@@ -195,13 +195,10 @@ public class JournalsIO {
                     transaction.setBalanceTransaction(true);
                 }
 
-                VATTransaction vatTransaction = null;
                 String registeredString = getValue(element, REGISTERED);
                 if (registeredString != null) {
-                    vatTransaction = new VATTransaction();
-                    vatTransaction.setId(transactionId);
                     if ("true".equals(registeredString)) {
-                        vatTransaction.setRegistered();
+                        transaction.setRegistered();
                     }
                 }
 
@@ -243,18 +240,8 @@ public class JournalsIO {
                         VATMovement vatMovement = new VATMovement(positive?amount:amount.negate());
                         VATBooking vatBooking = new VATBooking(vatField, vatMovement);
                         booking.addVatBooking(vatBooking);
-                        if (vatTransaction == null) {
-                            System.err.println(transactionId);
-                            System.err.println("ERROR: vatTransaction should already be read: <registered> field is missing !");
-                        } else {
-                            vatTransaction.addBusinessObject(vatBooking);
-                        }
                     }
                     transaction.addBusinessObject(booking);
-                }
-                if (vatTransaction != null) {
-                    transaction.addVatTransaction(vatTransaction);
-                    //                vatTransactions.addBusinessObject(vatTransaction);
                 }
                 transactions.addBusinessObject(transaction);
 //                transactions.raiseId();
@@ -490,10 +477,7 @@ public class JournalsIO {
                 if(transaction.isBalanceTransaction()){
                     writer.write("    <"+BALANCE_TRANSACTION+">true</"+BALANCE_TRANSACTION+">\n");
                 }
-                VATTransaction vatTransaction = transaction.getVatTransaction();
-                if (vatTransaction != null) {
-                    writer.write("    <"+REGISTERED+">"+vatTransaction.isRegistered()+"</"+REGISTERED+">\n");
-                }
+                writer.write("    <"+REGISTERED+">"+transaction.isRegistered()+"</"+REGISTERED+">\n");
                 for (Booking booking : transaction.getBusinessObjects()) {
                     writer.write("    <" + BOOKING + ">\n" +
                             "      <" + ID + ">" + booking.getId() + "</" + ID + ">\n" +

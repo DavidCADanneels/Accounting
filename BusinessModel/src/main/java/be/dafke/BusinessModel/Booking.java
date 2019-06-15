@@ -5,6 +5,7 @@ import be.dafke.ObjectModel.BusinessObject;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.TreeMap;
+import java.util.function.Predicate;
 
 /**
  * @author David Danneels
@@ -31,6 +32,10 @@ public class Booking extends BusinessObject {
         this.account = account;
         movement = new Movement(amount, debit);
         movement.setBooking(this);
+    }
+
+    public static Predicate<Booking> vatBooking(){
+        return booking -> !booking.vatBookings.isEmpty();
     }
 
     public boolean isDebit(){

@@ -29,10 +29,10 @@ public class Transaction extends BusinessCollection<Booking> implements Comparab
     private final ArrayList<Booking> bookings;
     private BigDecimal VATAmount;
     private BigDecimal turnOverAmount;
-    private VATTransaction vatTransaction = null;
     private Contact contact = null;
     private Mortgage mortgage = null;
     private boolean balanceTransaction = false;
+    private boolean registered = false;
 
     public Transaction(Calendar date, String description) {
         this.date = date==null?Calendar.getInstance():date;
@@ -42,6 +42,13 @@ public class Transaction extends BusinessCollection<Booking> implements Comparab
         VATAmount = BigDecimal.ZERO.setScale(2);
         turnOverAmount = BigDecimal.ZERO.setScale(2);
         bookings = new ArrayList<>();
+    }
+    public void setRegistered() {
+        registered = true;
+    }
+
+    public boolean isRegistered() {
+        return registered;
     }
 
     public void setTransactionId(int transactionId) {
@@ -174,20 +181,12 @@ public class Transaction extends BusinessCollection<Booking> implements Comparab
 //        return getBusinessObjects().stream().map(Booking::getAccount).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public VATTransaction getVatTransaction() {
-        return vatTransaction;
-    }
-
-    // TODO: rename to setVatTransaction (or refactor)
-    public void addVatTransaction(VATTransaction vatTransaction) {
-        if(this.vatTransaction==null){
-            this.vatTransaction = vatTransaction;
-            vatTransaction.setTransaction(this);
-        } else {
-            for (VATBooking vatBooking : vatTransaction.getBusinessObjects()) {
-                this.vatTransaction.addBusinessObject(vatBooking);
-            }
+    public ArrayList<VATBooking> getVatBookings(){
+        ArrayList<VATBooking> result = new ArrayList<>();
+        for(Booking booking: bookings){
+            result.addAll(booking.getVatBookings());
         }
+        return result;
     }
 
     public void setVATAmount(BigDecimal VATAmount) {

@@ -194,8 +194,8 @@ public class JournalEditPanel extends JPanel implements ActionListener {
             Main.fireAccountDataChanged(account);
         }
 
-        VATTransaction vatTransaction = transaction.getVatTransaction();
-        if (vatTransaction != null && !vatTransaction.getBusinessObjects().isEmpty()) {
+        ArrayList<VATBooking> vatBookings = transaction.getVatBookings();
+        if (vatBookings != null && !vatBookings.isEmpty()) {
             Main.fireVATFieldsUpdated();
         }
 //        ActionUtils.showErrorMessage(TRANSACTION_REMOVED, journal.getName());
@@ -209,8 +209,8 @@ public class JournalEditPanel extends JPanel implements ActionListener {
         journal.addBusinessObject(transaction);
         transaction.setJournal(journal);
 
-        VATTransaction vatTransaction = transaction.getVatTransaction();
-        if (vatTransaction != null && !vatTransaction.getBusinessObjects().isEmpty()) {
+        ArrayList<VATBooking> vatBookings = transaction.getVatBookings();
+        if (vatBookings != null && !vatBookings.isEmpty()) {
             Main.fireVATFieldsUpdated(/*vatFields*/);
         }
 

@@ -410,34 +410,31 @@ public class SalesOrderDetailPanel extends JPanel {
         salesTypes.add(SalesType.VAT_1);
         salesTypes.add(SalesType.VAT_3);
 
-        VATTransaction vatTransaction = new VATTransaction();
         for(SalesType salesType:salesTypes){
             BigDecimal netAmount = salesOrder.getTotalSalesPriceExclVat(OrderItem.withSalesVatRate(salesType.getPct()));
             if(netAmount.compareTo(BigDecimal.ZERO) != 0){
                 if(!creditNote) {
                     Booking salesBooking = new Booking(salesAccount, netAmount, false);
-                    AccountActions.addSalesVatTransaction(salesBooking, salesType, vatTransaction);
+                    AccountActions.addSalesVatTransaction(salesBooking, salesType);
                     transaction.addBusinessObject(salesBooking);
                     transaction.increaseTurnOverAmount(netAmount);
                 } else {
                     Booking salesCnBooking = new Booking(salesAccount, netAmount, true);
-                    AccountActions.addSalesCnVatTransaction(salesCnBooking, vatTransaction);
+                    AccountActions.addSalesCnVatTransaction(salesCnBooking);
                     transaction.addBusinessObject(salesCnBooking);
                     transaction.increaseTurnOverAmount(netAmount.negate());
                 }
             }
         }
-        transaction.addVatTransaction(vatTransaction);
-        vatTransaction.setTransaction(transaction);
 
         // Calculate Total VAT Amount -> Field 54
         BigDecimal vatAmount = salesOrder.calculateTotalSalesVat(); // ensure no cent different
         if(!creditNote) {
-            Booking vatBooking = AccountActions.createSalesVatBooking(accounting, vatAmount, vatTransaction);
+            Booking vatBooking = AccountActions.createSalesVatBooking(accounting, vatAmount);
             transaction.setVATAmount(vatAmount);
             transaction.addBusinessObject(vatBooking);
         } else {
-            Booking vatBooking = AccountActions.createSalesCnVatBooking(accounting, vatAmount, vatTransaction);
+            Booking vatBooking = AccountActions.createSalesCnVatBooking(accounting, vatAmount);
             transaction.setVATAmount(vatAmount.negate());
             transaction.addBusinessObject(vatBooking);
         }
