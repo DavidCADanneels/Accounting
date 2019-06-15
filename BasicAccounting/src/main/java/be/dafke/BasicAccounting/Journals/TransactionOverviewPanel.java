@@ -1,14 +1,13 @@
 package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
+import be.dafke.BasicAccounting.VAT.VATColorRenderer;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
-import be.dafke.ComponentModel.SelectableTableModel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -21,9 +20,10 @@ public class TransactionOverviewPanel extends JPanel {
 
     private final TransactionOverviewDataModel transactionOverviewDataModel;
     private final TransactionDataModel transactionDataModel;
-    private final TransactionOverviewColorRenderer renderer;
+    private final TransactionOverviewColorRenderer transactionOverviewColorRenderer;
     private final JTextField debet, credit;
     private final VATBookingDataModel vatBookingDataModel;
+    private final TransactionDataColorRenderer transactionDataColorRenderer;
 
     public TransactionOverviewPanel() {
 		setLayout(new BorderLayout());
@@ -33,15 +33,18 @@ public class TransactionOverviewPanel extends JPanel {
         transactionOverviewTable = new SelectableTable<>(transactionOverviewDataModel);
         transactionOverviewTable.setPreferredScrollableViewportSize(new Dimension(800, 200));
         transactionOverviewTable.setRowSorter(null);
+        transactionOverviewTable.setDefaultRenderer(BigDecimal.class, new VATColorRenderer());
 
+        transactionDataColorRenderer = new TransactionDataColorRenderer();
         transactionDataTable = new SelectableTable<>(transactionDataModel);
         transactionDataTable.setPreferredScrollableViewportSize(new Dimension(800, 200));
         transactionDataTable.setRowSorter(null);
+        transactionDataTable.setDefaultRenderer(String.class, transactionDataColorRenderer);
 
-        renderer = new TransactionOverviewColorRenderer();
-        transactionOverviewTable.setDefaultRenderer(String.class, renderer);
-        transactionOverviewTable.setDefaultRenderer(Account.class, renderer);
-        transactionOverviewTable.setDefaultRenderer(BigDecimal.class, renderer);
+        transactionOverviewColorRenderer = new TransactionOverviewColorRenderer();
+        transactionOverviewTable.setDefaultRenderer(String.class, transactionOverviewColorRenderer);
+        transactionOverviewTable.setDefaultRenderer(Account.class, transactionOverviewColorRenderer);
+        transactionOverviewTable.setDefaultRenderer(BigDecimal.class, transactionOverviewColorRenderer);
 
         transactionOverviewPopupMenu = new TransactionOverviewPopupMenu(transactionOverviewTable);
         transactionDataPopupMenu = new TransactionDataPopupMenu(transactionDataTable);
@@ -107,7 +110,7 @@ public class TransactionOverviewPanel extends JPanel {
     }
 
     public void setJournal(Journal journal) {
-        renderer.setJournal(journal);
+        transactionOverviewColorRenderer.setJournal(journal);
         transactionOverviewDataModel.setJournal(journal);
         transactionOverviewDataModel.fireTableDataChanged();
         Transaction transaction = transactionOverviewTable.getSelectedObject();

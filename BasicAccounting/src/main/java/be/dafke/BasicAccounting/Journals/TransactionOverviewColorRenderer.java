@@ -1,7 +1,10 @@
 package be.dafke.BasicAccounting.Journals;
 
+import be.dafke.BasicAccounting.VAT.VATTransactionsDataModel;
 import be.dafke.BusinessModel.Journal;
 import be.dafke.BusinessModel.Transaction;
+import be.dafke.BusinessModel.VATBooking;
+import be.dafke.BusinessModel.VATTransaction;
 import be.dafke.ComponentModel.SelectableTableModel;
 
 import javax.swing.*;
@@ -32,6 +35,13 @@ public class TransactionOverviewColorRenderer<T> extends DefaultTableCellRendere
                 cell.setForeground(Color.RED);
             } else {
                 cell.setForeground(Color.BLACK);
+            }
+            if(column == TransactionOverviewDataModel.TOTAL_AMOUNT) {
+                if (transaction.isRegistered()) {
+                    cell.setForeground(Color.BLACK);
+                } else {
+                    cell.setForeground(Color.RED);
+                }
             }
         }
         return cell;
