@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting.Journals;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
+import be.dafke.ComponentModel.SelectableTableModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +15,7 @@ import static java.util.ResourceBundle.getBundle;
 public class TransactionOverviewPanel extends JPanel {
     private final SelectableTable<Transaction> transactionOverviewTable;
     private final SelectableTable<Booking> transactionDataTable;
+    private final SelectableTable<VATBooking> vatTable;
     private final TransactionDataPopupMenu transactionDataPopupMenu;
     private final TransactionOverviewPopupMenu transactionOverviewPopupMenu;
 
@@ -21,6 +23,7 @@ public class TransactionOverviewPanel extends JPanel {
     private final TransactionDataModel transactionDataModel;
     private final TransactionOverviewColorRenderer renderer;
     private final JTextField debet, credit;
+    private final VATBookingDataModel vatBookingDataModel;
 
     public TransactionOverviewPanel() {
 		setLayout(new BorderLayout());
@@ -48,25 +51,28 @@ public class TransactionOverviewPanel extends JPanel {
 
         JScrollPane overviewScrollPane = new JScrollPane(transactionOverviewTable);
         JScrollPane transactionScrollPane = new JScrollPane(transactionDataTable);
-        JPanel bottomPanel = new JPanel(new BorderLayout());
-        bottomPanel.add(transactionScrollPane, BorderLayout.CENTER);
+
+        vatBookingDataModel = new VATBookingDataModel();
+        vatTable = new SelectableTable<>(vatBookingDataModel);
 
         debet = new JTextField(8);
         credit = new JTextField(8);
         debet.setEditable(false);
         credit.setEditable(false);
-        JPanel totalsPanel = new JPanel();
-        totalsPanel.add(new JLabel(getBundle("Accounting").getString("TOTAL_DEBIT")));
-        totalsPanel.add(debet);
-        totalsPanel.add(new JLabel(getBundle("Accounting").getString("TOTAL_CREDIT")));
-        totalsPanel.add(credit);
-
-        bottomPanel.add(totalsPanel, BorderLayout.SOUTH);
+        JPanel totalsPanel = new JPanel(new BorderLayout());
+        JPanel totalsTopPanel = new JPanel();
+        totalsTopPanel.add(new JLabel(getBundle("Accounting").getString("TOTAL_DEBIT")));
+        totalsTopPanel.add(debet);
+        totalsTopPanel.add(new JLabel(getBundle("Accounting").getString("TOTAL_CREDIT")));
+        totalsTopPanel.add(credit);
+        totalsPanel.add(totalsTopPanel, BorderLayout.NORTH);
+        totalsPanel.add(vatTable, BorderLayout.CENTER);
 
         JSplitPane center = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
         center.add(overviewScrollPane, JSplitPane.TOP);
-        center.add(bottomPanel, JSplitPane.BOTTOM);
-		add(center, BorderLayout.CENTER);
+        center.add(transactionScrollPane, JSplitPane.BOTTOM);
+        add(center, BorderLayout.CENTER);
+        add(totalsPanel, BorderLayout.SOUTH);
 
         DefaultListSelectionModel selectionModel = new DefaultListSelectionModel();
         selectionModel.addListSelectionListener(e -> {
@@ -118,6 +124,8 @@ public class TransactionOverviewPanel extends JPanel {
 
         transactionDataModel.setTransaction(transaction);
         transactionDataModel.fireTableDataChanged();
+        vatBookingDataModel.setTransaction(transaction);
+        vatBookingDataModel.fireTableDataChanged();
     }
 
     public void fireJournalDataChanged() {
