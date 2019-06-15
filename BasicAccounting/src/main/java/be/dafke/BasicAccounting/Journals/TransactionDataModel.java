@@ -96,7 +96,7 @@ public class TransactionDataModel extends SelectableTableModel<Booking> {
             if (!booking.isDebit()) return booking.getAmount();
             return "";
         } else if (col == VATINFO){
-            return booking.getVATBookingsString();
+            return booking.getMergedVATBookingsString();
 		} else return null;
     }
 

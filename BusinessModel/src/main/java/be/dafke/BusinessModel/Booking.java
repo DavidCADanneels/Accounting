@@ -37,6 +37,10 @@ public class Booking extends BusinessObject {
     public Booking(Booking booking) {
         this.account = booking.account;
         this.movement = new Movement(booking.movement);
+        booking.vatBookings.forEach(vatBooking -> {
+            VATBooking newVatBooking = new VATBooking(vatBooking);
+            this.vatBookings.add(newVatBooking);
+        });
         movement.setBooking(this);
     }
 
@@ -120,6 +124,32 @@ public class Booking extends BusinessObject {
                         buffer.append(plus ? "+" : "-");
                         buffer.append(vatField.getName());
                     }
+                }
+            }
+            buffer.append(")");
+            return buffer.toString();
+        }
+
+    }
+
+    public String getMergedVATBookingsString(){
+        if(vatBookings == null || vatBookings.isEmpty()){
+            return "";
+        } else {
+            StringBuffer buffer = new StringBuffer("(");
+            ArrayList<String> vatFieldNames = new ArrayList<>();
+            for (VATBooking vatBooking:vatBookings) {
+                VATField vatField = vatBooking.getVatField();
+                String vatFieldName = vatField.getName();
+                if(!vatFieldNames.contains(vatFieldName)){
+                    VATMovement vatMovement = vatBooking.getVatMovement();
+                    if(vatMovement != null){
+                        BigDecimal amount = vatMovement.getAmount();
+                        boolean plus = amount.compareTo(BigDecimal.ZERO) >= 0;
+                        buffer.append(plus ? "+" : "-");
+                        buffer.append(vatFieldName);
+                    }
+                    vatFieldNames.add(vatFieldName);
                 }
             }
             buffer.append(")");

@@ -7,6 +7,11 @@ public class VATBooking extends BusinessObject {
     private VATMovement vatMovement;
     private VATTransaction vatTransaction;
 
+    public VATBooking(VATBooking booking) {
+        this.vatField = booking.vatField;
+        this.vatMovement = booking.vatMovement;
+    }
+
     public VATBooking(VATField vatField, VATMovement vatMovement) {
         this.vatField = vatField;
         this.vatMovement = vatMovement;
