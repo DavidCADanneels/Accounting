@@ -3,9 +3,7 @@ package be.dafke.BusinessModel;
 import be.dafke.ObjectModel.BusinessCollection;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
 
 /**
@@ -186,6 +184,30 @@ public class Transaction extends BusinessCollection<Booking> implements Comparab
         for(Booking booking: bookings){
             result.addAll(booking.getVatBookings());
         }
+        return result;
+    }
+
+    public ArrayList<VATBooking> getMergedVatBookings(){
+        HashMap<String, VATBooking> hashMap = new HashMap<>();
+        bookings.forEach( booking -> {
+            ArrayList<VATBooking> vatBookings = booking.getVatBookings();
+            vatBookings.forEach( vatBooking -> {
+                VATField vatField = vatBooking.getVatField();
+                VATBooking foundBooking = hashMap.get(vatField.getName());
+                if(foundBooking==null){
+                    foundBooking = vatBooking;
+                } else {
+                    VATMovement movement = vatBooking.getVatMovement();
+                    VATMovement foundMovement = foundBooking.getVatMovement();
+                    BigDecimal totalAmount = foundMovement.getAmount().add(movement.getAmount()).setScale(2,BigDecimal.ROUND_HALF_DOWN);
+                    VATMovement totalMovement = new VATMovement(totalAmount);
+                    foundBooking = new VATBooking(vatField,totalMovement);
+                }
+                hashMap.put(vatField.getName(), foundBooking);
+            });
+        });
+        ArrayList<VATBooking> result = new ArrayList<>();
+        result.addAll(hashMap.values());
         return result;
     }
 
