@@ -19,6 +19,7 @@ public class JournalSelectorPanel extends JPanel implements ActionListener{
 	public static final String VIEW1 = "View1";
 	public static final String VIEW2 = "View2";
 	private JComboBox<Journal> combo;
+	private JCheckBox showInput;
 	private JournalEditPanel journalEditPanel;
 
 	public JournalSelectorPanel(JournalEditPanel journalEditPanel){
@@ -55,6 +56,13 @@ public class JournalSelectorPanel extends JPanel implements ActionListener{
 		});
 		add(view1);
 		add(view2);
+
+		showInput = new JCheckBox("Show Input Panel");
+		showInput.addActionListener(e -> {
+			Main.fireShowInputChanged(showInput.isSelected());
+		});
+		showInput.setSelected(true);
+		add(showInput);
 	}
 
 	public void actionPerformed(ActionEvent ae) {

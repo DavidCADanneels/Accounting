@@ -70,6 +70,7 @@ public class Main {
     private static TransactionOverviewPanel transactionOverviewPanel;
     private static JPanel cardPanel;
     private static CardLayout cardLayout;
+    private static JSplitPane journalViewAndEditSplitPane;
 
     public static void main(String[] args) {
         readXmlData();
@@ -120,10 +121,10 @@ public class Main {
         cardPanel = new JPanel(cardLayout);
         cardPanel.add(journalViewPanel, JournalSelectorPanel.VIEW1);
         cardPanel.add(transactionOverviewPanel, JournalSelectorPanel.VIEW2);
-        JSplitPane splitPane = createSplitPane(cardPanel, journalEditPanel, VERTICAL_SPLIT);
+        journalViewAndEditSplitPane = createSplitPane(cardPanel, journalEditPanel, VERTICAL_SPLIT);
 
         JPanel centerPanel = new JPanel(new BorderLayout());
-        centerPanel.add(splitPane, BorderLayout.CENTER);
+        centerPanel.add(journalViewAndEditSplitPane, BorderLayout.CENTER);
         centerPanel.add(journalSelectorPanel, BorderLayout.NORTH);
 
         accountingMultiPanel.add(accountGuiRight, BorderLayout.EAST);
@@ -248,6 +249,10 @@ public class Main {
             mortgagesPanel.setVisible(accounting.isMortgagesAccounting());
 
         }
+    }
+
+    public static void fireShowInputChanged(boolean enabled){
+        journalEditPanel.setVisible(enabled);
     }
 
     public static void fireBalancesChanged(){
