@@ -12,10 +12,7 @@ import static java.util.ResourceBundle.getBundle;
 public class VATMenu extends JMenu {
     private Accounting accounting;
     private JMenuItem vatFieldsMenuItem;
-    private JMenuItem vatTransactionsMenuItem;
     private VATFields vatFields;
-    private VATTransactions vatTransactions;
-    private Contact declarant;
 
     public VATMenu() {
         super(getBundle("VAT").getString("VAT"));
@@ -29,26 +26,14 @@ public class VATMenu extends JMenu {
         });
         vatFieldsMenuItem.setEnabled(false);
 
-        vatTransactionsMenuItem = new JMenuItem(getBundle("VAT").getString("VAT_TRANSACTIONS"));
-        vatTransactionsMenuItem.addActionListener(e -> {
-            VATTransactionsGUI vatTransactionsGUI = VATTransactionsGUI.getInstance(vatTransactions);
-            vatTransactionsGUI.setLocation(getLocationOnScreen());
-            vatTransactionsGUI.setVisible(true);
-        });
-        vatTransactionsMenuItem.setEnabled(false);
-
         add(vatFieldsMenuItem);
-        add(vatTransactionsMenuItem);
     }
 
     public void setAccounting(Accounting accounting) {
         this.accounting = accounting;
         vatFieldsMenuItem.setEnabled(accounting!=null);
-        vatTransactionsMenuItem.setEnabled(accounting!=null);
         if(accounting!=null){
             vatFields = accounting.getVatFields();
-            vatTransactions = accounting.getVatTransactions();
-            declarant = accounting.getCompanyContact();
         }
     }
 }

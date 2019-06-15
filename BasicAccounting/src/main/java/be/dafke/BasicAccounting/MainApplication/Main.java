@@ -21,7 +21,6 @@ import be.dafke.BasicAccounting.Mortgages.MortgagesPanel;
 import be.dafke.BasicAccounting.Projects.ProjectsMenu;
 import be.dafke.BasicAccounting.VAT.VATFieldsGUI;
 import be.dafke.BasicAccounting.VAT.VATMenu;
-import be.dafke.BasicAccounting.VAT.VATTransactionsGUI;
 import be.dafke.BusinessModel.*;
 import be.dafke.BusinessModelDao.XMLReader;
 import be.dafke.BusinessModelDao.XMLWriter;
@@ -257,7 +256,6 @@ public class Main {
 
     public static void fireVATFieldsUpdated(/*VATFields vatFields*/){
         VATFieldsGUI.fireVATFieldsUpdated(/*vatFields*/);
-        VATTransactionsGUI.fireVATTransactionsUpdated();
     }
 
     public static void setJournal(Journal journal) {

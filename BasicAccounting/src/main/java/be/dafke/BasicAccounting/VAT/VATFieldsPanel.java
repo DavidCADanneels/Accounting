@@ -38,9 +38,9 @@ class VATFieldsPanel extends JPanel {
     private Accounting accounting;
     private VATFields vatFields;
     private HashMap<String,JTextField> textFields = new HashMap<>();
-    private List<VATTransaction> selectedVatTransactions;
+    private List<Transaction> selectedVatTransactions;
 
-    VATFieldsPanel(VATFields vatFields, Accounting accounting, List<VATTransaction> selectedVatTransactions) {
+    VATFieldsPanel(VATFields vatFields, Accounting accounting, List<Transaction> selectedVatTransactions) {
         this.accounting = accounting;
         this.selectedVatTransactions = selectedVatTransactions;
         this.vatFields = vatFields;

@@ -53,7 +53,7 @@ public class Accounting extends BusinessObject{
         transactions = new Transactions(this);
 
         vatFields = new VATFields(this);
-        vatTransactions = new VATTransactions(this);
+        vatTransactions = new VATTransactions();
 
         journals = new Journals(this);
 

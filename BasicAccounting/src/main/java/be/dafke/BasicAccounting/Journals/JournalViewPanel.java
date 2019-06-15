@@ -40,6 +40,7 @@ public class JournalViewPanel extends JPanel {
 	}
 
 	public void setAccounting(Accounting accounting){
+//        popup.setAccounting(accounting);
         setJournals(accounting==null?null:accounting.getJournals());
         setJournal(accounting==null?null:accounting.getActiveJournal());
     }

@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting.Journals;
 import be.dafke.BasicAccounting.Accounts.AccountDetails.AccountDetailsGUI;
 import be.dafke.BasicAccounting.Balances.BalanceGUI;
 import be.dafke.BasicAccounting.MainApplication.Main;
+import be.dafke.BasicAccounting.VAT.VATFieldsGUI;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 
@@ -11,15 +12,17 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static java.util.ResourceBundle.getBundle;
 
 public class TransactionOverviewPopupMenu extends JPopupMenu {
-    private final JMenuItem move, delete, edit, balance;
+    private final JMenuItem move, delete, edit, balance, vatCalculation;
 
     private SelectableTable<Transaction> gui;
     private Journals journals;
+    private Accounting accounting;
 
     public TransactionOverviewPopupMenu(Journals journals, SelectableTable<Transaction> gui) {
         this(gui);
@@ -32,17 +35,34 @@ public class TransactionOverviewPopupMenu extends JPopupMenu {
         move = new JMenuItem(getBundle("Accounting").getString("MOVE"));
         edit = new JMenuItem(getBundle("Accounting").getString("EDIT_TRANSACTION"));
         balance = new JMenuItem(getBundle("Accounting").getString("BALANCE_CALCULATION"));
+        vatCalculation = new JMenuItem(getBundle("Accounting").getString("VAT_CALCULATION"));
 
         delete.addActionListener(e -> deleteTransaction());
         move.addActionListener(e -> moveTransaction());
         edit.addActionListener(e -> editTransaction());
         balance.addActionListener(e -> showBalance());
+        vatCalculation.addActionListener(e -> book());
 
         add(delete);
         add(move);
         add(edit);
         addSeparator();
         add(balance);
+        add(vatCalculation);
+    }
+
+    public void setAccounting(Accounting accounting) {
+        this.accounting = accounting;
+        setJournals(accounting==null?null:accounting.getJournals());
+    }
+
+    private void book() {
+        Point locationOnScreen = getLocationOnScreen();
+        setVisible(false);
+        ArrayList<Transaction> transactions = gui.getSelectedObjects();
+        VATFieldsGUI vatFieldsGUI = VATFieldsGUI.getInstance(transactions, accounting);
+        vatFieldsGUI.setLocation(locationOnScreen);
+        vatFieldsGUI.setVisible(true);
     }
 
     private void showBalance() {

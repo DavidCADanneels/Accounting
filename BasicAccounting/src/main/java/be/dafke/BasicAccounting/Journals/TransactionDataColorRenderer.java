@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.Journals;
 
-import be.dafke.BasicAccounting.VAT.VATTransactionsDataModel;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTableModel;
 

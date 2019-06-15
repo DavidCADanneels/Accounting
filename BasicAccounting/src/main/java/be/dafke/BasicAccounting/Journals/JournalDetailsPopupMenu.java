@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting.Journals;
 import be.dafke.BasicAccounting.Accounts.AccountDetails.AccountDetailsGUI;
 import be.dafke.BasicAccounting.Balances.BalanceGUI;
 import be.dafke.BasicAccounting.MainApplication.Main;
+import be.dafke.BasicAccounting.VAT.VATFieldsGUI;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 
@@ -18,6 +19,7 @@ public class JournalDetailsPopupMenu extends JPopupMenu {
 
     private SelectableTable<Booking> gui;
     private Journals journals;
+//    private Accounting accounting;
 
     public JournalDetailsPopupMenu(Journals journals, SelectableTable<Booking> gui) {
         this(gui);
@@ -46,6 +48,11 @@ public class JournalDetailsPopupMenu extends JPopupMenu {
         add(balance);
     }
 
+//    public void setAccounting(Accounting accounting) {
+//        this.accounting = accounting;
+//        setJournals(accounting==null?null:accounting.getJournals());
+//    }
+
     private void showBalance() {
         setVisible(false);
         // choices:
@@ -64,8 +71,6 @@ public class JournalDetailsPopupMenu extends JPopupMenu {
 
         int year = gui.getSelectedObject().getTransaction().getDate().get(Calendar.YEAR);
         Accounts subAccounts = accounting.getAccounts().getSubAccounts(Movement.ofYear(year));
-
-        Journals journals = accounting.getJournals();
 
         Balances balances = accounting.getBalances();
         Balance closingBalance = balances.createClosingBalance(subAccounts);

@@ -1,13 +1,7 @@
 package be.dafke.BasicAccounting.VAT;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.VATBooking;
-import be.dafke.BusinessModel.VATField;
-import be.dafke.BusinessModel.VATFields;
-import be.dafke.BusinessModel.VATMovement;
-import be.dafke.BusinessModel.VATTransaction;
-import be.dafke.BusinessModel.VATTransactions;
+import be.dafke.BusinessModel.*;
 
 import javax.swing.JFrame;
 import java.util.ArrayList;
@@ -31,39 +25,32 @@ public class VATFieldsGUI extends JFrame {
         return gui;
     }
 
-    public static VATFieldsGUI getInstance(List<VATTransaction> selectedVatTransactions, Accounting accounting) {
+    public static VATFieldsGUI getInstance(List<Transaction> transactions, Accounting accounting) {
         VATFieldsGUI gui;
         VATFields vatFields = new VATFields();
         vatFields.addDefaultFields();
-        VATTransactions vatTransactions = new VATTransactions(vatFields);
-        for(VATTransaction vatTransaction : selectedVatTransactions){
-//        selectedVatTransactions.forEach(vatTransaction -> {
-            VATTransaction newVatTransaction = new VATTransaction();
-            ArrayList<VATBooking> vatBookings = vatTransaction.getBusinessObjects();
-            vatBookings.forEach(vatBooking -> {
+        for(Transaction transaction : transactions) {
+            ArrayList<VATBooking> vatBookings = transaction.getVatBookings();
+            for (VATBooking vatBooking : vatBookings) {
                 VATField originalVatField = vatBooking.getVatField();
                 String name = originalVatField.getName();
                 VATField newVatField = vatFields.getBusinessObject(name);
-                VATMovement originalVatMovement = vatBooking.getVatMovement();
-//                VATMovement newVatMovement = new VATMovement(originalVatMovement.getAmount());
-                VATBooking newBooking = new VATBooking(newVatField, originalVatMovement);
-                newVatTransaction.addBusinessObject(newBooking);
-            });
-            vatTransactions.addBusinessObject(newVatTransaction);
+                VATMovement vatMovement = vatBooking.getVatMovement();
+                newVatField.addBusinessObject(vatMovement);
+            }
         }
-//        );
         gui = vatGuis.get(vatFields);
         if(gui==null){
-            gui = new VATFieldsGUI(vatFields, accounting, selectedVatTransactions);
+            gui = new VATFieldsGUI(vatFields, accounting, transactions);
             vatGuis.put(vatFields,gui);
             Main.addFrame(gui);
         }
         return gui;
     }
 
-    private VATFieldsGUI(VATFields vatFields, Accounting accounting, List<VATTransaction> selectedVatTransactions) {
+    private VATFieldsGUI(VATFields vatFields, Accounting accounting, List<Transaction> transactions) {
         super(getBundle("VAT").getString("VAT_FIELDS"));
-        vatFieldsPanel = new VATFieldsPanel(vatFields, accounting, selectedVatTransactions);
+        vatFieldsPanel = new VATFieldsPanel(vatFields, accounting, transactions);
         setContentPane(vatFieldsPanel);
         updateVATFields();
         pack();

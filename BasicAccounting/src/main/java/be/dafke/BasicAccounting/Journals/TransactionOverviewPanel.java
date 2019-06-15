@@ -1,7 +1,6 @@
 package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
-import be.dafke.BasicAccounting.VAT.VATColorRenderer;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 
@@ -33,7 +32,6 @@ public class TransactionOverviewPanel extends JPanel {
         transactionOverviewTable = new SelectableTable<>(transactionOverviewDataModel);
         transactionOverviewTable.setPreferredScrollableViewportSize(new Dimension(800, 200));
         transactionOverviewTable.setRowSorter(null);
-        transactionOverviewTable.setDefaultRenderer(BigDecimal.class, new VATColorRenderer());
 
         transactionDataColorRenderer = new TransactionDataColorRenderer();
         transactionDataTable = new SelectableTable<>(transactionDataModel);

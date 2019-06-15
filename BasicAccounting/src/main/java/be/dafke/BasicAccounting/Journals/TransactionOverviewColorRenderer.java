@@ -1,10 +1,7 @@
 package be.dafke.BasicAccounting.Journals;
 
-import be.dafke.BasicAccounting.VAT.VATTransactionsDataModel;
 import be.dafke.BusinessModel.Journal;
 import be.dafke.BusinessModel.Transaction;
-import be.dafke.BusinessModel.VATBooking;
-import be.dafke.BusinessModel.VATTransaction;
 import be.dafke.ComponentModel.SelectableTableModel;
 
 import javax.swing.*;
