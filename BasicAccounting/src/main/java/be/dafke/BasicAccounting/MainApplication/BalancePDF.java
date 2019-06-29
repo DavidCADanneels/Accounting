@@ -10,7 +10,7 @@ public class BalancePDF {
     public static void main(String[] args) {
         String xslFile = "data/accounting/xsl/goods.xsl";
         String xmlFile = "data/accounting/xml/invoice.xml";
-        String pdfFile = "data/accounting/xml/Portmade-ship.pdf";
+        String pdfFile = "data/accounting/xml/Raoul.pdf";
         createInvoice(xmlFile, xslFile, pdfFile);
     }
 
