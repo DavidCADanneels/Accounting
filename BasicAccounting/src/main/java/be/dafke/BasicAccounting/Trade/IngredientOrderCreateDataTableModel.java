@@ -9,15 +9,20 @@ import java.util.List;
  * @author David Danneels
  */
 
-public class BuyIngredientsDataTableModel extends IngredientsOrderViewDataTableModel {
+public class IngredientOrderCreateDataTableModel extends IngredientOrderViewDataTableModel {
 
 	private Ingredients ingredients;
 
-	public BuyIngredientsDataTableModel(IngredientOrder order, Ingredients ingredients) {
+//	public IngredientOrderCreateDataTableModel(IngredientOrder order, Ingredients ingredients) {
+	public IngredientOrderCreateDataTableModel() {
 		super();
-		this.order = order;
+//		this.order = order;
+//		this.ingredients = ingredients;
+		fireTableDataChanged();
+	}
+
+	public void setIngredients(Ingredients ingredients) {
 		this.ingredients = ingredients;
-//		fireTableDataChanged();
 	}
 
 	public int getColumnCount() {
@@ -74,7 +79,7 @@ public class BuyIngredientsDataTableModel extends IngredientsOrderViewDataTableM
 	}
 
 	public void setAccounting(Accounting accounting) {
-		ingredients = accounting.getIngredients();
+		setIngredients(accounting==null?null:accounting.getIngredients());
 		fireTableDataChanged();
 	}
 }

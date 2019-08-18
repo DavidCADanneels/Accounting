@@ -53,4 +53,8 @@ public class IngredientOrderItem extends BusinessObject{
     public void setArticle(Article article) {
         this.article = article;
     }
+
+    public void removeQuantity(BigDecimal quantityToRemove) {
+        quantity = quantity.subtract(quantityToRemove);
+    }
 }

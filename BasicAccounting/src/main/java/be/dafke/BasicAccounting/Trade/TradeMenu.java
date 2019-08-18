@@ -9,7 +9,7 @@ import java.awt.event.KeyEvent;
 import static java.util.ResourceBundle.getBundle;
 
 public class TradeMenu extends JMenu {
-    private JMenuItem articlesTable, stockTable, salesOrders, purchaseOrders, promoOrders, ingredientsOrders, buyIngredients, stockHistoryTable;
+    private JMenuItem articlesTable, stockTable, salesOrders, purchaseOrders, promoOrders, ingredientsOrders, stockHistoryTable; //  buyIngredients,
 
     private Articles articles;
     private Contacts contacts;
@@ -76,20 +76,20 @@ public class TradeMenu extends JMenu {
         ingredientsOrders = new JMenuItem(getBundle("Accounting").getString("INGREDIENTS_ORDERS"));
         ingredientsOrders.setMnemonic(KeyEvent.VK_I);
         ingredientsOrders.addActionListener(e -> {
-            IngredientOrdersGUI buyIngredientsGUI = IngredientOrdersGUI.showIngredientOrdersGUI(accounting);
-            buyIngredientsGUI.setLocation(getLocationOnScreen());
-            buyIngredientsGUI.setVisible(true);
+            IngredientOrdersOverviewGUI ingredientOrdersOverviewGUI = IngredientOrdersOverviewGUI.showIngredientOrdersGUI(accounting);
+            ingredientOrdersOverviewGUI.setLocation(getLocationOnScreen());
+            ingredientOrdersOverviewGUI.setVisible(true);
         });
         ingredientsOrders.setEnabled(false);
 
-        buyIngredients = new JMenuItem(getBundle("Accounting").getString("BUY_INGREDIENTS"));
-        buyIngredients.setMnemonic(KeyEvent.VK_B);
-        buyIngredients.addActionListener(e -> {
-            BuyInGredientsGUI ingredientOrdersGUI = BuyInGredientsGUI.showBuyIngredientsGUI(accounting);
-            ingredientOrdersGUI.setLocation(getLocationOnScreen());
-            ingredientOrdersGUI.setVisible(true);
-        });
-        buyIngredients.setEnabled(false);
+//        buyIngredients = new JMenuItem(getBundle("Accounting").getString("BUY_INGREDIENTS"));
+//        buyIngredients.setMnemonic(KeyEvent.VK_B);
+//        buyIngredients.addActionListener(e -> {
+//            BuyInGredientsGUI ingredientOrdersGUI = BuyInGredientsGUI.showIngredientsOrderCreateGUI(accounting);
+//            ingredientOrdersGUI.setLocation(getLocationOnScreen());
+//            ingredientOrdersGUI.setVisible(true);
+//        });
+//        buyIngredients.setEnabled(false);
 
         add(articlesTable);
         add(stockTable);
@@ -98,7 +98,7 @@ public class TradeMenu extends JMenu {
         add(salesOrders);
         add(promoOrders);
         add(ingredientsOrders);
-        add(buyIngredients);
+//        add(buyIngredients);
     }
 
     public void setAccounting(Accounting accounting) {
@@ -111,7 +111,7 @@ public class TradeMenu extends JMenu {
         salesOrders.setEnabled(accounting!=null);
         promoOrders.setEnabled(accounting!=null);
         ingredientsOrders.setEnabled(accounting!=null);
-        buyIngredients.setEnabled(accounting!=null);
+//        buyIngredients.setEnabled(accounting!=null);
     }
 
     public void setContacts(Contacts contacts) {

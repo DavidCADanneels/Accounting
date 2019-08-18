@@ -15,7 +15,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class IngredientOrderOverviewDataTableModel extends SelectableTableModel<IngredientOrder> {
+public class IngredientOrdersOverviewDataTableModel extends SelectableTableModel<IngredientOrder> {
 	public static int ORDER_NR_COL = 0;
 	public static int DATE_COL = 1;
 	public static int NR_OF_COL = 2;
@@ -24,7 +24,7 @@ public class IngredientOrderOverviewDataTableModel extends SelectableTableModel<
 
 	private IngredientOrders ingredientOrders;
 
-	public IngredientOrderOverviewDataTableModel() {
+	public IngredientOrdersOverviewDataTableModel() {
 		setColumnNames();
 		setColumnClasses();
 	}
