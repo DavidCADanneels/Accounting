@@ -18,6 +18,7 @@ import static be.dafke.BusinessModelDao.AllergenesIO.readAllergenes;
 import static be.dafke.BusinessModelDao.ArticlesIO.readArticles;
 import static be.dafke.BusinessModelDao.BalancesIO.readBalances;
 import static be.dafke.BusinessModelDao.ContactsIO.readContacts;
+import static be.dafke.BusinessModelDao.IngredientOrdersIO.readIngredientOrders;
 import static be.dafke.BusinessModelDao.IngredientsIO.readIngredients;
 import static be.dafke.BusinessModelDao.JournalsIO.readJournalTypes;
 import static be.dafke.BusinessModelDao.JournalsIO.readJournals;
@@ -200,6 +201,7 @@ public class XMLReader {
                 readStockSettings(accounting);
                 readAllergenes(accounting);
                 readIngredients(accounting);
+                readIngredientOrders(accounting);
                 readArticles(accounting);
                 readPurchaseOrders(accounting);
                 readSalesOrders(accounting);

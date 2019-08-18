@@ -127,9 +127,13 @@ public class XMLConstants {
 
     public static final String ARTICLES = "Articles";
     public static final String ARTICLE = "Article";
+    public static final String QUANTITY = "Quantity";
 //    public static final String ARTICLE_MIN_REDUCTION = "MinForReduction";
     public static final String INGREDIENTS = "Ingredients";
     public static final String INGREDIENT = "Ingredient";
+    public static final String INGREDIENT_ORDERS = "IngredientsOrders";
+    public static final String INGREDIENT_ORDER = "IngredientsOrder";
+    public static final String INGREDIENT_ORDER_ITEM = "IngredientsOrderItem";
     public static final String ALLERGENES = "Allergenes";
     public static final String ALLERGENE = "Allergene";
     public static final String PURCHASE_PRICE = "PurchasePrice";

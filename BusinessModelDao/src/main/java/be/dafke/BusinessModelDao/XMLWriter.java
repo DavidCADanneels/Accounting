@@ -16,6 +16,7 @@ import static be.dafke.BusinessModelDao.AllergenesIO.writeAllergenes;
 import static be.dafke.BusinessModelDao.ArticlesIO.writeArticles;
 import static be.dafke.BusinessModelDao.BalancesIO.writeBalances;
 import static be.dafke.BusinessModelDao.ContactsIO.writeContacts;
+import static be.dafke.BusinessModelDao.IngredientOrdersIO.writeIngredientOrders;
 import static be.dafke.BusinessModelDao.IngredientsIO.writeIngredientes;
 import static be.dafke.BusinessModelDao.JournalsIO.writeJournalTypes;
 import static be.dafke.BusinessModelDao.JournalsIO.writeJournals;
@@ -163,6 +164,7 @@ public class XMLWriter {
             writeArticles(accounting);
             writeAllergenes(accounting);
             writeIngredientes(accounting);
+            writeIngredientOrders(accounting);
             writeStock(accounting);
             writeStockTransactions(accounting);
             writePurchasesOrders(accounting);
