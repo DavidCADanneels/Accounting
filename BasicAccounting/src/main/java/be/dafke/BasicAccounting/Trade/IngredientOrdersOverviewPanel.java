@@ -48,9 +48,6 @@ public class IngredientOrdersOverviewPanel extends JPanel {
         JScrollPane overviewScroll = new JScrollPane(overviewTable);
         JScrollPane detailScroll = new JScrollPane(detailsTable);
         JSplitPane splitPane = Main.createSplitPane(overviewScroll, detailScroll, JSplitPane.VERTICAL_SPLIT);
-
-//        JPanel center = new JPanel(new BorderLayout());
-//        center.add(splitPane, BorderLayout.CENTER);
         add(splitPane, BorderLayout.CENTER);
 
 

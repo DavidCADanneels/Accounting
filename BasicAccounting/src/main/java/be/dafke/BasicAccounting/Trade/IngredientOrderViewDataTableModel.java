@@ -104,8 +104,6 @@ public class IngredientOrderViewDataTableModel extends SelectableTableModel<Ingr
 
 	public void setOrder(IngredientOrder order) {
 		this.order = order;
-//		order.setIngredients();
-//		order.getIngredients();
 		fireTableDataChanged();
 	}
 

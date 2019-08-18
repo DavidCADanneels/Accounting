@@ -9,7 +9,7 @@ import java.awt.event.KeyEvent;
 import static java.util.ResourceBundle.getBundle;
 
 public class TradeMenu extends JMenu {
-    private JMenuItem articlesTable, stockTable, salesOrders, purchaseOrders, promoOrders, ingredientsOrders, stockHistoryTable; //  buyIngredients,
+    private JMenuItem articlesTable, stockTable, salesOrders, purchaseOrders, promoOrders, ingredientsOrders, stockHistoryTable;
 
     private Articles articles;
     private Contacts contacts;
@@ -82,15 +82,6 @@ public class TradeMenu extends JMenu {
         });
         ingredientsOrders.setEnabled(false);
 
-//        buyIngredients = new JMenuItem(getBundle("Accounting").getString("BUY_INGREDIENTS"));
-//        buyIngredients.setMnemonic(KeyEvent.VK_B);
-//        buyIngredients.addActionListener(e -> {
-//            BuyInGredientsGUI ingredientOrdersGUI = BuyInGredientsGUI.showIngredientsOrderCreateGUI(accounting);
-//            ingredientOrdersGUI.setLocation(getLocationOnScreen());
-//            ingredientOrdersGUI.setVisible(true);
-//        });
-//        buyIngredients.setEnabled(false);
-
         add(articlesTable);
         add(stockTable);
         add(stockHistoryTable);
@@ -98,7 +89,6 @@ public class TradeMenu extends JMenu {
         add(salesOrders);
         add(promoOrders);
         add(ingredientsOrders);
-//        add(buyIngredients);
     }
 
     public void setAccounting(Accounting accounting) {
@@ -111,7 +101,6 @@ public class TradeMenu extends JMenu {
         salesOrders.setEnabled(accounting!=null);
         promoOrders.setEnabled(accounting!=null);
         ingredientsOrders.setEnabled(accounting!=null);
-//        buyIngredients.setEnabled(accounting!=null);
     }
 
     public void setContacts(Contacts contacts) {

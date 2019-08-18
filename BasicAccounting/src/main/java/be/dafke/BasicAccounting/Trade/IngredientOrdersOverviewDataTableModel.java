@@ -97,7 +97,11 @@ public class IngredientOrdersOverviewDataTableModel extends SelectableTableModel
 	}
 
 	public void setAccounting(Accounting accounting) {
-		ingredientOrders = accounting.getIngredientOrders();
+		setIngredientsOrders(accounting == null ? null : accounting.getIngredientOrders());
+	}
+
+	public void setIngredientsOrders(IngredientOrders ingredientsOrders){
+		this.ingredientOrders=ingredientsOrders;
 		fireTableDataChanged();
 	}
 }

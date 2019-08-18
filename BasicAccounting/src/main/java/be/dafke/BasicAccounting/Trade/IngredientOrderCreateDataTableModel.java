@@ -13,16 +13,14 @@ public class IngredientOrderCreateDataTableModel extends IngredientOrderViewData
 
 	private Ingredients ingredients;
 
-//	public IngredientOrderCreateDataTableModel(IngredientOrder order, Ingredients ingredients) {
 	public IngredientOrderCreateDataTableModel() {
 		super();
-//		this.order = order;
-//		this.ingredients = ingredients;
 		fireTableDataChanged();
 	}
 
 	public void setIngredients(Ingredients ingredients) {
 		this.ingredients = ingredients;
+		fireTableDataChanged();
 	}
 
 	public int getColumnCount() {
@@ -78,8 +76,8 @@ public class IngredientOrderCreateDataTableModel extends IngredientOrderViewData
 		return order.getBusinessObject(ingredient.getName());
 	}
 
-	public void setAccounting(Accounting accounting) {
-		setIngredients(accounting==null?null:accounting.getIngredients());
-		fireTableDataChanged();
-	}
+//	public void setAccounting(Accounting accounting) {
+//		setIngredients(accounting==null?null:accounting.getIngredients());
+//		fireTableDataChanged();
+//	}
 }

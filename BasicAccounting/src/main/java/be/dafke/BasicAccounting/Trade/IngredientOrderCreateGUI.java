@@ -3,7 +3,6 @@ package be.dafke.BasicAccounting.Trade;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.IngredientOrder;
 
 import javax.swing.*;
 
@@ -17,14 +16,6 @@ public class IngredientOrderCreateGUI extends JFrame {
     private IngredientOrderCreateGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("BUY_INGREDIENTS"));
         ingredientOrderCreatePanel = new IngredientOrderCreatePanel(accounting);
-//        ingredientOrderCreatePanel = new IngredientOrderDetailsPanel(accounting);
-//        buyIngredientsPanel.setAccounting(accounting);
-
-
-//        ingredientOrder = new IngredientOrder();
-//        ingredientOrder.setIngredients(ingredients);
-
-
         setContentPane(ingredientOrderCreatePanel);
         pack();
     }
