@@ -19,6 +19,7 @@ public class Accounting extends BusinessObject{
     private SalesOrders salesOrders;
     private StockOrders stockOrders;
     private PromoOrders promoOrders;
+    private IngredientOrders ingredientOrders;
     private Transactions transactions;
     private VATTransactions vatTransactions;
     private VATFields vatFields;
@@ -80,6 +81,8 @@ public class Accounting extends BusinessObject{
         stockOrders = new StockOrders();
 
         promoOrders = new PromoOrders();
+
+        ingredientOrders = new IngredientOrders();
 
         meals = new Meals();
 
@@ -170,6 +173,10 @@ public class Accounting extends BusinessObject{
 
     public PromoOrders getPromoOrders() {
         return promoOrders;
+    }
+
+    public IngredientOrders getIngredientOrders() {
+        return ingredientOrders;
     }
 
     public boolean isRead() {

@@ -1,7 +1,5 @@
 package be.dafke.BasicAccounting.Trade;
 
-import be.dafke.BasicAccounting.Meals.AllergenesGUI;
-import be.dafke.BasicAccounting.Meals.IngredientsGUI;
 import be.dafke.BusinessModel.*;
 
 import javax.swing.*;
@@ -11,7 +9,7 @@ import java.awt.event.KeyEvent;
 import static java.util.ResourceBundle.getBundle;
 
 public class TradeMenu extends JMenu {
-    private JMenuItem articlesTable, stockTable, salesOrders, purchaseOrders, promoOrders, stockHistoryTable;
+    private JMenuItem articlesTable, stockTable, salesOrders, purchaseOrders, promoOrders, ingredientsOrders, buyIngredients, stockHistoryTable;
 
     private Articles articles;
     private Contacts contacts;
@@ -75,12 +73,32 @@ public class TradeMenu extends JMenu {
         });
         promoOrders.setEnabled(false);
 
+        ingredientsOrders = new JMenuItem(getBundle("Accounting").getString("INGREDIENTS_ORDERS"));
+        ingredientsOrders.setMnemonic(KeyEvent.VK_I);
+        ingredientsOrders.addActionListener(e -> {
+            IngredientOrdersGUI buyIngredientsGUI = IngredientOrdersGUI.showIngredientOrdersGUI(accounting);
+            buyIngredientsGUI.setLocation(getLocationOnScreen());
+            buyIngredientsGUI.setVisible(true);
+        });
+        ingredientsOrders.setEnabled(false);
+
+        buyIngredients = new JMenuItem(getBundle("Accounting").getString("BUY_INGREDIENTS"));
+        buyIngredients.setMnemonic(KeyEvent.VK_B);
+        buyIngredients.addActionListener(e -> {
+            BuyInGredientsGUI ingredientOrdersGUI = BuyInGredientsGUI.showBuyIngredientsGUI(accounting);
+            ingredientOrdersGUI.setLocation(getLocationOnScreen());
+            ingredientOrdersGUI.setVisible(true);
+        });
+        buyIngredients.setEnabled(false);
+
         add(articlesTable);
         add(stockTable);
         add(stockHistoryTable);
         add(purchaseOrders);
         add(salesOrders);
         add(promoOrders);
+        add(ingredientsOrders);
+        add(buyIngredients);
     }
 
     public void setAccounting(Accounting accounting) {
@@ -92,6 +110,8 @@ public class TradeMenu extends JMenu {
         purchaseOrders.setEnabled(accounting!=null);
         salesOrders.setEnabled(accounting!=null);
         promoOrders.setEnabled(accounting!=null);
+        ingredientsOrders.setEnabled(accounting!=null);
+        buyIngredients.setEnabled(accounting!=null);
     }
 
     public void setContacts(Contacts contacts) {

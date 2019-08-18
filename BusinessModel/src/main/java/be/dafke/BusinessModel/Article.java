@@ -17,6 +17,7 @@ public class Article extends BusinessObject{
     private Contact supplier;
     private ArrayList<StockOrder> stockOrders = new ArrayList<>();
     private ArrayList<PromoOrder> promoOrders = new ArrayList<>();
+    private ArrayList<IngredientOrder> ingredientOrders = new ArrayList<>();
     private ArrayList<PurchaseOrder> purchaseOrders = new ArrayList<>();
     private ArrayList<SalesOrder> salesOrders = new ArrayList<>();
 
@@ -142,6 +143,10 @@ public class Article extends BusinessObject{
         return promoOrders;
     }
 
+    public ArrayList<IngredientOrder> getIngredientOrders() {
+        return ingredientOrders;
+    }
+
     public void addPurchaseOrder(PurchaseOrder purchaseOrder) {
         purchaseOrders.add(purchaseOrder);
     }
@@ -152,6 +157,10 @@ public class Article extends BusinessObject{
 
     public void addPromoOrder(PromoOrder promoOrder) {
         promoOrders.add(promoOrder);
+    }
+
+    public void addIngredientOrder(IngredientOrder ingredientOrder) {
+        ingredientOrders.add(ingredientOrder);
     }
 
     public void setPoOrdered(int numberOfItems) {
