@@ -7,15 +7,19 @@ import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
+import javax.swing.table.TableColumn;
 import java.awt.*;
 
 public class IngredientOrderCreatePanel extends JPanel {
     private IngredientOrder ingredientOrder;
     private Ingredients ingredients;
+    private Articles articles;
+    private JComboBox<Article> comboBox;
     private final IngredientOrderCreateDataTableModel ingredientOrderCreateDataTableModel;
 
     IngredientOrderCreatePanel(Accounting accounting) {
         this.ingredients = accounting.getIngredients();
+        articles = accounting.getArticles();
         ingredientOrder = new IngredientOrder();
         ingredientOrder.setIngredients(ingredients);
 
@@ -24,6 +28,12 @@ public class IngredientOrderCreatePanel extends JPanel {
         ingredientOrderCreateDataTableModel.setIngredients(ingredients);
         SelectableTable<IngredientOrderItem> table = new SelectableTable<>(ingredientOrderCreateDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
+
+        comboBox = new JComboBox<>();
+        fireArticleAddedOrRemoved();
+        TableColumn articleColumn = table.getColumnModel().getColumn(IngredientOrderViewDataTableModel.ARTICLE_COL);
+        articleColumn.setCellEditor(new DefaultCellEditor(comboBox));
+
 
         JButton orderButton = new JButton("Add Ingredient Order");
         orderButton.addActionListener(e -> {
@@ -50,6 +60,12 @@ public class IngredientOrderCreatePanel extends JPanel {
 
         add(scrollPane, BorderLayout.CENTER);
         add(south, BorderLayout.SOUTH);
+    }
+
+    public void fireArticleAddedOrRemoved() {
+        comboBox.removeAllItems();
+        articles.getBusinessObjects().forEach(article -> comboBox.addItem(article));
+        ingredientOrderCreateDataTableModel.fireTableDataChanged();
     }
 
     public void setIngredientOrder(IngredientOrder ingredientOrder) {

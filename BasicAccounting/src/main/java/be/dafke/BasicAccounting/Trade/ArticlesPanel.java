@@ -16,7 +16,6 @@ import static java.util.ResourceBundle.getBundle;
 public class ArticlesPanel extends JPanel {
     private final JButton add;
     private final SelectableTable<Article> table;
-    private TableColumn supplierColumn;
     private JComboBox<Contact> comboBox;
     private Contacts contacts;
     private final ArticlesDataTableModel articlesDataTableModel;
@@ -29,7 +28,7 @@ public class ArticlesPanel extends JPanel {
 
         comboBox = new JComboBox<>();
         fireSupplierAddedOrRemoved();
-        supplierColumn = table.getColumnModel().getColumn(ArticlesDataTableModel.SUPPLIER_COL);
+        TableColumn supplierColumn = table.getColumnModel().getColumn(ArticlesDataTableModel.SUPPLIER_COL);
         supplierColumn.setCellEditor(new DefaultCellEditor(comboBox));
 
         JScrollPane scrollPane = new JScrollPane(table);

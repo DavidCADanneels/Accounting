@@ -35,7 +35,7 @@ public class IngredientOrder extends BusinessCollection<IngredientOrderItem> {
     public void setIngredients(Ingredients ingredients){
         ingredients.getBusinessObjects().forEach( ingredient -> {
             try {
-                addBusinessObject(new IngredientOrderItem(BigDecimal.ZERO,ingredient));
+                addBusinessObject(new IngredientOrderItem(BigDecimal.ZERO,ingredient, null));
             } catch (EmptyNameException | DuplicateNameException e) {
                 e.printStackTrace();
             }
@@ -52,9 +52,6 @@ public class IngredientOrder extends BusinessCollection<IngredientOrderItem> {
     }
 
     public void remove(IngredientOrderItem orderItem, boolean removeIfEmpty){
-//        Article article = orderItem.getArticle();
-//        String articleName = article.getName();
-//        orderItem.setName(articleName);
         Ingredient ingredient = orderItem.getIngredient();
         orderItem.setName(ingredient.getName());
         try {

@@ -30,9 +30,8 @@ public class IngredientOrders extends BusinessCollection<IngredientOrder>{
                 BigDecimal quantity = orderitemToAdd.getQuantity();
                 Ingredient ingredient = orderitemToAdd.getIngredient();
                 Article article = orderitemToAdd.getArticle();
-                String name = ingredient.getName();
-                IngredientOrderItem newItem = new IngredientOrderItem(quantity, ingredient);
-                newItem.setArticle(article);
+                IngredientOrderItem newItem = new IngredientOrderItem(quantity, ingredient, article);
+//                newItem.setArticle(article);
                 try {
                     ingredientOrder.addBusinessObject(newItem);
                 } catch (EmptyNameException | DuplicateNameException e) {

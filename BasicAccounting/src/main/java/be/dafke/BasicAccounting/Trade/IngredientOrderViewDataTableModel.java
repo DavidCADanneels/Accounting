@@ -17,7 +17,8 @@ public class IngredientOrderViewDataTableModel extends SelectableTableModel<Ingr
 	public static int QUANTITY_COL = 0;
 	public static int UNIT_COL = 1;
 	public static int INGREDIENT_NAME_COL = 2;
-	public static int NR_OF_COL = 3;
+	public static int ARTICLE_COL = 3;
+	public static int NR_OF_COL = 4;
 	protected HashMap<Integer,String> columnNames = new HashMap<>();
 	protected HashMap<Integer,Class> columnClasses = new HashMap<>();
 	protected IngredientOrder order;
@@ -31,12 +32,14 @@ public class IngredientOrderViewDataTableModel extends SelectableTableModel<Ingr
 		columnClasses.put(QUANTITY_COL, BigDecimal.class);
 		columnClasses.put(UNIT_COL, String.class);
 		columnClasses.put(INGREDIENT_NAME_COL, BigDecimal.class);
+		columnClasses.put(ARTICLE_COL, Article.class);
 	}
 
 	protected void setColumnNames() {
 		columnNames.put(QUANTITY_COL, getBundle("Accounting").getString("QUANTITY"));
 		columnNames.put(UNIT_COL, getBundle("Accounting").getString("INGREDIENT_UNIT"));
 		columnNames.put(INGREDIENT_NAME_COL, getBundle("Accounting").getString("INGREDIENT_NAME"));
+		columnNames.put(ARTICLE_COL, getBundle("Accounting").getString("ARTICLE"));
 	}
 
 	// DE GET METHODEN
@@ -45,15 +48,18 @@ public class IngredientOrderViewDataTableModel extends SelectableTableModel<Ingr
 		IngredientOrderItem orderItem = getObject(row, col);
 		if (orderItem == null) return null;
 		Ingredient ingredient = orderItem.getIngredient();
-		if(ingredient == null) return null;
+		if (col == ARTICLE_COL) {
+			Article article = orderItem.getArticle();
+			return article==null?null:article.getName();
+		}
 		if (col == INGREDIENT_NAME_COL) {
-			return ingredient.getName();
+			return ingredient == null?null:ingredient.getName();
 		}
 		if (col == QUANTITY_COL) {
 			return orderItem.getQuantity();
 		}
 		if (col == UNIT_COL) {
-			return ingredient.getUnit();
+			return ingredient == null?null:ingredient.getUnit();
 		}
 		return null;
 	}

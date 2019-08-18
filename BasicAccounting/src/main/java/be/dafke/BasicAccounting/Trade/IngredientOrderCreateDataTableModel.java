@@ -39,7 +39,7 @@ public class IngredientOrderCreateDataTableModel extends IngredientOrderViewData
 
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		return col == QUANTITY_COL;
+		return col == QUANTITY_COL || col == ARTICLE_COL;
 	}
 
 	// DE SET METHODEN
@@ -50,6 +50,10 @@ public class IngredientOrderCreateDataTableModel extends IngredientOrderViewData
 		if(col == QUANTITY_COL) {
 			BigDecimal quantity = (BigDecimal) value;
 			ingredientOrderItem.setQuantity(quantity);
+		}
+		if(col == ARTICLE_COL) {
+			Article article = (Article) value;
+			ingredientOrderItem.setArticle(article);
 		}
 	}
 

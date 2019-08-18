@@ -27,4 +27,14 @@ public class IngredientOrderCreateGUI extends JFrame {
         }
         return gui;
     }
+
+    public static void fireSupplierAddedOrRemovedForAll() {
+        if (gui != null){
+            gui.fireArticleAddedOrRemoved();
+        }
+    }
+
+    public void fireArticleAddedOrRemoved(){
+        ingredientOrderCreatePanel.fireArticleAddedOrRemoved();
+    }
 }

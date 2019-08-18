@@ -12,10 +12,11 @@ public class IngredientOrderItem extends BusinessObject{
     private Ingredient ingredient;
     private BigDecimal quantity;
 
-    public IngredientOrderItem(BigDecimal quantity, Ingredient ingredient) {
+    public IngredientOrderItem(BigDecimal quantity, Ingredient ingredient, Article article) {
         setName(ingredient.getName());
         this.quantity = quantity;
         this.ingredient = ingredient;
+        this.article = article;
     }
 
     public boolean isDeletable() {
