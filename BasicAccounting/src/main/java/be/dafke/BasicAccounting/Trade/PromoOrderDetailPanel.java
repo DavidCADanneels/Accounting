@@ -17,6 +17,7 @@ import java.util.Calendar;
 import static java.util.ResourceBundle.getBundle;
 
 public class PromoOrderDetailPanel extends JPanel {
+    private final JButton editPromoOrder;
     private JButton placeOrderButton, deliveredButton;
     private JButton createPromoOrder;
     private JCheckBox delivered, placed;
@@ -27,6 +28,15 @@ public class PromoOrderDetailPanel extends JPanel {
         createPromoOrder = new JButton(getBundle("Accounting").getString("CREATE_PR"));
         createPromoOrder.addActionListener(e -> {
             PromoOrderCreateGUI promoOrderCreateGUI = PromoOrderCreateGUI.showPromoOrderGUI(accounting);
+            promoOrderCreateGUI.setLocation(getLocationOnScreen());
+            promoOrderCreateGUI.setVisible(true);
+        });
+
+
+        editPromoOrder = new JButton(getBundle("Accounting").getString("EDIT_ORDER"));
+        editPromoOrder.addActionListener(e -> {
+            PromoOrderCreateGUI promoOrderCreateGUI = PromoOrderCreateGUI.showPromoOrderGUI(accounting);
+            promoOrderCreateGUI.setPromoOrder(promoOrder);
             promoOrderCreateGUI.setLocation(getLocationOnScreen());
             promoOrderCreateGUI.setVisible(true);
         });
@@ -75,6 +85,7 @@ public class PromoOrderDetailPanel extends JPanel {
         JPanel line1 = new JPanel();
         JPanel line2 = new JPanel();
 
+        line2.add(editPromoOrder);
         line2.add(placeOrderButton);
         line2.add(deliveredButton);
 
@@ -127,6 +138,8 @@ public class PromoOrderDetailPanel extends JPanel {
 
         deliveredButton.setEnabled(toBeDelivered);
         placeOrderButton.setEnabled(paymentTransaction==null);
+
+        editPromoOrder.setEnabled(!orderDelivered && paymentTransaction==null);
     }
 
     public Transaction createTransaction(){

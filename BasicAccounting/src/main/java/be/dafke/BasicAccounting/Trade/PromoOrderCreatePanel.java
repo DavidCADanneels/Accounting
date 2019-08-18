@@ -57,4 +57,10 @@ class PromoOrderCreatePanel extends JPanel {
         add(north, BorderLayout.NORTH);
         add(south, BorderLayout.SOUTH);
     }
+
+    public void setPromoOrder(PromoOrder promoOrder) {
+        this.promoOrder = promoOrder;
+        promoOrderCreateDataTableModel.setOrder(promoOrder);
+        promoOrderCreateDataTableModel.fireTableDataChanged();
+    }
 }

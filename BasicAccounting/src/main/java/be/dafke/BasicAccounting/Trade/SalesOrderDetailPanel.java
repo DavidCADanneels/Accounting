@@ -44,7 +44,7 @@ public class SalesOrderDetailPanel extends JPanel {
             salesOrderCreateGUI.setVisible(true);
         });
 
-        editSalesOrder = new JButton(getBundle("Accounting").getString("EDIT_SO"));
+        editSalesOrder = new JButton(getBundle("Accounting").getString("EDIT_ORDER"));
         editSalesOrder.addActionListener(e -> {
             SalesOrderCreateGUI salesOrderCreateGUI = SalesOrderCreateGUI.showSalesOrderEditGUI(accounting);
             salesOrderCreateGUI.setSalesOrder(salesOrder);
@@ -60,10 +60,7 @@ public class SalesOrderDetailPanel extends JPanel {
         setLayout(new BorderLayout());
         add(orderPanel, BorderLayout.NORTH);
         add(customerPanel,BorderLayout.CENTER);
-        JPanel south = new JPanel();
-        south.add(createSalesOrder);
-//        south.add(editSalesOrder);
-        add(south, BorderLayout.SOUTH);
+        add(createSalesOrder, BorderLayout.SOUTH);
     }
 
     private JPanel createOrderPanel(){

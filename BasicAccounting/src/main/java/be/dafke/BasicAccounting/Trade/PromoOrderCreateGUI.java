@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting.Trade;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.PromoOrder;
 
 import javax.swing.*;
 
@@ -12,6 +13,7 @@ public class PromoOrderCreateGUI extends JFrame {
     private final PromoOrderCreatePanel orderPanel;
 
     private static PromoOrderCreateGUI salesOrderCreateGui = null;
+//    private PromoOrder promoOrder;
 
     private PromoOrderCreateGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("CREATE_PR"));
@@ -27,4 +29,13 @@ public class PromoOrderCreateGUI extends JFrame {
         }
         return salesOrderCreateGui;
     }
+
+    public void setPromoOrder(PromoOrder promoOrder) {
+        orderPanel.setPromoOrder(promoOrder);
+//        this.promoOrder = promoOrder;
+    }
+
+//    public PromoOrder getPromoOrder() {
+//        return promoOrder;
+//    }
 }
