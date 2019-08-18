@@ -43,6 +43,8 @@ public class PromoOrderDetailPanel extends JPanel {
 
         JPanel orderPanel = createOrderPanel();
 
+        disableButtons();
+
         setLayout(new BorderLayout());
         add(orderPanel, BorderLayout.NORTH);
         add(createPromoOrder, BorderLayout.SOUTH);
@@ -71,6 +73,12 @@ public class PromoOrderDetailPanel extends JPanel {
         panel.add(placed);
         panel.add(delivered);
         return panel;
+    }
+
+    public void disableButtons(){
+        editPromoOrder.setEnabled(false);
+        placeOrderButton.setEnabled(false);
+        deliveredButton.setEnabled(false);
     }
 
     private JPanel createButtonPanel(){
@@ -125,7 +133,7 @@ public class PromoOrderDetailPanel extends JPanel {
         updateButtonsAndCheckBoxes();
     }
 
-    private void updateButtonsAndCheckBoxes() {
+    public void updateButtonsAndCheckBoxes() {
         Transaction paymentTransaction = promoOrder ==null?null: promoOrder.getPaymentTransaction();
 
         StockTransactions stockTransactions = accounting.getStockTransactions();

@@ -3,13 +3,12 @@ package be.dafke.BasicAccounting.Trade;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.OrderItem;
-import be.dafke.BusinessModel.PromoOrder;
+import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class PromoOrdersOverviewPanel extends JPanel {
     private final SelectableTable<PromoOrder> overviewTable;
@@ -21,6 +20,7 @@ public class PromoOrdersOverviewPanel extends JPanel {
 
     private final PromoOrderDetailPanel promoOrderDetailPanel;
     private final SalesOrderDetailsPopupMenu popup;
+    private boolean multiSelection;
 
     public PromoOrdersOverviewPanel() {
         overviewTableModel = new PromoOrdersOverviewDataTableModel();
@@ -42,10 +42,7 @@ public class PromoOrdersOverviewPanel extends JPanel {
         DefaultListSelectionModel selection = new DefaultListSelectionModel();
         selection.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                PromoOrder promoOrder = overviewTable.getSelectedObject();
-                detailsTableModel.setOrder(promoOrder);
-                totalsPanel.fireOrderContentChanged(promoOrder);
-                promoOrderDetailPanel.setOrder(promoOrder);
+                updateSelection();
             }
         });
         overviewTable.setSelectionModel(selection);
@@ -55,12 +52,42 @@ public class PromoOrdersOverviewPanel extends JPanel {
         JSplitPane splitPane = Main.createSplitPane(overviewScroll, detailScroll, JSplitPane.VERTICAL_SPLIT);
 
         JPanel center = new JPanel(new BorderLayout());
+        center.add(createFilterPane(), BorderLayout.NORTH);
         center.add(splitPane, BorderLayout.CENTER);
         center.add(totalsPanel, BorderLayout.SOUTH);
 
         setLayout(new BorderLayout());
         add(center, BorderLayout.CENTER);
         add(promoOrderDetailPanel, BorderLayout.EAST);
+    }
+
+    private void updateSelection() {
+        if(multiSelection) {
+            ArrayList<PromoOrder> selectedObjects = overviewTable.getSelectedObjects();
+            PromoOrder combinedOrder = PromoOrders.mergeOrders(selectedObjects);
+            detailsTableModel.setOrder(combinedOrder);
+            totalsPanel.fireOrderContentChanged(combinedOrder);
+            promoOrderDetailPanel.setOrder(combinedOrder);
+            promoOrderDetailPanel.disableButtons();
+        } else {
+            PromoOrder promoOrder = overviewTable.getSelectedObject();
+            detailsTableModel.setOrder(promoOrder);
+            totalsPanel.fireOrderContentChanged(promoOrder);
+            promoOrderDetailPanel.setOrder(promoOrder);
+            promoOrderDetailPanel.updateButtonsAndCheckBoxes();
+        }
+    }
+
+    private JPanel createFilterPane() {
+        JPanel panel = new JPanel();
+        JCheckBox showSummary = new JCheckBox("Combine selected orders");
+        showSummary.setSelected(false);
+        showSummary.addActionListener(e -> {
+            multiSelection = showSummary.isSelected();
+            updateSelection();
+        });
+        panel.add(showSummary);
+        return panel;
     }
 
     public void firePromoOrderAddedOrRemoved() {

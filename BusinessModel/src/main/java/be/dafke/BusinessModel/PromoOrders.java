@@ -5,6 +5,9 @@ import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.Utils.Utils;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+
 public class PromoOrders extends BusinessCollection<PromoOrder>{
 
     private int id = 0;
@@ -18,6 +21,24 @@ public class PromoOrders extends BusinessCollection<PromoOrder>{
         order.addPromoOrderToArticles();
         return super.addBusinessObject(order);
     }
+
+    public static PromoOrder mergeOrders(ArrayList<PromoOrder> ordersToAdd) {
+        PromoOrder promoOrder = new PromoOrder();
+        for (PromoOrder orderToAdd:ordersToAdd) {
+            ArrayList<OrderItem> orderItemsToAdd = orderToAdd.getBusinessObjects();
+            for (OrderItem orderitemToAdd : orderItemsToAdd) {
+                String name = orderitemToAdd.getName();
+                BigDecimal purchasePriceForItem = orderitemToAdd.getPurchasePriceForItem();
+                int numberOfItems = orderitemToAdd.getNumberOfItems();
+                Article article = orderitemToAdd.getArticle();
+                OrderItem newItem = new OrderItem(numberOfItems, article, name+" @("+purchasePriceForItem+")", null);
+                newItem.setSalesPriceForItem(purchasePriceForItem);
+                promoOrder.addBusinessObject(newItem);
+            }
+        }
+        return promoOrder;
+    }
+
 
     public void removeBusinessObject(Order order){
         removeBusinessObject(order.getUniqueProperties());

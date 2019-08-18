@@ -51,12 +51,8 @@ public class PromoOrderViewDataTableModel extends SelectableTableModel<OrderItem
 		OrderItem orderItem = getObject(row, col);
 		if (orderItem==null)
 			return null;
-		Article article = orderItem.getArticle();
-		if (article == null) {
-			return null;
-		}
 		if (col == NAME_COL) {
-			return article.getName();
+			return orderItem.getName();
 		}
 		if (col == PURCHASE_PRICE_ITEM_COL) {
 			return orderItem.getPurchasePriceForItem();
