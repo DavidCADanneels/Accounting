@@ -20,7 +20,6 @@ public class MealOrders extends BusinessCollection<MealOrder>{
         }
         mealOrder.setName(Utils.toIDString("DEL", mealOrder.getId(),3));
         super.addBusinessObject(mealOrder);
-        mealOrder.addUsage();
         return mealOrder;
     }
 

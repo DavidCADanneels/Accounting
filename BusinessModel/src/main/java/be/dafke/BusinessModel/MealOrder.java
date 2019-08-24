@@ -16,13 +16,6 @@ public class MealOrder extends BusinessCollection<MealOrderItem>{
     private String description;
     private Integer id;
 
-    public void addUsage(){
-        getBusinessObjects().forEach(mealOrderItem -> {
-            Meal meal = mealOrderItem.getMeal();
-            meal.addUsage(mealOrderItem.getNumberOfItems());
-        });
-    }
-
     public Integer getId() {
         return id;
     }

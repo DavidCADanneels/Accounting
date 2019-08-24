@@ -60,7 +60,6 @@ public class MealsIO {
                                 "    <" + MEAL_NAME + ">" + meal.getMealName() + "</" + MEAL_NAME + ">\n" +
                                 "    <" + PRICE + ">" + meal.getSalesPrice() + "</" + PRICE + ">\n" +
                                 "    <" + DESCRIPTION + ">" + meal.getDescription() + "</" + DESCRIPTION + ">\n" +
-                                "    <" + USAGE + ">" + meal.getTotalOrdered() + "</" + USAGE + ">\n" +
                                 "  </" + MEAL + ">\n"
                 );
             }

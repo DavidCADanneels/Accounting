@@ -3,20 +3,12 @@ package be.dafke.BusinessModel;
 import be.dafke.ObjectModel.BusinessObject;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 
 public class Meal extends BusinessObject{
     private String mealName = "";
     private String description = "";
     private BigDecimal salesPrice = null;
-    private Integer totalOrdered = 0;
-
-    public void addUsage(int nr){
-        totalOrdered+=nr;
-    }
-
-    public Integer getTotalOrdered() {
-        return totalOrdered;
-    }
 
     public Meal(Meal meal){
         this(meal.getName());
@@ -50,10 +42,6 @@ public class Meal extends BusinessObject{
 
     public String getDescription() {
         return description;
-    }
-
-    BigDecimal getPurchasePrice(int number){
-        return salesPrice.multiply(new BigDecimal(number));
     }
 
 }
