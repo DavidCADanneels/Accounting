@@ -7,6 +7,7 @@ import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -55,6 +56,15 @@ public class MealOrder extends BusinessCollection<MealOrderItem>{
             total = total.add(salesPrice);
         }
         return total;
+    }
+
+    public int nrOfMeals(Meal meal){
+        int result = 0;
+        List<MealOrderItem> mealOrderItems = getBusinessObjects(mealOrderItem -> mealOrderItem.getMeal() == meal);
+        for (MealOrderItem mealOrderItem:mealOrderItems) {
+            result += mealOrderItem.getNumberOfItems();
+        };
+        return result;
     }
 
     public MealOrderItem addBusinessObject(MealOrderItem orderItem) {

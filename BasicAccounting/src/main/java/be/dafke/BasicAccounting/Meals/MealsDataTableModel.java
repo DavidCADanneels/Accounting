@@ -19,6 +19,7 @@ import static java.util.ResourceBundle.getBundle;
  */
 
 public class MealsDataTableModel extends SelectableTableModel<Meal> {
+	private final MealOrders mealOrders;
 	private final Meals meals;
 	public static int NR_COL = 0;
 	public static int NAME_COL = 1;
@@ -31,9 +32,10 @@ public class MealsDataTableModel extends SelectableTableModel<Meal> {
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 	private List<Integer> editableColumns = new ArrayList<>();
 
-	public MealsDataTableModel(Component parent, Meals meals) {
+	public MealsDataTableModel(Component parent, Accounting accounting) {
+		meals = accounting.getMeals();
+		mealOrders = accounting.getMealOrders();
 		this.parent = parent;
-		this.meals = meals;
 		setColumnNames();
 		setColumnClasses();
 		setEditableColumns();
@@ -70,7 +72,7 @@ public class MealsDataTableModel extends SelectableTableModel<Meal> {
 			return meal.getName();
 		}
 		if (col == USAGE_COL) {
-			return meal.getTotalOrdered();
+			return mealOrders.nrOfMeals(meal);
 		}
 		if (col == NAME_COL) {
 			return meal.getMealName();

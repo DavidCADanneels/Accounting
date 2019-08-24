@@ -17,8 +17,9 @@ public class MealsPanel extends JPanel {
     private final SelectableTable<Meal> table;
     private final MealsDataTableModel mealsDataTableModel;
 
-    public MealsPanel(Meals meals) {
-        mealsDataTableModel = new MealsDataTableModel(this, meals);
+    public MealsPanel(Accounting accounting) {
+        Meals meals = accounting.getMeals();
+        mealsDataTableModel = new MealsDataTableModel(this, accounting);
         table = new SelectableTable<>(mealsDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(500, 200));
 

@@ -18,8 +18,7 @@ public class MealsGUI extends JFrame {
 
     private MealsGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("MEALS"));
-        Meals meals = accounting.getMeals();
-        mealsPanel = new MealsPanel(meals);
+        mealsPanel = new MealsPanel(accounting);
         setContentPane(mealsPanel);
         pack();
     }

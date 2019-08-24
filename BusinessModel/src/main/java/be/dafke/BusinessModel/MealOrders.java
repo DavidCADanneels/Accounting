@@ -5,6 +5,8 @@ import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.Utils.Utils;
 
+import java.util.ArrayList;
+
 public class MealOrders extends BusinessCollection<MealOrder>{
     private Account mealOrderBalanceAccount, mealOrderServiceAccount, mealOrderRevenueAccount;
     private Journal mealOrderSalesJournal, mealOrderServiceJournal;
@@ -52,6 +54,15 @@ public class MealOrders extends BusinessCollection<MealOrder>{
 
     public void setMealOrderSalesJournal(Journal mealOrderSalesJournal) {
         this.mealOrderSalesJournal = mealOrderSalesJournal;
+    }
+
+    public int nrOfMeals(Meal meal){
+        int result = 0;
+        ArrayList<MealOrder> mealOrders = getBusinessObjects();
+        for (MealOrder mealOrder:mealOrders) {
+            result+=mealOrder.nrOfMeals(meal);
+        }
+        return result;
     }
 
     public Journal getMealOrderServiceJournal() {
