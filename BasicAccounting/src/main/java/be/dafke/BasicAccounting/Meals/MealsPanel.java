@@ -4,9 +4,12 @@ package be.dafke.BasicAccounting.Meals;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
+import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
 import java.awt.*;
+import java.math.BigDecimal;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -15,9 +18,9 @@ public class MealsPanel extends JPanel {
     private final SelectableTable<Meal> overviewTable;
     private final RecipeDataTableModel recipeDataTableModel;
     private final SelectableTable<RecipeLine> recipeTable;
+    private final JButton addRecipeLine;
 
     public MealsPanel(Accounting accounting) {
-        Meals meals = accounting.getMeals();
         mealsDataTableModel = new MealsDataTableModel(this, accounting);
         overviewTable = new SelectableTable<>(mealsDataTableModel);
         overviewTable.setPreferredScrollableViewportSize(new Dimension(500, 200));
@@ -49,17 +52,38 @@ public class MealsPanel extends JPanel {
         setLayout(new BorderLayout());
         add(splitPane, BorderLayout.CENTER);
 
-        JButton addRecipeLine = new JButton("Add Ingredient (+ amount)");
+        addRecipeLine = new JButton("Add Ingredient (+ amount)");
+        addRecipeLine.setEnabled(false);
         addRecipeLine.addActionListener(e -> {
-
+            Meal meal = overviewTable.getSelectedObject();
+            if(meal!=null) {
+                Ingredients ingredients = accounting.getIngredients();
+                IngredientSelectorDialog ingredientSelector = IngredientSelectorDialog.getIngredientSelector(ingredients);
+                ingredientSelector.setVisible(true);
+                Ingredient ingredient = ingredientSelector.getSelection();
+                String amountString = JOptionPane.showInputDialog(this, "get amount");
+                BigDecimal amount = new BigDecimal(amountString);
+                RecipeLine recipeLine = new RecipeLine(ingredient);
+                recipeLine.setAmount(amount);
+                recipeLine.setIngredient(ingredient);
+                Recipe recipe = meal.getRecipe();
+                try {
+                    recipe.addBusinessObject(recipeLine);
+                } catch (EmptyNameException | DuplicateNameException e1) {
+                    e1.printStackTrace();
+                }
+                recipeDataTableModel.fireTableDataChanged();
+            }
         });
         add(addRecipeLine, BorderLayout.SOUTH);
     }
 
     private void updateSelection() {
         Meal meal = overviewTable.getSelectedObject();
-        Recipe recipe = meal.getRecipe();
+        addRecipeLine.setEnabled(meal!=null);
+        Recipe recipe = meal==null?null:meal.getRecipe();
         recipeDataTableModel.setRecipe(recipe);
+        recipeDataTableModel.fireTableDataChanged();
     }
 
 

@@ -10,6 +10,11 @@ public class RecipeLine extends BusinessObject {
     private String preparation;
     private String instructions;
 
+    public RecipeLine(Ingredient ingredient) {
+        this.ingredient = ingredient;
+        setName(ingredient.getName());
+    }
+
     public Ingredient getIngredient() {
         return ingredient;
     }

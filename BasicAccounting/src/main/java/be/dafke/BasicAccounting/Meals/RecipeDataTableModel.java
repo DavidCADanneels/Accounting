@@ -118,6 +118,6 @@ public class RecipeDataTableModel extends SelectableTableModel<RecipeLine> {
 
 	@Override
 	public RecipeLine getObject(int row, int col) {
-		return recipe.getBusinessObjects().get(row);
+		return recipe==null?null:recipe.getBusinessObjects().get(row);
 	}
 }
