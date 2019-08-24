@@ -1,11 +1,9 @@
 package be.dafke.BasicAccounting.Meals;
 
 
-import be.dafke.BasicAccounting.MainApplication.ActionUtils;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,38 +11,57 @@ import java.awt.*;
 import static java.util.ResourceBundle.getBundle;
 
 public class MealsPanel extends JPanel {
-    private final JButton add;
-    private final SelectableTable<Meal> table;
     private final MealsDataTableModel mealsDataTableModel;
+    private final SelectableTable<Meal> overviewTable;
+    private final RecipeDataTableModel recipeDataTableModel;
+    private final SelectableTable<RecipeLine> recipeTable;
 
     public MealsPanel(Accounting accounting) {
         Meals meals = accounting.getMeals();
         mealsDataTableModel = new MealsDataTableModel(this, accounting);
-        table = new SelectableTable<>(mealsDataTableModel);
-        table.setPreferredScrollableViewportSize(new Dimension(500, 200));
+        overviewTable = new SelectableTable<>(mealsDataTableModel);
+        overviewTable.setPreferredScrollableViewportSize(new Dimension(500, 200));
 
-        JScrollPane scrollPane = new JScrollPane(table);
-        setLayout(new BorderLayout());
-        add(scrollPane, BorderLayout.CENTER);
+        recipeDataTableModel = new RecipeDataTableModel();
+        recipeTable = new SelectableTable<>(recipeDataTableModel);
+        recipeTable.setPreferredScrollableViewportSize(new Dimension(500, 200));
 
-        add = new JButton("Add Meal");
-        add(add, BorderLayout.NORTH);
-        add.addActionListener( e -> {
-            String name = JOptionPane.showInputDialog(this, getBundle("Accounting").getString("NAME_LABEL"));
-            while (name != null && name.equals(""))
-                name = JOptionPane.showInputDialog(this, getBundle("Accounting").getString("NAME_LABEL"));
-            if (name != null) {
-                try {
-                    meals.addBusinessObject(new Meal(name));
-                    mealsDataTableModel.fireTableDataChanged();
-                } catch (EmptyNameException ex) {
-                    ActionUtils.showErrorMessage(this, ActionUtils.ARTICLE_NAME_EMPTY);
-                } catch (DuplicateNameException ex) {
-                    ActionUtils.showErrorMessage(this, ActionUtils.ARTICLE_DUPLICATE_NAME, name.trim());
-                }
+        DefaultListSelectionModel selectionModel = new DefaultListSelectionModel();
+        selectionModel.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                updateSelection();
             }
         });
+        overviewTable.setSelectionModel(selectionModel);
+
+        JPanel overviewPanel = new JPanel();
+        JScrollPane overviewScroll = new JScrollPane(overviewTable);
+        overviewPanel.setLayout(new BorderLayout());
+        overviewPanel.add(overviewScroll, BorderLayout.CENTER);
+
+        JPanel detailPanel = new JPanel();
+        JScrollPane detailScroll = new JScrollPane(recipeTable);
+        detailPanel.setLayout(new BorderLayout());
+        detailPanel.add(detailScroll, BorderLayout.CENTER);
+
+        JSplitPane splitPane = Main.createSplitPane(overviewScroll, detailScroll, JSplitPane.VERTICAL_SPLIT);
+
+        setLayout(new BorderLayout());
+        add(splitPane, BorderLayout.CENTER);
+
+        JButton addRecipeLine = new JButton("Add Ingredient (+ amount)");
+        addRecipeLine.addActionListener(e -> {
+
+        });
+        add(addRecipeLine, BorderLayout.SOUTH);
     }
+
+    private void updateSelection() {
+        Meal meal = overviewTable.getSelectedObject();
+        Recipe recipe = meal.getRecipe();
+        recipeDataTableModel.setRecipe(recipe);
+    }
+
 
     public void fireMealUsageUpdated() {
         mealsDataTableModel.fireTableDataChanged();

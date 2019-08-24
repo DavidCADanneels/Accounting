@@ -9,6 +9,7 @@ public class Meal extends BusinessObject{
     private String mealName = "";
     private String description = "";
     private BigDecimal salesPrice = null;
+    private Recipe recipe = new Recipe();
 
     public Meal(Meal meal){
         this(meal.getName());
@@ -44,4 +45,7 @@ public class Meal extends BusinessObject{
         return description;
     }
 
+    public Recipe getRecipe() {
+        return recipe;
+    }
 }
