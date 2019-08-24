@@ -210,6 +210,7 @@ public class XMLReader {
                 readStockTransactions(accounting);
             }
             if (accounting.isMealsAccounting()){
+//                readIngredients(accounting);
                 readMeals(accounting);
                 readMealOrders(accounting);
             }

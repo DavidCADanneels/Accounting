@@ -117,6 +117,10 @@ public class XMLConstants {
     public static final String MEAL_ORDER_SERVICE_ACCOUNT = "MealOrderServiceAccount";
     public static final String MEAL_ORDER_BALANCE_ACCOUNT = "MealOrderBalanceAccount";
     public static final String MEAL_ORDER_REVENUE_ACCOUNT = "MealOrderRevenueAccount";
+    public static final String MEAL_RECIPE = "Recipe";
+    public static final String MEAL_RECIPE_LINE = "RecipeLine";
+    public static final String MEAL_RECIPE_PREPARATION = "Preparation";
+    public static final String MEAL_RECIPE_INSTRUCTIONS = "Instructions";
     public static final String DEBIT_ACCOUNT = "DebitAccount";
     public static final String CREDIT_ACCOUNT = "CreditAccount";
     public static final String DEBIT_CN_ACCOUNT = "DebitCNAccount";
