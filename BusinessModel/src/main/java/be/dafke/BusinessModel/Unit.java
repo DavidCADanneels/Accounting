@@ -2,7 +2,7 @@ package be.dafke.BusinessModel;
 
 public enum Unit {
     PIECE ("Piece", ""),
-    WEIGHT ("Weight", "kg."),
+    WEIGHT ("Weight", "g."),
     VOLUME ("Volume", "l."),
     LENGTH ("Length", "m.");
 
