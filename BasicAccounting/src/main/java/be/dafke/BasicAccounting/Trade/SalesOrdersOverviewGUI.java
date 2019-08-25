@@ -37,8 +37,9 @@ public class SalesOrdersOverviewGUI extends JFrame {
         ordersOverViewPanel.setAccounting(accounting);
     }
 
-    public static void fireSalesOrderAddedOrRemovedForAll(){
-        for (SalesOrdersOverviewGUI gui : map.values()){
+    public static void fireSalesOrderAddedOrRemovedForAccounting(Accounting accounting){
+        SalesOrdersOverviewGUI gui = map.get(accounting);
+        if (gui!=null){
             gui.fireSalesOrderAddedOrRemoved();
         }
     }

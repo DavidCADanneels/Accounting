@@ -2,8 +2,7 @@ package be.dafke.BasicAccounting.Trade;
 
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.Articles;
-import be.dafke.BusinessModel.Contacts;
+import be.dafke.BusinessModel.Accounting;
 
 import javax.swing.*;
 
@@ -14,30 +13,56 @@ import static java.util.ResourceBundle.getBundle;
 public class ArticlesGUI extends JFrame {
     private final ArticlesPanel articlesPanel;
 
-    private static final HashMap<Articles, ArticlesGUI> articlesGuis = new HashMap<>();
+    private static final HashMap<Accounting, ArticlesGUI> articlesGuis = new HashMap<>();
 
-    private ArticlesGUI(Articles articles, Contacts contacts) {
+    private ArticlesGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("ARTICLES"));
-        articlesPanel = new ArticlesPanel(articles, contacts);
+        articlesPanel = new ArticlesPanel(accounting);
         setContentPane(articlesPanel);
         pack();
     }
 
-    public static ArticlesGUI showArticles(Articles articles, Contacts contacts) {
-        ArticlesGUI gui = articlesGuis.get(articles);
+    public static ArticlesGUI showArticles(Accounting accounting) {
+        ArticlesGUI gui = articlesGuis.get(accounting);
         if (gui == null) {
-            gui = new ArticlesGUI(articles, contacts);
-            articlesGuis.put(articles, gui);
+            gui = new ArticlesGUI(accounting);
+            articlesGuis.put(accounting, gui);
             Main.addFrame(gui);
         }
         return gui;
     }
 
-    public static void fireSupplierAddedOrRemovedForAll(){
-        articlesGuis.values().forEach(ArticlesGUI::fireSupplierAddedOrRemoved);
+    public static void fireTableUpdateForAccounting(Accounting accounting){
+        ArticlesGUI gui = articlesGuis.get(accounting);
+        if(gui!=null) {
+            gui.fireTableUpdate();
+        }
+    }
+
+    public void fireTableUpdate(){
+        articlesPanel.fireTableUpdate();
+    }
+
+    public static void fireSupplierAddedOrRemovedForAccounting(Accounting accounting){
+        ArticlesGUI gui = articlesGuis.get(accounting);
+        if(gui!=null){
+            gui.fireSupplierAddedOrRemoved();
+        }
     }
 
     public void fireSupplierAddedOrRemoved(){
         articlesPanel.fireSupplierAddedOrRemoved();
+        articlesPanel.fireTableUpdate();
+    }
+
+    public static void fireIngredientAddedOrRemovedForAccounting(Accounting accounting){
+        ArticlesGUI gui = articlesGuis.get(accounting);
+        if(gui!=null){
+            gui.fireIngredientAddedOrRemoved();
+        }
+    }
+
+    public void fireIngredientAddedOrRemoved(){
+        articlesPanel.fireIngredientsAddedOrRemoved();
     }
 }

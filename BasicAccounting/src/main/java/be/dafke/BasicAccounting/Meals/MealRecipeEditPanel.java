@@ -91,7 +91,7 @@ public class MealRecipeEditPanel extends JPanel {
     }
 
 
-    public void fireMealUsageUpdated() {
+    public void fireTableUpdate() {
         mealsEditDataTableModel.fireTableDataChanged();
     }
 }

@@ -94,7 +94,7 @@ public class ContactsPanel extends JPanel implements ListSelectionListener {
         accounting.setCompanyContact(companyContact);
     }
 
-    public void fireContactDataChanged(){
+    public void fireTableUpdate(){
         contactsDataModel.fireTableDataChanged();
     }
 

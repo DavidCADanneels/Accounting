@@ -22,7 +22,7 @@ public class TradeMenu extends JMenu {
         articlesTable = new JMenuItem(getBundle("Accounting").getString("ARTICLES"));
         articlesTable.setMnemonic(KeyEvent.VK_A);
         articlesTable.addActionListener(e -> {
-            ArticlesGUI articlesGUI = ArticlesGUI.showArticles(articles, contacts);
+            ArticlesGUI articlesGUI = ArticlesGUI.showArticles(accounting);
             articlesGUI.setLocation(getLocationOnScreen());
             articlesGUI.setVisible(true);
         });

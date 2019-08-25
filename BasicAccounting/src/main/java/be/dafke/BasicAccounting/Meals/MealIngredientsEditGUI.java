@@ -31,14 +31,14 @@ public class MealIngredientsEditGUI extends JFrame {
         return gui;
     }
 
-    public static void fireMealUsageUpdatedForAll(Accounting accounting){
+    public static void fireTableUpdateForAccounting(Accounting accounting){
         MealIngredientsEditGUI gui = mealsGuis.get(accounting);
         if (gui !=null){
-            gui.fireMealUsageUpdated();
+            gui.fireTableUpdate();
         }
     }
 
-    public void fireMealUsageUpdated(){
-        mealsEditPanel.fireMealUsageUpdated();
+    public void fireTableUpdate(){
+        mealsEditPanel.fireTableUpdate();
     }
 }

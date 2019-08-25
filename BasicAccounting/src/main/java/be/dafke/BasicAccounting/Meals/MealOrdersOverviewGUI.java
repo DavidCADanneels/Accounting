@@ -31,7 +31,7 @@ public class MealOrdersOverviewGUI extends JFrame {
 		return gui;
 	}
 
-	public static void fireOrderAddedForAll(Accounting accounting, MealOrder mealOrder) {
+	public static void fireOrderAddedForAccounting(Accounting accounting, MealOrder mealOrder) {
 		MealOrdersOverviewGUI gui = guis.get(accounting);
 		if(gui != null) {
 			gui.fireOrderAdded(accounting, mealOrder);

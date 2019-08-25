@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.Meals;
 
 
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
@@ -62,6 +63,7 @@ public class IngredientsEditPanel extends JPanel {
                 try {
                     ingredients.addBusinessObject(new Ingredient(name, Unit.PIECE));
                     allergenesViewPanel.updateTable();
+                    Main.fireIngredientsAddedOrRemoved(accounting);
                 } catch (EmptyNameException ex) {
                     ActionUtils.showErrorMessage(this, ActionUtils.INGREDIENT_NAME_EMPTY);
                 } catch (DuplicateNameException ex) {

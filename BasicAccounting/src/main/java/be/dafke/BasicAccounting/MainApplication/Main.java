@@ -12,7 +12,7 @@ import be.dafke.BasicAccounting.Coda.CodaMenu;
 import be.dafke.BasicAccounting.Contacts.ContactSelectorDialog;
 import be.dafke.BasicAccounting.Contacts.ContactsGUI;
 import be.dafke.BasicAccounting.Contacts.ContactsMenu;
-import be.dafke.BasicAccounting.Meals.MealsMenu;
+import be.dafke.BasicAccounting.Meals.*;
 import be.dafke.BasicAccounting.Trade.*;
 import be.dafke.BasicAccounting.Journals.*;
 import be.dafke.BasicAccounting.Mortgages.MorgagesMenu;
@@ -349,14 +349,15 @@ public class Main {
         BalanceGUI.fireAccountDataChangedForAll();
     }
 
-    public static void fireContactAdded(Contact contact) {
+    public static void fireContactAdded(Accounting accounting, Contact contact) {
         ContactSelectorDialog.fireContactDataChangedForAll();
-        ContactsGUI.fireContactAddedForAll();
-         if(contact.isCustomer()){
+        ContactsGUI.fireTableUpdateForAccounting(accounting);
+
+        if(contact.isCustomer()){
         SalesOrderCreateGUI.fireCustomerAddedOrRemovedForAll();
 //         } else if(contact.isSupplier()){
              // TODO: implement below method
-//        PromoOrderCreateGUI.fireCustomerAddedOrRemovedForAll();
+//        PromoOrderCreateGUI.fireCustomerAddedOrRemovedForAccounting();
          }
     }
 
@@ -371,14 +372,39 @@ public class Main {
         ContactsGUI.fireContactDataChangedForAll();
     }
 
-    public static void fireCustomerAddedOrRemoved() {
-        ContactsGUI.fireCustomerAddedOrRemovedForAll();
+    public static void fireCustomerAddedOrRemoved(Accounting accounting) {
+        ContactsGUI.fireCustomerAddedOrRemovedForAccounting(accounting);
         SalesOrderCreateGUI.fireCustomerAddedOrRemovedForAll();
     }
 
-    public static void fireSupplierAddedOrRemoved() {
-        ContactsGUI.fireSupplierAddedOrRemovedForAll();
-        ArticlesGUI.fireSupplierAddedOrRemovedForAll();
+    public static void fireIngredientsAddedOrRemoved(Accounting accounting) {
+        ArticlesGUI.fireIngredientAddedOrRemovedForAccounting(accounting);
+        ArticlesGUI.fireTableUpdateForAccounting(accounting);
+    }
+
+    public static void fireAllergeneAddedOrRemoved() {
+    }
+
+    public static void fireRecipeDataUpdated(Accounting accounting) {
+        MealRecipeViewGUI.fireTableUpdateForAccounting(accounting);
+        MealRecipeEditGUI.fireTableUpdateForAccounting(accounting);
+        MealIngredientsViewGUI.fireTableUpdateForAccounting(accounting);
+        MealIngredientsEditGUI.fireTableUpdateForAccounting(accounting);
+    }
+
+    public static void fireArticleAddedOrRemoved(Accounting accounting) {
+        ArticlesGUI.fireTableUpdateForAccounting(accounting);
+    }
+
+    public static void fireMealCountUpdated(Accounting accounting) {
+        MealRecipeViewGUI.fireTableUpdateForAccounting(accounting);
+        MealRecipeEditGUI.fireTableUpdateForAccounting(accounting);
+    }
+
+    public static void fireSupplierAddedOrRemoved(Accounting accounting) {
+        ContactsGUI.fireTableUpdateForAccounting(accounting);
+        ArticlesGUI.fireSupplierAddedOrRemovedForAccounting(accounting);
+        ArticlesGUI.fireTableUpdateForAccounting(accounting);
         PurchaseOrderCreateGUI.fireSupplierAddedOrRemovedForAll();
     }
 

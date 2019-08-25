@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.Trade;
 
 
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
@@ -9,6 +10,7 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import java.awt.*;
 
 import static java.util.ResourceBundle.getBundle;
@@ -16,20 +18,29 @@ import static java.util.ResourceBundle.getBundle;
 public class ArticlesPanel extends JPanel {
     private final JButton add;
     private final SelectableTable<Article> table;
-    private JComboBox<Contact> comboBox;
-    private Contacts contacts;
+    private JComboBox<Contact> supplierComboBox;
+    private JComboBox<Ingredient> ingredientComboBox;
+    private Accounting accounting;
     private final ArticlesDataTableModel articlesDataTableModel;
 
-    public ArticlesPanel(Articles articles, Contacts contacts) {
-        this.contacts = contacts;
+    public ArticlesPanel(Accounting accounting) {
+        this.accounting = accounting;
+        Articles articles = accounting.getArticles();
         articlesDataTableModel = new ArticlesDataTableModel(this, articles);
         table = new SelectableTable<>(articlesDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(500, 200));
 
-        comboBox = new JComboBox<>();
+        supplierComboBox = new JComboBox<>();
+        ingredientComboBox = new JComboBox<>();
+
         fireSupplierAddedOrRemoved();
-        TableColumn supplierColumn = table.getColumnModel().getColumn(ArticlesDataTableModel.SUPPLIER_COL);
-        supplierColumn.setCellEditor(new DefaultCellEditor(comboBox));
+        fireIngredientsAddedOrRemoved();
+        TableColumnModel columnModel = table.getColumnModel();
+        TableColumn supplierColumn = columnModel.getColumn(ArticlesDataTableModel.SUPPLIER_COL);
+        TableColumn ingredientColumn = columnModel.getColumn(ArticlesDataTableModel.INGREDIENT_COL);
+        supplierColumn.setCellEditor(new DefaultCellEditor(supplierComboBox));
+        ingredientColumn.setCellEditor(new DefaultCellEditor(ingredientComboBox));
+
 
         JScrollPane scrollPane = new JScrollPane(table);
         setLayout(new BorderLayout());
@@ -45,6 +56,7 @@ public class ArticlesPanel extends JPanel {
                 try {
                     articles.addBusinessObject(new Article(name));
                     articlesDataTableModel.fireTableDataChanged();
+                    Main.fireArticleAddedOrRemoved(accounting);
                 } catch (EmptyNameException ex) {
                     ActionUtils.showErrorMessage(this, ActionUtils.ARTICLE_NAME_EMPTY);
                 } catch (DuplicateNameException ex) {
@@ -52,11 +64,23 @@ public class ArticlesPanel extends JPanel {
                 }
             }
         });
+        fireTableUpdate();
     }
 
     public void fireSupplierAddedOrRemoved() {
-        comboBox.removeAllItems();
-        contacts.getBusinessObjects(Contact::isSupplier).forEach(contact -> comboBox.addItem(contact));
+        supplierComboBox.removeAllItems();
+        Contacts contacts = accounting.getContacts();
+        contacts.getBusinessObjects(Contact::isSupplier).forEach(contact -> supplierComboBox.addItem(contact));
+    }
+
+
+    public void fireIngredientsAddedOrRemoved() {
+        ingredientComboBox.removeAllItems();
+        Ingredients ingredients = accounting.getIngredients();
+        ingredients.getBusinessObjects().forEach(ingredient -> ingredientComboBox.addItem(ingredient));
+    }
+
+    public void fireTableUpdate(){
         articlesDataTableModel.fireTableDataChanged();
     }
 }

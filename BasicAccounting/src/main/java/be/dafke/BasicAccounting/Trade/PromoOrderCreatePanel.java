@@ -39,7 +39,7 @@ class PromoOrderCreatePanel extends JPanel {
                 promoOrder.setArticles(articles);
                 promoOrderCreateDataTableModel.setOrder(promoOrder);
                 totalsPanel.fireOrderContentChanged(promoOrder);
-                PromoOrdersOverviewGUI.firePromoOrderAddedOrRemovedForAll();
+                PromoOrdersOverviewGUI.firePromoOrderAddedOrRemovedForAccounting(accounting);
             } catch (EmptyNameException e1) {
                 e1.printStackTrace();
             } catch (DuplicateNameException e1) {

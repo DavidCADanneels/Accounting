@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.Meals;
 
 
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Allergene;
 import be.dafke.BusinessModel.Allergenes;
 import be.dafke.ComponentModel.SelectableTable;
@@ -36,6 +37,7 @@ public class AllergenesEditPanel extends JPanel {
                 try {
                     allergenes.addBusinessObject(new Allergene(name, "",""));
                     allergenesDataTableModel.fireTableDataChanged();
+                    Main.fireAllergeneAddedOrRemoved();
                 } catch (EmptyNameException ex) {
                     ActionUtils.showErrorMessage(this, ActionUtils.INGREDIENT_NAME_EMPTY);
                 } catch (DuplicateNameException ex) {

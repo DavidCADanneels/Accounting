@@ -13,7 +13,7 @@ import static java.util.ResourceBundle.getBundle;
 public class PromoOrdersOverviewGUI extends JFrame {
     private final PromoOrdersOverviewPanel ordersOverViewPanel;
 
-    private static HashMap<Accounting,PromoOrdersOverviewGUI> map = new HashMap<>();
+    private static HashMap<Accounting,PromoOrdersOverviewGUI> promoOrdersOverviewGuiMap = new HashMap<>();
 
     private PromoOrdersOverviewGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("PR_OVERVIEW"));
@@ -24,17 +24,18 @@ public class PromoOrdersOverviewGUI extends JFrame {
     }
 
     public static PromoOrdersOverviewGUI showPromoOrderGUI(Accounting accounting) {
-        PromoOrdersOverviewGUI gui = map.get(accounting);
+        PromoOrdersOverviewGUI gui = promoOrdersOverviewGuiMap.get(accounting);
         if (gui == null) {
             gui = new PromoOrdersOverviewGUI(accounting);
-            map.put(accounting, gui);
+            promoOrdersOverviewGuiMap.put(accounting, gui);
             Main.addFrame(gui);
         }
         return gui;
     }
 
-    public static void firePromoOrderAddedOrRemovedForAll(){
-        for (PromoOrdersOverviewGUI gui : map.values()){
+    public static void firePromoOrderAddedOrRemovedForAccounting(Accounting accounting){
+        PromoOrdersOverviewGUI gui = promoOrdersOverviewGuiMap.get(accounting);
+        if(gui!=null){
             gui.firePromoOrderAddedOrRemoved();
         }
     }

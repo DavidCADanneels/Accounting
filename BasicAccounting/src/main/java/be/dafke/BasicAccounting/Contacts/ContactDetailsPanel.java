@@ -176,7 +176,7 @@ public class ContactDetailsPanel extends JPanel {
         if(newContact) {
             try {
                 contacts.addBusinessObject(contact);
-                Main.fireContactAdded(contact);
+                Main.fireContactAdded(accounting, contact);
             } catch (DuplicateNameException e) {
                 ActionUtils.showErrorMessage(this, ActionUtils.ACCOUNT_DUPLICATE_NAME, name);
             } catch (EmptyNameException e) {

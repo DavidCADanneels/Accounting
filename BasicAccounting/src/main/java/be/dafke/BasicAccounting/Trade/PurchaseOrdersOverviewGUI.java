@@ -14,7 +14,7 @@ import static java.util.ResourceBundle.getBundle;
 public class PurchaseOrdersOverviewGUI extends JFrame {
     private final PurchaseOrdersOverviewPanel ordersOverViewPanel;
 
-    private static HashMap<Accounting,PurchaseOrdersOverviewGUI> map = new HashMap<>();
+    private static HashMap<Accounting,PurchaseOrdersOverviewGUI> purchaseOrderOverviewGuiMap = new HashMap<>();
 
     private PurchaseOrdersOverviewGUI() {
         super(getBundle("Accounting").getString("PO_OVERVIEW"));
@@ -24,18 +24,19 @@ public class PurchaseOrdersOverviewGUI extends JFrame {
     }
 
     public static PurchaseOrdersOverviewGUI showPurchaseOrderGUI(Accounting accounting) {
-        PurchaseOrdersOverviewGUI gui = map.get(accounting);
+        PurchaseOrdersOverviewGUI gui = purchaseOrderOverviewGuiMap.get(accounting);
         if (gui == null) {
             gui = new PurchaseOrdersOverviewGUI();
             gui.setAccounting(accounting);
-            map.put(accounting, gui);
+            purchaseOrderOverviewGuiMap.put(accounting, gui);
             Main.addFrame(gui);
         }
         return gui;
     }
 
-    public static void firePurchaseOrderAddedOrRemovedForAll(){
-        for (PurchaseOrdersOverviewGUI gui : map.values()){
+    public static void firePurchaseOrderAddedOrRemovedForAccounting(Accounting accounting){
+        PurchaseOrdersOverviewGUI gui = purchaseOrderOverviewGuiMap.get(accounting);
+        if(gui!=null){
             gui.firePurchaseOrderAddedOrRemoved();
         }
     }

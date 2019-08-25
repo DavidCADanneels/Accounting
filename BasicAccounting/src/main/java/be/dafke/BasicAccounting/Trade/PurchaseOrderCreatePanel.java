@@ -66,7 +66,7 @@ public class PurchaseOrderCreatePanel extends JPanel {
             purchaseOrder.setArticles(articles);
             purchaseOrderCreateDataTableModel.setOrder(purchaseOrder);
             // TODO: pass view panel and call directly
-            PurchaseOrdersOverviewGUI.firePurchaseOrderAddedOrRemovedForAll();
+            PurchaseOrdersOverviewGUI.firePurchaseOrderAddedOrRemovedForAccounting(accounting);
             totalsPanel.fireOrderContentChanged(purchaseOrder);
         } catch (EmptyNameException e1) {
             e1.printStackTrace();

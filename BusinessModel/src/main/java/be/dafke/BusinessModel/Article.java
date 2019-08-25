@@ -15,6 +15,7 @@ public class Article extends BusinessObject{
     private BigDecimal purchasePrice = null;
     private BigDecimal salesPriceItemWithVat = null;
     private Contact supplier;
+    private Ingredient ingredient;
     private ArrayList<StockOrder> stockOrders = new ArrayList<>();
     private ArrayList<PromoOrder> promoOrders = new ArrayList<>();
     private ArrayList<IngredientOrder> ingredientOrders = new ArrayList<>();
@@ -75,6 +76,14 @@ public class Article extends BusinessObject{
 
     public void setSalesPriceItemWithVat(BigDecimal salesPriceItemWithVat) {
         this.salesPriceItemWithVat = salesPriceItemWithVat;
+    }
+
+    public void setIngredient(Ingredient ingredient) {
+        this.ingredient = ingredient;
+    }
+
+    public Ingredient getIngredient() {
+        return ingredient;
     }
 
     public Integer getItemsPerUnit() {

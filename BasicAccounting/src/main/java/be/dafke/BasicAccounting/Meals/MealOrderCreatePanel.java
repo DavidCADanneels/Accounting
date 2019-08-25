@@ -4,6 +4,7 @@ import be.dafke.BasicAccounting.Accounts.AccountActions;
 import be.dafke.BasicAccounting.Accounts.AccountSelectorDialog;
 import be.dafke.BasicAccounting.Journals.DateAndDescriptionPanel;
 import be.dafke.BasicAccounting.Journals.JournalSelectorDialog;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
@@ -112,8 +113,8 @@ public class MealOrderCreatePanel extends JPanel {
         } catch (EmptyNameException | DuplicateNameException e) {
             e.printStackTrace();
         }
-        MealOrdersOverviewGUI.fireOrderAddedForAll(accounting, mealOrder);
-        MealRecipeEditGUI.fireMealUsageUpdatedForAll(accounting);
+        MealOrdersOverviewGUI.fireOrderAddedForAccounting(accounting, mealOrder);
+        Main.fireMealCountUpdated(accounting);
     }
 
     private void book() {

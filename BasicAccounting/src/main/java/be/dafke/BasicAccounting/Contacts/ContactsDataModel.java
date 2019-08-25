@@ -216,7 +216,7 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 				} else {
 					contact.setCustomerAccount(null);
 				}
-				Main.fireCustomerAddedOrRemoved();
+				Main.fireCustomerAddedOrRemoved(accounting);
 			} else if(col== SUPPLIER_COL) {
 				Boolean supplier = (Boolean) value;
 				if(supplier) {
@@ -225,7 +225,7 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 				} else {
 					contact.setSupplierAccount(null);
 				}
-				Main.fireSupplierAddedOrRemoved();
+				Main.fireSupplierAddedOrRemoved(accounting);
 			} else {
 				String stringValue = (String) value;
 				if (col == NAME_COL) {

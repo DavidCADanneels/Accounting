@@ -61,7 +61,7 @@ public class MealIngredientsViewPanel extends JPanel {
     }
 
 
-    public void fireMealUsageUpdated() {
+    public void fireTableUpdate() {
         mealsDataTableModel.fireTableDataChanged();
     }
 }

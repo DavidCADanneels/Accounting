@@ -65,6 +65,7 @@ public class MealIngredientsEditPanel extends JPanel {
                 Recipe recipe = meal.getRecipe();
                 try {
                     recipe.addBusinessObject(recipeLine);
+                    Main.fireRecipeDataUpdated(accounting);
                 } catch (EmptyNameException | DuplicateNameException e1) {
                     e1.printStackTrace();
                 }
@@ -87,7 +88,7 @@ public class MealIngredientsEditPanel extends JPanel {
     }
 
 
-    public void fireMealUsageUpdated() {
+    public void fireTableUpdate() {
         mealsEditDataTableModel.fireTableDataChanged();
     }
 }
