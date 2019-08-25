@@ -10,12 +10,11 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import javax.swing.*;
 import javax.swing.table.TableColumn;
 import java.awt.*;
-import java.util.Set;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class IngredientsPanel extends JPanel {
-    private final IngredientsDataTableModel ingredientsDataTableModel;
+public class IngredientsEditPanel extends JPanel {
+    private final IngredientsDataEditTableModel ingredientsDataEditTableModel;
     private final AllergenesViewPanel allergenesViewPanel;
 //    private final AllergenesDataTableModel allergenesDataTableModel;
     private final SelectableTable<Ingredient> ingredientsTable;
@@ -26,12 +25,12 @@ public class IngredientsPanel extends JPanel {
     private Ingredients ingredients;
     private Allergenes allergenes;
 
-    public IngredientsPanel(Accounting accounting) {
+    public IngredientsEditPanel(Accounting accounting) {
         ingredients = accounting.getIngredients();
         allergenes = accounting.getAllergenes();
-        ingredientsDataTableModel = new IngredientsDataTableModel(this);
-        ingredientsDataTableModel.setIngredients(ingredients);
-        ingredientsTable = new SelectableTable<>(ingredientsDataTableModel);
+        ingredientsDataEditTableModel = new IngredientsDataEditTableModel(this);
+        ingredientsDataEditTableModel.setIngredients(ingredients);
+        ingredientsTable = new SelectableTable<>(ingredientsDataEditTableModel);
         ingredientsTable.setPreferredScrollableViewportSize(new Dimension(500, 200));
 
 //        allergenesDataTableModel = new AllergenesDataTableModel();
@@ -41,7 +40,7 @@ public class IngredientsPanel extends JPanel {
         allergenesViewPanel = new AllergenesViewPanel();
 
         JComboBox<Unit> comboBox = new JComboBox<>(Unit.values());
-        TableColumn unitColumn = ingredientsTable.getColumnModel().getColumn(IngredientsDataTableModel.UNIT_COL);
+        TableColumn unitColumn = ingredientsTable.getColumnModel().getColumn(IngredientsDataEditTableModel.UNIT_COL);
         unitColumn.setCellEditor(new DefaultCellEditor(comboBox));
 
         JScrollPane ingredientsScrollPane = new JScrollPane(ingredientsTable);
@@ -85,7 +84,7 @@ public class IngredientsPanel extends JPanel {
             if(allergeneList.length>0) {
                 AllergenesPerIngredientDialog dialog = new AllergenesPerIngredientDialog(selectedIngredient, allergenes);
                 dialog.setVisible(true);
-                ingredientsDataTableModel.fireTableDataChanged();
+                ingredientsDataEditTableModel.fireTableDataChanged();
                 allergenesViewPanel.updateTable();
             }
         });

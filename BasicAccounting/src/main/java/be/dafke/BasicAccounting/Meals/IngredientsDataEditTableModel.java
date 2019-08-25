@@ -17,7 +17,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class IngredientsDataTableModel extends SelectableTableModel<Ingredient> {
+public class IngredientsDataEditTableModel extends SelectableTableModel<Ingredient> {
 	private Ingredients ingredients;
 	public static int NAME_COL = 0;
 	public static int UNIT_COL = 1;
@@ -26,10 +26,10 @@ public class IngredientsDataTableModel extends SelectableTableModel<Ingredient> 
 	private final Component parent;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
-	private List<Integer> editableColumns = new ArrayList<>();
+	List<Integer> editableColumns = new ArrayList<>();
 
 
-	public IngredientsDataTableModel(Component parent) {
+	public IngredientsDataEditTableModel(Component parent) {
 		this.parent = parent;
 		setColumnNames();
 		setColumnClasses();
@@ -37,7 +37,7 @@ public class IngredientsDataTableModel extends SelectableTableModel<Ingredient> 
 	}
 
 
-	private void setEditableColumns() {
+	void setEditableColumns() {
 		editableColumns.add(NAME_COL);
 		editableColumns.add(UNIT_COL);
 	}

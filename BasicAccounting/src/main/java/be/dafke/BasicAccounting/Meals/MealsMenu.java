@@ -10,11 +10,11 @@ import java.awt.event.KeyEvent;
 import static java.util.ResourceBundle.getBundle;
 
 public class MealsMenu extends JMenu {
-    private JMenuItem ordersOverview, meals, ingredientsMenu, allergenesMenuView, allergenesMenuEdit;
-//    allergenesMenu
+    private JMenuItem ordersOverview, meals, allergenesMenuView, allergenesMenuEdit, ingredientsMenuView, ingredientsMenuEdit;
+//    allergenesMenu, ingredientsMenu
 
     private Accounting accounting;
-    private Ingredients ingredients;
+//    private Ingredients ingredients;
     private Allergenes allergenes;
 
     public MealsMenu() {
@@ -34,14 +34,14 @@ public class MealsMenu extends JMenu {
         add(meals);
         add(ordersOverview);
 
-        ingredientsMenu = new JMenuItem(getBundle("Accounting").getString("INGREDIENTS"));
-        ingredientsMenu.setMnemonic(KeyEvent.VK_I);
-        ingredientsMenu.addActionListener(e -> {
-            IngredientsGUI ingredientsGUI = IngredientsGUI.showIngredients(accounting);
-            ingredientsGUI.setLocation(getLocationOnScreen());
-            ingredientsGUI.setVisible(true);
-        });
-        ingredientsMenu.setEnabled(false);
+//        ingredientsMenu = new JMenuItem(getBundle("Accounting").getString("INGREDIENTS"));
+//        ingredientsMenu.setMnemonic(KeyEvent.VK_I);
+//        ingredientsMenu.addActionListener(e -> {
+//            IngredientsViewGUI ingredientsViewGUI = IngredientsViewGUI.showIngredients(accounting);
+//            ingredientsViewGUI.setLocation(getLocationOnScreen());
+//            ingredientsViewGUI.setVisible(true);
+//        });
+//        ingredientsMenu.setEnabled(false);
 
 //        allergenesMenu = new JMenuItem(getBundle("Accounting").getString("ALLERGENES"));
 //        allergenesMenu.setMnemonic(KeyEvent.VK_A);
@@ -51,6 +51,24 @@ public class MealsMenu extends JMenu {
 //            allergenesEditGUI.setVisible(true);
 //        });
 //        allergenesMenu.setEnabled(false);
+
+        ingredientsMenuView = new JMenuItem(getBundle("Accounting").getString("INGREDIENTS_VIEW"));
+        ingredientsMenuView.setMnemonic(KeyEvent.VK_I);
+        ingredientsMenuView.addActionListener(e -> {
+            IngredientsViewGUI ingredientsViewGUI = IngredientsViewGUI.showIngredients(accounting);
+            ingredientsViewGUI.setLocation(getLocationOnScreen());
+            ingredientsViewGUI.setVisible(true);
+        });
+        ingredientsMenuView.setEnabled(false);
+
+        ingredientsMenuEdit = new JMenuItem(getBundle("Accounting").getString("INGREDIENTS_EDIT"));
+        ingredientsMenuEdit.setMnemonic(KeyEvent.VK_I);
+        ingredientsMenuEdit.addActionListener(e -> {
+            IngredientsEditGUI ingredientsEditGUI = IngredientsEditGUI.showIngredients(accounting);
+            ingredientsEditGUI.setLocation(getLocationOnScreen());
+            ingredientsEditGUI.setVisible(true);
+        });
+        ingredientsMenuEdit.setEnabled(false);
 
         allergenesMenuEdit = new JMenuItem(getBundle("Accounting").getString("ALLERGENES_EDIT"));
         allergenesMenuEdit.setMnemonic(KeyEvent.VK_E);
@@ -71,7 +89,9 @@ public class MealsMenu extends JMenu {
         allergenesMenuView.setEnabled(false);
 
 
-        add(ingredientsMenu);
+//        add(ingredientsMenu);
+        add(ingredientsMenuView);
+        add(ingredientsMenuEdit);
 //        add(allergenesMenu);
         add(allergenesMenuView);
         add(allergenesMenuEdit);
@@ -83,12 +103,13 @@ public class MealsMenu extends JMenu {
         setAllergenes(accounting==null?null:accounting.getAllergenes());
     }
 
-    public void setIngredients(Ingredients ingredients){
-        this.ingredients = ingredients;
-        ingredientsMenu.setEnabled(ingredients!=null);
+    private void setIngredients(Ingredients ingredients){
+//        ingredientsMenu.setEnabled(ingredients!=null);
+        ingredientsMenuView.setEnabled(ingredients!=null);
+        ingredientsMenuEdit.setEnabled(ingredients!=null);
     }
 
-    public void setAllergenes(Allergenes allergenes){
+    private void setAllergenes(Allergenes allergenes){
         this.allergenes = allergenes;
 //        allergenesMenu.setEnabled(allergenes!=null);
         allergenesMenuView.setEnabled(allergenes!=null);

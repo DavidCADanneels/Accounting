@@ -10,12 +10,12 @@ import javax.swing.*;
 import java.awt.*;
 
 public class AllergenesViewPanel extends JPanel {
-    private final AllergenesNoDetailsDataTableModel allergenesDataTableModel;
+    private final AllergenesViewDataTableModel allergenesDataTableModel;
     private final SelectableTable<Allergene> allergeneOverviewTable;
     private JTextArea descriptionField;
 
     public AllergenesViewPanel() {
-        allergenesDataTableModel = new AllergenesNoDetailsDataTableModel();
+        allergenesDataTableModel = new AllergenesViewDataTableModel();
         allergeneOverviewTable = new SelectableTable<>(allergenesDataTableModel);
         allergeneOverviewTable.setPreferredScrollableViewportSize(new Dimension(500, 200));
 

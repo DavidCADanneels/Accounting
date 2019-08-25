@@ -13,14 +13,14 @@ import java.math.BigDecimal;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class MealsPanel extends JPanel {
+public class MealsEditPanel extends JPanel {
     private final MealsDataTableModel mealsDataTableModel;
     private final SelectableTable<Meal> overviewTable;
     private final RecipeDataTableModel recipeDataTableModel;
     private final SelectableTable<RecipeLine> recipeTable;
     private final JButton addRecipeLine;
 
-    public MealsPanel(Accounting accounting) {
+    public MealsEditPanel(Accounting accounting) {
         mealsDataTableModel = new MealsDataTableModel(this, accounting);
         overviewTable = new SelectableTable<>(mealsDataTableModel);
         overviewTable.setPreferredScrollableViewportSize(new Dimension(500, 200));
@@ -62,7 +62,7 @@ public class MealsPanel extends JPanel {
                 ingredientSelector.setVisible(true);
                 Ingredient ingredient = ingredientSelector.getSelection();
                 String amountString = JOptionPane.showInputDialog(this, "get amount");
-                BigDecimal amount = new BigDecimal(amountString);
+                BigDecimal amount = amountString==null?BigDecimal.ZERO:new BigDecimal(amountString);
                 RecipeLine recipeLine = new RecipeLine(ingredient);
                 recipeLine.setAmount(amount);
                 recipeLine.setIngredient(ingredient);
@@ -84,6 +84,10 @@ public class MealsPanel extends JPanel {
         Recipe recipe = meal==null?null:meal.getRecipe();
         recipeDataTableModel.setRecipe(recipe);
         recipeDataTableModel.fireTableDataChanged();
+//        int rowCount = recipeTable.getRowCount();
+//        if(rowCount >0){
+//            recipeTable.setRowSelectionInterval(0, rowCount - 1);
+//        }
     }
 
 

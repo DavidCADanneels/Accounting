@@ -3,7 +3,6 @@ package be.dafke.BasicAccounting.Meals;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Meals;
 
 import javax.swing.*;
 
@@ -12,14 +11,14 @@ import java.util.HashMap;
 import static java.util.ResourceBundle.getBundle;
 
 public class MealsGUI extends JFrame {
-    private final MealsPanel mealsPanel;
+    private final MealsEditPanel mealsEditPanel;
 
     private static HashMap<Accounting, MealsGUI> mealsGuis = new HashMap<>();
 
     private MealsGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("MEALS"));
-        mealsPanel = new MealsPanel(accounting);
-        setContentPane(mealsPanel);
+        mealsEditPanel = new MealsEditPanel(accounting);
+        setContentPane(mealsEditPanel);
         pack();
     }
 
@@ -41,6 +40,6 @@ public class MealsGUI extends JFrame {
     }
 
     public void fireMealUsageUpdated(){
-        mealsPanel.fireMealUsageUpdated();
+        mealsEditPanel.fireMealUsageUpdated();
     }
 }

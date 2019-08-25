@@ -4,6 +4,7 @@ import be.dafke.ObjectModel.BusinessObject;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 
 public class Meal extends BusinessObject{
     private String mealName = "";
@@ -33,6 +34,10 @@ public class Meal extends BusinessObject{
         this.description = description;
     }
 
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+    }
+
     public BigDecimal getSalesPrice(){
         return salesPrice;
     }
@@ -47,5 +52,9 @@ public class Meal extends BusinessObject{
 
     public Recipe getRecipe() {
         return recipe;
+    }
+
+    public List<Ingredient> getIngredients() {
+        return recipe.getIngredients();
     }
 }
