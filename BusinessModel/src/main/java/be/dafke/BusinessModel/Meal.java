@@ -54,7 +54,11 @@ public class Meal extends BusinessObject{
         return recipe;
     }
 
-    public List<Ingredient> getIngredients() {
+//    public List<Ingredient> getIngredients() {
+//        return recipe.getIngredients();
+//    }
+
+    public Ingredients getIngredients() {
         return recipe.getIngredients();
     }
 }

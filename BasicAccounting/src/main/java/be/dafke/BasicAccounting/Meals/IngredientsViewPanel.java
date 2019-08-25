@@ -7,6 +7,7 @@ import be.dafke.ComponentModel.SelectableTable;
 import javax.swing.*;
 import javax.swing.table.TableColumn;
 import java.awt.*;
+import java.util.List;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -60,5 +61,14 @@ public class IngredientsViewPanel extends JPanel {
             }
         });
         ingredientsTable.setSelectionModel(selection);
+    }
+
+    public void setIngredients(Ingredients ingredients){
+        ingredientsDataViewTableModel.setIngredients(ingredients);
+        ingredientsDataViewTableModel.fireTableDataChanged();
+        int rowCount = ingredientsTable.getRowCount();
+        if(rowCount >0){
+            ingredientsTable.setRowSelectionInterval(0, rowCount - 1);
+        }
     }
 }
