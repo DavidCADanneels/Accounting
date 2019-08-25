@@ -5,27 +5,26 @@ import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Accounting;
 
 import javax.swing.*;
-
 import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class MealsGUI extends JFrame {
-    private final MealsEditPanel mealsEditPanel;
+public class MealIngredientsEditGUI extends JFrame {
+    private final MealIngredientsEditPanel mealsEditPanel;
 
-    private static HashMap<Accounting, MealsGUI> mealsGuis = new HashMap<>();
+    private static HashMap<Accounting, MealIngredientsEditGUI> mealsGuis = new HashMap<>();
 
-    private MealsGUI(Accounting accounting) {
+    private MealIngredientsEditGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("MEALS"));
-        mealsEditPanel = new MealsEditPanel(accounting);
+        mealsEditPanel = new MealIngredientsEditPanel(accounting);
         setContentPane(mealsEditPanel);
         pack();
     }
 
-    public static MealsGUI showMeals(Accounting accounting) {
-        MealsGUI gui = mealsGuis.get(accounting);
+    public static MealIngredientsEditGUI showMeals(Accounting accounting) {
+        MealIngredientsEditGUI gui = mealsGuis.get(accounting);
         if (gui == null) {
-            gui = new MealsGUI(accounting);
+            gui = new MealIngredientsEditGUI(accounting);
             mealsGuis.put(accounting, gui);
             Main.addFrame(gui);
         }
@@ -33,7 +32,7 @@ public class MealsGUI extends JFrame {
     }
 
     public static void fireMealUsageUpdatedForAll(Accounting accounting){
-        MealsGUI gui = mealsGuis.get(accounting);
+        MealIngredientsEditGUI gui = mealsGuis.get(accounting);
         if (gui !=null){
             gui.fireMealUsageUpdated();
         }

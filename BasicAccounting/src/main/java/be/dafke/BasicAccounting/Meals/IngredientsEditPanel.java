@@ -16,9 +16,7 @@ import static java.util.ResourceBundle.getBundle;
 public class IngredientsEditPanel extends JPanel {
     private final IngredientsDataEditTableModel ingredientsDataEditTableModel;
     private final AllergenesViewPanel allergenesViewPanel;
-//    private final AllergenesDataTableModel allergenesDataTableModel;
     private final SelectableTable<Ingredient> ingredientsTable;
-//    private final SelectableTable<Allergene> allergenesTable;
     private final JButton addAllergene;
     private Ingredient selectedIngredient;
 
@@ -32,10 +30,6 @@ public class IngredientsEditPanel extends JPanel {
         ingredientsDataEditTableModel.setIngredients(ingredients);
         ingredientsTable = new SelectableTable<>(ingredientsDataEditTableModel);
         ingredientsTable.setPreferredScrollableViewportSize(new Dimension(500, 200));
-
-//        allergenesDataTableModel = new AllergenesDataTableModel();
-//        allergenesTable = new SelectableTable<>(allergenesDataTableModel);
-//        allergenesTable.setPreferredScrollableViewportSize(new Dimension(500, 200));
 
         allergenesViewPanel = new AllergenesViewPanel();
 

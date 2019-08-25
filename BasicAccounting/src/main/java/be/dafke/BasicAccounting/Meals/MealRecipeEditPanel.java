@@ -13,20 +13,20 @@ import java.math.BigDecimal;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class MealsEditPanel extends JPanel {
-    private final MealsDataTableModel mealsDataTableModel;
+public class MealRecipeEditPanel extends JPanel {
+    private final MealsEditDataTableModel mealsEditDataTableModel;
     private final SelectableTable<Meal> overviewTable;
-    private final RecipeDataTableModel recipeDataTableModel;
+    private final MealRecipeEditDataTableModel mealRecipeEditDataTableModel;
     private final SelectableTable<RecipeLine> recipeTable;
     private final JButton addRecipeLine;
 
-    public MealsEditPanel(Accounting accounting) {
-        mealsDataTableModel = new MealsDataTableModel(this, accounting);
-        overviewTable = new SelectableTable<>(mealsDataTableModel);
+    public MealRecipeEditPanel(Accounting accounting) {
+        mealsEditDataTableModel = new MealsEditDataTableModel(this, accounting);
+        overviewTable = new SelectableTable<>(mealsEditDataTableModel);
         overviewTable.setPreferredScrollableViewportSize(new Dimension(500, 200));
 
-        recipeDataTableModel = new RecipeDataTableModel();
-        recipeTable = new SelectableTable<>(recipeDataTableModel);
+        mealRecipeEditDataTableModel = new MealRecipeEditDataTableModel();
+        recipeTable = new SelectableTable<>(mealRecipeEditDataTableModel);
         recipeTable.setPreferredScrollableViewportSize(new Dimension(500, 200));
 
         DefaultListSelectionModel selectionModel = new DefaultListSelectionModel();
@@ -72,7 +72,7 @@ public class MealsEditPanel extends JPanel {
                 } catch (EmptyNameException | DuplicateNameException e1) {
                     e1.printStackTrace();
                 }
-                recipeDataTableModel.fireTableDataChanged();
+                mealRecipeEditDataTableModel.fireTableDataChanged();
             }
         });
         add(addRecipeLine, BorderLayout.SOUTH);
@@ -82,8 +82,8 @@ public class MealsEditPanel extends JPanel {
         Meal meal = overviewTable.getSelectedObject();
         addRecipeLine.setEnabled(meal!=null);
         Recipe recipe = meal==null?null:meal.getRecipe();
-        recipeDataTableModel.setRecipe(recipe);
-        recipeDataTableModel.fireTableDataChanged();
+        mealRecipeEditDataTableModel.setRecipe(recipe);
+        mealRecipeEditDataTableModel.fireTableDataChanged();
 //        int rowCount = recipeTable.getRowCount();
 //        if(rowCount >0){
 //            recipeTable.setRowSelectionInterval(0, rowCount - 1);
@@ -92,6 +92,6 @@ public class MealsEditPanel extends JPanel {
 
 
     public void fireMealUsageUpdated() {
-        mealsDataTableModel.fireTableDataChanged();
+        mealsEditDataTableModel.fireTableDataChanged();
     }
 }

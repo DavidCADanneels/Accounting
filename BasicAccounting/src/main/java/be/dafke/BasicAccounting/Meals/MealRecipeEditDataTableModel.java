@@ -15,38 +15,38 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class RecipeDataTableModel extends SelectableTableModel<RecipeLine> {
+public class MealRecipeEditDataTableModel extends SelectableTableModel<RecipeLine> {
 	private Recipe recipe;
 	public static int NAME_COL = 0;
 	public static int AMOUNT_COL = 1;
 	public static int UNIT_COL = 2;
 	public static int ALLERGENES_COL = 3;
 	public static int NR_OF_COL = 4;
-	private HashMap<Integer,String> columnNames = new HashMap<>();
-	private HashMap<Integer,Class> columnClasses = new HashMap<>();
-	private List<Integer> editableColumns = new ArrayList<>();
+	HashMap<Integer,String> columnNames = new HashMap<>();
+	HashMap<Integer,Class> columnClasses = new HashMap<>();
+	List<Integer> editableColumns = new ArrayList<>();
 
 
-	public RecipeDataTableModel() {
+	public MealRecipeEditDataTableModel() {
 		setColumnNames();
 		setColumnClasses();
 		setEditableColumns();
 	}
 
 
-	private void setEditableColumns() {
+	void setEditableColumns() {
 		editableColumns.add(AMOUNT_COL);
 		editableColumns.add(UNIT_COL);
 	}
 
-	private void setColumnClasses() {
+	void setColumnClasses() {
 		columnClasses.put(NAME_COL, String.class);
 		columnClasses.put(AMOUNT_COL, BigDecimal.class);
 		columnClasses.put(UNIT_COL, Unit.class);
 		columnClasses.put(ALLERGENES_COL, String.class);
 	}
 
-	private void setColumnNames() {
+	void setColumnNames() {
 		columnNames.put(NAME_COL, getBundle("Accounting").getString("INGREDIENT_NAME"));
 		columnNames.put(AMOUNT_COL, getBundle("Accounting").getString("INGREDIENT_AMOUNT"));
 		columnNames.put(UNIT_COL, getBundle("Accounting").getString("INGREDIENT_UNIT"));
@@ -73,10 +73,12 @@ public class RecipeDataTableModel extends SelectableTableModel<RecipeLine> {
 		return null;
 	}
 
+	@Override
 	public int getColumnCount() {
 		return NR_OF_COL;
 	}
 
+	@Override
 	public int getRowCount() {
 		if(recipe == null){
 			return 0;

@@ -113,7 +113,7 @@ public class MealOrderCreatePanel extends JPanel {
             e.printStackTrace();
         }
         MealOrdersOverviewGUI.fireOrderAddedForAll(accounting, mealOrder);
-        MealsGUI.fireMealUsageUpdatedForAll(accounting);
+        MealRecipeEditGUI.fireMealUsageUpdatedForAll(accounting);
     }
 
     private void book() {

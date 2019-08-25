@@ -10,47 +10,59 @@ import java.awt.event.KeyEvent;
 import static java.util.ResourceBundle.getBundle;
 
 public class MealsMenu extends JMenu {
-    private JMenuItem ordersOverview, meals, allergenesMenuView, allergenesMenuEdit, ingredientsMenuView, ingredientsMenuEdit;
-//    allergenesMenu, ingredientsMenu
+    private JMenuItem ordersOverview, allergenesMenuView, allergenesMenuEdit, ingredientsMenuView, ingredientsMenuEdit,
+            mealIngredientsEdit,mealRecipeEdit, mealIngredientsView, mealRecipeView;
 
     private Accounting accounting;
-//    private Ingredients ingredients;
     private Allergenes allergenes;
 
     public MealsMenu() {
         super("Meals");
-        meals = new JMenuItem("Available Meals");
-        meals.addActionListener(e -> {
-            MealsGUI mealsGUI = MealsGUI.showMeals(accounting);
-            mealsGUI.setLocation(getLocationOnScreen());
-            mealsGUI.setVisible(true);
+
+        mealIngredientsView = new JMenuItem(getBundle("Accounting").getString("MEAL_INGREDIENTS_VIEW"));
+        new JMenuItem("Meal Ingredients (View)");
+        mealIngredientsView.addActionListener(e -> {
+            MealIngredientsViewGUI gui = MealIngredientsViewGUI.showMeals(accounting);
+            gui.setLocation(getLocationOnScreen());
+            gui.setVisible(true);
         });
-        ordersOverview = new JMenuItem("Meal Orders");
+
+        mealIngredientsEdit = new JMenuItem(getBundle("Accounting").getString("MEAL_INGREDIENTS_EDIT"));
+        new JMenuItem("Meal Ingredients (Edit)");
+        mealIngredientsEdit.addActionListener(e -> {
+            MealIngredientsEditGUI gui = MealIngredientsEditGUI.showMeals(accounting);
+            gui.setLocation(getLocationOnScreen());
+            gui.setVisible(true);
+        });
+
+        mealRecipeView = new JMenuItem(getBundle("Accounting").getString("MEAL_RECIPE_VIEW"));
+        new JMenuItem("Meal Recipe (View)");
+        mealRecipeView.addActionListener(e -> {
+            MealRecipeViewGUI gui = MealRecipeViewGUI.showMeals(accounting);
+            gui.setLocation(getLocationOnScreen());
+            gui.setVisible(true);
+        });
+
+        mealRecipeEdit = new JMenuItem(getBundle("Accounting").getString("MEAL_RECIPE_EDIT"));
+        new JMenuItem("Meal Recipe (Edit)");
+        mealRecipeEdit.addActionListener(e -> {
+            MealRecipeEditGUI gui = MealRecipeEditGUI.showMeals(accounting);
+            gui.setLocation(getLocationOnScreen());
+            gui.setVisible(true);
+        });
+
+        ordersOverview = new JMenuItem(getBundle("Accounting").getString("MEAL_ORDERS"));
         ordersOverview.addActionListener(e -> {
             MealOrdersOverviewGUI mealOrdersOverviewGUI = MealOrdersOverviewGUI.getInstance(accounting);
             mealOrdersOverviewGUI.setLocation(getLocationOnScreen());
             mealOrdersOverviewGUI.setVisible(true);
         });
-        add(meals);
+
+        add(mealIngredientsView);
+        add(mealIngredientsEdit);
+        add(mealRecipeView);
+        add(mealRecipeEdit);
         add(ordersOverview);
-
-//        ingredientsMenu = new JMenuItem(getBundle("Accounting").getString("INGREDIENTS"));
-//        ingredientsMenu.setMnemonic(KeyEvent.VK_I);
-//        ingredientsMenu.addActionListener(e -> {
-//            IngredientsViewGUI ingredientsViewGUI = IngredientsViewGUI.showIngredients(accounting);
-//            ingredientsViewGUI.setLocation(getLocationOnScreen());
-//            ingredientsViewGUI.setVisible(true);
-//        });
-//        ingredientsMenu.setEnabled(false);
-
-//        allergenesMenu = new JMenuItem(getBundle("Accounting").getString("ALLERGENES"));
-//        allergenesMenu.setMnemonic(KeyEvent.VK_A);
-//        allergenesMenu.addActionListener(e -> {
-//            AllergenesEditGUI allergenesEditGUI = AllergenesEditGUI.showAllergenes(allergenes);
-//            allergenesEditGUI.setLocation(getLocationOnScreen());
-//            allergenesEditGUI.setVisible(true);
-//        });
-//        allergenesMenu.setEnabled(false);
 
         ingredientsMenuView = new JMenuItem(getBundle("Accounting").getString("INGREDIENTS_VIEW"));
         ingredientsMenuView.setMnemonic(KeyEvent.VK_I);
@@ -88,11 +100,8 @@ public class MealsMenu extends JMenu {
         });
         allergenesMenuView.setEnabled(false);
 
-
-//        add(ingredientsMenu);
         add(ingredientsMenuView);
         add(ingredientsMenuEdit);
-//        add(allergenesMenu);
         add(allergenesMenuView);
         add(allergenesMenuEdit);
     }
@@ -104,14 +113,12 @@ public class MealsMenu extends JMenu {
     }
 
     private void setIngredients(Ingredients ingredients){
-//        ingredientsMenu.setEnabled(ingredients!=null);
         ingredientsMenuView.setEnabled(ingredients!=null);
         ingredientsMenuEdit.setEnabled(ingredients!=null);
     }
 
     private void setAllergenes(Allergenes allergenes){
         this.allergenes = allergenes;
-//        allergenesMenu.setEnabled(allergenes!=null);
         allergenesMenuView.setEnabled(allergenes!=null);
         allergenesMenuEdit.setEnabled(allergenes!=null);
     }
