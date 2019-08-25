@@ -6,12 +6,15 @@ import be.dafke.BusinessModel.Statements;
 
 import javax.swing.*;
 
+import static java.util.ResourceBundle.getBundle;
+
 public class CodaMenu extends JMenu {
     private JMenuItem movementsItem, counterPartiesItem;
     private CounterParties counterParties;
     private Statements statements;
 
     public CodaMenu(){
+        super(getBundle("Accounting").getString("CODA"));
         movementsItem = new JMenuItem("Show movements");
         movementsItem.addActionListener(e -> StatementTableFrame.showStatements(statements,counterParties).setVisible(true));
         movementsItem.setEnabled(false);

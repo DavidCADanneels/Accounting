@@ -16,9 +16,10 @@ import static java.util.ResourceBundle.getBundle;
 
 public class IngredientsPanel extends JPanel {
     private final IngredientsDataTableModel ingredientsDataTableModel;
-    private final AllergenesDataTableModel allergenesDataTableModel;
+    private final AllergenesViewPanel allergenesViewPanel;
+//    private final AllergenesDataTableModel allergenesDataTableModel;
     private final SelectableTable<Ingredient> ingredientsTable;
-    private final SelectableTable<Allergene> allergenesTable;
+//    private final SelectableTable<Allergene> allergenesTable;
     private final JButton addAllergene;
     private Ingredient selectedIngredient;
 
@@ -33,9 +34,11 @@ public class IngredientsPanel extends JPanel {
         ingredientsTable = new SelectableTable<>(ingredientsDataTableModel);
         ingredientsTable.setPreferredScrollableViewportSize(new Dimension(500, 200));
 
-        allergenesDataTableModel = new AllergenesDataTableModel();
-        allergenesTable = new SelectableTable<>(allergenesDataTableModel);
-        allergenesTable.setPreferredScrollableViewportSize(new Dimension(500, 200));
+//        allergenesDataTableModel = new AllergenesDataTableModel();
+//        allergenesTable = new SelectableTable<>(allergenesDataTableModel);
+//        allergenesTable.setPreferredScrollableViewportSize(new Dimension(500, 200));
+
+        allergenesViewPanel = new AllergenesViewPanel();
 
         JComboBox<Unit> comboBox = new JComboBox<>(Unit.values());
         TableColumn unitColumn = ingredientsTable.getColumnModel().getColumn(IngredientsDataTableModel.UNIT_COL);
@@ -45,7 +48,7 @@ public class IngredientsPanel extends JPanel {
         JPanel ingredientsPanel = new JPanel(new BorderLayout());
         ingredientsPanel.add(ingredientsScrollPane, BorderLayout.CENTER);
 
-        JScrollPane allergenesScrollPane = new JScrollPane(allergenesTable);
+        JScrollPane allergenesScrollPane = new JScrollPane(allergenesViewPanel);
         JPanel allergenesPanel = new JPanel(new BorderLayout());
         allergenesPanel.add(allergenesScrollPane, BorderLayout.CENTER);
 
@@ -65,7 +68,7 @@ public class IngredientsPanel extends JPanel {
             if (name != null) {
                 try {
                     ingredients.addBusinessObject(new Ingredient(name, Unit.PIECE));
-                    allergenesDataTableModel.fireTableDataChanged();
+                    allergenesViewPanel.updateTable();
                 } catch (EmptyNameException ex) {
                     ActionUtils.showErrorMessage(this, ActionUtils.INGREDIENT_NAME_EMPTY);
                 } catch (DuplicateNameException ex) {
@@ -83,7 +86,7 @@ public class IngredientsPanel extends JPanel {
                 AllergenesPerIngredientDialog dialog = new AllergenesPerIngredientDialog(selectedIngredient, allergenes);
                 dialog.setVisible(true);
                 ingredientsDataTableModel.fireTableDataChanged();
-                allergenesDataTableModel.fireTableDataChanged();
+                allergenesViewPanel.updateTable();
             }
         });
 
@@ -92,13 +95,10 @@ public class IngredientsPanel extends JPanel {
         selection.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 selectedIngredient = ingredientsTable.getSelectedObject();
-                if(selectedIngredient !=null) {
-                    addAllergene.setEnabled(true);
-                    Allergenes allergenes = selectedIngredient.getAllergenes();
-                    allergenesDataTableModel.setAllergenes(allergenes);
-                } else {
-                    addAllergene.setEnabled(false);
-                }
+                addAllergene.setEnabled(selectedIngredient!=null);
+                Allergenes allergenes = selectedIngredient==null?null:selectedIngredient.getAllergenes();
+                allergenesViewPanel.setAllergenes(allergenes);
+                allergenesViewPanel.selectFirstLine();
             }
         });
         ingredientsTable.setSelectionModel(selection);

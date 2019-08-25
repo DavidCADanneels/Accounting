@@ -13,10 +13,10 @@ import java.awt.*;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class AllergenesPanel extends JPanel {
+public class AllergenesEditPanel extends JPanel {
     private final AllergenesDataTableModel allergenesDataTableModel;
 
-    public AllergenesPanel(Allergenes allergenes) {
+    public AllergenesEditPanel(Allergenes allergenes) {
         allergenesDataTableModel = new AllergenesDataTableModel();
         allergenesDataTableModel.setAllergenes(allergenes);
         SelectableTable<Allergene> table = new SelectableTable<>(allergenesDataTableModel);
