@@ -4,9 +4,12 @@ package be.dafke.BasicAccounting.Meals;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
+import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class MealIngredientsViewPanel extends JPanel {
     private final MealsEditDataViewTableModel mealsDataTableModel;
@@ -26,7 +29,7 @@ public class MealIngredientsViewPanel extends JPanel {
         });
         overviewTable.setSelectionModel(selectionModel);
 
-        ingredientsViewPanel = new IngredientsViewPanel(accounting);
+        ingredientsViewPanel = new IngredientsViewPanel(accounting, true);
 
         JPanel overviewPanel = new JPanel();
         JScrollPane overviewScroll = new JScrollPane(overviewTable);
@@ -45,10 +48,27 @@ public class MealIngredientsViewPanel extends JPanel {
     }
 
     private void updateSelection() {
-        Meal meal = overviewTable.getSelectedObject();
-        Recipe recipe = meal==null?null:meal.getRecipe();
-        Ingredients ingredients = recipe==null?null:recipe.getIngredients();
-        ingredientsViewPanel.setIngredients(ingredients);
+        boolean multiSelection = true;
+        if(multiSelection){
+            Ingredients ingredients = new Ingredients();
+            ArrayList<Meal> selectedObjects = overviewTable.getSelectedObjects();
+            selectedObjects.forEach(meal -> {
+                Recipe recipe = meal.getRecipe();
+                recipe.getIngredients().getBusinessObjects().forEach(ingredient -> {
+                    try {
+                        ingredients.addBusinessObject(ingredient);
+                    } catch (EmptyNameException | DuplicateNameException e) {
+                        e.printStackTrace();
+                    }
+                });
+            });
+            ingredientsViewPanel.setIngredients(ingredients);
+        } else {
+            Meal meal = overviewTable.getSelectedObject();
+            Recipe recipe = meal == null ? null : meal.getRecipe();
+            Ingredients ingredients = recipe == null ? null : recipe.getIngredients();
+            ingredientsViewPanel.setIngredients(ingredients);
+        }
     }
 
 

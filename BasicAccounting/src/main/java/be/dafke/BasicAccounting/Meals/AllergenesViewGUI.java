@@ -16,7 +16,7 @@ public class AllergenesViewGUI extends JFrame {
 
     private AllergenesViewGUI(Allergenes allergenes) {
         super(getBundle("Accounting").getString("ALLERGENES"));
-        allergenesEditPanel = new AllergenesViewPanel();
+        allergenesEditPanel = new AllergenesViewPanel(false);
         allergenesEditPanel.setAllergenes(allergenes);
         setContentPane(allergenesEditPanel);
         pack();

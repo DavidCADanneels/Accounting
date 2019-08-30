@@ -32,7 +32,7 @@ public class IngredientsEditPanel extends JPanel {
         ingredientsTable = new SelectableTable<>(ingredientsDataEditTableModel);
         ingredientsTable.setPreferredScrollableViewportSize(new Dimension(500, 200));
 
-        allergenesViewPanel = new AllergenesViewPanel();
+        allergenesViewPanel = new AllergenesViewPanel(false);
 
         JComboBox<Unit> comboBox = new JComboBox<>(Unit.values());
         TableColumn unitColumn = ingredientsTable.getColumnModel().getColumn(IngredientsDataEditTableModel.UNIT_COL);
@@ -97,5 +97,9 @@ public class IngredientsEditPanel extends JPanel {
             }
         });
         ingredientsTable.setSelectionModel(selection);
+        ingredientsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        //SINGLE_SELECTION            ListSelectionModel.SINGLE_SELECTION
+        //SINGLE_INTERVAL_SELECTION   ListSelectionModel.SINGLE_INTERVAL_SELECTION
+        //MULTIPLE_INTERVAL_SELECTION ListSelectionModel.MULTIPLE_INTERVAL_SELECTION
     }
 }

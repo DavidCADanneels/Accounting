@@ -21,10 +21,12 @@ public class MealIngredientsEditPanel extends JPanel {
         mealsEditDataTableModel = new MealsEditDataTableModel(this, accounting);
         overviewTable = new SelectableTable<>(mealsEditDataTableModel);
         overviewTable.setPreferredScrollableViewportSize(new Dimension(500, 200));
+//        overviewTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         mealRecipeDataTableModel = new MealIngredientsEditDataTableModel();
         recipeTable = new SelectableTable<>(mealRecipeDataTableModel);
         recipeTable.setPreferredScrollableViewportSize(new Dimension(500, 200));
+        recipeTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         DefaultListSelectionModel selectionModel = new DefaultListSelectionModel();
         selectionModel.addListSelectionListener(e -> {
@@ -33,6 +35,7 @@ public class MealIngredientsEditPanel extends JPanel {
             }
         });
         overviewTable.setSelectionModel(selectionModel);
+        overviewTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         JPanel overviewPanel = new JPanel();
         JScrollPane overviewScroll = new JScrollPane(overviewTable);

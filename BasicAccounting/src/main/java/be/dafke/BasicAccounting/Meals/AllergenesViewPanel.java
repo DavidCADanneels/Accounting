@@ -8,13 +8,16 @@ import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class AllergenesViewPanel extends JPanel {
     private final AllergenesViewDataTableModel allergenesDataTableModel;
     private final SelectableTable<Allergene> allergeneOverviewTable;
     private JTextArea descriptionField;
+    private boolean multiSelection;
 
-    public AllergenesViewPanel() {
+    public AllergenesViewPanel(boolean multiSelection) {
+        this.multiSelection = multiSelection;
         allergenesDataTableModel = new AllergenesViewDataTableModel();
         allergeneOverviewTable = new SelectableTable<>(allergenesDataTableModel);
         allergeneOverviewTable.setPreferredScrollableViewportSize(new Dimension(500, 200));
@@ -40,6 +43,7 @@ public class AllergenesViewPanel extends JPanel {
         });
         allergeneOverviewTable.setSelectionModel(selectionModel);
 
+        allergeneOverviewTable.setSelectionMode(multiSelection?ListSelectionModel.MULTIPLE_INTERVAL_SELECTION:ListSelectionModel.SINGLE_SELECTION);
 
 //        JButton add = new JButton("Add Allergene");
 //        add(add, BorderLayout.NORTH);
@@ -60,6 +64,11 @@ public class AllergenesViewPanel extends JPanel {
 //        });
     }
 
+    public void setMultiSelection(boolean multiSelection) {
+        this.multiSelection = multiSelection;
+        allergeneOverviewTable.setSelectionMode(multiSelection?ListSelectionModel.MULTIPLE_INTERVAL_SELECTION:ListSelectionModel.SINGLE_SELECTION);
+    }
+
     public void updateTable(){
         allergenesDataTableModel.fireTableDataChanged();
     }
@@ -74,9 +83,24 @@ public class AllergenesViewPanel extends JPanel {
         }
     }
 
+    public void selectAll(){
+//        allergeneOverviewTable.selectAll();
+        int rowCount = allergeneOverviewTable.getRowCount();
+        if(rowCount >0){
+            allergeneOverviewTable.setRowSelectionInterval(0, rowCount - 1);
+        }
+    }
+
     private void updateSelection() {
-        Allergene allergene = allergeneOverviewTable.getSelectedObject();
-        descriptionField.setText(allergene==null?"":allergene.getDescription());
+        if (multiSelection) {
+            ArrayList<Allergene> selectedObjects = allergeneOverviewTable.getSelectedObjects();
+            StringBuilder builder = new StringBuilder();
+            selectedObjects.forEach(allergene -> builder.append(allergene.getDescription()).append('\n'));
+            descriptionField.setText(builder.toString());
+        } else {
+            Allergene allergene = allergeneOverviewTable.getSelectedObject();
+            descriptionField.setText(allergene == null ? "" : allergene.getDescription());
 //        descriptionField.setEditable(allergene!=null);
+        }
     }
 }

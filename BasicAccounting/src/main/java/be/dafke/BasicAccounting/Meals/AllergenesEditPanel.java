@@ -21,6 +21,7 @@ public class AllergenesEditPanel extends JPanel {
         allergenesDataTableModel = new AllergenesDataTableModel();
         allergenesDataTableModel.setAllergenes(allergenes);
         SelectableTable<Allergene> table = new SelectableTable<>(allergenesDataTableModel);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setPreferredScrollableViewportSize(new Dimension(500, 200));
 
         JScrollPane scrollPane = new JScrollPane(table);
