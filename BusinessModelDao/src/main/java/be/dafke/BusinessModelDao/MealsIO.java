@@ -91,9 +91,10 @@ public class MealsIO {
                 );
                 Recipe recipe = meal.getRecipe();
                 for(RecipeLine line:recipe.getBusinessObjects()){
+                    Ingredient ingredient = line.getIngredient();
                     writer.write(
                            "      <" + MEAL_RECIPE_LINE + ">\n" +
-                               "        <" + NAME + ">" + line.getName() + "</" + NAME + ">\n" +
+                               "        <" + NAME + ">" + ingredient.getName() + "</" + NAME + ">\n" +
 //                            "      <" + AMOUNT + ">" + line.getInstructions() + "</" + AMOUNT + ">\n" +
 //                            "      <" + AMOUNT + ">" + line.getPreparation() + "</" + AMOUNT + ">\n" +
                                "        <" + AMOUNT + ">" + line.getAmount() + "</" + AMOUNT + ">\n" +
