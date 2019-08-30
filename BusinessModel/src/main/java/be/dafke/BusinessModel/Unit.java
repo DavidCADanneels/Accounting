@@ -3,8 +3,7 @@ package be.dafke.BusinessModel;
 public enum Unit {
     PIECE ("Piece", ""),
     WEIGHT ("Weight", "g."),
-    VOLUME ("Volume", "l."),
-    LENGTH ("Length", "m.");
+    VOLUME ("Volume", "ml.");
 
     private final String name;
     private final String symbol;
