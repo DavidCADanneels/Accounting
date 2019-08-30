@@ -172,29 +172,33 @@ public class OrderItem extends BusinessObject{
 
     public BigDecimal getStockValue(){
         BigDecimal itemPrice = getPurchasePriceForItem();
-        return itemPrice.multiply(new BigDecimal(numberOfItems));
+        return itemPrice==null?null:itemPrice.multiply(new BigDecimal(numberOfItems));
     }
 
     public BigDecimal getPurchasePriceWithoutVat() {
         BigDecimal unitPrice = getPurchasePriceForUnit();
-        return unitPrice.multiply(new BigDecimal(numberOfUnits));
+        return unitPrice==null?null:unitPrice.multiply(new BigDecimal(numberOfUnits));
     }
 
     public BigDecimal getPurchasePriceWithVat() {
-        return getPurchasePriceWithVat(numberOfUnits, getPurchasePriceForUnit());
+        BigDecimal unitPrice = getPurchasePriceForUnit();
+        return unitPrice==null?null:getPurchasePriceWithVat(numberOfUnits, unitPrice);
     }
 
     public BigDecimal getPurchaseVatAmount() {
-        return getPurchaseVatAmount(numberOfUnits, getPurchasePriceForUnit());
+        BigDecimal unitPrice = getPurchasePriceForUnit();
+        return unitPrice==null?null:getPurchaseVatAmount(numberOfUnits, unitPrice);
     }
 
     private BigDecimal getPurchasePercentage() {
-        return new BigDecimal(getPurchaseVatRate()).divide(new BigDecimal(100));
+        Integer purchaseVatRate = getPurchaseVatRate();
+        return purchaseVatRate==null?null:new BigDecimal(purchaseVatRate).divide(new BigDecimal(100));
     }
 
     // return 1.06
     BigDecimal getPurchaseFactor(){
-        return BigDecimal.ONE.add(getPurchasePercentage());
+        BigDecimal purchasePercentage = getPurchasePercentage();
+        return purchasePercentage==null?null:BigDecimal.ONE.add(purchasePercentage);
     }
 
     public Integer getPurchaseVatRate() {
