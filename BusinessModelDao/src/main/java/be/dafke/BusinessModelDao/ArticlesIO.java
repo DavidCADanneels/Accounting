@@ -23,12 +23,19 @@ public class ArticlesIO {
     public static void readArticles(Accounting accounting){
         Articles articles = accounting.getArticles();
         Contacts contacts = accounting.getContacts();
+        Ingredients ingredients = accounting.getIngredients();
         File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+ARTICLES + XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, ARTICLES);
         for (Element element : getChildren(rootElement, ARTICLE)) {
 
             String name = getValue(element, NAME);
             Article article = new Article(name);
+
+            String ingredientName = getValue(element, INGREDIENT);
+            if(ingredientName!=null){
+                Ingredient ingredient = ingredients.getBusinessObject(ingredientName);
+                article.setIngredient(ingredient);
+            }
 
             String hsCode = getValue(element, ARTICLE_HS_CODE);
             if(hsCode!=null)
@@ -76,9 +83,11 @@ public class ArticlesIO {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(ARTICLES, 2));
             for (Article article : articles.getBusinessObjects()) {
+                Ingredient ingredient = article.getIngredient();
                 writer.write(
                         "  <" + ARTICLE + ">\n" +
                             "    <" + NAME + ">" + article.getName() + "</" + NAME + ">\n" +
+                            "    <" + INGREDIENT + ">" + (ingredient==null?"null":ingredient.getName()) + "</" + INGREDIENT + ">\n" +
                             "    <" + ITEMS_PER_UNIT + ">" + article.getItemsPerUnit() + "</" + ITEMS_PER_UNIT + ">\n" +
                             "    <" + ARTICLE_HS_CODE + ">" + article.getHSCode() + "</" + ARTICLE_HS_CODE + ">\n" +
                             "    <" + PURCHASE_PRICE + ">" + article.getPurchasePrice() + "</" + PURCHASE_PRICE + ">\n" +
