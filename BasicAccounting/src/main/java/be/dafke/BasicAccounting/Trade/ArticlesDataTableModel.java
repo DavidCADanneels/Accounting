@@ -22,15 +22,16 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 	private final Articles articles;
 	public static int UNIT_NAME_COL = 0;
 	public static int INGREDIENT_COL = 1;
-	public static int SUPPLIER_COL = 2;
-	public static int PURCHASE_PRICE_COL = 3;
-	public static int PURCHASE_VAT_COL = 4;
-	public static int HS_COL = 5;
-	public static int ITEMS_PER_UNIT_COL = 6;
-	public static int SALE_ITEM_EXCL_COL = 7;
-	public static int SALES_VAT_COL = 8;
-	public static int SALE_ITEM_INCL_COL = 9;
-	public static int NR_OF_COL = 10;
+	public static int AMOUNT_COL = 2;
+	public static int SUPPLIER_COL = 3;
+	public static int PURCHASE_PRICE_COL = 4;
+	public static int PURCHASE_VAT_COL = 5;
+	public static int HS_COL = 6;
+	public static int ITEMS_PER_UNIT_COL = 7;
+	public static int SALE_ITEM_EXCL_COL = 8;
+	public static int SALES_VAT_COL = 9;
+	public static int SALE_ITEM_INCL_COL = 10;
+	public static int NR_OF_COL = 11;
 	private final Component parent;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
@@ -53,6 +54,7 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 		editableColumns.add(SALES_VAT_COL);
 		editableColumns.add(SUPPLIER_COL);
 		editableColumns.add(INGREDIENT_COL);
+		editableColumns.add(AMOUNT_COL);
 		editableColumns.add(SALE_ITEM_INCL_COL);
 	}
 
@@ -65,6 +67,7 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 		columnClasses.put(SALES_VAT_COL, Integer.class);
 		columnClasses.put(SUPPLIER_COL, Ingredient.class);
 		columnClasses.put(INGREDIENT_COL, Ingredient.class);
+		columnClasses.put(AMOUNT_COL, BigDecimal.class);
 		columnClasses.put(SALE_ITEM_EXCL_COL, BigDecimal.class);
 		columnClasses.put(SALE_ITEM_INCL_COL, BigDecimal.class);
 	}
@@ -78,6 +81,7 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 		columnNames.put(SALES_VAT_COL, getBundle("Accounting").getString("SALES_VAT"));
 		columnNames.put(SUPPLIER_COL, getBundle("Contacts").getString("SUPPLIER"));
 		columnNames.put(INGREDIENT_COL, getBundle("Accounting").getString("INGREDIENT"));
+		columnNames.put(AMOUNT_COL, getBundle("Accounting").getString("AMOUNT"));
 		columnNames.put(SALE_ITEM_EXCL_COL, getBundle("Accounting").getString("SALE_ITEM_EXCL"));
 		columnNames.put(SALE_ITEM_INCL_COL, getBundle("Accounting").getString("SALE_ITEM_INCL"));
 	}
@@ -103,6 +107,9 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 		}
 		if(col == INGREDIENT_COL) {
 			return article.getIngredient();
+		}
+		if(col == AMOUNT_COL) {
+			return article.getIngredientAmount();
 		}
 		if (col == SUPPLIER_COL) {
 			return article.getSupplier();
@@ -172,6 +179,9 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 		}
 		if(col == INGREDIENT_COL) {
 			article.setIngredient((Ingredient) value);
+		}
+		if(col == AMOUNT_COL) {
+			article.setIngredientAmount((BigDecimal) value);
 		}
 		if(col == ITEMS_PER_UNIT_COL){
             article.setItemsPerUnit((Integer) value);

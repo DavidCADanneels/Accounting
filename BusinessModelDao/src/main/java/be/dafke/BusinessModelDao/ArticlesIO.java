@@ -88,6 +88,7 @@ public class ArticlesIO {
                         "  <" + ARTICLE + ">\n" +
                             "    <" + NAME + ">" + article.getName() + "</" + NAME + ">\n" +
                             "    <" + INGREDIENT + ">" + (ingredient==null?"null":ingredient.getName()) + "</" + INGREDIENT + ">\n" +
+                            "    <" + AMOUNT + ">" + article.getIngredientAmount() + "</" + AMOUNT + ">\n" +
                             "    <" + ITEMS_PER_UNIT + ">" + article.getItemsPerUnit() + "</" + ITEMS_PER_UNIT + ">\n" +
                             "    <" + ARTICLE_HS_CODE + ">" + article.getHSCode() + "</" + ARTICLE_HS_CODE + ">\n" +
                             "    <" + PURCHASE_PRICE + ">" + article.getPurchasePrice() + "</" + PURCHASE_PRICE + ">\n" +
