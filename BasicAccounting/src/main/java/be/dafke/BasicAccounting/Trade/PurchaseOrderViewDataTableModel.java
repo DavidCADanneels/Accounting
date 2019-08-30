@@ -18,13 +18,14 @@ public class PurchaseOrderViewDataTableModel extends SelectableTableModel<OrderI
 	public static int NR_OF_ITEMS_COL = 1;
 	public static int ITEMS_PER_UNIT_COL = 2;
 	public static int NAME_COL = 3;
-	public static int HS_COL = 4;
-	public static int PRICE_UNIT_COL = 5;
-	public static int VAT_RATE_COL = 6;
-	public static int PRICE_TOTAL_EXCL_COL = 7;
-	public static int VAT_AMOUNT_COL = 8;
-	public static int PRICE_TOTAL_INCL_COL = 9;
-	public static int NR_OF_COL = 10;
+	public static int INGREDIENT_COL = 4;
+	public static int HS_COL = 5;
+	public static int PRICE_UNIT_COL = 6;
+	public static int VAT_RATE_COL = 7;
+	public static int PRICE_TOTAL_EXCL_COL = 8;
+	public static int VAT_AMOUNT_COL = 9;
+	public static int PRICE_TOTAL_INCL_COL = 10;
+	public static int NR_OF_COL = 11;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 	protected PurchaseOrder order;
@@ -39,6 +40,7 @@ public class PurchaseOrderViewDataTableModel extends SelectableTableModel<OrderI
 		columnClasses.put(NR_OF_ITEMS_COL, Integer.class);
 		columnClasses.put(ITEMS_PER_UNIT_COL, Integer.class);
 		columnClasses.put(NAME_COL, String.class);
+		columnClasses.put(INGREDIENT_COL, Ingredient.class);
 		columnClasses.put(HS_COL, String.class);
 		columnClasses.put(PRICE_UNIT_COL, BigDecimal.class);
 		columnClasses.put(VAT_RATE_COL, Integer.class);
@@ -52,6 +54,7 @@ public class PurchaseOrderViewDataTableModel extends SelectableTableModel<OrderI
 		columnNames.put(NR_OF_ITEMS_COL, getBundle("Accounting").getString("ITEMS_TO_ORDER"));
 		columnNames.put(ITEMS_PER_UNIT_COL, getBundle("Accounting").getString("ITEMS_PER_UNIT"));
 		columnNames.put(NAME_COL, getBundle("Accounting").getString("ARTICLE_NAME"));
+		columnNames.put(INGREDIENT_COL, getBundle("Accounting").getString("INGREDIENT"));
 		columnNames.put(HS_COL, getBundle("Accounting").getString("ARTICLE_HS"));
 		columnNames.put(PRICE_UNIT_COL, getBundle("Accounting").getString("PRICE_UNIT"));
 		columnNames.put(VAT_RATE_COL, getBundle("Accounting").getString("VAT_RATE"));
@@ -69,7 +72,9 @@ public class PurchaseOrderViewDataTableModel extends SelectableTableModel<OrderI
 
 		Article article = orderItem.getArticle();
 		if (article == null) return null;
-
+		if (col == INGREDIENT_COL){
+			return article.getIngredient();
+		}
 		if (col == NAME_COL) {
 			return article.getName();
 		}
