@@ -37,6 +37,11 @@ public class ArticlesIO {
                 article.setIngredient(ingredient);
             }
 
+            String ingredientAmountSrting = getValue(element, AMOUNT);
+            if(ingredientAmountSrting!=null){
+                article.setIngredientAmount(parseBigDecimal(ingredientAmountSrting));
+            }
+
             String hsCode = getValue(element, ARTICLE_HS_CODE);
             if(hsCode!=null)
                 article.setHSCode(hsCode);
