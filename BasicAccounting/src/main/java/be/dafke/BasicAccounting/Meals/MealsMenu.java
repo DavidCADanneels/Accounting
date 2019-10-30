@@ -1,8 +1,11 @@
 package be.dafke.BasicAccounting.Meals;
 
+import be.dafke.BasicAccounting.MainApplication.MealsPDF;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Allergenes;
 import be.dafke.BusinessModel.Ingredients;
+import be.dafke.BusinessModelDao.MealsIO;
+import be.dafke.BusinessModelDao.SalesOrderIO;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -11,7 +14,7 @@ import static java.util.ResourceBundle.getBundle;
 
 public class MealsMenu extends JMenu {
     private JMenuItem ordersOverview, allergenesMenuView, allergenesMenuEdit, ingredientsMenuView, ingredientsMenuEdit,
-            mealIngredientsEdit,mealRecipeEdit, mealIngredientsView, mealRecipeView;
+            mealIngredientsEdit,mealRecipeEdit, mealIngredientsView, mealRecipeView, generatePdf;
 
     private Accounting accounting;
     private Allergenes allergenes;
@@ -74,7 +77,7 @@ public class MealsMenu extends JMenu {
         ingredientsMenuView.setEnabled(false);
 
         ingredientsMenuEdit = new JMenuItem(getBundle("Accounting").getString("INGREDIENTS_EDIT"));
-        ingredientsMenuEdit.setMnemonic(KeyEvent.VK_I);
+        ingredientsMenuEdit.setMnemonic(KeyEvent.VK_D);
         ingredientsMenuEdit.addActionListener(e -> {
             IngredientsEditGUI ingredientsEditGUI = IngredientsEditGUI.showIngredients(accounting);
             ingredientsEditGUI.setLocation(getLocationOnScreen());
@@ -104,6 +107,15 @@ public class MealsMenu extends JMenu {
         add(ingredientsMenuEdit);
         add(allergenesMenuView);
         add(allergenesMenuEdit);
+
+        generatePdf = new JMenuItem(getBundle("Accounting").getString("MEAL_PDF"));
+        generatePdf.setMnemonic(KeyEvent.VK_P);
+        generatePdf.addActionListener(e -> {
+            String xmlPath = MealsIO.writeMeals(accounting, true);
+            String pdfPath = MealsIO.calculatePdfPath(accounting);
+            MealsPDF.createPdf(xmlPath, pdfPath);
+        });
+        add(generatePdf);
     }
 
     public void setAccounting(Accounting accounting) {

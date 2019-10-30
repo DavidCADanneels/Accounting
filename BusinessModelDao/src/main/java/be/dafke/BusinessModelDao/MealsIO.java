@@ -74,9 +74,19 @@ public class MealsIO {
         }
     }
 
+    public static String calculatePdfPath(Accounting accounting){
+        return ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/MealsWithAllergenes" + PDF_EXTENSION;
+    }
+
     public static void writeMeals(Accounting accounting) {
+        writeMeals(accounting, false);
+    }
+
+    public static String writeMeals(Accounting accounting, boolean details) {
         Meals meals = accounting.getMeals();
-        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + MEALS + XML_EXTENSION);
+        String filename = details?"MealDetails":MEALS;
+        String path = ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + filename + XML_EXTENSION;
+        File file = new File(path);
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(MEALS, 2));
@@ -97,9 +107,21 @@ public class MealsIO {
                                "        <" + NAME + ">" + ingredient.getName() + "</" + NAME + ">\n" +
 //                            "      <" + AMOUNT + ">" + line.getInstructions() + "</" + AMOUNT + ">\n" +
 //                            "      <" + AMOUNT + ">" + line.getPreparation() + "</" + AMOUNT + ">\n" +
-                               "        <" + AMOUNT + ">" + line.getAmount() + "</" + AMOUNT + ">\n" +
-                               "      </" + MEAL_RECIPE_LINE + ">\n"
+                               "        <" + AMOUNT + ">" + line.getAmount() + "</" + AMOUNT + ">\n"
                     );
+                    if(details){
+                        Allergenes allergenes = ingredient.getAllergenes();
+                        for (Allergene allergene:allergenes.getBusinessObjects()) {
+                            writer.write(
+                           "        <" + ALLERGENE + ">\n" +
+                               "          <" + ID + ">" + allergene.getName() + "</" + ID + ">\n" +
+                               "          <" + NAME + ">" + allergene.getShortName() + "</" + NAME + ">\n" +
+                               "          <" + DESCRIPTION + ">" + allergene.getDescription() + "</" + DESCRIPTION + ">\n" +
+                               "        </" + ALLERGENE + ">\n"
+                            );
+                        }
+                    }
+                    writer.write("      </" + MEAL_RECIPE_LINE + ">\n");
                 }
                 writer.write(
                             "    </" + MEAL_RECIPE + ">\n" +
@@ -112,6 +134,8 @@ public class MealsIO {
             writer.close();
         } catch (IOException ex) {
             Logger.getLogger(Meal.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            return path;
         }
     }
 }
