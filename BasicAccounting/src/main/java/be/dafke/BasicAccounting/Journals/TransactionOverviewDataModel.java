@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -21,8 +22,10 @@ public class TransactionOverviewDataModel extends SelectableTableModel<Transacti
 	public static final int ID = 0;
 	public static final int DATE = 1;
 	public static final int DESCRIPTION = 2;
-	public static final int TOTAL_AMOUNT = 3;
-	public static final int NR_OF_COLS = 4;
+	public static final int DEBIT = 3;
+	public static final int CREDIT = 4;
+	public static final int TOTAL_AMOUNT = 5;
+	public static final int NR_OF_COLS = 6;
 
 	private HashMap<Integer, String> columnNames = new HashMap<>();
 	private HashMap<Integer, Class> columnClasses = new HashMap<>();
@@ -37,6 +40,8 @@ public class TransactionOverviewDataModel extends SelectableTableModel<Transacti
 	private void createColumnNames() {
 		columnNames.put(ID, getBundle("Accounting").getString("NR"));
 		columnNames.put(DATE, getBundle("Accounting").getString("DATE"));
+		columnNames.put(DEBIT, getBundle("Accounting").getString("DEBIT"));
+		columnNames.put(CREDIT, getBundle("Accounting").getString("CREDIT"));
 		columnNames.put(DESCRIPTION, getBundle("Accounting").getString("DESCRIPTION"));
 		columnNames.put(TOTAL_AMOUNT, getBundle("Accounting").getString("TOTAL_AMOUNT"));
 	}
@@ -45,6 +50,8 @@ public class TransactionOverviewDataModel extends SelectableTableModel<Transacti
 	private void createColumnClasses() {
 		columnClasses.put(ID, String.class);
 		columnClasses.put(DATE, String.class);
+		columnClasses.put(DEBIT, Account.class);
+		columnClasses.put(CREDIT, Account.class);
 		columnClasses.put(DESCRIPTION, String.class);
 		columnClasses.put(TOTAL_AMOUNT, BigDecimal.class);
 	}
@@ -86,6 +93,18 @@ public class TransactionOverviewDataModel extends SelectableTableModel<Transacti
 			}
         } else if (col == DATE) {
 			return Utils.toString(transaction.getDate());
+		} else if (col == DEBIT) {
+			List<Booking> bookings = transaction.getBusinessObjects(Booking::isDebit);
+			if(bookings.size() == 1){
+				Booking booking = bookings.get(0);
+				return booking.getAccount();
+			} else return null;
+		} else if (col == CREDIT) {
+			List<Booking> bookings = transaction.getBusinessObjects(Booking::isCredit);
+			if(bookings.size() == 1){
+				Booking booking = bookings.get(0);
+				return booking.getAccount();
+			} else return null;
 		} else if (col == TOTAL_AMOUNT) {
 			return transaction.getCreditTotaal();
         } else if (col == DESCRIPTION){

@@ -56,6 +56,10 @@ public class Booking extends BusinessObject {
         return movement.isDebit();
     }
 
+    public boolean isCredit(){
+        return !movement.isDebit();
+    }
+
     public void setDebit(boolean debit){
         movement.setDebit(debit);
     }
