@@ -7,6 +7,7 @@ import be.dafke.ComponentModel.SelectableTable;
 import javax.swing.*;
 import java.awt.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 public class MealOrdersOverviewPanel extends JPanel {
 
@@ -16,6 +17,7 @@ public class MealOrdersOverviewPanel extends JPanel {
     private MealOrdersOverviewDataTableModel overviewTableModel;
     private MealOrderViewDataTableModel detailsTableModel;
     private DeliveryTotalsPanel totalsPanel;
+    private boolean multiSelection;
 
     public MealOrdersOverviewPanel(Accounting accounting) {
         overviewTableModel = new MealOrdersOverviewDataTableModel(accounting.getMealOrders());
@@ -38,14 +40,7 @@ public class MealOrdersOverviewPanel extends JPanel {
         DefaultListSelectionModel selection = new DefaultListSelectionModel();
         selection.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                MealOrder mealOrder = overviewTable.getSelectedObject();
-                detailsTableModel.setMealOrder(mealOrder);
-                BigDecimal totalPrice = BigDecimal.ZERO.setScale(2);
-                if(mealOrder != null){
-                    totalPrice = mealOrder.getTotalPrice();
-                }
-                totalsPanel.setSalesAmountInclVat(totalPrice);
-                totalsPanel.calculateTotals();
+                updateSelection();
             }
         });
         overviewTable.setSelectionModel(selection);
@@ -54,16 +49,46 @@ public class MealOrdersOverviewPanel extends JPanel {
         JScrollPane detailScroll = new JScrollPane(detailsTable);
         JSplitPane splitPane = Main.createSplitPane(overviewScroll, detailScroll, JSplitPane.VERTICAL_SPLIT);
 
+        JPanel north = createFilterPane();
+        north.add(createButton);
+
         JPanel center = new JPanel(new BorderLayout());
-        center.add(createButton, BorderLayout.NORTH);
+        center.add(north, BorderLayout.NORTH);
         center.add(splitPane, BorderLayout.CENTER);
         center.add(totalsPanel, BorderLayout.SOUTH);
 
-        setLayout(new BorderLayout());
-        add(center, BorderLayout.CENTER);
-//        add(salesOrdersDetailPanel, BorderLayout.EAST);
+        add(center);
 
         totalsPanel.clear();
+    }
+
+    private JPanel createFilterPane() {
+        JPanel panel = new JPanel();
+        JCheckBox showSummary = new JCheckBox("Combine selected orders");
+        showSummary.setSelected(false);
+        showSummary.addActionListener(e -> {
+            multiSelection = showSummary.isSelected();
+            updateSelection();
+        });
+        panel.add(showSummary);
+        return panel;
+    }
+
+    private void updateSelection() {
+        MealOrder mealOrder;
+        if(multiSelection) {
+            ArrayList<MealOrder> selectedObjects = overviewTable.getSelectedObjects();
+            mealOrder = MealOrders.mergeOrders(selectedObjects);
+        } else {
+            mealOrder = overviewTable.getSelectedObject();
+        }
+        detailsTableModel.setMealOrder(mealOrder);
+        BigDecimal totalPrice = BigDecimal.ZERO.setScale(2);
+        if(mealOrder != null){
+            totalPrice = mealOrder.getTotalPrice();
+        }
+        totalsPanel.setSalesAmountInclVat(totalPrice);
+        totalsPanel.calculateTotals();
     }
 
     public void fireOrderAdded(Accounting accounting, MealOrder mealOrder) {

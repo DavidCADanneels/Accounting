@@ -13,6 +13,20 @@ public class MealOrders extends BusinessCollection<MealOrder>{
 
     private int id = 0;
 
+    public static MealOrder mergeOrders(ArrayList<MealOrder> ordersToAdd) {
+        MealOrder mealOrder = new MealOrder();
+        for(MealOrder orderToAdd: ordersToAdd){
+            ArrayList<MealOrderItem> mealOrderItemsToAdd = orderToAdd.getBusinessObjects();
+            for(MealOrderItem mealOrderItemToAdd : mealOrderItemsToAdd){
+                int numberOfItems = mealOrderItemToAdd.getNumberOfItems();
+                Meal meal = mealOrderItemToAdd.getMeal();
+                MealOrderItem newMealOrderItem = new MealOrderItem(numberOfItems, meal);
+                mealOrder.addBusinessObject(newMealOrderItem );
+            }
+        }
+        return mealOrder;
+    }
+
     public MealOrder addBusinessObject(MealOrder mealOrder) throws EmptyNameException, DuplicateNameException {
         id++;
         if(mealOrder.getId()==null){
