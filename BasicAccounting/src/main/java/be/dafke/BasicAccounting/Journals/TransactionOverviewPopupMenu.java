@@ -1,10 +1,10 @@
 package be.dafke.BasicAccounting.Journals;
 
-import be.dafke.BasicAccounting.Accounts.AccountDetails.AccountDetailsGUI;
 import be.dafke.BasicAccounting.Balances.BalanceGUI;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BasicAccounting.VAT.VATFieldsGUI;
 import be.dafke.BusinessModel.*;
+import be.dafke.BusinessModelDao.Session;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
@@ -12,7 +12,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static java.util.ResourceBundle.getBundle;
@@ -79,7 +78,7 @@ public class TransactionOverviewPopupMenu extends JPopupMenu {
         // Accounting.getTransactions(Bookyear year)
         // with Bookyear: a period in time (e.g. 01/07 - 30/06)
 
-        Accounting accounting = Accountings.getActiveAccounting();
+        Accounting accounting = Session.getActiveAccounting();
 
         int year = gui.getSelectedObject().getDate().get(Calendar.YEAR);
         Accounts subAccounts = accounting.getAccounts().getSubAccounts(Movement.ofYear(year));
@@ -96,7 +95,7 @@ public class TransactionOverviewPopupMenu extends JPopupMenu {
         BalanceGUI.getBalance(accounting, relationsBalance).setVisible(true);
 
         // choice 2: year=year of selected transaction
-//        Accounting accounting = Accountings.getActiveAccounting();
+//        Accounting accounting = Session.getActiveAccounting();
 //        Balances balances = accounting.getBalances();
 //        BalanceGUI.getBalance()
 

@@ -4,6 +4,8 @@ import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.*;
+import be.dafke.BusinessModelDao.AccountingSession;
+import be.dafke.BusinessModelDao.Session;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
@@ -294,7 +296,8 @@ public class JournalEditPanel extends JPanel implements ActionListener {
     public void setAccounting(Accounting accounting){
         popup.setAccounting(accounting);
         setAccounts(accounting==null?null:accounting.getAccounts());
-        setJournal(accounting==null?null:accounting.getActiveJournal());
+        AccountingSession accountingSession = Session.getAccountingSession(accounting);
+        setJournal(accounting==null?null:accountingSession.getActiveJournal());
 //        setVatTransactions(accounting==null?null:accounting.getVatTransactions());
         setTransactions(accounting==null?null:accounting.getTransactions());
 
@@ -317,6 +320,9 @@ public class JournalEditPanel extends JPanel implements ActionListener {
         this.accounts = accounts;
     }
 
+//    public void setJournalSession(JournalSession journalSession) {
+//        this.journalSession = journalSession;
+//    }
     public void setJournal(Journal journal) {
         this.journal=journal;
         dateAndDescriptionPanel.setJournal(journal);

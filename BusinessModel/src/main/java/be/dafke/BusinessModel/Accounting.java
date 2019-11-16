@@ -39,7 +39,6 @@ public class Accounting extends BusinessObject{
     private boolean vatAccounting = false;
     private boolean tradeAccounting = false;
     private boolean mealsAccounting = false;
-    private Journal activeJournal;
 
     public Accounting(String name) {
         setName(name);
@@ -287,14 +286,6 @@ public class Accounting extends BusinessObject{
 
     public Transactions getTransactions() {
         return transactions;
-    }
-
-    public void setActiveJournal(Journal activeJournal) {
-        this.activeJournal = activeJournal;
-    }
-
-    public Journal getActiveJournal() {
-        return activeJournal;
     }
 
     public Meals getMeals() {

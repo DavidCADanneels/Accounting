@@ -88,10 +88,10 @@ public class XMLWriter {
                 writeAccounting(accounting, writeHtml);
         }
 
-        writeActiveAccountings(accountings);
+        writeActiveAccountings();
     }
 
-    private static void writeActiveAccountings(Accountings accountings) {
+    private static void writeActiveAccountings() {
         String homeDir = System.getProperty("user.home");
         File homeFolder = new File(homeDir);
         File subFolder = new File(homeFolder, ".Accounting");
@@ -101,12 +101,14 @@ public class XMLWriter {
         try {
             Writer writer = new FileWriter(xmlFile);
             writer.write(getXmlHeader(SESSION, 0));
-            Accounting currentObject = Accountings.getActiveAccounting();
+            Accounting currentObject = Session.getActiveAccounting();
             if(currentObject!=null) {
                 writer.write("  <" + ACTIVE_ACCOUNTING + ">" + currentObject.getName() + "</" + ACTIVE_ACCOUNTING + ">\n");
             }
+            Accountings accountings = Session.getAccountings();
             for(Accounting accounting:accountings.getBusinessObjects()) {
-                Journal activeJournal = accounting.getActiveJournal();
+                AccountingSession accountingSession = Session.getAccountingSession(accounting);
+                Journal activeJournal = accountingSession.getActiveJournal();
                 writer.write(
                         "  <" + ACCOUNTING + ">\n" +
                             "    <" + NAME + ">"+accounting.getName()+"</" + NAME + ">\n" +
@@ -115,8 +117,9 @@ public class XMLWriter {
                 if(journals !=null){
                     writer.write("    <" + JOURNALS + ">\n");
                     for(Journal journal:journals.getBusinessObjects()) {
-                        ArrayList<AccountType> leftCheckedTypes = journal.getCheckedTypesLeft();
-                        ArrayList<AccountType> rightCheckedTypes = journal.getCheckedTypesRight();
+                        JournalSession journalSession = accountingSession.getJournalSession(journal);
+                        ArrayList<AccountType> leftCheckedTypes = journalSession.getCheckedTypesLeft();
+                        ArrayList<AccountType> rightCheckedTypes = journalSession.getCheckedTypesRight();
 
                         String leftCheckedStream = leftCheckedTypes.stream().sorted().map(AccountType::getName).collect(Collectors.joining(","));
                         String rightCheckedStream = rightCheckedTypes.stream().sorted().map(AccountType::getName).collect(Collectors.joining(","));

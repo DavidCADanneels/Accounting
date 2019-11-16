@@ -2,8 +2,10 @@ package be.dafke.BasicAccounting.Coda;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
+import be.dafke.BusinessModelDao.AccountingSession;
 import be.dafke.BusinessModelDao.CodaParser;
 import be.dafke.BusinessModelDao.CsvParser;
+import be.dafke.BusinessModelDao.Session;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.Utils.Utils;
 
@@ -193,7 +195,9 @@ public class StatementTableFrame extends JFrame implements MouseListener {
                             ((CounterParty)counterParty).setAccount(account);
                         }
                         BigDecimal amount = (BigDecimal) tabel.getValueAt(i, 3);
-                        Transaction transaction = accounting.getActiveJournal().getCurrentTransaction();
+						AccountingSession accountingSession = Session.getAccountingSession(accounting);
+						Journal activeJournal = accountingSession.getActiveJournal();
+						Transaction transaction = activeJournal.getCurrentTransaction();
                         Booking booking1 = new Booking(account, amount, debet);
                         Booking booking2 = new Booking(bankAccount, amount, !debet);
                         transaction.addBusinessObject(booking1);
@@ -214,7 +218,7 @@ public class StatementTableFrame extends JFrame implements MouseListener {
                         // take the same date as previous transaction
                         // leave the description empty
 
-						accounting.getActiveJournal().setCurrentTransaction(transaction);
+						activeJournal.setCurrentTransaction(transaction);
                     }
                 }
 			}

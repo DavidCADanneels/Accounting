@@ -3,8 +3,8 @@ package be.dafke.BasicAccounting.Accounts.AccountsTable;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.Accounts;
-import be.dafke.BusinessModel.Journal;
 import be.dafke.BusinessModel.AccountsList;
+import be.dafke.BusinessModelDao.JournalSession;
 import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.math.BigDecimal;
@@ -32,7 +32,7 @@ public class AccountDataTableModel extends SelectableTableModel<Account> {
 
     private Account account = null;
     private Accounts accounts;
-    private Journal journal;
+    private JournalSession journalSession;
     private boolean left;
     private List<AccountType> accountTypes;
     private Predicate<Account> filter;
@@ -185,19 +185,19 @@ public class AccountDataTableModel extends SelectableTableModel<Account> {
 			accountTypes = null;
 			account = accountList.getAccount();
 			filter = account==null?null:Account.name(accountList.getAccount().getName());
-		} else if(journal!=null){
+		} else if(journalSession!=null){
 			if(left) {
-				accountTypes = journal.getCheckedTypesLeft();
+				accountTypes = journalSession.getCheckedTypesLeft();
 			} else {
-				accountTypes = journal.getCheckedTypesRight();
+				accountTypes = journalSession.getCheckedTypesRight();
 			}
 			filter = null;
 		}
 		fireTableDataChanged();
 	}
 
-	public void setJournal(Journal journal) {
-		this.journal = journal;
+	public void setJournalSession(JournalSession journalSession) {
+		this.journalSession = journalSession;
 	}
 
 	@Deprecated

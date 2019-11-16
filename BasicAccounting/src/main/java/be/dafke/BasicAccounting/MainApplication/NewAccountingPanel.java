@@ -2,13 +2,13 @@ package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accountings;
+import be.dafke.BusinessModelDao.Session;
 import be.dafke.BusinessModelDao.XMLWriter;
 import be.dafke.ComponentModel.RefreshableDialog;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -41,7 +41,7 @@ public class NewAccountingPanel extends RefreshableDialog {
         for(Accounting accounting:accountings.getBusinessObjects()) {
             accountingToCopyFrom.addItem(accounting);
         }
-        accountingToCopyFrom.setSelectedItem(Accountings.getActiveAccounting());
+        accountingToCopyFrom.setSelectedItem(Session.getActiveAccounting());
         accountingToCopyFrom.addActionListener(e -> selectedAccountChanged());
 
         nameField = new JTextField(10);

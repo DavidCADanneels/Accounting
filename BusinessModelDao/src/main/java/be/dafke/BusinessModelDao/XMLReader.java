@@ -121,7 +121,8 @@ public class XMLReader {
         }
     }
 
-    public static void readSession(Accountings accountings) {
+    public static void readSession() {
+        Accountings accountings = Session.getAccountings();
         String homeDir = System.getProperty("user.home");
         File homeFolder = new File(homeDir);
         File subFolder = new File(homeFolder, ".Accounting");
@@ -132,7 +133,7 @@ public class XMLReader {
         Element rootElement = getRootElement(xmlFile, SESSION);
         String value = getValue(rootElement, ACTIVE_ACCOUNTING);
         if (value != null) {
-            Accountings.setActiveAccounting(accountings.getBusinessObject(value));
+            Session.setActiveAccounting(accountings.getBusinessObject(value));
         }
 
         for (Element accountingElement : getChildren(rootElement, ACCOUNTING)) {
@@ -141,10 +142,19 @@ public class XMLReader {
             Accounting accounting = accountings.getBusinessObject(accountingName);
             Journals journals = accounting.getJournals();
             Journal activeJournal = activeJournalName==null?null:journals.getBusinessObject(activeJournalName);
-            accounting.setActiveJournal(activeJournal);
+//            accounting.setActiveJournal(activeJournal);
+
+            AccountingSession accountingSession = new AccountingSession();
+            accountingSession.setActiveJournal(activeJournal);
+            Session.addAccountingSession(accounting,accountingSession);
+
             for (Element journalElement : getChildren(accountingElement, JOURNAL)) {
+
+
                 String journalName = getValue(journalElement, NAME);
                 Journal journal = journals.getBusinessObject(journalName);
+
+
                 ArrayList<String> checkedTypesLeft = new ArrayList<>();
                 ArrayList<String> checkedTypesRight = new ArrayList<>();
                 String checkedLeftString = getValue(journalElement, CHECKED_LEFT);
@@ -157,15 +167,22 @@ public class XMLReader {
                     String[] checkedList = checkedRightString.split(",");
                     checkedTypesRight.addAll(Arrays.asList(checkedList));
                 }
+
                 AccountTypes accountTypes = accounting.getAccountTypes();
+
+                JournalSession journalSession = new JournalSession();
+
                 checkedTypesLeft.forEach(typeName -> {
                     AccountType type = accountTypes.getBusinessObject(typeName);
-                    journal.setTypeCheckedLeft(type, true);
+                    journalSession.setTypeCheckedLeft(type, true);
                 });
                 checkedTypesRight.forEach(typeName -> {
                     AccountType type = accountTypes.getBusinessObject(typeName);
-                    journal.setTypeCheckedRight(type, true);
+                    journalSession.setTypeCheckedRight(type, true);
                 });
+
+                accountingSession.addJournalSession(journal,journalSession);
+
             }
 
         }

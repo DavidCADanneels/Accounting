@@ -2,6 +2,8 @@ package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
+import be.dafke.BusinessModelDao.AccountingSession;
+import be.dafke.BusinessModelDao.Session;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -78,9 +80,10 @@ public class JournalSelectorPanel extends JPanel implements ActionListener{
 		Main.setJournal(journal);
 	}
 
-	public void setAccounting(Accounting accounting) {
+	public void setAccounting(Accounting accounting, Session session) {
 		setJournals(accounting==null?null:accounting.getJournals());
-		setJournal(accounting==null?null:accounting.getActiveJournal());
+		AccountingSession accountingSession = session.getAccountingSession(accounting);
+		setJournal(accountingSession==null?null:accountingSession.getActiveJournal());
 	}
 
 	public void setJournals(Journals journals){

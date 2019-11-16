@@ -2,6 +2,8 @@ package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.*;
+import be.dafke.BusinessModelDao.AccountingSession;
+import be.dafke.BusinessModelDao.Session;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
@@ -42,7 +44,8 @@ public class JournalViewPanel extends JPanel {
 	public void setAccounting(Accounting accounting){
 //        popup.setAccounting(accounting);
         setJournals(accounting==null?null:accounting.getJournals());
-        setJournal(accounting==null?null:accounting.getActiveJournal());
+        AccountingSession accountingSession = Session.getAccountingSession(accounting);
+        setJournal(accounting==null?null:accountingSession.getActiveJournal());
     }
 
     public void setJournals(Journals journals){

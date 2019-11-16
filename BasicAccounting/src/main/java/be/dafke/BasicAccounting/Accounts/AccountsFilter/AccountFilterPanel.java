@@ -4,7 +4,7 @@ import be.dafke.BasicAccounting.Accounts.AccountsTable.AccountDataTableModel;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.AccountsList;
-import be.dafke.BusinessModel.Journal;
+import be.dafke.BusinessModelDao.JournalSession;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -85,8 +85,8 @@ public class AccountFilterPanel extends JPanel {
         return panel;
     }
 
-    public void setJournal(Journal journal){
-        types.setJournal(journal);
+    public void setJournalSession(JournalSession journalSession){
+        types.setJournalSession(journalSession);
     }
 
     private JPanel createNumberPanel(){

@@ -22,8 +22,7 @@ import be.dafke.BasicAccounting.Projects.ProjectsMenu;
 import be.dafke.BasicAccounting.VAT.VATFieldsGUI;
 import be.dafke.BasicAccounting.VAT.VATMenu;
 import be.dafke.BusinessModel.*;
-import be.dafke.BusinessModelDao.XMLReader;
-import be.dafke.BusinessModelDao.XMLWriter;
+import be.dafke.BusinessModelDao.*;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -47,6 +46,7 @@ public class Main {
     private static final ArrayList<JFrame> disposableComponents = new ArrayList<>();
 
     protected static Accountings accountings;
+    private static Session session;
     private static JournalViewPanel journalViewPanel;
     private static JournalSelectorPanel journalSelectorPanel;
     private static JournalEditPanel journalEditPanel;
@@ -82,7 +82,7 @@ public class Main {
 
         setCloseOperation();
 
-        setAccounting(Accountings.getActiveAccounting());
+        setAccounting(Session.getActiveAccounting());
 
         launchFrame();
     }
@@ -181,18 +181,18 @@ public class Main {
 
     private static void readXmlData() {
         accountings = new Accountings();
-
         XMLReader.readAccountings(accountings);
         for (Accounting accounting : accountings.getBusinessObjects()) {
             XMLReader.readAccountingSkeleton(accounting);
         }
 
-        XMLReader.readSession(accountings);
+        Session.setAccountings(accountings);
+        XMLReader.readSession();
 
-        Accounting accounting = Accountings.getActiveAccounting();
+        Accounting accounting = Session.getActiveAccounting();
         if (accounting != null) {
             XMLReader.readAccountingDetails(accounting);
-            Accountings.setActiveAccounting(accounting);
+            session.setActiveAccounting(accounting);
             accounting.setRead(true);
         }
     }
@@ -203,26 +203,27 @@ public class Main {
 
     public static void setAccounting(Accounting accounting, boolean readDetails) {
 
-        Accounting activeAccounting = Accountings.getActiveAccounting();
+        Accounting activeAccounting = Session.getActiveAccounting();
         XMLWriter.writeAccounting(activeAccounting, false);
 
         if (readDetails) XMLReader.readAccountingDetails(accounting);
-        Accountings.setActiveAccounting(accounting); // only need to write to XML, call this only when writing XML files?
+        session.setActiveAccounting(accounting); // only need to write to XML, call this only when writing XML files?
 
         frame.setAccounting(accounting);
 
-        accountGuiLeft.setAccounting(accounting);
-        accountGuiRight.setAccounting(accounting);
+        accountGuiLeft.setAccounting(accounting, session, true);
+        accountGuiRight.setAccounting(accounting, session, false);
         journalEditPanel.setAccounting(accounting);
         journalViewPanel.setAccounting(accounting);
         transactionOverviewPanel.setAccounting(accounting);
-        journalSelectorPanel.setAccounting(accounting);
+        journalSelectorPanel.setAccounting(accounting, session);
         mortgagesPanel.setMortgages(accounting == null ? null : accounting.getMortgages());
 
         setMenuAccounting(accounting);
-        if (accounting != null) {
-            setJournal(accounting.getActiveJournal());
-        }
+//        if (accounting != null) {
+//            AccountingSession accountingSession = session.getAccountingSession(activeAccounting);
+//            setJournal(accountingSession.getActiveJournal());
+//        }
 
     }
 
@@ -270,7 +271,8 @@ public class Main {
     public static void setJournal(Journal journal) {
         if(journal!=null) {
             Accounting accounting = journal.getAccounting();
-            accounting.setActiveJournal(journal);  // idem, only needed for XMLWriter
+            AccountingSession accountingSession = session.getAccountingSession(accounting);
+            accountingSession.setActiveJournal(journal);  // idem, only needed for XMLWriter
         }
         journalSelectorPanel.setJournal(journal);
         journalViewPanel.setJournal(journal);
@@ -279,6 +281,14 @@ public class Main {
         frame.setJournal(journal);
         accountGuiLeft.setJournal(journal, true);
         accountGuiRight.setJournal(journal, false);
+        Accounting activeAccounting = Session.getActiveAccounting();
+        AccountingSession accountingSession = session.getAccountingSession(activeAccounting);
+        Journal activeJournal = accountingSession.getActiveJournal();
+        JournalSession journalSession = accountingSession.getJournalSession(activeJournal);
+        accountGuiLeft.setJournalSession(journalSession);
+        accountGuiRight.setJournalSession(journalSession);
+//        journalEditPanel.setJournalSession(journalSession);
+//        journalSelectorPanel.setJournalSession(journalSession);
     }
 
     public static void fireTransactionInputDataChanged(){
@@ -327,7 +337,7 @@ public class Main {
     }
 
     public static void fireAccountingTypeChanged(Accounting accounting){
-        Accounting activeAccounting = Accountings.getActiveAccounting();
+        Accounting activeAccounting = Session.getActiveAccounting();
         if(activeAccounting == accounting){
             setMenuAccounting(accounting);
         }

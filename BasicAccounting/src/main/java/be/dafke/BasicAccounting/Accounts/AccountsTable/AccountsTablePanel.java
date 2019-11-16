@@ -7,15 +7,15 @@ import be.dafke.BasicAccounting.Accounts.AccountsFilter.AccountFilterPanel;
 import be.dafke.BasicAccounting.Accounts.NewAccountDialog;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.*;
+import be.dafke.BusinessModelDao.AccountingSession;
+import be.dafke.BusinessModelDao.JournalSession;
+import be.dafke.BusinessModelDao.Session;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Point;
+import java.awt.*;
 import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
@@ -67,11 +67,12 @@ public class AccountsTablePanel extends JPanel {
         add(accountsTableButtons,BorderLayout.SOUTH);
 	}
 
-    public void setJournal(Journal journal) {
-        this.journal = journal;
-        filterPanel.setJournal(journal);
-        accountDataTableModel.setJournal(journal);
-    }
+//    public void setJournal(Journal journal) {
+//        this.journal = journal;
+////        filterPanel.setJournal(journal);
+//        filterPanel.setJournalSession(journalSession);
+//        accountDataTableModel.setJournal(journal);
+//    }
 
     public void showDetails(){
         popup.setVisible(false);
@@ -112,9 +113,11 @@ public class AccountsTablePanel extends JPanel {
         this.popup = popup;
     }
 
-    public void setAccounting(Accounting accounting) {
+    public void setAccounting(Accounting accounting, Session session, boolean left) {
         this.accounting = accounting;
-	    // FIXME: enable buttons if something is selected (Listener) or make sure always something is selected
+        AccountingSession accountingSession = session.getAccountingSession(accounting);
+        setJournal(accountingSession.getActiveJournal(), left);
+        // FIXME: enable buttons if something is selected (Listener) or make sure always something is selected
         // for info: the buttons can be used if nothing is selected, their listeners can deal with non-selections
         accountsTableButtons.setActive(accounting!=null);
 	    accountDataTableModel.setFilter(null);
@@ -135,10 +138,12 @@ public class AccountsTablePanel extends JPanel {
         return journal;
     }
 
+    public void setJournalSession(JournalSession journalSession) {
+        filterPanel.setJournalSession(journalSession);
+        accountDataTableModel.setJournalSession(journalSession);
+    }
     public void setJournal(Journal journal, boolean left) {
         this.journal = journal;
-        accountDataTableModel.setJournal(journal);
-        filterPanel.setJournal(journal);
         if(journal!=null){
             JournalType journalType = journal.getType();
             setJournalType(journalType);
@@ -150,7 +155,7 @@ public class AccountsTablePanel extends JPanel {
             // TODO: set null or 'default' type?
 //            accountGuiLeft.setJournalType(null);
 //            accountGuiRight.setJournalType(null);
-            Accounting accounting = Accountings.getActiveAccounting();
+            Accounting accounting = Session.getActiveAccounting();
             AccountTypes accountTypes = accounting.getAccountTypes();
 
             AccountsList list = new AccountsList();
