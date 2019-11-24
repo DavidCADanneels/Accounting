@@ -1,11 +1,11 @@
 package be.dafke.Accounting.AccountingUI
 
+import be.dafke.Accounting.BasicAccounting.Accounts.AccountsTable.AccountsTablePanel
 import be.dafke.Accounting.BusinessModel.*
 import be.dafke.BasicAccounting.Accounts.AccountDetails.AccountDetailsGUI
 import be.dafke.BasicAccounting.Accounts.AccountManagement.AccountManagementGUI
 import be.dafke.BasicAccounting.Accounts.AccountSelectorDialog
 import be.dafke.BasicAccounting.Accounts.AccountsMenu
-import be.dafke.BasicAccounting.Accounts.AccountsTable.AccountsTablePanel
 import be.dafke.BasicAccounting.Balances.BalanceGUI
 import be.dafke.BasicAccounting.Balances.BalancesMenu
 import be.dafke.BasicAccounting.Balances.TestBalanceGUI

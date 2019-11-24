@@ -1,7 +1,6 @@
 package be.dafke.BasicAccounting.Accounts.AccountsFilter;
 
-import be.dafke.BasicAccounting.Accounts.AccountsTable.AccountDataTableModel;
-//import be.dafke.Accounting.BusinessModel.Account;
+import be.dafke.Accounting.BasicAccounting.Accounts.AccountsTable.AccountDataTableModel;
 import be.dafke.Accounting.BusinessModel.AccountType;
 import be.dafke.Accounting.BusinessModel.AccountsList;
 import be.dafke.BusinessModelDao.JournalSession;
@@ -13,9 +12,10 @@ import java.awt.BorderLayout;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.ArrayList;
-//import java.util.function.Predicate;
 
 import static java.util.ResourceBundle.getBundle;
+
+//import java.util.function.Predicate;
 
 public class AccountFilterPanel extends JPanel {
     private final AccountTypesFilterPanel types;
@@ -34,7 +34,7 @@ public class AccountFilterPanel extends JPanel {
         name = createNamePanel();
         number = createNumberPanel();
         hideEmptyCheckbox = new JCheckBox("Hide Empty Accounts");
-        hideEmptyCheckbox.addActionListener(e -> filter());
+        hideEmptyCheckbox.addActionListener(e -> hideEmpty());
 
         showNumbersCheckbox = new JCheckBox("Show Numbers");
         showNumbersCheckbox.addActionListener(e -> showNumbers());
@@ -56,21 +56,27 @@ public class AccountFilterPanel extends JPanel {
         boolean selected = showNumbersCheckbox.isSelected();
         model.setShowNumbers(selected);
         number.setVisible(selected);
+//        TODO: update Session
         invalidate();
+    }
+
+    private void hideEmpty() {
+        boolean selected = hideEmptyCheckbox.isSelected();
+        model.setHideEmpty(selected);
+//        TODO: update Session
+         invalidate();
     }
 
     private JPanel createNamePanel(){
         JPanel panel = new JPanel();
         nameField = new JTextField(20);
         nameField.getDocument().addDocumentListener(new DocumentListener() {
-            public void changedUpdate(DocumentEvent e) {
-                filter();
-            }
+            public void changedUpdate(DocumentEvent e) { updateNamePrefix(); }
             public void insertUpdate(DocumentEvent e) {
-                filter();
+                updateNamePrefix();
             }
             public void removeUpdate(DocumentEvent e) {
-                filter();
+                updateNamePrefix();
             }
         });
         nameField.addFocusListener(new FocusAdapter() {
@@ -85,6 +91,14 @@ public class AccountFilterPanel extends JPanel {
         return panel;
     }
 
+    private void updateNamePrefix(){
+        model.setNamePrefix(nameField.getText());
+    }
+
+    private void updateNumberPrefix(){
+        model.setNumberPrefix(numberField.getText());
+    }
+
     public void setJournalSession(JournalSession journalSession){
         types.setJournalSession(journalSession);
     }
@@ -94,13 +108,13 @@ public class AccountFilterPanel extends JPanel {
         numberField = new JTextField(20);
         numberField.getDocument().addDocumentListener(new DocumentListener() {
             public void changedUpdate(DocumentEvent e) {
-                filter();
+                updateNumberPrefix();
             }
             public void insertUpdate(DocumentEvent e) {
-                filter();
+                updateNumberPrefix();
             }
             public void removeUpdate(DocumentEvent e) {
-                filter();
+                updateNumberPrefix();
             }
         });
         numberField.addFocusListener(new FocusAdapter() {
@@ -113,16 +127,6 @@ public class AccountFilterPanel extends JPanel {
         panel.add(numberLabel);
         panel.add(numberField);
         return panel;
-    }
-
-    private void filter() {
-        String namePrefix = nameField.getText();
-        String numberPrefix = numberField.getText();
-//        Predicate<Account> predicate = Account.namePrefix(namePrefix).and(Account.numberPrefix(numberPrefix));
-//        if(hideEmptyCheckbox.isSelected()){
-//            predicate =  predicate.and(Account.saldoNotZero());
-//        }
-//        model.setFilter(predicate);
     }
 
     public void clearSearchFields(){
@@ -148,6 +152,6 @@ public class AccountFilterPanel extends JPanel {
         types.setAccountList(accountList);
         boolean enabled = accountList!=null && (!accountList.isSingleAccount() || accountList.getAccount()==null);
         setEnabled(enabled);
-        filter();
+//        filter();
     }
 }

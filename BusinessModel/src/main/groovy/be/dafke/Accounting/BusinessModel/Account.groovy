@@ -35,7 +35,7 @@ class Account extends BusinessCollection<Movement> implements Comparable<Account
     }
 
     static Predicate<Account> namePrefix(String prefix) {
-        { Account account -> account.getName() != null && account.getName().toLowerCase().startsWith(prefix.toLowerCase()) }
+        { Account account -> prefix == null || (account.getName() != null && account.getName().toLowerCase().startsWith(prefix.toLowerCase())) }
     }
 
     static Predicate<Account> saldoNotZero() {
@@ -43,11 +43,11 @@ class Account extends BusinessCollection<Movement> implements Comparable<Account
     }
 
     static Predicate<Account> namePrefixCaseSensitive(String prefix) {
-        { account -> account.getName() != null && account.getName().startsWith(prefix) }
+        { account -> prefix == null || (account.getName() != null && account.getName().startsWith(prefix)) }
     }
 
     static Predicate<Account> numberPrefix(String prefix){
-        { account -> account.getNumber() == null || account.getNumber().toString().startsWith(prefix) }
+        { account -> prefix == null || (account.getNumber() == null || account.getNumber().toString().startsWith(prefix)) }
     }
 
     static Predicate<Account> ofType(AccountType accountType){

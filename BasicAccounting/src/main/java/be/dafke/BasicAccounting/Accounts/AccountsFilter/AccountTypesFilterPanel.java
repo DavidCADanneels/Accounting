@@ -1,13 +1,12 @@
 package be.dafke.BasicAccounting.Accounts.AccountsFilter;
 
-import be.dafke.BasicAccounting.Accounts.AccountsTable.AccountDataTableModel;
+import be.dafke.Accounting.BasicAccounting.Accounts.AccountsTable.AccountDataTableModel;
 import be.dafke.Accounting.BusinessModel.AccountType;
 import be.dafke.Accounting.BusinessModel.AccountsList;
 import be.dafke.BusinessModelDao.JournalSession;
 
-import javax.swing.JCheckBox;
-import javax.swing.JPanel;
-import java.awt.GridLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +29,10 @@ public class AccountTypesFilterPanel extends JPanel {
 
     public void setAccountList(AccountsList accountList) {
         setAvailableAccountTypes(accountList.getAccountTypes());
+        refreshSelectedAccounts();
+    }
+
+    public void refreshSelectedAccounts(){
         if(journalSession!=null) {
             if (left) {
                 setSelectedAccountTypes(journalSession.getCheckedTypesLeft());
@@ -109,5 +112,6 @@ public class AccountTypesFilterPanel extends JPanel {
 
     public void setJournalSession(JournalSession journalSession) {
         this.journalSession = journalSession;
+        refreshSelectedAccounts();
     }
 }

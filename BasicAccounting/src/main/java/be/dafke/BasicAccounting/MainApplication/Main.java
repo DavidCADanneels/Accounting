@@ -1,10 +1,11 @@
 package be.dafke.BasicAccounting.MainApplication;
 
+import be.dafke.Accounting.BasicAccounting.Accounts.AccountsTable.AccountsTablePanel;
+import be.dafke.Accounting.BusinessModel.*;
 import be.dafke.BasicAccounting.Accounts.AccountDetails.AccountDetailsGUI;
 import be.dafke.BasicAccounting.Accounts.AccountManagement.AccountManagementGUI;
 import be.dafke.BasicAccounting.Accounts.AccountSelectorDialog;
 import be.dafke.BasicAccounting.Accounts.AccountsMenu;
-import be.dafke.BasicAccounting.Accounts.AccountsTable.AccountsTablePanel;
 import be.dafke.BasicAccounting.Balances.BalanceGUI;
 import be.dafke.BasicAccounting.Balances.BalancesMenu;
 import be.dafke.BasicAccounting.Balances.TestBalanceGUI;
@@ -12,41 +13,33 @@ import be.dafke.BasicAccounting.Coda.CodaMenu;
 import be.dafke.BasicAccounting.Contacts.ContactSelectorDialog;
 import be.dafke.BasicAccounting.Contacts.ContactsGUI;
 import be.dafke.BasicAccounting.Contacts.ContactsMenu;
-import be.dafke.BasicAccounting.Meals.*;
-import be.dafke.BasicAccounting.Trade.*;
 import be.dafke.BasicAccounting.Journals.*;
+import be.dafke.BasicAccounting.Meals.*;
 import be.dafke.BasicAccounting.Mortgages.MorgagesMenu;
 import be.dafke.BasicAccounting.Mortgages.MortgageGUI;
 import be.dafke.BasicAccounting.Mortgages.MortgagesPanel;
 import be.dafke.BasicAccounting.Projects.ProjectsMenu;
+import be.dafke.BasicAccounting.Trade.ArticlesGUI;
+import be.dafke.BasicAccounting.Trade.PurchaseOrderCreateGUI;
+import be.dafke.BasicAccounting.Trade.SalesOrderCreateGUI;
+import be.dafke.BasicAccounting.Trade.TradeMenu;
 import be.dafke.BasicAccounting.VAT.VATFieldsGUI;
 import be.dafke.BasicAccounting.VAT.VATMenu;
-import be.dafke.Accounting.BusinessModel.*;
 import be.dafke.BusinessModelDao.*;
 
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-import javax.swing.JPanel;
-import javax.swing.JSplitPane;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Set;
 
-import static javax.swing.JSplitPane.BOTTOM;
-import static javax.swing.JSplitPane.LEFT;
-import static javax.swing.JSplitPane.RIGHT;
-import static javax.swing.JSplitPane.TOP;
-import static javax.swing.JSplitPane.VERTICAL_SPLIT;
+import static javax.swing.JSplitPane.*;
 
 public class Main {
     private static final ArrayList<JFrame> disposableComponents = new ArrayList<>();
 
     protected static Accountings accountings;
-    private static Session session;
     private static JournalViewPanel journalViewPanel;
     private static JournalSelectorPanel journalSelectorPanel;
     private static JournalEditPanel journalEditPanel;
@@ -192,7 +185,7 @@ public class Main {
         Accounting accounting = Session.getActiveAccounting();
         if (accounting != null) {
             XMLReader.readAccountingDetails(accounting);
-            session.setActiveAccounting(accounting);
+            Session.setActiveAccounting(accounting);
             accounting.setRead(true);
         }
     }
@@ -207,16 +200,16 @@ public class Main {
         XMLWriter.writeAccounting(activeAccounting, false);
 
         if (readDetails) XMLReader.readAccountingDetails(accounting);
-        session.setActiveAccounting(accounting); // only need to write to XML, call this only when writing XML files?
+        Session.setActiveAccounting(accounting); // only need to write to XML, call this only when writing XML files?
 
         frame.setAccounting(accounting);
 
-        accountGuiLeft.setAccounting(accounting, session, true);
-        accountGuiRight.setAccounting(accounting, session, false);
+        accountGuiLeft.setAccounting(accounting, true);
+        accountGuiRight.setAccounting(accounting, false);
         journalEditPanel.setAccounting(accounting);
         journalViewPanel.setAccounting(accounting);
         transactionOverviewPanel.setAccounting(accounting);
-        journalSelectorPanel.setAccounting(accounting, session);
+        journalSelectorPanel.setAccounting(accounting);
         mortgagesPanel.setMortgages(accounting == null ? null : accounting.getMortgages());
 
         setMenuAccounting(accounting);
@@ -271,7 +264,7 @@ public class Main {
     public static void setJournal(Journal journal) {
         if(journal!=null) {
             Accounting accounting = journal.getAccounting();
-            AccountingSession accountingSession = session.getAccountingSession(accounting);
+            AccountingSession accountingSession = Session.getAccountingSession(accounting);
             accountingSession.setActiveJournal(journal);  // idem, only needed for XMLWriter
         }
         journalSelectorPanel.setJournal(journal);
@@ -282,7 +275,7 @@ public class Main {
         accountGuiLeft.setJournal(journal, true);
         accountGuiRight.setJournal(journal, false);
         Accounting activeAccounting = Session.getActiveAccounting();
-        AccountingSession accountingSession = session.getAccountingSession(activeAccounting);
+        AccountingSession accountingSession = Session.getAccountingSession(activeAccounting);
         Journal activeJournal = accountingSession.getActiveJournal();
         JournalSession journalSession = accountingSession.getJournalSession(activeJournal);
         accountGuiLeft.setJournalSession(journalSession);

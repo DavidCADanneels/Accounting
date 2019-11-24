@@ -80,9 +80,9 @@ public class JournalSelectorPanel extends JPanel implements ActionListener{
 		Main.setJournal(journal);
 	}
 
-	public void setAccounting(Accounting accounting, Session session) {
+	public void setAccounting(Accounting accounting) {
 		setJournals(accounting==null?null:accounting.getJournals());
-		AccountingSession accountingSession = session.getAccountingSession(accounting);
+		AccountingSession accountingSession = Session.getAccountingSession(accounting);
 		setJournal(accountingSession==null?null:accountingSession.getActiveJournal());
 	}
 
