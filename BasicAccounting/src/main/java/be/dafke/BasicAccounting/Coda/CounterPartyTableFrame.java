@@ -2,9 +2,9 @@ package be.dafke.BasicAccounting.Coda;
 
 import be.dafke.BasicAccounting.Accounts.AccountSelectorDialog;
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.*;
+import be.dafke.Accounting.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTableModel;
-import be.dafke.ObjectModel.BusinessObject;
+import be.dafke.Accounting.ObjectModel.BusinessObject;
 
 import javax.swing.*;
 import java.awt.*;

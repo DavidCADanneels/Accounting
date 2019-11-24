@@ -1,8 +1,8 @@
 package be.dafke.BasicAccounting.Mortgages;
 
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Accounts;
-import be.dafke.BusinessModel.Mortgages;
+import be.dafke.Accounting.BusinessModel.Accounting;
+import be.dafke.Accounting.BusinessModel.Accounts;
+import be.dafke.Accounting.BusinessModel.Mortgages;
 
 import javax.swing.*;
 

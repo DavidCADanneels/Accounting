@@ -2,7 +2,7 @@ package be.dafke.BasicAccounting.Meals;
 
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.*;
+import be.dafke.Accounting.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;

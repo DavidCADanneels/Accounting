@@ -1,6 +1,6 @@
 package be.dafke.BusinessModelDao;
 
-import be.dafke.BusinessModel.Journal;
+import be.dafke.Accounting.BusinessModel.Journal;
 
 import java.util.HashMap;
 

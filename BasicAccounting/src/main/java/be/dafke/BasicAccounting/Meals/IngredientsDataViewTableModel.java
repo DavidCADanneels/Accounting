@@ -1,19 +1,8 @@
 package be.dafke.BasicAccounting.Meals;
 
-import be.dafke.BasicAccounting.MainApplication.ActionUtils;
-import be.dafke.BusinessModel.Ingredient;
-import be.dafke.BusinessModel.Ingredients;
-import be.dafke.BusinessModel.Unit;
-import be.dafke.ComponentModel.SelectableTableModel;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.Accounting.BusinessModel.Ingredient;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import static java.util.ResourceBundle.getBundle;
 
 /**
  * @author David Danneels

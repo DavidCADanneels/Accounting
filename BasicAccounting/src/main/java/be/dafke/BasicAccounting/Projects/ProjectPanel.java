@@ -2,7 +2,7 @@ package be.dafke.BasicAccounting.Projects;
 
 import be.dafke.BasicAccounting.Balances.BalanceDataModel;
 import be.dafke.BasicAccounting.Journals.JournalDetailsDataModel;
-import be.dafke.BusinessModel.*;
+import be.dafke.Accounting.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;

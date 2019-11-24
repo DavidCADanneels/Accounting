@@ -1,12 +1,12 @@
 package be.dafke.BasicAccounting.Coda;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.*;
+import be.dafke.Accounting.BusinessModel.*;
 import be.dafke.BusinessModelDao.AccountingSession;
 import be.dafke.BusinessModelDao.CodaParser;
 import be.dafke.BusinessModelDao.CsvParser;
 import be.dafke.BusinessModelDao.Session;
-import be.dafke.ObjectModel.BusinessObject;
+import be.dafke.Accounting.ObjectModel.BusinessObject;
 import be.dafke.Utils.Utils;
 
 import javax.swing.*;

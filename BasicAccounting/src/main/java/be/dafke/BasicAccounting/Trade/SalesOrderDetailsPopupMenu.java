@@ -1,8 +1,8 @@
 package be.dafke.BasicAccounting.Trade;
 
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.OrderItem;
-import be.dafke.BusinessModel.PurchaseOrder;
+import be.dafke.Accounting.BusinessModel.Accounting;
+import be.dafke.Accounting.BusinessModel.OrderItem;
+import be.dafke.Accounting.BusinessModel.PurchaseOrder;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;

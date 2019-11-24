@@ -1,6 +1,6 @@
 package be.dafke.BusinessModelDao;
 
-import be.dafke.BusinessModel.AccountType;
+import be.dafke.Accounting.BusinessModel.AccountType;
 
 import java.util.ArrayList;
 import java.util.HashMap;

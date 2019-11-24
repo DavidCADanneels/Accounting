@@ -1,9 +1,9 @@
 package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.AccountTypes;
-import be.dafke.BusinessModel.Accounts;
-import be.dafke.BusinessModel.JournalTypes;
+import be.dafke.Accounting.BusinessModel.AccountTypes;
+import be.dafke.Accounting.BusinessModel.Accounts;
+import be.dafke.Accounting.BusinessModel.JournalTypes;
 
 import javax.swing.*;
 import java.util.HashMap;

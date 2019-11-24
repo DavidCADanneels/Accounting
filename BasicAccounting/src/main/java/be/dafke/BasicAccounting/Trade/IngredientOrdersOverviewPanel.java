@@ -2,13 +2,13 @@ package be.dafke.BasicAccounting.Trade;
 
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.IngredientOrder;
-import be.dafke.BusinessModel.IngredientOrderItem;
-import be.dafke.BusinessModel.IngredientOrders;
+import be.dafke.Accounting.BusinessModel.Accounting;
+import be.dafke.Accounting.BusinessModel.IngredientOrder;
+import be.dafke.Accounting.BusinessModel.IngredientOrderItem;
+import be.dafke.Accounting.BusinessModel.IngredientOrders;
 import be.dafke.ComponentModel.SelectableTable;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.Trade;
 
-import be.dafke.BusinessModel.SalesOrder;
+import be.dafke.Accounting.BusinessModel.SalesOrder;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;

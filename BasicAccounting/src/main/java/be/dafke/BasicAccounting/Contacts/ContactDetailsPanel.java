@@ -3,12 +3,12 @@ package be.dafke.BasicAccounting.Contacts;
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BasicAccounting.Trade.StockUtils;
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Contact;
-import be.dafke.BusinessModel.Contacts;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.Accounting.BusinessModel.Account;
+import be.dafke.Accounting.BusinessModel.Accounting;
+import be.dafke.Accounting.BusinessModel.Contact;
+import be.dafke.Accounting.BusinessModel.Contacts;
+import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
 import java.awt.*;

@@ -2,7 +2,7 @@ package be.dafke.BasicAccounting.Trade;
 
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.Accounting;
+import be.dafke.Accounting.BusinessModel.Accounting;
 
 import javax.swing.*;
 

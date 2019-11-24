@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.Journals;
 
-import be.dafke.BusinessModel.*;
+import be.dafke.Accounting.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableDialog;
 
 import static java.util.ResourceBundle.getBundle;

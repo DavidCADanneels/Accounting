@@ -1,8 +1,8 @@
 package be.dafke.BasicAccounting.Balances;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Accounts;
+import be.dafke.Accounting.BusinessModel.Accounting;
+import be.dafke.Accounting.BusinessModel.Accounts;
 
 import javax.swing.*;
 import java.util.HashMap;

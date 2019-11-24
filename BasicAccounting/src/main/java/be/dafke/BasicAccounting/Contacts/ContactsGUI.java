@@ -1,8 +1,8 @@
 package be.dafke.BasicAccounting.Contacts;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Contact;
+import be.dafke.Accounting.BusinessModel.Accounting;
+import be.dafke.Accounting.BusinessModel.Contact;
 
 import javax.swing.JFrame;
 import java.awt.Dimension;

@@ -2,12 +2,12 @@ package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.Journal;
-import be.dafke.BusinessModel.JournalType;
-import be.dafke.BusinessModel.Journals;
+import be.dafke.Accounting.BusinessModel.Journal;
+import be.dafke.Accounting.BusinessModel.JournalType;
+import be.dafke.Accounting.BusinessModel.Journals;
 import be.dafke.ComponentModel.SelectableTableModel;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException;
 
 import java.awt.*;
 import java.util.HashMap;

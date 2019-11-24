@@ -1,7 +1,10 @@
 package be.dafke.BusinessModel;
 
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.Accounting.BusinessModel.Account;
+import be.dafke.Accounting.BusinessModel.AccountType;
+import be.dafke.Accounting.BusinessModel.Movement;
+import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException;
 import org.junit.Test;
 
 import java.math.BigDecimal;

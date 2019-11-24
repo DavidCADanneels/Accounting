@@ -1,8 +1,8 @@
 package be.dafke.BasicAccounting.Coda;
 
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.CounterParties;
-import be.dafke.BusinessModel.Statements;
+import be.dafke.Accounting.BusinessModel.Accounting;
+import be.dafke.Accounting.BusinessModel.CounterParties;
+import be.dafke.Accounting.BusinessModel.Statements;
 
 import javax.swing.*;
 

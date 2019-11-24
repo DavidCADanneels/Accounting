@@ -1,8 +1,11 @@
 package be.dafke.BusinessModelDao;
 
-import be.dafke.BusinessModel.*;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.Accounting.BusinessModel.Accounting;
+import be.dafke.Accounting.BusinessModel.Accounts;
+import be.dafke.Accounting.BusinessModel.Allergene;
+import be.dafke.Accounting.BusinessModel.Allergenes;
+import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException;
 import org.w3c.dom.Element;
 
 import java.io.File;

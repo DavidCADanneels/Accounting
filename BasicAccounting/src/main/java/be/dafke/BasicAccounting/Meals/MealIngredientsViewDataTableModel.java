@@ -1,8 +1,8 @@
 package be.dafke.BasicAccounting.Meals;
 
-import be.dafke.BusinessModel.Ingredient;
-import be.dafke.BusinessModel.Recipe;
-import be.dafke.BusinessModel.RecipeLine;
+import be.dafke.Accounting.BusinessModel.Ingredient;
+import be.dafke.Accounting.BusinessModel.Recipe;
+import be.dafke.Accounting.BusinessModel.RecipeLine;
 
 import static java.util.ResourceBundle.getBundle;
 

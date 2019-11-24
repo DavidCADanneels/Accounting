@@ -1,8 +1,8 @@
 package be.dafke.BasicAccounting.Meals;
 
-import be.dafke.BusinessModel.Allergene;
-import be.dafke.BusinessModel.Allergenes;
-import be.dafke.BusinessModel.Ingredient;
+import be.dafke.Accounting.BusinessModel.Allergene;
+import be.dafke.Accounting.BusinessModel.Allergenes;
+import be.dafke.Accounting.BusinessModel.Ingredient;
 import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.util.ArrayList;

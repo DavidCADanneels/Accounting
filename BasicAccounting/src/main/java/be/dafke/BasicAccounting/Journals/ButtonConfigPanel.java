@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.Journals;
 
-import be.dafke.BusinessModel.AccountsList;
+import be.dafke.Accounting.BusinessModel.AccountsList;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -9,10 +9,10 @@ import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
-import static be.dafke.BusinessModel.AccountsList.DEBIT;
-import static be.dafke.BusinessModel.AccountsList.CREDIT;
+import static be.dafke.Accounting.BusinessModel.AccountsList.DEBIT;
+import static be.dafke.Accounting.BusinessModel.AccountsList.CREDIT;
 
-public class ButtonConfigPanel extends JPanel{
+public class  ButtonConfigPanel extends JPanel{
 
     private final JTextField leftButtonLabel;
     private final JTextField rightButtonLabel;

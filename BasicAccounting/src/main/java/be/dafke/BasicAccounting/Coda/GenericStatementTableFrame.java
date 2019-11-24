@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.Coda;
 
-import be.dafke.BusinessModel.SearchOptions;
-import be.dafke.BusinessModel.Statements;
+import be.dafke.Accounting.BusinessModel.SearchOptions;
+import be.dafke.Accounting.BusinessModel.Statements;
 
 import javax.swing.*;
 import java.awt.*;

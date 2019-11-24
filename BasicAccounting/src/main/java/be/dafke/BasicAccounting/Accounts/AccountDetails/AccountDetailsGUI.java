@@ -6,9 +6,9 @@ package be.dafke.BasicAccounting.Accounts.AccountDetails;
  */
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.Booking;
-import be.dafke.BusinessModel.Journals;
+import be.dafke.Accounting.BusinessModel.Account;
+import be.dafke.Accounting.BusinessModel.Booking;
+import be.dafke.Accounting.BusinessModel.Journals;
 
 import javax.swing.*;
 import java.awt.*;

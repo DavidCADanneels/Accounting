@@ -3,7 +3,7 @@ package be.dafke.BasicAccounting.Accounts;
 import be.dafke.BasicAccounting.Contacts.ContactSelectorDialog;
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.*;
+import be.dafke.Accounting.BusinessModel.*;
 
 import javax.swing.JOptionPane;
 import java.awt.*;

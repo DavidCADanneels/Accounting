@@ -1,9 +1,6 @@
 package be.dafke.BusinessModelDao;
 
-import be.dafke.BusinessModel.Contact;
-import be.dafke.BusinessModel.Contacts;
-import be.dafke.BusinessModel.VATField;
-import be.dafke.BusinessModel.VATFields;
+import be.dafke.Accounting.BusinessModel.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;

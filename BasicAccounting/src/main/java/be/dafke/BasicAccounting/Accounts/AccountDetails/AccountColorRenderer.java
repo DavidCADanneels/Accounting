@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.Accounts.AccountDetails;
 
-import be.dafke.BusinessModel.Booking;
-import be.dafke.BusinessModel.Transaction;
+import be.dafke.Accounting.BusinessModel.Booking;
+import be.dafke.Accounting.BusinessModel.Transaction;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;

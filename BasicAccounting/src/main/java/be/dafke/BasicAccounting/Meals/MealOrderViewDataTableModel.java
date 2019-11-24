@@ -1,8 +1,8 @@
 package be.dafke.BasicAccounting.Meals;
 
-import be.dafke.BusinessModel.Meal;
-import be.dafke.BusinessModel.MealOrder;
-import be.dafke.BusinessModel.MealOrderItem;
+import be.dafke.Accounting.BusinessModel.Meal;
+import be.dafke.Accounting.BusinessModel.MealOrder;
+import be.dafke.Accounting.BusinessModel.MealOrderItem;
 import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.math.BigDecimal;

@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.Trade;
 
-import be.dafke.BusinessModel.*;
+import be.dafke.Accounting.BusinessModel.*;
 
 import java.math.BigDecimal;
 import java.util.List;

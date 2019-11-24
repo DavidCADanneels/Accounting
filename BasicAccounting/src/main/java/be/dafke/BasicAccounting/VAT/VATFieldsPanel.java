@@ -2,7 +2,7 @@ package be.dafke.BasicAccounting.VAT;
 
 import be.dafke.BasicAccounting.Contacts.ContactsPanel;
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.*;
+import be.dafke.Accounting.BusinessModel.*;
 import be.dafke.BusinessModelDao.VATWriter;
 
 import javax.swing.*;

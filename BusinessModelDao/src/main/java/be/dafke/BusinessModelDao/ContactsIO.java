@@ -1,10 +1,10 @@
 package be.dafke.BusinessModelDao;
 
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Contact;
-import be.dafke.BusinessModel.Contacts;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.Accounting.BusinessModel.Accounting;
+import be.dafke.Accounting.BusinessModel.Contact;
+import be.dafke.Accounting.BusinessModel.Contacts;
+import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.Utils.Utils;
 import org.w3c.dom.Element;
 

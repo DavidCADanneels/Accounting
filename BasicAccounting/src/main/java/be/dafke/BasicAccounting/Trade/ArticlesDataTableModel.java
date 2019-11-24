@@ -1,10 +1,10 @@
 package be.dafke.BasicAccounting.Trade;
 
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
-import be.dafke.BusinessModel.*;
+import be.dafke.Accounting.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTableModel;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException;
 
 import java.awt.*;
 import java.math.BigDecimal;

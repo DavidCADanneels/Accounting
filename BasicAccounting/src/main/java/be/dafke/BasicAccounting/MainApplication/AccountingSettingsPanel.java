@@ -4,7 +4,7 @@ import be.dafke.BasicAccounting.Contacts.ContactsSettingsPanel;
 import be.dafke.BasicAccounting.Meals.MealsSettingsPanel;
 import be.dafke.BasicAccounting.Trade.TradeSettingsPanel;
 import be.dafke.BasicAccounting.VAT.VATSettingsPanel;
-import be.dafke.BusinessModel.Accounting;
+import be.dafke.Accounting.BusinessModel.Accounting;
 
 import javax.swing.*;
 

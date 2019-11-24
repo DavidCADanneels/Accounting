@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.Contacts;
 
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Contact;
+import be.dafke.Accounting.BusinessModel.Accounting;
+import be.dafke.Accounting.BusinessModel.Contact;
 import be.dafke.ComponentModel.RefreshableDialog;
 
 import javax.swing.*;

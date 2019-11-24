@@ -1,5 +1,6 @@
 package be.dafke.BusinessModel;
 
+import be.dafke.Accounting.BusinessModel.Movement;
 import org.junit.Test;
 
 import java.math.BigDecimal;

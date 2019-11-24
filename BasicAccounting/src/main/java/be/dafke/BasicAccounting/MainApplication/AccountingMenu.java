@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.MainApplication;
 
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Accountings;
+import be.dafke.Accounting.BusinessModel.Accounting;
+import be.dafke.Accounting.BusinessModel.Accountings;
 
 import javax.swing.*;
 

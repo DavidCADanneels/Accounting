@@ -1,9 +1,9 @@
 package be.dafke.BasicAccounting.Accounts.AccountsTable;
 
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.AccountType;
-import be.dafke.BusinessModel.Accounts;
-import be.dafke.BusinessModel.AccountsList;
+import be.dafke.Accounting.BusinessModel.Account;
+import be.dafke.Accounting.BusinessModel.AccountType;
+import be.dafke.Accounting.BusinessModel.Accounts;
+import be.dafke.Accounting.BusinessModel.AccountsList;
 import be.dafke.BusinessModelDao.JournalSession;
 import be.dafke.ComponentModel.SelectableTableModel;
 
@@ -160,7 +160,7 @@ public class AccountDataTableModel extends SelectableTableModel<Account> {
 	}
 
 	private List<Account> getFilteredAccounts(){
-		ArrayList<Account> accountsList;
+		List<Account> accountsList;
 		if(accountTypes!=null) {
 			accountsList = this.accounts.getAccountsByType(accountTypes);
 		} else {

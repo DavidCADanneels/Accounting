@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.Meals;
 
-import be.dafke.BusinessModel.*;
+import be.dafke.Accounting.BusinessModel.*;
 
 import javax.swing.*;
 import java.awt.*;

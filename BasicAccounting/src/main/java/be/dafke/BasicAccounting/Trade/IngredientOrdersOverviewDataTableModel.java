@@ -1,8 +1,8 @@
 package be.dafke.BasicAccounting.Trade;
 
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.IngredientOrder;
-import be.dafke.BusinessModel.IngredientOrders;
+import be.dafke.Accounting.BusinessModel.Accounting;
+import be.dafke.Accounting.BusinessModel.IngredientOrder;
+import be.dafke.Accounting.BusinessModel.IngredientOrders;
 import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.math.BigDecimal;

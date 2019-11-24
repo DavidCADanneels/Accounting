@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.Mortgages;
 
-import be.dafke.BusinessModel.Mortgage;
-import be.dafke.BusinessModel.MortgageTransaction;
+import be.dafke.Accounting.BusinessModel.Mortgage;
+import be.dafke.Accounting.BusinessModel.MortgageTransaction;
 
 import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;

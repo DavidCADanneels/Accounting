@@ -1,9 +1,9 @@
 package be.dafke.BasicAccounting.VAT;
 
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Contact;
-import be.dafke.BusinessModel.VATFields;
-import be.dafke.BusinessModel.VATTransactions;
+import be.dafke.Accounting.BusinessModel.Accounting;
+import be.dafke.Accounting.BusinessModel.Contact;
+import be.dafke.Accounting.BusinessModel.VATFields;
+import be.dafke.Accounting.BusinessModel.VATTransactions;
 
 import javax.swing.*;
 

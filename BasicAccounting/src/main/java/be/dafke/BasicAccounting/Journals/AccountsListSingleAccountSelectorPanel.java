@@ -1,10 +1,10 @@
 package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.Accounts.NewAccountDialog;
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.AccountTypes;
-import be.dafke.BusinessModel.Accounts;
-import be.dafke.BusinessModel.AccountsList;
+import be.dafke.Accounting.BusinessModel.Account;
+import be.dafke.Accounting.BusinessModel.AccountTypes;
+import be.dafke.Accounting.BusinessModel.Accounts;
+import be.dafke.Accounting.BusinessModel.AccountsList;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;

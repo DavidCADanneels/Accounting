@@ -1,8 +1,8 @@
 package be.dafke.BasicAccounting.Accounts;
 
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.AccountType;
-import be.dafke.BusinessModel.Accounts;
+import be.dafke.Accounting.BusinessModel.Account;
+import be.dafke.Accounting.BusinessModel.AccountType;
+import be.dafke.Accounting.BusinessModel.Accounts;
 import be.dafke.ComponentModel.RefreshableDialog;
 
 import javax.swing.JButton;

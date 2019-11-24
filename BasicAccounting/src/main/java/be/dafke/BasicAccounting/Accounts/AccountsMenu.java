@@ -2,10 +2,10 @@ package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BasicAccounting.Accounts.AccountManagement.AccountManagementGUI;
 import be.dafke.BasicAccounting.Balances.TestBalanceGUI;
-import be.dafke.BusinessModel.AccountTypes;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Accounts;
-import be.dafke.BusinessModel.Journals;
+import be.dafke.Accounting.BusinessModel.AccountTypes;
+import be.dafke.Accounting.BusinessModel.Accounting;
+import be.dafke.Accounting.BusinessModel.Accounts;
+import be.dafke.Accounting.BusinessModel.Journals;
 import be.dafke.BusinessModelDao.AccountsIO;
 
 import javax.swing.*;

@@ -1,12 +1,12 @@
 package be.dafke.BasicAccounting.MainApplication;
 
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Accountings;
+import be.dafke.Accounting.BusinessModel.Accounting;
+import be.dafke.Accounting.BusinessModel.Accountings;
 import be.dafke.BusinessModelDao.Session;
 import be.dafke.BusinessModelDao.XMLWriter;
 import be.dafke.ComponentModel.RefreshableDialog;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,8 +1,8 @@
 package be.dafke.BasicAccounting.Meals;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.MealOrder;
+import be.dafke.Accounting.BusinessModel.Accounting;
+import be.dafke.Accounting.BusinessModel.MealOrder;
 
 import javax.swing.*;
 

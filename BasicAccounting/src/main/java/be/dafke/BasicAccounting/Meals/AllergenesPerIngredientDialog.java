@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.Meals;
 
-import be.dafke.BusinessModel.Allergenes;
-import be.dafke.BusinessModel.Ingredient;
+import be.dafke.Accounting.BusinessModel.Allergenes;
+import be.dafke.Accounting.BusinessModel.Ingredient;
 import be.dafke.ComponentModel.RefreshableDialog;
 
 import javax.swing.*;

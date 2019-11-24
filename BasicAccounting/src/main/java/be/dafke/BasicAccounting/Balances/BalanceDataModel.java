@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.Balances;
 
-import be.dafke.BusinessModel.Balance;
-import be.dafke.BusinessModel.Account;
+import be.dafke.Accounting.BusinessModel.Balance;
+import be.dafke.Accounting.BusinessModel.Account;
 import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.math.BigDecimal;

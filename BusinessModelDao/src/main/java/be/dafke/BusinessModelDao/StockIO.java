@@ -1,6 +1,6 @@
 package be.dafke.BusinessModelDao;
 
-import be.dafke.BusinessModel.*;
+import be.dafke.Accounting.BusinessModel.*;
 import org.w3c.dom.Element;
 
 import java.io.File;

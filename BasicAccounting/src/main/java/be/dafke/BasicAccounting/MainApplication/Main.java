@@ -21,7 +21,7 @@ import be.dafke.BasicAccounting.Mortgages.MortgagesPanel;
 import be.dafke.BasicAccounting.Projects.ProjectsMenu;
 import be.dafke.BasicAccounting.VAT.VATFieldsGUI;
 import be.dafke.BasicAccounting.VAT.VATMenu;
-import be.dafke.BusinessModel.*;
+import be.dafke.Accounting.BusinessModel.*;
 import be.dafke.BusinessModelDao.*;
 
 import javax.swing.JComponent;

@@ -1,9 +1,9 @@
 package be.dafke.BasicAccounting.Meals;
 
 import be.dafke.BasicAccounting.MainApplication.MealsPDF;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Allergenes;
-import be.dafke.BusinessModel.Ingredients;
+import be.dafke.Accounting.BusinessModel.Accounting;
+import be.dafke.Accounting.BusinessModel.Allergenes;
+import be.dafke.Accounting.BusinessModel.Ingredients;
 import be.dafke.BusinessModelDao.MealsIO;
 import be.dafke.BusinessModelDao.SalesOrderIO;
 

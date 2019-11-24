@@ -1,9 +1,9 @@
 package be.dafke.BasicAccounting.Accounts.AccountsFilter;
 
 import be.dafke.BasicAccounting.Accounts.AccountsTable.AccountDataTableModel;
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.AccountType;
-import be.dafke.BusinessModel.AccountsList;
+//import be.dafke.Accounting.BusinessModel.Account;
+import be.dafke.Accounting.BusinessModel.AccountType;
+import be.dafke.Accounting.BusinessModel.AccountsList;
 import be.dafke.BusinessModelDao.JournalSession;
 
 import javax.swing.*;
@@ -13,7 +13,7 @@ import java.awt.BorderLayout;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.ArrayList;
-import java.util.function.Predicate;
+//import java.util.function.Predicate;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -118,11 +118,11 @@ public class AccountFilterPanel extends JPanel {
     private void filter() {
         String namePrefix = nameField.getText();
         String numberPrefix = numberField.getText();
-        Predicate<Account> predicate = Account.namePrefix(namePrefix).and(Account.numberPrefix(numberPrefix));
-        if(hideEmptyCheckbox.isSelected()){
-            predicate =  predicate.and(Account.saldoNotZero());
-        }
-        model.setFilter(predicate);
+//        Predicate<Account> predicate = Account.namePrefix(namePrefix).and(Account.numberPrefix(numberPrefix));
+//        if(hideEmptyCheckbox.isSelected()){
+//            predicate =  predicate.and(Account.saldoNotZero());
+//        }
+//        model.setFilter(predicate);
     }
 
     public void clearSearchFields(){

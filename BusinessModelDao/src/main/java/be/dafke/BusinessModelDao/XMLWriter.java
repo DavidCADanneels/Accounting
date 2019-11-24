@@ -1,6 +1,6 @@
 package be.dafke.BusinessModelDao;
 
-import be.dafke.BusinessModel.*;
+import be.dafke.Accounting.BusinessModel.*;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -18,13 +18,11 @@ import static be.dafke.BusinessModelDao.BalancesIO.writeBalances;
 import static be.dafke.BusinessModelDao.ContactsIO.writeContacts;
 import static be.dafke.BusinessModelDao.IngredientOrdersIO.writeIngredientOrders;
 import static be.dafke.BusinessModelDao.IngredientsIO.writeIngredientes;
-import static be.dafke.BusinessModelDao.JournalsIO.writeJournalTypes;
-import static be.dafke.BusinessModelDao.JournalsIO.writeJournals;
+import static be.dafke.BusinessModelDao.JournalsIO.*;
 import static be.dafke.BusinessModelDao.MealOrderIO.writeMealOrders;
 import static be.dafke.BusinessModelDao.MealsIO.writeMeals;
 import static be.dafke.BusinessModelDao.MortgageIO.writeMortgages;
 import static be.dafke.BusinessModelDao.ProjectsIO.writeProjects;
-import static be.dafke.BusinessModelDao.JournalsIO.writeTransactions;
 import static be.dafke.BusinessModelDao.PromoOrderIO.writePromoOrders;
 import static be.dafke.BusinessModelDao.PurchaseOrderIO.writePurchasesOrders;
 import static be.dafke.BusinessModelDao.SalesOrderIO.writeSalesOrders;

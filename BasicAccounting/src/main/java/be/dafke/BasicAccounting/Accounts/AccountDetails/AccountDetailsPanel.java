@@ -1,9 +1,9 @@
 package be.dafke.BasicAccounting.Accounts.AccountDetails;
 
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.Booking;
-import be.dafke.BusinessModel.Journals;
+import be.dafke.Accounting.BusinessModel.Account;
+import be.dafke.Accounting.BusinessModel.Booking;
+import be.dafke.Accounting.BusinessModel.Journals;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;

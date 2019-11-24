@@ -1,12 +1,8 @@
 package be.dafke.BusinessModelDao;
 
-import be.dafke.BusinessModel.BankAccount;
-import be.dafke.BusinessModel.CounterParties;
-import be.dafke.BusinessModel.CounterParty;
-import be.dafke.BusinessModel.Statement;
-import be.dafke.BusinessModel.Statements;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.Accounting.BusinessModel.*;
+import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.Utils.Utils;
 
 import java.io.BufferedReader;

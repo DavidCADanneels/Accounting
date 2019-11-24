@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.Mortgages;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.Mortgages;
+import be.dafke.Accounting.BusinessModel.Mortgages;
 
 import javax.swing.*;
 import java.util.HashMap;

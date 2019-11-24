@@ -1,8 +1,8 @@
 package be.dafke.BasicAccounting.Mortgages;
 
 import be.dafke.BasicAccounting.Journals.JournalEditPanel;
-import be.dafke.BusinessModel.Mortgage;
-import be.dafke.BusinessModel.Mortgages;
+import be.dafke.Accounting.BusinessModel.Mortgage;
+import be.dafke.Accounting.BusinessModel.Mortgages;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;

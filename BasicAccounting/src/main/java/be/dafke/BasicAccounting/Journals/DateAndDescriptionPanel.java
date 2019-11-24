@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.Journals;
 
-import be.dafke.BusinessModel.Journal;
-import be.dafke.BusinessModel.Transaction;
+import be.dafke.Accounting.BusinessModel.Journal;
+import be.dafke.Accounting.BusinessModel.Transaction;
 import be.dafke.Utils.Utils;
 
 import javax.swing.*;

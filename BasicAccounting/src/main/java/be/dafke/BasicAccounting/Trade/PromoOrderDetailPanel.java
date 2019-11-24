@@ -3,7 +3,7 @@ package be.dafke.BasicAccounting.Trade;
 
 import be.dafke.BasicAccounting.Journals.DateAndDescriptionDialog;
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.*;
+import be.dafke.Accounting.BusinessModel.*;
 import be.dafke.Utils.Utils;
 
 import javax.swing.*;

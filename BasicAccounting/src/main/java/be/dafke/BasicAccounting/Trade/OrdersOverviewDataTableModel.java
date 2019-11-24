@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.Trade;
 
-import be.dafke.BusinessModel.Contact;
+import be.dafke.Accounting.BusinessModel.Contact;
 import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.math.BigDecimal;

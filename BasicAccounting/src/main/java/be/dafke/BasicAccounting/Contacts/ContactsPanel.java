@@ -1,8 +1,8 @@
 package be.dafke.BasicAccounting.Contacts;
 
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Contact;
-import be.dafke.BusinessModel.Contacts;
+import be.dafke.Accounting.BusinessModel.Accounting;
+import be.dafke.Accounting.BusinessModel.Contact;
+import be.dafke.Accounting.BusinessModel.Contacts;
 import be.dafke.BusinessModelDao.VATWriter;
 
 import javax.swing.*;

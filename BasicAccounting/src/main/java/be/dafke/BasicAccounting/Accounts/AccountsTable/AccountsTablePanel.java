@@ -6,7 +6,7 @@ import be.dafke.BasicAccounting.Accounts.AccountManagement.AccountManagementGUI;
 import be.dafke.BasicAccounting.Accounts.AccountsFilter.AccountFilterPanel;
 import be.dafke.BasicAccounting.Accounts.NewAccountDialog;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
-import be.dafke.BusinessModel.*;
+import be.dafke.Accounting.BusinessModel.*;
 import be.dafke.BusinessModelDao.AccountingSession;
 import be.dafke.BusinessModelDao.JournalSession;
 import be.dafke.BusinessModelDao.Session;

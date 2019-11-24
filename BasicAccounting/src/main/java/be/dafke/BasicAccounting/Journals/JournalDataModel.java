@@ -1,9 +1,9 @@
 package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.Booking;
-import be.dafke.BusinessModel.Transaction;
+import be.dafke.Accounting.BusinessModel.Account;
+import be.dafke.Accounting.BusinessModel.Booking;
+import be.dafke.Accounting.BusinessModel.Transaction;
 import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.math.BigDecimal;

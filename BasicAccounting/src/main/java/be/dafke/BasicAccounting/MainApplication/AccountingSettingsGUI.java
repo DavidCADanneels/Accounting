@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.MainApplication;
 
-import be.dafke.BusinessModel.Accounting;
+import be.dafke.Accounting.BusinessModel.Accounting;
 
 import javax.swing.*;
 import java.util.HashMap;

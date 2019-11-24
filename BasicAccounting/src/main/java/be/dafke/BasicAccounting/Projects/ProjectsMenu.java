@@ -1,9 +1,9 @@
 package be.dafke.BasicAccounting.Projects;
 
-import be.dafke.BusinessModel.AccountTypes;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Accounts;
-import be.dafke.BusinessModel.Projects;
+import be.dafke.Accounting.BusinessModel.AccountTypes;
+import be.dafke.Accounting.BusinessModel.Accounting;
+import be.dafke.Accounting.BusinessModel.Accounts;
+import be.dafke.Accounting.BusinessModel.Projects;
 
 import javax.swing.*;
 

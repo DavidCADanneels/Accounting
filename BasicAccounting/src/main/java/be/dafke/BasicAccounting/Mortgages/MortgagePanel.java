@@ -1,11 +1,11 @@
 package be.dafke.BasicAccounting.Mortgages;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.Accounts;
-import be.dafke.BusinessModel.Mortgage;
-import be.dafke.BusinessModel.Mortgages;
-import be.dafke.ObjectModel.Exceptions.NotEmptyException;
+import be.dafke.Accounting.BusinessModel.Account;
+import be.dafke.Accounting.BusinessModel.Accounts;
+import be.dafke.Accounting.BusinessModel.Mortgage;
+import be.dafke.Accounting.BusinessModel.Mortgages;
+import be.dafke.Accounting.ObjectModel.Exceptions.NotEmptyException;
 import be.dafke.Utils.Utils;
 
 import javax.swing.*;

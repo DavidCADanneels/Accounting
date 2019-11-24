@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.Trade;
 
 
-import be.dafke.BusinessModel.*;
+import be.dafke.Accounting.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;

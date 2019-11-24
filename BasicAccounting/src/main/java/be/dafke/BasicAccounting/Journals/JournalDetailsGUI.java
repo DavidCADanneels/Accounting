@@ -1,9 +1,9 @@
 package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.Booking;
-import be.dafke.BusinessModel.Journal;
-import be.dafke.BusinessModel.Journals;
+import be.dafke.Accounting.BusinessModel.Booking;
+import be.dafke.Accounting.BusinessModel.Journal;
+import be.dafke.Accounting.BusinessModel.Journals;
 
 import javax.swing.*;
 import java.awt.*;

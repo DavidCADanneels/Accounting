@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.Coda;
 
-import be.dafke.BusinessModel.*;
+import be.dafke.Accounting.BusinessModel.*;
 import be.dafke.Utils.Utils;
 
 import javax.swing.table.AbstractTableModel;

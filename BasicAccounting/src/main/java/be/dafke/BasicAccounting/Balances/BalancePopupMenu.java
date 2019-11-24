@@ -2,9 +2,9 @@ package be.dafke.BasicAccounting.Balances;
 
 import be.dafke.BasicAccounting.Accounts.AccountDetails.AccountDetailsGUI;
 import be.dafke.BasicAccounting.Accounts.NewAccountDialog;
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.AccountTypes;
-import be.dafke.BusinessModel.Accounting;
+import be.dafke.Accounting.BusinessModel.Account;
+import be.dafke.Accounting.BusinessModel.AccountTypes;
+import be.dafke.Accounting.BusinessModel.Accounting;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;

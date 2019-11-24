@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
-import be.dafke.BusinessModel.*;
+import be.dafke.Accounting.BusinessModel.*;
 import be.dafke.BusinessModelDao.AccountingSession;
 import be.dafke.BusinessModelDao.Session;
 import be.dafke.ComponentModel.SelectableTable;

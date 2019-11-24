@@ -1,8 +1,8 @@
 package be.dafke.BusinessModelDao;
 
-import be.dafke.BusinessModel.*;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.Accounting.BusinessModel.*;
+import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -20,10 +20,7 @@ import static be.dafke.BusinessModelDao.BalancesIO.readBalances;
 import static be.dafke.BusinessModelDao.ContactsIO.readContacts;
 import static be.dafke.BusinessModelDao.IngredientOrdersIO.readIngredientOrders;
 import static be.dafke.BusinessModelDao.IngredientsIO.readIngredients;
-import static be.dafke.BusinessModelDao.JournalsIO.readJournalTypes;
-import static be.dafke.BusinessModelDao.JournalsIO.readJournals;
-import static be.dafke.BusinessModelDao.JournalsIO.readJournalsContent;
-import static be.dafke.BusinessModelDao.JournalsIO.readTransactions;
+import static be.dafke.BusinessModelDao.JournalsIO.*;
 import static be.dafke.BusinessModelDao.MealOrderIO.readMealOrders;
 import static be.dafke.BusinessModelDao.MealsIO.readMeals;
 import static be.dafke.BusinessModelDao.MortgageIO.readMortgages;

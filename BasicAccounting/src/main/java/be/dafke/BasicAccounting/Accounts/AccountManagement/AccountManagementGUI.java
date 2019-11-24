@@ -3,11 +3,11 @@ package be.dafke.BasicAccounting.Accounts.AccountManagement;
 import be.dafke.BasicAccounting.Accounts.NewAccountDialog;
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.AccountType;
-import be.dafke.BusinessModel.Accounts;
+import be.dafke.Accounting.BusinessModel.Account;
+import be.dafke.Accounting.BusinessModel.AccountType;
+import be.dafke.Accounting.BusinessModel.Accounts;
 import be.dafke.ComponentModel.SelectableTable;
-import be.dafke.ObjectModel.Exceptions.NotEmptyException;
+import be.dafke.Accounting.ObjectModel.Exceptions.NotEmptyException;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultListSelectionModel;

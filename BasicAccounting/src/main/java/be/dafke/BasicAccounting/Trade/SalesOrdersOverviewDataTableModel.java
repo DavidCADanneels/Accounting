@@ -1,8 +1,8 @@
 package be.dafke.BasicAccounting.Trade;
 
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.SalesOrder;
-import be.dafke.BusinessModel.SalesOrders;
+import be.dafke.Accounting.BusinessModel.Accounting;
+import be.dafke.Accounting.BusinessModel.SalesOrder;
+import be.dafke.Accounting.BusinessModel.SalesOrders;
 
 import java.util.List;
 import java.util.function.Predicate;

@@ -2,8 +2,8 @@ package be.dafke.BasicAccounting.Meals;
 
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.Allergene;
-import be.dafke.BusinessModel.Allergenes;
+import be.dafke.Accounting.BusinessModel.Allergene;
+import be.dafke.Accounting.BusinessModel.Allergenes;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;

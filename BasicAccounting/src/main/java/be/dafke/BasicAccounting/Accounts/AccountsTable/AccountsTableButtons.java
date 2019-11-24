@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.Accounts.AccountsTable;
 
-import be.dafke.BusinessModel.AccountsList;
+import be.dafke.Accounting.BusinessModel.AccountsList;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;

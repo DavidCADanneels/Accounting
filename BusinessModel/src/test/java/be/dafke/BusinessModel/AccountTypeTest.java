@@ -1,15 +1,15 @@
 package be.dafke.BusinessModel;
 
-import be.dafke.ObjectModel.BusinessObject;
+import be.dafke.Accounting.BusinessModel.AccountType;
+import be.dafke.Accounting.BusinessModel.AccountTypes;
+import be.dafke.Accounting.ObjectModel.BusinessObject;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class AccountTypeTest {
     @Test

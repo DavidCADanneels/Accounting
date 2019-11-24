@@ -1,10 +1,10 @@
 package be.dafke.BasicAccounting.Meals;
 
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
-import be.dafke.BusinessModel.Meal;
-import be.dafke.BusinessModel.Meals;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.Accounting.BusinessModel.Meal;
+import be.dafke.Accounting.BusinessModel.Meals;
+import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.Utils.Utils;
 
 import javax.swing.*;

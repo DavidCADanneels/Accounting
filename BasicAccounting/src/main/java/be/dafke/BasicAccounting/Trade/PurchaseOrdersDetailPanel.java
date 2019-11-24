@@ -5,7 +5,7 @@ import be.dafke.BasicAccounting.Accounts.AccountActions;
 import be.dafke.BasicAccounting.Contacts.ContactDetailsPanel;
 import be.dafke.BasicAccounting.Journals.DateAndDescriptionDialog;
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.*;
+import be.dafke.Accounting.BusinessModel.*;
 import be.dafke.Utils.Utils;
 
 import javax.swing.*;

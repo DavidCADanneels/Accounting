@@ -1,8 +1,8 @@
 package be.dafke.BasicAccounting.Journals;
 
-import be.dafke.BusinessModel.*;
+import be.dafke.Accounting.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
-import be.dafke.ObjectModel.Exceptions.NotEmptyException;
+import be.dafke.Accounting.ObjectModel.Exceptions.NotEmptyException;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;

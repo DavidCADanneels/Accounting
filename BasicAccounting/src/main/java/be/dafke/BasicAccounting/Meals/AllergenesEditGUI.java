@@ -2,7 +2,7 @@ package be.dafke.BasicAccounting.Meals;
 
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.Allergenes;
+import be.dafke.Accounting.BusinessModel.Allergenes;
 
 import javax.swing.*;
 import java.util.HashMap;
