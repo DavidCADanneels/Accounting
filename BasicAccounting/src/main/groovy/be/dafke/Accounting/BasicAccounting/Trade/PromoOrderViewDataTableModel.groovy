@@ -13,8 +13,8 @@ class PromoOrderViewDataTableModel extends SelectableTableModel<OrderItem> {
     static int PURCHASE_PRICE_UNIT_COL = 3
     static int TOTAL_PURCHASE_PRICE_COL = 4
     static int NR_OF_COL = 5
-    private HashMap<Integer,String> columnNames = new HashMap<>()
-    private HashMap<Integer,Class> columnClasses = new HashMap<>()
+    HashMap<Integer,String> columnNames = new HashMap<>()
+    HashMap<Integer,Class> columnClasses = new HashMap<>()
     protected PromoOrder order
 
     PromoOrderViewDataTableModel() {
@@ -22,7 +22,7 @@ class PromoOrderViewDataTableModel extends SelectableTableModel<OrderItem> {
         setColumnClasses()
     }
 
-    private void setColumnClasses() {
+    void setColumnClasses() {
         columnClasses.put(NR_OF_ITEMS_COL, Integer.class)
         columnClasses.put(NAME_COL, String.class)
         columnClasses.put(PURCHASE_PRICE_ITEM_COL, BigDecimal.class)
@@ -30,7 +30,7 @@ class PromoOrderViewDataTableModel extends SelectableTableModel<OrderItem> {
         columnClasses.put(TOTAL_PURCHASE_PRICE_COL, BigDecimal.class)
     }
 
-    private void setColumnNames() {
+    void setColumnNames() {
         columnNames.put(NR_OF_ITEMS_COL, getBundle("Accounting").getString("ITEMS_TO_ORDER"))
         columnNames.put(NAME_COL, getBundle("Accounting").getString("ARTICLE_NAME"))
         columnNames.put(PURCHASE_PRICE_ITEM_COL, getBundle("Accounting").getString("PRICE_ITEM"))
@@ -42,23 +42,12 @@ class PromoOrderViewDataTableModel extends SelectableTableModel<OrderItem> {
 // ===============
     Object getValueAt(int row, int col) {
         OrderItem orderItem = getObject(row, col)
-        if (orderItem==null)
-            null
-        if (col == NAME_COL) {
-            orderItem.getName()
-        }
-        if (col == PURCHASE_PRICE_ITEM_COL) {
-            orderItem.getPurchasePriceForItem()
-        }
-        if (col == PURCHASE_PRICE_UNIT_COL) {
-            orderItem.getPurchasePriceForUnit()
-        }
-        if (col == TOTAL_PURCHASE_PRICE_COL) {
-            orderItem.getStockValue()
-        }
-        if (col == NR_OF_ITEMS_COL) {
-            orderItem.getNumberOfItems()
-        }
+        if (orderItem==null) return null
+        if (col == NAME_COL) return orderItem.name
+        if (col == PURCHASE_PRICE_ITEM_COL) return orderItem.getPurchasePriceForItem()
+        if (col == PURCHASE_PRICE_UNIT_COL) return orderItem.getPurchasePriceForUnit()
+        if (col == TOTAL_PURCHASE_PRICE_COL) return orderItem.getStockValue()
+        if (col == NR_OF_ITEMS_COL) return orderItem.numberOfItems
         null
     }
 
@@ -67,10 +56,7 @@ class PromoOrderViewDataTableModel extends SelectableTableModel<OrderItem> {
     }
 
     int getRowCount() {
-        if(order==null) 0
-        List<OrderItem> businessObjects = order.getBusinessObjects()
-        if(businessObjects == null || businessObjects.size() == 0) 0
-        businessObjects.size()
+        order?order.businessObjects.size():0
     }
 
     @Override
@@ -98,7 +84,7 @@ class PromoOrderViewDataTableModel extends SelectableTableModel<OrderItem> {
     @Override
     OrderItem getObject(int row, int col) {
         if(order==null) null
-        List<OrderItem> orderItems = order.getBusinessObjects()
+        List<OrderItem> orderItems = order.businessObjects
         if(orderItems == null || orderItems.size() == 0) null
         orderItems.get(row)
     }

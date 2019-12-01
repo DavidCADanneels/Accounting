@@ -14,11 +14,11 @@ import javax.swing.JPanel
 import java.awt.GridLayout
 
 class TradeSettingsPanel extends JPanel {
-    private Accounting accounting
-    private final JComboBox<Account> stockAccountSelection, gainAccountSelection, salesAccountSelection, salesGainAccountSelection, promoAccountSelection
-    private final JComboBox<Journal> purchaseJournalSelection, salesJournalSelection, salesNoInvoiceSelection, gainJournalSelection
-    private final DefaultComboBoxModel<Account> stockAccountModel, gainAccountModel, salesAccountModel, salesGainAccountModel, promoAccountModel
-    private final DefaultComboBoxModel<Journal> purchaseJournalModel, salesJournalModel, salesNoInvoiceModel, gainJournalModel
+    Accounting accounting
+    final JComboBox<Account> stockAccountSelection, gainAccountSelection, salesAccountSelection, salesGainAccountSelection, promoAccountSelection
+    final JComboBox<Journal> purchaseJournalSelection, salesJournalSelection, salesNoInvoiceSelection, gainJournalSelection
+    final DefaultComboBoxModel<Account> stockAccountModel, gainAccountModel, salesAccountModel, salesGainAccountModel, promoAccountModel
+    final DefaultComboBoxModel<Journal> purchaseJournalModel, salesJournalModel, salesNoInvoiceModel, gainJournalModel
 
     TradeSettingsPanel(Accounting accounting) {
         this.accounting = accounting
@@ -34,7 +34,7 @@ class TradeSettingsPanel extends JPanel {
         gainJournalModel = new DefaultComboBoxModel<>()
 
         // TODO: add only relevant account(type)s, e.g. COST, REVENUE, ...
-        accounting.getAccounts().getBusinessObjects().forEach({ account ->
+        accounting.accounts.businessObjects.forEach({ account ->
             stockAccountModel.addElement(account)
             gainAccountModel.addElement(account)
             salesAccountModel.addElement(account)
@@ -43,7 +43,7 @@ class TradeSettingsPanel extends JPanel {
         })
 
         // TODO: add only relevant journal(type)s, e.g. SALES, PURCHASE, PAYMENT, GAIN
-        accounting.getJournals().getBusinessObjects().forEach({ journal ->
+        accounting.journals.businessObjects.forEach({ journal ->
             purchaseJournalModel.addElement(journal)
             salesJournalModel.addElement(journal)
             salesNoInvoiceModel.addElement(journal)
@@ -61,54 +61,54 @@ class TradeSettingsPanel extends JPanel {
         salesNoInvoiceSelection = new JComboBox<>(salesNoInvoiceModel)
         gainJournalSelection = new JComboBox<>(gainJournalModel)
 
-        StockTransactions stockTransactions = accounting.getStockTransactions()
+        StockTransactions stockTransactions = accounting.stockTransactions
 
-        Account stockAccount = stockTransactions.getStockAccount()
-        Account gainAccount = stockTransactions.getGainAccount()
-        Account salesAccount = stockTransactions.getSalesAccount()
-        Account salesGainAccount = stockTransactions.getSalesGainAccount()
-        Account promoAccount = stockTransactions.getPromoAccount()
+        Account stockAccount = stockTransactions.stockAccount
+        Account gainAccount = stockTransactions.gainAccount
+        Account salesAccount = stockTransactions.salesAccount
+        Account salesGainAccount = stockTransactions.salesGainAccount
+        Account promoAccount = stockTransactions.promoAccount
 
-        Journal purchaseJournal = stockTransactions.getPurchaseJournal()
-        Journal salesJournal = stockTransactions.getSalesJournal()
-        Journal salesNoInvoiceJournal = stockTransactions.getSalesNoInvoiceJournal()
-        Journal gainJournal = stockTransactions.getGainJournal()
+        Journal purchaseJournal = stockTransactions.purchaseJournal
+        Journal salesJournal = stockTransactions.salesJournal
+        Journal salesNoInvoiceJournal = stockTransactions.salesNoInvoiceJournal
+        Journal gainJournal = stockTransactions.gainJournal
 
         stockAccountSelection.setSelectedItem(stockAccount)
         stockAccountSelection.addActionListener({ e -> updateSelectedStockAccount() })
-        stockAccountSelection.setEnabled(accounting.isTradeAccounting())
+        stockAccountSelection.enabled = accounting.tradeAccounting
 
         gainAccountSelection.setSelectedItem(gainAccount)
         gainAccountSelection.addActionListener({ e -> updateSelectedSalesGainAccount() })
-        gainAccountSelection.setEnabled(accounting.isTradeAccounting())
+        gainAccountSelection.enabled = accounting.tradeAccounting
 
         salesAccountSelection.setSelectedItem(salesAccount)
         salesAccountSelection.addActionListener({ e -> updateSelectedSalesAccount() })
-        salesAccountSelection.setEnabled(accounting.isTradeAccounting())
+        salesAccountSelection.enabled = accounting.tradeAccounting
 
         salesGainAccountSelection.setSelectedItem(salesGainAccount)
         salesGainAccountSelection.addActionListener({ e -> updateSelectedGainAccount() })
-        salesGainAccountSelection.setEnabled(accounting.isTradeAccounting())
+        salesGainAccountSelection.enabled = accounting.tradeAccounting
 
         promoAccountSelection.setSelectedItem(promoAccount)
         promoAccountSelection.addActionListener({ e -> updateSelectedPromoAccount() })
-        promoAccountSelection.setEnabled(accounting.isTradeAccounting())
+        promoAccountSelection.enabled = accounting.tradeAccounting
 
         purchaseJournalSelection.setSelectedItem(purchaseJournal)
         purchaseJournalSelection.addActionListener({ e -> updateSelectedPurchaseJournal() })
-        purchaseJournalSelection.setEnabled(accounting.isTradeAccounting())
+        purchaseJournalSelection.enabled = accounting.tradeAccounting
 
         salesJournalSelection.setSelectedItem(salesJournal)
         salesJournalSelection.addActionListener({ e -> updateSelectedSalesJournal() })
-        salesJournalSelection.setEnabled(accounting.isTradeAccounting())
+        salesJournalSelection.enabled = accounting.tradeAccounting
 
         salesNoInvoiceSelection.setSelectedItem(salesNoInvoiceJournal)
         salesNoInvoiceSelection.addActionListener({ e -> updateSelectedSalesNoInvoiceJournal() })
-        salesNoInvoiceSelection.setEnabled(accounting.isTradeAccounting())
+        salesNoInvoiceSelection.enabled = accounting.tradeAccounting
 
         gainJournalSelection.setSelectedItem(gainJournal)
         gainJournalSelection.addActionListener({ e -> updateSelectedGainJournal() })
-        gainJournalSelection.setEnabled(accounting.isTradeAccounting())
+        gainJournalSelection.enabled = accounting.tradeAccounting
 
         JPanel panel = new JPanel()
         panel.setLayout(new GridLayout(0, 2))
@@ -137,56 +137,56 @@ class TradeSettingsPanel extends JPanel {
     }
 
     void updateSelectedStockAccount() {
-        StockTransactions stockTransactions = accounting.getStockTransactions()
-        Account account = (Account) stockAccountSelection.getSelectedItem()
+        StockTransactions stockTransactions = accounting.stockTransactions
+        Account account = (Account) stockAccountSelection.selectedItem
         stockTransactions.setStockAccount(account)
     }
 
     void updateSelectedGainAccount() {
-        StockTransactions stockTransactions = accounting.getStockTransactions()
-        Account account = (Account) gainAccountSelection.getSelectedItem()
+        StockTransactions stockTransactions = accounting.stockTransactions
+        Account account = (Account) gainAccountSelection.selectedItem
         stockTransactions.setGainAccount(account)
     }
 
     void updateSelectedSalesAccount() {
-        StockTransactions stockTransactions = accounting.getStockTransactions()
-        Account account = (Account) salesAccountSelection.getSelectedItem()
+        StockTransactions stockTransactions = accounting.stockTransactions
+        Account account = (Account) salesAccountSelection.selectedItem
         stockTransactions.setSalesAccount(account)
     }
 
     void updateSelectedSalesGainAccount() {
-        StockTransactions stockTransactions = accounting.getStockTransactions()
-        Account account = (Account) salesGainAccountSelection.getSelectedItem()
+        StockTransactions stockTransactions = accounting.stockTransactions
+        Account account = (Account) salesGainAccountSelection.selectedItem
         stockTransactions.setSalesGainAccount(account)
     }
 
     void updateSelectedPromoAccount() {
-        StockTransactions stockTransactions = accounting.getStockTransactions()
-        Account account = (Account) promoAccountSelection.getSelectedItem()
+        StockTransactions stockTransactions = accounting.stockTransactions
+        Account account = (Account) promoAccountSelection.selectedItem
         stockTransactions.setPromoAccount(account)
     }
 
     void updateSelectedPurchaseJournal() {
-        StockTransactions stockTransactions = accounting.getStockTransactions()
-        Journal journal = (Journal) purchaseJournalSelection.getSelectedItem()
+        StockTransactions stockTransactions = accounting.stockTransactions
+        Journal journal = (Journal) purchaseJournalSelection.selectedItem
         stockTransactions.setPurchaseJournal(journal)
     }
 
     void updateSelectedSalesJournal() {
-        StockTransactions stockTransactions = accounting.getStockTransactions()
-        Journal journal = (Journal) salesJournalSelection.getSelectedItem()
+        StockTransactions stockTransactions = accounting.stockTransactions
+        Journal journal = (Journal) salesJournalSelection.selectedItem
         stockTransactions.setSalesJournal(journal)
     }
 
     void updateSelectedSalesNoInvoiceJournal() {
-        StockTransactions stockTransactions = accounting.getStockTransactions()
-        Journal journal = (Journal) salesNoInvoiceSelection.getSelectedItem()
+        StockTransactions stockTransactions = accounting.stockTransactions
+        Journal journal = (Journal) salesNoInvoiceSelection.selectedItem
         stockTransactions.setSalesNoInvoiceJournal(journal)
     }
 
     void updateSelectedGainJournal() {
-        StockTransactions stockTransactions = accounting.getStockTransactions()
-        Journal journal = (Journal) gainJournalSelection.getSelectedItem()
+        StockTransactions stockTransactions = accounting.stockTransactions
+        Journal journal = (Journal) gainJournalSelection.selectedItem
         stockTransactions.setGainJournal(journal)
     }
 
@@ -194,16 +194,16 @@ class TradeSettingsPanel extends JPanel {
     @Override
     void setEnabled(boolean enabled){
         super.setEnabled(enabled)
-        stockAccountSelection.setEnabled(enabled)
-        gainAccountSelection.setEnabled(enabled)
-        salesAccountSelection.setEnabled(enabled)
-        salesGainAccountSelection.setEnabled(enabled)
-        promoAccountSelection.setEnabled(enabled)
+        stockAccountSelection.enabled = enabled
+        gainAccountSelection.enabled = enabled
+        salesAccountSelection.enabled = enabled
+        salesGainAccountSelection.enabled = enabled
+        promoAccountSelection.enabled = enabled
 
-        purchaseJournalSelection.setEnabled(enabled)
-        salesJournalSelection.setEnabled(enabled)
-        salesNoInvoiceSelection.setEnabled(enabled)
-        gainJournalSelection.setEnabled(enabled)
+        purchaseJournalSelection.enabled = enabled
+        salesJournalSelection.enabled = enabled
+        salesNoInvoiceSelection.enabled = enabled
+        gainJournalSelection.enabled = enabled
         if(!enabled){
             stockAccountSelection.setSelectedItem(null)
             gainAccountSelection.setSelectedItem(null)
@@ -241,25 +241,25 @@ class TradeSettingsPanel extends JPanel {
         gainJournalModel.removeAllElements()
 
         if (copyFrom != null) {
-            StockTransactions stockTransactions = copyFrom.getStockTransactions()
+            StockTransactions stockTransactions = copyFrom.stockTransactions
 
-            Account stockAccount = stockTransactions.getStockAccount()
-            Account gainAccount = stockTransactions.getGainAccount()
-            Account salesAccount = stockTransactions.getSalesAccount()
-            Account salesGainAccount = stockTransactions.getSalesGainAccount()
-            Account promoAccount = stockTransactions.getPromoAccount()
+            Account stockAccount = stockTransactions.stockAccount
+            Account gainAccount = stockTransactions.gainAccount
+            Account salesAccount = stockTransactions.salesAccount
+            Account salesGainAccount = stockTransactions.salesGainAccount
+            Account promoAccount = stockTransactions.promoAccount
 
-            Journal salesJournal = stockTransactions.getSalesJournal()
-            Journal purchaseJournal = stockTransactions.getPurchaseJournal()
-            Journal salesNoInvoiceJournal = stockTransactions.getSalesNoInvoiceJournal()
-            Journal gainJournal = stockTransactions.getGainJournal()
+            Journal salesJournal = stockTransactions.salesJournal
+            Journal purchaseJournal = stockTransactions.purchaseJournal
+            Journal salesNoInvoiceJournal = stockTransactions.salesNoInvoiceJournal
+            Journal gainJournal = stockTransactions.gainJournal
 
-            Accounts accounts = accounting.getAccounts()
-            Journals journals = accounting.getJournals()
+            Accounts accounts = accounting.accounts
+            Journals journals = accounting.journals
 
 
             if (accounts != null) {
-                accounts.getBusinessObjects().forEach({ account ->
+                accounts.businessObjects.forEach({ account ->
                     stockAccountModel.addElement(account)
                     gainAccountModel.addElement(account)
                     salesAccountModel.addElement(account)
@@ -268,7 +268,7 @@ class TradeSettingsPanel extends JPanel {
                 })
             }
             if (journals != null) {
-                journals.getBusinessObjects().forEach({ journal ->
+                journals.businessObjects.forEach({ journal ->
                     purchaseJournalModel.addElement(journal)
                     salesJournalModel.addElement(journal)
                     salesNoInvoiceModel.addElement(journal)
@@ -277,7 +277,7 @@ class TradeSettingsPanel extends JPanel {
             }
 
             if (stockAccount != null) {
-                Account account = accounts.getBusinessObject(stockAccount.getName())
+                Account account = accounts.getBusinessObject(stockAccount.name)
                 stockTransactions.setStockAccount(account)
                 stockAccountSelection.setSelectedItem(account)
             } else {
@@ -286,7 +286,7 @@ class TradeSettingsPanel extends JPanel {
             }
 
             if (gainAccount != null) {
-                Account account = accounts.getBusinessObject(gainAccount.getName())
+                Account account = accounts.getBusinessObject(gainAccount.name)
                 stockTransactions.setGainAccount(account)
                 gainAccountSelection.setSelectedItem(account)
             } else {
@@ -295,7 +295,7 @@ class TradeSettingsPanel extends JPanel {
             }
 
             if (salesAccount != null) {
-                Account account = accounts.getBusinessObject(salesAccount.getName())
+                Account account = accounts.getBusinessObject(salesAccount.name)
                 stockTransactions.setSalesAccount(account)
                 salesAccountSelection.setSelectedItem(account)
             } else {
@@ -304,7 +304,7 @@ class TradeSettingsPanel extends JPanel {
             }
 
             if (salesGainAccount != null) {
-                Account account = accounts.getBusinessObject(salesGainAccount.getName())
+                Account account = accounts.getBusinessObject(salesGainAccount.name)
                 stockTransactions.setSalesGainAccount(account)
                 salesGainAccountSelection.setSelectedItem(account)
             } else {
@@ -313,7 +313,7 @@ class TradeSettingsPanel extends JPanel {
             }
 
             if (promoAccount != null) {
-                Account account = accounts.getBusinessObject(promoAccount.getName())
+                Account account = accounts.getBusinessObject(promoAccount.name)
                 stockTransactions.setPromoAccount(account)
                 promoAccountSelection.setSelectedItem(account)
             } else {
@@ -322,7 +322,7 @@ class TradeSettingsPanel extends JPanel {
             }
 
             if (salesJournal != null) {
-                Journal journal = journals.getBusinessObject(salesJournal.getName())
+                Journal journal = journals.getBusinessObject(salesJournal.name)
                 stockTransactions.setSalesJournal(journal)
                 purchaseJournalSelection.setSelectedItem(journal)
             } else {
@@ -331,7 +331,7 @@ class TradeSettingsPanel extends JPanel {
             }
 
             if (purchaseJournal != null) {
-                Journal journal = journals.getBusinessObject(purchaseJournal.getName())
+                Journal journal = journals.getBusinessObject(purchaseJournal.name)
                 stockTransactions.setPurchaseJournal(journal)
                 salesJournalSelection.setSelectedItem(journal)
             } else {
@@ -340,7 +340,7 @@ class TradeSettingsPanel extends JPanel {
             }
 
             if (salesNoInvoiceJournal != null) {
-                Journal journal = journals.getBusinessObject(salesNoInvoiceJournal.getName())
+                Journal journal = journals.getBusinessObject(salesNoInvoiceJournal.name)
                 stockTransactions.setSalesNoInvoiceJournal(journal)
                 salesNoInvoiceSelection.setSelectedItem(journal)
             } else {
@@ -349,7 +349,7 @@ class TradeSettingsPanel extends JPanel {
             }
 
             if (gainJournal != null) {
-                Journal journal = journals.getBusinessObject(gainJournal.getName())
+                Journal journal = journals.getBusinessObject(gainJournal.name)
                 stockTransactions.setGainJournal(journal)
                 gainJournalSelection.setSelectedItem(journal)
             } else {

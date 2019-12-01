@@ -13,14 +13,14 @@ import java.awt.event.MouseListener
 import java.util.regex.Pattern
 
 class CounterPartyTableFrame extends JFrame implements MouseListener {
-    private final Statements statements
-    private Accounts accounts
-    private AccountTypes accountTypes
-    private JTable tabel
-    private CounterPartyDataModel dataModel
-    private static final HashMap<CounterParties, CounterPartyTableFrame> counterpartiesGuis = new HashMap<>()
+    final Statements statements
+    Accounts accounts
+    AccountTypes accountTypes
+    JTable tabel
+    CounterPartyDataModel dataModel
+    static final HashMap<CounterParties, CounterPartyTableFrame> counterpartiesGuis = new HashMap<>()
 
-    private CounterPartyTableFrame(CounterParties counterParties, Statements statements) {
+    CounterPartyTableFrame(CounterParties counterParties, Statements statements) {
         super("Counterparties")
         this.statements = statements
 
@@ -51,8 +51,8 @@ class CounterPartyTableFrame extends JFrame implements MouseListener {
     }
 
     void setAccounting(Accounting accounting){
-        accounts = accounting.getAccounts()
-        accountTypes = accounting.getAccountTypes()
+        accounts = accounting.accounts
+        accountTypes = accounting.accountTypes
     }
 
     void refresh() {
@@ -68,7 +68,7 @@ class CounterPartyTableFrame extends JFrame implements MouseListener {
             int row = tabel.rowAtPoint(cell)
             if (col == 0) {
                 CounterParty counterParty = (CounterParty) tabel.getValueAt(row, col)
-                System.out.println(counterParty.getName())
+                System.out.println(counterParty.name)
                 for(BankAccount account : counterParty.getBankAccounts().values()) {
                     System.out.println(account.getAccountNumber())
                     System.out.println(account.getBic())
@@ -77,7 +77,7 @@ class CounterPartyTableFrame extends JFrame implements MouseListener {
                 SearchOptions searchOptions = new SearchOptions()
                 searchOptions.setCounterParty(counterParty)
                 searchOptions.setSearchOnCounterParty(true)
-                new GenericStatementTableFrame(searchOptions, statements).setVisible(true)
+                new GenericStatementTableFrame(searchOptions, statements).visible = true
                 // parent.addChildFrame(refreshTable)
             } else if (col == 1){
                 String alias = (String) tabel.getValueAt(row, col)
@@ -87,7 +87,7 @@ class CounterPartyTableFrame extends JFrame implements MouseListener {
                             JOptionPane.OK_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE, null,aliases,aliases[0])
                     if(result != JOptionPane.CLOSED_OPTION){
                         CounterParty counterParty = (CounterParty) tabel.getValueAt(row, 0)
-                        String name = counterParty.getName()
+                        String name = counterParty.name
                         counterParty.setName(aliases[result])
                         counterParty.removeAlias(aliases[result])
                         // TODO: ask user if old name should be saved as alias
@@ -96,8 +96,8 @@ class CounterPartyTableFrame extends JFrame implements MouseListener {
                     }
                 }
             } else if (col == 5) {
-                AccountSelectorDialog sel = AccountSelectorDialog.getAccountSelector(accounts, accountTypes.getBusinessObjects())
-                sel.setVisible(true)
+                AccountSelectorDialog sel = AccountSelectorDialog.getAccountSelector(accounts, accountTypes.businessObjects)
+                sel.visible = true
                 Account account = sel.getSelection()
 
                 if (account != null) {

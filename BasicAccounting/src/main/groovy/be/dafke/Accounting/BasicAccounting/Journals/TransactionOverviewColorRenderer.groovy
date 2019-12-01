@@ -9,7 +9,7 @@ import javax.swing.table.DefaultTableCellRenderer
 import java.awt.*
 
 class TransactionOverviewColorRenderer<T> extends DefaultTableCellRenderer {
-    private Journal journal
+    Journal journal
 
     @Override
     Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
@@ -18,7 +18,7 @@ class TransactionOverviewColorRenderer<T> extends DefaultTableCellRenderer {
         SelectableTableModel<Transaction> model = (SelectableTableModel<Transaction>)table.getModel()
         Transaction transaction = model.getObject(row, column)
         if(transaction!=null) {
-            Journal transactionJournal = transaction.getJournal()
+            Journal transactionJournal = transaction.journal
             if(isSelected){
                 cell.setBackground(Color.CYAN)
             } else if(journal == null || transactionJournal == null){
@@ -28,13 +28,13 @@ class TransactionOverviewColorRenderer<T> extends DefaultTableCellRenderer {
             } else {
                 cell.setBackground(Color.WHITE)
             }
-            if (transaction.isBalanceTransaction()) {
+            if (transaction.balanceTransaction) {
                 cell.setForeground(Color.RED)
             } else {
                 cell.setForeground(Color.BLACK)
             }
             if(column == TransactionOverviewDataModel.TOTAL_AMOUNT) {
-                if (transaction.isRegistered()) {
+                if (transaction.registered) {
                     cell.setForeground(Color.BLACK)
                 } else {
                     cell.setForeground(Color.RED)

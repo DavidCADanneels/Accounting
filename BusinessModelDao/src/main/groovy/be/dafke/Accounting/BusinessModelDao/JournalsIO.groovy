@@ -21,10 +21,10 @@ import static be.dafke.Utils.Utils.toCalendar
 class JournalsIO {
 
     static void readJournalTypes(Accounting accounting){
-        JournalTypes journalTypes = accounting.getJournalTypes()
-        Accounts accounts = accounting.getAccounts()
-        AccountTypes accountTypes = accounting.getAccountTypes()
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+JOURNAL_TYPES+XML_EXTENSION)
+        JournalTypes journalTypes = accounting.journalTypes
+        Accounts accounts = accounting.accounts
+        AccountTypes accountTypes = accounting.accountTypes
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+JOURNAL_TYPES+XML_EXTENSION)
         Element rootElement = getRootElement(xmlFile, JOURNAL_TYPES)
         for (Element element : getChildren(rootElement, JOURNAL_TYPE)) {
 
@@ -52,7 +52,7 @@ class JournalsIO {
         }
     }
 
-    private static AccountsList readTypes(Element element, Accounts accounts, AccountTypes accountTypes) {
+    static AccountsList readTypes(Element element, Accounts accounts, AccountTypes accountTypes) {
         String typesString = getValue(element, TYPES)
         AccountsList accountsList = new AccountsList()
         // TODO: save state ENABLED in xml and call setTypeAvailable(ENABLED)
@@ -97,22 +97,22 @@ class JournalsIO {
     }
 
     static void readJournals(Accounting accounting) {
-        JournalTypes journalTypes = accounting.getJournalTypes()
-        Journals journals = accounting.getJournals()
+        JournalTypes journalTypes = accounting.journalTypes
+        Journals journals = accounting.journals
 
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + JOURNALS + XML_EXTENSION)
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + JOURNALS + XML_EXTENSION)
         Element rootElement = getRootElement(xmlFile, JOURNALS)
         for (Element element : getChildren(rootElement, JOURNAL)) {
 
             String name = getValue(element, NAME)
             String abbr = getValue(element, ABBREVIATION)
             Journal journal = new Journal(name, abbr)
-//            journal.setAccounting(accounting)
+//            journal.accounting = accounting
 //            setAccounting() is implicitely done in journals.addBusinessObjects
 //            this requires journals.setAccounting() is done already !
 
             String type = getValue(element, TYPE)
-            journal.setType(journalTypes.getBusinessObject(type))
+            journal.type = journalTypes.getBusinessObject(type)
 
             try {
                 journals.addBusinessObject(journal)
@@ -123,15 +123,15 @@ class JournalsIO {
     }
 
     static void readJournalsContent(Journals journals, Accounting accounting){
-        for(Journal journal:journals.getBusinessObjects()){
+        for(Journal journal:journals.businessObjects){
             readJournal(journal, accounting)
         }
     }
 
     static void readJournal(Journal journal, Accounting accounting) {
-        Transactions transactions = accounting.getTransactions()
-        String name = journal.getName()
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+JOURNALS+"/"+name+ XML_EXTENSION)
+        Transactions transactions = accounting.transactions
+        String name = journal.name
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+JOURNALS+"/"+name+ XML_EXTENSION)
         Element rootElement = getRootElement(xmlFile, JOURNAL)
         for (Element element: getChildren(rootElement, TRANSACTION)) {
             int id = parseInt(getValue(element, TRANSACTION_ID))
@@ -142,7 +142,7 @@ class JournalsIO {
             } else {
                 journal.addBusinessObject(transaction)
             }
-            Journal oldJournal = transaction.getJournal()
+            Journal oldJournal = transaction.journal
             if(oldJournal==null){
                 System.out.println("ERROR: should be set by Transactions")
             } else if (oldJournal!=journal){
@@ -152,10 +152,10 @@ class JournalsIO {
     }
 
     static void readTransactions(Accounting accounting) {
-        Transactions transactions = accounting.getTransactions()
-        VATFields vatFields = accounting.getVatFields()
-        Accounts accounts = accounting.getAccounts()
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+TRANSACTIONS+ XML_EXTENSION)
+        Transactions transactions = accounting.transactions
+        VATFields vatFields = accounting.vatFields
+        Accounts accounts = accounting.accounts
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+TRANSACTIONS+ XML_EXTENSION)
         Element rootElement = getRootElement(xmlFile, TRANSACTIONS)
         int maxId = 0
         for (Element element: getChildren(rootElement, TRANSACTION)) {
@@ -169,28 +169,28 @@ class JournalsIO {
             if(transactionId>maxId){
                 maxId=transactionId
             }
-            transaction.setTransactionId(transactionId)
+            transaction.transactionId = transactionId
 
             String journalAbbr = getValue(element, JOURNAL)
             if (!journalAbbr.equals("NULL")) {
-                Journals journals = accounting.getJournals()
+                Journals journals = accounting.journals
                 List<Journal> journalList = journals.getBusinessObjects(Journal.withAbbr(journalAbbr))
                 if (journalList.size() != 1) {
                     System.out.println("Error: there should be exactly 1 match")
                 } else {
                     Journal journal = journalList.get(0)
-                    transaction.setJournal(journal)
+                    transaction.journal = journal
                 }
 
                 String balanceTransactionString = getValue(element, BALANCE_TRANSACTION)
                 if (Boolean.valueOf(balanceTransactionString)) {
-                    transaction.setBalanceTransaction(true)
+                    transaction.balanceTransaction = true
                 }
 
                 String registeredString = getValue(element, REGISTERED)
                 if (registeredString != null) {
                     if ("true".equals(registeredString)) {
-                        transaction.setRegistered()
+                        transaction.registered = true
                     }
                 }
 
@@ -240,29 +240,29 @@ class JournalsIO {
             }
         }
 
-        transactions.setId(maxId)
+        transactions.id = maxId
     }
 
     static void writeJournalTypes(Accounting accounting){
-        JournalTypes journalTypes = accounting.getJournalTypes()
-        File journalTypesFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + JOURNAL_TYPES + XML_EXTENSION)
+        JournalTypes journalTypes = accounting.journalTypes
+        File journalTypesFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + JOURNAL_TYPES + XML_EXTENSION)
         try {
             Writer writer = new FileWriter(journalTypesFile)
             writer.write(getXmlHeader(JOURNAL_TYPES, 2))
-            for (JournalType journalType : journalTypes.getBusinessObjects()) {
+            for (JournalType journalType : journalTypes.businessObjects) {
 
                 AccountsList left = journalType.getLeft()
                 AccountsList right = journalType.getRight()
 
-                ArrayList<AccountType> leftAccountTypes = left.getAccountTypes()
-                ArrayList<AccountType> rightAccountTypes = right.getAccountTypes()
+                ArrayList<AccountType> leftAccountTypes = left.accountTypes
+                ArrayList<AccountType> rightAccountTypes = right.accountTypes
 
-                String leftStream = leftAccountTypes.stream().sorted().map(AccountType.&getName).collect(Collectors.joining(","))
-                String rightStream = rightAccountTypes.stream().sorted().map(AccountType.&getName).collect(Collectors.joining(","))
+                String leftStream = leftAccountTypes.name.stream().sorted().collect(Collectors.joining(","))
+                String rightStream = rightAccountTypes.name.stream().sorted().collect(Collectors.joining(","))
 
                 writer.write(
                         "  <"+JOURNAL_TYPE+">\n" +
-                                "    <"+NAME+">"+journalType.getName()+"</"+NAME+">\n" +
+                                "    <"+NAME+">"+journalType.name+"</"+NAME+">\n" +
                                 "    <"+VATTYPE+">"+(journalType.getVatType()==null?"null":journalType.getVatType().toString())+"</"+VATTYPE+">\n" +
                                 "    <"+LEFT_LIST+">\n" +
                                 "      <"+LEFT_ACTION+">"+left.isLeftAction()+"</"+LEFT_ACTION+">\n" +
@@ -271,7 +271,7 @@ class JournalsIO {
                                 "      <"+RIGHT_BUTTON+">"+left.getRightButton()+"</"+RIGHT_BUTTON+">\n" +
                                 "      <"+VATTYPE+">"+journalType.getLeftVatType()+"</"+VATTYPE+">\n" +
                                 "      <"+SINGLE_ACCOUNT+">"+left.isSingleAccount()+"</"+SINGLE_ACCOUNT+">\n" +
-                                "      <"+ACCOUNT+">"+left.getAccount()+"</"+ACCOUNT+">\n" +
+                                "      <"+ACCOUNT+">"+left.account+"</"+ACCOUNT+">\n" +
                                 "      <"+TYPES+">"+leftStream+"</"+TYPES+">\n" +
                                 "    </"+LEFT_LIST+">\n" +
                                 "    <"+RIGHT_LIST+">\n" +
@@ -281,7 +281,7 @@ class JournalsIO {
                                 "      <"+RIGHT_BUTTON+">"+right.getRightButton()+"</"+RIGHT_BUTTON+">\n" +
                                 "      <"+VATTYPE+">"+journalType.getRightVatType()+"</"+VATTYPE+">\n" +
                                 "      <"+SINGLE_ACCOUNT+">"+right.isSingleAccount()+"</"+SINGLE_ACCOUNT+">\n" +
-                                "      <"+ACCOUNT+">"+right.getAccount()+"</"+ACCOUNT+">\n" +
+                                "      <"+ACCOUNT+">"+right.account+"</"+ACCOUNT+">\n" +
                                 "      <"+TYPES+">"+rightStream+"</"+TYPES+">\n" +
                                 "    </"+RIGHT_LIST+">\n" +
                                 "  </"+JOURNAL_TYPE+">\n"
@@ -291,12 +291,12 @@ class JournalsIO {
             writer.flush()
             writer.close()
         } catch (IOException ex) {
-            Logger.getLogger(JournalTypes.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(JournalTypes.class.name).log(Level.SEVERE, null, ex)
         }
     }
 
     static String createTmpFolder(Accounting accounting) {
-        String accountingName = accounting.getName()
+        String accountingName = accounting.name
         String tmpFolderPath = ACCOUNTINGS_XML_FOLDER + accountingName + "/" + TMP + "/"
         File tempFolder = new File(tmpFolderPath)
         tempFolder.mkdirs()
@@ -304,7 +304,7 @@ class JournalsIO {
     }
 
     static String createPdfFolder(Accounting accounting) {
-        String accountingName = accounting.getName()
+        String accountingName = accounting.name
         String resultPdfPolderPath = ACCOUNTINGS_PDF_FOLDER + accountingName + "/" + JOURNALS + "/"
         File targetFolder = new File(resultPdfPolderPath)
         targetFolder.mkdirs()
@@ -317,19 +317,19 @@ class JournalsIO {
         String tmpFolderPath = createTmpFolder(accounting)
         String resultPdfPolderPath = createPdfFolder(accounting)
 
-        Journals journals = accounting.getJournals()
-        for (Journal journal:journals.getBusinessObjects()) {
-            if(!journal.getBusinessObjects().isEmpty()) {
+        Journals journals = accounting.journals
+        for (Journal journal:journals.businessObjects) {
+            if(!journal.businessObjects.empty) {
                 writeJournal(journal, tmpFolderPath, true)
             }
         }
 
-        journals.getBusinessObjects().forEach({ journal ->
-            if (!journal.getBusinessObjects().isEmpty()) {
+        journals.businessObjects.forEach({ journal ->
+            if (!journal.businessObjects.empty) {
                 try {
-                    String fileName = journal.getName() + XML_EXTENSION
+                    String fileName = journal.name + XML_EXTENSION
                     String xmlPath = tmpFolderPath + fileName
-                    PDFCreator.convertToPDF(xmlPath, xslPath, resultPdfPolderPath + journal.getName() + PDF_EXTENSION)
+                    PDFCreator.convertToPDF(xmlPath, xslPath, resultPdfPolderPath + journal.name + PDF_EXTENSION)
                     File file = new File(xmlPath)
                     file.delete()
                 } catch (IOException | FOPException | TransformerException e1) {
@@ -342,18 +342,18 @@ class JournalsIO {
     }
 
     static void writeJournals(Accounting accounting, boolean writeHtml){
-        Journals journals = accounting.getJournals()
-        String path = ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + JOURNALS
+        Journals journals = accounting.journals
+        String path = ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + JOURNALS
         File journalsXmlFile = new File(path + XML_EXTENSION)
         try {
             Writer writer = new FileWriter(journalsXmlFile)
             writer.write(getXmlHeader(JOURNALS, 2))
-            for (Journal journal : journals.getBusinessObjects()) {
+            for (Journal journal : journals.businessObjects) {
                 writer.write(
                         "  <"+JOURNAL+">\n" +
-                                "    <"+NAME+">"+journal.getName()+"</"+NAME+">\n" +
-                                "    <"+ABBREVIATION+">"+journal.getAbbreviation()+"</"+ABBREVIATION+">\n" +
-                                "    <"+TYPE+">"+journal.getType()+"</"+TYPE+">\n" +
+                                "    <"+NAME+">"+journal.name+"</"+NAME+">\n" +
+                                "    <"+ABBREVIATION+">"+journal.abbreviation+"</"+ABBREVIATION+">\n" +
+                                "    <"+TYPE+">"+journal.type+"</"+TYPE+">\n" +
                                 "  </"+JOURNAL+">\n"
                 )
             }
@@ -361,25 +361,25 @@ class JournalsIO {
             writer.flush()
             writer.close()
         } catch (IOException ex) {
-            Logger.getLogger(Journals.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(Journals.class.name).log(Level.SEVERE, null, ex)
         }
-        for (Journal journal:journals.getBusinessObjects()) {
+        for (Journal journal:journals.businessObjects) {
             writeJournal(journal, path, false)
         }
 
         if(writeHtml){
-            File journalsHtmlFile = new File(ACCOUNTINGS_HTML_FOLDER + accounting.getName() + "/" + JOURNALS+ HTML_EXTENSION)
+            File journalsHtmlFile = new File(ACCOUNTINGS_HTML_FOLDER + accounting.name + "/" + JOURNALS+ HTML_EXTENSION)
             File journalsXslFile = new File(XSLFOLDER + "Journals.xsl")
             XMLtoHTMLWriter.xmlToHtml(journalsXmlFile,journalsXslFile,journalsHtmlFile, null)
 
             String tmpFolderPath = createTmpFolder(accounting)
-            File journalsHtmlFolder = new File(ACCOUNTINGS_HTML_FOLDER + accounting.getName() + "/" + JOURNALS)
+            File journalsHtmlFolder = new File(ACCOUNTINGS_HTML_FOLDER + accounting.name + "/" + JOURNALS)
             journalsHtmlFolder.mkdirs()
 
-            for (Journal journal:journals.getBusinessObjects()) {
+            for (Journal journal:journals.businessObjects) {
                 writeJournal(journal, tmpFolderPath, true)
-                File journalXmlFile = new File(tmpFolderPath + "/" + journal.getName() + XML_EXTENSION)
-                File journalHtmlFile = new File(journalsHtmlFolder, journal.getName() + HTML_EXTENSION)
+                File journalXmlFile = new File(tmpFolderPath + "/" + journal.name + XML_EXTENSION)
+                File journalHtmlFile = new File(journalsHtmlFolder, journal.name + HTML_EXTENSION)
                 File journalXslFile = new File(XSLFOLDER + "Journal.xsl")
                 XMLtoHTMLWriter.xmlToHtml(journalXmlFile, journalXslFile, journalHtmlFile, null)
             }
@@ -389,49 +389,49 @@ class JournalsIO {
     static void writeJournal(Journal journal, String path, boolean details){
         File journalsFolder = new File(path)
         journalsFolder.mkdirs()
-        File journalFile = new File(path, journal.getName() + XML_EXTENSION)
+        File journalFile = new File(path, journal.name + XML_EXTENSION)
         try {
             Writer writer = new FileWriter(journalFile)
             writer.write(getXmlHeader(JOURNAL, 3))
             writer.write(
-                    "  <"+NAME+">"+journal.getName()+"</"+NAME+">\n" +
-                            "  <"+ABBREVIATION+">"+journal.getAbbreviation()+"</"+ABBREVIATION+">\n" +
-                            "  <"+TYPE+">"+journal.getType()+"</"+TYPE+">\n")
-            for (Transaction transaction : journal.getBusinessObjects()) {
+                    "  <"+NAME+">"+journal.name+"</"+NAME+">\n" +
+                            "  <"+ABBREVIATION+">"+journal.abbreviation+"</"+ABBREVIATION+">\n" +
+                            "  <"+TYPE+">"+journal.type+"</"+TYPE+">\n")
+            for (Transaction transaction : journal.businessObjects) {
                 writer.write(
                         "  <" + TRANSACTION + ">\n")
-                Journal transactionJournal = transaction.getJournal()
+                Journal transactionJournal = transaction.journal
                 if (transactionJournal == journal){
-                    writer.write("    <" + ID + ">" + transaction.getId() + "</" + ID + ">\n")
+                    writer.write("    <" + ID + ">" + transaction.id + "</" + ID + ">\n")
                 } else {
                     writer.write("    <" + ID + ">" + journal.getId(transaction) + "</" + ID + ">\n" +
-                            "    <" + ORIGINAL_JOURNAL + ">" + transaction.getAbbreviation() + "</" + ORIGINAL_JOURNAL + ">\n" +
-                            "    <" + ORIGINAL_ID + ">" + transaction.getId() + "</" + ORIGINAL_ID + ">\n")
+                            "    <" + ORIGINAL_JOURNAL + ">" + transaction.abbreviation + "</" + ORIGINAL_JOURNAL + ">\n" +
+                            "    <" + ORIGINAL_ID + ">" + transaction.id + "</" + ORIGINAL_ID + ">\n")
                 }
-                writer.write("    <" + TRANSACTION_ID + ">" + transaction.getTransactionId() + "</" + TRANSACTION_ID + ">\n")
-                if(transaction.isBalanceTransaction()){
+                writer.write("    <" + TRANSACTION_ID + ">" + transaction.transactionId + "</" + TRANSACTION_ID + ">\n")
+                if(transaction.balanceTransaction){
                     writer.write("    <"+BALANCE_TRANSACTION+">true</"+BALANCE_TRANSACTION+">\n")
                 }
                 if(details){
 //                    TODO: move all to method
 //                    writeDetails()
-                    writer.write("    <" + DATE + ">" + Utils.toString(transaction.getDate()) + "</" + DATE + ">\n" +
-                            "    <" + DESCRIPTION + ">" + transaction.getDescription() + "</" + DESCRIPTION + ">\n")
-                    for (Booking booking : transaction.getBusinessObjects()) {
+                    writer.write("    <" + DATE + ">" + Utils.toString(transaction.date) + "</" + DATE + ">\n" +
+                            "    <" + DESCRIPTION + ">" + transaction.description + "</" + DESCRIPTION + ">\n")
+                    for (Booking booking : transaction.businessObjects) {
                         writer.write("    <" + BOOKING + ">\n" +
-                                "      <MovementId>" + booking.getId() + "</MovementId>\n" +
-                                "      <" + ACCOUNT + ">" + booking.getAccount() + "</" + ACCOUNT + ">\n")
+                                "      <MovementId>" + booking.id + "</MovementId>\n" +
+                                "      <" + ACCOUNT + ">" + booking.account + "</" + ACCOUNT + ">\n")
                         Movement movement = booking.getMovement()
-                        if (movement.isDebit()) {
-                            writer.write("      <" + DEBIT + ">" + movement.getAmount() + "</" + DEBIT + ">\n")
+                        if (movement.debit) {
+                            writer.write("      <" + DEBIT + ">" + movement.amount + "</" + DEBIT + ">\n")
                         } else {
-                            writer.write("      <" + CREDIT + ">" + movement.getAmount() + "</" + CREDIT + ">\n")
+                            writer.write("      <" + CREDIT + ">" + movement.amount + "</" + CREDIT + ">\n")
                         }
-                        ArrayList<VATBooking> vatBookings = booking.getVatBookings()
+                        ArrayList<VATBooking> vatBookings = booking.vatBookings
                         for (VATBooking vatBooking : vatBookings) {
-                            VATField vatField = vatBooking.getVatField()
-                            VATMovement vatMovement = vatBooking.getVatMovement()
-                            writer.write("      <" + VATFIELD + ">" + vatField.getName() + "</" + VATFIELD + ">\n")
+                            VATField vatField = vatBooking.vatField
+                            VATMovement vatMovement = vatBooking.vatMovement
+                            writer.write("      <" + VATFIELD + ">" + vatField.name + "</" + VATFIELD + ">\n")
                         }
                         writer.write("    </" + BOOKING + ">\n")
                     }
@@ -442,51 +442,51 @@ class JournalsIO {
             writer.flush()
             writer.close()
         } catch (IOException ex) {
-            Logger.getLogger(Journal.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(Journal.class.name).log(Level.SEVERE, null, ex)
         }
     }
 
     static void writeTransactions(Accounting accounting){
-        Transactions transactions = accounting.getTransactions()
-        File transactionsFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + TRANSACTIONS + XML_EXTENSION)
+        Transactions transactions = accounting.transactions
+        File transactionsFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + TRANSACTIONS + XML_EXTENSION)
         try {
             Writer writer = new FileWriter(transactionsFile)
             writer.write(getXmlHeader(TRANSACTIONS, 2))
-            for (Transaction transaction : transactions.getBusinessObjects()) {
+            for (Transaction transaction : transactions.businessObjects) {
                 writer.write("  <" + TRANSACTION + ">\n" +
-                        "    <" + TRANSACTION_ID + ">" + transaction.getTransactionId() + "</" + TRANSACTION_ID + ">\n" +
-                        "    <" + DATE + ">" + Utils.toString(transaction.getDate()) + "</" + DATE + ">\n" +
-                        "    <" + DESCRIPTION + ">" + transaction.getDescription() + "</" + DESCRIPTION + ">\n" +
-                        "    <" + JOURNAL + ">" + transaction.getAbbreviation() + "</" + JOURNAL + ">\n" +
-                        "    <" + JOURNAL_ID + ">" + transaction.getId() + "</" + JOURNAL_ID + ">\n")
-                for(Journal journal : transaction.getDuplicateJournals()){
+                        "    <" + TRANSACTION_ID + ">" + transaction.transactionId + "</" + TRANSACTION_ID + ">\n" +
+                        "    <" + DATE + ">" + Utils.toString(transaction.date) + "</" + DATE + ">\n" +
+                        "    <" + DESCRIPTION + ">" + transaction.description + "</" + DESCRIPTION + ">\n" +
+                        "    <" + JOURNAL + ">" + transaction.abbreviation + "</" + JOURNAL + ">\n" +
+                        "    <" + JOURNAL_ID + ">" + transaction.id + "</" + JOURNAL_ID + ">\n")
+                for(Journal journal : transaction.duplicateJournals){
                     writer.write(
-                            "    <" + DUPLICATE_JOURNAL + ">" + journal.getAbbreviation() + "</" + DUPLICATE_JOURNAL + ">\n" +
+                            "    <" + DUPLICATE_JOURNAL + ">" + journal.abbreviation + "</" + DUPLICATE_JOURNAL + ">\n" +
                                     "    <" + DUPLICATE_JOURNAL_ID + ">" + journal.getId(transaction) + "</" + DUPLICATE_JOURNAL_ID + ">\n"
                     )
                 }
 //                TODO: reuse method writeDetails()
-                if(transaction.isBalanceTransaction()){
+                if(transaction.balanceTransaction){
                     writer.write("    <"+BALANCE_TRANSACTION+">true</"+BALANCE_TRANSACTION+">\n")
                 }
-                writer.write("    <"+REGISTERED+">"+transaction.isRegistered()+"</"+REGISTERED+">\n")
-                for (Booking booking : transaction.getBusinessObjects()) {
+                writer.write("    <"+REGISTERED+">"+transaction.registered+"</"+REGISTERED+">\n")
+                for (Booking booking : transaction.businessObjects) {
                     writer.write("    <" + BOOKING + ">\n" +
-                            "      <" + ID + ">" + booking.getId() + "</" + ID + ">\n" +
-                            "      <" + ACCOUNT + ">" + booking.getAccount() + "</" + ACCOUNT + ">\n")
+                            "      <" + ID + ">" + booking.id + "</" + ID + ">\n" +
+                            "      <" + ACCOUNT + ">" + booking.account + "</" + ACCOUNT + ">\n")
                     Movement movement = booking.getMovement()
-                    if (movement.isDebit()) {
-                        writer.write("      <" + DEBIT + ">" + movement.getAmount() + "</" + DEBIT + ">\n")
+                    if (movement.debit) {
+                        writer.write("      <" + DEBIT + ">" + movement.amount + "</" + DEBIT + ">\n")
                     } else {
-                        writer.write("      <" + CREDIT + ">" + movement.getAmount() + "</" + CREDIT + ">\n")
+                        writer.write("      <" + CREDIT + ">" + movement.amount + "</" + CREDIT + ">\n")
                     }
-                    ArrayList<VATBooking> vatBookings = booking.getVatBookings()
+                    ArrayList<VATBooking> vatBookings = booking.vatBookings
                     for (VATBooking vatBooking : vatBookings) {
-                        VATField vatField = vatBooking.getVatField()
-                        VATMovement vatMovement = vatBooking.getVatMovement()
+                        VATField vatField = vatBooking.vatField
+                        VATMovement vatMovement = vatBooking.vatMovement
                         writer.write("      <" + VATBOOKING + ">\n" +
-                                "        <" + VATFIELD + ">" + vatField.getName() + "</" + VATFIELD + ">\n" +
-                                "        <" + AMOUNT + ">" + vatMovement.getAmount() + "</" + AMOUNT + ">\n" +
+                                "        <" + VATFIELD + ">" + vatField.name + "</" + VATFIELD + ">\n" +
+                                "        <" + AMOUNT + ">" + vatMovement.amount + "</" + AMOUNT + ">\n" +
                                 "      </" + VATBOOKING + ">\n")
                     }
                     writer.write("    </" + BOOKING + ">\n")
@@ -498,7 +498,7 @@ class JournalsIO {
             writer.flush()
             writer.close()
         } catch (IOException ex) {
-            Logger.getLogger(Journal.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(Journal.class.name).log(Level.SEVERE, null, ex)
         }
     }
 }

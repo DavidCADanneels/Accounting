@@ -12,19 +12,19 @@ import javax.swing.*
 import static java.util.ResourceBundle.getBundle
 
 class IngredientSelectorPanel extends JPanel {
-    private final JButton addIngredient
-    private Ingredients ingredients
-    private Ingredient ingredient
-    private JComboBox<Ingredient> combo
-    private DefaultComboBoxModel<Ingredient> model
-    private ArrayList<AccountType> accountTypes
+    final JButton addIngredient
+    Ingredients ingredients
+    Ingredient ingredient
+    JComboBox<Ingredient> combo
+    DefaultComboBoxModel<Ingredient> model
+    ArrayList<AccountType> accountTypes
 
     IngredientSelectorPanel(Ingredients ingredients) {
         this.ingredients = ingredients
         this.accountTypes = accountTypes
         model = new DefaultComboBoxModel<>()
         combo = new JComboBox<>(model)
-        combo.addActionListener({ e -> ingredient = (Ingredient) combo.getSelectedItem() })
+        combo.addActionListener({ e -> ingredient = (Ingredient) combo.selectedItem })
         addIngredient = new JButton("Add Ingredient")
         addIngredient.addActionListener({ e ->
             String name = JOptionPane.showInputDialog(this, getBundle("Accounting").getString("NAME_LABEL"))
@@ -51,7 +51,7 @@ class IngredientSelectorPanel extends JPanel {
 
     void fireIngredientsDataChanged() {
         model.removeAllElements()
-        ingredients.getBusinessObjects().forEach({ ingredient -> model.addElement(ingredient) })
+        ingredients.businessObjects.forEach({ ingredient -> model.addElement(ingredient) })
         invalidate()
         combo.invalidate()
     }

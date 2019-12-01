@@ -20,6 +20,6 @@ class AccountType extends BusinessObject implements Comparable<AccountType> {
 
     @Override
     int compareTo(AccountType o) {
-        getName().compareTo(o.getName())
+        getName().compareTo(o.name)
     }
 }

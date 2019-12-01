@@ -5,7 +5,7 @@ import javax.swing.*
 import static java.util.ResourceBundle.getBundle
 
 class AccountsTablePopupMenu extends JPopupMenu {
-    private final JMenuItem manage, add, edit, debit, credit, details
+    final JMenuItem manage, add, edit, debit, credit, details
 
     AccountsTablePopupMenu(AccountsTablePanel accountsGUI) {
 

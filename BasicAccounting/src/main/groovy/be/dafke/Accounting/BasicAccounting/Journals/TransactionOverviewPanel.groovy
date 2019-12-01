@@ -24,19 +24,19 @@ import java.awt.Dimension
 import static java.util.ResourceBundle.getBundle
 
 class TransactionOverviewPanel extends JPanel {
-    private final SelectableTable<Transaction> transactionOverviewTable
-    private final SelectableTable<Booking> transactionDataTable
-    private final SelectableTable<VATBooking> vatTable
-    private final TransactionDataPopupMenu transactionDataPopupMenu
-    private final TransactionOverviewPopupMenu transactionOverviewPopupMenu
+    final SelectableTable<Transaction> transactionOverviewTable
+    final SelectableTable<Booking> transactionDataTable
+    final SelectableTable<VATBooking> vatTable
+    final TransactionDataPopupMenu transactionDataPopupMenu
+    final TransactionOverviewPopupMenu transactionOverviewPopupMenu
 
-    private final TransactionOverviewDataModel transactionOverviewDataModel
-    private final TransactionDataModel transactionDataModel
-    private final TransactionOverviewColorRenderer transactionOverviewColorRenderer
-    private final JTextField debet, credit
-    private final VATBookingDataModel vatBookingDataModel
-    private final TransactionDataColorRenderer transactionDataColorRenderer
-    private boolean multiSelection = false
+    final TransactionOverviewDataModel transactionOverviewDataModel
+    final TransactionDataModel transactionDataModel
+    final TransactionOverviewColorRenderer transactionOverviewColorRenderer
+    final JTextField debet, credit
+    final VATBookingDataModel vatBookingDataModel
+    final TransactionDataColorRenderer transactionDataColorRenderer
+    boolean multiSelection = false
 
     TransactionOverviewPanel() {
         setLayout(new BorderLayout())
@@ -105,25 +105,25 @@ class TransactionOverviewPanel extends JPanel {
         transactionOverviewDataModel.fireTableDataChanged()
     }
 
-    private void setSelection() {
+    void setSelection() {
         if (multiSelection) {
-            ArrayList<Transaction> transactions = transactionOverviewTable.getSelectedObjects()
+            ArrayList<Transaction> transactions = transactionOverviewTable.selectedObjects
             selectTransactions(transactions)
         } else {
-            Transaction transaction = transactionOverviewTable.getSelectedObject()
+            Transaction transaction = transactionOverviewTable.selectedObject
             selectTransaction(transaction)
         }
     }
 
-    private void updateTotals(Transaction transaction) {
+    void updateTotals(Transaction transaction) {
         debet.setText(transaction == null ? "" : transaction.getDebetTotaal().toString())
         credit.setText(transaction == null ? "" : transaction.getCreditTotaal().toString())
     }
 
     void setAccounting(Accounting accounting) {
-        setJournals(accounting == null ? null : accounting.getJournals())
+        setJournals(accounting == null ? null : accounting.journals)
         AccountingSession accountingSession = Session.getAccountingSession(accounting)
-        setJournal(accounting == null ? null : accountingSession.getActiveJournal())
+        setJournal(accounting?accountingSession.activeJournal:null)
     }
 
     void setJournals(Journals journals) {
@@ -132,28 +132,28 @@ class TransactionOverviewPanel extends JPanel {
     }
 
     void setJournal(Journal journal) {
-        transactionOverviewColorRenderer.setJournal(journal)
-        transactionOverviewDataModel.setJournal(journal)
+        transactionOverviewColorRenderer.journal = journal
+        transactionOverviewDataModel.journal = journal
         transactionOverviewDataModel.fireTableDataChanged()
-        Transaction transaction = transactionOverviewTable.getSelectedObject()
+        Transaction transaction = transactionOverviewTable.selectedObject
         selectTransaction(transaction)
     }
 
     void selectTransactions(ArrayList<Transaction> transactions) {
         HashMap<Account, Booking> newTransactionData = new HashMap<>()
         transactions.forEach({ transaction ->
-            ArrayList<Booking> bookings = transaction.getBusinessObjects()
+            ArrayList<Booking> bookings = transaction.businessObjects
             bookings.forEach({ booking ->
-                Account account = booking.getAccount()
+                Account account = booking.account
                 Booking foundBooking = newTransactionData.get(account)
                 if (foundBooking == null) {
                     Booking newBooking = new Booking(booking)
                     newTransactionData.put(account, newBooking)
                 } else {
-                    BigDecimal totalAmount = foundBooking.getAmount().add(booking.getAmount()).setScale(2, BigDecimal.ROUND_HALF_DOWN)
+                    BigDecimal totalAmount = foundBooking.amount.add(booking.amount).setScale(2, BigDecimal.ROUND_HALF_DOWN)
                     foundBooking.setAmount(totalAmount)
-                    ArrayList<VATBooking> vatBookings = booking.getVatBookings()
-                    vatBookings.forEach(foundBooking.&addVatBooking)
+                    ArrayList<VATBooking> vatBookings = booking.vatBookings
+                    vatBookings.each {foundBooking.addVatBooking(it)}
                     newTransactionData.put(account, foundBooking)
                 }
             })

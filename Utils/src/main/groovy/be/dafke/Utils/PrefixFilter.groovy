@@ -3,8 +3,8 @@ package be.dafke.Utils
 import javax.swing.DefaultListModel
 
 class PrefixFilter<K> {
-    private final DefaultListModel<K> model
-    private final List<K> map
+    final DefaultListModel<K> model
+    final List<K> map
 
     PrefixFilter(DefaultListModel<K> model, List<K> map){
         this.model = model

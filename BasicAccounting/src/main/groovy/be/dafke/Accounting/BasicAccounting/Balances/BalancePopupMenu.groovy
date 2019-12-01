@@ -13,9 +13,9 @@ import java.awt.*
 import static java.util.ResourceBundle.getBundle
 
 class BalancePopupMenu extends JPopupMenu {
-    private final JMenuItem details, edit
-    private Accounting accounting
-    private SelectableTable<Account> gui
+    final JMenuItem details, edit
+    Accounting accounting
+    SelectableTable<Account> gui
 
     BalancePopupMenu(Accounting accounting, SelectableTable<Account> gui) {
         this.accounting = accounting
@@ -31,21 +31,21 @@ class BalancePopupMenu extends JPopupMenu {
     }
 
     void showDetails() {
-        ArrayList<Account> accounts = gui.getSelectedObjects()
+        ArrayList<Account> accounts = gui.selectedObjects
         for(Account account: accounts) {
             Point locationOnScreen = getLocationOnScreen()
-            AccountDetailsGUI.getAccountDetails(locationOnScreen, account, accounting.getJournals())
+            AccountDetailsGUI.getAccountDetails(locationOnScreen, account, accounting.journals)
         }
         setVisible(false)
     }
 
     void editAccount(){
-        AccountTypes accountTypes = accounting.getAccountTypes()
-        ArrayList<Account> accounts = gui.getSelectedObjects()
+        AccountTypes accountTypes = accounting.accountTypes
+        ArrayList<Account> accounts = gui.selectedObjects
         for(Account account: accounts) {
-            NewAccountDialog newAccountDialog = new NewAccountDialog(accounting.getAccounts(), accountTypes.getBusinessObjects())
+            NewAccountDialog newAccountDialog = new NewAccountDialog(accounting.accounts, accountTypes.businessObjects)
             newAccountDialog.setAccount(account)
-            newAccountDialog.setVisible(true)
+            newAccountDialog.visible = true
         }
         setVisible(false)
     }

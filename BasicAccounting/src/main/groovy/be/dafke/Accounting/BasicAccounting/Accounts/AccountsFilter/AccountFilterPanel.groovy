@@ -15,14 +15,14 @@ import java.awt.event.FocusEvent
 import static java.util.ResourceBundle.getBundle
 
 class AccountFilterPanel extends JPanel {
-    private final AccountTypesFilterPanel types
+    final AccountTypesFilterPanel types
     private final JPanel name, number
-    private JTextField nameField, numberField
-    private JCheckBox hideEmptyCheckbox
-    private JCheckBox showNumbersCheckbox
+    JTextField nameField, numberField
+    JCheckBox hideEmptyCheckbox
+    JCheckBox showNumbersCheckbox
 
-    private AccountDataTableModel model
-    private JLabel nameLabel, numberLabel
+    AccountDataTableModel model
+    JLabel nameLabel, numberLabel
 
     AccountFilterPanel(AccountDataTableModel model, boolean left) {
         this.model = model
@@ -35,7 +35,7 @@ class AccountFilterPanel extends JPanel {
 
         showNumbersCheckbox = new JCheckBox("Show Numbers")
         showNumbersCheckbox.addActionListener({ e -> showNumbers() })
-        showNumbersCheckbox.setSelected(true)
+        showNumbersCheckbox.selected = true
 
         setLayout(new BorderLayout())
         JPanel south = new JPanel()
@@ -49,22 +49,22 @@ class AccountFilterPanel extends JPanel {
         add(types, BorderLayout.CENTER)
     }
 
-    private void showNumbers() {
-        boolean selected = showNumbersCheckbox.isSelected()
+    void showNumbers() {
+        boolean selected = showNumbersCheckbox.selected
         model.setShowNumbers(selected)
         number.setVisible(selected)
 //        TODO: update Session
         invalidate()
     }
 
-    private void hideEmpty() {
-        boolean selected = hideEmptyCheckbox.isSelected()
+    void hideEmpty() {
+        boolean selected = hideEmptyCheckbox.selected
         model.setHideEmpty(selected)
 //        TODO: update Session
         invalidate()
     }
 
-    private JPanel createNamePanel(){
+    JPanel createNamePanel(){
         JPanel panel = new JPanel()
         nameField = new JTextField(20)
         nameField.getDocument().addDocumentListener(new DocumentListener() {
@@ -88,11 +88,11 @@ class AccountFilterPanel extends JPanel {
         panel
     }
 
-    private void updateNamePrefix(){
+    void updateNamePrefix(){
         model.setNamePrefix(nameField.getText())
     }
 
-    private void updateNumberPrefix(){
+    void updateNumberPrefix(){
         model.setNumberPrefix(numberField.getText())
     }
 
@@ -100,7 +100,7 @@ class AccountFilterPanel extends JPanel {
         types.setJournalSession(journalSession)
     }
 
-    private JPanel createNumberPanel(){
+    JPanel createNumberPanel(){
         JPanel panel = new JPanel()
         numberField = new JTextField(20)
         numberField.getDocument().addDocumentListener(new DocumentListener() {
@@ -147,7 +147,7 @@ class AccountFilterPanel extends JPanel {
     void setAccountList(AccountsList accountList) {
         clearSearchFields()
         types.setAccountList(accountList)
-        boolean enabled = accountList!=null && (!accountList.isSingleAccount() || accountList.getAccount()==null)
+        boolean enabled = accountList!=null && (!accountList.isSingleAccount() || accountList.account==null)
         setEnabled(enabled)
 //        filter()
     }

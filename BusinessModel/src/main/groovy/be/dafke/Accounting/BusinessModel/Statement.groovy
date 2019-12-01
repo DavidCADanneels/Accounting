@@ -10,15 +10,15 @@ class Statement extends BusinessObject {
     static final String COUNTERPARTY = "CounterParty"
     static final String TRANSACTIONCODE = "TransactionCode"
     static final String COMMUNICATION = "Communication"
-    private String transactionCode
-    private String communication
-    private boolean debit
-    private boolean structured
-    private BigDecimal amount
-    private Calendar date
+    String transactionCode
+    String communication
+    boolean debit
+    boolean structured
+    BigDecimal amount
+    Calendar date
 
-    private CounterParty counterParty
-    private TmpCounterParty tmpCounterParty
+    CounterParty counterParty
+    TmpCounterParty tmpCounterParty
 
     @Override
     String toString() {
@@ -99,7 +99,7 @@ class Statement extends BusinessObject {
         properties.put(AMOUNT, amount.toString())
         properties.put(COMMUNICATION, communication)
         if(counterParty!=null){
-            properties.put(COUNTERPARTY,counterParty.getName())
+            properties.put(COUNTERPARTY,counterParty.name)
         }
         properties.put(TRANSACTIONCODE,transactionCode)
         properties.put(SIGN,isDebit()?"D":"C")

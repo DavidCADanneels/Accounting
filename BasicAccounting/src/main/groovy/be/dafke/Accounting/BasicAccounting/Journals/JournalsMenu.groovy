@@ -9,15 +9,15 @@ import java.awt.*
 import static java.util.ResourceBundle.getBundle
 
 class JournalsMenu extends JMenu {
-    private Accounting accounting
-    private JMenuItem add, manage, types, generatePdf
+    Accounting accounting
+    JMenuItem add, manage, types, generatePdf
 
-    private Journals journals
-    private JournalTypes journalTypes
-    private Accounts accounts
-    private AccountTypes accountTypes
-//    private JournalEditPanel journalEditPanel
-    private Transactions transactions
+    Journals journals
+    JournalTypes journalTypes
+    Accounts accounts
+    AccountTypes accountTypes
+//    JournalEditPanel journalEditPanel
+    Transactions transactions
 
     JournalsMenu() {
         super(getBundle("Accounting").getString("JOURNALS"))
@@ -28,31 +28,31 @@ class JournalsMenu extends JMenu {
             Point locationOnScreen = getLocationOnScreen()
             NewJournalDialog newJournalDialog = new NewJournalDialog(accounts, journals, journalTypes, accountTypes)
             newJournalDialog.setLocation(locationOnScreen)
-            newJournalDialog.setVisible(true)
+            newJournalDialog.visible = true
         })
-        add.setEnabled(false)
+        add.enabled = false
 
         manage = new JMenuItem(getBundle("Accounting").getString("MANAGE_JOURNALS"))
         manage.addActionListener({ e ->
             Point locationOnScreen = getLocationOnScreen()
             JournalManagementGUI journalManagementGUI = JournalManagementGUI.getInstance(accounts, journals, journalTypes, accountTypes)
             journalManagementGUI.setLocation(locationOnScreen)
-            journalManagementGUI.setVisible(true)
+            journalManagementGUI.visible = true
         })
-        manage.setEnabled(false)
+        manage.enabled = false
 
         types = new JMenuItem(getBundle("Accounting").getString("MANAGE_JOURNAL_TYPES"))
         types.addActionListener({ e ->
             Point locationOnScreen = getLocationOnScreen()
             JournalTypeManagementGUI journalTypeManagementGUI = JournalTypeManagementGUI.getInstance(accounts, journalTypes, accountTypes)
             journalTypeManagementGUI.setLocation(locationOnScreen)
-            journalTypeManagementGUI.setVisible(true)
+            journalTypeManagementGUI.visible = true
         })
-        types.setEnabled(false)
+        types.enabled = false
 
         generatePdf = new JMenuItem(getBundle("BusinessModel").getString("GENERATE_PDF"))
         generatePdf.addActionListener({ e -> JournalsIO.writeJournalPdfFiles(accounting) })
-        generatePdf.setEnabled(false)
+        generatePdf.enabled = false
 
         add(add)
         add(manage)
@@ -62,15 +62,15 @@ class JournalsMenu extends JMenu {
 
     void setAccounting(Accounting accounting) {
         this.accounting = accounting
-        setJournals(accounting==null?null:accounting.getJournals())
-        transactions = accounting==null?null:accounting.getTransactions()
-        journalTypes = accounting==null?null:accounting.getJournalTypes()
-        accountTypes = accounting==null?null:accounting.getAccountTypes()
-        accounts = accounting==null?null:accounting.getAccounts()
-        add.setEnabled(journals!=null)
-        manage.setEnabled(journals!=null)
-        types.setEnabled(journals!=null)
-        generatePdf.setEnabled(journals!=null)
+        setJournals(accounting?accounting.journals:null)
+        transactions = accounting?accounting.transactions:null
+        journalTypes = accounting?accounting.journalTypes:null
+        accountTypes = accounting?accounting.accountTypes:null
+        accounts = accounting?accounting.accounts:null
+        add.enabled = journals!=null
+        manage.enabled = journals!=null
+        types.enabled = journals!=null
+        generatePdf.enabled = journals!=null
         fireJournalDataChanged()
     }
 
@@ -87,9 +87,9 @@ class JournalsMenu extends JMenu {
         add(generatePdf)
         if(journals!=null){
             addSeparator()
-            journals.getBusinessObjects().stream()
+            journals.businessObjects.stream()
                     .forEach({ journal ->
-                        JMenuItem details = new JMenuItem(journal.getName())
+                        JMenuItem details = new JMenuItem(journal.name)
                         details.addActionListener({ e ->
                             Point locationOnScreen = getLocationOnScreen()
                             JournalDetailsGUI.getJournalDetails(locationOnScreen, journal, journals)

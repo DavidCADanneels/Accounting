@@ -6,17 +6,17 @@ import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException
 import be.dafke.Utils.Utils
 
 class MealOrders extends BusinessCollection<MealOrder> {
-    private Account mealOrderBalanceAccount, mealOrderServiceAccount, mealOrderRevenueAccount
-    private Journal mealOrderSalesJournal, mealOrderServiceJournal
+    Account mealOrderBalanceAccount, mealOrderServiceAccount, mealOrderRevenueAccount
+    Journal mealOrderSalesJournal, mealOrderServiceJournal
 
-    private int id = 0
+    int id = 0
 
     static MealOrder mergeOrders(ArrayList<MealOrder> ordersToAdd) {
         MealOrder mealOrder = new MealOrder()
         for(MealOrder orderToAdd: ordersToAdd){
-            ArrayList<MealOrderItem> mealOrderItemsToAdd = orderToAdd.getBusinessObjects()
+            ArrayList<MealOrderItem> mealOrderItemsToAdd = orderToAdd.businessObjects
             for(MealOrderItem mealOrderItemToAdd : mealOrderItemsToAdd){
-                int numberOfItems = mealOrderItemToAdd.getNumberOfItems()
+                int numberOfItems = mealOrderItemToAdd.numberOfItems
                 Meal meal = mealOrderItemToAdd.getMeal()
                 MealOrderItem newMealOrderItem = new MealOrderItem(numberOfItems, meal)
                 mealOrder.addBusinessObject(newMealOrderItem )
@@ -27,10 +27,10 @@ class MealOrders extends BusinessCollection<MealOrder> {
 
     MealOrder addBusinessObject(MealOrder mealOrder) throws EmptyNameException, DuplicateNameException {
         id++
-        if(mealOrder.getId()==null){
-            mealOrder.setId(id)
+        if(mealOrder.id==null){
+            mealOrder.id = id
         }
-        mealOrder.setName(Utils.toIDString("DEL", mealOrder.getId(),3))
+        mealOrder.setName(Utils.toIDString("DEL", mealOrder.id,3))
         super.addBusinessObject(mealOrder)
         mealOrder
     }

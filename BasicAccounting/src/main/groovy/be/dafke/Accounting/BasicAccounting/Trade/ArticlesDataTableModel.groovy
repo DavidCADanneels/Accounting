@@ -15,7 +15,7 @@ import java.util.List
 import static java.util.ResourceBundle.getBundle
 
 class ArticlesDataTableModel extends SelectableTableModel<Article> {
-    private final Articles articles
+    final Articles articles
     static int UNIT_NAME_COL = 0
     static int INGREDIENT_COL = 1
     static int AMOUNT_COL = 2
@@ -28,10 +28,10 @@ class ArticlesDataTableModel extends SelectableTableModel<Article> {
     static int SALES_VAT_COL = 9
     static int SALE_ITEM_INCL_COL = 10
     static int NR_OF_COL = 11
-    private final Component parent
-    private HashMap<Integer,String> columnNames = new HashMap<>()
-    private HashMap<Integer,Class> columnClasses = new HashMap<>()
-    private List<Integer> editableColumns = new ArrayList<>()
+    final Component parent
+    HashMap<Integer,String> columnNames = new HashMap<>()
+    HashMap<Integer,Class> columnClasses = new HashMap<>()
+    List<Integer> editableColumns = new ArrayList<>()
 
     ArticlesDataTableModel(Component parent, Articles articles) {
         this.parent = parent
@@ -41,7 +41,7 @@ class ArticlesDataTableModel extends SelectableTableModel<Article> {
         setEditableColumns()
     }
 
-    private void setEditableColumns() {
+    void setEditableColumns() {
         editableColumns.add(UNIT_NAME_COL)
         editableColumns.add(ITEMS_PER_UNIT_COL)
         editableColumns.add(HS_COL)
@@ -54,7 +54,7 @@ class ArticlesDataTableModel extends SelectableTableModel<Article> {
         editableColumns.add(SALE_ITEM_INCL_COL)
     }
 
-    private void setColumnClasses() {
+    void setColumnClasses() {
         columnClasses.put(UNIT_NAME_COL, String.class)
         columnClasses.put(ITEMS_PER_UNIT_COL, Integer.class)
         columnClasses.put(HS_COL, String.class)
@@ -68,7 +68,7 @@ class ArticlesDataTableModel extends SelectableTableModel<Article> {
         columnClasses.put(SALE_ITEM_INCL_COL, BigDecimal.class)
     }
 
-    private void setColumnNames() {
+    void setColumnNames() {
         columnNames.put(UNIT_NAME_COL, getBundle("Accounting").getString("ARTICLE_UNIT_NAME"))
         columnNames.put(ITEMS_PER_UNIT_COL, getBundle("Accounting").getString("ITEMS_PER_UNIT"))
         columnNames.put(HS_COL, getBundle("Accounting").getString("ARTICLE_HS"))
@@ -85,41 +85,23 @@ class ArticlesDataTableModel extends SelectableTableModel<Article> {
 // ===============
     Object getValueAt(int row, int col) {
         Article article = getObject(row, col)
-        if(article==null) null
-        if (col == UNIT_NAME_COL) {
-            article.getName()
-        }
-        if (col == PURCHASE_VAT_COL) {
-            article.getPurchaseVatRate()
-        }
-        if (col == SALES_VAT_COL) {
-            article.getSalesVatRate()
-        }
-        if (col == HS_COL) {
-            article.getHSCode()
-        }
-        if (col == PURCHASE_PRICE_COL) {
-            article.getPurchasePrice()
-        }
-        if(col == INGREDIENT_COL) {
-            article.getIngredient()
-        }
-        if(col == AMOUNT_COL) {
-            article.getIngredientAmount()
-        }
-        if (col == SUPPLIER_COL) {
-            article.getSupplier()
-        }
-        if (col == ITEMS_PER_UNIT_COL) {
-            article.getItemsPerUnit()
-        }
+        if(article==null) return null
+        if (col == UNIT_NAME_COL) return article.name
+        if (col == PURCHASE_VAT_COL) return article.getPurchaseVatRate()
+        if (col == SALES_VAT_COL) return article.salesVatRate
+        if (col == HS_COL) return article.getHSCode()
+        if (col == PURCHASE_PRICE_COL) return article.purchasePrice
+        if(col == INGREDIENT_COL) return article.getIngredient()
+        if(col == AMOUNT_COL) return article.ingredientAmount
+        if (col == SUPPLIER_COL) return article.supplier
+        if (col == ITEMS_PER_UNIT_COL) return article.itemsPerUnit
         if (col == SALE_ITEM_EXCL_COL) {
             BigDecimal salesPriceSingleWithoutVat = article.getSalesPriceItemWithoutVat()
-            salesPriceSingleWithoutVat!=null?salesPriceSingleWithoutVat:BigDecimal.ZERO
+            return salesPriceSingleWithoutVat?salesPriceSingleWithoutVat:BigDecimal.ZERO
         }
         if (col == SALE_ITEM_INCL_COL) {
             BigDecimal salesPriceSingleWithVat = article.getSalesPriceItemWithVat()
-            salesPriceSingleWithVat!=null?salesPriceSingleWithVat:BigDecimal.ZERO
+            return salesPriceSingleWithVat?salesPriceSingleWithVat:BigDecimal.ZERO
         }
         null
     }
@@ -129,10 +111,7 @@ class ArticlesDataTableModel extends SelectableTableModel<Article> {
     }
 
     int getRowCount() {
-        if(articles == null){
-            0
-        }
-        articles.getBusinessObjects().size()
+        articles?articles.businessObjects.size():0
     }
 
     @Override
@@ -188,7 +167,7 @@ class ArticlesDataTableModel extends SelectableTableModel<Article> {
         }
         if(col == UNIT_NAME_COL) {
 //            article.setName((String) value)
-            String oldName = article.getName()
+            String oldName = article.name
             String newName = (String) value
             if (newName != null && !oldName.trim().equals(newName.trim())) {
                 try {
@@ -205,6 +184,6 @@ class ArticlesDataTableModel extends SelectableTableModel<Article> {
 
     @Override
     Article getObject(int row, int col) {
-        articles.getBusinessObjects().get(row)
+        articles.businessObjects.get(row)
     }
 }

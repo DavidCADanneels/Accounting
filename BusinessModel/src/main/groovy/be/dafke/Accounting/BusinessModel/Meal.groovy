@@ -3,13 +3,13 @@ package be.dafke.Accounting.BusinessModel
 import be.dafke.Accounting.ObjectModel.BusinessObject
 
 class Meal extends BusinessObject{
-    private String mealName = ""
-    private String description = ""
-    private BigDecimal salesPrice = null
-    private Recipe recipe = new Recipe()
+    String mealName = ""
+    String description = ""
+    BigDecimal salesPrice = null
+    Recipe recipe = new Recipe()
 
     Meal(Meal meal){
-        this(meal.getName())
+        this(meal.name)
         mealName = meal.mealName
         description = meal.description
         salesPrice = meal.salesPrice
@@ -51,10 +51,10 @@ class Meal extends BusinessObject{
     }
 
 //    List<Ingredient> getIngredients() {
-//        recipe.getIngredients()
+//        recipe.ingredients
 //    }
 
     Ingredients getIngredients() {
-        recipe.getIngredients()
+        recipe.ingredients
     }
 }

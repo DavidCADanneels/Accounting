@@ -10,8 +10,8 @@ import javax.swing.JScrollPane
 
 class AllergenesPerIngredientSelectorPanel extends JPanel {
 
-    private final AllergenesPerIngredientSelectionDataTableModel allergenesPerIngredientSelectionDataTableModel
-    private final SelectableTable<Allergene> table
+    final AllergenesPerIngredientSelectionDataTableModel allergenesPerIngredientSelectionDataTableModel
+    final SelectableTable<Allergene> table
 
     AllergenesPerIngredientSelectorPanel(Ingredient ingredient, Allergenes allergenes) {
         allergenesPerIngredientSelectionDataTableModel = new AllergenesPerIngredientSelectionDataTableModel(ingredient, allergenes)

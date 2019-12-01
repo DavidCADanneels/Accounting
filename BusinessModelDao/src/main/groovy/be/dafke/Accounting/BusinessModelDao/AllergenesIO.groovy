@@ -17,8 +17,8 @@ import static be.dafke.Accounting.BusinessModelDao.XMLWriter.getXmlHeader
 
 class AllergenesIO {
     static void readAllergenes(Accounting accounting){
-        Allergenes allergenes = accounting.getAllergenes()
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+ALLERGENES + XML_EXTENSION)
+        Allergenes allergenes = accounting.allergenes
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+ALLERGENES + XML_EXTENSION)
         Element rootElement = getRootElement(xmlFile, ALLERGENES)
         for (Element element : getChildren(rootElement, ALLERGENE)) {
 
@@ -35,17 +35,17 @@ class AllergenesIO {
     }
 
     static void writeAllergenes(Accounting accounting) {
-        Allergenes allergenes = accounting.getAllergenes()
-        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + ALLERGENES + XML_EXTENSION)
+        Allergenes allergenes = accounting.allergenes
+        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + ALLERGENES + XML_EXTENSION)
         try {
             Writer writer = new FileWriter(file)
             writer.write(getXmlHeader(ALLERGENES, 2))
-            for (Allergene allergene : allergenes.getBusinessObjects()) {
+            for (Allergene allergene : allergenes.businessObjects) {
                 writer.write(
                         "  <" + ALLERGENE + ">\n" +
-                                "    <" + ID + ">" + allergene.getName() + "</" + ID + ">\n" +
-                                "    <" + NAME + ">" + allergene.getShortName() + "</" + NAME + ">\n" +
-                                "    <" + DESCRIPTION + ">" + allergene.getDescription() + "</" + DESCRIPTION + ">\n" +
+                                "    <" + ID + ">" + allergene.name + "</" + ID + ">\n" +
+                                "    <" + NAME + ">" + allergene.shortName + "</" + NAME + ">\n" +
+                                "    <" + DESCRIPTION + ">" + allergene.description + "</" + DESCRIPTION + ">\n" +
                                 "  </" + ALLERGENE + ">\n"
                 )
             }
@@ -53,7 +53,7 @@ class AllergenesIO {
             writer.flush()
             writer.close()
         } catch (IOException ex) {
-            Logger.getLogger(Accounts.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(Accounts.class.name).log(Level.SEVERE, null, ex)
         }
     }
 }

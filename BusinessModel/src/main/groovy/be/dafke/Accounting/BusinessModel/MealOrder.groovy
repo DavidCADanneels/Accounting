@@ -6,9 +6,9 @@ import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException
 import be.dafke.Accounting.ObjectModel.Exceptions.NotEmptyException
 
 class MealOrder extends BusinessCollection<MealOrderItem> {
-    private Calendar date
-    private String description
-    private Integer id
+    Calendar date
+    String description
+    Integer id
 
     Integer getId() {
         id
@@ -38,7 +38,7 @@ class MealOrder extends BusinessCollection<MealOrderItem> {
         BigDecimal total = BigDecimal.ZERO.setScale(2)
         for(MealOrderItem mealOrderItem:getBusinessObjects()){
             Meal meal = mealOrderItem.getMeal()
-            int numberOfItems = mealOrderItem.getNumberOfItems()
+            int numberOfItems = mealOrderItem.numberOfItems
             BigDecimal salesPrice = meal.getSalesPrice().multiply(new BigDecimal(numberOfItems))
             total = total.add(salesPrice)
         }
@@ -49,7 +49,7 @@ class MealOrder extends BusinessCollection<MealOrderItem> {
         int result = 0
         List<MealOrderItem> mealOrderItems = getBusinessObjects({ mealOrderItem -> mealOrderItem.getMeal() == meal })
         for (MealOrderItem mealOrderItem:mealOrderItems) {
-            result += mealOrderItem.getNumberOfItems()
+            result += mealOrderItem.numberOfItems
         }
         result
     }
@@ -62,8 +62,8 @@ class MealOrder extends BusinessCollection<MealOrderItem> {
             e.printStackTrace()
             null
         } catch (DuplicateNameException e) {
-            int itemsToAdd = orderItem.getNumberOfItems()
-            MealOrderItem itemInStock = getBusinessObject(orderItem.getName())
+            int itemsToAdd = orderItem.numberOfItems
+            MealOrderItem itemInStock = getBusinessObject(orderItem.name)
             if(itemInStock==null){
                 // cannot be null since DuplicateNameException
                 null
@@ -75,14 +75,14 @@ class MealOrder extends BusinessCollection<MealOrderItem> {
     }
 
     void setMeals(Meals meals){
-        meals.getBusinessObjects().forEach({ meal ->
+        meals.businessObjects.forEach({ meal ->
             addBusinessObject(new MealOrderItem(0, meal))
         })
     }
 
     void removeEmptyOrderItems() {
         getBusinessObjects().forEach({ mealOrderItem ->
-            int numberOfItems = mealOrderItem.getNumberOfItems()
+            int numberOfItems = mealOrderItem.numberOfItems
             if (numberOfItems == 0) {
                 remove(mealOrderItem, true)
             }
@@ -97,11 +97,11 @@ class MealOrder extends BusinessCollection<MealOrderItem> {
         try {
             super.removeBusinessObject(orderItem)
         } catch (NotEmptyException e1) {
-            int itemsToRemove = orderItem.getNumberOfItems()
-            MealOrderItem mealsInOrderItem = getBusinessObject(orderItem.getName())
+            int itemsToRemove = orderItem.numberOfItems
+            MealOrderItem mealsInOrderItem = getBusinessObject(orderItem.name)
             if (mealsInOrderItem != null) {
                 mealsInOrderItem.removeNumberOfItems(itemsToRemove)
-                int numberOfItems = mealsInOrderItem.getNumberOfItems()
+                int numberOfItems = mealsInOrderItem.numberOfItems
                 if(removeIfEmpty&&numberOfItems==0){
                     try {
                         super.removeBusinessObject(mealsInOrderItem)

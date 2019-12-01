@@ -16,26 +16,26 @@ import static be.dafke.Accounting.BusinessModelDao.VATWriter.Period.QUARTER
 import static javax.swing.BoxLayout.Y_AXIS
 
 class VATFieldsPanel extends JPanel {
-    private static final String CREATE_FILE = "Create file"
-    private static final String SALES_AT_0 = "Sales at 0%"
-    private static final String SALES_AT_6 = "Sales at 6%"
-    private static final String SALES_AT_12 = "Sales at 12%"
-    private static final String SALES_AT_21 = "Sales at 21%"
-    private static final String TAX_ON_SALES_0_3 = "Tax on Sales (0-3)"
-    private static final String CN_ON_SALES = "CN on Sales"
-    private static final String TAX_ON_CN = "Tax on CN"
-    private static final String TAX_ON_ICL = "Tax on ICL"
-    private static final String SALES_ICL_TURNOVER = "Turnover ICL"
-    private static final String PURCHASE_OF_SUPPLIES = "Purchase of supplies"
-    private static final String PURCHASE_OF_SERVICES = "Purchase of services"
-    private static final String PURCHASE_OF_INVESTMENTS = "Purchase of investments"
-    private static final String PURCHASE_ICL = "Purchase ICL"
-    private static final String TAX_ON_PURCHASES_81_83 = "Tax on Purchases (81-83)"
-    private static final String CN_ON_PURCHASES = "CN on Purchases"
-    private Accounting accounting
-    private VATFields vatFields
-    private HashMap<String, JTextField> textFields = new HashMap<>()
-    private List<Transaction> selectedVatTransactions
+    static final String CREATE_FILE = "Create file"
+    static final String SALES_AT_0 = "Sales at 0%"
+    static final String SALES_AT_6 = "Sales at 6%"
+    static final String SALES_AT_12 = "Sales at 12%"
+    static final String SALES_AT_21 = "Sales at 21%"
+    static final String TAX_ON_SALES_0_3 = "Tax on Sales (0-3)"
+    static final String CN_ON_SALES = "CN on Sales"
+    static final String TAX_ON_CN = "Tax on CN"
+    static final String TAX_ON_ICL = "Tax on ICL"
+    static final String SALES_ICL_TURNOVER = "Turnover ICL"
+    static final String PURCHASE_OF_SUPPLIES = "Purchase of supplies"
+    static final String PURCHASE_OF_SERVICES = "Purchase of services"
+    static final String PURCHASE_OF_INVESTMENTS = "Purchase of investments"
+    static final String PURCHASE_ICL = "Purchase ICL"
+    static final String TAX_ON_PURCHASES_81_83 = "Tax on Purchases (81-83)"
+    static final String CN_ON_PURCHASES = "CN on Purchases"
+    Accounting accounting
+    VATFields vatFields
+    HashMap<String, JTextField> textFields = new HashMap<>()
+    List<Transaction> selectedVatTransactions
 
     VATFieldsPanel(VATFields vatFields, Accounting accounting, List<Transaction> selectedVatTransactions) {
         this.accounting = accounting
@@ -52,7 +52,7 @@ class VATFieldsPanel extends JPanel {
         add(buttonPanel)
     }
 
-    private JPanel createFieldPanel(String nr, String description){
+    JPanel createFieldPanel(String nr, String description){
         JPanel panel = new JPanel()
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS))
         JPanel line1 = new JPanel()
@@ -77,7 +77,7 @@ class VATFieldsPanel extends JPanel {
         for (String nr: textFields.keySet()){
             JTextField textField = textFields.get(nr)
             VATField vatField = vatFields.getBusinessObject(nr)
-            BigDecimal amount = vatField.getSaldo()
+            BigDecimal amount = vatField.saldo
             if (textField != null){
                 if(amount != null) {
                     textField.setText(amount.toString())
@@ -88,7 +88,7 @@ class VATFieldsPanel extends JPanel {
         }
     }
 
-    private JPanel createSalesPanel() {
+    JPanel createSalesPanel() {
         JPanel panel = new JPanel()
         panel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Sales"))
         panel.setLayout(new BoxLayout(panel,BoxLayout.X_AXIS))
@@ -102,7 +102,7 @@ class VATFieldsPanel extends JPanel {
         panel
     }
 
-    private JPanel createSalesMainPanel() {
+    JPanel createSalesMainPanel() {
         JPanel panel = new JPanel()
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS))
         panel.add(createFieldPanel("0", SALES_AT_0))
@@ -112,7 +112,7 @@ class VATFieldsPanel extends JPanel {
         panel
     }
 
-    private JPanel createSalesTaxAndCNPanel() {
+    JPanel createSalesTaxAndCNPanel() {
         JPanel panel = new JPanel()
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS))
         panel.add(createFieldPanel("54", TAX_ON_SALES_0_3))
@@ -122,7 +122,7 @@ class VATFieldsPanel extends JPanel {
         panel
     }
 
-    private JPanel createPurchasePanel() {
+    JPanel createPurchasePanel() {
         JPanel panel = new JPanel()
         panel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Purchases"))
         panel.setLayout(new BoxLayout(panel,BoxLayout.X_AXIS))
@@ -136,7 +136,7 @@ class VATFieldsPanel extends JPanel {
         panel
     }
 
-    private JPanel createPurchaseMainPanel() {
+    JPanel createPurchaseMainPanel() {
         JPanel panel = new JPanel()
         panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS))
         panel.add(createFieldPanel("81", PURCHASE_OF_SUPPLIES))
@@ -146,7 +146,7 @@ class VATFieldsPanel extends JPanel {
         panel
     }
 
-    private JPanel createPurchaseTaxAndCNPanel() {
+    JPanel createPurchaseTaxAndCNPanel() {
         JPanel panel = new JPanel()
         panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS))
         panel.add(createFieldPanel("59", TAX_ON_PURCHASES_81_83))
@@ -156,7 +156,7 @@ class VATFieldsPanel extends JPanel {
         panel
     }
 
-    private JPanel createTotalsPanel() {
+    JPanel createTotalsPanel() {
         JPanel panel = new JPanel()
         panel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Totals"))
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS))
@@ -170,7 +170,7 @@ class VATFieldsPanel extends JPanel {
         panel
     }
 
-    private JPanel createTotalsLeftPanel(){
+    JPanel createTotalsLeftPanel(){
         JPanel panel = new JPanel()
         panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS))
         panel.add(createFieldPanel("XX", "54+55+63"))
@@ -178,7 +178,7 @@ class VATFieldsPanel extends JPanel {
         panel
     }
 
-    private JPanel createTotalsRightPanel(){
+    JPanel createTotalsRightPanel(){
         JPanel panel = new JPanel()
         panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS))
         panel.add(createFieldPanel("71", "XX-YY"))
@@ -186,7 +186,7 @@ class VATFieldsPanel extends JPanel {
         panel
     }
 
-    private JPanel createButtonPanel() {
+    JPanel createButtonPanel() {
         JPanel panel = new JPanel()
         JTextField year = new JTextField(6)
         JTextField nr = new JTextField(4)
@@ -205,7 +205,7 @@ class VATFieldsPanel extends JPanel {
             if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = fileChooser.getSelectedFile()
                 VATWriter.writeVATFields(vatFields, selectedFile, year.getText(), nr.getText(), companyContact, QUARTER)
-                VATTransactions vatTransactions = accounting.getVatTransactions()
+                VATTransactions vatTransactions = accounting.vatTransactions
                 vatTransactions.registerVATTransactions(selectedVatTransactions)
                 Main.fireVATFieldsUpdated()
             }

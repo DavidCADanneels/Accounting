@@ -16,23 +16,23 @@ import java.awt.event.*
 import static java.util.ResourceBundle.getBundle
 
 class JournalEditPanel extends JPanel implements ActionListener {
-    private JTextField debet, credit, ident
-    private JButton singleBook, save, clear
-    private JCheckBox balanceTransaction
+    JTextField debet, credit, ident
+    JButton singleBook, save, clear
+    JCheckBox balanceTransaction
 
-    private final SelectableTable<Booking> table
-    private TableColumn debitAccount, creditAccount
-    private JComboBox<Account> comboBox
-    private final JournalGUIPopupMenu popup
-    private final JournalDataModel journalDataModel
-    private BigDecimal debettotaal, credittotaal
+    final SelectableTable<Booking> table
+    TableColumn debitAccount, creditAccount
+    JComboBox<Account> comboBox
+    final JournalGUIPopupMenu popup
+    final JournalDataModel journalDataModel
+    BigDecimal debettotaal, credittotaal
 
-    private Journal journal
-    private Transaction transaction
-    private Accounts accounts
-//    private VATTransactions vatTransactions
-    private DateAndDescriptionPanel dateAndDescriptionPanel
-    private Transactions transactions
+    Journal journal
+    Transaction transaction
+    Accounts accounts
+//    VATTransactions vatTransactions
+    DateAndDescriptionPanel dateAndDescriptionPanel
+    Transactions transactions
 
     JournalEditPanel() {
         setLayout(new BorderLayout())
@@ -53,7 +53,7 @@ class JournalEditPanel extends JPanel implements ActionListener {
         scrollPane.addMouseListener(new MouseAdapter() {
             @Override
             void mouseClicked(MouseEvent me) {
-                popup.setVisible(false)
+                popup.visible = false
             }
         })
         JPanel onder = createInputPanel()
@@ -64,7 +64,7 @@ class JournalEditPanel extends JPanel implements ActionListener {
         ident = new JTextField(4)
         ident.setEditable(false)
         balanceTransaction = new JCheckBox("balanceTransaction",false)
-        balanceTransaction.addActionListener({ e -> transaction.setBalanceTransaction(balanceTransaction.isSelected()) })
+        balanceTransaction.addActionListener({ e -> transaction.balanceTransaction = balanceTransaction.selected })
         singleBook = new JButton(getBundle("Accounting").getString("OK"))
         singleBook.addActionListener(this)
         singleBook.setMnemonic(KeyEvent.VK_B)
@@ -123,7 +123,7 @@ class JournalEditPanel extends JPanel implements ActionListener {
         }
         for (Transaction transaction : transactions) {
             if (transaction != null) {
-                Journal oldJournal = transaction.getJournal()
+                Journal oldJournal = transaction.journal
                 if (oldJournal != null) {
                     oldJournal.removeBusinessObject(transaction)
                 }
@@ -131,8 +131,8 @@ class JournalEditPanel extends JPanel implements ActionListener {
                 if (newJournal != null) { // e.g. when Cancel has been clicked
                     newJournal.addBusinessObject(transaction)
                 }
-                transaction.setJournal(newJournal)
-                for (Account account : transaction.getAccounts()) {
+                transaction.journal = newJournal
+                for (Account account : transaction.accounts) {
                     updatedAccounts.add(account)
                 }
             }
@@ -145,19 +145,19 @@ class JournalEditPanel extends JPanel implements ActionListener {
         for (Account account : updatedAccounts) {
             Main.fireAccountDataChanged(account)
         }
-//        ActionUtils.showErrorMessage(ActionUtils.TRANSACTION_MOVED, oldJournal.getName(), newJournal.getName())
+//        ActionUtils.showErrorMessage(ActionUtils.TRANSACTION_MOVED, oldJournal.name, newJournal.name)
     }
 
     Set<Transaction> getTransactions(ArrayList<Booking> bookings){
         Set<Transaction> transactions = new HashSet<>()
         for (Booking booking:bookings) {
-            transactions.add(booking.getTransaction())
+            transactions.add(booking.transaction)
         }
         transactions
     }
 
-    private Journal getNewJournal(Transaction transaction, Journals journals){
-        Journal journal = transaction.getJournal()
+    Journal getNewJournal(Transaction transaction, Journals journals){
+        Journal journal = transaction.journal
         ArrayList<Journal> dagboeken = journals.getAllJournalsExcept(journal)
         Object[] lijst = dagboeken.toArray()
         int keuze = JOptionPane.showOptionDialog(null,
@@ -180,44 +180,44 @@ class JournalEditPanel extends JPanel implements ActionListener {
         }
     }
 
-    private void deleteTransaction(Transaction transaction) {//throws NotEmptyException{
-        Journal journal = transaction.getJournal()
+    void deleteTransaction(Transaction transaction) {//throws NotEmptyException{
+        Journal journal = transaction.journal
         journal.removeBusinessObject(transaction)
         transactions.removeBusinessObject(transaction)
-        transaction.setJournal(null)
+        transaction.journal = null
 
         Main.fireJournalDataChanged(journal)
-        for (Account account : transaction.getAccounts()) {
+        for (Account account : transaction.accounts) {
             Main.fireAccountDataChanged(account)
         }
 
-        ArrayList<VATBooking> vatBookings = transaction.getVatBookings()
-        if (vatBookings != null && !vatBookings.isEmpty()) {
+        ArrayList<VATBooking> vatBookings = transaction.vatBookings
+        if (vatBookings != null && !vatBookings.empty) {
             Main.fireVATFieldsUpdated()
         }
-//        ActionUtils.showErrorMessage(TRANSACTION_REMOVED, journal.getName())
+//        ActionUtils.showErrorMessage(TRANSACTION_REMOVED, journal.name)
     }
 
     void addTransaction(Transaction transaction){
-        Accounting accounting = journal.getAccounting()
-        Transactions transactions = accounting.getTransactions()
+        Accounting accounting = journal.accounting
+        Transactions transactions = accounting.transactions
         transactions.setId(transaction)
-        transactions.addBusinessObject(transaction)
-        journal.addBusinessObject(transaction)
-        transaction.setJournal(journal)
+        transactions.addBusinessObject transaction
+        journal.addBusinessObject transaction
+        transaction.journal = journal
 
-        ArrayList<VATBooking> vatBookings = transaction.getVatBookings()
-        if (vatBookings != null && !vatBookings.isEmpty()) {
+        ArrayList<VATBooking> vatBookings = transaction.vatBookings
+        if (vatBookings != null && !vatBookings.empty) {
             Main.fireVATFieldsUpdated(/*vatFields*/)
         }
 
-        Contact contact = transaction.getContact()
+        Contact contact = transaction.contact
         if(contact!=null){
             Main.fireCustomerDataChanged()
         }
 
         Main.fireJournalDataChanged(journal)
-        for (Account account : transaction.getAccounts()) {
+        for (Account account : transaction.accounts) {
             Main.fireAccountDataChanged(account)
         }
 
@@ -226,14 +226,14 @@ class JournalEditPanel extends JPanel implements ActionListener {
 
     void editTransaction(Transaction transaction) {//throws NotEmptyException{
         // deleteTransaction should throw NotEmptyException if not deletable/editable !
-        Journal journal = transaction.getJournal()
+        Journal journal = transaction.journal
         deleteTransaction(transaction)
         //TODO: GUI with question where to open the transaction? (only usefull if multiple input GUIs are open)
         // set Journal before Transaction: setJournal sets transaction to currentObject !!!
 
-        Main.setAccounting(journal.getAccounting())
-        Main.setJournal(journal)
-        journal.setCurrentTransaction(transaction)
+        Main.setAccounting(journal.accounting)
+        Main.journal = journal
+        journal.currentTransaction = transaction
         // TODO: when calling setTransaction we need to check if the currentTransaction is empty (see switchJournal() -> checkTransfer)
         setTransaction(transaction)
     }
@@ -245,12 +245,12 @@ class JournalEditPanel extends JPanel implements ActionListener {
             saveTransaction()
         } else if (e.getSource() == singleBook){
             saveTransaction()
-            if(journal!=null && transaction!=null && transaction.isBookable()){
+            if(journal!=null && transaction!=null && transaction.bookable){
                 addTransaction(transaction)
-                Mortgage mortgage = transaction.getMortgage()
+                Mortgage mortgage = transaction.mortgage
                 if(mortgage !=null){
-                    Main.fireMortgageEditedPayButton(mortgage)
-                    Main.fireMortgageEdited(mortgage)
+                    Main.fireMortgageEditedPayButton mortgage
+                    Main.fireMortgageEdited mortgage
                 }
                 clear()
             }
@@ -258,43 +258,43 @@ class JournalEditPanel extends JPanel implements ActionListener {
     }
 
     void clear() {
-        transaction = new Transaction(dateAndDescriptionPanel.getDate(), "")
-        transaction.setJournal(journal)
-        balanceTransaction.setSelected(false)
-        journal.setCurrentTransaction(transaction)
+        transaction = new Transaction(dateAndDescriptionPanel.date, "")
+        transaction.journal = journal
+        balanceTransaction.selected = false
+        journal.currentTransaction = transaction
         setTransaction(transaction)
-        ident.setText(journal==null?"":journal.getAbbreviation() + " " + journal.getId())
+        ident.setText(journal==null?"":journal.abbreviation + " " + journal.id)
     }
 
     Transaction saveTransaction(){
         if(transaction!=null){
-            Calendar date = dateAndDescriptionPanel.getDate()
+            Calendar date = dateAndDescriptionPanel.date
             if(date == null){
                 ActionUtils.showErrorMessage(this, ActionUtils.FILL_IN_DATE)
                 null
             } else {
                 // TODO Encode text for XML / HTML (not here, but in toXML() / here escaping ?)
-                transaction.setDescription(dateAndDescriptionPanel.getDescription())
-                transaction.setDate(dateAndDescriptionPanel.getDate())
+                transaction.description = dateAndDescriptionPanel.description
+                transaction.date = dateAndDescriptionPanel.date
             }
         }
         transaction
     }
 
-    private JComboBox<Account> createComboBox() {
+    JComboBox<Account> createComboBox() {
         JComboBox<Account> comboBox = new JComboBox<>()
         comboBox.removeAllItems()
-        accounts.getBusinessObjects().forEach({ account -> comboBox.addItem(account) })
+        accounts.businessObjects.forEach({ account -> comboBox.addItem(account) })
         comboBox
     }
 
     void setAccounting(Accounting accounting){
-        popup.setAccounting(accounting)
-        setAccounts(accounting==null?null:accounting.getAccounts())
+        popup.accounting = accounting
+        setAccounts(accounting?accounting.accounts:null)
         AccountingSession accountingSession = Session.getAccountingSession(accounting)
-        setJournal(accounting==null?null:accountingSession.getActiveJournal())
-//        setVatTransactions(accounting==null?null:accounting.getVatTransactions())
-        setTransactions(accounting==null?null:accounting.getTransactions())
+        setJournal(accounting?accountingSession.activeJournal:null)
+//        setVatTransactions(accounting?accounting.vatTransactions:null)
+        setTransactions(accounting?accounting.transactions:null)
 
         comboBox=createComboBox()
         debitAccount = table.getColumnModel().getColumn(JournalDataModel.DEBIT_ACCOUNT)
@@ -303,7 +303,7 @@ class JournalEditPanel extends JPanel implements ActionListener {
         creditAccount.setCellEditor(new DefaultCellEditor(comboBox))
     }
 
-    private void setTransactions(Transactions transactions) {
+    void setTransactions(Transactions transactions) {
         this.transactions = transactions
     }
 
@@ -320,16 +320,16 @@ class JournalEditPanel extends JPanel implements ActionListener {
 //    }
     void setJournal(Journal journal) {
         this.journal=journal
-        dateAndDescriptionPanel.setJournal(journal)
-        ident.setText(journal==null?"":journal.getAbbreviation() + " " + journal.getId())
-        setTransaction(journal==null?null:journal.getCurrentTransaction())
+        dateAndDescriptionPanel.journal = journal
+        ident.setText(journal==null?"":journal.abbreviation + " " + journal.id)
+        setTransaction(journal==null?null:journal.currentTransaction)
     }
 
     void setTransaction(Transaction transaction){
         this.transaction = transaction
         dateAndDescriptionPanel.setTransaction(transaction)
         journalDataModel.setTransaction(transaction)
-        balanceTransaction.setSelected(transaction!=null && transaction.isBalanceTransaction())
+        balanceTransaction.setSelected(transaction!=null && transaction.balanceTransaction)
         fireTransactionDataChanged()
     }
 
@@ -347,7 +347,7 @@ class JournalEditPanel extends JPanel implements ActionListener {
             System.out.println("Payed Off already")
             return
         }
-        if (transaction.getMortgage()!=null){
+        if (transaction.mortgage!=null){
             System.out.println("Transaction already contains a mortgage")
             return
         }
@@ -377,12 +377,12 @@ class JournalEditPanel extends JPanel implements ActionListener {
         journal
     }
 
-    private Journal checkTransfer(Journal newJournal){
-        Transaction newTransaction = newJournal.getCurrentTransaction()
-        if(transaction!=null && !transaction.getBusinessObjects().isEmpty() && journal!=newJournal){
+    Journal checkTransfer(Journal newJournal){
+        Transaction newTransaction = newJournal.currentTransaction
+        if(transaction!=null && !transaction.businessObjects.empty && journal!=newJournal){
             StringBuilder builder = new StringBuilder("Do you want to transfer the current transaction from ")
                     .append(journal).append(" to ").append(newJournal)
-            if(newTransaction!=null && !newTransaction.getBusinessObjects().isEmpty()){
+            if(newTransaction!=null && !newTransaction.businessObjects.empty){
                 builder.append("\nWARNING: ").append(newJournal).append(" also has an open transactions, which will be lost if you select transfer")
             }
             int answer = JOptionPane.showConfirmDialog(null, builder.toString())
@@ -401,28 +401,28 @@ class JournalEditPanel extends JPanel implements ActionListener {
     }
 
     void moveTransactionToNewJournal(Journal newJournal){
-        newJournal.setCurrentTransaction(transaction)
-        journal.setCurrentTransaction(new Transaction(Calendar.getInstance(), ""))
+        newJournal.currentTransaction = transaction
+        journal.currentTransaction = new Transaction(Calendar.getInstance(), "")
     }
 
     void saveCurrentTransaction(){
-        journal.setCurrentTransaction(transaction)
+        journal.currentTransaction = transaction
     }
 
     void fireTransactionDataChanged() {
         journalDataModel.fireTableDataChanged()
 
-        debettotaal = (transaction==null)?BigDecimal.ZERO:transaction.getDebetTotaal()//.setScale(2)
-        credittotaal = (transaction==null)?BigDecimal.ZERO:transaction.getCreditTotaal()//.setScale(2)
+        debettotaal = (transaction)?transaction.getDebetTotaal():BigDecimal.ZERO//.setScale(2)
+        credittotaal = (transaction)?transaction.getCreditTotaal():BigDecimal.ZERO//.setScale(2)
         debet.setText(debettotaal.toString())
         credit.setText(credittotaal.toString())
-        balanceTransaction.setSelected(transaction!=null&&transaction.isBalanceTransaction())
+        balanceTransaction.selected = transaction&&transaction.balanceTransaction
         dateAndDescriptionPanel.fireTransactionDataChanged()
 
-        boolean okEnabled = journal!=null && transaction!=null && transaction.isBookable()
-        boolean clearEnabled = journal!=null && transaction!=null && !transaction.getBusinessObjects().isEmpty()
-        clear.setEnabled(clearEnabled)
-        save.setEnabled(clearEnabled)
-        singleBook.setEnabled(okEnabled)
+        boolean okEnabled = journal && transaction && transaction.bookable
+        boolean clearEnabled = journal && transaction && !transaction.businessObjects.empty
+        clear.enabled = clearEnabled
+        save.enabled = clearEnabled
+        singleBook.enabled = okEnabled
     }
 }

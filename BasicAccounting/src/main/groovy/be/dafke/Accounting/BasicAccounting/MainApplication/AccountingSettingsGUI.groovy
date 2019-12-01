@@ -9,11 +9,11 @@ import static java.util.ResourceBundle.getBundle
 
 class AccountingSettingsGUI extends JFrame {
     static final String title = getBundle("Accounting").getString("SETTINGS")
-    private final JTabbedPane tabbedPane
-    private static HashMap<Accounting,AccountingSettingsGUI> accountingSettingsMap = new HashMap<>()
+    final JTabbedPane tabbedPane
+    static HashMap<Accounting,AccountingSettingsGUI> accountingSettingsMap = new HashMap<>()
 
     AccountingSettingsGUI(Accounting accounting, AccountingCopyPanel copyPanel) {
-        super(accounting.getName() + " / " + title)
+        super(accounting.name + " / " + title)
         tabbedPane = new AccountingSettingsPanel(accounting, copyPanel)
         setContentPane(tabbedPane)
         pack()

@@ -12,13 +12,13 @@ import java.awt.event.KeyEvent
 import java.util.List
 
 class MortgagesPanel extends JPanel {
-    private final JList<Mortgage> list
-    private final JButton pay// , newMortgage, details
-    private final JCheckBox hidePayedOff
-    private Mortgages mortgages
-    private final DefaultListModel<Mortgage> listModel
-    private Mortgage selectedMortgage
-    private JournalEditPanel journalEditPanel
+    final JList<Mortgage> list
+    final JButton pay// , newMortgage, details
+    final JCheckBox hidePayedOff
+    Mortgages mortgages
+    final DefaultListModel<Mortgage> listModel
+    Mortgage selectedMortgage
+    JournalEditPanel journalEditPanel
 
     MortgagesPanel(JournalEditPanel journalEditPanel) {
         this.journalEditPanel = journalEditPanel
@@ -28,7 +28,7 @@ class MortgagesPanel extends JPanel {
         listModel = new DefaultListModel<>()
         list.setModel(listModel)
         list.addListSelectionListener({ e ->
-            if (!e.getValueIsAdjusting() && list.getSelectedIndex() != -1) {
+            if (!e.getValueIsAdjusting() && list.selectedIndex != -1) {
                 selectedMortgage = list.getSelectedValue()
             } else {
                 selectedMortgage = null
@@ -38,10 +38,10 @@ class MortgagesPanel extends JPanel {
         pay = new JButton("Pay")
         pay.setMnemonic(KeyEvent.VK_P)
         pay.addActionListener({ e -> book() })
-        pay.setEnabled(false)
+        pay.enabled = false
 
         hidePayedOff = new JCheckBox("Hide Payed Off")
-        hidePayedOff.setSelected(true)
+        hidePayedOff.selected = true
         hidePayedOff.addActionListener({ e -> refreshList() })
 
         add(hidePayedOff, BorderLayout.NORTH)
@@ -58,7 +58,7 @@ class MortgagesPanel extends JPanel {
 
     void enablePayButton(Mortgage mortgage) {
         if(mortgage == selectedMortgage) {
-            pay.setEnabled(selectedMortgage != null && selectedMortgage.isBookable())
+            pay.enabled = selectedMortgage != null && selectedMortgage.bookable
         }
     }
 
@@ -67,14 +67,14 @@ class MortgagesPanel extends JPanel {
         refreshList()
     }
 
-    private void refreshList(){
+    void refreshList(){
         listModel.clear()
         if (mortgages != null) {
             List<Mortgage> businessObjects
-            if(hidePayedOff.isSelected()) {
+            if(hidePayedOff.selected) {
                 businessObjects = mortgages.getBusinessObjects({ mortgage -> !mortgage.isPayedOff() })
             } else {
-                businessObjects = mortgages.getBusinessObjects()
+                businessObjects = mortgages.businessObjects
             }
             for (Mortgage mortgage : businessObjects) {
                 if (!listModel.contains(mortgage)) {

@@ -9,12 +9,12 @@ class MortgageTransaction extends BusinessObject{
     static final String INTREST = "intrest"
     static final String RESTCAPITAL = "restCapital"
 
-    private Mortgage mortgage
-    private int nr=0
-    private BigDecimal mensuality
-    private BigDecimal capital
-    private BigDecimal intrest
-    private BigDecimal restCapital
+    Mortgage mortgage
+    int nr=0
+    BigDecimal mensuality
+    BigDecimal capital
+    BigDecimal intrest
+    BigDecimal restCapital
 
     Mortgage getMortgage() {
         mortgage

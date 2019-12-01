@@ -13,9 +13,9 @@ import java.text.SimpleDateFormat
 
 class CodaParser {
 
-    private CounterParties counterParties
-    private Statements statements
-    private String counterPartyBic
+    CounterParties counterParties
+    Statements statements
+    String counterPartyBic
 
     void parseFile(File[] files, CounterParties counterParties, Statements statements) {
         this.counterParties = counterParties
@@ -39,13 +39,13 @@ class CodaParser {
                         if(statement !=null){
                             addPart2(statement, line)
                         } else {
-                            System.err.println("Corrupt CODA file: " + file.getName())
+                            System.err.println("Corrupt CODA file: " + file.name)
                         }
                     } else if (line.startsWith("23")) {
                         if(statement !=null){
                             addPart3(statement, line)
                         } else {
-                            System.err.println("Corrupt CODA file: " + file.getName())
+                            System.err.println("Corrupt CODA file: " + file.name)
                         }
                     }
                     line = reader.readLine()
@@ -64,7 +64,7 @@ class CodaParser {
         // Reset communicatie
         String communication = statement.getCommunication()
         String transactionCode = statement.getTransactionCode()
-        if (!statement.isStructured() && !transactionCode.equals("402") && !transactionCode.equals("404") && communication2 != null && !communication2.trim().isEmpty()) {
+        if (!statement.isStructured() && !transactionCode.equals("402") && !transactionCode.equals("404") && communication2 != null && !communication2.trim().empty) {
             // momenteel enkel indien transactionCode = 150 (CM)
             statement.setCommunication(communication.trim() + communication2.trim())
         }
@@ -145,7 +145,7 @@ class CodaParser {
         statement
     }
 
-    private void resetCommunication(Statement statement, boolean structured){
+    void resetCommunication(Statement statement, boolean structured){
         String transactionCode = statement.getTransactionCode()
         String communication = statement.getCommunication()
         if (transactionCode.equals("402") || transactionCode.equals("404")) {

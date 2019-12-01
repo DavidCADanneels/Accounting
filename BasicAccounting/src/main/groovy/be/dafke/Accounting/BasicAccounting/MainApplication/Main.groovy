@@ -35,33 +35,33 @@ import java.awt.event.WindowEvent
 import static javax.swing.JSplitPane.*
 
 class Main {
-    private static final ArrayList<JFrame> disposableComponents = new ArrayList<>()
+    static final ArrayList<JFrame> disposableComponents = new ArrayList<>()
 
     protected static Accountings accountings
-    private static JournalViewPanel journalViewPanel
-    private static JournalSelectorPanel journalSelectorPanel
-    private static JournalEditPanel journalEditPanel
-    private static AccountsTablePanel accountGuiLeft
-    private static AccountsTablePanel accountGuiRight
-    private static MortgagesPanel mortgagesPanel
-    private static JMenuBar menuBar
-    private static AccountingMenu accountingMenu
-    private static AccountingGUIFrame frame
+    static JournalViewPanel journalViewPanel
+    static JournalSelectorPanel journalSelectorPanel
+    static JournalEditPanel journalEditPanel
+    static AccountsTablePanel accountGuiLeft
+    static AccountsTablePanel accountGuiRight
+    static MortgagesPanel mortgagesPanel
+    static JMenuBar menuBar
+    static AccountingMenu accountingMenu
+    static AccountingGUIFrame frame
 
-    private static AccountsMenu accountsMenu
-    private static JournalsMenu journalsMenu
-    private static BalancesMenu balancesMenu
-    private static MortgagesMenu morgagesMenu
-    private static ContactsMenu contactsMenu
-    private static TradeMenu tradeMenu
-    private static MealsMenu mealsMenu
-    private static ProjectsMenu projectsMenu
-    private static CodaMenu codaMenu
-    private static VATMenu vatMenu
-    private static TransactionOverviewPanel transactionOverviewPanel
-    private static JPanel cardPanel
-    private static CardLayout cardLayout
-    private static JSplitPane journalViewAndEditSplitPane
+    static AccountsMenu accountsMenu
+    static JournalsMenu journalsMenu
+    static BalancesMenu balancesMenu
+    static MortgagesMenu morgagesMenu
+    static ContactsMenu contactsMenu
+    static TradeMenu tradeMenu
+    static MealsMenu mealsMenu
+    static ProjectsMenu projectsMenu
+    static CodaMenu codaMenu
+    static VATMenu vatMenu
+    static TransactionOverviewPanel transactionOverviewPanel
+    static JPanel cardPanel
+    static CardLayout cardLayout
+    static JSplitPane journalViewAndEditSplitPane
 
     static void main(String[] args) {
         readXmlData()
@@ -73,12 +73,12 @@ class Main {
 
         setCloseOperation()
 
-        setAccounting(Session.getActiveAccounting())
+        setAccounting(Session.activeAccounting)
 
         launchFrame()
     }
 
-    private static void createComponents() {
+    static void createComponents() {
         journalEditPanel = new JournalEditPanel()
         journalViewPanel = new JournalViewPanel()
         transactionOverviewPanel = new TransactionOverviewPanel()
@@ -88,7 +88,7 @@ class Main {
         mortgagesPanel = new MortgagesPanel(journalEditPanel)
     }
 
-    private static void setCloseOperation() {
+    static void setCloseOperation() {
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE)
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -136,7 +136,7 @@ class Main {
         splitPane
     }
 
-    private static void createMenu() {
+    static void createMenu() {
         menuBar = new JMenuBar()
 
         accountingMenu = new AccountingMenu(accountings)
@@ -164,27 +164,27 @@ class Main {
         menuBar.add(codaMenu)
     }
 
-    private static void launchFrame() {
+    static void launchFrame() {
         Main.addFrame(frame) // MAIN
         frame.pack()
-        frame.setVisible(true)
+        frame.visible = true
     }
 
-    private static void readXmlData() {
+    static void readXmlData() {
         accountings = new Accountings()
         XMLReader.readAccountings(accountings)
-        for (Accounting accounting : accountings.getBusinessObjects()) {
+        for (Accounting accounting : accountings.businessObjects) {
             XMLReader.readAccountingSkeleton(accounting)
         }
 
-        Session.setAccountings(accountings)
+        Session.accountings = accountings
         XMLReader.readSession()
 
-        Accounting accounting = Session.getActiveAccounting()
+        Accounting accounting = Session.activeAccounting
         if (accounting != null) {
             XMLReader.readAccountingDetails(accounting)
-            Session.setActiveAccounting(accounting)
-            accounting.setRead(true)
+            Session.activeAccounting = accounting
+            accounting.read = true
         }
     }
 
@@ -194,51 +194,51 @@ class Main {
 
     static void setAccounting(Accounting accounting, boolean readDetails) {
 
-        Accounting activeAccounting = Session.getActiveAccounting()
+        Accounting activeAccounting = Session.activeAccounting
         XMLWriter.writeAccounting(activeAccounting, false)
 
         if (readDetails) XMLReader.readAccountingDetails(accounting)
-        Session.setActiveAccounting(accounting) // only need to write to XML, call this only when writing XML files?
+        Session.activeAccounting = accounting // only need to write to XML, call this only when writing XML files?
 
-        frame.setAccounting(accounting)
+        frame.accounting = accounting
 
         accountGuiLeft.setAccounting(accounting, true)
         accountGuiRight.setAccounting(accounting, false)
-        journalEditPanel.setAccounting(accounting)
-        journalViewPanel.setAccounting(accounting)
-        transactionOverviewPanel.setAccounting(accounting)
-        journalSelectorPanel.setAccounting(accounting)
-        mortgagesPanel.setMortgages(accounting == null ? null : accounting.getMortgages())
+        journalEditPanel.accounting = accounting
+        journalViewPanel.accounting = accounting
+        transactionOverviewPanel.accounting = accounting
+        journalSelectorPanel.accounting = accounting
+        mortgagesPanel.setMortgages(accounting == null ? null : accounting.mortgages)
 
         setMenuAccounting(accounting)
 //        if (accounting != null) {
-//            AccountingSession accountingSession = session.getAccountingSession(activeAccounting)
-//            setJournal(accountingSession.getActiveJournal())
+//            AccountingSession accountingSession = session.getAccountingSession.activeAccounting)
+//            setJournal(accountingSession.activeJournal)
 //        }
 
     }
 
     static void setMenuAccounting(Accounting accounting) {
-        projectsMenu.setAccounting(accounting)
-        morgagesMenu.setAccounting(accounting)
-        tradeMenu.setAccounting(accounting)
-        mealsMenu.setAccounting(accounting)
-        codaMenu.setAccounting(accounting)
-        contactsMenu.setAccounting(accounting)
-        accountsMenu.setAccounting(accounting)
-        journalsMenu.setAccounting(accounting)
-        balancesMenu.setAccounting(accounting)
-        accountingMenu.setAccounting(accounting)
-        vatMenu.setAccounting(accounting)
+        projectsMenu.accounting = accounting
+        morgagesMenu.accounting = accounting
+        tradeMenu.accounting = accounting
+        mealsMenu.accounting = accounting
+        codaMenu.accounting = accounting
+        contactsMenu.accounting = accounting
+        accountsMenu.accounting = accounting
+        journalsMenu.accounting = accounting
+        balancesMenu.accounting = accounting
+        accountingMenu.accounting = accounting
+        vatMenu.accounting = accounting
 
         if (accounting != null) {
-            vatMenu.setVisible(accounting.isVatAccounting())
-            morgagesMenu.setVisible(accounting.isMortgagesAccounting())
-            tradeMenu.setVisible(accounting.isTradeAccounting())
-            contactsMenu.setVisible(accounting.isContactsAccounting())
-            projectsMenu.setVisible(accounting.isProjectsAccounting())
-            mealsMenu.setVisible(accounting.isMealsAccounting())
-            mortgagesPanel.setVisible(accounting.isMortgagesAccounting())
+            vatMenu.setVisible(accounting.vatAccounting)
+            morgagesMenu.setVisible(accounting.mortgagesAccounting)
+            tradeMenu.setVisible(accounting.tradeAccounting)
+            contactsMenu.setVisible(accounting.contactsAccounting)
+            projectsMenu.setVisible(accounting.projectsAccounting)
+            mealsMenu.setVisible(accounting.mealsAccounting)
+            mortgagesPanel.setVisible(accounting.mortgagesAccounting)
 
         }
     }
@@ -261,20 +261,20 @@ class Main {
 
     static void setJournal(Journal journal) {
         if(journal!=null) {
-            Accounting accounting = journal.getAccounting()
+            Accounting accounting = journal.accounting
             AccountingSession accountingSession = Session.getAccountingSession(accounting)
             accountingSession.setActiveJournal(journal)  // idem, only needed for XMLWriter
         }
-        journalSelectorPanel.setJournal(journal)
-        journalViewPanel.setJournal(journal)
-        transactionOverviewPanel.setJournal(journal)
-        journalEditPanel.setJournal(journal)
-        frame.setJournal(journal)
+        journalSelectorPanel.journal = journal
+        journalViewPanel.journal = journal
+        transactionOverviewPanel.journal = journal
+        journalEditPanel.journal = journal
+        frame.journal = journal
         accountGuiLeft.setJournal(journal, true)
         accountGuiRight.setJournal(journal, false)
-        Accounting activeAccounting = Session.getActiveAccounting()
+        Accounting activeAccounting = Session.activeAccounting
         AccountingSession accountingSession = Session.getAccountingSession(activeAccounting)
-        Journal activeJournal = accountingSession.getActiveJournal()
+        Journal activeJournal = accountingSession.activeJournal
         JournalSession journalSession = accountingSession.getJournalSession(activeJournal)
         accountGuiLeft.setJournalSession(journalSession)
         accountGuiRight.setJournalSession(journalSession)
@@ -307,7 +307,7 @@ class Main {
     }
 
     static Transaction getTransaction(){
-        journalEditPanel.getTransaction()
+        journalEditPanel.transaction
     }
 
     static void addBooking(Booking booking){
@@ -328,7 +328,7 @@ class Main {
     }
 
     static void fireAccountingTypeChanged(Accounting accounting){
-        Accounting activeAccounting = Session.getActiveAccounting()
+        Accounting activeAccounting = Session.activeAccounting
         if(activeAccounting == accounting){
             setMenuAccounting(accounting)
         }
@@ -448,11 +448,11 @@ class Main {
     }
 
     static void fireJournalTypeChanges(Journal journal, JournalType journalType) {
-        if(journal==accountGuiLeft.getJournal()) {
+        if(journal==accountGuiLeft.journal) {
             accountGuiLeft.setJournalType(journalType)
             accountGuiLeft.setAccountsList(journalType.getLeft())
         }
-        if(journal==accountGuiRight.getJournal()) {
+        if(journal==accountGuiRight.journal) {
             accountGuiRight.setJournalType(journalType)
             accountGuiRight.setAccountsList(journalType.getRight())
         }

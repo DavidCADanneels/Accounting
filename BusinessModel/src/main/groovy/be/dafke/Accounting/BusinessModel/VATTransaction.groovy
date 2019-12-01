@@ -3,10 +3,10 @@ package be.dafke.Accounting.BusinessModel
 import be.dafke.Accounting.ObjectModel.BusinessCollection
 
 class VATTransaction extends BusinessCollection<VATBooking>{
-    private ArrayList<VATBooking> vatBookings = new ArrayList()
-    private Transaction transaction
-    private Integer id
-    private boolean registered = false
+    ArrayList<VATBooking> vatBookings = new ArrayList()
+    Transaction transaction
+    Integer id
+    boolean registered = false
 
     VATTransaction() {
     }

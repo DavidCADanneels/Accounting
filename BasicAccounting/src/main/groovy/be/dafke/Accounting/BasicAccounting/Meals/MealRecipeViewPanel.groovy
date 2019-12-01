@@ -1,5 +1,6 @@
 package be.dafke.Accounting.BasicAccounting.Meals
 
+import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Meal
 import be.dafke.Accounting.BusinessModel.Recipe
@@ -14,10 +15,10 @@ import java.awt.BorderLayout
 import java.awt.Dimension
 
 class MealRecipeViewPanel extends JPanel {
-    private final MealsEditDataViewTableModel mealsDataTableModel
-    private final SelectableTable<Meal> overviewTable
-    private final MealRecipeViewDataTableModel mealRecipeViewDataTableModel
-    private final SelectableTable<RecipeLine> recipeTable
+    final MealsEditDataViewTableModel mealsDataTableModel
+    final SelectableTable<Meal> overviewTable
+    final MealRecipeViewDataTableModel mealRecipeViewDataTableModel
+    final SelectableTable<RecipeLine> recipeTable
 
     MealRecipeViewPanel(Accounting accounting) {
         mealsDataTableModel = new MealsEditDataViewTableModel(this, accounting)
@@ -52,8 +53,8 @@ class MealRecipeViewPanel extends JPanel {
         add(splitPane, BorderLayout.CENTER)
     }
 
-    private void updateSelection() {
-        Meal meal = overviewTable.getSelectedObject()
+    void updateSelection() {
+        Meal meal = overviewTable.selectedObject
         Recipe recipe = meal==null?null:meal.getRecipe()
         mealRecipeViewDataTableModel.setRecipe(recipe)
         mealRecipeViewDataTableModel.fireTableDataChanged()

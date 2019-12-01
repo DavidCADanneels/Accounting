@@ -16,17 +16,17 @@ import static be.dafke.Utils.Utils.parseInt
 
 class PromoOrderIO {
     static void readPromoOrders(Accounting accounting){
-        Articles articles = accounting.getArticles()
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+PROMO_ORDERS + XML_EXTENSION)
+        Articles articles = accounting.articles
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+PROMO_ORDERS + XML_EXTENSION)
         Element rootElement = getRootElement(xmlFile, PROMO_ORDERS)
 
         for (Element orderElement : getChildren(rootElement, PROMO_ORDER)) {
-            PromoOrders promoOrders = accounting.getPromoOrders()
+            PromoOrders promoOrders = accounting.promoOrders
 
             PromoOrder order = new PromoOrder()
 
             String idString = getValue(orderElement, ID)
-            order.setId(parseInt(idString))
+            order.id = parseInt(idString)
 
 //            String orderName = getValue(orderElement, NAME)
 //            order.setName(orderName)
@@ -69,10 +69,10 @@ class PromoOrderIO {
                 orderItem.setName(name)
                 order.addBusinessObject(orderItem)
             }
-            Transactions transactions = accounting.getTransactions()
+            Transactions transactions = accounting.transactions
             int paymentTransactionId = parseInt(getValue(orderElement, PAYMENT_TRANSACTION))
             Transaction paymentTransaction = transactions.getBusinessObject(paymentTransactionId)
-            order.setPaymentTransaction(paymentTransaction)
+            order.paymentTransaction = paymentTransaction
 
             try {
                 promoOrders.addBusinessObject(order)
@@ -83,30 +83,30 @@ class PromoOrderIO {
     }
 
     static void writePromoOrders(Accounting accounting) {
-        PromoOrders promoOrders = accounting.getPromoOrders()
-        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + PROMO_ORDERS + XML_EXTENSION)
+        PromoOrders promoOrders = accounting.promoOrders
+        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + PROMO_ORDERS + XML_EXTENSION)
         try {
             Writer writer = new FileWriter(file)
             writer.write(getXmlHeader(PROMO_ORDERS, 2))
-            for (PromoOrder promoOrder : promoOrders.getBusinessObjects()) {
+            for (PromoOrder promoOrder : promoOrders.businessObjects) {
                 writer.write(
                         "  <" + PROMO_ORDER + ">\n" +
-                                "    <" + ID + ">" + promoOrder.getId() + "</" + ID + ">\n" +
-                                "    <" + NAME + ">" + promoOrder.getName() + "</" + NAME + ">\n"
+                                "    <" + ID + ">" + promoOrder.id + "</" + ID + ">\n" +
+                                "    <" + NAME + ">" + promoOrder.name + "</" + NAME + ">\n"
                 )
-                Transaction paymentTransaction = promoOrder.getPaymentTransaction()
+                Transaction paymentTransaction = promoOrder.paymentTransaction
                 if(paymentTransaction!=null) {
-                    writer.write("    <" + PAYMENT_TRANSACTION + ">" + paymentTransaction.getTransactionId() + "</" + PAYMENT_TRANSACTION + ">\n")
+                    writer.write("    <" + PAYMENT_TRANSACTION + ">" + paymentTransaction.transactionId + "</" + PAYMENT_TRANSACTION + ">\n")
                 } else {
                     writer.write("    <" + PAYMENT_TRANSACTION + ">null</" + PAYMENT_TRANSACTION + ">\n")
                 }
-                for (OrderItem orderItem : promoOrder.getBusinessObjects()) {
-                    Article article = orderItem.getArticle()
+                for (OrderItem orderItem : promoOrder.businessObjects) {
+                    Article article = orderItem.article
                     writer.write(
                             "    <" + ARTICLE + ">\n" +
-                                    "      <" + NAME + ">" + article.getName() + "</" + NAME + ">\n" +
-                                    "      <" + NR_OF_ITEMS + ">" + orderItem.getNumberOfItems() + "</" + NR_OF_ITEMS + ">\n" +
-                                    "      <" + ITEMS_PER_UNIT + ">" + orderItem.getItemsPerUnit() + "</" + ITEMS_PER_UNIT + ">\n" +
+                                    "      <" + NAME + ">" + article.name + "</" + NAME + ">\n" +
+                                    "      <" + NR_OF_ITEMS + ">" + orderItem.numberOfItems + "</" + NR_OF_ITEMS + ">\n" +
+                                    "      <" + ITEMS_PER_UNIT + ">" + orderItem.itemsPerUnit + "</" + ITEMS_PER_UNIT + ">\n" +
                                     "      <" + PURCHASE_PRICE_UNIT + ">" + orderItem.getPurchasePriceForUnit() + "</" + PURCHASE_PRICE_UNIT + ">\n" +
                                     "      <" + PURCHASE_PRICE_ITEM + ">" + orderItem.getPurchasePriceForItem() + "</" + PURCHASE_PRICE_ITEM + ">\n" +
                                     "      <" + PURCHASE_PRICE_TOTAL + ">" + orderItem.getStockValue() + "</" + PURCHASE_PRICE_TOTAL + ">\n" +
@@ -119,7 +119,7 @@ class PromoOrderIO {
             writer.flush()
             writer.close()
         } catch (IOException ex) {
-            Logger.getLogger(Accounts.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(Accounts.class.name).log(Level.SEVERE, null, ex)
         }
     }
 }

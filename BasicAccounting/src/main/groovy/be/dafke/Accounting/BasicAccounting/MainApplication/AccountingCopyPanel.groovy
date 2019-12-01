@@ -18,10 +18,10 @@ import javax.swing.JPanel
 
 class AccountingCopyPanel extends JPanel {
 
-    private final JCheckBox copyAccounts, copyJournals, copyContacts, copyVat, copyTrade, copyMealOrders
-    private AccountingSettingsPanel accountingSettingsPanel
-    private Accounting copyFrom
-    private Accounting newAccounting
+    final JCheckBox copyAccounts, copyJournals, copyContacts, copyVat, copyTrade, copyMealOrders
+    AccountingSettingsPanel accountingSettingsPanel
+    Accounting copyFrom
+    Accounting newAccounting
 
     AccountingCopyPanel(){
         newAccounting = createAccounting()
@@ -39,12 +39,12 @@ class AccountingCopyPanel extends JPanel {
         copyTrade.addActionListener({ e -> updateCopyTradeSelected() })
         copyMealOrders.addActionListener({ e -> updateCopyMealSelected() })
 
-        copyAccounts.setEnabled(false)
-        copyJournals.setEnabled(false)
-        copyContacts.setEnabled(false)
-        copyVat.setEnabled(false)
-        copyTrade.setEnabled(false)
-        copyMealOrders.setEnabled(false)
+        copyAccounts.enabled = false
+        copyJournals.enabled = false
+        copyContacts.enabled = false
+        copyVat.enabled = false
+        copyTrade.enabled = false
+        copyMealOrders.enabled = false
 
         JPanel panel = new JPanel()
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS))
@@ -70,52 +70,52 @@ class AccountingCopyPanel extends JPanel {
 
     void setCopyFrom(Accounting copyFrom) {
         this.copyFrom = copyFrom
-        selectCopyAccounts(copyAccounts.isSelected())
-        selectCopyJournals(copyJournals.isSelected())
-        selectCopyContacts(copyContacts.isSelected())
-        selectCopyVat(copyVat.isSelected())
-        selectCopyTrade(copyTrade.isSelected())
-        selectCopyMeals(copyMealOrders.isSelected())
+        selectCopyAccounts(copyAccounts.selected)
+        selectCopyJournals(copyJournals.selected)
+        selectCopyContacts(copyContacts.selected)
+        selectCopyVat(copyVat.selected)
+        selectCopyTrade(copyTrade.selected)
+        selectCopyMeals(copyMealOrders.selected)
     }
 
     // CREATE
 
-    private Accounting createAccounting(){
+    Accounting createAccounting(){
         Accounting accounting = new Accounting("New Accounting")
-        accounting.getAccountTypes().addDefaultTypes()
-        accounting.getJournalTypes().addDefaultType(accounting.getAccountTypes())
-        accounting.getBalances().addDefaultBalances()
+        accounting.accountTypes.addDefaultTypes()
+        accounting.journalTypes.addDefaultType(accounting.accountTypes)
+        accounting.balances.addDefaultBalances()
         accounting
     }
 
     // COPY
 
     void copyAccounts(){
-        newAccounting.copyAccounts(copyFrom.getAccounts())
+        newAccounting.copyAccounts(copyFrom.accounts)
     }
 
     void copyJournals(){
-        newAccounting.copyJournals(copyFrom.getJournals())
-        newAccounting.copyJournalTypes(copyFrom.getJournalTypes())
+        newAccounting.copyJournals(copyFrom.journals)
+        newAccounting.copyJournalTypes(copyFrom.journalTypes)
     }
 
     void copyContacts(){
-        newAccounting.copyContacts(copyFrom.getContacts())
+        newAccounting.copyContacts(copyFrom.contacts)
     }
 
     void copyVatSettings(){
-        newAccounting.copyVatSettings(copyFrom.getVatTransactions())
+        newAccounting.copyVatSettings(copyFrom.vatTransactions)
     }
 
-    private void copyArticles() {
+    void copyArticles() {
         PurchaseOrder purchaseOrder = new PurchaseOrder()
         purchaseOrder.setName("PO0")
 
-        Articles articlesFrom = copyFrom.getArticles()
-        Articles articlesTo = newAccounting.getArticles()
+        Articles articlesFrom = copyFrom.articles
+        Articles articlesTo = newAccounting.articles
         articlesTo.clear()
-        articlesFrom.getBusinessObjects().forEach({ article ->
-            Article newArticle = new Article(article, newAccounting.getContacts())
+        articlesFrom.businessObjects.forEach({ article ->
+            Article newArticle = new Article(article, newAccounting.contacts)
             Integer numberOfItems = article.getNrInStock()
             if (numberOfItems > 0) {
                 OrderItem orderItem = new OrderItem(numberOfItems, newArticle, purchaseOrder)
@@ -132,27 +132,27 @@ class AccountingCopyPanel extends JPanel {
                 e.printStackTrace()
             }
         })
-        if (!purchaseOrder.getBusinessObjects().isEmpty()) {
+        if (!purchaseOrder.businessObjects.empty) {
             // TODO: 'later' = here !
 //            purchaseOrder.setPurchaseTransaction(beginBalans)
             try {
-                PurchaseOrders purchaseOrders = newAccounting.getPurchaseOrders()
+                PurchaseOrders purchaseOrders = newAccounting.purchaseOrders
                 purchaseOrders.addBusinessObject(purchaseOrder)
             } catch (EmptyNameException e) {
                 e.printStackTrace()
             } catch (DuplicateNameException e) {
                 e.printStackTrace()
             }
-            StockTransactions stockTransactions = newAccounting.getStockTransactions()
+            StockTransactions stockTransactions = newAccounting.stockTransactions
             stockTransactions.addOrder(purchaseOrder)
         }
     }
 
-    private void copyMeals() {
-        Meals mealsFrom = copyFrom.getMeals()
-        Meals mealsTo = newAccounting.getMeals()
+    void copyMeals() {
+        Meals mealsFrom = copyFrom.meals
+        Meals mealsTo = newAccounting.meals
         mealsTo.clear()
-        mealsFrom.getBusinessObjects().forEach({ meal ->
+        mealsFrom.businessObjects.forEach({ meal ->
             Meal newMeal = new Meal(meal)
             try {
                 mealsTo.addBusinessObject(newMeal)
@@ -166,8 +166,8 @@ class AccountingCopyPanel extends JPanel {
 
     // UPDATE
 
-    private void updateCopyAccountsSelected() {
-        boolean copyAccountsSelected = copyAccounts.isSelected()
+    void updateCopyAccountsSelected() {
+        boolean copyAccountsSelected = copyAccounts.selected
         if(copyAccountsSelected){
             copyAccounts()
         } else {
@@ -175,8 +175,8 @@ class AccountingCopyPanel extends JPanel {
         }
     }
 
-    private void updateCopyJournalsSelected() {
-        boolean copyJournalsSelected = copyJournals.isSelected()
+    void updateCopyJournalsSelected() {
+        boolean copyJournalsSelected = copyJournals.selected
         if(copyJournalsSelected){
             copyJournals()
         } else {
@@ -184,9 +184,9 @@ class AccountingCopyPanel extends JPanel {
         }
     }
 
-    private void updateCopyContactsSelected() {
+    void updateCopyContactsSelected() {
         boolean enabled = copyFrom.isContactsAccounting()
-        boolean selected = enabled && copyContacts.isSelected()
+        boolean selected = enabled && copyContacts.selected
         if(selected){
             selectCopyAccounts(true)
             accountingSettingsPanel.setContactsSelected(true)
@@ -203,8 +203,8 @@ class AccountingCopyPanel extends JPanel {
         }
     }
 
-    private void updateCopyVATSelected() {
-        boolean selected = copyVat.isSelected()
+    void updateCopyVATSelected() {
+        boolean selected = copyVat.selected
         if(selected){
             selectCopyAccounts(true)
             selectCopyJournals(true)
@@ -223,8 +223,8 @@ class AccountingCopyPanel extends JPanel {
         }
     }
 
-    private void updateCopyTradeSelected() {
-        boolean selected = copyTrade.isSelected()
+    void updateCopyTradeSelected() {
+        boolean selected = copyTrade.selected
         if(selected){
             selectCopyVat(true)
             accountingSettingsPanel.setTradeSelected(true)
@@ -241,8 +241,8 @@ class AccountingCopyPanel extends JPanel {
 
     }
 
-    private void updateCopyMealSelected() {
-        boolean selected = copyMealOrders.isSelected()
+    void updateCopyMealSelected() {
+        boolean selected = copyMealOrders.selected
         if(selected){
             selectCopyVat(true)
             accountingSettingsPanel.setMealsSelected(true)
@@ -262,14 +262,14 @@ class AccountingCopyPanel extends JPanel {
 
     void selectCopyAccounts(boolean selected){
         boolean enabled = copyFrom != null
-        copyAccounts.setEnabled(enabled)
+        copyAccounts.enabled = enabled
         copyAccounts.setSelected(enabled && selected)
         updateCopyAccountsSelected()
     }
 
     void selectCopyJournals(boolean selected){
         boolean enabled = copyFrom != null
-        copyJournals.setEnabled(enabled)
+        copyJournals.enabled = enabled
         copyJournals.setSelected(enabled && selected)
         updateCopyJournalsSelected()
     }
@@ -302,29 +302,29 @@ class AccountingCopyPanel extends JPanel {
 
     boolean enableCopyContacts() {
         boolean enabled = copyFrom!=null && copyFrom.isContactsAccounting() && newAccounting.isContactsAccounting()
-        copyContacts.setEnabled(enabled)
-        if(!enabled) copyContacts.setSelected(false)
+        copyContacts.enabled = enabled
+        if(!enabled) copyContacts.selected = false
         enabled
     }
 
     boolean enableCopyVat() {
-        boolean enabled = copyFrom!=null && copyFrom.isVatAccounting() && newAccounting.isVatAccounting()
-        copyVat.setEnabled(enabled)
-        if(!enabled) copyVat.setSelected(false)
+        boolean enabled = copyFrom!=null && copyFrom.vatAccounting && newAccounting.vatAccounting
+        copyVat.enabled = enabled
+        if(!enabled) copyVat.selected = false
         enabled
     }
 
     boolean enableCopyTrade() {
-        boolean enabled = copyFrom!=null && copyFrom.isTradeAccounting() && newAccounting.isTradeAccounting()
-        copyTrade.setEnabled(enabled)
-        if(!enabled) copyTrade.setSelected(false)
+        boolean enabled = copyFrom!=null && copyFrom.tradeAccounting && newAccounting.tradeAccounting
+        copyTrade.enabled = enabled
+        if(!enabled) copyTrade.selected = false
         enabled
     }
 
     boolean enableCopyMeals() {
-        boolean enabled = copyFrom!=null && copyFrom.isMealsAccounting() && newAccounting.isMealsAccounting()
-        copyMealOrders.setEnabled(enabled)
-        if(!enabled) copyMealOrders.setSelected(false)
+        boolean enabled = copyFrom!=null && copyFrom.mealsAccounting && newAccounting.mealsAccounting
+        copyMealOrders.enabled = enabled
+        if(!enabled) copyMealOrders.selected = false
         enabled
     }
 

@@ -21,48 +21,35 @@ class SalesOrdersOverviewDataTableModel extends OrdersOverviewDataTableModel<Sal
     // DE GET METHODEN
 // ===============
     Object getValueAt(int row, int col) {
-        if (salesOrders == null) null
-        SalesOrder salesOrder = getObject(row, col)
-        if(salesOrder == null) null
-
-        if (col == CONTACT_COL) {
-            salesOrder.getCustomer()
-        }
-        if (col == PRICE_TOTAL_EXCL_COL) {
-            salesOrder.getTotalSalesPriceExclVat()
-        }
-        if (col == VAT_AMOUNT_COL) {
-            salesOrder.getTotalSalesVat()
-        }
-        if (col == PRICE_TOTAL_INCL_COL) {
-            salesOrder.getTotalSalesPriceInclVat()
-        }
-        if (col == ORDER_NR_COL) {
-            salesOrder.getName()
-        }
-        if (col == DATE_COL) {
-            salesOrder.getDeliveryDate()
-        }
+        if (salesOrders == null) return null
+        SalesOrder salesOrder = getObject row, col
+        if(salesOrder == null) return null
+        if (col == CONTACT_COL) return salesOrder.customer
+        if (col == PRICE_TOTAL_EXCL_COL) return salesOrder.totalSalesPriceExclVat
+        if (col == VAT_AMOUNT_COL) return salesOrder.totalSalesVat
+        if (col == PRICE_TOTAL_INCL_COL) return salesOrder.totalSalesPriceInclVat
+        if (col == ORDER_NR_COL) return salesOrder.name
+        if (col == DATE_COL) return salesOrder.deliveryDate
         null
     }
 
     @Override
     int getRowCount() {
-        if(salesOrders == null) 0
-        List<SalesOrder> businessObjects = filter==null?salesOrders.getBusinessObjects():salesOrders.getBusinessObjects(filter)
-        if(businessObjects == null || businessObjects.size() == 0) 0
+        if(salesOrders == null) return 0
+        List<SalesOrder> businessObjects = filter?salesOrders.getBusinessObjects(filter):salesOrders.businessObjects
+        if(businessObjects == null || businessObjects.size() == 0) return 0
         businessObjects.size()
     }
 
     @Override
     SalesOrder getObject(int row, int col) {
-        List<SalesOrder> businessObjects = filter==null?salesOrders.getBusinessObjects():salesOrders.getBusinessObjects(filter)
-        if(businessObjects == null || businessObjects.size() == 0) null
+        List<SalesOrder> businessObjects = filter?salesOrders.getBusinessObjects(filter):salesOrders.businessObjects
+        if(businessObjects == null || businessObjects.size() == 0) return null
         businessObjects.get(row)
     }
 
     void setAccounting(Accounting accounting) {
-        salesOrders = accounting.getSalesOrders()
+        salesOrders = accounting.salesOrders
         fireTableDataChanged()
     }
 

@@ -14,16 +14,16 @@ import static java.util.ResourceBundle.getBundle
 
 class JournalManagementPanel extends JPanel implements ListSelectionListener {
 
-    private JButton add, delete, newType, edit
-    private final DefaultListSelectionModel selection
-    private SelectableTable<Journal> tabel
-    private JournalManagementTableModel journalManagementTableModel
-    private Journals journals
-    private JournalTypes journalTypes
-    private Accounts accounts
-    private AccountTypes accountTypes
-    private JComboBox<JournalType> comboBox
-    private TableColumn column
+    JButton addButton, delete, newType, edit
+    final DefaultListSelectionModel selection
+    SelectableTable<Journal> tabel
+    JournalManagementTableModel journalManagementTableModel
+    Journals journals
+    JournalTypes journalTypes
+    Accounts accounts
+    AccountTypes accountTypes
+    JComboBox<JournalType> comboBox
+    TableColumn column
 
     JournalManagementPanel(Accounts accounts, Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
         setLayout(new BorderLayout())
@@ -52,44 +52,44 @@ class JournalManagementPanel extends JPanel implements ListSelectionListener {
         add(south, BorderLayout.SOUTH)
     }
 
-    private JComboBox<JournalType> createComboBox() {
+    JComboBox<JournalType> createComboBox() {
         JComboBox<JournalType> comboBox = new JComboBox<>()
         comboBox.removeAllItems()
-        journalTypes.getBusinessObjects().forEach({ journalType -> comboBox.addItem(journalType) })
+        journalTypes.businessObjects.forEach({ journalType -> comboBox.addItem(journalType) })
         comboBox
     }
 
-    private JPanel createButtonPanel(){
+    JPanel createButtonPanel(){
         JPanel south = new JPanel()
         delete = new JButton(getBundle("Accounting").getString("DELETE_JOURNAL"))
         edit = new JButton(getBundle("Accounting").getString("EDIT_JOURNAL"))
         newType = new JButton(getBundle("Accounting").getString("MANAGE_JOURNAL_TYPES"))
-        add = new JButton(getBundle("Accounting").getString("NEW_JOURNAL"))
+        addButton = new JButton(getBundle("Accounting").getString("NEW_JOURNAL"))
         delete.addActionListener({ e -> deleteJournal() })
         edit.addActionListener({ e ->
-            Journal journal = tabel.getSelectedObject()
+            Journal journal = tabel.selectedObject
             NewJournalDialog newJournalDialog = new NewJournalDialog(accounts, journals, journalTypes, accountTypes)
-            newJournalDialog.setJournal(journal)
-            newJournalDialog.setVisible(true)
+            newJournalDialog.journal = journal
+            newJournalDialog.visible = true
         })
         newType.addActionListener({ e ->
             Point locationOnScreen = getLocationOnScreen()
             JournalTypeManagementGUI journalTypeManagementGUI = JournalTypeManagementGUI.getInstance(accounts, journalTypes, accountTypes)
             journalTypeManagementGUI.setLocation(locationOnScreen)
-            journalTypeManagementGUI.setVisible(true)
+            journalTypeManagementGUI.visible = true
         })
-        add.addActionListener({ e ->
+        addButton.addActionListener({ e ->
             Point locationOnScreen = getLocationOnScreen()
             NewJournalDialog newJournalDialog = new NewJournalDialog(accounts, journals, journalTypes, accountTypes)
             newJournalDialog.setLocation(locationOnScreen)
-            newJournalDialog.setVisible(true)
+            newJournalDialog.visible = true
         })
-        delete.setEnabled(false)
-        edit.setEnabled(false)
+        delete.enabled = false
+        edit.enabled = false
         south.add(delete)
         south.add(edit)
         south.add(newType)
-        south.add(add)
+        south.add(addButton)
         south
     }
 
@@ -99,7 +99,7 @@ class JournalManagementPanel extends JPanel implements ListSelectionListener {
             try{
                 journals.removeBusinessObject(journal)
             }catch (NotEmptyException e){
-                failed.add(journal.getName())
+                failed.add(journal.name)
             }
         }
         if (failed.size() > 0) {
@@ -116,8 +116,8 @@ class JournalManagementPanel extends JPanel implements ListSelectionListener {
     }
 
     void deleteJournal() {
-        ArrayList<Journal> journalList = tabel.getSelectedObjects()
-        if (!journalList.isEmpty()) {
+        ArrayList<Journal> journalList = tabel.selectedObjects
+        if (!journalList.empty) {
             deleteJournal(journalList, journals)
             fireJournalDataChanged()
         }
@@ -137,10 +137,10 @@ class JournalManagementPanel extends JPanel implements ListSelectionListener {
 
     void valueChanged(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting()) {
-            int[] rows = tabel.getSelectedRows()
+            int[] rows = tabel.selectedRows
             boolean enabled = rows.length != 0
-            delete.setEnabled(enabled)
-            edit.setEnabled(enabled)
+            delete.enabled = enabled
+            edit.enabled = enabled
         }
     }
 }

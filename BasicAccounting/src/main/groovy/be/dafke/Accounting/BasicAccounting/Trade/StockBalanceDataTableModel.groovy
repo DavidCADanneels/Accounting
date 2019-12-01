@@ -8,7 +8,7 @@ import be.dafke.ComponentModel.SelectableTableModel
 import static java.util.ResourceBundle.getBundle 
 
 class StockBalanceDataTableModel extends SelectableTableModel<Article> {
-    private final Articles articles
+    final Articles articles
     static int ARTIKEL_COL = 0
     static int PO_ORDERED_COL = 1
     static int ADDED_COL = 2
@@ -16,17 +16,17 @@ class StockBalanceDataTableModel extends SelectableTableModel<Article> {
     static int REMOVED_COL = 4
     static int LEFT_COL = 5
     static int NR_OF_COLS = 6
-    private HashMap<Integer,String> columnNames = new HashMap<>()
-    private HashMap<Integer,Class> columnClasses = new HashMap<>()
+    HashMap<Integer,String> columnNames = new HashMap<>()
+    HashMap<Integer,Class> columnClasses = new HashMap<>()
 
     StockBalanceDataTableModel(Accounting accounting) {
-        this.articles = accounting.getArticles()
+        this.articles = accounting.articles
 //		accounting.getS
         setColumnNames()
         setColumnClasses()
     }
 
-    private void setColumnClasses() {
+    void setColumnClasses() {
         columnClasses.put(ARTIKEL_COL, Article.class)
         columnClasses.put(ADDED_COL, Integer.class)
         columnClasses.put(REMOVED_COL, Integer.class)
@@ -35,7 +35,7 @@ class StockBalanceDataTableModel extends SelectableTableModel<Article> {
         columnClasses.put(SO_ORDERED_COL, Integer.class)
     }
 
-    private void setColumnNames() {
+    void setColumnNames() {
         columnNames.put(ARTIKEL_COL, getBundle("Accounting").getString("ARTICLE_NAME"))
         columnNames.put(ADDED_COL, getBundle("Accounting").getString("ORDER_ADDED"))
         columnNames.put(REMOVED_COL, getBundle("Accounting").getString("ORDER_REMOVED"))
@@ -47,24 +47,12 @@ class StockBalanceDataTableModel extends SelectableTableModel<Article> {
 // ===============
     Object getValueAt(int row, int col) {
         Article article = getObject(row,col)
-        if (col == ARTIKEL_COL) {
-            article
-        }
-        if (col == ADDED_COL) {
-            article.getNrAdded()
-        }
-        if (col == REMOVED_COL) {
-            article.getNrRemoved()
-        }
-        if (col == PO_ORDERED_COL) {
-            article.getNrOrderedByPO()
-        }
-        if (col == SO_ORDERED_COL) {
-            article.getNrOrderedForSO()
-        }
-        if (col == LEFT_COL) {
-            article.getNrInStock()
-        }
+        if (col == ARTIKEL_COL) return article
+        if (col == ADDED_COL) return article.getNrAdded()
+        if (col == REMOVED_COL) return article.getNrRemoved()
+        if (col == PO_ORDERED_COL) return article.getNrOrderedByPO()
+        if (col == SO_ORDERED_COL) return article.getNrOrderedForSO()
+        if (col == LEFT_COL) return article.getNrInStock()
         null
     }
 
@@ -73,10 +61,7 @@ class StockBalanceDataTableModel extends SelectableTableModel<Article> {
     }
 
     int getRowCount() {
-        if(articles == null){
-            0
-        }
-        articles.getBusinessObjects(Article.withOrders()).size()
+        articles?articles.getBusinessObjects(Article.withOrders()).size():0
     }
 
     @Override

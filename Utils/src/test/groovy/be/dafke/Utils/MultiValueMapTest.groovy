@@ -21,14 +21,14 @@ class MultiValueMapTest {
     static final String VALUE7 = "Value7"
     static final String VALUE8 = "Value8"
     static final String VALUE9 = "Value9"
-    private MultiValueMap<String, String> map
+    MultiValueMap<String, String> map
 
     @Before
     void init(){
         map = new MultiValueMap<String, String>()
     }
 
-    private void createDefaultMap(){
+    void createDefaultMap(){
         // K1: V(1-2)
         // K2: V(3-4)
         // K3: V(5-6-7)

@@ -12,11 +12,11 @@ import java.awt.*
 import static java.util.ResourceBundle.getBundle
 
 class TransactionOverviewPopupMenu extends JPopupMenu {
-    private final JMenuItem move, delete, edit, balance, vatCalculation
+    final JMenuItem move, delete, edit, balance, vatCalculation
 
-    private SelectableTable<Transaction> gui
-    private Journals journals
-    private Accounting accounting
+    SelectableTable<Transaction> gui
+    Journals journals
+    Accounting accounting
 
     TransactionOverviewPopupMenu(Journals journals, SelectableTable<Transaction> gui) {
         this(gui)
@@ -47,19 +47,19 @@ class TransactionOverviewPopupMenu extends JPopupMenu {
 
     void setAccounting(Accounting accounting) {
         this.accounting = accounting
-        setJournals(accounting==null?null:accounting.getJournals())
+        setJournals(accounting?accounting.journals:null)
     }
 
-    private void book() {
+    void book() {
         Point locationOnScreen = getLocationOnScreen()
         setVisible(false)
-        ArrayList<Transaction> transactions = gui.getSelectedObjects()
+        ArrayList<Transaction> transactions = gui.selectedObjects
         VATFieldsGUI vatFieldsGUI = VATFieldsGUI.getInstance(transactions, accounting)
         vatFieldsGUI.setLocation(locationOnScreen)
-        vatFieldsGUI.setVisible(true)
+        vatFieldsGUI.visible = true
     }
 
-    private void showBalance() {
+    void showBalance() {
         setVisible(false)
         // choices:
         // 1: all transactions from this journal (e.g. FAM16)
@@ -73,25 +73,25 @@ class TransactionOverviewPopupMenu extends JPopupMenu {
         // Accounting.getTransactions(Bookyear year)
         // with Bookyear: a period in time (e.g. 01/07 - 30/06)
 
-        Accounting accounting = Session.getActiveAccounting()
+        Accounting accounting = Session.activeAccounting
 
-        int year = gui.getSelectedObject().getDate().get(Calendar.YEAR)
-        Accounts subAccounts = accounting.getAccounts().getSubAccounts(Movement.ofYear(year))
+        int year = gui.selectedObject.date.get(Calendar.YEAR)
+        Accounts subAccounts = accounting.accounts.getSubAccounts(Movement.ofYear(year))
 
-        Journals journals = accounting.getJournals()
+        Journals journals = accounting.journals
 
-        Balances balances = accounting.getBalances()
+        Balances balances = accounting.balances
         Balance closingBalance = balances.createClosingBalance(subAccounts)
         Balance relationsBalance = balances.createRelationsBalance(subAccounts)
         Balance resultBalance = balances.createResultBalance(subAccounts)
 
-        BalanceGUI.getBalance(accounting, closingBalance).setVisible(true)
-        BalanceGUI.getBalance(accounting, resultBalance).setVisible(true)
-        BalanceGUI.getBalance(accounting, relationsBalance).setVisible(true)
+        BalanceGUI.getBalance(accounting, closingBalance).visible = true
+        BalanceGUI.getBalance(accounting, resultBalance).visible = true
+        BalanceGUI.getBalance(accounting, relationsBalance).visible = true
 
         // choice 2: year=year of selected transaction
-//        Accounting accounting = Session.getActiveAccounting()
-//        Balances balances = accounting.getBalances()
+//        Accounting accounting = Session.activeAccounting
+//        Balances balances = accounting.balances
 //        BalanceGUI.getBalance()
 
     }
@@ -100,23 +100,23 @@ class TransactionOverviewPopupMenu extends JPopupMenu {
         this.journals=journals
     }
 
-    private void moveTransaction() {
+    void moveTransaction() {
         setVisible(false)
-        ArrayList<Transaction> transactions = gui.getSelectedObjects()
+        ArrayList<Transaction> transactions = gui.selectedObjects
         Set<Transaction> set = new HashSet<>(transactions)
         Main.moveTransactions(set, journals)
     }
 
-    private void deleteTransaction() {
+    void deleteTransaction() {
         setVisible(false)
-        ArrayList<Transaction> transactions = gui.getSelectedObjects()
+        ArrayList<Transaction> transactions = gui.selectedObjects
         Set<Transaction> set = new HashSet<>(transactions)
         Main.deleteTransactions(set)
     }
 
-    private void editTransaction() {
+    void editTransaction() {
         setVisible(false)
-        Transaction transaction = gui.getSelectedObject()
+        Transaction transaction = gui.selectedObject
         Main.editTransaction(transaction)
     }
 }

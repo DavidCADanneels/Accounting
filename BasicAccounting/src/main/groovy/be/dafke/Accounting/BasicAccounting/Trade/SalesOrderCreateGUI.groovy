@@ -9,12 +9,12 @@ import javax.swing.*
 import static java.util.ResourceBundle.getBundle
 
 class SalesOrderCreateGUI extends JFrame {
-    private final SalesOrderCreatePanel orderPanel
+    final SalesOrderCreatePanel orderPanel
 
-    private static SalesOrderCreateGUI salesOrderCreateGui = null
-    private static SalesOrderCreateGUI salesEditCreateGui = null
+    static SalesOrderCreateGUI salesOrderCreateGui = null
+    static SalesOrderCreateGUI salesEditCreateGui = null
 
-    private SalesOrderCreateGUI(Accounting accounting) {
+    SalesOrderCreateGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("CREATE_SO"))
         orderPanel = new SalesOrderCreatePanel(accounting)
         setContentPane(orderPanel)

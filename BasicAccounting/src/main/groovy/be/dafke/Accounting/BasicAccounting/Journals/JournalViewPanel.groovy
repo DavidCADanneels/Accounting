@@ -10,11 +10,11 @@ import javax.swing.*
 import java.awt.*
 
 class JournalViewPanel extends JPanel {
-    private final SelectableTable<Booking> table
-    private final JournalDetailsPopupMenu popup
+    final SelectableTable<Booking> table
+    final JournalDetailsPopupMenu popup
 
-    private final JournalDetailsDataModel journalDetailsDataModel
-    private final JournalColorRenderer renderer
+    final JournalDetailsDataModel journalDetailsDataModel
+    final JournalColorRenderer renderer
 
     JournalViewPanel() {
         setLayout(new BorderLayout())
@@ -40,10 +40,10 @@ class JournalViewPanel extends JPanel {
     }
 
     void setAccounting(Accounting accounting) {
-//        popup.setAccounting(accounting)
-        setJournals(accounting == null ? null : accounting.getJournals())
+//        popup.accounting = accounting
+        setJournals(accounting == null ? null : accounting.journals)
         AccountingSession accountingSession = Session.getAccountingSession(accounting)
-        setJournal(accounting == null ? null : accountingSession.getActiveJournal())
+        setJournal(accounting == null ? null : accountingSession.activeJournal)
     }
 
     void setJournals(Journals journals) {
@@ -51,8 +51,8 @@ class JournalViewPanel extends JPanel {
     }
 
     void setJournal(Journal journal) {
-        renderer.setJournal(journal)
-        journalDetailsDataModel.setJournal(journal)
+        renderer.journal = journal
+        journalDetailsDataModel.journal = journal
         journalDetailsDataModel.fireTableDataChanged()
     }
 
@@ -67,8 +67,8 @@ class JournalViewPanel extends JPanel {
     }
 
     void selectTransaction(Transaction transaction) {
-        ArrayList<Booking> bookings = transaction.getBusinessObjects()
-        if (bookings != null && !bookings.isEmpty()) {
+        ArrayList<Booking> bookings = transaction.businessObjects
+        if (bookings != null && !bookings.empty) {
             Booking firstBooking = bookings.get(0)
             Booking lastBooking = bookings.get(bookings.size() - 1)
             int firstRow = journalDetailsDataModel.getRow(firstBooking)

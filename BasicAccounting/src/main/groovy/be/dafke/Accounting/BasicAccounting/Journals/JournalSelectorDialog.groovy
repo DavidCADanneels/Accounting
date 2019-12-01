@@ -10,17 +10,17 @@ import javax.swing.JPanel
 import java.awt.BorderLayout
 
 class JournalSelectorDialog extends RefreshableDialog {
-    private JButton ok
-    private Journal journal
-    private JComboBox<Journal> combo
+    JButton ok
+    Journal journal
+    JComboBox<Journal> combo
 
     JournalSelectorDialog(Journals journals){
         super("Select Journal:")
         combo = new JComboBox<>()
-        for (Journal journal : journals.getBusinessObjects()) {
+        for (Journal journal : journals.businessObjects) {
             combo.addItem(journal)
         }
-        combo.addActionListener({ e -> journal = (Journal) combo.getSelectedItem() })
+        combo.addActionListener({ e -> journal = (Journal) combo.selectedItem })
         ok = new JButton("Ok (Close popup)")
         ok.addActionListener({ e -> dispose() })
 

@@ -6,39 +6,39 @@ import be.dafke.Accounting.ObjectModel.BusinessObject
  * @author David Danneels
  */
 class Accounting extends BusinessObject{
-    private final AccountTypes accountTypes
-    private Accounts accounts
-    private Journals journals
-    private JournalTypes journalTypes
-    private Balances balances
-    private Mortgages mortgages
-    private Projects projects
-    private Contacts contacts
-    private StockTransactions stockTransactions
-    private PurchaseOrders purchaseOrders
-    private SalesOrders salesOrders
-    private StockOrders stockOrders
-    private PromoOrders promoOrders
-    private IngredientOrders ingredientOrders
-    private Transactions transactions
-    private VATTransactions vatTransactions
-    private VATFields vatFields
-    private Articles articles
-    private Ingredients ingredients
-    private Allergenes allergenes
-    private Contact companyContact=null
-    private Contact contactNoInvoice=null
-    private CounterParties counterParties
-    private Statements statements
-    private Meals meals
-    private MealOrders mealOrders
-    private boolean read = false
-    private boolean projectsAccounting = true
-    private boolean mortgagesAccounting = false
-    private boolean contactsAccounting = false
-    private boolean vatAccounting = false
-    private boolean tradeAccounting = false
-    private boolean mealsAccounting = false
+    final AccountTypes accountTypes
+    Accounts accounts
+    Journals journals
+    JournalTypes journalTypes
+    Balances balances
+    Mortgages mortgages
+    Projects projects
+    Contacts contacts
+    StockTransactions stockTransactions
+    PurchaseOrders purchaseOrders
+    SalesOrders salesOrders
+    StockOrders stockOrders
+    PromoOrders promoOrders
+    IngredientOrders ingredientOrders
+    Transactions transactions
+    VATTransactions vatTransactions
+    VATFields vatFields
+    Articles articles
+    Ingredients ingredients
+    Allergenes allergenes
+    Contact companyContact=null
+    Contact contactNoInvoice=null
+    CounterParties counterParties
+    Statements statements
+    Meals meals
+    MealOrders mealOrders
+    boolean read = false
+    boolean projectsAccounting = true
+    boolean mortgagesAccounting = false
+    boolean contactsAccounting = false
+    boolean vatAccounting = false
+    boolean tradeAccounting = false
+    boolean mealsAccounting = false
 
     Accounting(String name) {
         setName(name)
@@ -88,104 +88,6 @@ class Accounting extends BusinessObject{
         mealOrders = new MealOrders()
     }
 
-    // Collections
-    //
-    AccountTypes getAccountTypes() {
-        accountTypes
-    }
-
-    Accounts getAccounts() {
-        accounts
-    }
-
-    Journals getJournals() {
-        journals
-    }
-    //
-    JournalTypes getJournalTypes() {
-        journalTypes
-    }
-
-    Balances getBalances() {
-        balances
-    }
-
-    Mortgages getMortgages() {
-        mortgages
-    }
-
-    Projects getProjects() {
-        projects
-    }
-
-    Contacts getContacts() {
-        contacts
-    }
-
-    VATTransactions getVatTransactions() {
-        vatTransactions
-    }
-
-    VATFields getVatFields() {
-        vatFields
-    }
-
-    Contact getCompanyContact() {
-        companyContact
-    }
-
-    Contact getContactNoInvoice() {
-        contactNoInvoice
-    }
-
-    CounterParties getCounterParties() {
-        counterParties
-    }
-
-    Statements getStatements() {
-        statements
-    }
-
-    Articles getArticles() {
-        articles
-    }
-
-    Ingredients getIngredients() {
-        ingredients
-    }
-
-    Allergenes getAllergenes() {
-        allergenes
-    }
-
-    PurchaseOrders getPurchaseOrders() {
-        purchaseOrders
-    }
-
-    SalesOrders getSalesOrders() {
-        salesOrders
-    }
-
-    StockOrders getStockOrders() {
-        stockOrders
-    }
-
-    PromoOrders getPromoOrders() {
-        promoOrders
-    }
-
-    IngredientOrders getIngredientOrders() {
-        ingredientOrders
-    }
-
-    boolean isRead() {
-        read
-    }
-
-    void setRead(boolean read) {
-        this.read = read
-    }
-
     void copyAccounts(Accounts accounts) {
         this.accounts = new Accounts(accounts)
     }
@@ -207,104 +109,24 @@ class Accounting extends BusinessObject{
         Account creditCNAccount = vatTransactions.getCreditCNAccount()
 
         if(debitAccount!=null){
-            Account account = accounts.getBusinessObject(debitAccount.getName())
+            Account account = accounts.getBusinessObject(debitAccount.name)
             vatTransactions.setDebitAccount(account)
         }
         if(creditAccount!=null){
-            Account account = accounts.getBusinessObject(creditAccount.getName())
+            Account account = accounts.getBusinessObject(creditAccount.name)
             vatTransactions.setCreditAccount(account)
         }
         if(debitCNAccount!=null){
-            Account account = accounts.getBusinessObject(debitCNAccount.getName())
+            Account account = accounts.getBusinessObject(debitCNAccount.name)
             vatTransactions.setDebitCNAccount(account)
         }
         if(creditCNAccount!=null){
-            Account account = accounts.getBusinessObject(creditCNAccount.getName())
+            Account account = accounts.getBusinessObject(creditCNAccount.name)
             vatTransactions.setCreditCNAccount(account)
         }
     }
 
     void copyJournalTypes(JournalTypes journalTypes) {
         this.journalTypes = new JournalTypes(journalTypes)
-    }
-
-    boolean isVatAccounting() {
-        vatAccounting
-    }
-
-    void setVatAccounting(boolean vatAccounting) {
-        this.vatAccounting = vatAccounting
-    }
-
-    boolean isMortgagesAccounting() {
-        mortgagesAccounting
-    }
-
-    void setMortgagesAccounting(boolean mortgagesAccounting) {
-        this.mortgagesAccounting = mortgagesAccounting
-    }
-
-    boolean isProjectsAccounting() {
-        projectsAccounting
-    }
-
-    void setProjectsAccounting(boolean projectsAccounting) {
-        this.projectsAccounting = projectsAccounting
-    }
-
-    boolean isTradeAccounting() {
-        tradeAccounting
-    }
-
-    void setTradeAccounting(boolean tradeAccounting) {
-        this.tradeAccounting = tradeAccounting
-    }
-
-    boolean isContactsAccounting() {
-        contactsAccounting
-    }
-
-    void setContactsAccounting(boolean contactsAccounting) {
-        this.contactsAccounting = contactsAccounting
-    }
-
-    boolean isMealsAccounting() {
-        mealsAccounting
-    }
-
-    void setMealsAccounting(boolean mealsAccounting) {
-        this.mealsAccounting = mealsAccounting
-    }
-
-    void setCompanyContact(Contact companyContact) {
-        this.companyContact = companyContact
-    }
-
-    void setContactNoInvoice(Contact contactNoInvoice) {
-        this.contactNoInvoice = contactNoInvoice
-    }
-
-    Transactions getTransactions() {
-        transactions
-    }
-
-    Meals getMeals() {
-        meals
-    }
-
-    void setMeals(Meals meals) {
-        this.meals = meals
-    }
-
-    MealOrders getMealOrders() {
-        mealOrders
-    }
-
-    void setMealOrders(MealOrders mealOrders) {
-        this.mealOrders = mealOrders
-    }
-
-    StockTransactions getStockTransactions() {
-        stockTransactions
     }
 }

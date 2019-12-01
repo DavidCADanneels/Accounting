@@ -10,9 +10,9 @@ import javax.swing.JMenuItem
 import static java.util.ResourceBundle.getBundle
 
 class MortgagesMenu extends JMenu {
-    private JMenuItem mortgage
-    private Mortgages mortgages
-    private Accounts accounts
+    JMenuItem mortgage
+    Mortgages mortgages
+    Accounts accounts
 
     MortgagesMenu() {
         super(getBundle("Mortgage").getString("MORTGAGES"))
@@ -21,21 +21,21 @@ class MortgagesMenu extends JMenu {
         mortgage.addActionListener({ e ->
             MortgageGUI mortgageGUI = MortgageGUI.showMortgages(mortgages, accounts)
             mortgageGUI.setLocation(getLocationOnScreen())
-            mortgageGUI.setVisible(true)
+            mortgageGUI.visible = true
         })
-        mortgage.setEnabled(false)
+        mortgage.enabled = false
         add(mortgage)
     }
 
     void setAccounting(Accounting accounting) {
-        setMortgages(accounting==null?null:accounting.getMortgages())
-        setAccounts(accounting==null?null:accounting.getAccounts())
+        setMortgages(accounting?accounting.mortgages:null)
+        setAccounts(accounting?accounting.accounts:null)
     }
     void setAccounts(Accounts accounts) {
         this.accounts = accounts
     }
     void setMortgages(Mortgages mortgages) {
         this.mortgages=mortgages
-        mortgage.setEnabled(mortgages!=null)
+        mortgage.enabled = mortgages!=null
     }
 }

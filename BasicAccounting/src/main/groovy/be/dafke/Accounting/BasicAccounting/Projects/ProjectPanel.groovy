@@ -13,12 +13,12 @@ import java.awt.*
 import static java.util.ResourceBundle.getBundle
 
 class ProjectPanel extends JPanel{
-    private final JButton manage
-    private final JComboBox<Project> combo
-    private Project project
-    private JournalDetailsDataModel journalDetailsDataModel
-    private BalanceDataModel resultBalanceDataModel, relationsBalanceDataModel
-    private Projects projects
+    final JButton manage
+    final JComboBox<Project> combo
+    Project project
+    JournalDetailsDataModel journalDetailsDataModel
+    BalanceDataModel resultBalanceDataModel, relationsBalanceDataModel
+    Projects projects
 
     ProjectPanel(Accounts accounts, AccountTypes accountTypes, Projects projects) {
         this.projects = projects
@@ -28,7 +28,7 @@ class ProjectPanel extends JPanel{
         //
         combo = new JComboBox<>()
         combo.addActionListener({ e ->
-            project = (Project) combo.getSelectedItem()
+            project = (Project) combo.selectedItem
             refresh()
         })
         //
@@ -36,7 +36,7 @@ class ProjectPanel extends JPanel{
         manage.addActionListener({ e ->
             ProjectManagementGUI projectManagementGUI = ProjectManagementGUI.showManager(accounts, accountTypes, projects)
             projectManagementGUI.setLocation(getLocationOnScreen())
-            projectManagementGUI.setVisible(true)
+            projectManagementGUI.visible = true
         })
         //
         noord.add(combo)
@@ -72,13 +72,13 @@ class ProjectPanel extends JPanel{
         add(center,BorderLayout.CENTER)
     }
 
-    private JScrollPane createBalancePanel(BalanceDataModel balanceDataModel){
+    JScrollPane createBalancePanel(BalanceDataModel balanceDataModel){
         SelectableTable<Account> table = new SelectableTable<>(balanceDataModel)
         table.setPreferredScrollableViewportSize(new Dimension(500, 200))
         new JScrollPane(table)
     }
 
-    private JScrollPane createTransactionsPanel() {
+    JScrollPane createTransactionsPanel() {
         journalDetailsDataModel = new JournalDetailsDataModel()
         SelectableTable<Booking> table = new SelectableTable<>(journalDetailsDataModel)
         table.setPreferredScrollableViewportSize(new Dimension(800, 200))
@@ -87,15 +87,15 @@ class ProjectPanel extends JPanel{
 
     void refresh() {
         combo.removeAllItems()
-        for(Project project : projects.getBusinessObjects()) {
+        for(Project project : projects.businessObjects) {
             ((DefaultComboBoxModel<Project>) combo.getModel()).addElement(project)
         }
-        if (!projects.getBusinessObjects().isEmpty()) {
-            if(project==null) project = projects.getBusinessObjects().get(0)
+        if (!projects.businessObjects.empty) {
+            if(project==null) project = projects.businessObjects.get(0)
             combo.setSelectedItem(project)
         }
         if(project!=null) {
-            journalDetailsDataModel.setJournal(project.getJournal())
+            journalDetailsDataModel.setJournal(project.journal)
             resultBalanceDataModel.setBalance(project.getResultBalance())
             relationsBalanceDataModel.setBalance(project.getRelationsBalance())
         }

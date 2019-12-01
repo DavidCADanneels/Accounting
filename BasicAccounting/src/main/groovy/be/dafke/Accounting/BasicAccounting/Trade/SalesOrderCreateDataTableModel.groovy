@@ -8,10 +8,10 @@ import be.dafke.Accounting.BusinessModel.SalesOrder
 import java.util.function.Predicate
 
 class SalesOrderCreateDataTableModel extends SalesOrderViewDataTableModel {
-    private final Articles articles
-//	private Predicate<Article> filter = article -> article.getSalesPriceItemWithVat()!=null
-    private Predicate<Article> filter = Article.inStock()
-    private TotalsPanel totalsPanel
+    final Articles articles
+//	Predicate<Article> filter = article -> article.getSalesPriceItemWithVat()!=null
+    Predicate<Article> filter = Article.inStock()
+    TotalsPanel totalsPanel
 
     SalesOrderCreateDataTableModel(Articles articles, SalesOrder order, TotalsPanel totalsPanel) {
         super()
@@ -23,7 +23,7 @@ class SalesOrderCreateDataTableModel extends SalesOrderViewDataTableModel {
 
     int getRowCount() {
         List<Article> businessObjects = getArticles()
-        if(businessObjects == null) 0
+        if(businessObjects == null) return 0
         businessObjects.size()
     }
 
@@ -32,7 +32,7 @@ class SalesOrderCreateDataTableModel extends SalesOrderViewDataTableModel {
         col==NR_OF_ITEMS_COL || col == PRICE_ITEM_COL || col == VAT_RATE_COL
     }
 
-    private List<Article> getArticles(){
+    List<Article> getArticles(){
         if(articles==null || filter==null) null
         List<Article> businessObjects = articles.getBusinessObjects(filter)
         if(businessObjects == null) null
@@ -64,6 +64,6 @@ class SalesOrderCreateDataTableModel extends SalesOrderViewDataTableModel {
         List<Article> articleList = getArticles()
         if(articleList == null) null
         Article article = articleList.get(row)
-        order.getBusinessObject(article.getName())
+        order.getBusinessObject(article.name)
     }
 }

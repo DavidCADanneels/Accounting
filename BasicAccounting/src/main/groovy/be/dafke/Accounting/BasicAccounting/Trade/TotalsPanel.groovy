@@ -104,10 +104,10 @@ class TotalsPanel  extends JPanel {
         total6pct.setText(order.getTotalSalesPriceInclVat(OrderItem.withSalesVatRate(6)).toString())
         total21pct.setText(order.getTotalSalesPriceInclVat(OrderItem.withSalesVatRate(21)).toString())
 
-        totalNet.setText(order.getTotalSalesPriceExclVat().toString())
+        totalNet.setText(order.totalSalesPriceExclVat.toString())
         totalVatRest.setText("("+order.calculateTotalSalesVat().toString()+")")
-        totalVat.setText(order.getTotalSalesVat().toString())
-        total.setText(order.getTotalSalesPriceInclVat().toString())
+        totalVat.setText(order.totalSalesVat.toString())
+        total.setText(order.totalSalesPriceInclVat.toString())
     }
     void setTotals(PurchaseOrder order){
         net0pct.setText(order.getTotalPurchasePriceExclVat(OrderItem.withPurchaseVatRate(0)).toString())
@@ -121,27 +121,27 @@ class TotalsPanel  extends JPanel {
         total6pct.setText(order.getTotalPurchasePriceInclVat(OrderItem.withPurchaseVatRate(6)).toString())
         total21pct.setText(order.getTotalPurchasePriceInclVat(OrderItem.withPurchaseVatRate(21)).toString())
 
-        totalNet.setText(order.getTotalPurchasePriceExclVat().toString())
+        totalNet.setText(order.totalPurchasePriceExclVat.toString())
         totalVatRest.setText("("+order.calculateTotalPurchaseVat().toString()+")")
-        totalVat.setText(order.getTotalPurchaseVat().toString())
-        total.setText(order.getTotalPurchasePriceInclVat().toString())
+        totalVat.setText(order.totalPurchaseVat.toString())
+        total.setText(order.totalPurchasePriceInclVat.toString())
     }
 
     void setTotals(Order order){
-        net0pct.setText(order.getTotalStockValue().toString())
+        net0pct.setText(order.totalStockValue.toString())
         net6pct.setText("-")
         net21pct.setText("-")
 
         vat6pct.setText("-")
         vat21pct.setText("-")
 
-        total0pct.setText(order.getTotalStockValue().toString())
+        total0pct.setText(order.totalStockValue.toString())
         total6pct.setText("-")
         total21pct.setText("-")
 
-        totalNet.setText(order.getTotalStockValue().toString())
+        totalNet.setText(order.totalStockValue.toString())
         totalVatRest.setText("-")
         totalVat.setText("-")
-        total.setText(order.getTotalStockValue().toString())
+        total.setText(order.totalStockValue.toString())
     }
 }

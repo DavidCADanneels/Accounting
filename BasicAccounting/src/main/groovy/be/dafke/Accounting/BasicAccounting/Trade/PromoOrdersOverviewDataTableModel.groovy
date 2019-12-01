@@ -15,7 +15,7 @@ class PromoOrdersOverviewDataTableModel extends SelectableTableModel<PromoOrder>
     protected HashMap<Integer,String> columnNames = new HashMap<>()
     protected HashMap<Integer,Class> columnClasses = new HashMap<>()
 
-    private PromoOrders promoOrders
+    PromoOrders promoOrders
 
     PromoOrdersOverviewDataTableModel() {
         setColumnNames()
@@ -63,39 +63,29 @@ class PromoOrdersOverviewDataTableModel extends SelectableTableModel<PromoOrder>
     // DE GET METHODEN
 // ===============
     Object getValueAt(int row, int col) {
-        if (promoOrders == null) null
+        if (promoOrders == null) return null
         PromoOrder promoOrder = getObject(row, col)
-        if(promoOrder == null) null
-
-        if (col == TOTAL_VALUE_COL) {
-            promoOrder.getTotalStockValue()
-        }
-        if (col == ORDER_NR_COL) {
-            promoOrder.getName()
-        }
-        if (col == DATE_COL) {
-            promoOrder.getDeliveryDate()
-        }
+        if(promoOrder == null) return null
+        if (col == TOTAL_VALUE_COL) return promoOrder.totalStockValue
+        if (col == ORDER_NR_COL) return promoOrder.name
+        if (col == DATE_COL) return promoOrder.deliveryDate
         null
     }
 
     @Override
     int getRowCount() {
-        if(promoOrders == null) 0
-        List<PromoOrder> businessObjects = promoOrders.getBusinessObjects()
-        if(businessObjects == null || businessObjects.size() == 0) 0
-        businessObjects.size()
+        promoOrders?promoOrders.businessObjects.size():0
     }
 
     @Override
     PromoOrder getObject(int row, int col) {
-        List<PromoOrder> businessObjects = this.promoOrders.getBusinessObjects()
-        if(businessObjects == null || businessObjects.size() == 0) null
+        List<PromoOrder> businessObjects = this.promoOrders.businessObjects
+        if(businessObjects == null || businessObjects.size() == 0) return null
         businessObjects.get(row)
     }
 
     void setAccounting(Accounting accounting) {
-        promoOrders = accounting.getPromoOrders()
+        promoOrders = accounting.promoOrders
         fireTableDataChanged()
     }
 }

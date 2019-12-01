@@ -7,14 +7,14 @@ import be.dafke.Utils.Utils
 
 class IngredientOrders extends BusinessCollection<IngredientOrder> {
 
-    private int id = 0
+    int id = 0
 
     IngredientOrder addBusinessObject(IngredientOrder order) throws EmptyNameException, DuplicateNameException {
         id++
-        if(order.getId()==null) {
-            order.setId(id)
+        if(order.id==null) {
+            order.id = id
         }
-        order.setName(Utils.toIDString("IO", order.getId(), 3))
+        order.setName(Utils.toIDString("IO", order.id, 3))
         order.addIngredientOrderToArticles()
         super.addBusinessObject(order)
     }
@@ -22,11 +22,11 @@ class IngredientOrders extends BusinessCollection<IngredientOrder> {
     static IngredientOrder mergeOrders(ArrayList<IngredientOrder> ordersToAdd) {
         IngredientOrder ingredientOrder = new IngredientOrder()
         for (IngredientOrder orderToAdd:ordersToAdd) {
-            ArrayList<IngredientOrderItem> orderItemsToAdd = orderToAdd.getBusinessObjects()
+            ArrayList<IngredientOrderItem> orderItemsToAdd = orderToAdd.businessObjects
             for (IngredientOrderItem orderitemToAdd : orderItemsToAdd) {
                 BigDecimal quantity = orderitemToAdd.getQuantity()
                 Ingredient ingredient = orderitemToAdd.getIngredient()
-                Article article = orderitemToAdd.getArticle()
+                Article article = orderitemToAdd.article
                 IngredientOrderItem newItem = new IngredientOrderItem(quantity, ingredient, article)
 //                newItem.setArticle(article)
                 try {

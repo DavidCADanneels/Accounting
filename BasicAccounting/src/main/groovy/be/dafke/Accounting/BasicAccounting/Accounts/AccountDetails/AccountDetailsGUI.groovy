@@ -13,11 +13,11 @@ import java.awt.event.WindowListener
 import static java.util.ResourceBundle.getBundle
 
 class AccountDetailsGUI extends JFrame implements WindowListener {
-    private static HashMap<Account,AccountDetailsGUI> accountDetailsMap = new HashMap<>()
-    private final AccountDetailsPanel accountDetailsPanel
+    static HashMap<Account,AccountDetailsGUI> accountDetailsMap = new HashMap<>()
+    final AccountDetailsPanel accountDetailsPanel
 
-    private AccountDetailsGUI(Point location, Account account, Journals journals) {
-        super(getBundle("Accounting").getString("ACCOUNT_DETAILS") + account.getName())
+    AccountDetailsGUI(Point location, Account account, Journals journals) {
+        super(getBundle("Accounting").getString("ACCOUNT_DETAILS") + account.name)
         accountDetailsPanel = new AccountDetailsPanel(account, journals)
 //		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE)
         setLocation(location)
@@ -32,7 +32,7 @@ class AccountDetailsGUI extends JFrame implements WindowListener {
             accountDetailsMap.put(account, accountDetailsGUI)
             Main.addFrame(accountDetailsGUI)
         }
-        accountDetailsGUI.setVisible(true)
+        accountDetailsGUI.visible = true
         accountDetailsGUI
     }
 

@@ -18,8 +18,8 @@ class SalesOrderDetailsDataTableModel extends SelectableTableModel<OrderItem> {
     static int TOTAL_VAT_COL = 7
     static int TOTAL_INCL_COL = 8
     static int NR_OF_COL = 9
-    private HashMap<Integer,String> columnNames = new HashMap<>()
-    private HashMap<Integer,Class> columnClasses = new HashMap<>()
+    HashMap<Integer,String> columnNames = new HashMap<>()
+    HashMap<Integer,Class> columnClasses = new HashMap<>()
     protected SalesOrder order
 
     SalesOrderDetailsDataTableModel() {
@@ -27,7 +27,7 @@ class SalesOrderDetailsDataTableModel extends SelectableTableModel<OrderItem> {
         setColumnClasses()
     }
 
-    private void setColumnClasses() {
+    void setColumnClasses() {
         columnClasses.put(NR_OF_ITEMS_COL, Integer.class)
         columnClasses.put(ITEMS_PER_UNIT_COL, Integer.class)
         columnClasses.put(NAME_COL, String.class)
@@ -39,7 +39,7 @@ class SalesOrderDetailsDataTableModel extends SelectableTableModel<OrderItem> {
         columnClasses.put(VAT_RATE_COL, Integer.class)
     }
 
-    private void setColumnNames() {
+    void setColumnNames() {
         columnNames.put(NR_OF_ITEMS_COL, getBundle("Accounting").getString("ITEMS_TO_ORDER"))
         columnNames.put(ITEMS_PER_UNIT_COL, getBundle("Accounting").getString("ITEMS_PER_UNIT"))
         columnNames.put(NAME_COL, getBundle("Accounting").getString("ARTICLE_NAME"))
@@ -55,35 +55,16 @@ class SalesOrderDetailsDataTableModel extends SelectableTableModel<OrderItem> {
 // ===============
     Object getValueAt(int row, int col) {
         OrderItem orderItem = getObject(row, col)
-        if (orderItem==null)
-            null
-        if (col == NAME_COL) {
-            orderItem.getName()
-        }
-        if (col == ITEMS_PER_UNIT_COL) {
-            orderItem.getItemsPerUnit()
-        }
-        if (col == PRICE_ITEM_COL) {
-            orderItem.getSalesPriceForItem()
-        }
-        if (col == PO_COL) {
-            orderItem.getPurchaseOrder()
-        }
-        if (col == VAT_RATE_COL) {
-            orderItem.getSalesVatRate()
-        }
-        if (col == TOTAL_EXCL_COL) {
-            orderItem.getSalesPriceWithoutVat()
-        }
-        if (col == TOTAL_INCL_COL) {
-            orderItem.getSalesPriceWithVat()
-        }
-        if (col == TOTAL_VAT_COL) {
-            orderItem.getSalesVatAmount()
-        }
-        if (col == NR_OF_ITEMS_COL) {
-            orderItem.getNumberOfItems()
-        }
+        if (orderItem==null) return null
+        if (col == NAME_COL) return orderItem.name
+        if (col == ITEMS_PER_UNIT_COL) return orderItem.itemsPerUnit
+        if (col == PRICE_ITEM_COL) return orderItem.salesPriceForItem
+        if (col == PO_COL) return orderItem.purchaseOrder
+        if (col == VAT_RATE_COL) return orderItem.salesVatRate
+        if (col == TOTAL_EXCL_COL) return orderItem.salesPriceWithoutVat
+        if (col == TOTAL_INCL_COL) return orderItem.salesPriceWithVat
+        if (col == TOTAL_VAT_COL) return orderItem.salesVatAmount
+        if (col == NR_OF_ITEMS_COL) return orderItem.numberOfItems
         null
     }
 
@@ -92,10 +73,7 @@ class SalesOrderDetailsDataTableModel extends SelectableTableModel<OrderItem> {
     }
 
     int getRowCount() {
-        if(order==null) 0
-        List<OrderItem> businessObjects = order.getBusinessObjects()
-        if(businessObjects == null || businessObjects.size() == 0) 0
-        businessObjects.size()
+        order?order.businessObjects.size():0
     }
 
     @Override
@@ -122,7 +100,7 @@ class SalesOrderDetailsDataTableModel extends SelectableTableModel<OrderItem> {
 
     @Override
     OrderItem getObject(int row, int col) {
-        List<OrderItem> orderItems = order.getBusinessObjects()
+        List<OrderItem> orderItems = order.businessObjects
         if(orderItems == null || orderItems.size() == 0) null
         orderItems.get(row)
     }

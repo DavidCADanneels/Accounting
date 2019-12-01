@@ -9,7 +9,7 @@ import be.dafke.ComponentModel.SelectableTableModel
 import static java.util.ResourceBundle.getBundle 
 
 class MealRecipeEditDataTableModel extends SelectableTableModel<RecipeLine> {
-    private Recipe recipe
+    Recipe recipe
     static int NAME_COL = 0
     static int AMOUNT_COL = 1
     static int UNIT_COL = 2
@@ -49,20 +49,12 @@ class MealRecipeEditDataTableModel extends SelectableTableModel<RecipeLine> {
 // ===============
     Object getValueAt(int row, int col) {
         RecipeLine recipeLine = getObject(row, col)
-        if (col == AMOUNT_COL) {
-            recipeLine.getAmount()
-        }
+        if (col == AMOUNT_COL) return recipeLine.amount
         Ingredient ingredient = recipeLine.getIngredient()
-        if(ingredient==null) null
-        if (col == NAME_COL) {
-            ingredient.getName()
-        }
-        if (col == UNIT_COL) {
-            ingredient.getUnit()
-        }
-        if (col == ALLERGENES_COL) {
-            ingredient.getAllergenesString()
-        }
+        if(ingredient==null) return null
+        if (col == NAME_COL) return ingredient.name
+        if (col == UNIT_COL) return ingredient.unit
+        if (col == ALLERGENES_COL) return ingredient.allergenesString
         null
     }
 
@@ -73,10 +65,7 @@ class MealRecipeEditDataTableModel extends SelectableTableModel<RecipeLine> {
 
     @Override
     int getRowCount() {
-        if(recipe == null){
-            0
-        }
-        recipe.getBusinessObjects().size()
+        recipe?recipe.businessObjects.size():0
     }
 
     @Override
@@ -113,6 +102,6 @@ class MealRecipeEditDataTableModel extends SelectableTableModel<RecipeLine> {
 
     @Override
     RecipeLine getObject(int row, int col) {
-        recipe==null?null:recipe.getBusinessObjects().get(row)
+        recipe==null?null:recipe.businessObjects.get(row)
     }
 }

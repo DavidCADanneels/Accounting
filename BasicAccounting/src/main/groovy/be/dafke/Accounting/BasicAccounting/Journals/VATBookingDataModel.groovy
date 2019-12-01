@@ -28,14 +28,14 @@ class VATBookingDataModel extends SelectableTableModel<VATBooking> {
     @Override
     VATBooking getObject(int row, int col) {
         if(!transaction) return null
-        ArrayList<VATBooking> vatBookings = transaction.getMergedVatBookings()
+        ArrayList<VATBooking> vatBookings = transaction.mergedVatBookings
         vatBookings.get(row)
     }
 
     @Override
     int getRowCount() {
         if (!transaction) return 0
-        ArrayList<VATBooking> vatBookings = transaction.getMergedVatBookings()
+        ArrayList<VATBooking> vatBookings = transaction.mergedVatBookings
         vatBookings.size()
     }
 
@@ -48,11 +48,12 @@ class VATBookingDataModel extends SelectableTableModel<VATBooking> {
     Object getValueAt(int rowIndex, int col) {
         VATBooking vatBooking = getObject(rowIndex, col)
         if(col==0){
-            VATField vatField = vatBooking.getVatField()
-            vatField.getName()
+            VATField vatField = vatBooking.vatField
+            return vatField.name
         } else {
-            VATMovement vatMovement = vatBooking.getVatMovement()
-            vatMovement.getAmount()
+            VATMovement vatMovement = vatBooking.vatMovement
+            return vatMovement.amount
         }
+        null
     }
 }

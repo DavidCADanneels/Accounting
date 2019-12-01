@@ -6,37 +6,37 @@ import be.dafke.Utils.Utils
 import java.util.function.Predicate
 
 class Article extends BusinessObject{
-    private String HSCode = ""
-    private Integer purchaseVatRate = 0
-    private Integer salesVatRate = 6
-    private Integer itemsPerUnit = 1
-    private BigDecimal purchasePrice = null
-    private BigDecimal salesPriceItemWithVat = null
-    private Contact supplier
-    private Ingredient ingredient
-    private BigDecimal ingredientAmount = BigDecimal.ZERO
-    private ArrayList<StockOrder> stockOrders = new ArrayList()
-    private ArrayList<PromoOrder> promoOrders = new ArrayList()
-    private ArrayList<IngredientOrder> ingredientOrders = new ArrayList()
-    private ArrayList<PurchaseOrder> purchaseOrders = new ArrayList()
-    private ArrayList<SalesOrder> salesOrders = new ArrayList()
+    String HSCode = ""
+    Integer purchaseVatRate = 0
+    Integer salesVatRate = 6
+    Integer itemsPerUnit = 1
+    BigDecimal purchasePrice = null
+    BigDecimal salesPriceItemWithVat = null
+    Contact supplier
+    Ingredient ingredient
+    BigDecimal ingredientAmount = BigDecimal.ZERO
+    ArrayList<StockOrder> stockOrders = new ArrayList()
+    ArrayList<PromoOrder> promoOrders = new ArrayList()
+    ArrayList<IngredientOrder> ingredientOrders = new ArrayList()
+    ArrayList<PurchaseOrder> purchaseOrders = new ArrayList()
+    ArrayList<SalesOrder> salesOrders = new ArrayList()
 
-    private Integer initStock = 0
-    private Integer nrPromo = 0
-    private Integer nrAdded = 0
-    private Integer nrRemoved = 0
-    private Integer nrOrderedForSO = 0
-    private Integer nrOrderedByPO = 0
+    Integer initStock = 0
+    Integer nrPromo = 0
+    Integer nrAdded = 0
+    Integer nrRemoved = 0
+    Integer nrOrderedForSO = 0
+    Integer nrOrderedByPO = 0
 
     Article(Article article, Contacts contacts){
-        this(article.getName())
+        this(article.name)
         HSCode = article.HSCode
         purchaseVatRate = article.purchaseVatRate
         salesVatRate = article.salesVatRate
         itemsPerUnit = article.itemsPerUnit
         purchasePrice = article.purchasePrice
         salesPriceItemWithVat = article.salesPriceItemWithVat
-        String supplierName = article.supplier.getName()
+        String supplierName = article.supplier.name
         supplier = contacts.getBusinessObject(supplierName)
         nrRemoved = 0
         nrAdded = 0
@@ -118,8 +118,7 @@ class Article extends BusinessObject{
     }
 
     BigDecimal getSalesPriceItemWithoutVat() {
-        if(salesPriceItemWithVat ==null) null
-        salesPriceItemWithVat.divide(getSalesFactor(),BigDecimal.ROUND_HALF_DOWN)
+        salesPriceItemWithVat?salesPriceItemWithVat.divide(getSalesFactor(),BigDecimal.ROUND_HALF_DOWN):null
     }
 
     Integer getPurchaseVatRate() {
@@ -132,11 +131,11 @@ class Article extends BusinessObject{
     }
 
     static Predicate<Article> ofSupplier(Contact supplier) {
-        { article -> article.getSupplier() == supplier }
+        { article -> article.supplier == supplier }
     }
 
     static Predicate<Article> withOrders(){
-        { article -> article.getPurchaseOrders().size() > 0 || article.getSalesOrders().size() > 0 }
+        { article -> article.purchaseOrders.size() > 0 || article.salesOrders.size() > 0 }
     }
 
     static Predicate<Article> inStock(){

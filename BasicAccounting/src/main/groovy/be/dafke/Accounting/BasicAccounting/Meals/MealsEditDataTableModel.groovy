@@ -15,36 +15,36 @@ import java.util.List
 import static java.util.ResourceBundle.getBundle 
 
 class MealsEditDataTableModel extends SelectableTableModel<Meal> {
-    private final MealOrders mealOrders
-    private final Meals meals
+    final MealOrders mealOrders
+    final Meals meals
     static int NR_COL = 0
     static int NAME_COL = 1
     static int SALES_PRICE_COL = 2
     static int DESCRIPTION_COL = 3
     static int USAGE_COL = 4
     static int NR_OF_COL = 5
-    private final Component parent
-    private HashMap<Integer,String> columnNames = new HashMap<>()
-    private HashMap<Integer,Class> columnClasses = new HashMap<>()
-    private List<Integer> editableColumns = new ArrayList<>()
+    final Component parent
+    HashMap<Integer,String> columnNames = new HashMap<>()
+    HashMap<Integer,Class> columnClasses = new HashMap<>()
+    List<Integer> editableColumns = new ArrayList<>()
 
     MealsEditDataTableModel(Component parent, Accounting accounting) {
-        meals = accounting.getMeals()
-        mealOrders = accounting.getMealOrders()
+        meals = accounting.meals
+        mealOrders = accounting.mealOrders
         this.parent = parent
         setColumnNames()
         setColumnClasses()
         setEditableColumns()
     }
 
-    private void setEditableColumns() {
+    void setEditableColumns() {
         editableColumns.add(NR_COL)
         editableColumns.add(NAME_COL)
         editableColumns.add(DESCRIPTION_COL)
         editableColumns.add(SALES_PRICE_COL)
     }
 
-    private void setColumnClasses() {
+    void setColumnClasses() {
         columnClasses.put(NR_COL, String.class)
         columnClasses.put(USAGE_COL, Integer.class)
         columnClasses.put(NAME_COL, String.class)
@@ -52,7 +52,7 @@ class MealsEditDataTableModel extends SelectableTableModel<Meal> {
         columnClasses.put(SALES_PRICE_COL, BigDecimal.class)
     }
 
-    private void setColumnNames() {
+    void setColumnNames() {
         columnNames.put(NR_COL, getBundle("Accounting").getString("MEAL_NR"))
         columnNames.put(USAGE_COL, getBundle("Accounting").getString("USAGE"))
         columnNames.put(NAME_COL, getBundle("Accounting").getString("MEAL_NAME"))
@@ -63,22 +63,12 @@ class MealsEditDataTableModel extends SelectableTableModel<Meal> {
 // ===============
     Object getValueAt(int row, int col) {
         Meal meal = getObject(row, col)
-        if(meal==null) null
-        if (col == NR_COL) {
-            meal.getName()
-        }
-        if (col == USAGE_COL) {
-            mealOrders.nrOfMeals(meal)
-        }
-        if (col == NAME_COL) {
-            meal.getMealName()
-        }
-        if (col == DESCRIPTION_COL) {
-            meal.getDescription()
-        }
-        if (col == SALES_PRICE_COL) {
-            meal.getSalesPrice()
-        }
+        if(meal==null) return null
+        if (col == NR_COL) return meal.name
+        if (col == USAGE_COL) return mealOrders.nrOfMeals(meal)
+        if (col == NAME_COL) return meal.getMealName()
+        if (col == DESCRIPTION_COL) return meal.description
+        if (col == SALES_PRICE_COL) return meal.getSalesPrice()
         null
     }
 
@@ -87,10 +77,7 @@ class MealsEditDataTableModel extends SelectableTableModel<Meal> {
     }
 
     int getRowCount() {
-        if(meals == null){
-            0
-        }
-        meals.getBusinessObjects().size()
+        meals?meals.businessObjects.size():0
     }
 
     @Override
@@ -125,7 +112,7 @@ class MealsEditDataTableModel extends SelectableTableModel<Meal> {
         }
         if(col == NR_COL) {
 //            meal.setName((String) value)
-            String oldName = meal.getName()
+            String oldName = meal.name
             String newName = (String) value
             if (newName != null && !oldName.trim().equals(newName.trim())) {
                 try {
@@ -142,6 +129,6 @@ class MealsEditDataTableModel extends SelectableTableModel<Meal> {
 
     @Override
     Meal getObject(int row, int col) {
-        meals.getBusinessObjects().get(row)
+        meals.businessObjects.get(row)
     }
 }

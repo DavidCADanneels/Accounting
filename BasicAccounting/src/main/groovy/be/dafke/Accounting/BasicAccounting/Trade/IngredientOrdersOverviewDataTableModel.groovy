@@ -14,7 +14,7 @@ class IngredientOrdersOverviewDataTableModel  extends SelectableTableModel<Ingre
     protected HashMap<Integer,String> columnNames = new HashMap<>()
     protected HashMap<Integer,Class> columnClasses = new HashMap<>()
 
-    private IngredientOrders ingredientOrders
+    IngredientOrders ingredientOrders
 
     IngredientOrdersOverviewDataTableModel() {
         setColumnNames()
@@ -60,36 +60,28 @@ class IngredientOrdersOverviewDataTableModel  extends SelectableTableModel<Ingre
     // DE GET METHODEN
 // ===============
     Object getValueAt(int row, int col) {
-        if (ingredientOrders == null) null
+        if (ingredientOrders == null) return null
         IngredientOrder ingredientOrder = getObject(row, col)
-        if(ingredientOrder == null) null
-
-        if (col == ORDER_NR_COL) {
-            ingredientOrder.getName()
-        }
-        if (col == DATE_COL) {
-            ""
-        }
+        if(ingredientOrder == null) return null
+        if (col == ORDER_NR_COL) return ingredientOrder.name
+        if (col == DATE_COL) return ""
         null
     }
 
     @Override
     int getRowCount() {
-        if(ingredientOrders == null) 0
-        List<IngredientOrder> businessObjects = ingredientOrders.getBusinessObjects()
-        if(businessObjects == null || businessObjects.size() == 0) 0
-        businessObjects.size()
+        ingredientOrders?ingredientOrders.businessObjects.size():0
     }
 
     @Override
     IngredientOrder getObject(int row, int col) {
-        List<IngredientOrder> businessObjects = ingredientOrders.getBusinessObjects()
+        List<IngredientOrder> businessObjects = ingredientOrders.businessObjects
         if(businessObjects == null || businessObjects.size() == 0) null
         businessObjects.get(row)
     }
 
     void setAccounting(Accounting accounting) {
-        setIngredientsOrders(accounting == null ? null : accounting.getIngredientOrders())
+        setIngredientsOrders(accounting == null ? null : accounting.ingredientOrders)
     }
 
     void setIngredientsOrders(IngredientOrders ingredientsOrders){

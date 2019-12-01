@@ -10,7 +10,7 @@ import be.dafke.ComponentModel.RefreshableDialog
 import static java.util.ResourceBundle.getBundle
 
 class NewJournalDialog extends RefreshableDialog {
-    private final NewJournalPanel newJournalPanel
+    final NewJournalPanel newJournalPanel
 
     NewJournalDialog(Accounts accounts, Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
         super(getBundle("Accounting").getString("NEW_JOURNAL_GUI_TITLE"))
@@ -20,6 +20,6 @@ class NewJournalDialog extends RefreshableDialog {
     }
 
     void setJournal(Journal journal) {
-        newJournalPanel.setJournal(journal)
+        newJournalPanel.journal = journal
     }
 }

@@ -9,8 +9,8 @@ import javax.swing.JPanel
 import java.awt.BorderLayout
 
 class AllergenesPerIngredientDialog extends RefreshableDialog {
-    private JButton ok
-    private final AllergenesPerIngredientSelectorPanel selectorPanel
+    JButton ok
+    final AllergenesPerIngredientSelectorPanel selectorPanel
 
     AllergenesPerIngredientDialog(Ingredient ingredient, Allergenes allergenes) {
         super("Allergenes Selector")
@@ -27,7 +27,7 @@ class AllergenesPerIngredientDialog extends RefreshableDialog {
         pack()
     }
 
-//    private void setIngredient(Ingredient ingredient) {
+//    void setIngredient(Ingredient ingredient) {
 //        selectorPanel.setIngredient(ingredient)
 //    }
 }

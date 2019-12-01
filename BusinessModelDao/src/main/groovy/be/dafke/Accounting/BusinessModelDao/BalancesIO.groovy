@@ -19,10 +19,10 @@ import static be.dafke.Utils.Utils.parseStringList
 class BalancesIO {
 
     static void readBalances(Accounting accounting){
-        Balances balances = accounting.getBalances()
-        Accounts accounts = accounting.getAccounts()
-        AccountTypes accountTypes = accounting.getAccountTypes()
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/" +BALANCES + XML_EXTENSION)
+        Balances balances = accounting.balances
+        Accounts accounts = accounting.accounts
+        AccountTypes accountTypes = accounting.accountTypes
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/" +BALANCES + XML_EXTENSION)
         Element rootElement = getRootElement(xmlFile, BALANCES)
         for (Element element: getChildren(rootElement, BALANCE)){
 
@@ -61,7 +61,7 @@ class BalancesIO {
     }
 
     static String createPdfFolder(Accounting accounting) {
-        String accountingName = accounting.getName()
+        String accountingName = accounting.name
         String resultPdfPolderPath = ACCOUNTINGS_PDF_FOLDER + accountingName + "/" + BALANCES + "/"
         File targetFolder = new File(resultPdfPolderPath)
         targetFolder.mkdirs()
@@ -91,23 +91,23 @@ class BalancesIO {
     }
 
     static void writeBalances(Accounting accounting){
-        Balances balances = accounting.getBalances()
-        File balancesFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + BALANCES+ XML_EXTENSION)
+        Balances balances = accounting.balances
+        File balancesFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + BALANCES+ XML_EXTENSION)
         try{
             Writer writer = new FileWriter(balancesFile)
             writer.write(getXmlHeader(BALANCES, 2))
-            for(Balance balance: balances.getBusinessObjects()) {
+            for(Balance balance: balances.businessObjects) {
                 ArrayList<String> leftTypesString = new ArrayList<>()
                 for(AccountType type:balance.getLeftTypes()){
-                    leftTypesString.add(type.getName())
+                    leftTypesString.add(type.name)
                 }
                 ArrayList<String> righttTypesString = new ArrayList<>()
                 for(AccountType type:balance.getRightTypes()){
-                    righttTypesString.add(type.getName())
+                    righttTypesString.add(type.name)
                 }
                 writer.write(
                         "  <"+BALANCE+">\n" +
-                                "    <"+NAME+">" + balance.getName() + "</"+NAME+">\n" +
+                                "    <"+NAME+">" + balance.name + "</"+NAME+">\n" +
                                 "    <"+LEFTNAME+">" + balance.getLeftName() + "</"+LEFTNAME+">\n" +
                                 "    <"+RIGHTNAME+">" + balance.getRightName() + "</"+RIGHTNAME+">\n" +
                                 "    <"+LEFTTOTALNAME+">" + balance.getLeftTotalName() + "</"+LEFTTOTALNAME+">\n" +
@@ -123,29 +123,29 @@ class BalancesIO {
             writer.flush()
             writer.close()
         } catch (IOException ex) {
-            Logger.getLogger(Balances.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(Balances.class.name).log(Level.SEVERE, null, ex)
         }
         writeIndividualBalances(accounting)
     }
 
     static String writeIndividualBalances(Accounting accounting){
-        Balances balances = accounting.getBalances()
-        String path = ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + BALANCES + "/"
+        Balances balances = accounting.balances
+        String path = ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + BALANCES + "/"
         File balancesFolder = new File(path)
         balancesFolder.mkdirs()
-        for(Balance balance:balances.getBusinessObjects()){
+        for(Balance balance:balances.businessObjects){
             writeBalance(balance, balancesFolder)
         }
         path
     }
 
     static void writeBalance(Balance balance, File balancesFolder) {
-        File file = new File(balancesFolder, balance.getName()+ XML_EXTENSION)
+        File file = new File(balancesFolder, balance.name+ XML_EXTENSION)
         try {
             Writer writer = new FileWriter(file)
             writer.write(getXmlHeader(BALANCE, 3))
             writer.write(
-                    "    <"+NAME+">" + balance.getName() + "</"+NAME+">\n" +
+                    "    <"+NAME+">" + balance.name + "</"+NAME+">\n" +
                             "    <"+LEFTNAME+">" + balance.getLeftName() + "</"+LEFTNAME+">\n" +
                             "    <"+RIGHTNAME+">" + balance.getRightName() + "</"+RIGHTNAME+">\n" +
                             "    <"+LEFTTOTALNAME+">" + balance.getLeftTotalName() + "</"+LEFTTOTALNAME+">\n" +
@@ -153,17 +153,17 @@ class BalancesIO {
                             "    <"+LEFTRESULTNAME+">" + balance.getLeftResultName() + "</"+LEFTRESULTNAME+">\n" +
                             "    <"+RIGHTRESULTNAME+">" + balance.getRightResultName() + "</"+RIGHTRESULTNAME+">\n"
             )
-            for (BalanceLine balanceLine : balance.getBusinessObjects()) {
+            for (BalanceLine balanceLine : balance.businessObjects) {
                 Account leftAccount = balanceLine.getLeftAccount()
                 Account rightAccount = balanceLine.getRightAccount()
                 writer.write("  <"+BALANCE_LINE+">\n")
                 if(leftAccount!=null){
-                    writer.write("    <"+NAME1+">"+leftAccount.getName()+"</"+NAME1+">\n")
-                    writer.write("    <"+AMOUNT1+">"+leftAccount.getSaldo()+"</"+AMOUNT1+">\n")
+                    writer.write("    <"+NAME1+">"+leftAccount.name+"</"+NAME1+">\n")
+                    writer.write("    <"+AMOUNT1+">"+leftAccount.saldo+"</"+AMOUNT1+">\n")
                 }
                 if(rightAccount!=null){
-                    writer.write("    <"+NAME2+">"+rightAccount.getName()+"</"+NAME2+">\n")
-                    writer.write("    <"+AMOUNT2+">"+rightAccount.getSaldo().negate()+"</"+AMOUNT2+">\n")
+                    writer.write("    <"+NAME2+">"+rightAccount.name+"</"+NAME2+">\n")
+                    writer.write("    <"+AMOUNT2+">"+rightAccount.saldo.negate()+"</"+AMOUNT2+">\n")
                 }
                 writer.write("  </"+BALANCE_LINE+">\n")
             }
@@ -173,7 +173,7 @@ class BalancesIO {
             writer.flush()
             writer.close()
         } catch (IOException ex) {
-            Logger.getLogger(Balance.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(Balance.class.name).log(Level.SEVERE, null, ex)
         }
     }
 }

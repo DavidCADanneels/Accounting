@@ -14,12 +14,12 @@ import java.awt.*
 import static java.util.ResourceBundle.getBundle
 
 class AccountsMenu extends JMenu {
-    private static JMenuItem add, manage, testBalance, generatePdf
-    private Accounting accounting
+    static JMenuItem add, manage, testBalance, generatePdf
+    Accounting accounting
 
-    private Journals journals
-    private Accounts accounts
-    private AccountTypes accountTypes
+    Journals journals
+    Accounts accounts
+    AccountTypes accountTypes
 
     AccountsMenu() {
         super(getBundle("BusinessModel").getString("ACCOUNTS"))
@@ -27,31 +27,31 @@ class AccountsMenu extends JMenu {
         add = new JMenuItem(getBundle("Accounting").getString("ADD_ACCOUNT"))
         add.addActionListener({ e ->
             Point locationOnScreen = getLocationOnScreen()
-            NewAccountDialog newAccountDialog = new NewAccountDialog(accounts, accountTypes.getBusinessObjects())
+            NewAccountDialog newAccountDialog = new NewAccountDialog(accounts, accountTypes.businessObjects)
             newAccountDialog.setLocation(locationOnScreen)
-            newAccountDialog.setVisible(true)
+            newAccountDialog.visible = true
         })
-        add.setEnabled(false)
+        add.enabled = false
 
         manage = new JMenuItem(getBundle("Accounting").getString("MANAGE_ACCOUNT"))
         manage.addActionListener({ e ->
-            AccountManagementGUI accountManagementGUI = AccountManagementGUI.getInstance(accounts, accountTypes.getBusinessObjects())
+            AccountManagementGUI accountManagementGUI = AccountManagementGUI.getInstance(accounts, accountTypes.businessObjects)
             accountManagementGUI.setLocation(getLocationOnScreen())
-            accountManagementGUI.setVisible(true)
+            accountManagementGUI.visible = true
         })
-        manage.setEnabled(false)
+        manage.enabled = false
 
         testBalance = new JMenuItem(getBundle("BusinessModel").getString("TESTBALANCE"))
         testBalance.addActionListener({ e ->
             TestBalanceGUI testBalanceGUI = TestBalanceGUI.getInstance(accounting)
             testBalanceGUI.setLocation(getLocationOnScreen())
-            testBalanceGUI.setVisible(true)
+            testBalanceGUI.visible = true
         })
-        testBalance.setEnabled(false)
+        testBalance.enabled = false
 
         generatePdf = new JMenuItem(getBundle("BusinessModel").getString("GENERATE_PDF"))
         generatePdf.addActionListener({ e -> AccountsIO.writeAccountPdfFiles(accounting) })
-        generatePdf.setEnabled(false)
+        generatePdf.enabled = false
 
         add(add)
         add(manage)
@@ -61,12 +61,12 @@ class AccountsMenu extends JMenu {
 
     void setAccounting(Accounting accounting) {
         this.accounting = accounting
-        journals = accounting==null?null:accounting.getJournals()
-        accounts = accounting==null?null:accounting.getAccounts()
-        accountTypes = accounting==null?null:accounting.getAccountTypes()
-        add.setEnabled(accounts!=null)
-        manage.setEnabled(accounts!=null)
-        testBalance.setEnabled(accounts!=null)
-        generatePdf.setEnabled(accounts!=null)
+        journals = accounting?accounting.journals:null
+        accounts = accounting?accounting.accounts:null
+        accountTypes = accounting?accounting.accountTypes:null
+        add.enabled = accounts!=null
+        manage.enabled = accounts!=null
+        testBalance.enabled = accounts!=null
+        generatePdf.enabled = accounts!=null
     }
 }

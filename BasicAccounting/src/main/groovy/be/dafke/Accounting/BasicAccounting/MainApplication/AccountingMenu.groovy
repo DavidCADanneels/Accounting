@@ -9,11 +9,11 @@ import javax.swing.JMenuItem
 import static java.util.ResourceBundle.getBundle
 
 class AccountingMenu extends JMenu {
-    private JMenuItem startNew
-    private JMenuItem settings
-    private JMenuItem saveHtml
-    private Accountings accountings
-    private Accounting accounting
+    JMenuItem startNew
+    JMenuItem settings
+    JMenuItem saveHtml
+    Accountings accountings
+    Accounting accounting
 
     AccountingMenu(final Accountings accountings) {
         super(getBundle("Accounting").getString("ACCOUNTING"))
@@ -22,13 +22,13 @@ class AccountingMenu extends JMenu {
         startNew.addActionListener({ e ->
             NewAccountingPanel newAccountingPanel = new NewAccountingPanel(accountings)
             newAccountingPanel.setLocation(getLocationOnScreen())
-            newAccountingPanel.setVisible(true)
+            newAccountingPanel.visible = true
         })
         settings = new JMenuItem(getBundle("Accounting").getString("SETTINGS_MENU"))
         settings.addActionListener({ e ->
             AccountingSettingsGUI accountingSettingsPanel = AccountingSettingsGUI.showPanel(accounting)
             accountingSettingsPanel.setLocation(getLocationOnScreen())
-            accountingSettingsPanel.setVisible(true)
+            accountingSettingsPanel.visible = true
         })
         saveHtml = new JMenuItem(getBundle("Accounting").getString("SAVE_HTML"))
         saveHtml.addActionListener({ e -> Main.saveData(true) })
@@ -43,7 +43,7 @@ class AccountingMenu extends JMenu {
         addSeparator()
         this.accounting=accounting
 
-        accountings.getBusinessObjects().stream()
+        accountings.businessObjects.stream()
                 .filter({ acc -> acc != accounting })
                 .forEach({ acc ->
                     JMenuItem item = new JMenuItem(acc.toString())

@@ -3,15 +3,15 @@ package be.dafke.Accounting.BusinessModel
 import java.math.RoundingMode
 
 class Order extends OrderItems {
-    private Contact customer, supplier
-    private Transaction paymentTransaction
-    private Integer id
-    private String deliveryDate = null
-    private String description
-    private boolean creditNote
+    Contact customer, supplier
+    Transaction paymentTransaction
+    Integer id
+    String deliveryDate = null
+    String description
+    boolean creditNote
 
-    void setArticles(Articles articles){
-        articles.getBusinessObjects().forEach({ article ->
+    void setArticles(Articles articles) {
+        articles.businessObjects.forEach({ article ->
             addBusinessObject(new OrderItem(0, article, this))
         })
     }
@@ -27,73 +27,17 @@ class Order extends OrderItems {
         total
     }
 
-    Contact getCustomer() {
-        customer
-    }
-
-    void setCustomer(Contact customer) {
-        this.customer = customer
-    }
-
-    Contact getSupplier() {
-        supplier
-    }
-
-    void setSupplier(Contact supplier) {
-        this.supplier = supplier
-    }
-
     void removeEmptyOrderItems() {
         getBusinessObjects().forEach({ orderItem ->
-            int numberOfUnits = orderItem.getNumberOfUnits()
-            int numberOfItems = orderItem.getNumberOfItems()
+            int numberOfUnits = orderItem.numberOfUnits
+            int numberOfItems = orderItem.numberOfItems
             if (numberOfUnits == 0 && numberOfItems == 0) {
                 remove(orderItem, false, true)
             }
         })
     }
-
-    Transaction getPaymentTransaction() {
-        paymentTransaction
-    }
-
-    void setPaymentTransaction(Transaction paymentTransaction) {
-        this.paymentTransaction = paymentTransaction
-    }
-
-    Integer getId() {
-        id
-    }
-
-    void setId(Integer id) {
-        this.id = id
-    }
-
-    void setName(String name){
-        super.setName(name)
-    }
-
-    String getDeliveryDate() {
-        deliveryDate
-    }
-
-    void setDeliveryDate(String deliveryDate) {
-        this.deliveryDate = deliveryDate
-    }
-
-    void setDescription(String description) {
-        this.description = description
-    }
-
-    String getDescription() {
-        description
-    }
-
-    boolean isCreditNote() {
-        creditNote
-    }
-
-    void setCreditNote(boolean creditNote) {
-        this.creditNote = creditNote
-    }
+//
+//    void setName(String name) {
+//        super.setName(name)
+//    }
 }

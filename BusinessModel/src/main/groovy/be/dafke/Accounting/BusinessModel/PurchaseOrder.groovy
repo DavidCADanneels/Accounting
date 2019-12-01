@@ -6,7 +6,7 @@ import java.util.function.Predicate
 
 class PurchaseOrder extends Order {
 
-    private Transaction purchaseTransaction
+    Transaction purchaseTransaction
 
     BigDecimal getTotalPurchasePriceExclVat() {
         BigDecimal total = BigDecimal.ZERO.setScale(2)
@@ -76,8 +76,8 @@ class PurchaseOrder extends Order {
 
     BigDecimal calculateTotalPurchaseVat() {
         BigDecimal total = BigDecimal.ZERO.setScale(2)
-        BigDecimal totalPurchasePriceExclVat = getTotalPurchasePriceExclVat()
-        BigDecimal totalPurchasePriceInclVat = getTotalPurchasePriceInclVat()
+        BigDecimal totalPurchasePriceExclVat = totalPurchasePriceExclVat
+        BigDecimal totalPurchasePriceInclVat = totalPurchasePriceInclVat
         if(totalPurchasePriceExclVat!=null && totalPurchasePriceInclVat!=null) {
             total = totalPurchasePriceInclVat.subtract(totalPurchasePriceExclVat).setScale(2, RoundingMode.HALF_DOWN)
         }
@@ -86,7 +86,7 @@ class PurchaseOrder extends Order {
 
     void addPurchaseOrderToArticles() {
         getBusinessObjects().forEach({ orderItem ->
-            Article article = orderItem.getArticle()
+            Article article = orderItem.article
             article.addPurchaseOrder(this)
         })
     }
@@ -94,23 +94,19 @@ class PurchaseOrder extends Order {
     void setPurchaseTransaction(Transaction purchaseTransaction) {
         this.purchaseTransaction = purchaseTransaction
 
-        if(!isCreditNote()) {
+        if(!creditNote) {
             getBusinessObjects().forEach({ orderItem ->
-                Article article = orderItem.getArticle()
-                int numberOfItems = orderItem.getNumberOfItems()
+                Article article = orderItem.article
+                int numberOfItems = orderItem.numberOfItems
                 article.setPoOrdered(numberOfItems)
             })
         } else {
             getBusinessObjects().forEach({ orderItem ->
-                Article article = orderItem.getArticle()
-                int numberOfItems = orderItem.getNumberOfItems()
+                Article article = orderItem.article
+                int numberOfItems = orderItem.numberOfItems
                 article.setPoCnOrdered(numberOfItems)
             })
         }
 
-    }
-
-    Transaction getPurchaseTransaction() {
-        purchaseTransaction
     }
 }

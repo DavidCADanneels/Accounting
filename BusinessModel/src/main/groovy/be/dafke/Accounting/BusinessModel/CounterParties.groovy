@@ -60,7 +60,7 @@ class CounterParties extends BusinessCollection<BusinessObject> {
         counterParty
     }
 
-    private void parseBicsString(CounterParty counterParty, String bicsString){
+    void parseBicsString(CounterParty counterParty, String bicsString){
         if(bicsString!=null){
             String[] bicsStrings = bicsString.split("\\Q | \\E")
             for(int i=0;i<bicsStrings.length;i++){
@@ -69,7 +69,7 @@ class CounterParties extends BusinessCollection<BusinessObject> {
         }
     }
 
-    private void parseCurrenciesString(CounterParty counterParty, String currenciesString){
+    void parseCurrenciesString(CounterParty counterParty, String currenciesString){
         if(currenciesString!=null){
             String[] currenciesStrings = currenciesString.split("\\Q | \\E")
             for(int i=0;i<currenciesStrings.length;i++){
@@ -81,7 +81,7 @@ class CounterParties extends BusinessCollection<BusinessObject> {
     @Override
     final protected CounterParty addBusinessObject(BusinessObject value, Map<String,String> keyMap) throws EmptyNameException, DuplicateNameException {
         CounterParty counterParty = (CounterParty)value
-        if(counterParty.getName()==null || "".equals(counterParty.getName().trim())){
+        if(counterParty.name==null || "".equals(counterParty.name.trim())){
             throw new EmptyNameException()
         }
 
@@ -94,7 +94,7 @@ class CounterParties extends BusinessCollection<BusinessObject> {
             CounterParty foundValue = (CounterParty)map.get(key)
 
             if(foundValue!=null){
-                if(counterParty.isMergeable()){
+                if(counterParty.mergeable){
                     // update Accounts
                     counterParty = merge(foundValue, counterParty)
 //                } else {
@@ -104,15 +104,15 @@ class CounterParties extends BusinessCollection<BusinessObject> {
                 map.put(key, counterParty)
             }
         }
-        CounterParty foundByName = (CounterParty)getBusinessObject(counterParty.getName())
+        CounterParty foundByName = (CounterParty)getBusinessObject(counterParty.name)
         if(foundByName!=null){
-            if(counterParty.isMergeable()){
+            if(counterParty.mergeable){
                 counterParty = merge(foundByName,counterParty)
             } else {
                 throw new DuplicateNameException()
             }
         }
-        dataTables.get(NAME).put(counterParty.getName(),counterParty)
+        dataTables.get(NAME).put(counterParty.name,counterParty)
 
 
         counterParty
@@ -123,30 +123,30 @@ class CounterParties extends BusinessCollection<BusinessObject> {
 //        readCollection("CounterParty", false)
 //    }
 
-    private CounterParty merge(CounterParty toKeep, CounterParty toRemove) {
-        if(!toKeep.getName().equals(toRemove.getName())){
-            toKeep.addAlias(toRemove.getName())
-            System.out.println("Alias (" + toRemove.getName() + ") added for " + toKeep.getName())
+    CounterParty merge(CounterParty toKeep, CounterParty toRemove) {
+        if(!toKeep.name.equals(toRemove.name)){
+            toKeep.addAlias(toRemove.name)
+            System.out.println("Alias (" + toRemove.name + ") added for " + toKeep.name)
             toKeep.getAliases().addAll(toRemove.getAliases())
         }
-        Map.Entry<String,String> entry = new AbstractMap.SimpleImmutableEntry<String, String>(NAME,toRemove.getName())
+        Map.Entry<String,String> entry = new AbstractMap.SimpleImmutableEntry<String, String>(NAME,toRemove.name)
         removeBusinessObject(entry)
         for(BankAccount bankAccountToRemove : toRemove.getBankAccounts().values()){
             BankAccount bankAccountToKeep = toKeep.getBankAccounts().get(bankAccountToRemove.getAccountNumber())
             if(bankAccountToKeep == null){
                 toKeep.addAccount(bankAccountToRemove)
-                System.out.println("BankAccount (" + bankAccountToRemove.getAccountNumber() + ") added for " + toKeep.getName())
+                System.out.println("BankAccount (" + bankAccountToRemove.getAccountNumber() + ") added for " + toKeep.name)
             } else{
                 if(bankAccountToKeep.getBic() == null || bankAccountToKeep.getBic().trim().equals("")){
                     if(bankAccountToRemove.getBic() != null && !bankAccountToRemove.getBic().equals("") ){
                         bankAccountToKeep.setBic(bankAccountToRemove.getBic())
-                        System.out.println("BIC (" + bankAccountToRemove.getBic() + ") updated for " + toKeep.getName())
+                        System.out.println("BIC (" + bankAccountToRemove.getBic() + ") updated for " + toKeep.name)
                     }
                 }
                 if(bankAccountToKeep.getCurrency() == null || bankAccountToKeep.getCurrency().trim().equals("")){
                     if(bankAccountToRemove.getCurrency() != null && !bankAccountToRemove.getCurrency().equals("") ){
                         bankAccountToKeep.setCurrency(bankAccountToRemove.getCurrency())
-                        System.out.println("Currency (" + bankAccountToRemove.getCurrency() + ") updated for " + toKeep.getName())
+                        System.out.println("Currency (" + bankAccountToRemove.getCurrency() + ") updated for " + toKeep.name)
                     }
                 }
             }

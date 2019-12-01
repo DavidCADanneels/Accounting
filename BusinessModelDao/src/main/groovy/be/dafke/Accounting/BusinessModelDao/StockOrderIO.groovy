@@ -16,16 +16,16 @@ import static be.dafke.Utils.Utils.parseInt
 
 class StockOrderIO {
     static void readStockOrders(Accounting accounting){
-        StockOrders stockOrders = accounting.getStockOrders()
-        Articles articles = accounting.getArticles()
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+STOCK_ORDERS + XML_EXTENSION)
+        StockOrders stockOrders = accounting.stockOrders
+        Articles articles = accounting.articles
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+STOCK_ORDERS + XML_EXTENSION)
         Element rootElement = getRootElement(xmlFile, STOCK_ORDERS)
 
         for (Element orderElement : getChildren(rootElement, STOCK_ORDER)) {
             StockOrder order = new StockOrder()
 
             String idString = getValue(orderElement, ID)
-            order.setId(parseInt(idString))
+            order.id = parseInt(idString)
 
 //            String orderName = getValue(orderElement, NAME)
 //            order.setName(orderName)
@@ -50,14 +50,14 @@ class StockOrderIO {
                 order.addBusinessObject(orderItem)
             }
 
-            Transactions transactions = accounting.getTransactions()
-            int balanceTransactionId = parseInt(getValue(orderElement, BALANCE_TRANSACTION))
+            Transactions transactions = accounting.transactions
+            int balanceTransactionId = parseInt getValue(orderElement, BALANCE_TRANSACTION)
             Transaction balanceTransaction = transactions.getBusinessObject(balanceTransactionId)
-            order.setBalanceTransaction(balanceTransaction)
+            order.balanceTransaction = balanceTransaction
 
-            int paymentTransactionId = parseInt(getValue(orderElement, PAYMENT_TRANSACTION))
-            Transaction paymentTransaction = transactions.getBusinessObject(paymentTransactionId)
-            order.setPaymentTransaction(paymentTransaction)
+            int paymentTransactionId = parseInt getValue(orderElement, PAYMENT_TRANSACTION)
+            Transaction paymentTransaction = transactions.getBusinessObject paymentTransactionId
+            order.paymentTransaction = paymentTransaction
 
             try {
                 stockOrders.addBusinessObject(order)
@@ -68,32 +68,32 @@ class StockOrderIO {
     }
 
     static void writeStockOrders(Accounting accounting) {
-        StockOrders stockOrders = accounting.getStockOrders()
-        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + STOCK_ORDERS + XML_EXTENSION)
+        StockOrders stockOrders = accounting.stockOrders
+        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + STOCK_ORDERS + XML_EXTENSION)
         try {
             Writer writer = new FileWriter(file)
             writer.write(getXmlHeader(STOCK_ORDERS, 2))
-            for (StockOrder order : stockOrders.getBusinessObjects()) {
+            for (StockOrder order : stockOrders.businessObjects) {
                 writer.write(
                         "  <" + STOCK_ORDER + ">\n" +
-                                "    <" + ID + ">" + order.getId() + "</" + ID + ">\n" +
-                                "    <" + NAME + ">" + order.getName() + "</" + NAME + ">\n"
+                                "    <" + ID + ">" + order.id + "</" + ID + ">\n" +
+                                "    <" + NAME + ">" + order.name + "</" + NAME + ">\n"
                 )
-                Transaction balanceTransaction = order.getBalanceTransaction()
+                Transaction balanceTransaction = order.balanceTransaction
                 if(balanceTransaction!=null) {
-                    writer.write("    <" + BALANCE_TRANSACTION + ">" + balanceTransaction.getTransactionId() + "</" + BALANCE_TRANSACTION + ">\n")
+                    writer.write("    <" + BALANCE_TRANSACTION + ">" + balanceTransaction.transactionId + "</" + BALANCE_TRANSACTION + ">\n")
                 }
-                Transaction paymentTransaction = order.getPaymentTransaction()
+                Transaction paymentTransaction = order.paymentTransaction
                 if(paymentTransaction!=null) {
-                    writer.write("    <" + PAYMENT_TRANSACTION + ">" + paymentTransaction.getTransactionId() + "</" + PAYMENT_TRANSACTION + ">\n")
+                    writer.write("    <" + PAYMENT_TRANSACTION + ">" + paymentTransaction.transactionId + "</" + PAYMENT_TRANSACTION + ">\n")
                 }
 
-                for (OrderItem orderItem : order.getBusinessObjects()) {
-                    Article article = orderItem.getArticle()
+                for (OrderItem orderItem : order.businessObjects) {
+                    Article article = orderItem.article
                     writer.write(
                             "    <" + ARTICLE + ">\n" +
-                                    "      <" + NAME + ">" + article.getName() + "</" + NAME + ">\n" +
-                                    "      <" + NR_OF_ITEMS + ">" + orderItem.getNumberOfItems() + "</" + NR_OF_ITEMS + ">\n" +
+                                    "      <" + NAME + ">" + article.name + "</" + NAME + ">\n" +
+                                    "      <" + NR_OF_ITEMS + ">" + orderItem.numberOfItems + "</" + NR_OF_ITEMS + ">\n" +
                                     "      <" + PURCHASE_VAT_RATE + ">" + orderItem.getPurchaseVatRate() + "</" + PURCHASE_VAT_RATE + ">\n" +
                                     "      <" + PURCHASE_PRICE + ">" + orderItem.getPurchasePriceForUnit() + "</" + PURCHASE_PRICE + ">\n" +
                                     "    </" + ARTICLE + ">\n"
@@ -105,7 +105,7 @@ class StockOrderIO {
             writer.flush()
             writer.close()
         } catch (IOException ex) {
-            Logger.getLogger(Accounts.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(Accounts.class.name).log(Level.SEVERE, null, ex)
         }
     }
 }

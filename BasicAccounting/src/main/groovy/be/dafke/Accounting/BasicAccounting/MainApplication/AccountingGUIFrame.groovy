@@ -8,8 +8,8 @@ import javax.swing.*
 import static java.util.ResourceBundle.getBundle 
 
 class AccountingGUIFrame extends JFrame {
-    private Accounting accounting
-    private Journal journal
+    Accounting accounting
+    Journal journal
 
     AccountingGUIFrame(String title) {
         super(title)
@@ -33,7 +33,7 @@ class AccountingGUIFrame extends JFrame {
             if (journal == null) {
                 setTitle(getBundle("Accounting").getString("ACCOUNTING") + ": " + accounting.toString())
             } else {
-                setTitle(getBundle("Accounting").getString("ACCOUNTING") + ": " + accounting.toString() + ": " + journal.getName())
+                setTitle(getBundle("Accounting").getString("ACCOUNTING") + ": " + accounting.toString() + ": " + journal.name)
             }
         }
     }

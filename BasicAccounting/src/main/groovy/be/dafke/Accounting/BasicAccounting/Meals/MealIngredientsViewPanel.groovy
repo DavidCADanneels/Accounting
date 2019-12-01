@@ -13,9 +13,9 @@ import javax.swing.*
 import java.awt.*
 
 class MealIngredientsViewPanel extends JPanel {
-    private final MealsEditDataViewTableModel mealsDataTableModel
-    private final SelectableTable<Meal> overviewTable
-    private final IngredientsViewPanel ingredientsViewPanel
+    final MealsEditDataViewTableModel mealsDataTableModel
+    final SelectableTable<Meal> overviewTable
+    final IngredientsViewPanel ingredientsViewPanel
 
     MealIngredientsViewPanel(Accounting accounting) {
         mealsDataTableModel = new MealsEditDataViewTableModel(this, accounting)
@@ -48,14 +48,14 @@ class MealIngredientsViewPanel extends JPanel {
         add(splitPane, BorderLayout.CENTER)
     }
 
-    private void updateSelection() {
+    void updateSelection() {
         boolean multiSelection = true
         if(multiSelection){
             Ingredients ingredients = new Ingredients()
-            ArrayList<Meal> selectedObjects = overviewTable.getSelectedObjects()
+            ArrayList<Meal> selectedObjects = overviewTable.selectedObjects
             selectedObjects.forEach({ meal ->
                 Recipe recipe = meal.getRecipe()
-                recipe.getIngredients().getBusinessObjects().forEach({ ingredient ->
+                recipe.ingredients.businessObjects.forEach({ ingredient ->
                     try {
                         ingredients.addBusinessObject(ingredient)
                     } catch (EmptyNameException | DuplicateNameException e) {
@@ -65,9 +65,9 @@ class MealIngredientsViewPanel extends JPanel {
             })
             ingredientsViewPanel.setIngredients(ingredients)
         } else {
-            Meal meal = overviewTable.getSelectedObject()
+            Meal meal = overviewTable.selectedObject
             Recipe recipe = meal == null ? null : meal.getRecipe()
-            Ingredients ingredients = recipe == null ? null : recipe.getIngredients()
+            Ingredients ingredients = recipe == null ? null : recipe.ingredients
             ingredientsViewPanel.setIngredients(ingredients)
         }
     }

@@ -7,14 +7,14 @@ import be.dafke.ComponentModel.SelectableTableModel
 import static java.util.ResourceBundle.getBundle 
 
 class AllergenesDataTableModel extends SelectableTableModel<Allergene> {
-    private Allergenes allergenes
+    Allergenes allergenes
     static int ID_COL = 0
     static int NAME_COL = 1
     static int DESC_COL = 2
     static int NR_OF_COL = 3
-    private HashMap<Integer,String> columnNames = new HashMap<>()
-    private HashMap<Integer,Class> columnClasses = new HashMap<>()
-    private List<Integer> editableColumns = new ArrayList<>()
+    HashMap<Integer,String> columnNames = new HashMap<>()
+    HashMap<Integer,Class> columnClasses = new HashMap<>()
+    List<Integer> editableColumns = new ArrayList<>()
 
     AllergenesDataTableModel() {
         setColumnNames()
@@ -23,18 +23,18 @@ class AllergenesDataTableModel extends SelectableTableModel<Allergene> {
     }
 
 
-    private void setEditableColumns() {
+    void setEditableColumns() {
         editableColumns.add(NAME_COL)
         editableColumns.add(DESC_COL)
     }
 
-    private void setColumnClasses() {
+    void setColumnClasses() {
         columnClasses.put(ID_COL, String.class)
         columnClasses.put(NAME_COL, String.class)
         columnClasses.put(DESC_COL, String.class)
     }
 
-    private void setColumnNames() {
+    void setColumnNames() {
         columnNames.put(ID_COL, getBundle("Accounting").getString("ALLERGENES_ID"))
         columnNames.put(NAME_COL, getBundle("Accounting").getString("ALLERGENES_NAME"))
         columnNames.put(DESC_COL, getBundle("Accounting").getString("ALLERGENES_DESC"))
@@ -43,16 +43,10 @@ class AllergenesDataTableModel extends SelectableTableModel<Allergene> {
 // ===============
     Object getValueAt(int row, int col) {
         Allergene allergene = getObject(row, col)
-        if(allergene==null) null
-        if (col == ID_COL) {
-            allergene.getName()
-        }
-        if (col == NAME_COL) {
-            allergene.getShortName()
-        }
-        if (col == DESC_COL) {
-            allergene.getDescription()
-        }
+        if(allergene==null) return null
+        if (col == ID_COL) return allergene.name
+        if (col == NAME_COL) return allergene.shortName
+        if (col == DESC_COL) allergene.description
         null
     }
 
@@ -61,10 +55,7 @@ class AllergenesDataTableModel extends SelectableTableModel<Allergene> {
     }
 
     int getRowCount() {
-        if(allergenes == null){
-            0
-        }
-        allergenes.getBusinessObjects().size()
+        allergenes?allergenes.businessObjects.size():0
     }
 
     @Override
@@ -103,6 +94,6 @@ class AllergenesDataTableModel extends SelectableTableModel<Allergene> {
 
     @Override
     Allergene getObject(int row, int col) {
-        allergenes.getBusinessObjects().get(row)
+        allergenes.businessObjects.get(row)
     }
 }

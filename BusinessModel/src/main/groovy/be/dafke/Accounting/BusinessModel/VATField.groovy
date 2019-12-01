@@ -3,7 +3,7 @@ package be.dafke.Accounting.BusinessModel
 import be.dafke.Accounting.ObjectModel.BusinessCollection
 
 class VATField extends BusinessCollection<VATMovement> {
-    private BigDecimal amount = BigDecimal.ZERO
+    BigDecimal amount = BigDecimal.ZERO
 
     VATField(String name) {
         setName(name)
@@ -19,7 +19,7 @@ class VATField extends BusinessCollection<VATMovement> {
 
     @Override
     VATMovement addBusinessObject(VATMovement vatMovement) {
-        BigDecimal vatAmount = vatMovement.getAmount()
+        BigDecimal vatAmount = vatMovement.amount
         if (vatAmount != null) {
             amount = amount.add(vatAmount)
         }
@@ -27,14 +27,14 @@ class VATField extends BusinessCollection<VATMovement> {
     }
 
     void removeBusinessObject(VATMovement vatMovement) {
-        BigDecimal vatAmount = vatMovement.getAmount()
+        BigDecimal vatAmount = vatMovement.amount
         if (vatAmount != null) {
             amount = amount.subtract(vatAmount)
         }
     }
 
     void setRegistered(VATMovement vatMovement) {
-        BigDecimal vatAmount = vatMovement.getAmount()
+        BigDecimal vatAmount = vatMovement.amount
         if (vatAmount != null) {
             amount = amount.subtract(vatAmount)
         }

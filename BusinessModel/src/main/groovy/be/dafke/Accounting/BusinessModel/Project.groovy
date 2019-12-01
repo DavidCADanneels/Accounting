@@ -9,8 +9,8 @@ class Project extends BusinessCollection<Account> {
     /**
      *
      */
-    private final ProjectAccounts projectAccounts
-    private final Balance resultBalance, relationsBalance
+    final ProjectAccounts projectAccounts
+    final Balance resultBalance, relationsBalance
 
     Project(String name, Accounts accounts, AccountTypes accountTypes) {
         setName(name)
@@ -28,7 +28,7 @@ class Project extends BusinessCollection<Account> {
 
     @Override
     ArrayList<Account> getBusinessObjects(){
-        projectAccounts.getBusinessObjects()
+        projectAccounts.businessObjects
     }
 
     @Override
@@ -43,9 +43,9 @@ class Project extends BusinessCollection<Account> {
 
     ProjectJournal getJournal() {
         ProjectJournal journal = new ProjectJournal(getName(), "TMP")
-        for(Account account:projectAccounts.getBusinessObjects()){
-            for(Movement movement :account.getBusinessObjects()){
-                Transaction transaction = movement.getBooking().getTransaction()
+        for(Account account:projectAccounts.businessObjects){
+            for(Movement movement :account.businessObjects){
+                Transaction transaction = movement.booking.transaction
                 journal.addBusinessObject(transaction)
             }
         }

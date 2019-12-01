@@ -14,11 +14,11 @@ import javax.swing.JPanel
 import java.awt.GridLayout
 
 class MealsSettingsPanel extends JPanel {
-    private Accounting accounting
-    private final JComboBox<Account> serviceAccountSelection, revenueAccountSelection, balanceAccountSelection
-    private final JComboBox<Journal> salesJournalSelection, serviceJournalSelection
-    private final DefaultComboBoxModel<Account> serviceAccountModel, salesAccountModel, balanceAccountModel
-    private final DefaultComboBoxModel<Journal> salesJournalModel, serviceJournalModel
+    Accounting accounting
+    final JComboBox<Account> serviceAccountSelection, revenueAccountSelection, balanceAccountSelection
+    final JComboBox<Journal> salesJournalSelection, serviceJournalSelection
+    final DefaultComboBoxModel<Account> serviceAccountModel, salesAccountModel, balanceAccountModel
+    final DefaultComboBoxModel<Journal> salesJournalModel, serviceJournalModel
 
     MealsSettingsPanel(Accounting accounting) {
         this.accounting = accounting
@@ -29,13 +29,13 @@ class MealsSettingsPanel extends JPanel {
         salesJournalModel = new DefaultComboBoxModel<>()
         serviceJournalModel = new DefaultComboBoxModel<>()
 
-        accounting.getAccounts().getBusinessObjects().forEach({ account ->
+        accounting.accounts.businessObjects.forEach({ account ->
             serviceAccountModel.addElement(account)
             salesAccountModel.addElement(account)
             balanceAccountModel.addElement(account)
         })
 
-        accounting.getJournals().getBusinessObjects().forEach({ journal ->
+        accounting.journals.businessObjects.forEach({ journal ->
             salesJournalModel.addElement(journal)
             serviceJournalModel.addElement(journal)
         })
@@ -47,7 +47,7 @@ class MealsSettingsPanel extends JPanel {
         salesJournalSelection = new JComboBox<>(salesJournalModel)
         serviceJournalSelection = new JComboBox<>(serviceJournalModel)
 
-        MealOrders mealOrders = accounting.getMealOrders()
+        MealOrders mealOrders = accounting.mealOrders
 
         Account serviceAccount = mealOrders.getMealOrderServiceAccount()
         Account revenueAccount = mealOrders.getMealOrderRevenueAccount()
@@ -58,23 +58,23 @@ class MealsSettingsPanel extends JPanel {
 
         serviceAccountSelection.setSelectedItem(serviceAccount)
         serviceAccountSelection.addActionListener({ e -> updateSelectedServiceAccount() })
-        serviceAccountSelection.setEnabled(accounting.isMealsAccounting())
+        serviceAccountSelection.enabled = accounting.mealsAccounting
 
         revenueAccountSelection.setSelectedItem(revenueAccount)
         revenueAccountSelection.addActionListener({ e -> updateSelectedRevenueAccount() })
-        revenueAccountSelection.setEnabled(accounting.isMealsAccounting())
+        revenueAccountSelection.enabled = accounting.mealsAccounting
 
         balanceAccountSelection.setSelectedItem(balanceAccount)
         balanceAccountSelection.addActionListener({ e -> updateSelectedBalanceAccount() })
-        balanceAccountSelection.setEnabled(accounting.isMealsAccounting())
+        balanceAccountSelection.enabled = accounting.mealsAccounting
 
         salesJournalSelection.setSelectedItem(salesJournal)
         salesJournalSelection.addActionListener({ e -> updateSelectedSalesJournal() })
-        salesJournalSelection.setEnabled(accounting.isMealsAccounting())
+        salesJournalSelection.enabled = accounting.mealsAccounting
 
         serviceJournalSelection.setSelectedItem(serviceJournal)
         serviceJournalSelection.addActionListener({ e -> updateSelectedServiceJournal() })
-        serviceJournalSelection.setEnabled(accounting.isMealsAccounting())
+        serviceJournalSelection.enabled = accounting.mealsAccounting
 
         JPanel panel = new JPanel()
         panel.setLayout(new GridLayout(0, 2))
@@ -94,43 +94,43 @@ class MealsSettingsPanel extends JPanel {
     }
 
     void updateSelectedServiceAccount() {
-        Account account = (Account) serviceAccountSelection.getSelectedItem()
-        MealOrders mealOrders = accounting.getMealOrders()
+        Account account = (Account) serviceAccountSelection.selectedItem
+        MealOrders mealOrders = accounting.mealOrders
         mealOrders.setMealOrderServiceAccount(account)
     }
 
     void updateSelectedRevenueAccount() {
-        Account account = (Account) revenueAccountSelection.getSelectedItem()
-        MealOrders mealOrders = accounting.getMealOrders()
+        Account account = (Account) revenueAccountSelection.selectedItem
+        MealOrders mealOrders = accounting.mealOrders
         mealOrders.setMealOrderRevenueAccount(account)
     }
 
     void updateSelectedBalanceAccount() {
-        Account account = (Account) balanceAccountSelection.getSelectedItem()
-        MealOrders mealOrders = accounting.getMealOrders()
+        Account account = (Account) balanceAccountSelection.selectedItem
+        MealOrders mealOrders = accounting.mealOrders
         mealOrders.setMealOrderBalanceAccount(account)
     }
 
     void updateSelectedSalesJournal() {
-        Journal journal = (Journal) salesJournalSelection.getSelectedItem()
-        MealOrders mealOrders = accounting.getMealOrders()
+        Journal journal = (Journal) salesJournalSelection.selectedItem
+        MealOrders mealOrders = accounting.mealOrders
         mealOrders.setMealOrderSalesJournal(journal)
     }
 
     void updateSelectedServiceJournal() {
-        Journal journal = (Journal) serviceJournalSelection.getSelectedItem()
-        MealOrders mealOrders = accounting.getMealOrders()
+        Journal journal = (Journal) serviceJournalSelection.selectedItem
+        MealOrders mealOrders = accounting.mealOrders
         mealOrders.setMealOrderServiceJournal(journal)
     }
 
     @Override
     void setEnabled(boolean enabled){
         super.setEnabled(enabled)
-        serviceAccountSelection.setEnabled(enabled)
-        revenueAccountSelection.setEnabled(enabled)
-        balanceAccountSelection.setEnabled(enabled)
-        salesJournalSelection.setEnabled(enabled)
-        serviceJournalSelection.setEnabled(enabled)
+        serviceAccountSelection.enabled = enabled
+        revenueAccountSelection.enabled = enabled
+        balanceAccountSelection.enabled = enabled
+        salesJournalSelection.enabled = enabled
+        serviceJournalSelection.enabled = enabled
         if(!enabled){
             serviceAccountSelection.setSelectedItem(null)
             revenueAccountSelection.setSelectedItem(null)
@@ -154,7 +154,7 @@ class MealsSettingsPanel extends JPanel {
         serviceJournalModel.removeAllElements()
 
         if (copyFrom != null) {
-            MealOrders mealOrders = copyFrom.getMealOrders()
+            MealOrders mealOrders = copyFrom.mealOrders
 
             Account mealOrderServiceAccount = mealOrders.getMealOrderServiceAccount()
             Account mealOrderRevenueAccount = mealOrders.getMealOrderRevenueAccount()
@@ -163,25 +163,25 @@ class MealsSettingsPanel extends JPanel {
             Journal mealOrderSalesJournal = mealOrders.getMealOrderSalesJournal()
             Journal mealOrderServiceJournal = mealOrders.getMealOrderServiceJournal()
 
-            Accounts accounts = accounting.getAccounts()
-            Journals journals = accounting.getJournals()
+            Accounts accounts = accounting.accounts
+            Journals journals = accounting.journals
 
             if (accounts != null) {
-                accounts.getBusinessObjects().forEach({ account ->
+                accounts.businessObjects.forEach({ account ->
                     serviceAccountModel.addElement(account)
                     salesAccountModel.addElement(account)
                     balanceAccountModel.addElement(account)
                 })
             }
             if (journals != null) {
-                journals.getBusinessObjects().forEach({ journal ->
+                journals.businessObjects.forEach({ journal ->
                     salesJournalModel.addElement(journal)
                     serviceJournalModel.addElement(journal)
                 })
             }
 
             if (mealOrderServiceAccount != null) {
-                Account account = accounts.getBusinessObject(mealOrderServiceAccount.getName())
+                Account account = accounts.getBusinessObject(mealOrderServiceAccount.name)
                 mealOrders.setMealOrderServiceAccount(account)
                 serviceAccountSelection.setSelectedItem(account)
             } else {
@@ -190,7 +190,7 @@ class MealsSettingsPanel extends JPanel {
             }
 
             if (mealOrderRevenueAccount != null) {
-                Account account = accounts.getBusinessObject(mealOrderRevenueAccount.getName())
+                Account account = accounts.getBusinessObject(mealOrderRevenueAccount.name)
                 mealOrders.setMealOrderRevenueAccount(account)
                 revenueAccountSelection.setSelectedItem(account)
             } else {
@@ -199,7 +199,7 @@ class MealsSettingsPanel extends JPanel {
             }
 
             if (mealOrderBalanceAccount != null) {
-                Account account = accounts.getBusinessObject(mealOrderBalanceAccount.getName())
+                Account account = accounts.getBusinessObject(mealOrderBalanceAccount.name)
                 mealOrders.setMealOrderBalanceAccount(account)
                 balanceAccountSelection.setSelectedItem(account)
             } else {
@@ -208,7 +208,7 @@ class MealsSettingsPanel extends JPanel {
             }
 
             if (mealOrderSalesJournal != null) {
-                Journal journal = journals.getBusinessObject(mealOrderSalesJournal.getName())
+                Journal journal = journals.getBusinessObject(mealOrderSalesJournal.name)
                 mealOrders.setMealOrderSalesJournal(journal)
                 salesJournalSelection.setSelectedItem(journal)
             } else {
@@ -217,7 +217,7 @@ class MealsSettingsPanel extends JPanel {
             }
 
             if (mealOrderServiceJournal != null) {
-                Journal journal = journals.getBusinessObject(mealOrderServiceJournal.getName())
+                Journal journal = journals.getBusinessObject(mealOrderServiceJournal.name)
                 mealOrders.setMealOrderServiceJournal(journal)
                 serviceJournalSelection.setSelectedItem(journal)
             } else {

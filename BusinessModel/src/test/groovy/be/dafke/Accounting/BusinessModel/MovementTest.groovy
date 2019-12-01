@@ -12,59 +12,59 @@ class MovementTest {
     @Test
     void getId(){
         Movement movement = new Movement(AMOUNT, true)
-        int id = movement.getId()
+        int id = movement.id
 
         movement = new Movement(AMOUNT, false)
-        assertEquals(id+1,movement.getId().intValue())
+        assertEquals(id+1,movement.id.intValue())
     }
 
     @Test
     void getAmount(){
         Movement movement = new Movement(AMOUNT, true)
-        assertEquals(AMOUNT,movement.getAmount())
-        movement.setAmount(ANOTHER_AMOUNT)
-        assertEquals(ANOTHER_AMOUNT,movement.getAmount())
+        assertEquals(AMOUNT,movement.amount)
+        movement.zmount = ANOTHER_AMOUNT
+        assertEquals(ANOTHER_AMOUNT,movement.amount)
 
         movement = new Movement(AMOUNT, false)
-        assertEquals(AMOUNT,movement.getAmount())
-        movement.setAmount(ANOTHER_AMOUNT)
-        assertEquals(ANOTHER_AMOUNT,movement.getAmount())
+        assertEquals(AMOUNT,movement.amount)
+        movement.amount = ANOTHER_AMOUNT
+        assertEquals(ANOTHER_AMOUNT,movement.amount)
     }
 
     @Test
     void isDebit(){
         Movement movement = new Movement(AMOUNT, true)
-        assertTrue(movement.isDebit())
-        movement.setDebit(false)
-        assertFalse(movement.isDebit())
+        assertTrue(movement.debit)
+        movement.debit = false
+        assertFalse(movement.debit)
 
         movement = new Movement(AMOUNT, false)
-        assertFalse(movement.isDebit())
-        movement.setDebit(true)
-        assertTrue(movement.isDebit())
+        assertFalse(movement.debit)
+        movement.debit = true
+        assertTrue(movement.debit)
     }
 
 //    @Test
 //    void getBooking(){
 //        Movement movement = new Movement(AMOUNT, true)
-//        assertNull(movement.getBooking())
+//        assertNull(movement.booking)
 //        Accounts accounts = new Accounts(new Accounting())
 //        Booking booking = new Booking()
 //        movement.setBooking(booking)
-//        assertEquals(booking,movement.getBooking())
+//        assertEquals(booking,movement.booking)
 //    }
 
 //    @Test
 //    void getUniqueProperties(){
 //        Movement movement = new Movement(AMOUNT,true)
 //        TreeMap<String, String> uniqueProperties = movement.getUniqueProperties()
-//        assertTrue(uniqueProperties.isEmpty())
+//        assertTrue(uniqueProperties.empty)
 //    }
 //
 //    @Test
 //    void getInitProperties(){
 //        Movement movement = new Movement(AMOUNT,true)
 //        TreeMap<String, String> uniqueProperties = movement.getUniqueProperties()
-//        assertTrue(uniqueProperties.isEmpty())
+//        assertTrue(uniqueProperties.empty)
 //    }
 }

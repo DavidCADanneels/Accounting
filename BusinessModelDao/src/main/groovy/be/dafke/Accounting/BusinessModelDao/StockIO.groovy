@@ -12,12 +12,12 @@ import static be.dafke.Accounting.BusinessModelDao.XMLWriter.getXmlHeader
 
 class StockIO {
     static void readStockSettings(Accounting accounting) {
-        StockTransactions stockTransactions = accounting.getStockTransactions()
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + STOCK_TRANSACTIONS + XML_EXTENSION)
+        StockTransactions stockTransactions = accounting.stockTransactions
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + STOCK_TRANSACTIONS + XML_EXTENSION)
         Element transactionsElement = getRootElement(xmlFile, STOCK_TRANSACTIONS)
 
-        Accounts accounts = accounting.getAccounts()
-        Journals journals = accounting.getJournals()
+        Accounts accounts = accounting.accounts
+        Journals journals = accounting.journals
 
         String stockAccountString = getValue(transactionsElement, STOCK_ACCOUNT)
         if (stockAccountString != null) {
@@ -85,9 +85,9 @@ class StockIO {
     }
 
     static void readStockTransactions(Accounting accounting){
-        StockTransactions stockTransactions = accounting.getStockTransactions()
+        StockTransactions stockTransactions = accounting.stockTransactions
 
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + STOCK_TRANSACTIONS + XML_EXTENSION)
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + STOCK_TRANSACTIONS + XML_EXTENSION)
         Element transactionsElement = getRootElement(xmlFile, STOCK_TRANSACTIONS)
 
         for (Element element : getChildren(transactionsElement, STOCK_TRANSACTION)) {
@@ -97,36 +97,36 @@ class StockIO {
             String description = getValue(element, DESCRIPTION)
 
             if(type!=null&&type.equals(PURCHASE_ORDER)){
-                PurchaseOrders purchaseOrders = accounting.getPurchaseOrders()
-                PurchaseOrder purchaseOrder = purchaseOrders.getBusinessObject(name)
-                stockTransactions.addOrder(purchaseOrder)
-                purchaseOrder.setDescription(description)
-                purchaseOrder.setDeliveryDate(date)
+                PurchaseOrders purchaseOrders = accounting.purchaseOrders
+                PurchaseOrder purchaseOrder = purchaseOrders.getBusinessObject name
+                stockTransactions.addOrder purchaseOrder
+                purchaseOrder.description = description
+                purchaseOrder.deliveryDate = date
             } else if(type!=null&&type.equals(SALES_ORDER)){
-                SalesOrders salesOrders = accounting.getSalesOrders()
-                SalesOrder salesOrder = salesOrders.getBusinessObject(name)
-                stockTransactions.addOrder(salesOrder)
-                salesOrder.setDescription(description)
-                salesOrder.setDeliveryDate(date)
+                SalesOrders salesOrders = accounting.salesOrders
+                SalesOrder salesOrder = salesOrders.getBusinessObject name
+                stockTransactions.addOrder salesOrder
+                salesOrder.description = description
+                salesOrder.deliveryDate = date
             } else if(type!=null&&type.equals(STOCK_ORDER)){
-                StockOrders stockOrders = accounting.getStockOrders()
-                StockOrder stockOrder = stockOrders.getBusinessObject(name)
-                stockTransactions.addOrder(stockOrder)
-                stockOrder.setDescription(description)
-                stockOrder.setDeliveryDate(date)
+                StockOrders stockOrders = accounting.stockOrders
+                StockOrder stockOrder = stockOrders.getBusinessObject name
+                stockTransactions.addOrder stockOrder
+                stockOrder.description = description
+                stockOrder.deliveryDate = date
             } else if(type!=null&&type.equals(PROMO_ORDER)){
-                PromoOrders promoOrders = accounting.getPromoOrders()
-                PromoOrder promoOrder = promoOrders.getBusinessObject(name)
-                stockTransactions.addOrder(promoOrder)
-                promoOrder.setDescription(description)
-                promoOrder.setDeliveryDate(date)
+                PromoOrders promoOrders = accounting.promoOrders
+                PromoOrder promoOrder = promoOrders.getBusinessObject name
+                stockTransactions.addOrder promoOrder
+                promoOrder.description = description
+                promoOrder.deliveryDate = date
             }
         }
     }
 
     static void writeStock(Accounting accounting) {
-        Articles articles = accounting.getArticles()
-        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + STOCK + XML_EXTENSION)
+        Articles articles = accounting.articles
+        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + STOCK + XML_EXTENSION)
         try {
             Writer writer = new FileWriter(file)
             writer.write(getXmlHeader(STOCK, 2))
@@ -135,7 +135,7 @@ class StockIO {
             for (Article article : articles.getBusinessObjects(Article.inStock())) {
                 writer.write(
                         "    <" + ARTICLE + ">\n" +
-                                "      <" + NAME + ">" + article.getName() + "</" + NAME + ">\n" +
+                                "      <" + NAME + ">" + article.name + "</" + NAME + ">\n" +
                                 "      <" + NR_OF_ITEMS + ">" + article.getNrInStock() + "</" + NR_OF_ITEMS + ">\n" +
                                 "    </" + ARTICLE + ">\n"
                 )
@@ -145,32 +145,32 @@ class StockIO {
             writer.flush()
             writer.close()
         } catch (IOException ex) {
-            Logger.getLogger(Accounts.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(Accounts.class.name).log(Level.SEVERE, null, ex)
         }
     }
 
     static void writeStockTransactions(Accounting accounting) {
-        StockTransactions stockTransactions = accounting.getStockTransactions()
-        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + STOCK_TRANSACTIONS + XML_EXTENSION)
+        StockTransactions stockTransactions = accounting.stockTransactions
+        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + STOCK_TRANSACTIONS + XML_EXTENSION)
         try {
             Writer writer = new FileWriter(file)
             writer.write(getXmlHeader(STOCK_TRANSACTIONS, 2))
 
-            Account stockAccount = stockTransactions.getStockAccount()
-            Journal salesJournal = stockTransactions.getSalesJournal()
-            Journal purchaseJournal = stockTransactions.getPurchaseJournal()
-            Journal salesNoInvoiceJournal = stockTransactions.getSalesNoInvoiceJournal()
-            Journal gainJournal = stockTransactions.getGainJournal()
-            Account gainAccount = stockTransactions.getGainAccount()
-            Account salesAccount = stockTransactions.getSalesAccount()
-            Account salesGainAccount = stockTransactions.getSalesGainAccount()
-            Account salesPromoAccount = stockTransactions.getPromoAccount()
+            Account stockAccount = stockTransactions.stockAccount
+            Journal salesJournal = stockTransactions.salesJournal
+            Journal purchaseJournal = stockTransactions.purchaseJournal
+            Journal salesNoInvoiceJournal = stockTransactions.salesNoInvoiceJournal
+            Journal gainJournal = stockTransactions.gainJournal
+            Account gainAccount = stockTransactions.gainAccount
+            Account salesAccount = stockTransactions.salesAccount
+            Account salesGainAccount = stockTransactions.salesGainAccount
+            Account salesPromoAccount = stockTransactions.promoAccount
 
-            writer.write("  <" + PURCHASE_JOURNAL + ">"+ (purchaseJournal==null?"null":purchaseJournal.getName())+"</" + PURCHASE_JOURNAL + ">\n")
-            writer.write("  <" + STOCK_ACCOUNT+">"+ (stockAccount==null?"null":stockAccount.getName()) +"</" + STOCK_ACCOUNT+">\n")
-            writer.write("  <" + SALES_JOURNAL + ">"+ (salesJournal==null?"null":salesJournal.getName())+"</" + SALES_JOURNAL + ">\n")
-            writer.write("  <" + SALES_NO_INVOICE_JOURNAL + ">"+ (salesNoInvoiceJournal==null?"null":salesNoInvoiceJournal.getName())+"</" + SALES_NO_INVOICE_JOURNAL + ">\n")
-            writer.write("  <" + GAIN_JOURNAL + ">"+ (gainJournal==null?"null":gainJournal.getName())+"</" + GAIN_JOURNAL + ">\n")
+            writer.write("  <" + PURCHASE_JOURNAL + ">"+ (purchaseJournal==null?"null":purchaseJournal.name)+"</" + PURCHASE_JOURNAL + ">\n")
+            writer.write("  <" + STOCK_ACCOUNT+">"+ (stockAccount==null?"null":stockAccount.name) +"</" + STOCK_ACCOUNT+">\n")
+            writer.write("  <" + SALES_JOURNAL + ">"+ (salesJournal==null?"null":salesJournal.name)+"</" + SALES_JOURNAL + ">\n")
+            writer.write("  <" + SALES_NO_INVOICE_JOURNAL + ">"+ (salesNoInvoiceJournal==null?"null":salesNoInvoiceJournal.name)+"</" + SALES_NO_INVOICE_JOURNAL + ">\n")
+            writer.write("  <" + GAIN_JOURNAL + ">"+ (gainJournal==null?"null":gainJournal.name)+"</" + GAIN_JOURNAL + ">\n")
             writer.write("  <" + GAIN_ACCOUNT + ">"+(gainAccount==null?"null":gainAccount)+"</" + GAIN_ACCOUNT + ">\n")
             writer.write("  <" + SALES_ACCOUNT + ">"+(salesAccount==null?"null":salesAccount)+"</" + SALES_ACCOUNT + ">\n")
             writer.write("  <" + SALES_GAIN_ACCOUNT + ">"+(salesGainAccount==null?"null":salesGainAccount)+"</" + SALES_GAIN_ACCOUNT + ">\n")
@@ -178,9 +178,9 @@ class StockIO {
 
             for (Order order : stockTransactions.getOrders()) {
                 writer.write("  <" + STOCK_TRANSACTION + ">\n")
-                writer.write("    <" + NAME + ">" + order.getName() + "</" + NAME + ">\n")
-                writer.write("    <" + DATE + ">" + order.getDeliveryDate() + "</" + DATE + ">\n")
-                writer.write("    <" + DESCRIPTION + ">" + order.getDescription() + "</" + DESCRIPTION + ">\n")
+                writer.write("    <" + NAME + ">" + order.name + "</" + NAME + ">\n")
+                writer.write("    <" + DATE + ">" + order.deliveryDate + "</" + DATE + ">\n")
+                writer.write("    <" + DESCRIPTION + ">" + order.description + "</" + DESCRIPTION + ">\n")
                 if (order instanceof PurchaseOrder){
                     writer.write("    <" + TYPE + ">" + PURCHASE_ORDER + "</" + TYPE + ">\n")
                 }
@@ -199,7 +199,7 @@ class StockIO {
             writer.flush()
             writer.close()
         } catch (IOException ex) {
-            Logger.getLogger(Accounts.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(Accounts.class.name).log(Level.SEVERE, null, ex)
         }
     }
 }

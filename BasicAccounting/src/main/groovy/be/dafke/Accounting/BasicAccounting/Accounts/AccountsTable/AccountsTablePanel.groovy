@@ -1,5 +1,7 @@
 package be.dafke.Accounting.BasicAccounting.Accounts.AccountsTable
 
+import be.dafke.Accounting.BasicAccounting.Accounts.AccountActions
+import be.dafke.Accounting.BasicAccounting.Accounts.AccountDetails.AccountDetailsGUI
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountManagement.AccountManagementGUI
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountsFilter.AccountFilterPanel
 import be.dafke.Accounting.BasicAccounting.Accounts.NewAccountDialog
@@ -18,18 +20,18 @@ import java.awt.*
 import static java.util.ResourceBundle.getBundle
 
 class AccountsTablePanel extends JPanel {
-    private final SelectableTable<Account> table
-    private final AccountDataTableModel accountDataTableModel
-    private final AccountFilterPanel filterPanel
+    final SelectableTable<Account> table
+    final AccountDataTableModel accountDataTableModel
+    final AccountFilterPanel filterPanel
 
-    private AccountsTablePopupMenu popup
-    private Accounting accounting
-    private Journal journal
-    private JournalType journalType
-    private AccountsList accountsList
-    private AccountsTableButtons accountsTableButtons
+    AccountsTablePopupMenu popup
+    Accounting accounting
+    Journal journal
+    JournalType journalType
+    AccountsList accountsList
+    AccountsTableButtons accountsTableButtons
 
-    private VATTransaction.VATType vatType = null
+    VATTransaction.VATType vatType = null
 
     AccountsTablePanel(boolean left) {
         setLayout(new BorderLayout())
@@ -62,43 +64,43 @@ class AccountsTablePanel extends JPanel {
 
 //    void setJournal(Journal journal) {
 //        this.journal = journal
-////        filterPanel.setJournal(journal)
+////        filterPanel.journal = journal
 //        filterPanel.setJournalSession(journalSession)
-//        accountDataTableModel.setJournal(journal)
+//        accountDataTableModel.journal = journal
 //    }
 
     void showDetails(){
-        popup.setVisible(false)
-        for(Account account : table.getSelectedObjects()){
+        popup.visible = false
+        for(Account account : table.selectedObjects){
             Point location = getLocationOnScreen()
-            AccountDetailsGUI.getAccountDetails(location, account, accounting.getJournals())
+            AccountDetailsGUI.getAccountDetails(location, account, accounting.journals)
         }
     }
 
     void manageAccounts(){
-        popup.setVisible(false)
-        ArrayList<AccountType> accountTypes = accountsList.getAccountTypes()
-        AccountManagementGUI accountManagementGUI = AccountManagementGUI.getInstance(accounting.getAccounts(), accountTypes)
+        popup.visible = false
+        ArrayList<AccountType> accountTypes = accountsList.accountTypes
+        AccountManagementGUI accountManagementGUI = AccountManagementGUI.getInstance(accounting.accounts, accountTypes)
         accountManagementGUI.setLocation(getLocationOnScreen())
-        accountManagementGUI.setVisible(true)
+        accountManagementGUI.visible = true
     }
 
     void addAccount(){
-        popup.setVisible(false)
-        ArrayList<AccountType> accountTypes = accountsList.getAccountTypes()
-        NewAccountDialog newAccountDialog = new NewAccountDialog(accounting.getAccounts(), accountTypes)
+        popup.visible = false
+        ArrayList<AccountType> accountTypes = accountsList.accountTypes
+        NewAccountDialog newAccountDialog = new NewAccountDialog(accounting.accounts, accountTypes)
         newAccountDialog.setLocation(getLocation())
-        newAccountDialog.setVisible(true)
+        newAccountDialog.visible = true
     }
 
     void editAccount(){
-        popup.setVisible(false)
-        Account account = table.getSelectedObject()
+        popup.visible = false
+        Account account = table.selectedObject
         if(account!=null) {
-            ArrayList<AccountType> accountTypes = accountsList.getAccountTypes()
-            NewAccountDialog newAccountDialog = new NewAccountDialog(accounting.getAccounts(), accountTypes)
-            newAccountDialog.setAccount(account)
-            newAccountDialog.setVisible(true)
+            ArrayList<AccountType> accountTypes = accountsList.accountTypes
+            NewAccountDialog newAccountDialog = new NewAccountDialog(accounting.accounts, accountTypes)
+            newAccountDialog.account = account
+            newAccountDialog.visible = true
         }
     }
 
@@ -109,12 +111,12 @@ class AccountsTablePanel extends JPanel {
     void setAccounting(Accounting accounting, boolean left) {
         this.accounting = accounting
         AccountingSession accountingSession = Session.getAccountingSession(accounting)
-        setJournal(accountingSession.getActiveJournal(), left)
+        setJournal(accountingSession.activeJournal, left)
         // FIXME: enable buttons if something is selected (Listener) or make sure always something is selected
         // for info: the buttons can be used if nothing is selected, their listeners can deal with non-selections
         accountsTableButtons.setActive(accounting!=null)
 //        accountDataTableModel.setFilter(null)
-        accountDataTableModel.setAccounts(accounting==null?null:accounting.getAccounts())
+        accountDataTableModel.setAccounts(accounting?accounting.accounts:null)
         // if setAccounts() is used here, popup.setAccounts() will be called twice
         table.addMouseListener(PopupForTableActivator.getInstance(popup, table))  // TODO: Needed?
         fireAccountDataChanged()
@@ -138,7 +140,7 @@ class AccountsTablePanel extends JPanel {
     void setJournal(Journal journal, boolean left) {
         this.journal = journal
         if(journal!=null){
-            JournalType journalType = journal.getType()
+            JournalType journalType = journal.type
             setJournalType(journalType)
 
             AccountsList list = left?journalType.getLeft():journalType.getRight()
@@ -148,8 +150,8 @@ class AccountsTablePanel extends JPanel {
             // TODO: set null or 'default' type?
 //            accountGuiLeft.setJournalType(null)
 //            accountGuiRight.setJournalType(null)
-            Accounting accounting = Session.getActiveAccounting()
-            AccountTypes accountTypes = accounting.getAccountTypes()
+            Accounting accounting = Session.activeAccounting
+            AccountTypes accountTypes = accounting.accountTypes
 
             AccountsList list = new AccountsList()
             list.addAllTypes(accountTypes, true)
@@ -174,8 +176,8 @@ class AccountsTablePanel extends JPanel {
     }
 
     void book(boolean debit) {
-        popup.setVisible(false)
-        for(Account account : table.getSelectedObjects()){
+        popup.visible = false
+        for(Account account : table.selectedObjects){
             AccountActions.book(account, debit, vatType, accounting, this)
         }
     }

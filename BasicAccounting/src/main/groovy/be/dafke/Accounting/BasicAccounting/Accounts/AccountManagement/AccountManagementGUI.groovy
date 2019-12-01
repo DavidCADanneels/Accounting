@@ -18,14 +18,14 @@ import java.awt.*
 import static java.util.ResourceBundle.getBundle
 
 class AccountManagementGUI extends JFrame implements ListSelectionListener {
-    private JButton newAccount, delete, edit
-    private final AccountManagementTableModel accountManagementTableModel
-    private final SelectableTable<Account> tabel
-    private Accounts accounts
-    private ArrayList<AccountType> accountTypes
-    private static final HashMap<Accounts, AccountManagementGUI> accountManagementGuis = new HashMap<>()
+    JButton newAccount, delete, edit
+    final AccountManagementTableModel accountManagementTableModel
+    final SelectableTable<Account> tabel
+    Accounts accounts
+    ArrayList<AccountType> accountTypes
+    static final HashMap<Accounts, AccountManagementGUI> accountManagementGuis = new HashMap<>()
 
-    private AccountManagementGUI(final Accounts accounts, ArrayList<AccountType> accountTypes) {
+    AccountManagementGUI(final Accounts accounts, ArrayList<AccountType> accountTypes) {
         super(getBundle("Accounting").getString("ACCOUNT_MANAGEMENT_TITLE"))
         this.accounts = accounts
         this.accountTypes = accountTypes
@@ -57,7 +57,7 @@ class AccountManagementGUI extends JFrame implements ListSelectionListener {
         pack()
     }
 
-    private JComboBox<AccountType> createComboBox() {
+    JComboBox<AccountType> createComboBox() {
         JComboBox<AccountType> comboBox = new JComboBox<>()
         accountTypes.forEach({ accountType -> comboBox.addItem(accountType) })
         comboBox
@@ -74,28 +74,28 @@ class AccountManagementGUI extends JFrame implements ListSelectionListener {
         gui
     }
 
-    private JPanel createContentPanel(){
+    JPanel createContentPanel(){
         JPanel south = new JPanel()
         delete = new JButton(getBundle("Accounting").getString("DELETE_ACCOUNT"))
         edit = new JButton(getBundle("Accounting").getString("EDIT_ACCOUNT"))
         newAccount = new JButton(getBundle("Accounting").getString("ADD_ACCOUNT"))
-        delete.addActionListener({ e -> deleteAccounts(tabel.getSelectedObjects(), accounts) })
+        delete.addActionListener({ e -> deleteAccounts(tabel.selectedObjects, accounts) })
         edit.addActionListener({ e ->
-            Account account = tabel.getSelectedObject()
+            Account account = tabel.selectedObject
             if (account != null) {
                 NewAccountDialog newAccountDialog = new NewAccountDialog(accounts, accountTypes)
                 newAccountDialog.setLocation(getLocationOnScreen())
                 newAccountDialog.setAccount(account)
-                newAccountDialog.setVisible(true)
+                newAccountDialog.visible = true
             }
         })
         newAccount.addActionListener({ e ->
             NewAccountDialog newAccountDialog = new NewAccountDialog(accounts, accountTypes)
             newAccountDialog.setLocation(getLocationOnScreen())
-            newAccountDialog.setVisible(true)
+            newAccountDialog.visible = true
         })
-        delete.setEnabled(false)
-        edit.setEnabled(false)
+        delete.enabled = false
+        edit.enabled = false
         south.add(delete)
         south.add(edit)
         south.add(newAccount)
@@ -119,25 +119,25 @@ class AccountManagementGUI extends JFrame implements ListSelectionListener {
 
     void valueChanged(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting()) {
-            ArrayList<Account> accounts = tabel.getSelectedObjects()
+            ArrayList<Account> accounts = tabel.selectedObjects
             if (accounts!=null && accounts.size() > 0) {
-                delete.setEnabled(true)
-                edit.setEnabled(true)
+                delete.enabled = true
+                edit.enabled = true
             } else {
-                delete.setEnabled(false)
-                edit.setEnabled(false)
+                delete.enabled = false
+                edit.enabled = false
             }
         }
     }
 
     void deleteAccounts(ArrayList<Account> accountList, Accounts accounts){
-        if(!accountList.isEmpty()) {
+        if(!accountList.empty) {
             ArrayList<String> failed = new ArrayList<>()
             for(Account account : accountList) {
                 try{
                     accounts.removeBusinessObject(account)
                 }catch (NotEmptyException e){
-                    failed.add(account.getName())
+                    failed.add(account.name)
                 }
             }
             if (failed.size() > 0) {

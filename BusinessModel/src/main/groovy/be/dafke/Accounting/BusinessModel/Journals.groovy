@@ -13,24 +13,24 @@ import java.util.function.Predicate
  */
 class Journals extends BusinessCollection<Journal> {
     static final String ABBREVIATION = "abbr"// TODO: 'abbr' or 'abbreviation'
-    private Accounting accounting
+    Accounting accounting
 
     Journals(Journals journals){
         this(journals.accounting)
-        for(Journal journal:journals.getBusinessObjects()) {
+        for(Journal journal:journals.businessObjects) {
             try {
                 addBusinessObject(new Journal(journal))
             } catch (EmptyNameException | DuplicateNameException e) {
                 e.printStackTrace()
             }
         }
-        currentObject = journals.currentObject==null?null:getBusinessObject(journals.currentObject.getName())
+        currentObject = journals.currentObject==null?null:getBusinessObject(journals.currentObject.name)
     }
 
     @Override
     Journal addBusinessObject(Journal journal) throws EmptyNameException, DuplicateNameException {
         super.addBusinessObject(journal)
-        journal.setAccounting(accounting)
+        journal.accounting = accounting
         journal
     }
 
@@ -66,7 +66,7 @@ class Journals extends BusinessCollection<Journal> {
     Journal getJournal(String abbreviation){
         Predicate<Journal> predicate = Journal.withAbbr(abbreviation)
         List<Journal> journals = getBusinessObjects(predicate)
-        (journals==null||journals.isEmpty())?null:journals.get(0)
+        (journals==null||journals.empty)?null:journals.get(0)
     }
 
     Journal modifyJournalAbbreviation(String oldAbbreviation, String newAbbreviation) throws EmptyNameException, DuplicateNameException {

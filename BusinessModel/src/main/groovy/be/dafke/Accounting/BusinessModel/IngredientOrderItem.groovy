@@ -5,12 +5,12 @@ import be.dafke.Accounting.ObjectModel.BusinessObject
 import java.util.function.Predicate
 
 class IngredientOrderItem extends BusinessObject{
-    private Article article
-    private Ingredient ingredient
-    private BigDecimal quantity
+    Article article
+    Ingredient ingredient
+    BigDecimal quantity
 
     IngredientOrderItem(BigDecimal quantity, Ingredient ingredient, Article article) {
-        setName(ingredient.getName())
+        setName(ingredient.name)
         this.quantity = quantity
         this.ingredient = ingredient
         this.article = article
@@ -21,7 +21,7 @@ class IngredientOrderItem extends BusinessObject{
     }
 
     static Predicate<IngredientOrderItem> containsArticle(Article article){
-        { orderItem -> orderItem.getArticle() == article }
+        { orderItem -> orderItem.article == article }
     }
 
     static Predicate<IngredientOrderItem> containsIngredient(Ingredient ingredient){

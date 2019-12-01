@@ -3,8 +3,8 @@ package be.dafke.Accounting.BusinessModel
 import be.dafke.Accounting.ObjectModel.BusinessObject
 
 class VATMovement extends BusinessObject {
-    private BigDecimal amount
-    private boolean registered = false
+    BigDecimal amount
+    boolean registered = false
 
     VATMovement(BigDecimal amount) {
         this.amount = amount

@@ -19,7 +19,7 @@ class SalesOrderPayedColorRenderer extends DefaultTableCellRenderer {
             cell.setBackground(Color.WHITE)
         }
         if (salesOrder != null) {
-            if (salesOrder.getPaymentTransaction()!= null) {
+            if (salesOrder.paymentTransaction!= null) {
                 cell.setForeground(Color.BLACK)
             } else {
                 cell.setForeground(Color.RED)

@@ -5,7 +5,7 @@ import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException
 import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException
 
 class VATFields extends BusinessCollection<VATField> {
-    private Accounting accounting
+    Accounting accounting
 
     VATFields() {
         super()
@@ -17,7 +17,7 @@ class VATFields extends BusinessCollection<VATField> {
     VATFields(VATFields vatFields) {
         this(vatFields.accounting)
         try {
-            for (VATField vatField : vatFields.getBusinessObjects()) {
+            for (VATField vatField : vatFields.businessObjects) {
                 addBusinessObject(vatField)
             }
         } catch (EmptyNameException e) {
@@ -78,15 +78,15 @@ class VATFields extends BusinessCollection<VATField> {
         } else{
             super.getBusinessObject(nr)
 //            if(vatField==null) BigDecimal.ZERO
-//            BigDecimal bigDecimal = vatField.getSaldo()
+//            BigDecimal bigDecimal = vatField.saldo
 //            bigDecimal==null?BigDecimal.ZERO:bigDecimal
         }
     }
 
     VATField get71() {
         VATField vatField = new VATField("71")
-        BigDecimal XX = getXX().getSaldo()
-        BigDecimal YY = getYY().getSaldo()
+        BigDecimal XX = getXX().saldo
+        BigDecimal YY = getYY().saldo
         if(XX.compareTo(YY)>0){
             vatField.setAmount(XX.subtract(YY))
         } else{
@@ -96,8 +96,8 @@ class VATFields extends BusinessCollection<VATField> {
     }
     VATField get72() {
         VATField vatField = new VATField("72")
-        BigDecimal YY = getYY().getSaldo()
-        BigDecimal XX = getXX().getSaldo()
+        BigDecimal YY = getYY().saldo
+        BigDecimal XX = getXX().saldo
         if(YY.compareTo(XX)>0){
             vatField.setAmount(YY.subtract(XX))
         } else {
@@ -107,13 +107,13 @@ class VATFields extends BusinessCollection<VATField> {
     }
     VATField getXX() {
         VATField vatField = new VATField("XX")
-        vatField.setAmount(getBusinessObject("54").getSaldo().add(getBusinessObject("55").getSaldo()).add(getBusinessObject("63").getSaldo()))
+        vatField.setAmount(getBusinessObject("54").saldo.add(getBusinessObject("55").saldo).add(getBusinessObject("63").saldo))
         vatField
     }
 
     VATField getYY() {
         VATField vatField = new VATField("YY")
-        vatField.setAmount(getBusinessObject("59").getSaldo().add(getBusinessObject("64").getSaldo()))
+        vatField.setAmount(getBusinessObject("59").saldo.add(getBusinessObject("64").saldo))
         vatField
     }
 

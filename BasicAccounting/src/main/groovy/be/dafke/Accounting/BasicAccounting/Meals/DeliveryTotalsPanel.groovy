@@ -12,16 +12,16 @@ import static be.dafke.Accounting.BasicAccounting.Meals.MealOrderCreatePanel.DEL
 import static be.dafke.Accounting.BasicAccounting.Meals.MealOrderCreatePanel.FOOD_SALES_PERCENTAGE;
 
 class DeliveryTotalsPanel extends JPanel{
-    private JTextField receivedInclVat, receivedVat, receivedExclVat
-    private JTextField serviceInclVat, serviceVat, serviceExclVat
+    JTextField receivedInclVat, receivedVat, receivedExclVat
+    JTextField serviceInclVat, serviceVat, serviceExclVat
 
-    private BigDecimal salesAmountInclVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN)
-    private BigDecimal salesAmountExclVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN)
-    private BigDecimal salesAmountVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN)
+    BigDecimal salesAmountInclVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN)
+    BigDecimal salesAmountExclVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN)
+    BigDecimal salesAmountVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN)
 
-    private BigDecimal serviceAmountExclVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN)
-    private BigDecimal serviceAmountVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN)
-    private BigDecimal serviceAmountInclVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN)
+    BigDecimal serviceAmountExclVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN)
+    BigDecimal serviceAmountVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN)
+    BigDecimal serviceAmountInclVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN)
 
     DeliveryTotalsPanel() {
         receivedExclVat = new JTextField(10)
@@ -31,12 +31,12 @@ class DeliveryTotalsPanel extends JPanel{
         serviceVat = new JTextField(10)
         serviceInclVat = new JTextField(10)
 
-        receivedExclVat.setEnabled(false)
-        receivedInclVat.setEnabled(false)
-        receivedVat.setEnabled(false)
-        serviceExclVat.setEnabled(false)
-        serviceVat.setEnabled(false)
-        serviceInclVat.setEnabled(false)
+        receivedExclVat.enabled = false
+        receivedInclVat.enabled = false
+        receivedVat.enabled = false
+        serviceExclVat.enabled = false
+        serviceVat.enabled = false
+        serviceInclVat.enabled = false
 
         JPanel leftPanel = new JPanel(new GridLayout(0,2))
         JPanel rightPanel = new JPanel(new GridLayout(0,2))

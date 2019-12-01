@@ -4,21 +4,10 @@ import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Accountings
 
 class Session {
-    private static Accountings accountings
-    private static HashMap<Accounting, AccountingSession> accountingSessions = new HashMap<>()
-    private static Accounting activeAccounting
+    public static Accountings accountings
+    static HashMap<Accounting, AccountingSession> accountingSessions = new HashMap<>()
+    static Accounting activeAccounting
 
-    static void setAccountings(Accountings accountings) {
-        Session.accountings = accountings
-    }
-
-    static Accountings getAccountings() {
-        accountings
-    }
-
-    static Accounting getActiveAccounting() {
-        activeAccounting
-    }
 
     static void setActiveAccounting(Accounting accounting) {
         activeAccounting = accounting

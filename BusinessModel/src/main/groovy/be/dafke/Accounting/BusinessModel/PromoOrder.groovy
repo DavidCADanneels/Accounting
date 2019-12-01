@@ -4,7 +4,7 @@ class PromoOrder extends Order {
 
     void addPromoOrderToArticles() {
         getBusinessObjects().forEach({ orderItem ->
-            Article article = orderItem.getArticle()
+            Article article = orderItem.article
             article.addPromoOrder(this)
         })
     }

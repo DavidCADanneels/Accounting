@@ -11,9 +11,9 @@ import java.awt.*
 
 class BalancePanel extends JPanel {
 
-    private final JPopupMenu popup
-    private SelectableTable<Account> tabel
-    private BalanceDataModel balanceDataModel
+    final JPopupMenu popup
+    SelectableTable<Account> tabel
+    BalanceDataModel balanceDataModel
 
     BalancePanel(Accounting accounting, Balance balance) {
         setLayout(new BorderLayout())

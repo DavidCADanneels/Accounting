@@ -26,13 +26,9 @@ class IngredientsDataViewTableModel extends IngredientsDataEditTableModel{
     @Override
     Object getValueAt(int row, int col) {
         Ingredient ingredient = getObject(row, col)
-        if(ingredient==null) null
-        if (col == OVERWRITE_NAME_COL) {
-            ingredient.getName()
-        }
-        if (col == OVERWRITE_ALLERGENES_COL) {
-            ingredient.getAllergenesString()
-        }
+        if(ingredient==null) return null
+        if (col == OVERWRITE_NAME_COL) return ingredient.name
+        if (col == OVERWRITE_ALLERGENES_COL) return ingredient.allergenesString
         null
     }
 

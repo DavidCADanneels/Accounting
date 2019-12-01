@@ -4,17 +4,18 @@ import be.dafke.Accounting.ObjectModel.BusinessCollection
 
 import java.util.function.Predicate
 import java.util.stream.Collectors
+import java.util.stream.Stream
 
 class Journal extends BusinessCollection<Transaction> {
-    private String abbreviation
+    String abbreviation
     protected final HashMap<Integer,Transaction> transactions = new HashMap()
-    private JournalType type
-    private Transaction currentTransaction
-    private Accounting accounting
+    JournalType type
+    Transaction currentTransaction
+    Accounting accounting
 
     Journal(Journal journal) {
-        this(journal.getName(), journal.abbreviation)
-        setType(journal.type)
+        this(journal.name, journal.abbreviation)
+        type = journal.type
     }
 
     Journal(String name, String abbreviation) {
@@ -23,33 +24,9 @@ class Journal extends BusinessCollection<Transaction> {
         currentTransaction = new Transaction(Calendar.getInstance(),"")
     }
 
-    Accounting getAccounting() {
-        accounting
-    }
-
-    void setAccounting(Accounting accounting) {
-        this.accounting = accounting
-    }
-
     @Override
     boolean isDeletable(){
-        transactions.isEmpty()
-    }
-
-    Transaction getCurrentTransaction() {
-        currentTransaction
-    }
-
-    void setCurrentTransaction(Transaction currentTransaction) {
-        this.currentTransaction = currentTransaction
-    }
-
-    JournalType getType() {
-        type
-    }
-
-    void setType(JournalType type) {
-        this.type = type
+        transactions.empty
     }
 
     @Override
@@ -59,7 +36,9 @@ class Journal extends BusinessCollection<Transaction> {
 
     @Override
     ArrayList<Transaction> getBusinessObjects() {
-        transactions.values().stream().sorted().collect().toList()
+        Collection<Transaction> values = this.transactions.values()
+        Stream<Transaction> sorted = values.stream().sorted()
+        sorted.collect() as ArrayList<Transaction>
     }
 
     int getId() {
@@ -79,12 +58,12 @@ class Journal extends BusinessCollection<Transaction> {
     }
 
     Transaction getTransaction(int id){
-        List<Transaction> transactions = getBusinessObjects({ transaction -> transaction.getTransactionId() == id })
+        List<Transaction> transactions = getBusinessObjects({ transaction -> transaction.transactionId == id })
         transactions.get(0)
     }
 
     List<Transaction> getBusinessObjects(Predicate<Transaction> predicate) {
-        getBusinessObjects().stream().filter(predicate).collect(Collectors.toCollection(ArrayList.&new))
+        getBusinessObjects().stream().filter(predicate).collect().toList()
     }
 
     Transaction getBusinessObject(Integer transactionId){
@@ -92,7 +71,7 @@ class Journal extends BusinessCollection<Transaction> {
     }
 
     void removeBusinessObject(Transaction transaction) {
-        transactions.remove(transaction.getTransactionId())
+        transactions.remove(transaction.transactionId)
     }
 
     Transaction addBusinessObject(Transaction transaction) {
@@ -102,11 +81,11 @@ class Journal extends BusinessCollection<Transaction> {
         if (transaction == null){
             System.err.println("error")
         }
-        transactions.put(transaction.getTransactionId(), transaction)
+        transactions.put(transaction.transactionId, transaction)
     }
 
     static Predicate<Journal> withAbbr(String abbreviation){
-        { journal -> journal.getAbbreviation().equals(abbreviation) }
+        { journal -> journal.abbreviation.equals(abbreviation) }
     }
 
     @Override

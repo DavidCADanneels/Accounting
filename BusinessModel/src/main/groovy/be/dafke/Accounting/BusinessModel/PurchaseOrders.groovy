@@ -7,14 +7,14 @@ import be.dafke.Utils.Utils
 
 class PurchaseOrders extends BusinessCollection<PurchaseOrder> {
 
-    private int id = 0
+    int id = 0
 
     PurchaseOrder addBusinessObject(PurchaseOrder order) throws EmptyNameException, DuplicateNameException {
         id++
-        if(order.getId()==null) {
-            order.setId(id)
+        if(order.id==null) {
+            order.id = id
         }
-        order.setName(Utils.toIDString("PO", order.getId(), 3))
+        order.setName(Utils.toIDString("PO", order.id, 3))
         order.addPurchaseOrderToArticles()
         super.addBusinessObject(order)
     }

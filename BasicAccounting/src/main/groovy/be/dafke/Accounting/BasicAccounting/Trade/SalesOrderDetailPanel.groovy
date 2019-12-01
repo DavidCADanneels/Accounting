@@ -22,22 +22,22 @@ import static be.dafke.Utils.Utils.parseInt
 import static java.util.ResourceBundle.getBundle
 
 class SalesOrderDetailPanel extends JPanel {
-    private JButton placeOrderButton, deliveredButton, createInvoiceButton
-    private JButton salesTransactionButton, gainTransactionButton, paymentTransactionButton
-    private JButton createSalesOrder
-    private JButton editSalesOrder
-    private JTextField invoiceNr
-    private JCheckBox payed, delivered, placed, creditNote, promoOrder
-    private SalesOrder salesOrder
-    private Accounting accounting
-    private ContactDetailsPanel contactDetailsPanel
+    JButton placeOrderButton, deliveredButton, createInvoiceButton
+    JButton salesTransactionButton, gainTransactionButton, paymentTransactionButton
+    JButton createSalesOrder
+    JButton editSalesOrder
+    JTextField invoiceNr
+    JCheckBox payed, delivered, placed, creditNote, promoOrder
+    SalesOrder salesOrder
+    Accounting accounting
+    ContactDetailsPanel contactDetailsPanel
 
     SalesOrderDetailPanel() {
         createSalesOrder = new JButton(getBundle("Accounting").getString("CREATE_SO"))
         createSalesOrder.addActionListener({ e ->
             SalesOrderCreateGUI salesOrderCreateGUI = SalesOrderCreateGUI.showSalesOrderGUI(accounting)
             salesOrderCreateGUI.setLocation(getLocationOnScreen())
-            salesOrderCreateGUI.setVisible(true)
+            salesOrderCreateGUI.visible = true
         })
 
         editSalesOrder = new JButton(getBundle("Accounting").getString("EDIT_ORDER"))
@@ -45,7 +45,7 @@ class SalesOrderDetailPanel extends JPanel {
             SalesOrderCreateGUI salesOrderCreateGUI = SalesOrderCreateGUI.showSalesOrderEditGUI(accounting)
             salesOrderCreateGUI.setSalesOrder(salesOrder)
             salesOrderCreateGUI.setLocation(getLocationOnScreen())
-            salesOrderCreateGUI.setVisible(true)
+            salesOrderCreateGUI.visible = true
         })
 
         JPanel orderPanel = createOrderPanel()
@@ -59,7 +59,7 @@ class SalesOrderDetailPanel extends JPanel {
         add(createSalesOrder, BorderLayout.SOUTH)
     }
 
-    private JPanel createOrderPanel(){
+    JPanel createOrderPanel(){
         JPanel panel = new JPanel()
         panel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Order"))
 
@@ -72,30 +72,30 @@ class SalesOrderDetailPanel extends JPanel {
         panel
     }
 
-    private JPanel createCustomerPanel(){
+    JPanel createCustomerPanel(){
         JPanel panel = new JPanel()
         panel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Customer"))
 
         panel.setLayout(new BorderLayout())
         contactDetailsPanel = new ContactDetailsPanel()
-        contactDetailsPanel.setEnabled(false)
+        contactDetailsPanel.enabled = false
 
         panel.add(contactDetailsPanel, BorderLayout.NORTH)
 
         panel
     }
 
-    private JPanel createStatusPanel(){
+    JPanel createStatusPanel(){
         placed = new JCheckBox("Ordered")
         payed = new JCheckBox("Payed")
         delivered = new JCheckBox("Delived")
         creditNote = new JCheckBox("CN")
         promoOrder = new JCheckBox("Promo")
-        placed.setEnabled(false)
-        payed.setEnabled(false)
-        delivered.setEnabled(false)
-        creditNote.setEnabled(false)
-        promoOrder.setEnabled(false)
+        placed.enabled = false
+        payed.enabled = false
+        delivered.enabled = false
+        creditNote.enabled = false
+        promoOrder.enabled = false
 
         JPanel panel = new JPanel()
         panel.add(placed)
@@ -107,18 +107,18 @@ class SalesOrderDetailPanel extends JPanel {
     }
 
     void disableButtons(){
-        editSalesOrder.setEnabled(false)
-        placeOrderButton.setEnabled(false)
-        deliveredButton.setEnabled(false)
-        createInvoiceButton.setEnabled(false)
-        salesTransactionButton.setEnabled(false)
-        gainTransactionButton.setEnabled(false)
-        paymentTransactionButton.setEnabled(false)
+        editSalesOrder.enabled = false
+        placeOrderButton.enabled = false
+        deliveredButton.enabled = false
+        createInvoiceButton.enabled = false
+        salesTransactionButton.enabled = false
+        gainTransactionButton.enabled = false
+        paymentTransactionButton.enabled = false
     }
 
-    private JPanel createButtonPanel(){
+    JPanel createButtonPanel(){
         createInvoiceButton = new JButton("Create Invoice")
-        createInvoiceButton.setEnabled(false)
+        createInvoiceButton.enabled = false
         createInvoiceButton.addActionListener({ e -> createInvoice() })
 
         placeOrderButton = new JButton("Place Order")
@@ -143,7 +143,7 @@ class SalesOrderDetailPanel extends JPanel {
         JPanel line3 = new JPanel()
 
         invoiceNr = new JTextField(10)
-        invoiceNr.setEnabled(false)
+        invoiceNr.enabled = false
         line1.add(new JLabel("Invoice:"))
         line1.add(invoiceNr)
         line1.add(createInvoiceButton)
@@ -162,65 +162,65 @@ class SalesOrderDetailPanel extends JPanel {
         panel
     }
 
-    private void selectPaymentTransaction() {
-        Contact customer = salesOrder.getCustomer()
-        if("Daginkomsten".equals(customer.getName())) {
-            salesOrder.setPaymentTransaction(askId("CASH"))
+    void selectPaymentTransaction() {
+        Contact customer = salesOrder.customer
+        if("Daginkomsten".equals(customer.name)) {
+            salesOrder.paymentTransaction = askId("CASH")
         } else {
-            salesOrder.setPaymentTransaction(askId("BE"))
+            salesOrder.paymentTransaction = askId("BE")
         }
         updateButtonsAndCheckBoxes()
     }
 
-    private void selectSalesTransaction() {
-        Contact customer = salesOrder.getCustomer()
-        if("Daginkomsten".equals(customer.getName())) {
-            salesOrder.setSalesTransaction(askId("DAG"))
+    void selectSalesTransaction() {
+        Contact customer = salesOrder.customer
+        if("Daginkomsten".equals(customer.name)) {
+            salesOrder.salesTransaction = askId("DAG")
         } else {
-            salesOrder.setSalesTransaction(askId("VB"))
+            salesOrder.salesTransaction = askId("VB")
         }
         updateButtonsAndCheckBoxes()
     }
 
-    private void selectGainTransaction() {
-        salesOrder.setGainTransaction(askId("GAIN"))
+    void selectGainTransaction() {
+        salesOrder.gainTransaction = askId("GAIN")
         updateButtonsAndCheckBoxes()
     }
 
-    private Transaction askId(String abbr) {
-        Journals journals = accounting.getJournals()
+    Transaction askId(String abbr) {
+        Journals journals = accounting.journals
         Journal journal = journals.getJournal(abbr)
 
-        JournalSelectorDialog journalSelectorDialog = new JournalSelectorDialog(accounting.getJournals())
+        JournalSelectorDialog journalSelectorDialog = new JournalSelectorDialog(accounting.journals)
         journalSelectorDialog.setSelectedJournal(journal)
-        journalSelectorDialog.setVisible(true)
+        journalSelectorDialog.visible = true
         journal = journalSelectorDialog.getSelection()
 
-        String idString = JOptionPane.showInputDialog(this, "Enter id for " + journal.getName() + ":")
+        String idString = JOptionPane.showInputDialog(this, "Enter id for " + journal.name + ":")
         int id = parseInt(idString)
-        ArrayList<Transaction> businessObjects = journal.getBusinessObjects()
+        ArrayList<Transaction> businessObjects = journal.businessObjects
         Transaction transaction = businessObjects.get(id - 1)
         transaction
     }
 
-    private void deliverOrder() {
+    void deliverOrder() {
         Calendar date
-        Contact customer = salesOrder.getCustomer()
-        String description = customer.getName()
-        String deliveryDate = salesOrder.getDeliveryDate() // FIXME: Calendar iso String
+        Contact customer = salesOrder.customer
+        String description = customer.name
+        String deliveryDate = salesOrder.deliveryDate // FIXME: Calendar iso String
         if(deliveryDate==null) {
             DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog()
-            dateAndDescriptionDialog.setDescription(description)
-            dateAndDescriptionDialog.setDate(Calendar.getInstance())
-            dateAndDescriptionDialog.setVisible(true)
+            dateAndDescriptionDialog.description = description
+            dateAndDescriptionDialog.date = Calendar.getInstance()
+            dateAndDescriptionDialog.visible = true
 
-            date = dateAndDescriptionDialog.getDate()
-//            description = dateAndDescriptionDialog.getDescription()
+            date = dateAndDescriptionDialog.date
+//            description = dateAndDescriptionDialog.description
 
-            salesOrder.setDeliveryDate(Utils.toString(date))
-            salesOrder.setDescription(description)
+            salesOrder.deliveryDate = Utils.toString(date)
+            salesOrder.description = description
         }
-        StockTransactions stockTransactions = accounting.getStockTransactions()
+        StockTransactions stockTransactions = accounting.stockTransactions
         stockTransactions.addOrder(salesOrder)
 
         StockGUI.fireStockContentChanged()
@@ -229,64 +229,64 @@ class SalesOrderDetailPanel extends JPanel {
         updateButtonsAndCheckBoxes()
     }
 
-    private void placeOrder() {
-        if(salesOrder.isPromoOrder()){
+    void placeOrder() {
+        if(salesOrder.promoOrder){
             createPromoTransaction()
         } else {
-            Transaction salesTransaction = createTransaction(null, salesOrder.getName())
+            Transaction salesTransaction = createTransaction(null, salesOrder.name)
             createSalesTransaction(salesTransaction)
-            createGainTransaction(salesTransaction.getDate())
+            createGainTransaction(salesTransaction.date)
         }
         StockHistoryGUI.fireStockContentChanged()
         updateButtonsAndCheckBoxes()
     }
 
-    private void createInvoice(){
-        if (salesOrder.getCustomer() == null) {
+    void createInvoice(){
+        if (salesOrder.customer == null) {
             // should not occur
         }
 
-        if (salesOrder.getSupplier() == null){
+        if (salesOrder.supplier == null){
             Contact companyContact = accounting.getCompanyContact()
             if (companyContact == null) {
                 ContactsPanel.setCompanyContact(accounting)
             }
-            salesOrder.setSupplier(companyContact)
+            salesOrder.supplier = companyContact
         }
-        String invoiceNumber = salesOrder.getInvoiceNumber()
+        String invoiceNumber = salesOrder.invoiceNumber
         if (invoiceNumber==null || "".equals(invoiceNumber)){
             invoiceNumber = JOptionPane.showInputDialog(this, "Enter Invoice Number")
-            salesOrder.setInvoiceNumber(invoiceNumber)
+            salesOrder.invoiceNumber = invoiceNumber
         }
 
         DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog()
-        dateAndDescriptionDialog.setDescription("")
+        dateAndDescriptionDialog.description = ""
         dateAndDescriptionDialog.enableDescription(true)
-        dateAndDescriptionDialog.setVisible(true)
+        dateAndDescriptionDialog.visible = true
 
-        Calendar date = dateAndDescriptionDialog.getDate()
-        String description = dateAndDescriptionDialog.getDescription()
+        Calendar date = dateAndDescriptionDialog.date
+        String description = dateAndDescriptionDialog.description
 
-        salesOrder.setDeliveryDate(Utils.toString(date))
-        salesOrder.setDescription(description)
+        salesOrder.deliveryDate = Utils.toString(date)
+        salesOrder.description = description
 
-        String xmlPath = SalesOrderIO.writeInvoiceXmlInputFile(accounting, salesOrder)
-        String pdfPath = SalesOrderIO.calculatePdfPath(accounting, salesOrder)
-        InvoicePDF.createInvoice(xmlPath, pdfPath)
+        String xmlPath = SalesOrderIO.writeInvoiceXmlInputFile accounting, salesOrder
+        String pdfPath = SalesOrderIO.calculatePdfPath accounting, salesOrder
+        InvoicePDF.createInvoice xmlPath, pdfPath
     }
 
     void updateButtonsAndCheckBoxes() {
-        Transaction salesTransaction = salesOrder==null?null:salesOrder.getSalesTransaction()
-        Transaction paymentTransaction = salesOrder==null?null:salesOrder.getPaymentTransaction()
+        Transaction salesTransaction = salesOrder?salesOrder.salesTransaction:null
+        Transaction paymentTransaction = salesOrder?salesOrder.paymentTransaction:null
 
-        StockTransactions stockTransactions = accounting.getStockTransactions()
+        StockTransactions stockTransactions = accounting.stockTransactions
         ArrayList<Order> orders = stockTransactions.getOrders()
         boolean orderDelivered = salesOrder!=null && orders.contains(salesOrder)
         boolean toBeDelivered = salesOrder!=null && !orders.contains(salesOrder)
 
-        boolean isCreditNote = salesOrder!=null&& salesOrder.isCreditNote()
-        boolean isPromoOrder = salesOrder!=null&& salesOrder.isPromoOrder()
-        boolean editable = salesOrder != null && salesOrder.isEditable()
+        boolean isCreditNote = salesOrder!=null&& salesOrder.creditNote
+        boolean isPromoOrder = salesOrder!=null&& salesOrder.promoOrder
+        boolean editable = salesOrder != null && salesOrder.editable
 
         placed.setSelected(salesTransaction!=null)
         delivered.setSelected(orderDelivered)
@@ -294,44 +294,44 @@ class SalesOrderDetailPanel extends JPanel {
         creditNote.setSelected(isCreditNote)
         promoOrder.setSelected(isPromoOrder)
 
-//        editSalesOrder.setEnabled(true)
-        editSalesOrder.setEnabled(editable)
-        deliveredButton.setEnabled(toBeDelivered)
-        placeOrderButton.setEnabled(salesTransaction==null)
+//        editSalesOrder.enabled = true
+        editSalesOrder.enabled = editable
+        deliveredButton.enabled = toBeDelivered
+        placeOrderButton.enabled = salesTransaction==null
 
         updateInvoiceButtonAndField()
 
         updateContactDetails(salesOrder)
 
-        salesTransactionButton.setEnabled(salesOrder!=null && salesOrder.getSalesTransaction()==null)
-        gainTransactionButton.setEnabled(salesOrder !=null && salesOrder.getGainTransaction()==null)
-        paymentTransactionButton.setEnabled(salesOrder !=null && paymentTransaction ==null)
+        salesTransactionButton.enabled = salesOrder!=null && salesOrder.salesTransaction==null
+        gainTransactionButton.enabled = salesOrder !=null && salesOrder.gainTransaction==null
+        paymentTransactionButton.enabled = salesOrder !=null && paymentTransaction ==null
     }
 
     void updateInvoiceButtonAndField() {
-        if(salesOrder!=null&&salesOrder.isInvoice()){
-            createInvoiceButton.setEnabled(true)
-            invoiceNr.setText(salesOrder.getInvoiceNumber())
+        if(salesOrder!=null&&salesOrder.invoice){
+            createInvoiceButton.enabled = true
+            invoiceNr.setText(salesOrder.invoiceNumber)
         } else {
-            createInvoiceButton.setEnabled(false)
+            createInvoiceButton.enabled = false
             invoiceNr.setText("")
         }
     }
 
     void updateContactDetails(SalesOrder salesOrder){
-        if(salesOrder!=null&&salesOrder.getCustomer()!=null){
-            contactDetailsPanel.setContact(salesOrder.getCustomer())
+        if(salesOrder!=null&&salesOrder.customer!=null){
+            contactDetailsPanel.setContact(salesOrder.customer)
         } else {
             contactDetailsPanel.clearFields()
         }
     }
 
-    private Contact getCustomer(){
-        Contact customer = salesOrder.getCustomer()
+    Contact getCustomer(){
+        Contact customer = salesOrder.customer
         if(customer == null){
-            Contacts contacts = accounting.getContacts()
+            Contacts contacts = accounting.contacts
             ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(accounting, Contact.ContactType.CUSTOMERS)
-            contactSelectorDialog.setVisible(true)
+            contactSelectorDialog.visible = true
             customer = contactSelectorDialog.getSelection()
         }
         customer
@@ -342,58 +342,58 @@ class SalesOrderDetailPanel extends JPanel {
             DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog()
             dateAndDescriptionDialog.enableDescription(true)
             if(description!=null){
-                dateAndDescriptionDialog.setDescription(description)
+                dateAndDescriptionDialog.description = description
             } else {
-                dateAndDescriptionDialog.setDescription("")
+                dateAndDescriptionDialog.description = ""
             }
-            dateAndDescriptionDialog.setVisible(true)
+            dateAndDescriptionDialog.visible = true
 
-            date = dateAndDescriptionDialog.getDate()
-            description = dateAndDescriptionDialog.getDescription()
+            date = dateAndDescriptionDialog.date
+            description = dateAndDescriptionDialog.description
         }
         new Transaction(date, description)
     }
 
-    private void createPromoTransaction() {
-        Transaction transaction = createTransaction(null, salesOrder.getName())
+    void createPromoTransaction() {
+        Transaction transaction = createTransaction(null, salesOrder.name)
 
-        Account promoCost = StockUtils.getPromoAccount(accounting)
-        Account stockAccount = StockUtils.getStockAccount(accounting)
-        BigDecimal totalSalesPriceInclVat = salesOrder.getTotalSalesPriceInclVat()
+        Account promoCost = StockUtils.getPromoAccount accounting
+        Account stockAccount = StockUtils.getStockAccount accounting
+        BigDecimal totalSalesPriceInclVat = salesOrder.totalSalesPriceInclVat
 
         Booking costBooking = new Booking(promoCost, totalSalesPriceInclVat, true)
         Booking stockBooking = new Booking(stockAccount, totalSalesPriceInclVat, false)
         transaction.addBusinessObject(costBooking)
         transaction.addBusinessObject(stockBooking)
 
-        Journal journal = StockUtils.getGainJournal(accounting)
-        transaction.setJournal(journal)
+        Journal journal = StockUtils.getGainJournal accounting
+        transaction.journal = journal
 
-        Transactions transactions = accounting.getTransactions()
+        Transactions transactions = accounting.transactions
         transactions.setId(transaction)
-        transactions.addBusinessObject(transaction)
-        journal.addBusinessObject(transaction)
-        salesOrder.setSalesTransaction(transaction)
-        salesOrder.setGainTransaction(transaction)
-        Main.setJournal(journal)
+        transactions.addBusinessObject transaction
+        journal.addBusinessObject transaction
+        salesOrder.salesTransaction = transaction
+        salesOrder.gainTransaction = transaction
+        Main.journal = journal
         Main.selectTransaction(transaction)
         Main.fireJournalDataChanged(journal)
-        for (Account account : transaction.getAccounts()) {
+        for (Account account : transaction.accounts) {
             Main.fireAccountDataChanged(account)
         }
     }
 
-    private void createSalesTransaction(Transaction transaction){
+    void createSalesTransaction(Transaction transaction){
 
         Contact customer = getCustomer()
-        transaction.setContact(customer)
+        transaction.contact = customer
 
         Account customerAccount = StockUtils.getCustomerAccount(customer, accounting)
         Account salesAccount = StockUtils.getSalesAccount(accounting)
 
-        boolean creditNote = salesOrder.isCreditNote()
+        boolean creditNote = salesOrder.creditNote
 
-        BigDecimal salesPriceInclVat = salesOrder.getTotalSalesPriceInclVat()
+        BigDecimal salesPriceInclVat = salesOrder.totalSalesPriceInclVat
 
         Booking customerBooking = new Booking(customerAccount, salesPriceInclVat, !creditNote)
         transaction.addBusinessObject(customerBooking)
@@ -424,17 +424,17 @@ class SalesOrderDetailPanel extends JPanel {
         BigDecimal vatAmount = salesOrder.calculateTotalSalesVat() // ensure no cent different
         if(!creditNote) {
             Booking vatBooking = AccountActions.createSalesVatBooking(accounting, vatAmount)
-            transaction.setVATAmount(vatAmount)
+            transaction.VATAmount = vatAmount
             transaction.addBusinessObject(vatBooking)
         } else {
             Booking vatBooking = AccountActions.createSalesCnVatBooking(accounting, vatAmount)
-            transaction.setVATAmount(vatAmount.negate())
+            transaction.VATAmount = vatAmount.negate()
             transaction.addBusinessObject(vatBooking)
         }
         // ---
 
         Journal salesJournal
-        if(salesOrder.isInvoice()) {
+        if(salesOrder.invoice) {
             salesJournal = StockUtils.getSalesJournal(accounting)
         } else {
             salesJournal = StockUtils.getSalesNoInvoiceJournal(accounting)
@@ -442,35 +442,35 @@ class SalesOrderDetailPanel extends JPanel {
         transaction.setJournal(salesJournal)
         // TODO: ask for Date and Description
 
-        Transactions transactions = accounting.getTransactions()
+        Transactions transactions = accounting.transactions
         transactions.setId(transaction)
-        transactions.addBusinessObject(transaction)
-        salesJournal.addBusinessObject(transaction)
-        salesOrder.setSalesTransaction(transaction)
-        Main.setJournal(salesJournal)
-        Main.selectTransaction(transaction)
-        Main.fireJournalDataChanged(salesJournal)
-        for (Account account : transaction.getAccounts()) {
-            Main.fireAccountDataChanged(account)
+        transactions.addBusinessObject transaction
+        salesJournal.addBusinessObject transaction
+        salesOrder.salesTransaction = transaction
+        Main.setJournal salesJournal
+        Main.selectTransaction transaction
+        Main.fireJournalDataChanged salesJournal
+        for (Account account : transaction.accounts) {
+            Main.fireAccountDataChanged account
         }
     }
 
-    private void createGainTransaction(Calendar date){
-        Account salesGainAccount = StockUtils.getSalesGainAccount(accounting)
-        Account stockAccount = StockUtils.getStockAccount(accounting)
-        Account gainAccount = StockUtils.getGainAccount(accounting)
+    void createGainTransaction(Calendar date){
+        Account salesGainAccount = StockUtils.getSalesGainAccount accounting
+        Account stockAccount = StockUtils.getStockAccount accounting
+        Account gainAccount = StockUtils.getGainAccount accounting
 
-        BigDecimal stockAmount = salesOrder.getTotalStockValue()
-        BigDecimal totalSalesPriceExclVat = salesOrder.getTotalSalesPriceExclVat()
-        BigDecimal gainAmount = totalSalesPriceExclVat.subtract(stockAmount)
+        BigDecimal stockAmount = salesOrder.totalStockValue
+        BigDecimal totalSalesPriceExclVat = salesOrder.totalSalesPriceExclVat
+        BigDecimal gainAmount = totalSalesPriceExclVat.subtract stockAmount
 
-        boolean creditNote = salesOrder.isCreditNote()
+        boolean creditNote = salesOrder.creditNote
 
         Booking stockBooking = new Booking(stockAccount, stockAmount, creditNote)
         Booking gainBooking = new Booking(gainAccount, gainAmount, creditNote)
         Booking salesDivBooking = new Booking(salesGainAccount, totalSalesPriceExclVat, !creditNote)
 
-        Transaction gainTransaction = new Transaction(date, salesOrder.getName())
+        Transaction gainTransaction = new Transaction(date, salesOrder.name)
 
         gainTransaction.addBusinessObject(gainBooking)
         gainTransaction.addBusinessObject(stockBooking)
@@ -482,13 +482,13 @@ class SalesOrderDetailPanel extends JPanel {
         gainTransaction.setJournal(gainJournal)
 
 
-        Transactions transactions = accounting.getTransactions()
+        Transactions transactions = accounting.transactions
         transactions.setId(gainTransaction)
-        transactions.addBusinessObject(gainTransaction)
-        gainJournal.addBusinessObject(gainTransaction)
-        salesOrder.setGainTransaction(gainTransaction)
+        transactions.addBusinessObject gainTransaction
+        gainJournal.addBusinessObject gainTransaction
+        salesOrder.gainTransaction = gainTransaction
         Main.fireJournalDataChanged(gainJournal)
-        for (Account account : gainTransaction.getAccounts()) {
+        for (Account account : gainTransaction.accounts) {
             Main.fireAccountDataChanged(account)
         }
     }
@@ -499,6 +499,6 @@ class SalesOrderDetailPanel extends JPanel {
 
     void setAccounting(Accounting accounting) {
         this.accounting = accounting
-        contactDetailsPanel.setAccounting(accounting)
+        contactDetailsPanel.accounting = accounting
     }
 }

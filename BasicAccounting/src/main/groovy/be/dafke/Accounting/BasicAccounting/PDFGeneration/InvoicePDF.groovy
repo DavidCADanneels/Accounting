@@ -6,7 +6,7 @@ import org.apache.fop.apps.FOPException
 import javax.xml.transform.TransformerException
 
 class InvoicePDF {
-    private static String xslPath = "data/accounting/xsl/invoice.xsl"
+    static String xslPath = "data/accounting/xsl/invoice.xsl"
 
     static void main(String[] args) {
         String xmlPath = "data/accounting/xml/invoice.xml"

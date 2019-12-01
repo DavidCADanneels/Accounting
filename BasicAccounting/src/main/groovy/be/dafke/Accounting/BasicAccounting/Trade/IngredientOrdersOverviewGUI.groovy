@@ -9,10 +9,10 @@ import static java.util.ResourceBundle.getBundle
 
 class IngredientOrdersOverviewGUI extends JFrame {
 
-    private static IngredientOrdersOverviewGUI gui = null
-    private final IngredientOrdersOverviewPanel overviewPanel
+    static IngredientOrdersOverviewGUI gui = null
+    final IngredientOrdersOverviewPanel overviewPanel
 
-    private IngredientOrdersOverviewGUI() {
+    IngredientOrdersOverviewGUI() {
         super(getBundle("Accounting").getString("INGREDIENT_ORDERS"))
         overviewPanel = new IngredientOrdersOverviewPanel()
 
@@ -23,14 +23,14 @@ class IngredientOrdersOverviewGUI extends JFrame {
     static IngredientOrdersOverviewGUI showIngredientOrdersGUI(Accounting accounting) {
         if (gui == null) {
             gui = new IngredientOrdersOverviewGUI()
-            gui.setAccounting(accounting)
+            gui.accounting = accounting
             Main.addFrame(gui)
         }
         gui
     }
 
     void setAccounting(Accounting accounting) {
-        overviewPanel.setAccounting(accounting)
+        overviewPanel.accounting = accounting
     }
 
     static void fireIngredientAddedOrRemovedForAll(){
@@ -39,7 +39,7 @@ class IngredientOrdersOverviewGUI extends JFrame {
         }
     }
 
-    private void fireIngredientAddedOrRemoved() {
+    void fireIngredientAddedOrRemoved() {
         overviewPanel.fireIngredientAddedOrRemoved()
     }
 }

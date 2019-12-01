@@ -7,17 +7,17 @@ import be.dafke.Utils.Utils
 
 class SalesOrders extends BusinessCollection<SalesOrder> {
 
-    private int id = 0
+    int id = 0
 
     static SalesOrder mergeOrders(ArrayList<SalesOrder> ordersToAdd) {
         SalesOrder salesOrder = new SalesOrder()
         for (SalesOrder orderToAdd:ordersToAdd) {
-            ArrayList<OrderItem> orderItemsToAdd = orderToAdd.getBusinessObjects()
+            ArrayList<OrderItem> orderItemsToAdd = orderToAdd.businessObjects
             for (OrderItem orderitemToAdd : orderItemsToAdd) {
-                String name = orderitemToAdd.getName()
-                BigDecimal salesPriceForItem = orderitemToAdd.getSalesPriceForItem()
-                int numberOfItems = orderitemToAdd.getNumberOfItems()
-                Article article = orderitemToAdd.getArticle()
+                String name = orderitemToAdd.name
+                BigDecimal salesPriceForItem = orderitemToAdd.salesPriceForItem
+                int numberOfItems = orderitemToAdd.numberOfItems
+                Article article = orderitemToAdd.article
                 OrderItem newItem = new OrderItem(numberOfItems, article, name+" @("+salesPriceForItem+")", null)
                 newItem.setSalesPriceForItem(salesPriceForItem)
                 salesOrder.addBusinessObject(newItem)
@@ -28,10 +28,10 @@ class SalesOrders extends BusinessCollection<SalesOrder> {
 
     SalesOrder addBusinessObject(SalesOrder order) throws EmptyNameException, DuplicateNameException {
         id++
-        if (order.getId()==null) {
-            order.setId(id)
+        if (order.id==null) {
+            order.id = id
         }
-        order.setName(Utils.toIDString("SO", order.getId(), 3))
+        order.setName(Utils.toIDString("SO", order.id, 3))
         order.addSalesOrderToArticles()
         super.addBusinessObject(order)
     }

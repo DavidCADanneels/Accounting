@@ -17,12 +17,12 @@ class AccountManagementTableModel extends SelectableTableModel<Account> {
     static final int TYPE_COL = 2
     static final int SALDO_COL = 3
     static final int DEFAULT_AMOUNT_COL = 4
-    private HashMap<Integer,String> columnNames = new HashMap<>()
-    private HashMap<Integer,Class> columnClasses = new HashMap<>()
-    private ArrayList<Integer> nonEditableColumns = new ArrayList<>()
+    HashMap<Integer,String> columnNames = new HashMap<>()
+    HashMap<Integer,Class> columnClasses = new HashMap<>()
+    ArrayList<Integer> nonEditableColumns = new ArrayList<>()
 
-    private final Accounts accounts
-    private final Component parent
+    final Accounts accounts
+    final Component parent
 
     AccountManagementTableModel(Component parent, Accounts accounts) {
         this.parent = parent
@@ -33,7 +33,7 @@ class AccountManagementTableModel extends SelectableTableModel<Account> {
         setColumnClasses()
     }
 
-    private void setColumnClasses() {
+    void setColumnClasses() {
         columnClasses.put(NAME_COL, String.class)
         columnClasses.put(NUMBER_COL, BigInteger.class)
         columnClasses.put(TYPE_COL, AccountType.class)
@@ -41,7 +41,7 @@ class AccountManagementTableModel extends SelectableTableModel<Account> {
         columnClasses.put(DEFAULT_AMOUNT_COL, BigDecimal.class)
     }
 
-    private void setColumnNames() {
+    void setColumnNames() {
         columnNames.put(NAME_COL, getBundle("Accounting").getString("ACCOUNT_NAME"))
         columnNames.put(NUMBER_COL, getBundle("Accounting").getString("ACCOUNT_NUMBER"))
         columnNames.put(TYPE_COL, getBundle("Accounting").getString("TYPE"))
@@ -54,32 +54,29 @@ class AccountManagementTableModel extends SelectableTableModel<Account> {
     }
 
     int getRowCount() {
-        accounts.getBusinessObjects().size()
+        accounts.businessObjects.size()
     }
 
     Object getValueAt(int row, int col) {
-        Account account = accounts.getBusinessObjects().get(row)
-        if (col == NAME_COL) {
-            account.getName()
-        } else if (col == NUMBER_COL) {
-            account.getNumber()
-        } else if (col == TYPE_COL) {
-            account.getType()
-        } else if (col == SALDO_COL) {
-            AccountType type = account.getType()
-            BigDecimal saldo = account.getSaldo()
+        Account account = accounts.businessObjects.get(row)
+        if (col == NAME_COL) return account.name
+        if (col == NUMBER_COL) return account.number
+        if (col == TYPE_COL) return account.type
+        if (col == SALDO_COL) {
+            AccountType type = account.type
+            BigDecimal saldo = account.saldo
             if(type.isInverted()){
                 saldo = saldo.negate()
             }
-            saldo
+            return saldo
         } else if (col == DEFAULT_AMOUNT_COL) {
-            BigDecimal defaultAmount = account.getDefaultAmount()
+            BigDecimal defaultAmount = account.defaultAmount
             if(defaultAmount!=null){
-                defaultAmount
+                return defaultAmount
             } else {
-                null
+                return null
             }
-        } else account
+        } else return account
     }
 
     @Override
@@ -104,7 +101,7 @@ class AccountManagementTableModel extends SelectableTableModel<Account> {
         Account account = getObject(row, col)
         if(isCellEditable(row, col) && account!=null){
             if(col== NAME_COL){
-                String oldName = account.getName()
+                String oldName = account.name
                 String newName = (String)value
                 if (newName != null && !oldName.trim().equals(newName.trim())) {
                     try {
@@ -118,14 +115,14 @@ class AccountManagementTableModel extends SelectableTableModel<Account> {
                 }
             }else if(col== TYPE_COL){
                 AccountType accountType = (AccountType)value
-                account.setType(accountType)
+                account.type = accountType
             }else if(col== NUMBER_COL){
-                account.setNumber((BigInteger)value)
+                account.number = (BigInteger)value
             } else if(col== DEFAULT_AMOUNT_COL) {
                 if (value == null || BigDecimal.ZERO.compareTo((BigDecimal) value) == NAME_COL) {
-                    account.setDefaultAmount(null)
+                    account.defaultAmount = null
                 } else {
-                    account.setDefaultAmount(((BigDecimal) value).setScale(TYPE_COL))
+                    account.defaultAmount = ((BigDecimal) value).setScale(TYPE_COL)
                 }
             }
         }
@@ -133,7 +130,7 @@ class AccountManagementTableModel extends SelectableTableModel<Account> {
 
     @Override
     Account getObject(int row, int col) {
-        accounts.getBusinessObjects().get(row)
+        accounts.businessObjects.get(row)
     }
 
 }

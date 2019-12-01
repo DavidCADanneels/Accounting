@@ -19,9 +19,9 @@ import static java.util.ResourceBundle.getBundle
 class JournalSelectorPanel extends JPanel implements ActionListener{
     static final String VIEW1 = "View1"
     static final String VIEW2 = "View2"
-    private JComboBox<Journal> combo
-    private JCheckBox showInput, mergeTransactions
-    private JournalEditPanel journalEditPanel
+    JComboBox<Journal> combo
+    JCheckBox showInput, mergeTransactions
+    JournalEditPanel journalEditPanel
 
     JournalSelectorPanel(JournalEditPanel journalEditPanel){
         this.journalEditPanel = journalEditPanel
@@ -31,7 +31,7 @@ class JournalSelectorPanel extends JPanel implements ActionListener{
 //		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS))
         combo = new JComboBox<>()
         combo.addActionListener(this)
-        combo.setEnabled(false)
+        combo.enabled = false
         add(combo)
 
         JRadioButton view1 = new JRadioButton(VIEW1)
@@ -40,16 +40,16 @@ class JournalSelectorPanel extends JPanel implements ActionListener{
         group.add(view1)
         group.add(view2)
 
-        view1.setSelected(true)
+        view1.selected = true
         view1.addActionListener({ e ->
-            if (view1.isSelected()) {
+            if (view1.selected) {
                 Main.switchView(VIEW1)
             } else {
                 Main.switchView(VIEW2)
             }
         })
         view2.addActionListener({ e ->
-            if (view1.isSelected()) {
+            if (view1.selected) {
                 Main.switchView(VIEW1)
             } else {
                 Main.switchView(VIEW2)
@@ -60,43 +60,43 @@ class JournalSelectorPanel extends JPanel implements ActionListener{
 
         showInput = new JCheckBox("Show Input Panel")
         showInput.addActionListener({ e ->
-            Main.fireShowInputChanged(showInput.isSelected())
+            Main.fireShowInputChanged(showInput.selected)
         })
-        showInput.setSelected(true)
+        showInput.selected = true
         add(showInput)
 
         mergeTransactions = new JCheckBox("Merge Transactions")
         mergeTransactions.addActionListener({ e ->
-            Main.fireMultiTransactionChanged(mergeTransactions.isSelected())
+            Main.fireMultiTransactionChanged(mergeTransactions.selected)
         })
-        mergeTransactions.setSelected(false)
+        mergeTransactions.selected = false
         add(mergeTransactions)
     }
 
     void actionPerformed(ActionEvent ae) {
-        Journal newJournal = (Journal) combo.getSelectedItem()
+        Journal newJournal = (Journal) combo.selectedItem
         Journal journal = journalEditPanel.switchJournal(newJournal)
-        Main.setJournal(journal)
+        Main.journal = journal
     }
 
     void setAccounting(Accounting accounting) {
-        setJournals(accounting==null?null:accounting.getJournals())
+        setJournals(accounting?accounting.journals:null)
         AccountingSession accountingSession = Session.getAccountingSession(accounting)
-        setJournal(accountingSession==null?null:accountingSession.getActiveJournal())
+        setJournal(accountingSession==null?null:accountingSession.activeJournal)
     }
 
     void setJournals(Journals journals){
-        Journal selectedJournal = (Journal)combo.getSelectedItem()
+        Journal selectedJournal = (Journal)combo.selectedItem
         combo.removeActionListener(this)
         combo.removeAllItems()
         if (journals!=null) {
-            for (Journal journal : journals.getBusinessObjects()) {
+            for (Journal journal : journals.businessObjects) {
                 combo.addItem(journal)
             }
         }
         combo.addActionListener(this)
         combo.setSelectedItem(selectedJournal)
-        combo.setEnabled(journals!=null)
+        combo.enabled = journals!=null
     }
 
     void setJournal(Journal journal) {

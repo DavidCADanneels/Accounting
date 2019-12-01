@@ -1,7 +1,7 @@
 package be.dafke.Utils
 
 class MultiValueMap<K,V> {
-    private TreeMap<K,List<V>> data
+    TreeMap<K,List<V>> data
 
     MultiValueMap (){
         data = new TreeMap<>()
@@ -19,7 +19,7 @@ class MultiValueMap<K,V> {
     V removeValue(K key, V value){
         List<V> list = data.get(key)
         list.remove(value)
-        if(list.isEmpty()){
+        if(list.empty){
             data.remove(key)
         }
         value
@@ -43,7 +43,7 @@ class MultiValueMap<K,V> {
     }
 
     boolean isEmpty(){
-        data.isEmpty()
+        data.empty
     }
 
     ArrayList<V> get(K key){

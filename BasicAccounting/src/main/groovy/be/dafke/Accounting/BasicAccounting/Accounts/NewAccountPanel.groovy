@@ -14,11 +14,11 @@ import java.awt.*
 import static java.util.ResourceBundle.getBundle
 
 class NewAccountPanel extends JPanel {
-    private JTextField nameField, numberField, defaultAmountField
-    private JComboBox<AccountType> type
-    private JButton add
-    private Accounts accounts
-    private Account account
+    JTextField nameField, numberField, defaultAmountField
+    JComboBox<AccountType> type
+    JButton addButton
+    Accounts accounts
+    Account account
 
     NewAccountPanel(Accounts accounts, ArrayList<AccountType> accountTypes) {
         this.accounts = accounts
@@ -41,22 +41,22 @@ class NewAccountPanel extends JPanel {
         }
         type.setModel(model)
         add(type)
-        add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_ACCOUNT"))
-        add.addActionListener({ e -> saveAccount() })
-        add(add)
+        addButton = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_ACCOUNT"))
+        addButton.addActionListener({ e -> saveAccount() })
+        add(addButton)
     }
 
     void setAccount(Account account) {
         this.account = account
-        nameField.setText(account.getName())
-        BigInteger number = account.getNumber()
+        nameField.setText(account.name)
+        BigInteger number = account.number
         numberField.setText(number==null?"":number.toString())
-        BigDecimal defaultAmount = account.getDefaultAmount()
+        BigDecimal defaultAmount = account.defaultAmount
         defaultAmountField.setText(defaultAmount==null?"":defaultAmount.toString())
-        type.setSelectedItem(account.getType())
+        type.setSelectedItem(account.type)
     }
 
-    private void saveAccount() {
+    void saveAccount() {
         String newName = nameField.getText().trim()
         try {
             if (account == null) {
@@ -67,7 +67,7 @@ class NewAccountPanel extends JPanel {
                 account = null
                 clearFields()
             } else {
-                String oldName = account.getName()
+                String oldName = account.name
                 accounts.modifyName(oldName, newName)
                 saveOtherProperties()
             }
@@ -79,31 +79,31 @@ class NewAccountPanel extends JPanel {
     }
 
 
-    private void saveOtherProperties(){
-        account.setType((AccountType) type.getSelectedItem())
+    void saveOtherProperties(){
+        account.type = (AccountType) type.selectedItem
         String defaultAmountFieldText = defaultAmountField.getText()
         if (defaultAmountFieldText != null && !defaultAmountFieldText.trim().equals("")) {
             try {
                 BigDecimal defaultAmount = new BigDecimal(defaultAmountFieldText)
                 defaultAmount = defaultAmount.setScale(2)
-                account.setDefaultAmount(defaultAmount)
+                account.defaultAmount = defaultAmount
             } catch (NumberFormatException nfe) {
-                account.setDefaultAmount(null)
+                account.defaultAmount = null
             }
         }
         String numberText = numberField.getText()
         if(numberText != null && !numberText.trim().equals("")){
             try {
                 BigInteger number = new BigInteger(numberText)
-                account.setNumber(number)
+                account.number = number
             } catch (NumberFormatException nfe) {
-                account.setNumber(null)
+                account.number = null
             }
         }
         Main.fireAccountDataChanged(account)
     }
 
-    private void clearFields() {
+    void clearFields() {
         nameField.setText("")
         numberField.setText("")
         defaultAmountField.setText("")

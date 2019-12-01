@@ -14,10 +14,10 @@ import java.awt.*
 import static java.util.ResourceBundle.getBundle
 
 class AccountDetailsPopupMenu extends JPopupMenu {
-    private final JMenuItem move, delete, edit, details
+    final JMenuItem move, delete, edit, details
 
-    private SelectableTable<Booking> gui
-    private Journals journals
+    SelectableTable<Booking> gui
+    Journals journals
 
     AccountDetailsPopupMenu(Journals journals, SelectableTable<Booking> gui) {
         this(gui)
@@ -45,32 +45,32 @@ class AccountDetailsPopupMenu extends JPopupMenu {
         this.journals=journals
     }
 
-    private void moveTransaction() {
+    void moveTransaction() {
         setVisible(false)
-        ArrayList<Booking> bookings = gui.getSelectedObjects()
+        ArrayList<Booking> bookings = gui.selectedObjects
         Main.moveBookings(bookings, journals)
     }
 
-    private void deleteTransaction() {
+    void deleteTransaction() {
         setVisible(false)
-        ArrayList<Booking> bookings = gui.getSelectedObjects()
+        ArrayList<Booking> bookings = gui.selectedObjects
         Main.deleteBookings(bookings)
     }
 
-    private void editTransaction() {
+    void editTransaction() {
         setVisible(false)
-        Booking booking = gui.getSelectedObject()
-        Transaction transaction = booking.getTransaction()
+        Booking booking = gui.selectedObject
+        Transaction transaction = booking.transaction
         Main.editTransaction(transaction)
     }
 
-    private void showDetails() {
+    void showDetails() {
         Point locationOnScreen = getLocationOnScreen()
         setVisible(false)
-        ArrayList<Booking> bookings = gui.getSelectedObjects()
+        ArrayList<Booking> bookings = gui.selectedObjects
         for (Booking booking : bookings) {
-            Transaction transaction = booking.getTransaction()
-            Journal journal = transaction.getJournal()
+            Transaction transaction = booking.transaction
+            Journal journal = transaction.journal
             JournalDetailsGUI newGui = JournalDetailsGUI.getJournalDetails(locationOnScreen, journal, journals)
             newGui.selectObject(booking)
         }

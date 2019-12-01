@@ -17,10 +17,10 @@ import static be.dafke.Utils.Utils.parseInt
 class MortgageIO {
 
     static void readMortgages(Accounting accounting) {
-        Mortgages mortgages = accounting.getMortgages()
-        Accounts accounts = accounting.getAccounts()
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+MORTGAGES+ XML_EXTENSION)
-        File mortgagesFolder = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+MORTGAGES)
+        Mortgages mortgages = accounting.mortgages
+        Accounts accounts = accounting.accounts
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+MORTGAGES+ XML_EXTENSION)
+        File mortgagesFolder = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+MORTGAGES)
         Element rootElement = getRootElement(xmlFile, MORTGAGES)
         for (Element element : getChildren(rootElement, MORTGAGE)) {
 
@@ -50,13 +50,13 @@ class MortgageIO {
             }
         }
 
-        for(Mortgage mortgage:mortgages.getBusinessObjects()){
+        for(Mortgage mortgage:mortgages.businessObjects){
             readMortgage(mortgage, mortgagesFolder)
         }
     }
 
     static void readMortgage(Mortgage mortgage, File mortgagesFolder) {
-        String name = mortgage.getName()
+        String name = mortgage.name
         File xmlFile = new File(mortgagesFolder, name+ XML_EXTENSION)
         Element rootElement = getRootElement(xmlFile, MORTGAGE)
         for (Element element : getChildren(rootElement, MORTGAGE_TRANSACTION)) {
@@ -74,17 +74,17 @@ class MortgageIO {
 
 
     static void writeMortgages(Accounting accounting){
-        Mortgages mortgages = accounting.getMortgages()
-        File mortgagesFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + MORTGAGES+ XML_EXTENSION)
-        File mortgagesFolder = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + MORTGAGES)
+        Mortgages mortgages = accounting.mortgages
+        File mortgagesFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + MORTGAGES+ XML_EXTENSION)
+        File mortgagesFolder = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + MORTGAGES)
         try{
             Writer writer = new FileWriter(mortgagesFile)
             writer.write(getXmlHeader(MORTGAGES, 2))
-            for(Mortgage mortgage: mortgages.getBusinessObjects()) {
+            for(Mortgage mortgage: mortgages.businessObjects) {
                 writer.write(
                         "<"+MORTGAGE+">\n" +
                                 // TODO: decide whether to store it here or in Mortgage.xml
-                                "  <"+NAME+">" + mortgage.getName() + "</"+NAME+">\n" +
+                                "  <"+NAME+">" + mortgage.name + "</"+NAME+">\n" +
                                 "  <"+CAPITAL_ACCOUNT+">" + mortgage.getCapitalAccount() + "</"+CAPITAL_ACCOUNT+">\n" +
                                 "  <"+INTREST_ACCOUNT+">" + mortgage.getIntrestAccount() + "</"+INTREST_ACCOUNT+">\n" +
                                 "  <"+NRPAYED+">" + mortgage.getNrPayed() + "</"+NRPAYED+">\n" +
@@ -97,29 +97,29 @@ class MortgageIO {
             writer.flush()
             writer.close()
         } catch (IOException ex) {
-            Logger.getLogger(Mortgages.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(Mortgages.class.name).log(Level.SEVERE, null, ex)
         }
-        for(Mortgage mortgage:mortgages.getBusinessObjects()){
+        for(Mortgage mortgage:mortgages.businessObjects){
             writeMortgage(mortgage, mortgagesFolder)
         }
     }
 
     static void writeMortgage(Mortgage mortgage, File mortgagesFolder){
         mortgagesFolder.mkdirs()
-        File mortgagesFile = new File(mortgagesFolder, mortgage.getName()+ XML_EXTENSION)
+        File mortgagesFile = new File(mortgagesFolder, mortgage.name+ XML_EXTENSION)
         try{
             Writer writer = new FileWriter(mortgagesFile)
             writer.write(getXmlHeader(MORTGAGE, 3))
             // TODO: decide whether to store it here or in Mortgages.xml
             writer.write(
-                    "  <"+NAME+">" + mortgage.getName() + "</"+NAME+">\n" +
+                    "  <"+NAME+">" + mortgage.name + "</"+NAME+">\n" +
                             "  <"+CAPITAL_ACCOUNT+">" + mortgage.getCapitalAccount() + "</"+CAPITAL_ACCOUNT+">\n" +
                             "  <"+INTREST_ACCOUNT+">" + mortgage.getIntrestAccount() + "</"+INTREST_ACCOUNT+">\n" +
                             "  <"+NRPAYED+">" + mortgage.getNrPayed() + "</"+NRPAYED+">\n" +
                             "  <"+TOTAL+">" + mortgage.getStartCapital() + "</"+TOTAL+">\n"
             )
             // TODO: until here
-            for(MortgageTransaction mortgageTransaction:mortgage.getBusinessObjects()){
+            for(MortgageTransaction mortgageTransaction:mortgage.businessObjects){
                 writer.write(
                         "  <"+MORTGAGE_TRANSACTION+">\n" +
                                 "    <"+RESTCAPITAL+">"+mortgageTransaction.getRestCapital()+"</"+RESTCAPITAL+">\n" +
@@ -134,7 +134,7 @@ class MortgageIO {
             writer.flush()
             writer.close()
         } catch (IOException ex) {
-            Logger.getLogger(Mortgage.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(Mortgage.class.name).log(Level.SEVERE, null, ex)
         }
     }
 }

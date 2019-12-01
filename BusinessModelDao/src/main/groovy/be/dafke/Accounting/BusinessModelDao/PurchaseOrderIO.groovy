@@ -16,24 +16,24 @@ import static be.dafke.Utils.Utils.parseInt
 
 class PurchaseOrderIO {
     static void readPurchaseOrders(Accounting accounting){
-        PurchaseOrders purchaseOrders = accounting.getPurchaseOrders()
-        Contacts contacts = accounting.getContacts()
-        Articles articles = accounting.getArticles()
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+PURCHASE_ORDERS + XML_EXTENSION)
+        PurchaseOrders purchaseOrders = accounting.purchaseOrders
+        Contacts contacts = accounting.contacts
+        Articles articles = accounting.articles
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+PURCHASE_ORDERS + XML_EXTENSION)
         Element rootElement = getRootElement(xmlFile, PURCHASE_ORDERS)
 
         for (Element orderElement : getChildren(rootElement, PURCHASE_ORDER)) {
             PurchaseOrder order = new PurchaseOrder()
 
             String idString = getValue(orderElement, ID)
-            order.setId(parseInt(idString))
+            order.id = parseInt(idString)
 
 //            String orderName = getValue(orderElement, NAME)
 //            order.setName(orderName)
 
             String supplierString = getValue(orderElement, SUPPLIER)
             Contact supplier = contacts.getBusinessObject(supplierString)
-            order.setSupplier(supplier)
+            order.supplier = supplier
 
             for (Element element : getChildren(orderElement, ARTICLE)) {
                 String name = getValue(element, NAME)
@@ -55,14 +55,14 @@ class PurchaseOrderIO {
                 order.addBusinessObject(orderItem)
             }
 
-            Transactions transactions = accounting.getTransactions()
+            Transactions transactions = accounting.transactions
             int purchaseTransactionId = parseInt(getValue(orderElement, PURCHASE_TRANSACTION))
             Transaction purchaseTransaction = transactions.getBusinessObject(purchaseTransactionId)
-            order.setPurchaseTransaction(purchaseTransaction)
+            order.purchaseTransaction = purchaseTransaction
 
             int paymentTransactionId = parseInt(getValue(orderElement, PAYMENT_TRANSACTION))
             Transaction paymentTransaction = transactions.getBusinessObject(paymentTransactionId)
-            order.setPaymentTransaction(paymentTransaction)
+            order.paymentTransaction = paymentTransaction
 
             try {
                 purchaseOrders.addBusinessObject(order)
@@ -73,33 +73,33 @@ class PurchaseOrderIO {
     }
 
     static void writePurchasesOrders(Accounting accounting) {
-        PurchaseOrders purchaseOrders = accounting.getPurchaseOrders()
-        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + PURCHASE_ORDERS + XML_EXTENSION)
+        PurchaseOrders purchaseOrders = accounting.purchaseOrders
+        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + PURCHASE_ORDERS + XML_EXTENSION)
         try {
             Writer writer = new FileWriter(file)
             writer.write(getXmlHeader(PURCHASE_ORDERS, 2))
-            for (PurchaseOrder order : purchaseOrders.getBusinessObjects()) {
+            for (PurchaseOrder order : purchaseOrders.businessObjects) {
                 writer.write(
                         "  <" + PURCHASE_ORDER + ">\n" +
-                                "    <" + ID + ">" + order.getId() + "</" + ID + ">\n" +
-                                "    <" + NAME + ">" + order.getName() + "</" + NAME + ">\n" +
-                                "    <" + SUPPLIER + ">" + order.getSupplier() + "</" + SUPPLIER + ">\n"
+                                "    <" + ID + ">" + order.id + "</" + ID + ">\n" +
+                                "    <" + NAME + ">" + order.name + "</" + NAME + ">\n" +
+                                "    <" + SUPPLIER + ">" + order.supplier + "</" + SUPPLIER + ">\n"
                 )
-                Transaction purchaseTransaction = order.getPurchaseTransaction()
+                Transaction purchaseTransaction = order.purchaseTransaction
                 if(purchaseTransaction!=null) {
-                    writer.write("    <" + PURCHASE_TRANSACTION + ">" + purchaseTransaction.getTransactionId() + "</" + PURCHASE_TRANSACTION + ">\n")
+                    writer.write("    <" + PURCHASE_TRANSACTION + ">" + purchaseTransaction.transactionId + "</" + PURCHASE_TRANSACTION + ">\n")
                 }
-                Transaction paymentTransaction = order.getPaymentTransaction()
+                Transaction paymentTransaction = order.paymentTransaction
                 if(paymentTransaction!=null) {
-                    writer.write("    <" + PAYMENT_TRANSACTION + ">" + paymentTransaction.getTransactionId() + "</" + PAYMENT_TRANSACTION + ">\n")
+                    writer.write("    <" + PAYMENT_TRANSACTION + ">" + paymentTransaction.transactionId + "</" + PAYMENT_TRANSACTION + ">\n")
                 }
 
-                for (OrderItem orderItem : order.getBusinessObjects()) {
-                    Article article = orderItem.getArticle()
+                for (OrderItem orderItem : order.businessObjects) {
+                    Article article = orderItem.article
                     writer.write(
                             "    <" + ARTICLE + ">\n" +
-                                    "      <" + NAME + ">" + article.getName() + "</" + NAME + ">\n" +
-                                    "      <" + NR_OF_ITEMS + ">" + orderItem.getNumberOfItems() + "</" + NR_OF_ITEMS + ">\n" +
+                                    "      <" + NAME + ">" + article.name + "</" + NAME + ">\n" +
+                                    "      <" + NR_OF_ITEMS + ">" + orderItem.numberOfItems + "</" + NR_OF_ITEMS + ">\n" +
                                     "      <" + PURCHASE_VAT_RATE + ">" + orderItem.getPurchaseVatRate() + "</" + PURCHASE_VAT_RATE + ">\n" +
                                     "      <" + PURCHASE_PRICE + ">" + orderItem.getPurchasePriceForUnit() + "</" + PURCHASE_PRICE + ">\n" +
                                     "    </" + ARTICLE + ">\n"
@@ -111,7 +111,7 @@ class PurchaseOrderIO {
             writer.flush()
             writer.close()
         } catch (IOException ex) {
-            Logger.getLogger(Accounts.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(Accounts.class.name).log(Level.SEVERE, null, ex)
         }
     }
 }

@@ -9,10 +9,10 @@ import javax.swing.*
 import java.awt.*
 
 class AllergenesViewPanel extends JPanel {
-    private final AllergenesViewDataTableModel allergenesDataTableModel
-    private final SelectableTable<Allergene> allergeneOverviewTable
-    private JTextArea descriptionField
-    private boolean multiSelection
+    final AllergenesViewDataTableModel allergenesDataTableModel
+    final SelectableTable<Allergene> allergeneOverviewTable
+    JTextArea descriptionField
+    boolean multiSelection
 
     AllergenesViewPanel(boolean multiSelection) {
         this.multiSelection = multiSelection
@@ -43,9 +43,9 @@ class AllergenesViewPanel extends JPanel {
 
         allergeneOverviewTable.setSelectionMode(multiSelection? ListSelectionModel.MULTIPLE_INTERVAL_SELECTION:ListSelectionModel.SINGLE_SELECTION)
 
-//        JButton add = new JButton("Add Allergene")
-//        add(add, BorderLayout.NORTH)
-//        add.addActionListener(e -> {
+//        JButton addButton = new JButton("Add Allergene")
+//        add(addButton, BorderLayout.NORTH)
+//        addButton.addActionListener(e -> {
 //            String name = JOptionPane.showInputDialog(this, getBundle("Accounting").getString("NAME_LABEL"))
 //            while (name != null && name.equals(""))
 //                name = JOptionPane.showInputDialog(this, getBundle("Accounting").getString("NAME_LABEL"))
@@ -89,15 +89,15 @@ class AllergenesViewPanel extends JPanel {
         }
     }
 
-    private void updateSelection() {
+    void updateSelection() {
         if (multiSelection) {
-            ArrayList<Allergene> selectedObjects = allergeneOverviewTable.getSelectedObjects()
+            ArrayList<Allergene> selectedObjects = allergeneOverviewTable.selectedObjects
             StringBuilder builder = new StringBuilder()
-            selectedObjects.forEach({ allergene -> builder.append(allergene.getDescription()).append('\n') })
+            selectedObjects.forEach({ allergene -> builder.append(allergene.description).append('\n') })
             descriptionField.setText(builder.toString())
         } else {
-            Allergene allergene = allergeneOverviewTable.getSelectedObject()
-            descriptionField.setText(allergene == null ? "" : allergene.getDescription())
+            Allergene allergene = allergeneOverviewTable.selectedObject
+            descriptionField.setText(allergene == null ? "" : allergene.description)
 //        descriptionField.setEditable(allergene!=null)
         }
     }

@@ -16,17 +16,17 @@ import java.awt.event.MouseListener
 import java.util.List
 
 class StatementTableFrame extends JFrame implements MouseListener {
-    private final JButton viewCounterParties, exportToJournal, readCoda, readCsv, saveToAccounting
-    private Statements statements
-    private CounterParties counterParties
-    private JTable tabel
-    private StatementDataModel dataModel
-    private Accounts accounts
-    private Journals journals
-    private static final HashMap<Statements, StatementTableFrame> statementsGuis = new HashMap<>()
-    private Accounting accounting
+    final JButton viewCounterParties, exportToJournal, readCoda, readCsv, saveToAccounting
+    Statements statements
+    CounterParties counterParties
+    JTable tabel
+    StatementDataModel dataModel
+    Accounts accounts
+    Journals journals
+    static final HashMap<Statements, StatementTableFrame> statementsGuis = new HashMap<>()
+    Accounting accounting
 
-    private StatementTableFrame(Statements statements, CounterParties counterParties) {
+    StatementTableFrame(Statements statements, CounterParties counterParties) {
         super("Statements")
         this.statements = statements
         this.counterParties = counterParties
@@ -42,7 +42,7 @@ class StatementTableFrame extends JFrame implements MouseListener {
 
         tabel.addMouseListener(this)
         viewCounterParties = new JButton("View Counterparties")
-        viewCounterParties.addActionListener({ e -> CounterPartyTableFrame.showStatements(statements, counterParties).setVisible(true) })
+        viewCounterParties.addActionListener({ e -> CounterPartyTableFrame.showStatements(statements, counterParties).visible = true })
         readCoda = new JButton("Read Coda file(s)")
         readCoda.addActionListener({ e -> readCodaFiles() })
         readCsv = new JButton("Read CSV file(s)")
@@ -55,7 +55,7 @@ class StatementTableFrame extends JFrame implements MouseListener {
         north.add(viewCounterParties)
         getContentPane().add(north, BorderLayout.NORTH)
         exportToJournal = new JButton("Export selected movements to a Journal")
-        // exportToJournal.setEnabled(false)
+        // exportToJournal.enabled = false
         exportToJournal.addActionListener({ e -> exportToJournal() })
 //		JPanel south = new JPanel()
         contentPanel.add(exportToJournal, BorderLayout.SOUTH)
@@ -74,7 +74,7 @@ class StatementTableFrame extends JFrame implements MouseListener {
         gui
     }
 
-    private void saveToAccounting() {
+    void saveToAccounting() {
         // TODO Auto-generated method stub
 
     }
@@ -84,7 +84,7 @@ class StatementTableFrame extends JFrame implements MouseListener {
         dataModel.fireTableDataChanged()
     }
 
-    private void readCsvFiles(){
+    void readCsvFiles(){
         JFileChooser chooser = new JFileChooser()
         chooser.setMultiSelectionEnabled(true)
         if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
@@ -95,7 +95,7 @@ class StatementTableFrame extends JFrame implements MouseListener {
         refresh()
     }
 
-    private void readCodaFiles() {
+    void readCodaFiles() {
         JFileChooser chooser = new JFileChooser()
         chooser.setMultiSelectionEnabled(true)
         if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
@@ -106,7 +106,7 @@ class StatementTableFrame extends JFrame implements MouseListener {
         refresh()
     }
 
-    private boolean checkAccountAndSelection(int[] rows) {
+    boolean checkAccountAndSelection(int[] rows) {
         if (rows.length == 0) {
             JOptionPane.showMessageDialog(this, "Select some lines first")
             false
@@ -114,7 +114,7 @@ class StatementTableFrame extends JFrame implements MouseListener {
         true
     }
 
-    private boolean checkCounterParties(int[] rows) {
+    boolean checkCounterParties(int[] rows) {
         // Step 1: check if each movement has a counterparty
         // ok, because transactioncode is used
         // TODO: not use transactioncodes as counterparty,
@@ -125,12 +125,12 @@ class StatementTableFrame extends JFrame implements MouseListener {
         for(int i : rows) {
             CounterParty counterParty = (CounterParty) tabel.getValueAt(i, 4)
             if (counterParty == null) {
-                list.add(statements.getBusinessObjects().get(i))
-            } else if (counterParty.getAccount() == null) {
+                list.add(statements.businessObjects.get(i))
+            } else if (counterParty.account == null) {
                 set.add(counterParty)
             }
         }
-        if (!list.isEmpty()) {
+        if (!list.empty) {
             System.err.println(list.size() + " movements have no counterparty:")
             StringBuilder builder = new StringBuilder(list.size() + " movements have no counterparty:")
             for(BusinessObject statement : list) {
@@ -141,10 +141,10 @@ class StatementTableFrame extends JFrame implements MouseListener {
             SearchOptions searchOptions = new SearchOptions()
             searchOptions.searchForCounterParty(null)
             GenericStatementTableFrame gui = new GenericStatementTableFrame(searchOptions, statements)
-            gui.setVisible(true)
+            gui.visible = true
             false
         }
-        if (!set.isEmpty()) {
+        if (!set.empty) {
             System.err.println(set.size() + " counterparties have no account:")
             StringBuilder builder = new StringBuilder(set.size() + " counterparties have no account:")
             for(CounterParty counterParty : set) {
@@ -152,23 +152,23 @@ class StatementTableFrame extends JFrame implements MouseListener {
                 builder.append("\n").append(counterParty)
             }
             JOptionPane.showMessageDialog(this, builder.toString())
-            CounterPartyTableFrame.showStatements(statements,counterParties).setVisible(true)
+            CounterPartyTableFrame.showStatements(statements,counterParties).visible = true
             false
         }
         true
     }
 
-    private void exportToJournal() {
+    void exportToJournal() {
         // TODO save movements (and counterparties) into accounting [or with different button]
-        int[] rows = tabel.getSelectedRows()
+        int[] rows = tabel.selectedRows
         if (checkAccountAndSelection(rows)) {
             if (checkCounterParties(rows)) {
-                Object[] accountList = accounts.getBusinessObjects().toArray()
+                Object[] accountList = accounts.businessObjects.toArray()
                 Account bankAccount = (Account) JOptionPane.showInputDialog(this, "Select Bank account",
                         "Select account", JOptionPane.INFORMATION_MESSAGE, null, accountList, null)
                 Journal journal
-                Object[] journalsList = journals.getBusinessObjects().toArray()
-                if (journals.getBusinessObjects().size() == 1) {
+                Object[] journalsList = journals.businessObjects.toArray()
+                if (journals.businessObjects.size() == 1) {
                     journal = (Journal) journalsList[0]
                 } else {
                     journal = (Journal) JOptionPane.showInputDialog(this, "Select Journal", "Select journal",
@@ -177,13 +177,13 @@ class StatementTableFrame extends JFrame implements MouseListener {
                 if (bankAccount != null && journal != null) {
                     for(int i : rows) {
                         BusinessObject counterParty = (BusinessObject) tabel.getValueAt(i, 4)
-                        Account account = ((CounterParty)counterParty).getAccount()
+                        Account account = ((CounterParty)counterParty).account
                         boolean debet = tabel.getValueAt(i, 2).equals("D")
                         if (account == null) {
-                            BusinessObject counterParty2 = counterParties.getBusinessObject(counterParty.getName())
+                            BusinessObject counterParty2 = counterParties.getBusinessObject(counterParty.name)
                             if (counterParty2 != null) {
                                 counterParty = counterParty2
-                                account = ((CounterParty)counterParty2).getAccount()
+                                account = ((CounterParty)counterParty2).account
                             }
                         }
                         while (account == null) {
@@ -193,29 +193,29 @@ class StatementTableFrame extends JFrame implements MouseListener {
                         }
                         BigDecimal amount = (BigDecimal) tabel.getValueAt(i, 3)
                         AccountingSession accountingSession = Session.getAccountingSession(accounting)
-                        Journal activeJournal = accountingSession.getActiveJournal()
-                        Transaction transaction = activeJournal.getCurrentTransaction()
+                        Journal activeJournal = accountingSession.activeJournal
+                        Transaction transaction = activeJournal.currentTransaction
                         Booking booking1 = new Booking(account, amount, debet)
                         Booking booking2 = new Booking(bankAccount, amount, !debet)
-                        transaction.addBusinessObject(booking1)
-                        transaction.addBusinessObject(booking2)
+                        transaction.addBusinessObject booking1
+                        transaction.addBusinessObject booking2
                         String cal = (String) tabel.getValueAt(i, 1)
-                        Calendar date = Utils.toCalendar(cal)
+                        Calendar date = Utils.toCalendar cal
                         transaction.setDate(date)
                         String description = (String) tabel.getValueAt(i, 6)
-                        transaction.setDescription(description)
-                        journal.addBusinessObject(transaction)
+                        transaction.description = description
+                        journal.addBusinessObject transaction
                         // use current journal, correct ?
-//						Accounting accounting = journal.getAccounting()
-                        Transactions transactions = accounting.getTransactions()
+//						Accounting accounting = journal.accounting
+                        Transactions transactions = accounting.transactions
                         transactions.setId(transaction)
-                        transactions.addBusinessObject(transaction)
+                        transactions.addBusinessObject transaction
 
                         transaction = new Transaction(date, "")
                         // take the same date as previous transaction
                         // leave the description empty
 
-                        activeJournal.setCurrentTransaction(transaction)
+                        activeJournal.currentTransaction = transaction
                     }
                 }
             }
@@ -231,15 +231,15 @@ class StatementTableFrame extends JFrame implements MouseListener {
             if (col == 4) {
                 CounterParty counterParty = (CounterParty) tabel.getValueAt(row, col)
                 if (counterParty == null) {
-                    CounterPartySelector sel = new CounterPartySelector((Statement)statements.getBusinessObjects().get(row), statements, counterParties)
-                    sel.setVisible(true)
+                    CounterPartySelector sel = new CounterPartySelector((Statement)statements.businessObjects.get(row), statements, counterParties)
+                    sel.visible = true
                     counterParty = sel.getSelection()
                 }
                 if (counterParty != null) {
-                    Statement statement = (Statement)statements.getBusinessObjects().get(row)
+                    Statement statement = (Statement)statements.businessObjects.get(row)
                     statement.setCounterParty(counterParty)
                     refresh()
-                    System.out.println(counterParty.getName())
+                    System.out.println(counterParty.name)
                     for(BankAccount account : counterParty.getBankAccounts().values()) {
                         System.out.println(account.getAccountNumber())
                         System.out.println(account.getBic())
@@ -247,20 +247,20 @@ class StatementTableFrame extends JFrame implements MouseListener {
                     }
                     SearchOptions searchOptions = new SearchOptions()
                     searchOptions.searchForCounterParty(counterParty)
-                    new GenericStatementTableFrame(searchOptions, statements).setVisible(true)
+                    new GenericStatementTableFrame(searchOptions, statements).visible = true
                     // parent.addChildFrame(refreshableTable)
                 }
             } else if (col == 5) {
                 String transactionCode = (String) tabel.getValueAt(row, 6)
                 SearchOptions searchOptions = new SearchOptions()
                 searchOptions.searchForTransactionCode(transactionCode)
-                new GenericStatementTableFrame(searchOptions, statements).setVisible(true)
+                new GenericStatementTableFrame(searchOptions, statements).visible = true
                 // parent.addChildFrame(refreshableTable)
             } else if (col == 6){
                 String communication = (String) tabel.getValueAt(row, 7)
                 SearchOptions searchOptions = new SearchOptions()
                 searchOptions.searchForCommunication(communication)
-                new GenericStatementTableFrame(searchOptions, statements).setVisible(true)
+                new GenericStatementTableFrame(searchOptions, statements).visible = true
                 // parent.addChildFrame(refreshableTable)
             }
         }
@@ -280,9 +280,9 @@ class StatementTableFrame extends JFrame implements MouseListener {
 
     void setAccounting(Accounting accounting) {
         this.accounting = accounting
-        counterParties = accounting.getCounterParties()
-        statements = accounting.getStatements()
-        accounts=accounting==null?null:accounting.getAccounts()
-        journals=accounting==null?null:accounting.getJournals()
+        counterParties = accounting.counterParties
+        statements = accounting.statements
+        accounts=accounting?accounting.accounts:null
+        journals=accounting?accounting.journals:null
     }
 }

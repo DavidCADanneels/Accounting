@@ -16,22 +16,22 @@ import static java.awt.BorderLayout.SOUTH
 import static java.util.ResourceBundle.getBundle
 
 class ContactsPanel extends JPanel implements ListSelectionListener {
-    private final Contacts contacts
-    private final Accounting accounting
+    final Contacts contacts
+    final Accounting accounting
 
-    private JTable table
-    private ContactsDataModel contactsDataModel
-    private JButton details
+    JTable table
+    ContactsDataModel contactsDataModel
+    JButton details
 
     ContactsPanel(Contact.ContactType contactType, Accounting accounting) {
         this.accounting = accounting
-        contacts = accounting.getContacts()
+        contacts = accounting.contacts
 
         JButton create = new JButton(getBundle("Contacts").getString("NEW_CONTACT"))
         create.addActionListener({ e ->
             NewContactDialog newContactDialog = new NewContactDialog(accounting)
             newContactDialog.setLocation(getLocationOnScreen())
-            newContactDialog.setVisible(true)
+            newContactDialog.visible = true
         })
 
         JButton createList = new JButton(getBundle("Contacts").getString("CUSTUMER_LISTING"))
@@ -44,10 +44,10 @@ class ContactsPanel extends JPanel implements ListSelectionListener {
                 Contact contact = contactsDataModel.getObject(selectedRow, 0)
                 NewContactDialog newContactDialog = new NewContactDialog(accounting)
                 newContactDialog.setContact(contact)
-                newContactDialog.setVisible(true)
+                newContactDialog.visible = true
             }
         })
-        details.setEnabled(false)
+        details.enabled = false
 
         JPanel south = new JPanel()
         south.add(create)
@@ -68,8 +68,8 @@ class ContactsPanel extends JPanel implements ListSelectionListener {
         add(south, SOUTH)
     }
 
-    private void createCustomerListing() {
-        Accounting accounting = contacts.getAccounting()
+    void createCustomerListing() {
+        Accounting accounting = contacts.accounting
         Contact companyContact = accounting.getCompanyContact()
         if (companyContact == null) {
             setCompanyContact(accounting)
@@ -88,9 +88,9 @@ class ContactsPanel extends JPanel implements ListSelectionListener {
     static void setCompanyContact(Accounting accounting){
         // TODO: replace companyContact by Contact of type 'OWN'
         ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(accounting, Contact.ContactType.ALL)
-        contactSelectorDialog.setVisible(true)
-        Contact companyContact = contactSelectorDialog.getSelection()
-        accounting.setCompanyContact(companyContact)
+        contactSelectorDialog.visible = true
+        Contact companyContact = contactSelectorDialog.selection
+        accounting.companyContact = companyContact
     }
 
     void fireTableUpdate(){
@@ -98,17 +98,17 @@ class ContactsPanel extends JPanel implements ListSelectionListener {
     }
 
     void setContacts(){
-        contactsDataModel.setContacts(contacts)
+        contactsDataModel.contacts = contacts
     }
 
     @Override
     void valueChanged(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting()) {
-            int[] rows = table.getSelectedRows()
+            int[] rows = table.selectedRows
             if (rows.length != 0) {
-                details.setEnabled(true)
+                details.enabled = true
             } else {
-                details.setEnabled(false)
+                details.enabled = false
             }
         }
     }

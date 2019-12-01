@@ -13,36 +13,36 @@ import static java.util.ResourceBundle.getBundle
  */
 
 class AccountDataTableModel extends SelectableTableModel<Account> {
-    private int ACCOUNT_COL
-    private int SALDO_COL
-    private int NUMBER_COL
-    private int NR_OF_COL
-    private boolean showNumbers = true
-    private boolean hideEmpty = false
-    private HashMap<Integer,String> columnNames = new HashMap<>()
-    private HashMap<Integer,Class> columnClasses = new HashMap<>()
+    int ACCOUNT_COL
+    int SALDO_COL
+    int NUMBER_COL
+    int NR_OF_COL
+    boolean showNumbers = true
+    boolean hideEmpty = false
+    HashMap<Integer,String> columnNames = new HashMap<>()
+    HashMap<Integer,Class> columnClasses = new HashMap<>()
 
-    private String namePrefix
-    private String numberPrefix
-    private Account account = null
-    private Accounts accounts
-    private JournalSession journalSession
-    private boolean left
-    private List<AccountType> accountTypes
-    private boolean singleAccount = false
+    String namePrefix
+    String numberPrefix
+    Account account = null
+    Accounts accounts
+    JournalSession journalSession
+    boolean left
+    List<AccountType> accountTypes
+    boolean singleAccount = false
 
     AccountDataTableModel(boolean left) {
         this.left = left
         initialize()
     }
 
-    private void initialize(){
+    void initialize(){
         setColumnNumbers()
         setColumnNames()
         setColumnClasses()
     }
 
-    private void setColumnNumbers() {
+    void setColumnNumbers() {
         if(showNumbers){
             NUMBER_COL = 0
             ACCOUNT_COL = 1
@@ -87,7 +87,7 @@ class AccountDataTableModel extends SelectableTableModel<Account> {
         fireTableStructureChanged()
     }
 
-    private void setColumnClasses() {
+    void setColumnClasses() {
         columnClasses.clear()
         if(showNumbers) {
             columnClasses.put(ACCOUNT_COL, Account.class)
@@ -99,7 +99,7 @@ class AccountDataTableModel extends SelectableTableModel<Account> {
         }
     }
 
-    private void setColumnNames() {
+    void setColumnNames() {
         columnNames.clear()
         if(showNumbers) {
             columnNames.put(ACCOUNT_COL, getBundle("Accounting").getString("ACCOUNT_NAME"))
@@ -114,20 +114,19 @@ class AccountDataTableModel extends SelectableTableModel<Account> {
 // ===============
     Object getValueAt(int row, int col) {
         Account account = getFilteredAccounts().get(row)
-        if (col == ACCOUNT_COL) {
-            return account
-        }
+        if (col == ACCOUNT_COL) return account
         if (col == NUMBER_COL) {
-            if(account==null) null
-            return account.getNumber()
+            if(account==null) return null
+            return account.number
         }
         if (col == SALDO_COL) {
             if(account==null) return null
-            if(account.getType().isInverted())
-                return account.getSaldo().negate()
-            else return account.getSaldo()
+            if(account.type.isInverted())
+                return account.saldo.negate()
+            else return account.saldo
             // TODO: use this isInverted() switch to call negate() in other places
         }
+        null
     }
 
     int getColumnCount() {
@@ -136,7 +135,7 @@ class AccountDataTableModel extends SelectableTableModel<Account> {
 
     int getRowCount() {
         if(accounts == null){
-            0
+            return 0
         }
         getFilteredAccounts().size()
     }
@@ -162,7 +161,7 @@ class AccountDataTableModel extends SelectableTableModel<Account> {
     void setValueAt(Object value, int row, int col) {
         if(col == NUMBER_COL){
             Account account = getObject(row,col)
-            account.setNumber((BigInteger)value)
+            account.number = (BigInteger)value
         }
     }
 
@@ -170,13 +169,13 @@ class AccountDataTableModel extends SelectableTableModel<Account> {
         this.accounts = accounts
     }
 
-    private List<Account> getFilteredAccounts(){
+    List<Account> getFilteredAccounts(){
         if (accounts == null) return []
         List<Account> accountsList
         if(accountTypes!=null) {
             accountsList = accounts.getAccountsByType(accountTypes)
         } else {
-            accountsList = accounts.getBusinessObjects()
+            accountsList = accounts.businessObjects
         }
         def filteredList = accountsList.stream()
                 .filter(Account.namePrefix(namePrefix))
@@ -200,8 +199,8 @@ class AccountDataTableModel extends SelectableTableModel<Account> {
         singleAccount = accountList.isSingleAccount()
         if(singleAccount){
             accountTypes = null
-            account = accountList.getAccount()
-//            filter = account==null?null:Account.name(accountList.getAccount().getName())
+            account = accountList.account
+//            filter = account==null?null:Account.name(accountList.account.name)
         } else if(journalSession!=null){
             if(left) {
                 accountTypes = journalSession.getCheckedTypesLeft()

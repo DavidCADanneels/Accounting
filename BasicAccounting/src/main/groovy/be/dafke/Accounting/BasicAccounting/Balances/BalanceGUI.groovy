@@ -7,11 +7,11 @@ import be.dafke.Accounting.BusinessModel.Balance
 import javax.swing.*
 
 class BalanceGUI extends JFrame {
-    private static HashMap<Balance,BalanceGUI> otherBalanceMap = new HashMap<>()
-    private final BalancePanel balancePanel
+    static HashMap<Balance,BalanceGUI> otherBalanceMap = new HashMap<>()
+    final BalancePanel balancePanel
 
-    private BalanceGUI(Accounting accounting, Balance balance) {
-        super(balance.getName())
+    BalanceGUI(Accounting accounting, Balance balance) {
+        super(balance.name)
         balancePanel = new BalancePanel(accounting, balance)
 //		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE)
         setContentPane(balancePanel)

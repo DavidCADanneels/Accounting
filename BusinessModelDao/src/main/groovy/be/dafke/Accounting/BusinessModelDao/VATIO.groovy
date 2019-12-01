@@ -15,8 +15,8 @@ import static be.dafke.Accounting.BusinessModelDao.XMLWriter.getXmlHeader
 class VATIO {
 
     static void readVATFields(Accounting accounting) {
-        VATFields vatFields = accounting.getVatFields()
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + VATFIELDS + XML_EXTENSION)
+        VATFields vatFields = accounting.vatFields
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + VATFIELDS + XML_EXTENSION)
         if (xmlFile.exists()) {
             Element rootElement = getRootElement(xmlFile, VATFIELDS)
             for (Element element : getChildren(rootElement, VATFIELD)) {
@@ -34,9 +34,9 @@ class VATIO {
     }
 
     static void readVATTransactions(Accounting accounting) {
-        VATTransactions vatTransactions = accounting.getVatTransactions()
-        Accounts accounts = accounting.getAccounts()
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + VATTRANSACTIONS + XML_EXTENSION)
+        VATTransactions vatTransactions = accounting.vatTransactions
+        Accounts accounts = accounting.accounts
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + VATTRANSACTIONS + XML_EXTENSION)
         if (xmlFile.exists()) {
             Element rootElement = getRootElement(xmlFile, VATTRANSACTIONS)
             String debitAccountString = getValue(rootElement, DEBIT_ACCOUNT)
@@ -60,16 +60,16 @@ class VATIO {
     }
 
     static void writeVATFields(Accounting accounting) {
-        VATFields vatFields = accounting.getVatFields()
-        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + VATFIELDS + XML_EXTENSION)
+        VATFields vatFields = accounting.vatFields
+        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + VATFIELDS + XML_EXTENSION)
         try {
             Writer writer = new FileWriter(file)
             writer.write(getXmlHeader(VATFIELDS, 2))
-            for (VATField vatField : vatFields.getBusinessObjects()) {
+            for (VATField vatField : vatFields.businessObjects) {
                 writer.write(
                         "  <" + VATFIELD + ">\n" +
-                                "    <" + NAME + ">" + vatField.getName() + "</" + NAME + ">\n" +
-                                "    <" + AMOUNT + ">" + vatField.getSaldo() + "</" + AMOUNT + ">\n" +
+                                "    <" + NAME + ">" + vatField.name + "</" + NAME + ">\n" +
+                                "    <" + AMOUNT + ">" + vatField.saldo + "</" + AMOUNT + ">\n" +
                                 "  </" + VATFIELD + ">\n"
                 )
             }
@@ -77,13 +77,13 @@ class VATIO {
             writer.flush()
             writer.close()
         } catch (IOException ex) {
-            Logger.getLogger(VATFields.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(VATFields.class.name).log(Level.SEVERE, null, ex)
         }
     }
 
     static void writeVATTransactions(Accounting accounting) {
-        VATTransactions vatTransactions = accounting.getVatTransactions()
-        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + VATTRANSACTIONS + XML_EXTENSION)
+        VATTransactions vatTransactions = accounting.vatTransactions
+        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + VATTRANSACTIONS + XML_EXTENSION)
         try {
             Writer writer = new FileWriter(file)
             writer.write(getXmlHeader(VATTRANSACTIONS, 2))
@@ -97,7 +97,7 @@ class VATIO {
             writer.flush()
             writer.close()
         } catch (IOException ex) {
-            Logger.getLogger(VATTransactions.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(VATTransactions.class.name).log(Level.SEVERE, null, ex)
         }
     }
 }

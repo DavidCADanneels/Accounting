@@ -9,10 +9,10 @@ import be.dafke.Accounting.BusinessModel.AccountsList
 import javax.swing.*
 
 class AccountsListSingleAccountSelectorPanel extends JPanel {
-    private JButton create
-    private JComboBox<Account> combo
-    private DefaultComboBoxModel<Account> model
-    private AccountsList accountsList
+    JButton create
+    JComboBox<Account> combo
+    DefaultComboBoxModel<Account> model
+    AccountsList accountsList
 
     AccountsListSingleAccountSelectorPanel(Accounts accounts, AccountTypes accountTypes) {
         model = new DefaultComboBoxModel<>()
@@ -20,16 +20,16 @@ class AccountsListSingleAccountSelectorPanel extends JPanel {
         combo.addActionListener({ e -> selectionChanged() })
         create = new JButton("Add account(s) ...")
         create.addActionListener({ e ->
-            NewAccountDialog newAccountDialog = new NewAccountDialog(accounts, accountTypes.getBusinessObjects())
+            NewAccountDialog newAccountDialog = new NewAccountDialog(accounts, accountTypes.businessObjects)
             newAccountDialog.setLocation(getLocationOnScreen())
-            newAccountDialog.setVisible(true)
+            newAccountDialog.visible = true
         })
         add(combo)
         add(create)
-        accounts.getBusinessObjects().stream().forEach({ account -> model.addElement(account) })
+        accounts.businessObjects.stream().forEach({ account -> model.addElement(account) })
     }
-    private void selectionChanged(){
-        Account account = (Account) combo.getSelectedItem()
+    void selectionChanged(){
+        Account account = (Account) combo.selectedItem
         if(accountsList!=null) accountsList.setAccount(account)
     }
 
@@ -39,13 +39,13 @@ class AccountsListSingleAccountSelectorPanel extends JPanel {
 
     @Override
     void setEnabled(boolean enabled){
-        combo.setEnabled(enabled)
-        create.setEnabled(enabled)
+        combo.enabled = enabled
+        create.enabled = enabled
     }
 
     void refresh() {
         boolean singleAccount = accountsList.isSingleAccount()
-        Account account = singleAccount?accountsList.getAccount():null
+        Account account = singleAccount?accountsList.account:null
         combo.setSelectedItem(account)
     }
 }

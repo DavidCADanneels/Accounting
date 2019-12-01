@@ -7,8 +7,8 @@ import javax.swing.*
 import java.awt.*
 
 class GenericStatementTableFrame extends JFrame {
-    private JTable tabel
-    private GenericStatementDataModel dataModel
+    JTable tabel
+    GenericStatementDataModel dataModel
 
     GenericStatementTableFrame(SearchOptions searchOptions,
                                       Statements statements) {

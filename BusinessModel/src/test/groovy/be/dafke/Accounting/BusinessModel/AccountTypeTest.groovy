@@ -20,25 +20,26 @@ class AccountTypeTest {
     @Test
     void numberOfAccountTypes() {
         AccountTypes accountTypes = new AccountTypes()
-        accountTypes.getBusinessObjects()
-        ArrayList<AccountType> businessObjects = accountTypes.getBusinessObjects()
+        accountTypes.businessObjects
+        ArrayList<AccountType> businessObjects = accountTypes.businessObjects
         assertEquals(0, businessObjects.size())
         accountTypes.addDefaultTypes()
-        businessObjects = accountTypes.getBusinessObjects()
+        businessObjects = accountTypes.businessObjects
         assertEquals(8, businessObjects.size())
     }
 
-    @Ignore
     @Test
     void accountTypesNames() {
         AccountTypes accountTypes = new AccountTypes()
-        accountTypes.getBusinessObjects()
-        ArrayList<AccountType> businessObjects = accountTypes.getBusinessObjects()
-        assertTrue(businessObjects.isEmpty())
+        accountTypes.businessObjects
+        ArrayList<AccountType> businessObjects = accountTypes.businessObjects
+        assertTrue(businessObjects.empty)
         accountTypes.addDefaultTypes()
-        businessObjects = accountTypes.getBusinessObjects()
+        businessObjects = accountTypes.businessObjects
         // make more performant
-        List<String> names = businessObjects.stream().map(BusinessObject.&toString).collect(Collectors.toList())
+        List<String> names = businessObjects.collect(Collectors.toList(), { AccountType accountType ->
+            accountType.name
+        })
         assertTrue(names.contains(AccountTypes.ASSET))
         assertTrue(names.contains(AccountTypes.COST))
         assertTrue(names.contains(AccountTypes.CREDIT))

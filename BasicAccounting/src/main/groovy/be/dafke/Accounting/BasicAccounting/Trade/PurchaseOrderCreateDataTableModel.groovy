@@ -9,10 +9,10 @@ import be.dafke.Accounting.BusinessModel.PurchaseOrder
 import java.util.function.Predicate
 
 class PurchaseOrderCreateDataTableModel extends PurchaseOrderViewDataTableModel {
-    private final Articles articles
-    private Contact contact
-    private Predicate<Article> filter
-    private TotalsPanel purchaseTotalsPanel
+    final Articles articles
+    Contact contact
+    Predicate<Article> filter
+    TotalsPanel purchaseTotalsPanel
 
     PurchaseOrderCreateDataTableModel(Articles articles, Contact contact, PurchaseOrder order, TotalsPanel purchaseTotalsPanel) {
         super()
@@ -49,9 +49,9 @@ class PurchaseOrderCreateDataTableModel extends PurchaseOrderViewDataTableModel 
     }
 
     int getRowCount() {
-        if(articles==null || contact==null || filter==null) 0
+        if(articles==null || contact==null || filter==null) return 0
         List<Article> businessObjects = articles.getBusinessObjects(filter)
-        if(businessObjects == null || businessObjects.size() == 0) 0
+        if(businessObjects == null || businessObjects.size() == 0) return 0
         businessObjects.size()
     }
 
@@ -61,13 +61,13 @@ class PurchaseOrderCreateDataTableModel extends PurchaseOrderViewDataTableModel 
         List<Article> articleList = articles.getBusinessObjects(filter)
         if(articleList == null || articleList.size() == 0) null
         Article article = articleList.get(row)
-        order.getBusinessObject(article.getName())
+        order.getBusinessObject(article.name)
     }
 
     void setContact(Contact contact) {
         this.contact = contact
         filter = Article.ofSupplier(contact)
-        order.setSupplier(contact)
+        order.supplier = contact
         fireTableDataChanged()
     }
 }

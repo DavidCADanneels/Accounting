@@ -11,15 +11,15 @@ import javax.swing.*
 import java.awt.*
 
 class MortgageTable extends JFrame {
-    private final JButton save
-    private final MortgageDataModel model
-    private final JTable tabel
-    private final BigDecimal startCapital
+    final JButton save
+    final MortgageDataModel model
+    final JTable tabel
+    final BigDecimal startCapital
 
-    private static int counter = 1
+    static int counter = 1
     protected final int nr
-    private Mortgage mortgage
-    private Mortgages mortgages
+    Mortgage mortgage
+    Mortgages mortgages
 
 
     MortgageTable(Mortgage mortgage, BigDecimal startCapital, Mortgages mortgages) {

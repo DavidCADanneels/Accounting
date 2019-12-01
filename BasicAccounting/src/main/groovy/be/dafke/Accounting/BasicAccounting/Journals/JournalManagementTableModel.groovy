@@ -18,10 +18,10 @@ class JournalManagementTableModel extends SelectableTableModel<Journal> {
     static final int ABBR_COL = 1
     static final int TYPE_COL = 2
     static final int NEXT_ID_COL = 3
-    private HashMap<Integer, String> columnNames = new HashMap<>()
-    private HashMap<Integer, Class> columnClasses = new HashMap<>()
-    private final Journals journals
-    private Component parent
+    HashMap<Integer, String> columnNames = new HashMap<>()
+    HashMap<Integer, Class> columnClasses = new HashMap<>()
+    final Journals journals
+    Component parent
 
     JournalManagementTableModel(Component parent, Journals journals) {
         this.parent = parent
@@ -30,14 +30,14 @@ class JournalManagementTableModel extends SelectableTableModel<Journal> {
         createColumnClasses()
     }
 
-    private void createColumnClasses() {
+    void createColumnClasses() {
         columnClasses.put(NAME_COL, String.class)
         columnClasses.put(ABBR_COL, String.class)
         columnClasses.put(TYPE_COL, String.class)
         columnClasses.put(NEXT_ID_COL, Integer.class)
     }
 
-    private void createColumnNames() {
+    void createColumnNames() {
         columnNames.put(NAME_COL, getBundle("Accounting").getString("NAME"))
         columnNames.put(ABBR_COL, getBundle("Accounting").getString("ABBR"))
         columnNames.put(TYPE_COL, getBundle("Accounting").getString("TYPE"))
@@ -49,20 +49,21 @@ class JournalManagementTableModel extends SelectableTableModel<Journal> {
     }
 
     int getRowCount() {
-        journals.getBusinessObjects().size()
+        journals.businessObjects.size()
     }
 
     Object getValueAt(int row, int col) {
-        Journal journal = journals.getBusinessObjects().get(row)
+        Journal journal = journals.businessObjects.get(row)
         if (col == NAME_COL) {
-            journal.getName()
+            return journal.name
         } else if (col == ABBR_COL) {
-            journal.getAbbreviation()
+            return journal.abbreviation
         } else if (col == TYPE_COL) {
-            journal.getType()
+            return journal.type
         } else if (col == NEXT_ID_COL) {
-            journal.getId()
-        } else null
+            return journal.id
+        }
+        null
     }
 
     @Override
@@ -84,9 +85,9 @@ class JournalManagementTableModel extends SelectableTableModel<Journal> {
     // ===============
     @Override
     void setValueAt(Object value, int row, int col) {
-        Journal journal = journals.getBusinessObjects().get(row)
+        Journal journal = journals.businessObjects.get(row)
         if (col == NAME_COL) {
-            String oldName = journal.getName()
+            String oldName = journal.name
             String newName = (String)value
             if(newName!=null && !oldName.trim().equals(newName.trim())) {
                 try {
@@ -99,7 +100,7 @@ class JournalManagementTableModel extends SelectableTableModel<Journal> {
                 }
             }
         } else if (col == ABBR_COL) {
-            String oldAbbreviation = journal.getAbbreviation()
+            String oldAbbreviation = journal.abbreviation
             String newAbbreviation = (String)value
             if(newAbbreviation!=null && !oldAbbreviation.trim().equals(newAbbreviation.trim())){
                 try {
@@ -112,13 +113,13 @@ class JournalManagementTableModel extends SelectableTableModel<Journal> {
             }
         } else if (col == TYPE_COL) {
             JournalType journalType = (JournalType)value
-            journal.setType(journalType)
-            Main.fireJournalTypeChanges(journal, journalType)
+            journal.type = journalType
+            Main.fireJournalTypeChanges journal, journalType
         }
     }
 
     @Override
     Journal getObject(int row, int col) {
-        journals.getBusinessObjects().get(row)
+        journals.businessObjects.get(row)
     }
 }

@@ -57,7 +57,7 @@ class XMLReader {
     static final String TRADE_ACCOUNTING = "TradeAccounting"
     static final String MORTGAGES_ACCOUNTING = "MortgagesAccounting"
 
-    private static Document getDocument(File xmlFile){
+    static Document getDocument(File xmlFile){
         try{
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance()
             //            documentBuilderFactory.setValidating(true)
@@ -98,31 +98,31 @@ class XMLReader {
             String name = getValue(element, NAME)
             Accounting accounting = new Accounting(name)
 
-            accounting.getAccountTypes().addDefaultTypes()
+            accounting.accountTypes.addDefaultTypes()
 
             String vatAccountingString = getValue(element, VAT_ACCOUNTING)
             boolean vatAccounting = Boolean.valueOf(vatAccountingString)
-            accounting.setVatAccounting(vatAccounting)
+            accounting.vatAccounting = vatAccounting
 
             String projectsAccountingString = getValue(element, PROJECTS_ACCOUNTING)
             boolean projectsAccounting = Boolean.valueOf(projectsAccountingString)
-            accounting.setProjectsAccounting(projectsAccounting)
+            accounting.projectsAccounting = projectsAccounting
 
             String contactsAccountingString = getValue(element, CONTACTS_ACCOUNTING)
             boolean contactsAccounting = Boolean.valueOf(contactsAccountingString)
-            accounting.setContactsAccounting(contactsAccounting)
+            accounting.contactsAccounting = contactsAccounting
 
             String tradeAccountingString = getValue(element, TRADE_ACCOUNTING)
             boolean tradeAccounting = Boolean.valueOf(tradeAccountingString)
-            accounting.setTradeAccounting(tradeAccounting)
+            accounting.tradeAccounting = tradeAccounting
 
             String mealsAccountingString = getValue(element, MEAL_ORDER_ACCOUNTING)
             boolean mealsAccounting = Boolean.valueOf(mealsAccountingString)
-            accounting.setMealsAccounting(mealsAccounting)
+            accounting.mealsAccounting = mealsAccounting
 
             String mortgagesAccountingString = getValue(element, MORTGAGES_ACCOUNTING)
             boolean mortgagesAccounting = Boolean.valueOf(mortgagesAccountingString)
-            accounting.setMortgagesAccounting(mortgagesAccounting)
+            accounting.mortgagesAccounting = mortgagesAccounting
 
             try {
                 accountings.addBusinessObject(accounting)
@@ -133,7 +133,7 @@ class XMLReader {
     }
 
     static void readSession() {
-        Accountings accountings = Session.getAccountings()
+        Accountings accountings = Session.accountings
         String homeDir = System.getProperty("user.home")
         File homeFolder = new File(homeDir)
         File subFolder = new File(homeFolder, ".Accounting")
@@ -144,14 +144,14 @@ class XMLReader {
         Element rootElement = getRootElement(xmlFile, SESSION)
         String value = getValue(rootElement, ACTIVE_ACCOUNTING)
         if (value != null) {
-            Session.setActiveAccounting(accountings.getBusinessObject(value))
+            Session.activeAccounting = accountings.getBusinessObject(value)
         }
 
         for (Element accountingElement : getChildren(rootElement, ACCOUNTING)) {
             String accountingName = getValue(accountingElement, NAME)
             String activeJournalName = getValue(accountingElement, ACTIVE_JOURNAL)
             Accounting accounting = accountings.getBusinessObject(accountingName)
-            Journals journals = accounting.getJournals()
+            Journals journals = accounting.journals
             Journal activeJournal = activeJournalName==null?null:journals.getBusinessObject(activeJournalName)
 //            accounting.setActiveJournal(activeJournal)
 
@@ -179,7 +179,7 @@ class XMLReader {
                     checkedTypesRight.addAll(Arrays.asList(checkedList))
                 }
 
-                AccountTypes accountTypes = accounting.getAccountTypes()
+                AccountTypes accountTypes = accounting.accountTypes
 
                 JournalSession journalSession = new JournalSession()
 
@@ -202,8 +202,8 @@ class XMLReader {
     static void readAccountingSkeleton(Accounting accounting) {
         readAccounts(accounting)
         readJournalTypes(accounting)
-        if (accounting.isVatAccounting()) {
-            accounting.getVatFields().addDefaultFields()
+        if (accounting.vatAccounting) {
+            accounting.vatFields.addDefaultFields()
             //            readVATFields(accounting)
             readVATTransactions(accounting)
         }
@@ -212,56 +212,56 @@ class XMLReader {
 
     static void readAccountingDetails(Accounting accounting) {
         // FIXME: ID must be updated to max of new accounting: no static int any longer !
-        if(!accounting.isRead()) {
+        if(!accounting.read) {
             readBalances(accounting)
             readTransactions(accounting)
-            readJournalsContent(accounting.getJournals(), accounting)
-            if (accounting.isMortgagesAccounting()) {
-                readMortgages(accounting)
+            readJournalsContent(accounting.journals, accounting)
+            if (accounting.mortgagesAccounting) {
+                readMortgages accounting
             }
-            if (accounting.isProjectsAccounting()) {
-                readProjects(accounting)
+            if (accounting.projectsAccounting) {
+                readProjects accounting
             }
-            if (accounting.isContactsAccounting()) {
-                readContacts(accounting)
+            if (accounting.contactsAccounting) {
+                readContacts accounting
             }
-            if (accounting.isTradeAccounting()) {
-                readStockSettings(accounting)
-                readAllergenes(accounting)
-                readIngredients(accounting)
-                readIngredientOrders(accounting)
-                readArticles(accounting)
-                readPurchaseOrders(accounting)
-                readSalesOrders(accounting)
-                readStockOrders(accounting)
-                readPromoOrders(accounting)
-                readStockTransactions(accounting)
+            if (accounting.tradeAccounting) {
+                readStockSettings accounting
+                readAllergenes accounting
+                readIngredients accounting
+                readIngredientOrders accounting
+                readArticles accounting
+                readPurchaseOrders accounting
+                readSalesOrders accounting
+                readStockOrders accounting
+                readPromoOrders accounting
+                readStockTransactions accounting
             }
-            if (accounting.isMealsAccounting()){
+            if (accounting.mealsAccounting){
 //                readIngredients(accounting)
                 readMeals(accounting)
                 readMealOrders(accounting)
             }
         }
-        accounting.setRead(true)
+        accounting.read = true
     }
 
     static String getValue(Element element, String tagName){
         NodeList nodeList = element.getElementsByTagName(tagName)
         if(nodeList.getLength()==0){
 //            System.err.println("The tag " + tagName + " is not present.")
-            null
+            return null
             // the tag is not present
         } else {
             nodeList = nodeList.item(0).getChildNodes()
             if(nodeList.getLength()==0){
 //                System.err.println("The tag " + tagName + " is empty.")
-                null
+                return null
                 // the tag is empty
             } else {
                 if(nodeList.item(0).getNodeValue().equals("null")){
 //                    System.err.println("The tag " + tagName + " equals \"null\"")
-                    null
+                    return null
                 }
                 nodeList.item(0).getNodeValue()
             }

@@ -21,18 +21,18 @@ class AccountingSettingsPanel extends JTabbedPane {
     static final int VAT_INDEX = 2
     static final int TRADE_INDEX = 3
     static final int MEALS_INDEX = 3 // or 4 if Trade is active
-    private JCheckBox vatAccounting
-    private JCheckBox tradeAccounting
-    private JCheckBox contacts
-    private JCheckBox projects
-    private JCheckBox meals
-    private JCheckBox mortgages
-    private Accounting accounting
-    private ContactsSettingsPanel contactsTab
-    private VATSettingsPanel vatTab
-    private TradeSettingsPanel tradeTab
-    private MealsSettingsPanel mealsTab
-    private AccountingCopyPanel copyPanel
+    JCheckBox vatAccounting
+    JCheckBox tradeAccounting
+    JCheckBox contacts
+    JCheckBox projects
+    JCheckBox meals
+    JCheckBox mortgages
+    Accounting accounting
+    ContactsSettingsPanel contactsTab
+    VATSettingsPanel vatTab
+    TradeSettingsPanel tradeTab
+    MealsSettingsPanel mealsTab
+    AccountingCopyPanel copyPanel
 
     AccountingSettingsPanel(Accounting accounting, AccountingCopyPanel copyPanel) {
         this.accounting = accounting
@@ -75,13 +75,13 @@ class AccountingSettingsPanel extends JTabbedPane {
         updateTradeSetting()
     }
 
-    private void updateContactSetting(){
-        boolean selected = contacts.isSelected()
-        contactsTab.setEnabled(selected)
+    void updateContactSetting(){
+        boolean selected = contacts.selected
+        contactsTab.enabled = selected
         if(!selected){
-            accounting.setCompanyContact(null)
+            accounting.companyContact = null
             setVatSelected(false)
-//            vatAccounting.setSelected(false)
+//            vatAccounting.selected = false
 //            updateVatSetting()
             int indexOfComponent = indexOfComponent(contactsTab)
             if(indexOfComponent!=-1) {
@@ -90,46 +90,46 @@ class AccountingSettingsPanel extends JTabbedPane {
         } else {
             insertTab("Contacts", null, contactsTab, "", CONTACTS_INDEX)
         }
-        accounting.setContactsAccounting(selected)
+        accounting.contactsAccounting = selected
         if(copyPanel!=null){
             copyPanel.enableCopyContacts()
         }
-        Main.fireAccountingTypeChanged(accounting)
+        Main.fireAccountingTypeChanged accounting
     }
 
-    private void updateVatSetting(){
-        boolean selected = vatAccounting.isSelected()
-        vatTab.setEnabled(selected)
+    void updateVatSetting(){
+        boolean selected = vatAccounting.selected
+        vatTab.enabled = selected
         if(selected) {
             setContactsSelected(true)
-//            contacts.setSelected(true)
+//            contacts.selected = true
 //            updateContactSetting()
             insertTab("VAT", null, vatTab, "", VAT_INDEX)
         } else {
             setTradeSelected(false)
-//            tradeAccounting.setSelected(false)
+//            tradeAccounting.selected = false
 //            updateTradeSetting()
             setMealsSelected(false)
-//            meals.setSelected(false)
+//            meals.selected = false
 //            updateMealsSetting()
             int indexOfComponent = indexOfComponent(vatTab)
             if(indexOfComponent!=-1) {
                 removeTabAt(indexOfComponent)
             }
         }
-        accounting.setVatAccounting(selected)
+        accounting.vatAccounting = selected
         if(copyPanel!=null){
             copyPanel.enableCopyVat()
         }
-        Main.fireAccountingTypeChanged(accounting)
+        Main.fireAccountingTypeChanged accounting
     }
 
-    private void updateTradeSetting(){
-        boolean selected = tradeAccounting.isSelected()
-        tradeTab.setEnabled(selected)
+    void updateTradeSetting(){
+        boolean selected = tradeAccounting.selected
+        tradeTab.enabled = selected
         if(selected){
             setVatSelected(true)
-//            vatAccounting.setSelected(true)
+//            vatAccounting.selected = true
 //            updateVatSetting()
             insertTab("Trade", null, tradeTab, "", TRADE_INDEX)
         } else {
@@ -138,25 +138,25 @@ class AccountingSettingsPanel extends JTabbedPane {
                 removeTabAt(indexOfComponent)
             }
         }
-        accounting.setTradeAccounting(selected)
+        accounting.tradeAccounting = selected
         if(copyPanel!=null){
             copyPanel.enableCopyTrade()
         }
-        Main.fireAccountingTypeChanged(accounting)
+        Main.fireAccountingTypeChanged accounting
     }
 
-    private void updateMealsSetting(){
-        boolean selected = meals.isSelected()
-        mealsTab.setEnabled(selected)
+    void updateMealsSetting(){
+        boolean selected = meals.selected
+        mealsTab.enabled = selected
         if(selected){
-            vatAccounting.setSelected(true)
+            vatAccounting.selected = true
             updateVatSetting()
             int index = MEALS_INDEX
-            if(tradeAccounting.isSelected()){
+            if(tradeAccounting.selected){
                 index++
             }
             // TODO: if tab for Mortgages is available, raise index as well
-//            if(mortgages.isSelected()){
+//            if(mortgages.selected){
 //                index++
 //            }
             insertTab("Meals", null, mealsTab, "", index)
@@ -166,24 +166,24 @@ class AccountingSettingsPanel extends JTabbedPane {
                 removeTabAt(indexOfComponent)
             }
         }
-        accounting.setMealsAccounting(selected)
+        accounting.mealsAccounting = selected
         if(copyPanel!=null){
             copyPanel.enableCopyMeals()
         }
-        Main.fireAccountingTypeChanged(accounting)
+        Main.fireAccountingTypeChanged accounting
     }
 
-    private void updateMortgageSetting(){
-        accounting.setMortgagesAccounting(mortgages.isSelected())
-        Main.fireAccountingTypeChanged(accounting)
+    void updateMortgageSetting(){
+        accounting.mortgagesAccounting = mortgages.selected
+        Main.fireAccountingTypeChanged accounting
     }
 
-    private void updateProjectSetting(){
-        accounting.setProjectsAccounting(projects.isSelected())
-        Main.fireAccountingTypeChanged(accounting)
+    void updateProjectSetting(){
+        accounting.projectsAccounting = projects.selected
+        Main.fireAccountingTypeChanged accounting
     }
 
-    private JComponent createCenterPanel(){
+    JComponent createCenterPanel(){
         JPanel panel = new JPanel()
 
         panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS))
@@ -194,12 +194,12 @@ class AccountingSettingsPanel extends JTabbedPane {
         tradeAccounting = new JCheckBox(TRADE)
         meals = new JCheckBox(MEALS)
 
-        projects.setSelected(accounting==null||accounting.isProjectsAccounting())
-        mortgages.setSelected(accounting==null||accounting.isMortgagesAccounting())
-        contacts.setSelected(accounting==null||accounting.isContactsAccounting())
-        vatAccounting.setSelected(accounting==null||accounting.isVatAccounting())
-        tradeAccounting.setSelected(accounting==null||accounting.isTradeAccounting())
-        meals.setSelected(accounting==null||accounting.isMealsAccounting())
+        projects.setSelected(accounting==null||accounting.projectsAccounting)
+        mortgages.setSelected(accounting==null||accounting.mortgagesAccounting)
+        contacts.setSelected(accounting==null||accounting.contactsAccounting)
+        vatAccounting.setSelected(accounting==null||accounting.vatAccounting)
+        tradeAccounting.setSelected(accounting==null||accounting.tradeAccounting)
+        meals.setSelected(accounting==null||accounting.mealsAccounting)
 
         projects.addActionListener({ e -> updateProjectSetting() })
         mortgages.addActionListener({ e -> updateMortgageSetting() })

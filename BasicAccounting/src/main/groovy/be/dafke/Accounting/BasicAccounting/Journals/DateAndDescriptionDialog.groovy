@@ -3,10 +3,10 @@ package be.dafke.Accounting.BasicAccounting.Journals
 import be.dafke.ComponentModel.RefreshableDialog
 
 class DateAndDescriptionDialog extends RefreshableDialog {
-    private final DateAndDescriptionPanel dateAndDescriptionPanel
-    private static DateAndDescriptionDialog dateAndDescriptionDialog= null
+    final DateAndDescriptionPanel dateAndDescriptionPanel
+    static DateAndDescriptionDialog dateAndDescriptionDialog= null
 
-    private DateAndDescriptionDialog() {
+    DateAndDescriptionDialog() {
         super("Enter Date and Description")
         dateAndDescriptionPanel = new DateAndDescriptionPanel()
         setContentPane(dateAndDescriptionPanel)
@@ -14,11 +14,11 @@ class DateAndDescriptionDialog extends RefreshableDialog {
     }
 
     Calendar getDate() {
-        dateAndDescriptionPanel.getDate()
+        dateAndDescriptionPanel.date
     }
 
     String getDescription() {
-        dateAndDescriptionPanel.getDescription()
+        dateAndDescriptionPanel.description
     }
 
     static DateAndDescriptionDialog getDateAndDescriptionDialog() {

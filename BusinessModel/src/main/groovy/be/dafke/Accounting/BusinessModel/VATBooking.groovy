@@ -3,9 +3,9 @@ package be.dafke.Accounting.BusinessModel
 import be.dafke.Accounting.ObjectModel.BusinessObject
 
 class VATBooking extends BusinessObject {
-    private VATField vatField
-    private VATMovement vatMovement
-    private VATTransaction vatTransaction
+    VATField vatField
+    VATMovement vatMovement
+    VATTransaction vatTransaction
 
     VATBooking(VATBooking booking) {
         this.vatField = booking.vatField

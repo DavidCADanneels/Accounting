@@ -26,16 +26,16 @@ import java.awt.Dimension
 import static java.util.ResourceBundle.getBundle
 
 class ArticlesPanel extends JPanel {
-    private final JButton add
-    private final SelectableTable<Article> table
-    private JComboBox<Contact> supplierComboBox
-    private JComboBox<Ingredient> ingredientComboBox
-    private Accounting accounting
-    private final ArticlesDataTableModel articlesDataTableModel
+    final JButton addButton
+    final SelectableTable<Article> table
+    JComboBox<Contact> supplierComboBox
+    JComboBox<Ingredient> ingredientComboBox
+    Accounting accounting
+    final ArticlesDataTableModel articlesDataTableModel
 
     ArticlesPanel(Accounting accounting) {
         this.accounting = accounting
-        Articles articles = accounting.getArticles()
+        Articles articles = accounting.articles
         articlesDataTableModel = new ArticlesDataTableModel(this, articles)
         table = new SelectableTable<>(articlesDataTableModel)
         table.setPreferredScrollableViewportSize(new Dimension(500, 200))
@@ -56,9 +56,9 @@ class ArticlesPanel extends JPanel {
         setLayout(new BorderLayout())
         add(scrollPane, BorderLayout.CENTER)
 
-        add = new JButton("Add Article")
-        add(add, BorderLayout.NORTH)
-        add.addActionListener({ e ->
+        addButton = new JButton("Add Article")
+        add(addButton, BorderLayout.NORTH)
+        addButton.addActionListener({ e ->
             String name = JOptionPane.showInputDialog(this, getBundle("Accounting").getString("NAME_LABEL"))
             while (name != null && name.equals(""))
                 name = JOptionPane.showInputDialog(this, getBundle("Accounting").getString("NAME_LABEL"))
@@ -79,15 +79,15 @@ class ArticlesPanel extends JPanel {
 
     void fireSupplierAddedOrRemoved() {
         supplierComboBox.removeAllItems()
-        Contacts contacts = accounting.getContacts()
-        contacts.getBusinessObjects(Contact.&isSupplier).forEach({ contact -> supplierComboBox.addItem(contact) })
+        Contacts contacts = accounting.contacts
+        contacts.getBusinessObjects{it.supplier}.forEach({ contact -> supplierComboBox.addItem(contact) })
     }
 
 
     void fireIngredientsAddedOrRemoved() {
         ingredientComboBox.removeAllItems()
-        Ingredients ingredients = accounting.getIngredients()
-        ingredients.getBusinessObjects().forEach({ ingredient -> ingredientComboBox.addItem(ingredient) })
+        Ingredients ingredients = accounting.ingredients
+        ingredients.businessObjects.forEach({ ingredient -> ingredientComboBox.addItem(ingredient) })
     }
 
     void fireTableUpdate(){

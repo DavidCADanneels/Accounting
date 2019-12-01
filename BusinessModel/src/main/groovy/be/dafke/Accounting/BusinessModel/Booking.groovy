@@ -6,24 +6,24 @@ import java.util.function.Predicate
 
 class Booking extends BusinessObject {
     static final String ID = "id"
-    private Account account
-    private Movement movement
-    private Transaction transaction
+    Account account
+    Movement movement
+    Transaction transaction
 
     static final String DEBIT = "debit"
     static final String CREDIT = "credit"
     static final String ACCOUNT = "Account"
-    private ArrayList<VATBooking> vatBookings = new ArrayList()
+    ArrayList<VATBooking> vatBookings = new ArrayList()
 
     Booking(Account account, BigDecimal amount, boolean debit, int id) {
         this.account = account
         movement = new Movement(amount, debit, id)
-        movement.setBooking(this)
+        movement.booking = this
     }
     Booking(Account account, BigDecimal amount, boolean debit) {
         this.account = account
         movement = new Movement(amount, debit)
-        movement.setBooking(this)
+        movement.booking = this
     }
 
     Booking(Booking booking) {
@@ -33,7 +33,7 @@ class Booking extends BusinessObject {
             VATBooking newVatBooking = new VATBooking(vatBooking)
             this.vatBookings.add(newVatBooking)
         })
-        movement.setBooking(this)
+        movement.booking = this
     }
 
     static Predicate<Booking> withAccount(Account account){
@@ -41,27 +41,27 @@ class Booking extends BusinessObject {
     }
 
     static Predicate<Booking> vatBooking(){
-        { booking -> !booking.vatBookings.isEmpty() }
+        { booking -> !booking.vatBookings.empty }
     }
 
     boolean isDebit(){
-        movement.isDebit()
+        movement.debit
     }
 
     boolean isCredit(){
-        !movement.isDebit()
+        !movement.debit
     }
 
     void setDebit(boolean debit){
-        movement.setDebit(debit)
+        movement.debit = debit
     }
 
     BigDecimal getAmount(){
-        movement.getAmount()
+        movement.amount
     }
 
     void setAmount(BigDecimal amount){
-        movement.setAmount(amount)
+        movement.amount = amount
     }
 
     Movement getMovement(){
@@ -69,7 +69,7 @@ class Booking extends BusinessObject {
     }
 
     Integer getId(){
-        movement.getId()
+        movement.id
     }
 
     @Override
@@ -106,19 +106,19 @@ class Booking extends BusinessObject {
     }
 
     String getVATBookingsString(){
-        if(vatBookings == null || vatBookings.isEmpty()){
+        if(vatBookings == null || vatBookings.empty){
             ""
         } else {
             StringBuffer buffer = new StringBuffer("(")
             for (VATBooking vatBooking:vatBookings) {
-                VATField vatField = vatBooking.getVatField()
+                VATField vatField = vatBooking.vatField
                 if(vatField != null){
-                    VATMovement vatMovement = vatBooking.getVatMovement()
+                    VATMovement vatMovement = vatBooking.vatMovement
                     if(vatMovement != null){
-                        BigDecimal amount = vatMovement.getAmount()
+                        BigDecimal amount = vatMovement.amount
                         boolean plus = amount.compareTo(BigDecimal.ZERO) >= 0
                         buffer.append(plus ? "+" : "-")
-                        buffer.append(vatField.getName())
+                        buffer.append(vatField.name)
                     }
                 }
             }
@@ -129,18 +129,18 @@ class Booking extends BusinessObject {
     }
 
     String getMergedVATBookingsString(){
-        if(vatBookings == null || vatBookings.isEmpty()){
+        if(vatBookings == null || vatBookings.empty){
             ""
         } else {
             StringBuffer buffer = new StringBuffer("(")
             ArrayList<String> vatFieldNames = new ArrayList()
             for (VATBooking vatBooking:vatBookings) {
-                VATField vatField = vatBooking.getVatField()
-                String vatFieldName = vatField.getName()
+                VATField vatField = vatBooking.vatField
+                String vatFieldName = vatField.name
                 if(!vatFieldNames.contains(vatFieldName)){
-                    VATMovement vatMovement = vatBooking.getVatMovement()
+                    VATMovement vatMovement = vatBooking.vatMovement
                     if(vatMovement != null){
-                        BigDecimal amount = vatMovement.getAmount()
+                        BigDecimal amount = vatMovement.amount
                         boolean plus = amount.compareTo(BigDecimal.ZERO) >= 0
                         buffer.append(plus ? "+" : "-")
                         buffer.append(vatFieldName)

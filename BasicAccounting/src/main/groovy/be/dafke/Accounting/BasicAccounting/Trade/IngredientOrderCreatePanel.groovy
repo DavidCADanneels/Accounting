@@ -21,15 +21,15 @@ import java.awt.BorderLayout
 import java.awt.Dimension
 
 class IngredientOrderCreatePanel extends JPanel {
-    private IngredientOrder ingredientOrder
-    private Ingredients ingredients
-    private Articles articles
-    private JComboBox<Article> comboBox
-    private final IngredientOrderCreateDataTableModel ingredientOrderCreateDataTableModel
+    IngredientOrder ingredientOrder
+    Ingredients ingredients
+    Articles articles
+    JComboBox<Article> comboBox
+    final IngredientOrderCreateDataTableModel ingredientOrderCreateDataTableModel
 
     IngredientOrderCreatePanel(Accounting accounting) {
-        this.ingredients = accounting.getIngredients()
-        articles = accounting.getArticles()
+        this.ingredients = accounting.ingredients
+        articles = accounting.articles
         ingredientOrder = new IngredientOrder()
         ingredientOrder.setIngredients(ingredients)
 
@@ -47,10 +47,10 @@ class IngredientOrderCreatePanel extends JPanel {
 
         JButton orderButton = new JButton("Add Ingredient Order")
         orderButton.addActionListener({ e ->
-            IngredientOrders ingredientOrders = accounting.getIngredientOrders()
+            IngredientOrders ingredientOrders = accounting.ingredientOrders
             try {
                 ingredientOrder.removeEmptyOrderItems()
-                IngredientOrder existing = ingredientOrders.getBusinessObject(ingredientOrder.getName())
+                IngredientOrder existing = ingredientOrders.getBusinessObject(ingredientOrder.name)
                 if (existing == null) {
                     ingredientOrders.addBusinessObject(ingredientOrder)
                 }
@@ -74,7 +74,7 @@ class IngredientOrderCreatePanel extends JPanel {
 
     void fireArticleAddedOrRemoved() {
         comboBox.removeAllItems()
-        articles.getBusinessObjects().forEach({ article -> comboBox.addItem(article) })
+        articles.businessObjects.forEach({ article -> comboBox.addItem(article) })
         ingredientOrderCreateDataTableModel.fireTableDataChanged()
     }
 

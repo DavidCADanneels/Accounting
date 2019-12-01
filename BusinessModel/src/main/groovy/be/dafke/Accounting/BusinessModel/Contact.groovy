@@ -3,25 +3,25 @@ package be.dafke.Accounting.BusinessModel
 import be.dafke.Accounting.ObjectModel.BusinessObject
 
 class Contact extends BusinessObject{
-    private String streetAndNumber = ""
-    private String vatNumber = ""
-    private String postalCode = ""
-    private String city = ""
-    private String countryCode = ""
-    private String email = ""
-    private String phone = ""
-    private String officialName = ""
-    private BigDecimal turnOver = BigDecimal.ZERO
-    private BigDecimal VATTotal = BigDecimal.ZERO
-    private Account customerAccount = null
-    private Account supplierAccount = null
+    String streetAndNumber = ""
+    String vatNumber = ""
+    String postalCode = ""
+    String city = ""
+    String countryCode = ""
+    String email = ""
+    String phone = ""
+    String officialName = ""
+    BigDecimal turnOver = BigDecimal.ZERO
+    BigDecimal VATTotal = BigDecimal.ZERO
+    Account customerAccount = null
+    Account supplierAccount = null
 
     Contact() {
 
     }
 
     Contact(Contact contact, Accounts accounts) {
-        setName(contact.getName())
+        setName(contact.name)
         vatNumber = contact.vatNumber
         postalCode = contact.postalCode
         city = contact.city
@@ -29,14 +29,14 @@ class Contact extends BusinessObject{
         email = contact.email
         phone = contact.phone
         officialName = contact.officialName
-        Account otherCustomerAccount = contact.getCustomerAccount()
+        Account otherCustomerAccount = contact.customerAccount
         if(otherCustomerAccount!=null){
-            String accountName = otherCustomerAccount.getName()
+            String accountName = otherCustomerAccount.name
             customerAccount = accounts.getBusinessObject(accountName)
         }
-        Account otherSupplierAccount = contact.getSupplierAccount()
+        Account otherSupplierAccount = contact.supplierAccount
         if(otherSupplierAccount!=null){
-            String accountName = otherSupplierAccount.getName()
+            String accountName = otherSupplierAccount.name
             supplierAccount = accounts.getBusinessObject(accountName)
         }
     }
@@ -53,86 +53,7 @@ class Contact extends BusinessObject{
     boolean isCustomer() {
         customerAccount!=null
     }
-
-    String getStreetAndNumber() {
-        streetAndNumber
-    }
-
-    void setStreetAndNumber(String streetAndNumber) {
-        this.streetAndNumber = streetAndNumber
-    }
-
-    void setPostalCode(String postalCode) {
-        this.postalCode = postalCode
-    }
-
-    void setCity(String city) {
-        this.city = city
-    }
-
-    void setCountryCode(String countryCode) {
-        this.countryCode = countryCode
-    }
-
-    void setEmail(String email) {
-        this.email = email
-    }
-
-    void setPhone(String phone) {
-        this.phone = phone
-    }
-
-    String getVatNumber() {
-        vatNumber
-    }
-
-    void setVatNumber(String vatNumber) {
-        this.vatNumber = vatNumber
-    }
-
-    String getOfficialName() {
-        officialName
-    }
-
-    void setOfficialName(String officialName) {
-        this.officialName = officialName
-    }
-
-    String getPostalCode() {
-        postalCode
-    }
-
-    String getCity() {
-        city
-    }
-
-    String getCountryCode() {
-        countryCode
-    }
-
-    String getEmail() {
-        email
-    }
-
-    String getPhone() {
-        phone
-    }
-
-    BigDecimal getTurnOver() {
-        turnOver
-    }
-
-    BigDecimal getVATTotal() {
-        VATTotal
-    }
-
-    Account getCustomerAccount() {
-        customerAccount
-    }
-
-    Account getSupplierAccount() {
-        supplierAccount
-    }
+    
 
     void increaseTurnOver(BigDecimal amount){
         turnOver = turnOver.add(amount)

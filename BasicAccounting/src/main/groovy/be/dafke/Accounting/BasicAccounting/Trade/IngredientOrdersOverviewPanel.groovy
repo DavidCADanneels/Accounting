@@ -15,14 +15,14 @@ import java.awt.Dimension
 
 class IngredientOrdersOverviewPanel extends JPanel {
 
-    private Accounting accounting
-    private JButton addIngredient
+    Accounting accounting
+    JButton addIngredient
 
-    private final IngredientOrderViewDataTableModel detailsTableModel
-    private final SelectableTable<IngredientOrderItem> detailsTable
+    final IngredientOrderViewDataTableModel detailsTableModel
+    final SelectableTable<IngredientOrderItem> detailsTable
 
-    private final IngredientOrdersOverviewDataTableModel overviewTableModel
-    private final SelectableTable<IngredientOrder> overviewTable
+    final IngredientOrdersOverviewDataTableModel overviewTableModel
+    final SelectableTable<IngredientOrder> overviewTable
 
     IngredientOrdersOverviewPanel() {
         setLayout(new BorderLayout())
@@ -55,25 +55,25 @@ class IngredientOrdersOverviewPanel extends JPanel {
         add(addIngredient, BorderLayout.NORTH)
         addIngredient.addActionListener({ e ->
             IngredientOrderCreateGUI ingredientOrderCreateGUI = IngredientOrderCreateGUI.showIngredientsOrderCreateGUI(accounting)
-            ingredientOrderCreateGUI.setVisible(true)
+            ingredientOrderCreateGUI.visible = true
         })
     }
 
     void setAccounting(Accounting accounting) {
         this.accounting = accounting
-        overviewTableModel.setAccounting(accounting)
-//        detailsTableModel.setAccounting(accounting)
+        overviewTableModel.accounting = accounting
+//        detailsTableModel.accounting = accounting
 //        overviewTableModel.fireTableDataChanged()
     }
 
 
-    private void updateSelection() {
+    void updateSelection() {
 //        if(multiSelection) {
-//            ArrayList<IngredientOrder> selectedObjects = overviewTable.getSelectedObjects()
+//            ArrayList<IngredientOrder> selectedObjects = overviewTable.selectedObjects
 //            IngredientOrder combinedOrder = IngredientOrders.mergeOrders(selectedObjects)
 //            detailsTableModel.setOrder(combinedOrder)
 //        } else {
-        IngredientOrder ingredientOrder = overviewTable.getSelectedObject()
+        IngredientOrder ingredientOrder = overviewTable.selectedObject
         detailsTableModel.setOrder(ingredientOrder)
 //        }
     }

@@ -6,13 +6,13 @@ import be.dafke.Utils.Utils
 import javax.swing.table.AbstractTableModel
 
 class GenericStatementDataModel extends AbstractTableModel {
-    private final String[] columnNames = [ "Name", "Date", "D/C", "Amount", "Old CounterParty",
+    final String[] columnNames = [ "Name", "Date", "D/C", "Amount", "Old CounterParty",
         "New CounterParty", "TransactionCode", "Communication" ]
-    private final Class[] columnClasses = [ String.class, Calendar.class, String.class, BigDecimal.class,
+    final Class[] columnClasses = [ String.class, Calendar.class, String.class, BigDecimal.class,
         CounterParty.class, TmpCounterParty.class, String.class, String.class ]
-    private Statement singleStatement
-    private SearchOptions searchOptions
-    private Statements statements
+    Statement singleStatement
+    SearchOptions searchOptions
+    Statements statements
 
     GenericStatementDataModel(SearchOptions searchOptions, Statements statements) {
         this.statements = statements
@@ -28,23 +28,15 @@ class GenericStatementDataModel extends AbstractTableModel {
     // ===============
     Object getValueAt(int row, int col) {
         Statement m = getAllStatements().get(row)
-        if (col == 0) {
-            m.getName()
-        } else if (col == 1) {
-            Utils.toString(m.getDate())
-        } else if (col == 2) {
-            (m.isDebit()) ? "D" : "C"
-        } else if (col == 3) {
-            m.getAmount()
-        } else if (col == 4) {
-            m.getCounterParty()
-        } else if (col == 5) {
-            m.getTmpCounterParty()
-        } else if (col == 6) {
-            m.getTransactionCode()
-        } else if (col == 7) {
-            m.getCommunication()
-        } else ""
+        if (col == 0) return m.name
+        if (col == 1) return Utils.toString(m.date)
+        if (col == 2) return (m.debit) ? "D" : "C"
+        if (col == 3) return m.amount
+        if (col == 4) return m.getCounterParty()
+        if (col == 5) return m.getTmpCounterParty()
+        if (col == 6) return m.getTransactionCode()
+        if (col == 7) return m.getCommunication()
+        return  ""
     }
 
     int getColumnCount() {
@@ -52,7 +44,7 @@ class GenericStatementDataModel extends AbstractTableModel {
     }
 
     int getRowCount() {
-        getAllStatements().size()
+        allStatements.size()
     }
 
     @Override

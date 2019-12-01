@@ -9,27 +9,27 @@ import javax.swing.*
 import static java.util.ResourceBundle.getBundle
 
 class CodaMenu extends JMenu {
-    private JMenuItem movementsItem, counterPartiesItem
-    private CounterParties counterParties
-    private Statements statements
+    JMenuItem movementsItem, counterPartiesItem
+    CounterParties counterParties
+    Statements statements
 
     CodaMenu(){
         super(getBundle("Accounting").getString("CODA"))
         movementsItem = new JMenuItem("Show movements")
-        movementsItem.addActionListener({ e -> StatementTableFrame.showStatements(statements, counterParties).setVisible(true) })
-        movementsItem.setEnabled(false)
+        movementsItem.addActionListener({ e -> StatementTableFrame.showStatements(statements, counterParties).visible = true })
+        movementsItem.enabled = false
         counterPartiesItem = new JMenuItem("Show Counterparties")
-        counterPartiesItem.addActionListener({ e -> StatementTableFrame.showStatements(statements, counterParties).setVisible(true) })
-        counterPartiesItem.setEnabled(false)
+        counterPartiesItem.addActionListener({ e -> StatementTableFrame.showStatements(statements, counterParties).visible = true })
+        counterPartiesItem.enabled = false
 
         add(movementsItem)
         add(counterPartiesItem)
     }
 
     void setAccounting(Accounting accounting) {
-        counterParties = accounting==null?null:accounting.getCounterParties()
-        statements = accounting==null?null:accounting.getStatements()
-        counterPartiesItem.setEnabled(counterParties!=null)
-        movementsItem.setEnabled(statements!=null)
+        counterParties = accounting?accounting.counterParties:null
+        statements = accounting?accounting.statements:null
+        counterPartiesItem.enabled  =counterParties!=null
+        movementsItem.enabled = statements!=null
     }
 }

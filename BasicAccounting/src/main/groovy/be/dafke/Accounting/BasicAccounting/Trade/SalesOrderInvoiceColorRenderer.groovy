@@ -16,7 +16,7 @@ class SalesOrderInvoiceColorRenderer extends DefaultTableCellRenderer {
         if(isSelected){
             cell.setBackground(Color.CYAN)
         } else if (salesOrder != null) {
-            if (salesOrder.isInvoice()) {
+            if (salesOrder.invoice) {
                 cell.setBackground(Color.GREEN)
             } else {
                 cell.setBackground(Color.WHITE)

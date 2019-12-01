@@ -131,7 +131,7 @@ class BusinessCollection <V extends BusinessObject> extends BusinessObject {
      * @throws be.dafke.Accounting.ObjectModel.Exceptions.NotEmptyException if the value is not deletable
      */
     void removeBusinessObject(V value) throws NotEmptyException {
-        if(value.isDeletable()){
+        if(value.deletable){
             removeBusinessObject(value.getUniqueProperties())
         } else {
             throw new NotEmptyException()

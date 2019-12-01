@@ -8,14 +8,14 @@ import javax.swing.*
 import static java.util.ResourceBundle.getBundle
 
 class PromoOrdersOverviewGUI extends JFrame {
-    private final PromoOrdersOverviewPanel ordersOverViewPanel
+    final PromoOrdersOverviewPanel ordersOverViewPanel
 
-    private static HashMap<Accounting,PromoOrdersOverviewGUI> promoOrdersOverviewGuiMap = new HashMap<>()
+    static HashMap<Accounting,PromoOrdersOverviewGUI> promoOrdersOverviewGuiMap = new HashMap<>()
 
-    private PromoOrdersOverviewGUI(Accounting accounting) {
+    PromoOrdersOverviewGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("PR_OVERVIEW"))
         ordersOverViewPanel = new PromoOrdersOverviewPanel()
-        ordersOverViewPanel.setAccounting(accounting)
+        ordersOverViewPanel.accounting = accounting
         setContentPane(ordersOverViewPanel)
         pack()
     }
@@ -37,7 +37,7 @@ class PromoOrdersOverviewGUI extends JFrame {
         }
     }
 
-    private void firePromoOrderAddedOrRemoved() {
+    void firePromoOrderAddedOrRemoved() {
         ordersOverViewPanel.firePromoOrderAddedOrRemoved()
     }
 }

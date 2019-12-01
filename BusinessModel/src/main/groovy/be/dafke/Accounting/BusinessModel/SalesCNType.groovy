@@ -3,9 +3,9 @@ package be.dafke.Accounting.BusinessModel
 enum SalesCNType {
     VAT_49 ("CN on Sales", "49")
 
-    private final String message
-    private final VATField revenueCnField
-    private static final VATField vatCnField = new VATField("64")
+    final String message
+    final VATField revenueCnField
+    static final VATField vatCnField = new VATField("64")
 
     SalesCNType(String message, String nr) {
         this.message = message

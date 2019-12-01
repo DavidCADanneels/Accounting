@@ -4,8 +4,8 @@ import be.dafke.Accounting.BusinessModel.Journal
 
 class AccountingSession {
 
-    private Journal activeJournal
-    private HashMap<Journal, JournalSession> journalSessions = new HashMap<>()
+    Journal activeJournal
+    HashMap<Journal, JournalSession> journalSessions = new HashMap<>()
 
     Journal getActiveJournal() {
         activeJournal

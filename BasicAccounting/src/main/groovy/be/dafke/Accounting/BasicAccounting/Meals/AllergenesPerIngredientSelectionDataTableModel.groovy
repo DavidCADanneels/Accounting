@@ -8,14 +8,14 @@ import be.dafke.ComponentModel.SelectableTableModel
 import static java.util.ResourceBundle.getBundle 
 
 class AllergenesPerIngredientSelectionDataTableModel extends SelectableTableModel<Allergene> {
-    private Allergenes allergenes
-    private Ingredient ingredient
+    Allergenes allergenes
+    Ingredient ingredient
     static int CHECKED_COL = 0
     static int NAME_COL = 1
     static int DESC_COL = 2
     static int NR_OF_COL = 3
-    private HashMap<Integer,String> columnNames = new HashMap<>()
-    private HashMap<Integer,Class> columnClasses = new HashMap<>()
+    HashMap<Integer,String> columnNames = new HashMap<>()
+    HashMap<Integer,Class> columnClasses = new HashMap<>()
 
     AllergenesPerIngredientSelectionDataTableModel(Ingredient ingredient, Allergenes allergenes){
         this.allergenes = allergenes
@@ -24,13 +24,13 @@ class AllergenesPerIngredientSelectionDataTableModel extends SelectableTableMode
         setColumnClasses()
     }
 
-    private void setColumnClasses() {
+    void setColumnClasses() {
         columnClasses.put(CHECKED_COL, Boolean.class)
         columnClasses.put(NAME_COL, String.class)
         columnClasses.put(DESC_COL, String.class)
     }
 
-    private void setColumnNames() {
+    void setColumnNames() {
         columnNames.put(CHECKED_COL, getBundle("Accounting").getString("ALLERGENES_CHECKED"))
         columnNames.put(NAME_COL, getBundle("Accounting").getString("ALLERGENES_NAME"))
         columnNames.put(DESC_COL, getBundle("Accounting").getString("ALLERGENES_DESC"))
@@ -39,16 +39,10 @@ class AllergenesPerIngredientSelectionDataTableModel extends SelectableTableMode
 // ===============
     Object getValueAt(int row, int col) {
         Allergene allergene = getObject(row, col)
-        if(allergene==null) null
-        if (col == CHECKED_COL) {
-            ingredient.getAllergenes().getBusinessObjects().contains(allergene)
-        }
-        if (col == NAME_COL) {
-            allergene.getShortName()
-        }
-        if (col == DESC_COL) {
-            allergene.getDescription()
-        }
+        if(allergene==null) return null
+        if (col == CHECKED_COL) return ingredient.allergenes.businessObjects.contains(allergene)
+        if (col == NAME_COL) return allergene.shortName
+        if (col == DESC_COL) return allergene.description
         null
     }
 
@@ -57,10 +51,7 @@ class AllergenesPerIngredientSelectionDataTableModel extends SelectableTableMode
     }
 
     int getRowCount() {
-        if(allergenes == null){
-            0
-        }
-        allergenes.getBusinessObjects().size()
+        allergenes?allergenes.businessObjects.size():0
     }
 
     @Override
@@ -96,6 +87,6 @@ class AllergenesPerIngredientSelectionDataTableModel extends SelectableTableMode
 
     @Override
     Allergene getObject(int row, int col) {
-        allergenes.getBusinessObjects().get(row)
+        allergenes.businessObjects.get(row)
     }
 }

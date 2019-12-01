@@ -15,13 +15,13 @@ import static be.dafke.Accounting.BusinessModelDao.XMLWriter.getXmlHeader
 
 class MealOrderIO {
     static void readMealOrders(Accounting accounting){
-        Accounts accounts = accounting.getAccounts()
-        Journals journals = accounting.getJournals()
+        Accounts accounts = accounting.accounts
+        Journals journals = accounting.journals
 
-        MealOrders mealOrders = accounting.getMealOrders()
-        Meals meals = accounting.getMeals()
+        MealOrders mealOrders = accounting.mealOrders
+        Meals meals = accounting.meals
 
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+MEAL_ORDERS + XML_EXTENSION)
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+MEAL_ORDERS + XML_EXTENSION)
         if(xmlFile.exists()) {
             Element rootElement = getRootElement(xmlFile, MEAL_ORDERS)
             String mealOrderServiceJournalString = getValue(rootElement, MEAL_ORDER_SERVICE_JOURNAL)
@@ -79,36 +79,36 @@ class MealOrderIO {
     }
 
     static void writeMealOrders(Accounting accounting) {
-        MealOrders mealOrders = accounting.getMealOrders()
-        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + MEAL_ORDERS + XML_EXTENSION)
+        MealOrders mealOrders = accounting.mealOrders
+        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + MEAL_ORDERS + XML_EXTENSION)
         try {
             Writer writer = new FileWriter(file)
             writer.write(getXmlHeader(MEAL_ORDERS, 2))
             Journal mealOrderSalesJournal = mealOrders.getMealOrderSalesJournal()
             Journal mealOrderServiceJournal = mealOrders.getMealOrderServiceJournal()
             writer.write(
-                    "  <" + MEAL_ORDER_SALES_JOURNAL + ">" + (mealOrderSalesJournal == null ? "null" : mealOrderSalesJournal.getName()) + "</" + MEAL_ORDER_SALES_JOURNAL + ">\n" +
-                            "  <" + MEAL_ORDER_SERVICE_JOURNAL + ">" + (mealOrderServiceJournal == null ? "null" : mealOrderServiceJournal.getName()) + "</" + MEAL_ORDER_SERVICE_JOURNAL + ">\n" +
+                    "  <" + MEAL_ORDER_SALES_JOURNAL + ">" + (mealOrderSalesJournal == null ? "null" : mealOrderSalesJournal.name) + "</" + MEAL_ORDER_SALES_JOURNAL + ">\n" +
+                            "  <" + MEAL_ORDER_SERVICE_JOURNAL + ">" + (mealOrderServiceJournal == null ? "null" : mealOrderServiceJournal.name) + "</" + MEAL_ORDER_SERVICE_JOURNAL + ">\n" +
                             "  <" + MEAL_ORDER_SERVICE_ACCOUNT + ">" + mealOrders.getMealOrderServiceAccount() + "</" + MEAL_ORDER_SERVICE_ACCOUNT + ">\n" +
                             "  <" + MEAL_ORDER_REVENUE_ACCOUNT + ">" + mealOrders.getMealOrderRevenueAccount() + "</" + MEAL_ORDER_REVENUE_ACCOUNT + ">\n" +
                             "  <" + MEAL_ORDER_BALANCE_ACCOUNT + ">" + mealOrders.getMealOrderBalanceAccount() + "</" + MEAL_ORDER_BALANCE_ACCOUNT + ">\n"
             )
-            for (MealOrder order : mealOrders.getBusinessObjects()) {
+            for (MealOrder order : mealOrders.businessObjects) {
                 writer.write(
                         "  <" + MEAL_ORDER + ">\n" +
-                                "    <" + DATE + ">" + Utils.toString(order.getDate()) + "</" + DATE + ">\n" +
-                                "    <" + DESCRIPTION + ">" + order.getDescription() + "</" + DESCRIPTION + ">\n" +
-                                "    <" + NAME + ">" + order.getName() + "</" + NAME + ">\n" +
-                                "    <" + ID + ">" + order.getId() + "</" + ID + ">\n" +
+                                "    <" + DATE + ">" + Utils.toString(order.date) + "</" + DATE + ">\n" +
+                                "    <" + DESCRIPTION + ">" + order.description + "</" + DESCRIPTION + ">\n" +
+                                "    <" + NAME + ">" + order.name + "</" + NAME + ">\n" +
+                                "    <" + ID + ">" + order.id + "</" + ID + ">\n" +
                                 "    <" + TOTAL_PRICE + ">" + order.getTotalPrice() + "</" + TOTAL_PRICE + ">\n"
                 )
-                for (MealOrderItem orderItem : order.getBusinessObjects()) {
+                for (MealOrderItem orderItem : order.businessObjects) {
                     Meal meal = orderItem.getMeal()
 
                     writer.write(
                             "    <" + MEAL + ">\n" +
-                                    "      <" + NR_OF_ITEMS + ">" + orderItem.getNumberOfItems() + "</" + NR_OF_ITEMS + ">\n" +
-                                    "      <" + MEAL_NR + ">" + meal.getName() + "</" + MEAL_NR + ">\n" +
+                                    "      <" + NR_OF_ITEMS + ">" + orderItem.numberOfItems + "</" + NR_OF_ITEMS + ">\n" +
+                                    "      <" + MEAL_NR + ">" + meal.name + "</" + MEAL_NR + ">\n" +
                                     "      <" + NAME + ">" + meal.getMealName() + "</" + NAME + ">\n" +
                                     "    </" + MEAL + ">\n"
                     )
@@ -119,7 +119,7 @@ class MealOrderIO {
             writer.flush()
             writer.close()
         } catch (IOException ex) {
-            Logger.getLogger(MealOrder.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(MealOrder.class.name).log(Level.SEVERE, null, ex)
         }
     }
 }

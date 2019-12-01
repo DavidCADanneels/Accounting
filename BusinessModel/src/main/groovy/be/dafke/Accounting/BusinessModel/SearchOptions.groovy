@@ -2,12 +2,12 @@ package be.dafke.Accounting.BusinessModel
 
 class SearchOptions {
 
-    private boolean searchOnTransactionCode = false
-    private boolean searchOnCommunication = false
-    private boolean searchOnCounterParty = false
-    private CounterParty counterParty = null
-    private String communication = null
-    private String transactionCode = null
+    boolean searchOnTransactionCode = false
+    boolean searchOnCommunication = false
+    boolean searchOnCounterParty = false
+    CounterParty counterParty = null
+    String communication = null
+    String transactionCode = null
 
     // Getters
     boolean isSearchOnCommunication() {

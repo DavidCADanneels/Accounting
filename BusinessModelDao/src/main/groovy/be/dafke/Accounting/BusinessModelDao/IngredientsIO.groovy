@@ -14,9 +14,9 @@ import static be.dafke.Accounting.BusinessModelDao.XMLWriter.getXmlHeader
 
 class IngredientsIO {
     static void readIngredients(Accounting accounting){
-        Ingredients ingredients = accounting.getIngredients()
-        Allergenes allergenes = accounting.getAllergenes()
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+INGREDIENTS + XML_EXTENSION)
+        Ingredients ingredients = accounting.ingredients
+        Allergenes allergenes = accounting.allergenes
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+INGREDIENTS + XML_EXTENSION)
         Element rootElement = getRootElement(xmlFile, INGREDIENTS)
         for (Element ingredientElement : getChildren(rootElement, INGREDIENT)) {
 
@@ -38,20 +38,20 @@ class IngredientsIO {
     }
 
     static void writeIngredientes(Accounting accounting) {
-        Ingredients ingredients = accounting.getIngredients()
-        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + INGREDIENTS + XML_EXTENSION)
+        Ingredients ingredients = accounting.ingredients
+        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + INGREDIENTS + XML_EXTENSION)
         try {
             Writer writer = new FileWriter(file)
             writer.write(getXmlHeader(INGREDIENTS, 2))
-            for (Ingredient ingredient : ingredients.getBusinessObjects()) {
+            for (Ingredient ingredient : ingredients.businessObjects) {
                 writer.write(
                         "  <" + INGREDIENT + ">\n" +
-                                "    <" + NAME + ">" + ingredient.getName() + "</" + NAME + ">\n" +
-                                "    <" + UNIT + ">" + ingredient.getUnit().getName().toUpperCase() + "</" + UNIT + ">\n")
-                Allergenes allergenes = ingredient.getAllergenes()
-                for (Allergene allergene:allergenes.getBusinessObjects()) {
+                                "    <" + NAME + ">" + ingredient.name + "</" + NAME + ">\n" +
+                                "    <" + UNIT + ">" + ingredient.unit.name.toUpperCase() + "</" + UNIT + ">\n")
+                Allergenes allergenes = ingredient.allergenes
+                for (Allergene allergene:allergenes.businessObjects) {
                     writer.write("    <" + ALLERGENE + ">\n")
-                    writer.write("      <" + ID + ">" + allergene.getName() + "</" + ID + ">\n")
+                    writer.write("      <" + ID + ">" + allergene.name + "</" + ID + ">\n")
                     writer.write("    </" + ALLERGENE + ">\n")
                 }
                 writer.write("  </" + INGREDIENT + ">\n")
@@ -60,7 +60,7 @@ class IngredientsIO {
             writer.flush()
             writer.close()
         } catch (IOException ex) {
-            Logger.getLogger(Accounts.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(Accounts.class.name).log(Level.SEVERE, null, ex)
         }
     }
 }

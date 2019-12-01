@@ -17,31 +17,31 @@ import static be.dafke.Utils.Utils.parseInt
 
 class SalesOrderIO {
     static void readSalesOrders(Accounting accounting){
-        PurchaseOrders purchaseOrders = accounting.getPurchaseOrders()
-        Contacts contacts = accounting.getContacts()
-        Articles articles = accounting.getArticles()
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+SALES_ORDERS + XML_EXTENSION)
+        PurchaseOrders purchaseOrders = accounting.purchaseOrders
+        Contacts contacts = accounting.contacts
+        Articles articles = accounting.articles
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+SALES_ORDERS + XML_EXTENSION)
         Element rootElement = getRootElement(xmlFile, SALES_ORDERS)
 
-        SalesOrders salesOrders = accounting.getSalesOrders()
+        SalesOrders salesOrders = accounting.salesOrders
         for (Element orderElement : getChildren(rootElement, SALES_ORDER)) {
             SalesOrder order = new SalesOrder()
 
             String idString = getValue(orderElement, ID)
-            order.setId(parseInt(idString))
+            order.id = parseInt(idString)
 
 //            String orderName = getValue(orderElement, NAME)
 //            order.setName(orderName)
 
             boolean cn = getBooleanValue(orderElement, CREDIT_NOTE)
-            order.setCreditNote(cn)
+            order.creditNote = cn
 
             String customerString = getValue(orderElement, CUSTOMER)
             Contact customer = contacts.getBusinessObject(customerString)
-            order.setCustomer(customer)
+            order.customer = customer
 
-            order.setInvoice(getBooleanValue(orderElement, INVOICE))
-            order.setInvoiceNumber(getValue(orderElement, INVOICE_NUMBER))
+            order.invoice = getBooleanValue(orderElement, INVOICE)
+            order.invoiceNumber = getValue(orderElement, INVOICE_NUMBER)
 
             for (Element element : getChildren(orderElement, ARTICLE)) {
 
@@ -86,18 +86,18 @@ class SalesOrderIO {
                 orderItem.setName(name)
                 order.addBusinessObject(orderItem)
             }
-            Transactions transactions = accounting.getTransactions()
+            Transactions transactions = accounting.transactions
             int salesTransactionId = parseInt(getValue(orderElement, SALES_TRANSACTION))
-            Transaction salesTransaction = transactions.getBusinessObject(salesTransactionId)
-            order.setSalesTransaction(salesTransaction)
+            Transaction salesTransaction = transactions.getBusinessObject salesTransactionId
+            order.salesTransaction = salesTransaction
 
             int paymentTransactionId = parseInt(getValue(orderElement, PAYMENT_TRANSACTION))
             Transaction paymentTransaction = transactions.getBusinessObject(paymentTransactionId)
-            order.setPaymentTransaction(paymentTransaction)
+            order.paymentTransaction = paymentTransaction
 
             int gainTransactionId = parseInt(getValue(orderElement, GAIN_TRANSACTION))
             Transaction gainTransaction = transactions.getBusinessObject(gainTransactionId)
-            order.setGainTransaction(gainTransaction)
+            order.gainTransaction = gainTransaction
 
             try {
                 salesOrders.addBusinessObject(order)
@@ -108,59 +108,59 @@ class SalesOrderIO {
     }
 
     static void writeSalesOrders(Accounting accounting) {
-        SalesOrders salesOrders = accounting.getSalesOrders()
-        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + SALES_ORDERS + XML_EXTENSION)
+        SalesOrders salesOrders = accounting.salesOrders
+        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + SALES_ORDERS + XML_EXTENSION)
         try {
             Writer writer = new FileWriter(file)
             writer.write(getXmlHeader(SALES_ORDERS, 2))
-            for (SalesOrder salesOrder : salesOrders.getBusinessObjects()) {
+            for (SalesOrder salesOrder : salesOrders.businessObjects) {
                 writer.write(
                         "  <" + SALES_ORDER + ">\n" +
-                                "    <" + ID + ">" + salesOrder.getId() + "</" + ID + ">\n" +
-                                "    <" + NAME + ">" + salesOrder.getName() + "</" + NAME + ">\n" +
-                                "    <" + CUSTOMER + ">" + salesOrder.getCustomer() + "</" + CUSTOMER + ">\n" +
-                                "    <" + INVOICE + ">" + salesOrder.isInvoice() + "</" + INVOICE + ">\n"
+                                "    <" + ID + ">" + salesOrder.id + "</" + ID + ">\n" +
+                                "    <" + NAME + ">" + salesOrder.name + "</" + NAME + ">\n" +
+                                "    <" + CUSTOMER + ">" + salesOrder.customer + "</" + CUSTOMER + ">\n" +
+                                "    <" + INVOICE + ">" + salesOrder.invoice + "</" + INVOICE + ">\n"
                 )
-                if(salesOrder.isCreditNote()){
+                if(salesOrder.creditNote){
                     // only write if 'true' ('false' is default value)
                     writer.write(
-                            "    <" + CREDIT_NOTE + ">" + salesOrder.isCreditNote() + "</" + CREDIT_NOTE + ">\n"
+                            "    <" + CREDIT_NOTE + ">" + salesOrder.creditNote + "</" + CREDIT_NOTE + ">\n"
                     )
                 }
-                if(salesOrder.getInvoiceNumber()!=null) {
-                    writer.write("    <" + INVOICE_NUMBER + ">" + salesOrder.getInvoiceNumber() + "</" + INVOICE_NUMBER + ">\n")
+                if(salesOrder.invoiceNumber!=null) {
+                    writer.write("    <" + INVOICE_NUMBER + ">" + salesOrder.invoiceNumber + "</" + INVOICE_NUMBER + ">\n")
                 }
-                Transaction salesTransaction = salesOrder.getSalesTransaction()
+                Transaction salesTransaction = salesOrder.salesTransaction
                 if(salesTransaction!=null) {
-                    writer.write("    <" + SALES_TRANSACTION + ">" + salesTransaction.getTransactionId() + "</" + SALES_TRANSACTION + ">\n")
+                    writer.write("    <" + SALES_TRANSACTION + ">" + salesTransaction.transactionId + "</" + SALES_TRANSACTION + ">\n")
                 } else {
                     writer.write("    <" + SALES_TRANSACTION + ">null</" + SALES_TRANSACTION + ">\n")
                 }
-                Transaction gainTransaction = salesOrder.getGainTransaction()
+                Transaction gainTransaction = salesOrder.gainTransaction
                 if(gainTransaction!=null) {
-                    writer.write("    <" + GAIN_TRANSACTION + ">" + gainTransaction.getTransactionId() + "</" + GAIN_TRANSACTION + ">\n")
+                    writer.write("    <" + GAIN_TRANSACTION + ">" + gainTransaction.transactionId + "</" + GAIN_TRANSACTION + ">\n")
                 } else {
                     writer.write("    <" + GAIN_TRANSACTION + ">null</" + GAIN_TRANSACTION + ">\n")
                 }
-                Transaction paymentTransaction = salesOrder.getPaymentTransaction()
+                Transaction paymentTransaction = salesOrder.paymentTransaction
                 if(paymentTransaction!=null) {
-                    writer.write("    <" + PAYMENT_TRANSACTION + ">" + paymentTransaction.getTransactionId() + "</" + PAYMENT_TRANSACTION + ">\n")
+                    writer.write("    <" + PAYMENT_TRANSACTION + ">" + paymentTransaction.transactionId + "</" + PAYMENT_TRANSACTION + ">\n")
                 } else {
                     writer.write("    <" + PAYMENT_TRANSACTION + ">null</" + PAYMENT_TRANSACTION + ">\n")
                 }
-                for (OrderItem orderItem : salesOrder.getBusinessObjects()) {
-                    Article article = orderItem.getArticle()
+                for (OrderItem orderItem : salesOrder.businessObjects) {
+                    Article article = orderItem.article
 
                     // TODO: 1/ save OrderItem fields (I/O): itemsPerUnit, salesVatRate
 
                     writer.write(
                             "    <" + ARTICLE + ">\n" +
-                                    "      <" + NAME + ">" + article.getName() + "</" + NAME + ">\n" +
-                                    "      <" + NR_OF_ITEMS + ">" + orderItem.getNumberOfItems() + "</" + NR_OF_ITEMS + ">\n" +
-                                    "      <" + ITEMS_PER_UNIT + ">" + orderItem.getItemsPerUnit() + "</" + ITEMS_PER_UNIT + ">\n" +
-                                    "      <" + SALES_VAT_RATE + ">" + orderItem.getSalesVatRate() + "</" + SALES_VAT_RATE + ">\n" +
-                                    "      <" + SALESPRICE_FOR_ITEM + ">" + orderItem.getSalesPriceForItem() + "</" + SALESPRICE_FOR_ITEM + ">\n" +
-                                    "      <" + PURCHASE_ORDER + ">" + orderItem.getPurchaseOrder() + "</" + PURCHASE_ORDER + ">\n" +
+                                    "      <" + NAME + ">" + article.name + "</" + NAME + ">\n" +
+                                    "      <" + NR_OF_ITEMS + ">" + orderItem.numberOfItems + "</" + NR_OF_ITEMS + ">\n" +
+                                    "      <" + ITEMS_PER_UNIT + ">" + orderItem.itemsPerUnit + "</" + ITEMS_PER_UNIT + ">\n" +
+                                    "      <" + SALES_VAT_RATE + ">" + orderItem.salesVatRate + "</" + SALES_VAT_RATE + ">\n" +
+                                    "      <" + SALESPRICE_FOR_ITEM + ">" + orderItem.salesPriceForItem + "</" + SALESPRICE_FOR_ITEM + ">\n" +
+                                    "      <" + PURCHASE_ORDER + ">" + orderItem.purchaseOrder + "</" + PURCHASE_ORDER + ">\n" +
                                     "    </" + ARTICLE + ">\n"
                     )
                 }
@@ -170,19 +170,19 @@ class SalesOrderIO {
             writer.flush()
             writer.close()
         } catch (IOException ex) {
-            Logger.getLogger(Accounts.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(Accounts.class.name).log(Level.SEVERE, null, ex)
         }
     }
 
     static String calculatePdfPath(Accounting accounting, SalesOrder salesOrder){
-        ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + INVOICES + "/Factuur-" + salesOrder.getInvoiceNumber() + PDF_EXTENSION
+        ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + INVOICES + "/Factuur-" + salesOrder.invoiceNumber + PDF_EXTENSION
     }
 
     static String writeInvoiceXmlInputFile(Accounting accounting, SalesOrder salesOrder){
-        Integer id = salesOrder.getId()
+        Integer id = salesOrder.id
         String idString = Utils.toIDString("SO", id, 6)
 
-        String folderPath = ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + INVOICES
+        String folderPath = ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + INVOICES
         File folder = new File(folderPath)
         folder.mkdirs()
         String path = folderPath + "/" + idString + XML_EXTENSION
@@ -191,54 +191,54 @@ class SalesOrderIO {
             Writer writer = new FileWriter(file)
             writer.write(getXmlHeader(INVOICE, 3))
 
-            Contact supplier = salesOrder.getSupplier()
+            Contact supplier = salesOrder.supplier
             writer.write(
-                    "  <InvoiceNumber>" + salesOrder.getInvoiceNumber()+ "</InvoiceNumber>\n" +
-                            "  <"+DATE+">" + salesOrder.getDeliveryDate()+ "</"+DATE+">\n" +
-                            "  <"+DESCRIPTION+">" + salesOrder.getDescription()+ "</"+DESCRIPTION+">\n" +
+                    "  <InvoiceNumber>" + salesOrder.invoiceNumber+ "</InvoiceNumber>\n" +
+                            "  <"+DATE+">" + salesOrder.deliveryDate+ "</"+DATE+">\n" +
+                            "  <"+DESCRIPTION+">" + salesOrder.description+ "</"+DESCRIPTION+">\n" +
                             "  <" + SUPPLIER + ">\n" +
-                            "    <" + NAME + ">" + supplier.getName() + "</" + NAME + ">\n" +
-                            "    <" + OFFICIAL_NAME + ">" + supplier.getOfficialName() + "</" + OFFICIAL_NAME + ">\n" +
-                            "    <" + STREET_AND_NUMBER + ">" + supplier.getStreetAndNumber() + "</" + STREET_AND_NUMBER + ">\n" +
-                            "    <" + POSTAL_CODE + ">" + supplier.getPostalCode() + "</" + POSTAL_CODE + ">\n" +
-                            "    <" + CITY + ">" + supplier.getCity() + "</" + CITY + ">\n" +
-                            "    <" + COUNTRY_CODE + ">" + supplier.getCountryCode() + "</" + COUNTRY_CODE + ">\n" +
-                            "    <" + VAT_NUMBER + ">" + supplier.getVatNumber() + "</" + VAT_NUMBER + ">\n" +
+                            "    <" + NAME + ">" + supplier.name + "</" + NAME + ">\n" +
+                            "    <" + OFFICIAL_NAME + ">" + supplier.officialName + "</" + OFFICIAL_NAME + ">\n" +
+                            "    <" + STREET_AND_NUMBER + ">" + supplier.streetAndNumber + "</" + STREET_AND_NUMBER + ">\n" +
+                            "    <" + POSTAL_CODE + ">" + supplier.postalCode + "</" + POSTAL_CODE + ">\n" +
+                            "    <" + CITY + ">" + supplier.city + "</" + CITY + ">\n" +
+                            "    <" + COUNTRY_CODE + ">" + supplier.countryCode + "</" + COUNTRY_CODE + ">\n" +
+                            "    <" + VAT_NUMBER + ">" + supplier.vatNumber + "</" + VAT_NUMBER + ">\n" +
                             "  </" + SUPPLIER + ">\n"
             )
 
-            Contact customer = salesOrder.getCustomer()
+            Contact customer = salesOrder.customer
             writer.write(
                     "  <" + CUSTOMER + ">\n" +
-                            "    <" + NAME + ">" + customer.getName() + "</" + NAME + ">\n" +
-                            "    <" + OFFICIAL_NAME + ">" + customer.getOfficialName() + "</" + OFFICIAL_NAME + ">\n" +
-                            "    <" + STREET_AND_NUMBER + ">" + customer.getStreetAndNumber() + "</" + STREET_AND_NUMBER + ">\n" +
-                            "    <" + POSTAL_CODE + ">" + customer.getPostalCode() + "</" + POSTAL_CODE + ">\n" +
-                            "    <" + CITY + ">" + customer.getCity() + "</" + CITY + ">\n" +
-                            "    <" + COUNTRY_CODE + ">" + customer.getCountryCode() + "</" + COUNTRY_CODE + ">\n" +
-                            "    <" + VAT_NUMBER + ">" + customer.getVatNumber() + "</" + VAT_NUMBER + ">\n" +
+                            "    <" + NAME + ">" + customer.name + "</" + NAME + ">\n" +
+                            "    <" + OFFICIAL_NAME + ">" + customer.officialName + "</" + OFFICIAL_NAME + ">\n" +
+                            "    <" + STREET_AND_NUMBER + ">" + customer.streetAndNumber + "</" + STREET_AND_NUMBER + ">\n" +
+                            "    <" + POSTAL_CODE + ">" + customer.postalCode + "</" + POSTAL_CODE + ">\n" +
+                            "    <" + CITY + ">" + customer.city + "</" + CITY + ">\n" +
+                            "    <" + COUNTRY_CODE + ">" + customer.countryCode + "</" + COUNTRY_CODE + ">\n" +
+                            "    <" + VAT_NUMBER + ">" + customer.vatNumber + "</" + VAT_NUMBER + ">\n" +
                             "  </" + CUSTOMER + ">\n"
             )
 
             ArrayList<Integer> vatRates = new ArrayList<>()
 
             writer.write("  <"+SALE+">\n")
-            writer.write("  <TotalPrice>" + salesOrder.getTotalSalesPriceInclVat()+ "</TotalPrice>\n")
+            writer.write("  <TotalPrice>" + salesOrder.totalSalesPriceInclVat+ "</TotalPrice>\n")
 
-            for (OrderItem orderItem : salesOrder.getBusinessObjects()) {
-                Article article = orderItem.getArticle()
-                Integer salesVatRate = article.getSalesVatRate()
+            for (OrderItem orderItem : salesOrder.businessObjects) {
+                Article article = orderItem.article
+                Integer salesVatRate = article.salesVatRate
                 if(!vatRates.contains(salesVatRate)){
                     vatRates.add(salesVatRate)
                 }
 
                 writer.write(
                         "    <" + ARTICLE + ">\n" +
-                                "      <" + NAME + ">" + (article.getName()) + "</" + NAME + ">\n" +
-                                "      <" + NUMBER + ">" + (orderItem.getNumberOfItems()) + "</" + NUMBER + ">\n" +
-                                "      <" + ITEM_PRICE + ">" + orderItem.getSalesPriceForItem() + "</" + ITEM_PRICE + ">\n" +
+                                "      <" + NAME + ">" + (article.name) + "</" + NAME + ">\n" +
+                                "      <" + NUMBER + ">" + (orderItem.numberOfItems) + "</" + NUMBER + ">\n" +
+                                "      <" + ITEM_PRICE + ">" + orderItem.salesPriceForItem + "</" + ITEM_PRICE + ">\n" +
                                 "      <" + TAX_RATE + ">" + salesVatRate + "</" + TAX_RATE + ">\n" +
-                                "      <" + TOTAL_PRICE + ">" + orderItem.getSalesPriceWithVat() + "</" + TOTAL_PRICE + ">\n" +
+                                "      <" + TOTAL_PRICE + ">" + orderItem.salesPriceWithVat + "</" + TOTAL_PRICE + ">\n" +
                                 "    </" + ARTICLE + ">\n"
                 )
             }
@@ -253,16 +253,16 @@ class SalesOrderIO {
                 writer.write("      <"+TOTALS_LINE_INCL+">" + salesOrder.getTotalSalesPriceInclVat(OrderItem.withSalesVatRate(vatRate)) + "</"+TOTALS_LINE_INCL+">"+"\n")
                 writer.write("    </"+TOTALS_LINE+">\n")
             }
-            writer.write("    <"+TOTAL_EXCL_VAT+">" + salesOrder.getTotalSalesPriceExclVat() + "</"+TOTAL_EXCL_VAT+">"+"\n")
-            writer.write("    <"+TOTAL_VAT+">" + salesOrder.getTotalSalesVat() + "</"+TOTAL_VAT+">"+"\n")
-            writer.write("    <"+TOTAL_INCL_VAT+">" + salesOrder.getTotalSalesPriceInclVat() + "</"+TOTAL_INCL_VAT+">"+"\n")
+            writer.write("    <"+TOTAL_EXCL_VAT+">" + salesOrder.totalSalesPriceExclVat + "</"+TOTAL_EXCL_VAT+">"+"\n")
+            writer.write("    <"+TOTAL_VAT+">" + salesOrder.totalSalesVat + "</"+TOTAL_VAT+">"+"\n")
+            writer.write("    <"+TOTAL_INCL_VAT+">" + salesOrder.totalSalesPriceInclVat + "</"+TOTAL_INCL_VAT+">"+"\n")
             writer.write("  </"+TOTALS+">\n")
             writer.write("</"+INVOICE+">\n")
 
             writer.flush()
             writer.close()
         } catch (IOException ex) {
-            Logger.getLogger(Accounts.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(Accounts.class.name).log(Level.SEVERE, null, ex)
         } finally {
             path
         }

@@ -8,11 +8,11 @@ import javax.swing.*
 import static java.util.ResourceBundle.getBundle
 
 class PurchaseOrderCreateGUI extends JFrame {
-    private final PurchaseOrderCreatePanel orderPanel
+    final PurchaseOrderCreatePanel orderPanel
 
-    private static PurchaseOrderCreateGUI purchaseOrderCreateGui = null
+    static PurchaseOrderCreateGUI purchaseOrderCreateGui = null
 
-    private PurchaseOrderCreateGUI(Accounting accounting) {
+    PurchaseOrderCreateGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("CREATE_PO"))
         orderPanel = new PurchaseOrderCreatePanel(accounting)
         setContentPane(orderPanel)

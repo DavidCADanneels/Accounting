@@ -3,8 +3,8 @@ package be.dafke.Accounting.BusinessModel
 import be.dafke.Accounting.ObjectModel.BusinessObject
 
 class Allergene extends BusinessObject {
-    private String shortName
-    private String description
+    String shortName
+    String description
 
     Allergene(String id, String shortName, String description) {
         this.shortName = shortName

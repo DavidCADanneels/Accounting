@@ -11,9 +11,9 @@ import java.awt.event.FocusListener
 import static java.util.ResourceBundle.getBundle 
 
 class DateAndDescriptionPanel extends JPanel implements FocusListener {
-    private JTextField dag, maand, jaar, description
-    private Transaction transaction
-    private Journal journal
+    JTextField dag, maand, jaar, description
+    Transaction transaction
+    Journal journal
 
     DateAndDescriptionPanel() {
         dag = new JTextField(2)
@@ -66,28 +66,28 @@ class DateAndDescriptionPanel extends JPanel implements FocusListener {
             if(source == dag || source == maand || source == jaar){
                 Calendar date = getDate()
                 if (date != null){
-                    transaction.setDate(date)
+                    transaction.date = date
                     dag.setText(Utils.toDay(date)+"")
                     maand.setText(Utils.toMonth(date)+"")
                     jaar.setText(Utils.toYear(date)+"")
                 }
             } else if (source == description){
                 // TODO Encode text for XML / HTML (not here, but in toXML() / here escaping ?)
-                transaction.setDescription(description.getText().trim())
+                transaction.description description.getText().trim()
             }
         }
     }
 
     void fireTransactionDataChanged() {
-        setDate(transaction==null?Calendar.getInstance():transaction.getDate())
-        description.setEnabled((transaction!=null))
-        dag.setEnabled((transaction!=null))
-        maand.setEnabled((transaction!=null))
-        jaar.setEnabled((transaction!=null))
-        description.setText(transaction==null?"":transaction.getDescription())
+        setDate(transaction==null?Calendar.getInstance():transaction.date)
+        description.enabled = (transaction!=null)
+        dag.enabled = (transaction!=null)
+        maand.enabled = (transaction!=null)
+        jaar.enabled = (transaction!=null)
+        description.setText(transaction==null?"":transaction.description)
 
-        boolean okEnabled = journal!=null && transaction!=null && transaction.isBookable()
-        boolean clearEnabled = journal!=null && transaction!=null && !transaction.getBusinessObjects().isEmpty()
+        boolean okEnabled = journal!=null && transaction!=null && transaction.bookable
+        boolean clearEnabled = journal!=null && transaction!=null && !transaction.businessObjects.empty
     }
 
     void setDate(Calendar date){
@@ -123,12 +123,12 @@ class DateAndDescriptionPanel extends JPanel implements FocusListener {
     }
 
     void enableDescription(boolean enabled){
-        description.setEnabled(enabled)
+        description.enabled = enabled
     }
 
     void enableDate(boolean enabled){
-        dag.setEnabled(enabled)
-        maand.setEnabled(enabled)
-        jaar.setEnabled(enabled)
+        dag.enabled = enabled
+        maand.enabled = enabled
+        jaar.enabled = enabled
     }
 }

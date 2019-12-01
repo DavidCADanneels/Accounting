@@ -9,11 +9,11 @@ import javax.swing.JPanel
 import java.awt.BorderLayout
 
 class IngredientSelectorDialog extends RefreshableDialog {
-    private JButton ok
-    private IngredientSelectorPanel selectorPanel
-    private static IngredientSelectorDialog selectorDialog = null
+    JButton ok
+    IngredientSelectorPanel selectorPanel
+    static IngredientSelectorDialog selectorDialog = null
 
-    private IngredientSelectorDialog(Ingredients ingredients) {
+    IngredientSelectorDialog(Ingredients ingredients) {
         this(ingredients, "Select Account")
     }
     IngredientSelectorDialog(Ingredients ingredients, String title) {

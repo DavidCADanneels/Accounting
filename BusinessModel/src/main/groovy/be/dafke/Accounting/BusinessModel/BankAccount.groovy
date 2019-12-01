@@ -4,10 +4,10 @@ class BankAccount implements Serializable {
     /*	enum AccountType{
             Belgian, Foreign, Belgian_IBAN, Foreign_IBAN
         }
-    */private final String accountNumber
-    // private AccountType accountType
-    private String bic
-    private String currency
+    */final String accountNumber
+    // AccountType accountType
+    String bic
+    String currency
 
     BankAccount(String accountNumber) {// , AccountType accountType){
         this.accountNumber = accountNumber

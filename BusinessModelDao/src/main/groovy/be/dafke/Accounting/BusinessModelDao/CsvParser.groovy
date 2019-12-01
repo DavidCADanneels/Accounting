@@ -10,7 +10,7 @@ import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException
 import be.dafke.Utils.Utils
 
 class CsvParser {
-    private HashMap<String,String> transactionCodes
+    HashMap<String,String> transactionCodes
 
     CsvParser(){
         transactionCodes = new HashMap<String, String>()

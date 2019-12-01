@@ -20,17 +20,17 @@ class JournalDetailsDataModel extends SelectableTableModel<Booking> {
     static final int DESCRIPTION = 7
     static final int NR_OF_COLS = 8
 
-    private HashMap<Integer, String> columnNames = new HashMap<>()
-    private HashMap<Integer, Class> columnClasses = new HashMap<>()
+    HashMap<Integer, String> columnNames = new HashMap<>()
+    HashMap<Integer, Class> columnClasses = new HashMap<>()
 
-    private Journal journal
+    Journal journal
 
     JournalDetailsDataModel() {
         createColumnNames()
         createColumnClasses()
     }
 
-    private void createColumnNames() {
+    void createColumnNames() {
         columnNames.put(ID, getBundle("Accounting").getString("NR"))
         columnNames.put(DATE, getBundle("Accounting").getString("DATE"))
         columnNames.put(DEBIT_ACCOUNT, getBundle("Accounting").getString("ACCOUNT"))
@@ -42,7 +42,7 @@ class JournalDetailsDataModel extends SelectableTableModel<Booking> {
     }
 
 
-    private void createColumnClasses() {
+    void createColumnClasses() {
         columnClasses.put(ID, String.class)
         columnClasses.put(DATE, String.class)
         columnClasses.put(DEBIT_ACCOUNT, Account.class)
@@ -63,8 +63,8 @@ class JournalDetailsDataModel extends SelectableTableModel<Booking> {
     int getRowCount() {
         int size = 0
         if(journal) {
-            for (Transaction transaction : journal.getBusinessObjects()) {
-                size += transaction.getBusinessObjects().size()
+            for (Transaction transaction : journal.businessObjects) {
+                size += transaction.businessObjects.size()
             }
         }
         size
@@ -82,50 +82,51 @@ class JournalDetailsDataModel extends SelectableTableModel<Booking> {
     Booking getValueAt(int row) {
         ArrayList<Booking> boekingen = new ArrayList<>()
         if(journal==null) null
-        for(Transaction transaction : journal.getBusinessObjects()){
-            boekingen.addAll(transaction.getBusinessObjects())
+        for(Transaction transaction : journal.businessObjects){
+            boekingen.addAll(transaction.businessObjects)
         }
         boekingen.get(row)
     }
 
     Object getValueAt(int row, int col) {
         Booking booking = getValueAt(row)
-        Transaction transaction = booking.getTransaction()
-        boolean first = (booking == transaction.getBusinessObjects().get(0))
+        Transaction transaction = booking.transaction
+        boolean first = (booking == transaction.businessObjects.get(0))
         if (col == ID) {
             if(first){
-                if(journal==transaction.getJournal()) {
-                    journal.getAbbreviation() + journal.getId(transaction)
+                if(journal==transaction.journal) {
+                    return journal.abbreviation + journal.getId(transaction)
                 } else {
-                    journal.getAbbreviation() + journal.getId(transaction) +
-                            " (" + transaction.getAbbreviation() + transaction.getId() + ")"
+                    return journal.abbreviation + journal.getId(transaction) +
+                            " (" + transaction.abbreviation + transaction.id + ")"
                 }
-            } else ""
+            } else return ""
         } else if (col == DATE) {
             if(first){
-                Utils.toString(transaction.getDate())
-            } else ""
+                return Utils.toString(transaction.date)
+            } else return ""
         } else if (col == DEBIT_ACCOUNT) {
-            if (booking.isDebit())
-                booking.getAccount()
-            else null
+            if (booking.debit)
+                return booking.account
+            else return null
         } else if (col == CREDIT_ACCOUNT) {
-            if(!booking.isDebit())
-                booking.getAccount()
-            else null
+            if(!booking.debit)
+                return booking.account
+            else return null
         } else if (col == DEBIT_AMOUNT) {
-            if (booking.isDebit()) booking.getAmount()
-            ""
+            if (booking.debit) return booking.amount
+            else return ""
         } else if (col == CREDIT_AMOUNT) {
-            if (!booking.isDebit()) booking.getAmount()
-            ""
+            if (!booking.debit) return booking.amount
+            return ""
         } else if (col == DESCRIPTION){
             if(first){
-                booking.getTransaction().getDescription()
-            } else ""
+                return booking.transaction.description
+            } else return ""
         } else if (col == VATINFO){
-            booking.getVATBookingsString()
-        } else null
+            return booking.getVATBookingsString()
+        }
+        null
     }
 
     @Override
@@ -145,24 +146,24 @@ class JournalDetailsDataModel extends SelectableTableModel<Booking> {
     void setValueAt(Object value, int row, int col) {
         Booking booking = getObject(row,col)
         if(booking!=null) {
-            Transaction transaction = booking.getTransaction()
+            Transaction transaction = booking.transaction
             if (col == DATE) {
-                Calendar date = transaction.getDate()
+                Calendar date = transaction.date
                 Calendar newDate = Utils.toCalendar((String) value)
                 if (journal != null && newDate != null) {
-                    transaction.setDate(newDate)
+                    transaction.date = newDate
                 } else setValueAt(Utils.toString(date), row, col)
             } else if (col == DESCRIPTION) {
-                transaction.setDescription((String) value)
+                transaction.description = (String) value
             }
             fireTableDataChanged()
         }
     }
 
-    private ArrayList<Booking> getAllItems(){
+    ArrayList<Booking> getAllItems(){
         ArrayList<Booking> bookings = new ArrayList<>()
-        for(Transaction transaction : journal.getBusinessObjects()){
-            bookings.addAll(transaction.getBusinessObjects())
+        for(Transaction transaction : journal.businessObjects){
+            bookings.addAll(transaction.businessObjects)
         }
         bookings
     }
@@ -174,7 +175,7 @@ class JournalDetailsDataModel extends SelectableTableModel<Booking> {
         bookings.get(row)
     }
 
-    private int getRowInList(ArrayList<Booking> list, Booking booking){
+    int getRowInList(ArrayList<Booking> list, Booking booking){
         int row = 0
         for(Booking search:list){
             if(search!=booking){

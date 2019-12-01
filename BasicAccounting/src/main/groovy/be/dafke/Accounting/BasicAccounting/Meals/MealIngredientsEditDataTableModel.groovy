@@ -7,7 +7,7 @@ import be.dafke.Accounting.BusinessModel.RecipeLine
 import static java.util.ResourceBundle.getBundle
 
 class MealIngredientsEditDataTableModel extends MealRecipeEditDataTableModel {
-    private Recipe recipe
+    Recipe recipe
     static int NAME_COL = 0
     static int OVERWRITE_ALLERGENES_COL = 1
 
@@ -33,13 +33,9 @@ class MealIngredientsEditDataTableModel extends MealRecipeEditDataTableModel {
     Object getValueAt(int row, int col) {
         RecipeLine recipeLine = getObject(row, col)
         Ingredient ingredient = recipeLine.getIngredient()
-        if(ingredient==null) null
-        if (col == NAME_COL) {
-            ingredient.getName()
-        }
-        if (col == OVERWRITE_ALLERGENES_COL) {
-            ingredient.getAllergenesString()
-        }
+        if(ingredient==null) return null
+        if (col == NAME_COL) return ingredient.name
+        if (col == OVERWRITE_ALLERGENES_COL) return ingredient.allergenesString
         null
     }
 

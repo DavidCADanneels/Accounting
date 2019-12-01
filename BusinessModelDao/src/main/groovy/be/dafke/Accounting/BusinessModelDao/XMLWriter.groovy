@@ -50,16 +50,16 @@ class XMLWriter {
         try {
             Writer writer = new FileWriter(accountingsXmlFile)
             writer.write(getXmlHeader(ACCOUNTINGS, 0))
-            for(Accounting accounting:accountings.getBusinessObjects()){
+            for(Accounting accounting:accountings.businessObjects){
                 writer.write(
                         "  <" + ACCOUNTING + ">\n" +
-                                "    <" + NAME + ">"+accounting.getName()+"</" + NAME + ">\n" +
-                                "    <"+VAT_ACCOUNTING+">"+accounting.isVatAccounting()+"</"+VAT_ACCOUNTING+">\n" +
-                                "    <"+CONTACTS_ACCOUNTING+">"+accounting.isContactsAccounting()+"</"+CONTACTS_ACCOUNTING+">\n" +
-                                "    <"+TRADE_ACCOUNTING+">"+accounting.isTradeAccounting()+"</"+TRADE_ACCOUNTING+">\n" +
-                                "    <"+ MEAL_ORDER_ACCOUNTING +">"+accounting.isMealsAccounting()+"</"+ MEAL_ORDER_ACCOUNTING +">\n" +
-                                "    <"+PROJECTS_ACCOUNTING+">"+accounting.isProjectsAccounting()+"</"+PROJECTS_ACCOUNTING+">\n" +
-                                "    <"+MORTGAGES_ACCOUNTING+">"+accounting.isMortgagesAccounting()+"</"+MORTGAGES_ACCOUNTING+">\n" +
+                                "    <" + NAME + ">"+accounting.name+"</" + NAME + ">\n" +
+                                "    <"+VAT_ACCOUNTING+">"+accounting.vatAccounting+"</"+VAT_ACCOUNTING+">\n" +
+                                "    <"+CONTACTS_ACCOUNTING+">"+accounting.contactsAccounting+"</"+CONTACTS_ACCOUNTING+">\n" +
+                                "    <"+TRADE_ACCOUNTING+">"+accounting.tradeAccounting+"</"+TRADE_ACCOUNTING+">\n" +
+                                "    <"+ MEAL_ORDER_ACCOUNTING +">"+accounting.mealsAccounting+"</"+ MEAL_ORDER_ACCOUNTING +">\n" +
+                                "    <"+PROJECTS_ACCOUNTING+">"+accounting.projectsAccounting+"</"+PROJECTS_ACCOUNTING+">\n" +
+                                "    <"+MORTGAGES_ACCOUNTING+">"+accounting.mortgagesAccounting+"</"+MORTGAGES_ACCOUNTING+">\n" +
                                 "  </" + ACCOUNTING + ">\n"
                 )
             }
@@ -68,7 +68,7 @@ class XMLWriter {
             writer.flush()
             writer.close()
         } catch (IOException ex) {
-            Logger.getLogger(Accountings.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(Accountings.class.name).log(Level.SEVERE, null, ex)
         }
         if(writeHtml){
             File accountingsHtmlFile = new File(ACCOUNTINGS_HTML_FILE)
@@ -76,15 +76,15 @@ class XMLWriter {
             XMLtoHTMLWriter.xmlToHtml(accountingsXmlFile, accountingsXslFile, accountingsHtmlFile, null)
         }
 
-        for(Accounting accounting:accountings.getBusinessObjects()){
-            if(accounting.isRead())
+        for(Accounting accounting:accountings.businessObjects){
+            if(accounting.read)
                 writeAccounting(accounting, writeHtml)
         }
 
         writeActiveAccountings()
     }
 
-    private static void writeActiveAccountings() {
+    static void writeActiveAccountings() {
         String homeDir = System.getProperty("user.home")
         File homeFolder = new File(homeDir)
         File subFolder = new File(homeFolder, ".Accounting")
@@ -94,33 +94,32 @@ class XMLWriter {
         try {
             Writer writer = new FileWriter(xmlFile)
             writer.write(getXmlHeader(SESSION, 0))
-            Accounting currentObject = Session.getActiveAccounting()
+            Accounting currentObject = Session.activeAccounting
             if(currentObject!=null) {
-                writer.write("  <" + ACTIVE_ACCOUNTING + ">" + currentObject.getName() + "</" + ACTIVE_ACCOUNTING + ">\n")
+                writer.write("  <" + ACTIVE_ACCOUNTING + ">" + currentObject.name + "</" + ACTIVE_ACCOUNTING + ">\n")
             }
-            Accountings accountings = Session.getAccountings()
-            for(Accounting accounting:accountings.getBusinessObjects()) {
+            Accountings accountings = Session.accountings
+            for(Accounting accounting:accountings.businessObjects) {
                 AccountingSession accountingSession = Session.getAccountingSession(accounting)
-                Journal activeJournal = accountingSession.getActiveJournal()
+                Journal activeJournal = accountingSession.activeJournal
                 writer.write(
                         "  <" + ACCOUNTING + ">\n" +
-                                "    <" + NAME + ">"+accounting.getName()+"</" + NAME + ">\n" +
-                                "    <"+ACTIVE_JOURNAL+">"+(activeJournal==null?"null":activeJournal.getName())+"</"+ACTIVE_JOURNAL+">\n")
-                Journals journals = accounting.getJournals()
+                                "    <" + NAME + ">"+accounting.name+"</" + NAME + ">\n" +
+                                "    <"+ACTIVE_JOURNAL+">"+(activeJournal==null?"null":activeJournal.name)+"</"+ACTIVE_JOURNAL+">\n")
+                Journals journals = accounting.journals
                 if(journals !=null){
                     writer.write("    <" + JOURNALS + ">\n")
-                    for(Journal journal:journals.getBusinessObjects()) {
+                    for(Journal journal:journals.businessObjects) {
                         JournalSession journalSession = accountingSession.getJournalSession(journal)
                         ArrayList<AccountType> leftCheckedTypes = journalSession.getCheckedTypesLeft()
                         ArrayList<AccountType> rightCheckedTypes = journalSession.getCheckedTypesRight()
 
-                        String leftCheckedStream = leftCheckedTypes.stream().sorted().map(AccountType.&getName).collect(Collectors.joining(","))
-                        String rightCheckedStream = rightCheckedTypes.stream().sorted().map(AccountType.&getName).collect(Collectors.joining(","))
-
+                        String leftCheckedStream = leftCheckedTypes.name.collect().join(",")
+                        String rightCheckedStream = rightCheckedTypes.name.collect().join(",")
 
                         writer.write(
                                 "      <" + JOURNAL + ">\n" +
-                                        "        <"+ NAME + ">"+journal.getName()+"</"+ NAME + ">\n" +
+                                        "        <"+ NAME + ">"+journal.name+"</"+ NAME + ">\n" +
                                         "        <"+CHECKED_LEFT+">"+leftCheckedStream+"</"+CHECKED_LEFT+">\n" +
                                         "        <"+CHECKED_RIGHT+">"+rightCheckedStream+"</"+CHECKED_RIGHT+">\n" +
                                         "      </" + JOURNAL + ">\n")
@@ -133,47 +132,47 @@ class XMLWriter {
             writer.flush()
             writer.close()
         } catch (IOException ex) {
-            Logger.getLogger(Accountings.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(Accountings.class.name).log(Level.SEVERE, null, ex)
         }
     }
 
 
     static void writeAccounting(Accounting accounting, boolean writeHtml) {
-        File accountingFolder = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName())
+        File accountingFolder = new File(ACCOUNTINGS_XML_FOLDER + accounting.name)
         accountingFolder.mkdirs()
-        writeAccounts(accounting, writeHtml)
-        writeTransactions(accounting)
-        writeJournals(accounting, writeHtml)
-        writeJournalTypes(accounting)
-        writeBalances(accounting)
-        if(accounting.isProjectsAccounting()) {
-            writeProjects(accounting)
+        writeAccounts accounting, writeHtml
+        writeTransactions accounting
+        writeJournals accounting, writeHtml
+        writeJournalTypes accounting
+        writeBalances accounting
+        if(accounting.projectsAccounting) {
+            writeProjects accounting
         }
-        if(accounting.isVatAccounting()) {
-            writeVATFields(accounting)
-            writeVATTransactions(accounting)
+        if(accounting.vatAccounting) {
+            writeVATFields accounting
+            writeVATTransactions accounting
         }
-        if(accounting.isContactsAccounting()) {
-            writeContacts(accounting)
+        if(accounting.contactsAccounting) {
+            writeContacts accounting
         }
-        if(accounting.isTradeAccounting()) {
-            writeArticles(accounting)
-            writeAllergenes(accounting)
-            writeIngredientes(accounting)
-            writeIngredientOrders(accounting)
-            writeStock(accounting)
-            writeStockTransactions(accounting)
-            writePurchasesOrders(accounting)
-            writeSalesOrders(accounting)
-            writePromoOrders(accounting)
-            writeStockOrders(accounting)
+        if(accounting.tradeAccounting) {
+            writeArticles accounting
+            writeAllergenes accounting
+            writeIngredientes accounting
+            writeIngredientOrders accounting
+            writeStock accounting
+            writeStockTransactions accounting
+            writePurchasesOrders accounting
+            writeSalesOrders accounting
+            writePromoOrders accounting
+            writeStockOrders accounting
         }
-        if(accounting.isMortgagesAccounting()) {
-            writeMortgages(accounting)
+        if(accounting.mortgagesAccounting) {
+            writeMortgages accounting
         }
-        if(accounting.isMealsAccounting()){
-            writeMeals(accounting)
-            writeMealOrders(accounting)
+        if(accounting.mealsAccounting){
+            writeMeals accounting
+            writeMealOrders accounting
         }
 
 //        JournalsIO.writeJournalPdfFiles(accounting)

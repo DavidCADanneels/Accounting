@@ -12,16 +12,16 @@ import javax.swing.*
 import java.awt.*
 
 class PromoOrdersOverviewPanel extends JPanel {
-    private final SelectableTable<PromoOrder> overviewTable
-    private final SelectableTable<OrderItem> detailsTable
-    private final PromoOrdersOverviewDataTableModel overviewTableModel
+    final SelectableTable<PromoOrder> overviewTable
+    final SelectableTable<OrderItem> detailsTable
+    final PromoOrdersOverviewDataTableModel overviewTableModel
 
-    private final PromoOrderViewDataTableModel detailsTableModel
-    private final TotalsPanel totalsPanel
+    final PromoOrderViewDataTableModel detailsTableModel
+    final TotalsPanel totalsPanel
 
-    private final PromoOrderDetailPanel promoOrderDetailPanel
-    private final SalesOrderDetailsPopupMenu popup
-    private boolean multiSelection
+    final PromoOrderDetailPanel promoOrderDetailPanel
+    final SalesOrderDetailsPopupMenu popup
+    boolean multiSelection
 
     PromoOrdersOverviewPanel() {
         overviewTableModel = new PromoOrdersOverviewDataTableModel()
@@ -62,16 +62,16 @@ class PromoOrdersOverviewPanel extends JPanel {
         add(promoOrderDetailPanel, BorderLayout.EAST)
     }
 
-    private void updateSelection() {
+    void updateSelection() {
         if(multiSelection) {
-            ArrayList<PromoOrder> selectedObjects = overviewTable.getSelectedObjects()
+            ArrayList<PromoOrder> selectedObjects = overviewTable.selectedObjects
             PromoOrder combinedOrder = PromoOrders.mergeOrders(selectedObjects)
             detailsTableModel.setOrder(combinedOrder)
             totalsPanel.fireOrderContentChanged(combinedOrder)
             promoOrderDetailPanel.setOrder(combinedOrder)
             promoOrderDetailPanel.disableButtons()
         } else {
-            PromoOrder promoOrder = overviewTable.getSelectedObject()
+            PromoOrder promoOrder = overviewTable.selectedObject
             detailsTableModel.setOrder(promoOrder)
             totalsPanel.fireOrderContentChanged(promoOrder)
             promoOrderDetailPanel.setOrder(promoOrder)
@@ -79,12 +79,12 @@ class PromoOrdersOverviewPanel extends JPanel {
         }
     }
 
-    private JPanel createFilterPane() {
+    JPanel createFilterPane() {
         JPanel panel = new JPanel()
         JCheckBox showSummary = new JCheckBox("Combine selected orders")
-        showSummary.setSelected(false)
+        showSummary.selected = false
         showSummary.addActionListener({ e ->
-            multiSelection = showSummary.isSelected()
+            multiSelection = showSummary.selected
             updateSelection()
         })
         panel.add(showSummary)
@@ -96,8 +96,8 @@ class PromoOrdersOverviewPanel extends JPanel {
     }
 
     void setAccounting(Accounting accounting) {
-        overviewTableModel.setAccounting(accounting)
-        popup.setAccounting(accounting)
-        promoOrderDetailPanel.setAccounting(accounting)
+        overviewTableModel.accounting = accounting
+        popup.accounting = accounting
+        promoOrderDetailPanel.accounting = accounting
     }
 }

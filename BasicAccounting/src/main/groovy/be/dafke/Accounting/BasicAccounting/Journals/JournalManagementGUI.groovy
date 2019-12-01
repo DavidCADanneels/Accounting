@@ -11,10 +11,10 @@ import javax.swing.*
 import static java.util.ResourceBundle.getBundle
 
 class JournalManagementGUI extends JFrame {
-    private static final HashMap<Journals, JournalManagementGUI> journalManagementGuis = new HashMap<>()
-    private final JournalManagementPanel journalManagementPanel
+    static final HashMap<Journals, JournalManagementGUI> journalManagementGuis = new HashMap<>()
+    final JournalManagementPanel journalManagementPanel
 
-    private JournalManagementGUI(Accounts accounts, Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
+    JournalManagementGUI(Accounts accounts, Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
         super(getBundle("Accounting").getString("JOURNAL_MANAGEMENT_TITLE"))
         journalManagementPanel = new JournalManagementPanel(accounts, journals, journalTypes, accountTypes)
         setContentPane(journalManagementPanel)

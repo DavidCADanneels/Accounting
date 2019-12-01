@@ -13,10 +13,10 @@ import java.awt.*
 import static java.util.ResourceBundle.getBundle
 
 class NewMealPanel extends JPanel {
-    private JTextField mealNr, mealName, price, description
-    private JButton add
-    private Meal meal
-    private Meals meals
+    JTextField mealNr, mealName, price, description
+    JButton addButton
+    Meal meal
+    Meals meals
 
     NewMealPanel(Meals meals) {
         this.meals = meals
@@ -37,21 +37,21 @@ class NewMealPanel extends JPanel {
         description = new JTextField(10)
         add(description)
 
-        add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_MEAL"))
-        add.addActionListener({ e -> saveMeal() })
-        add(add)
+        addButton = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_MEAL"))
+        addButton.addActionListener({ e -> saveMeal() })
+        add(addButton)
     }
 
     void setMeal(Meal meal) {
         this.meal = meal
-        mealNr.setText(meal.getName())
+        mealNr.setText(meal.name)
         mealName.setText(meal.getMealName())
-        description.setText(meal.getDescription())
+        description.setText(meal.description)
         BigDecimal salesPrice = meal.getSalesPrice()
         price.setText(salesPrice.toString())
     }
 
-    private void saveMeal() {
+    void saveMeal() {
         String newName = mealNr.getText().trim()
         try {
             if (meal == null) {
@@ -62,7 +62,7 @@ class NewMealPanel extends JPanel {
                 meal = null
                 clearFields()
             } else {
-                String oldName = meal.getName()
+                String oldName = meal.name
                 meals.modifyName(oldName, newName)
                 saveOtherProperties()
             }
@@ -74,7 +74,7 @@ class NewMealPanel extends JPanel {
     }
 
 
-    private void saveOtherProperties(){
+    void saveOtherProperties(){
         meal.setDescription(description.getText())
         meal.setMealName(mealName.getText())
         String priceText = price.getText()
@@ -84,7 +84,7 @@ class NewMealPanel extends JPanel {
 //        Main.fireAccountDataChanged(account)
     }
 
-    private void clearFields() {
+    void clearFields() {
         mealNr.setText("")
         mealName.setText("")
         description.setText("")

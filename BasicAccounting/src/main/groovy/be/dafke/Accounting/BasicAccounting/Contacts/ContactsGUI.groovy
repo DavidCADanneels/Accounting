@@ -10,10 +10,10 @@ import java.awt.*
 class ContactsGUI extends JFrame {
 
 
-    private static final HashMap<Accounting, ContactsGUI> contactGuis = new HashMap<>()
-    private static final HashMap<Accounting, ContactsGUI> suppliersGuis = new HashMap<>()
-    private static final HashMap<Accounting, ContactsGUI> customersGuis = new HashMap<>()
-    private final ContactsPanel contactsPanel
+    static final HashMap<Accounting, ContactsGUI> contactGuis = new HashMap<>()
+    static final HashMap<Accounting, ContactsGUI> suppliersGuis = new HashMap<>()
+    static final HashMap<Accounting, ContactsGUI> customersGuis = new HashMap<>()
+    final ContactsPanel contactsPanel
 
     static ContactsGUI showSuppliers(Accounting accounting) {
         ContactsGUI gui = suppliersGuis.get(accounting)
@@ -45,7 +45,7 @@ class ContactsGUI extends JFrame {
         gui
     }
 
-    private ContactsGUI(Accounting accounting, Contact.ContactType contactType) {
+    ContactsGUI(Accounting accounting, Contact.ContactType contactType) {
         super("Contacts")
         contactsPanel = new ContactsPanel(contactType, accounting)
         setContentPane(contactsPanel)
@@ -62,13 +62,13 @@ class ContactsGUI extends JFrame {
     }
 
     static void fireContactDataChangedForAll(){
-        contactGuis.values().forEach(ContactsGUI.&fireTableUpdate)
-        suppliersGuis.values().forEach(ContactsGUI.&fireTableUpdate)
-        customersGuis.values().forEach(ContactsGUI.&fireTableUpdate)
+        contactGuis.values().each{it.fireTableUpdate()}
+        suppliersGuis.values().each{it.fireTableUpdate()}
+        customersGuis.values().each{it.fireTableUpdate()}
     }
 
     static void fireCustomerDataChanged(){
-        customersGuis.values().forEach(ContactsGUI.&fireTableUpdate)
+        customersGuis.values().each{it.fireTableUpdate()}
     }
 
     void fireTableUpdate(){

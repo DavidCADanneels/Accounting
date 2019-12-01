@@ -8,11 +8,11 @@ import javax.swing.*
 import static java.util.ResourceBundle.getBundle
 
 class AllergenesViewGUI extends JFrame {
-    private final AllergenesViewPanel allergenesEditPanel
+    final AllergenesViewPanel allergenesEditPanel
 
-    private static final HashMap<Allergenes, AllergenesViewGUI> guis = new HashMap<>()
+    static final HashMap<Allergenes, AllergenesViewGUI> guis = new HashMap<>()
 
-    private AllergenesViewGUI(Allergenes allergenes) {
+    AllergenesViewGUI(Allergenes allergenes) {
         super(getBundle("Accounting").getString("ALLERGENES"))
         allergenesEditPanel = new AllergenesViewPanel(false)
         allergenesEditPanel.setAllergenes(allergenes)

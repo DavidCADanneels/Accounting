@@ -9,11 +9,11 @@ import javax.swing.*
 import static java.util.ResourceBundle.getBundle
 
 class PurchaseOrdersOverviewGUI extends JFrame {
-    private final PurchaseOrdersOverviewPanel ordersOverViewPanel
+    final PurchaseOrdersOverviewPanel ordersOverViewPanel
 
-    private static HashMap<Accounting,PurchaseOrdersOverviewGUI> purchaseOrderOverviewGuiMap = new HashMap<>()
+    static HashMap<Accounting,PurchaseOrdersOverviewGUI> purchaseOrderOverviewGuiMap = new HashMap<>()
 
-    private PurchaseOrdersOverviewGUI() {
+    PurchaseOrdersOverviewGUI() {
         super(getBundle("Accounting").getString("PO_OVERVIEW"))
         ordersOverViewPanel = new PurchaseOrdersOverviewPanel()
         setContentPane(ordersOverViewPanel)
@@ -24,7 +24,7 @@ class PurchaseOrdersOverviewGUI extends JFrame {
         PurchaseOrdersOverviewGUI gui = purchaseOrderOverviewGuiMap.get(accounting)
         if (gui == null) {
             gui = new PurchaseOrdersOverviewGUI()
-            gui.setAccounting(accounting)
+            gui.accounting = accounting
             purchaseOrderOverviewGuiMap.put(accounting, gui)
             Main.addFrame(gui)
         }
@@ -47,6 +47,6 @@ class PurchaseOrdersOverviewGUI extends JFrame {
     }
 
     void setAccounting(Accounting accounting) {
-        ordersOverViewPanel.setAccounting(accounting)
+        ordersOverViewPanel.accounting = accounting
     }
 }

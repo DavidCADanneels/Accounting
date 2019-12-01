@@ -16,10 +16,10 @@ import java.awt.event.FocusEvent
 import static java.util.ResourceBundle.getBundle
 
 class PrefixFilterPanel<K> extends JPanel {
-    private JScrollPane scrol
+    JScrollPane scrol
     protected JTextField zoekveld
-    private PrefixFilter<K> filter
-    private DefaultListModel<K> model
+    PrefixFilter<K> filter
+    DefaultListModel<K> model
 
     /**
      * Constructor with model, panel and map

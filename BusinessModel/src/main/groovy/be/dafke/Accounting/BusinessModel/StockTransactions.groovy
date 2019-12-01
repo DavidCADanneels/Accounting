@@ -1,15 +1,15 @@
 package be.dafke.Accounting.BusinessModel
 
 class StockTransactions {
-    private Journal purchaseJournal
-    private Journal salesJournal
-    private Journal salesNoInvoiceJournal
-    private Journal gainJournal
-    private Account stockAccount
-    private Account gainAccount
-    private Account salesAccount
-    private Account salesGainAccount
-    private Account promoAccount
+    Journal purchaseJournal
+    Journal salesJournal
+    Journal salesNoInvoiceJournal
+    Journal gainJournal
+    Account stockAccount
+    Account gainAccount
+    Account salesAccount
+    Account salesGainAccount
+    Account promoAccount
 
     protected final ArrayList<Order> orders = new ArrayList()
 
@@ -21,45 +21,45 @@ class StockTransactions {
         orders.add(order)
         if(order instanceof PromoOrder){
             PromoOrder promoOrder = (PromoOrder) order
-            promoOrder.getBusinessObjects().forEach({ orderItem ->
-                Article article = orderItem.getArticle()
-                int numberOfItems = orderItem.getNumberOfItems()
+            promoOrder.businessObjects.forEach({ orderItem ->
+                Article article = orderItem.article
+                int numberOfItems = orderItem.numberOfItems
                 article.setPromoOrderDelivered(numberOfItems)
             })
         } else if(order instanceof SalesOrder){
             SalesOrder salesOrder = (SalesOrder) order
-            if(!salesOrder.isCreditNote()){
-                salesOrder.getBusinessObjects().forEach({ orderItem ->
-                    Article article = orderItem.getArticle()
-                    int numberOfItems = orderItem.getNumberOfItems()
+            if(!salesOrder.creditNote){
+                salesOrder.businessObjects.forEach({ orderItem ->
+                    Article article = orderItem.article
+                    int numberOfItems = orderItem.numberOfItems
                     article.setSoDelivered(numberOfItems)
                 })
             } else {
-                salesOrder.getBusinessObjects().forEach({ orderItem ->
-                    Article article = orderItem.getArticle()
-                    int numberOfItems = orderItem.getNumberOfItems()
+                salesOrder.businessObjects.forEach({ orderItem ->
+                    Article article = orderItem.article
+                    int numberOfItems = orderItem.numberOfItems
                     article.setSoCnDelivered(numberOfItems)
                 })
             }
         } else if (order instanceof PurchaseOrder){
             PurchaseOrder purchaseOrder = (PurchaseOrder) order
-            if(!purchaseOrder.isCreditNote()) {
-                purchaseOrder.getBusinessObjects().forEach({ orderItem ->
-                    Article article = orderItem.getArticle()
-                    int numberOfItems = orderItem.getNumberOfItems()
+            if(!purchaseOrder.creditNote) {
+                purchaseOrder.businessObjects.forEach({ orderItem ->
+                    Article article = orderItem.article
+                    int numberOfItems = orderItem.numberOfItems
                     article.setPoDelivered(numberOfItems)
                 })
             } else {
-                purchaseOrder.getBusinessObjects().forEach({ orderItem ->
-                    Article article = orderItem.getArticle()
-                    int numberOfItems = orderItem.getNumberOfItems()
+                purchaseOrder.businessObjects.forEach({ orderItem ->
+                    Article article = orderItem.article
+                    int numberOfItems = orderItem.numberOfItems
                     article.setPoCnDelivered(numberOfItems)
                 })
             }
         } else if (order instanceof StockOrder){
-            order.getBusinessObjects().forEach({ orderItem ->
-                Article article = orderItem.getArticle()
-                int numberOfItems = orderItem.getNumberOfItems()
+            order.businessObjects.forEach({ orderItem ->
+                Article article = orderItem.article
+                int numberOfItems = orderItem.numberOfItems
                 article.setStockOrderDelivered(numberOfItems)
             })
         }

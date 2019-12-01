@@ -6,14 +6,14 @@ import be.dafke.ComponentModel.SelectableTableModel
 import static java.util.ResourceBundle.getBundle 
 
 class StockTransactionsDataTableModel extends SelectableTableModel<OrderItem> {
-    private final StockTransactions stockTransactions
+    final StockTransactions stockTransactions
     static int ORDER_COL = 0
     static int ARTIKEL_COL = 1
     static int ADDED_COL = 2
     static int REMOVED_COL = 3
     static int NR_OF_COLS = 4
-    private HashMap<Integer,String> columnNames = new HashMap<>()
-    private HashMap<Integer,Class> columnClasses = new HashMap<>()
+    HashMap<Integer,String> columnNames = new HashMap<>()
+    HashMap<Integer,Class> columnClasses = new HashMap<>()
 
     StockTransactionsDataTableModel(StockTransactions stockTransactions) {
         this.stockTransactions = stockTransactions
@@ -21,14 +21,14 @@ class StockTransactionsDataTableModel extends SelectableTableModel<OrderItem> {
         setColumnClasses()
     }
 
-    private void setColumnClasses() {
+    void setColumnClasses() {
         columnClasses.put(ORDER_COL, OrderItems.class)
         columnClasses.put(ARTIKEL_COL, Article.class)
         columnClasses.put(ADDED_COL, Integer.class)
         columnClasses.put(REMOVED_COL, Integer.class)
     }
 
-    private void setColumnNames() {
+    void setColumnNames() {
         columnNames.put(ORDER_COL, getBundle("Accounting").getString("ORDER"))
         columnNames.put(ARTIKEL_COL, getBundle("Accounting").getString("ARTICLE_NAME"))
         columnNames.put(ADDED_COL, getBundle("Accounting").getString("ORDER_ADDED"))
@@ -38,24 +38,19 @@ class StockTransactionsDataTableModel extends SelectableTableModel<OrderItem> {
 // ===============
     Object getValueAt(int row, int col) {
         OrderItem orderItem = getObject(row,col)
-        Article article = orderItem.getArticle()
-
-        if (col == ARTIKEL_COL) {
-            article
-        }
+        Article article = orderItem.article
+        if (col == ARTIKEL_COL) return article
         Order order = orderItem.getOrder()
-        if (col == ORDER_COL) {
-            order
-        }
+        if (col == ORDER_COL) return order
         if (col == ADDED_COL) {
             if(order!=null && (order instanceof PurchaseOrder || order instanceof StockOrder)) {
-                orderItem.getNumberOfItems()
-            } else null
+                return orderItem.numberOfItems
+            } else return null
         }
         if (col == REMOVED_COL) {
             if(order!=null && (order instanceof SalesOrder || order instanceof PromoOrder)) {
-                orderItem.getNumberOfItems()
-            } else null
+                return orderItem.numberOfItems
+            } else return null
         }
         null
     }
@@ -66,11 +61,11 @@ class StockTransactionsDataTableModel extends SelectableTableModel<OrderItem> {
 
     int getRowCount() {
         if(stockTransactions == null){
-            0
+            return 0
         }
         int size = 0
         for(Order order:stockTransactions.getOrders()){
-            size += order.getBusinessObjects().size()
+            size += order.businessObjects.size()
         }
         size
     }
@@ -97,10 +92,10 @@ class StockTransactionsDataTableModel extends SelectableTableModel<OrderItem> {
         // no editable fields
     }
 
-    private ArrayList<OrderItem> getAllItems(){
+    ArrayList<OrderItem> getAllItems(){
         ArrayList<OrderItem> orderItems = new ArrayList<>()
         for(Order order : stockTransactions.getOrders()){
-            orderItems.addAll(order.getBusinessObjects())
+            orderItems.addAll(order.businessObjects)
         }
         orderItems
     }
@@ -112,7 +107,7 @@ class StockTransactionsDataTableModel extends SelectableTableModel<OrderItem> {
         orderItems.get(row)
     }
 
-    private int getRowInList(ArrayList<OrderItem> list, OrderItem booking){
+    int getRowInList(ArrayList<OrderItem> list, OrderItem booking){
         int row = 0
         for(OrderItem search:list){
             if(search!=booking){

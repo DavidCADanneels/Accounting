@@ -8,8 +8,8 @@ import javax.swing.*
 import static java.util.ResourceBundle.getBundle
 
 class VATFieldsGUI extends JFrame {
-    private static final HashMap<VATFields, VATFieldsGUI> vatGuis = new HashMap<>()
-    private final VATFieldsPanel vatFieldsPanel
+    static final HashMap<VATFields, VATFieldsGUI> vatGuis = new HashMap<>()
+    final VATFieldsPanel vatFieldsPanel
 
     static VATFieldsGUI getInstance(VATFields vatFields, Accounting accounting) {
         VATFieldsGUI gui
@@ -27,12 +27,12 @@ class VATFieldsGUI extends JFrame {
         VATFields vatFields = new VATFields()
         vatFields.addDefaultFields()
         for(Transaction transaction : transactions) {
-            ArrayList<VATBooking> vatBookings = transaction.getVatBookings()
+            ArrayList<VATBooking> vatBookings = transaction.vatBookings
             for (VATBooking vatBooking : vatBookings) {
-                VATField originalVatField = vatBooking.getVatField()
-                String name = originalVatField.getName()
+                VATField originalVatField = vatBooking.vatField
+                String name = originalVatField.name
                 VATField newVatField = vatFields.getBusinessObject(name)
-                VATMovement vatMovement = vatBooking.getVatMovement()
+                VATMovement vatMovement = vatBooking.vatMovement
                 newVatField.addBusinessObject(vatMovement)
             }
         }
@@ -45,7 +45,7 @@ class VATFieldsGUI extends JFrame {
         gui
     }
 
-    private VATFieldsGUI(VATFields vatFields, Accounting accounting, List<Transaction> transactions) {
+    VATFieldsGUI(VATFields vatFields, Accounting accounting, List<Transaction> transactions) {
         super(getBundle("VAT").getString("VAT_FIELDS"))
         vatFieldsPanel = new VATFieldsPanel(vatFields, accounting, transactions)
         setContentPane(vatFieldsPanel)

@@ -9,10 +9,10 @@ import javax.swing.*
 import static java.util.ResourceBundle.getBundle
 
 class MealOrdersOverviewGUI extends JFrame {
-    private static HashMap<Accounting, MealOrdersOverviewGUI> guis = new HashMap<>()
-    private final MealOrdersOverviewPanel mealOrdersOverviewPanel
+    static HashMap<Accounting, MealOrdersOverviewGUI> guis = new HashMap<>()
+    final MealOrdersOverviewPanel mealOrdersOverviewPanel
 
-    private MealOrdersOverviewGUI(Accounting accounting) {
+    MealOrdersOverviewGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("MEAL_ORDER_OVERVIEW"))
         mealOrdersOverviewPanel = new MealOrdersOverviewPanel(accounting)
         setContentPane(mealOrdersOverviewPanel)
@@ -36,7 +36,7 @@ class MealOrdersOverviewGUI extends JFrame {
         }
     }
 
-    private void fireOrderAdded(Accounting accounting, MealOrder mealOrder) {
+    void fireOrderAdded(Accounting accounting, MealOrder mealOrder) {
         mealOrdersOverviewPanel.fireOrderAdded(accounting, mealOrder)
     }
 }

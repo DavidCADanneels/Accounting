@@ -12,10 +12,10 @@ import java.awt.*
 import static java.util.ResourceBundle.getBundle
 
 class TransactionDataPopupMenu extends JPopupMenu {
-    private final JMenuItem details
+    final JMenuItem details
 
-    private SelectableTable<Booking> gui
-    private Journals journals
+    SelectableTable<Booking> gui
+    Journals journals
 
     TransactionDataPopupMenu(Journals journals, SelectableTable<Booking> gui) {
         this(gui)
@@ -33,12 +33,12 @@ class TransactionDataPopupMenu extends JPopupMenu {
         this.journals=journals
     }
 
-    private void showDetails() {
+    void showDetails() {
         Point locationOnScreen = getLocationOnScreen()
         setVisible(false)
-        ArrayList<Booking> bookings = gui.getSelectedObjects()
+        ArrayList<Booking> bookings = gui.selectedObjects
         for (Booking booking : bookings) {
-            Account account = booking.getAccount()
+            Account account = booking.account
             AccountDetailsGUI newGui = AccountDetailsGUI.getAccountDetails(locationOnScreen, account, journals)
             newGui.selectObject(booking)
         }

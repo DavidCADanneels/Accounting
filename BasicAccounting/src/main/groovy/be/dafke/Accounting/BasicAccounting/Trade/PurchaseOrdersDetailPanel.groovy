@@ -29,12 +29,12 @@ import java.awt.Color
 import static java.util.ResourceBundle.getBundle
 
 class PurchaseOrdersDetailPanel extends JPanel {
-    private JButton placeOrderButton, deliveredButton, payedButton
-    private final JButton createPurchaseOrder
-    private JCheckBox payed, delivered, placed
-    private PurchaseOrder purchaseOrder
-    private Accounting accounting
-    private ContactDetailsPanel contactDetailsPanel
+    JButton placeOrderButton, deliveredButton, payedButton
+    final JButton createPurchaseOrder
+    JCheckBox payed, delivered, placed
+    PurchaseOrder purchaseOrder
+    Accounting accounting
+    ContactDetailsPanel contactDetailsPanel
 
 
     PurchaseOrdersDetailPanel() {
@@ -43,7 +43,7 @@ class PurchaseOrdersDetailPanel extends JPanel {
         createPurchaseOrder.addActionListener({ e ->
             PurchaseOrderCreateGUI purchaseOrderCreateGUI = PurchaseOrderCreateGUI.showPurchaseOrderGUI(accounting)
             purchaseOrderCreateGUI.setLocation(getLocationOnScreen())
-            purchaseOrderCreateGUI.setVisible(true)
+            purchaseOrderCreateGUI.visible = true
         })
 
         JPanel orderPanel = createOrderPanel()
@@ -55,7 +55,7 @@ class PurchaseOrdersDetailPanel extends JPanel {
         add(createPurchaseOrder, BorderLayout.SOUTH)
     }
 
-    private JPanel createOrderPanel(){
+    JPanel createOrderPanel(){
         JPanel panel = new JPanel()
         panel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Order"))
 
@@ -68,28 +68,28 @@ class PurchaseOrdersDetailPanel extends JPanel {
         panel
     }
 
-    private JPanel createCustomerPanel(){
+    JPanel createCustomerPanel(){
         JPanel panel = new JPanel()
         panel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Supplier"))
 
         panel.setLayout(new BorderLayout())
         contactDetailsPanel = new ContactDetailsPanel()
-        contactDetailsPanel.setEnabled(false)
+        contactDetailsPanel.enabled = false
 
         panel.add(contactDetailsPanel, BorderLayout.NORTH)
 
         panel
     }
 
-    private JPanel createStatusPanel(){
+    JPanel createStatusPanel(){
         JPanel statusPanel = new JPanel()
 
         placed = new JCheckBox("Ordered")
         payed = new JCheckBox("Payed")
         delivered = new JCheckBox("Delived")
-        placed.setEnabled(false)
-        payed.setEnabled(false)
-        delivered.setEnabled(false)
+        placed.enabled = false
+        payed.enabled = false
+        delivered.enabled = false
 
         statusPanel.add(placed)
         statusPanel.add(delivered)
@@ -98,7 +98,7 @@ class PurchaseOrdersDetailPanel extends JPanel {
         statusPanel
     }
 
-    private JPanel createButtonPanel(){
+    JPanel createButtonPanel(){
         JPanel panel = new JPanel()
 
         placeOrderButton = new JButton("Place Order")
@@ -122,11 +122,11 @@ class PurchaseOrdersDetailPanel extends JPanel {
         updateButtonsAndCheckBoxes()
     }
 
-    private void payOrder(){
+    void payOrder(){
         updateButtonsAndCheckBoxes()
     }
 
-    private void placeOrder(){
+    void placeOrder(){
         createPurchaseTransaction()
 
         StockHistoryGUI.fireStockContentChanged()
@@ -134,21 +134,21 @@ class PurchaseOrdersDetailPanel extends JPanel {
         updateButtonsAndCheckBoxes()
     }
 
-    private void deliverOrder(){
+    void deliverOrder(){
         DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog()
-        Contact supplier = purchaseOrder.getSupplier()
-        dateAndDescriptionDialog.setDescription(supplier.getName())
-        dateAndDescriptionDialog.enableDescription(false)
-        dateAndDescriptionDialog.setVisible(true)
+        Contact supplier = purchaseOrder.supplier
+        dateAndDescriptionDialog.description = supplier.name
+        dateAndDescriptionDialog.enableDescription false
+        dateAndDescriptionDialog.visible = true
 
-        Calendar date = dateAndDescriptionDialog.getDate()
-        String description = dateAndDescriptionDialog.getDescription()
+        Calendar date = dateAndDescriptionDialog.date
+        String description = dateAndDescriptionDialog.description
 
-        purchaseOrder.setDeliveryDate(Utils.toString(date))
-        purchaseOrder.setDescription(description)
+        purchaseOrder.deliveryDate = Utils.toString date
+        purchaseOrder.description = description
 
-        StockTransactions stockTransactions = accounting.getStockTransactions()
-        stockTransactions.addOrder(purchaseOrder)
+        StockTransactions stockTransactions = accounting.stockTransactions
+        stockTransactions.addOrder purchaseOrder
 
         StockGUI.fireStockContentChanged()
         StockHistoryGUI.fireStockContentChanged()
@@ -156,87 +156,87 @@ class PurchaseOrdersDetailPanel extends JPanel {
         updateButtonsAndCheckBoxes()
     }
 
-    private void updateButtonsAndCheckBoxes() {
-        StockTransactions stockTransactions = accounting.getStockTransactions()
+    void updateButtonsAndCheckBoxes() {
+        StockTransactions stockTransactions = accounting.stockTransactions
         ArrayList<Order> orders = stockTransactions.getOrders()
-        Transaction purchaseTransaction = purchaseOrder==null?null:purchaseOrder.getPurchaseTransaction()
-        payed.setSelected(purchaseOrder !=null&& purchaseOrder.getPurchaseTransaction()!=null)
+        Transaction purchaseTransaction = purchaseOrder==null?null:purchaseOrder.purchaseTransaction
+        payed.setSelected(purchaseOrder !=null&& purchaseOrder.purchaseTransaction!=null)
         placed.setSelected(purchaseTransaction!=null)
         delivered.setSelected(purchaseOrder !=null&& orders.contains(purchaseOrder))
-        deliveredButton.setEnabled(purchaseOrder !=null&&!orders.contains(purchaseOrder))
-        placeOrderButton.setEnabled(purchaseTransaction==null)
-        payedButton.setEnabled(purchaseOrder !=null&&purchaseOrder.getPurchaseTransaction()==null)
-        if(purchaseOrder!=null&&purchaseOrder.getSupplier()!=null){
-            contactDetailsPanel.setContact(purchaseOrder.getSupplier())
+        deliveredButton.enabled = purchaseOrder !=null&&!orders.contains(purchaseOrder)
+        placeOrderButton.enabled = purchaseTransaction==null
+        payedButton.enabled = purchaseOrder !=null&&purchaseOrder.purchaseTransaction==null
+        if(purchaseOrder&&purchaseOrder.supplier){
+            contactDetailsPanel.setContact(purchaseOrder.supplier)
         } else {
             contactDetailsPanel.clearFields()
         }
     }
 
-    private void createPurchaseTransaction() {
+    void createPurchaseTransaction() {
         DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog()
         dateAndDescriptionDialog.enableDescription(true)
-        dateAndDescriptionDialog.setDescription(purchaseOrder.getName())
-        dateAndDescriptionDialog.setVisible(true)
+        dateAndDescriptionDialog.description = purchaseOrder.name
+        dateAndDescriptionDialog.visible = true
 
-        Calendar date = dateAndDescriptionDialog.getDate()
-        String description = dateAndDescriptionDialog.getDescription()
+        Calendar date = dateAndDescriptionDialog.date
+        String description = dateAndDescriptionDialog.description
 
         Transaction transaction = new Transaction(date, description)
-        Account stockAccount = StockUtils.getStockAccount(accounting)
+        Account stockAccount = StockUtils.getStockAccount accounting
 
-        Contact supplier = purchaseOrder.getSupplier()
+        Contact supplier = purchaseOrder.supplier
         if(supplier == null){
             // TODO
         }
-        Account supplierAccount = StockUtils.getSupplierAccount(supplier, accounting)
+        Account supplierAccount = StockUtils.getSupplierAccount supplier, accounting
 
-        boolean creditNote = purchaseOrder.isCreditNote()
+        boolean creditNote = purchaseOrder.creditNote
 
-        BigDecimal stockAmount = purchaseOrder.getTotalPurchasePriceExclVat()
+        BigDecimal stockAmount = purchaseOrder.totalPurchasePriceExclVat
         Booking stockBooking = new Booking(stockAccount, stockAmount, !creditNote)
 
         PurchaseType purchaseType = PurchaseType.VAT_81
         if(!creditNote){
-            AccountActions.addPurchaseVatTransaction(stockBooking, purchaseType)
+            AccountActions.addPurchaseVatTransaction stockBooking, purchaseType
         } else {
-            AccountActions.addPurchaseCnVatTransaction(stockBooking, purchaseType)
+            AccountActions.addPurchaseCnVatTransaction stockBooking, purchaseType
         }
-        transaction.addBusinessObject(stockBooking)
+        transaction.addBusinessObject stockBooking
 
-        BigDecimal supplierAmount = purchaseOrder.getTotalPurchasePriceInclVat()
+        BigDecimal supplierAmount = purchaseOrder.totalPurchasePriceInclVat
         Booking supplierBooking = new Booking(supplierAccount, supplierAmount, creditNote)
         // (no VAT Booking for Supplier)
         transaction.addBusinessObject(supplierBooking)
 
-        BigDecimal vatAmount = purchaseOrder.getTotalPurchaseVat()
+        BigDecimal vatAmount = purchaseOrder.totalPurchaseVat
         if(vatAmount.compareTo(BigDecimal.ZERO) != 0) {
             if(!creditNote) {
-                Booking bookingVat = AccountActions.createPurchaseVatBooking(accounting, vatAmount)
-                transaction.addBusinessObject(bookingVat)
+                Booking bookingVat = AccountActions.createPurchaseVatBooking accounting, vatAmount
+                transaction.addBusinessObject bookingVat
             } else {
-                Booking bookingVat = AccountActions.createPurchaseCnVatBooking(accounting, vatAmount)
-                transaction.addBusinessObject(bookingVat)
+                Booking bookingVat = AccountActions.createPurchaseCnVatBooking accounting, vatAmount
+                transaction.addBusinessObject bookingVat
             }
         }
 
-        Journal journal = StockUtils.getPurchaseJournal(accounting)
-        transaction.setJournal(journal)
+        Journal journal = StockUtils.getPurchaseJournal accounting
+        transaction.journal = journal
         // TODO: ask for Date and Description
 
-        purchaseOrder.setPurchaseTransaction(transaction)
+        purchaseOrder.purchaseTransaction = transaction
 
-        Transactions transactions = accounting.getTransactions()
+        Transactions transactions = accounting.transactions
         transactions.setId(transaction)
-        transactions.addBusinessObject(transaction)
-        journal.addBusinessObject(transaction)
-        Main.setJournal(journal)
-        Main.selectTransaction(transaction)
+        transactions.addBusinessObject transaction
+        journal.addBusinessObject transaction
+        Main.journal = journal
+        Main.selectTransaction transaction
     }
 
     void setAccounting(Accounting accounting) {
         this.accounting = accounting
-        contactDetailsPanel.setAccounting(accounting)
+        contactDetailsPanel.accounting = accounting
     }
 
 }

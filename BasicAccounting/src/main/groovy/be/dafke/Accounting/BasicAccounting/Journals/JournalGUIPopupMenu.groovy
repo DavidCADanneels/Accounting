@@ -3,6 +3,7 @@ package be.dafke.Accounting.BasicAccounting.Journals
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountActions
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountDetails.AccountDetailsGUI
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountSelectorDialog
+import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.*
 import be.dafke.ComponentModel.SelectableTable
 
@@ -12,100 +13,100 @@ import java.awt.*
 import static java.util.ResourceBundle.getBundle
 
 class JournalGUIPopupMenu extends JPopupMenu{
-    private final JMenuItem delete, edit, change, debitCredit, details;
-    private final SelectableTable<Booking> table;
-    private Accounts accounts;
-    private Journals journals;
-    private AccountTypes accountTypes;
+    final JMenuItem delete, edit, change, debitCredit, details
+    final SelectableTable<Booking> table
+    Accounts accounts
+    Journals journals
+    AccountTypes accountTypes
 
-    public JournalGUIPopupMenu(SelectableTable<Booking> table) {
-        this.table = table;
-        delete = new JMenuItem(getBundle("Accounting").getString("DELETE"));
-        edit = new JMenuItem(getBundle("Accounting").getString("EDIT_AMOUNT"));
-        change = new JMenuItem(getBundle("Accounting").getString("CHANGE_ACCOUNT"));
-        debitCredit = new JMenuItem(getBundle("Accounting").getString("D_C"));
-        details = new JMenuItem(getBundle("Accounting").getString("GO_TO_ACCOUNT_DETAILS"));
-        add(details);
-        delete.addActionListener({ e -> deleteBooking() });
-        edit.addActionListener({ e -> editAmount() });
-        change.addActionListener({ e -> changeAccount() });
-        debitCredit.addActionListener({ e -> switchDebitCredit() });
-        details.addActionListener({ e -> showDetails() });
-        add(delete);
-        add(edit);
-        add(change);
-        add(debitCredit);
+    JournalGUIPopupMenu(SelectableTable<Booking> table) {
+        this.table = table
+        delete = new JMenuItem(getBundle("Accounting").getString("DELETE"))
+        edit = new JMenuItem(getBundle("Accounting").getString("EDIT_AMOUNT"))
+        change = new JMenuItem(getBundle("Accounting").getString("CHANGE_ACCOUNT"))
+        debitCredit = new JMenuItem(getBundle("Accounting").getString("D_C"))
+        details = new JMenuItem(getBundle("Accounting").getString("GO_TO_ACCOUNT_DETAILS"))
+        add(details)
+        delete.addActionListener({ e -> deleteBooking() })
+        edit.addActionListener({ e -> editAmount() })
+        change.addActionListener({ e -> changeAccount() })
+        debitCredit.addActionListener({ e -> switchDebitCredit() })
+        details.addActionListener({ e -> showDetails() })
+        add(delete)
+        add(edit)
+        add(change)
+        add(debitCredit)
     }
 
-    public void setAccounting(Accounting accounting){
-        accounts = accounting==null?null:accounting.getAccounts();
-        journals = accounting==null?null:accounting.getJournals();
-        accountTypes = accounting==null?null:accounting.getAccountTypes();
+    void setAccounting(Accounting accounting){
+        accounts = accounting?accounting.accounts:null
+        journals = accounting?accounting.journals:null
+        accountTypes = accounting?accounting.accountTypes:null
     }
 
 
-    private void deleteBooking() {
-        setVisible(false);
-        ArrayList<Booking> bookings = table.getSelectedObjects();
+    void deleteBooking() {
+        setVisible(false)
+        ArrayList<Booking> bookings = table.selectedObjects
         for (Booking booking : bookings) {
-            Transaction transaction = booking.getTransaction();
-            transaction.removeBusinessObject(booking);
-            Main.fireTransactionInputDataChanged();
+            Transaction transaction = booking.transaction
+            transaction.removeBusinessObject booking
+            Main.fireTransactionInputDataChanged()
         }
     }
 
-    private void editAmount() {
-        setVisible(false);
-        ArrayList<Booking> bookings = table.getSelectedObjects();
+    void editAmount() {
+        setVisible(false)
+        ArrayList<Booking> bookings = table.selectedObjects
         for (Booking booking : bookings) {
-            Transaction transaction = booking.getTransaction();
-            Account account = booking.getAccount();
+            Transaction transaction = booking.transaction
+            Account account = booking.account
             //TODO: or JournalGUI.table should contain Movements iso Bookings
             // booking must be removed and re-added to Transaction to re-calculate the totals
-            transaction.removeBusinessObject(booking);
-            BigDecimal amount = AccountActions.askAmount(account, booking.isDebit(),transaction, this);
+            transaction.removeBusinessObject(booking)
+            BigDecimal amount = AccountActions.askAmount(account, booking.debit,transaction, this)
             if (amount != null) {
-                booking.setAmount(amount);
+                booking.setAmount(amount)
             }
-            transaction.addBusinessObject(booking);
-            Main.fireTransactionInputDataChanged();
+            transaction.addBusinessObject(booking)
+            Main.fireTransactionInputDataChanged()
         }
     }
 
-    private void switchDebitCredit() {
-        setVisible(false);
-        ArrayList<Booking> bookings = table.getSelectedObjects();
+    void switchDebitCredit() {
+        setVisible(false)
+        ArrayList<Booking> bookings = table.selectedObjects
         for (Booking booking : bookings) {
-            Transaction transaction = booking.getTransaction();
+            Transaction transaction = booking.transaction
             // booking must be removed and re-added to Transaction to re-calculate the totals
-            transaction.removeBusinessObject(booking);
-            booking.setDebit(!booking.isDebit());
-            transaction.addBusinessObject(booking);
-            Main.fireTransactionInputDataChanged();
+            transaction.removeBusinessObject(booking)
+            booking.setDebit(!booking.debit)
+            transaction.addBusinessObject(booking)
+            Main.fireTransactionInputDataChanged()
         }
     }
 
-    private void changeAccount() {
-        setVisible(false);
-        ArrayList<Booking> bookings = table.getSelectedObjects();
+    void changeAccount() {
+        setVisible(false)
+        ArrayList<Booking> bookings = table.selectedObjects
         for (Booking booking : bookings) {
-            AccountSelectorDialog sel = AccountSelectorDialog.getAccountSelector(accounts, accountTypes.getBusinessObjects());
-            sel.setVisible(true);
-            Account account = sel.getSelection();
+            AccountSelectorDialog sel = AccountSelectorDialog.getAccountSelector(accounts, accountTypes.businessObjects)
+            sel.visible = true
+            Account account = sel.getSelection()
             if (account != null) {
-                booking.setAccount(account);
+                booking.setAccount(account)
             }
-            Main.fireTransactionInputDataChanged();
+            Main.fireTransactionInputDataChanged()
         }
     }
 
-    private void showDetails() {
-        Point locationOnScreen = getLocationOnScreen();
-        setVisible(false);
-        ArrayList<Booking> bookings = table.getSelectedObjects();
+    void showDetails() {
+        Point locationOnScreen = getLocationOnScreen()
+        setVisible(false)
+        ArrayList<Booking> bookings = table.selectedObjects
         for (Booking booking : bookings) {
-            Account account = booking.getAccount();
-            AccountDetailsGUI.getAccountDetails(locationOnScreen, account, journals);
+            Account account = booking.account
+            AccountDetailsGUI.getAccountDetails(locationOnScreen, account, journals)
         }
     }
 }

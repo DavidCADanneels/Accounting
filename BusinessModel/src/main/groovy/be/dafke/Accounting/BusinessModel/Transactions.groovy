@@ -6,8 +6,8 @@ import java.util.function.Predicate
 // Journal extends Transaction (+ override add/remove BusinessObject (do not book Accounts)
 class Transactions extends Journal {
 
-    private final Accounting accounting
-    private Integer id=0
+    final Accounting accounting
+    int id=0
 
     Transactions(Accounting accounting) {
         super("Master", "MA")
@@ -15,76 +15,76 @@ class Transactions extends Journal {
     }
 
     Transaction addBusinessObject(Transaction transaction) {
-        for (Booking booking : transaction.getBusinessObjects()) {
-            Account account = booking.getAccount()
+        for (Booking booking : transaction.businessObjects) {
+            Account account = booking.account
             Movement movement = booking.getMovement()
-            boolean book = !transaction.isBalanceTransaction()
+            boolean book = !transaction.balanceTransaction
             account.addBusinessObject(movement, book)
         }
 
-        int transactionId = transaction.getTransactionId()
-        if(!transaction.isBalanceTransaction()) {
-            Mortgage mortgage = transaction.getMortgage()
+        int transactionId = transaction.transactionId
+        if(!transaction.balanceTransaction) {
+            Mortgage mortgage = transaction.mortgage
             if (mortgage != null) {
                 mortgage.raiseNrPayed()
             }
 
-            if (accounting.isVatAccounting()){ // && accounting.getVatTransactions() != null) {
-//                ArrayList<VATBooking> vatBookings = transaction.getVatBookings()
+            if (accounting.vatAccounting){ // && accounting.vatTransactions != null) {
+//                ArrayList<VATBooking> vatBookings = transaction.vatBookings
 //                if (vatBookings != null) {
-//                    VATTransactions vatTransactions = accounting.getVatTransactions()
+//                    VATTransactions vatTransactions = accounting.vatTransactions
 //                    // TODO: raise count here, not when creating the VATTransaction (+ set ID)
 //                    // TODO: remove below 2 lines
 ////                    vatBookings.setId(transactionId)
 //                    vatTransactions.addBusinessObject(vatBookings)
 //                }
-                Contact contact = transaction.getContact()
-                BigDecimal turnOverAmount = transaction.getTurnOverAmount()
-                BigDecimal vatAmount = transaction.getVATAmount()
+                Contact contact = transaction.contact
+                BigDecimal turnOverAmount = transaction.turnOverAmount
+                BigDecimal vatAmount = transaction.VATAmount
                 if (contact != null){
                     if(turnOverAmount != null)
-                        contact.increaseTurnOver(turnOverAmount)
+                        contact.increaseTurnOver turnOverAmount
                     if(vatAmount != null)
-                        contact.increaseVATTotal(vatAmount)
+                        contact.increaseVATTotal vatAmount
                 }
             }
         }
         //TODO: save per ID, sort per date in UI
 //        super.addBusinessObject(transaction)
-        transactions.put(transactionId,transaction)
+        transactions.put transactionId,transaction
     }
 
     void removeBusinessObject(Transaction transaction) {
-        ArrayList<Booking> bookings = transaction.getBusinessObjects()
+        ArrayList<Booking> bookings = transaction.businessObjects
         for (Booking booking : bookings) {
-            Account account = booking.getAccount()
-            boolean book = !transaction.isBalanceTransaction()
-            account.removeBusinessObject(booking.getMovement(), book)
+            Account account = booking.account
+            boolean book = !transaction.balanceTransaction
+            account.removeBusinessObject booking.getMovement(), book
         }
 
-        Mortgage mortgage = transaction.getMortgage()
+        Mortgage mortgage = transaction.mortgage
         if (mortgage != null) {
             mortgage.decreaseNrPayed()
         }
 
-        if (accounting.isVatAccounting()){ // && accounting.getVatTransactions() != null) {
+        if (accounting.vatAccounting){ // && accounting.vatTransactions != null) {
 //            VATTransaction vatTransaction = transaction.getVatTransaction()
 //            if (vatTransaction != null) {
-//                VATTransactions vatTransactions = accounting.getVatTransactions()
+//                VATTransactions vatTransactions = accounting.vatTransactions
 //                vatTransactions.removeBusinessObject(vatTransaction)
 //            }
-            Contact contact = transaction.getContact()
-            BigDecimal turnOverAmount = transaction.getTurnOverAmount()
-            BigDecimal vatAmount = transaction.getVATAmount()
+            Contact contact = transaction.contact
+            BigDecimal turnOverAmount = transaction.turnOverAmount
+            BigDecimal vatAmount = transaction.VATAmount
             if (contact != null){
                 if(turnOverAmount != null)
-                    contact.decreaseTurnOver(turnOverAmount)
+                    contact.decreaseTurnOver turnOverAmount
                 if(vatAmount != null)
-                    contact.decreaseVATTotal(vatAmount)
+                    contact.decreaseVATTotal vatAmount
             }
         }
         // do not remove transactions from master, just remove Journal link
-        transaction.setJournal(null)
+        transaction.journal = null
     }
 
     List<Transaction> getBusinessObjects(Predicate<Transaction> predicate) {
@@ -92,8 +92,8 @@ class Transactions extends Journal {
     }
 
     Transaction getBusinessObject(Integer id){
-        List<Transaction> transactions = getBusinessObjects({ transaction -> id.equals(transaction.getTransactionId()) })
-        if(transactions==null || transactions.isEmpty()){
+        List<Transaction> transactions = getBusinessObjects({ transaction -> id.equals(transaction.transactionId) })
+        if(transactions==null || transactions.empty){
             null
         }else transactions.get(0)
     }
@@ -103,8 +103,8 @@ class Transactions extends Journal {
         id = newId
     }
     void setId(Transaction transaction) {
-        if(transaction.getTransactionId()==0) {
-            transaction.setTransactionId(++id)
+        if(transaction.transactionId==0) {
+            transaction.transactionId = ++id
         }
     }
 }

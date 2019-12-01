@@ -7,18 +7,18 @@ import java.util.function.Predicate
 import static java.math.BigDecimal.ROUND_HALF_DOWN
 
 class OrderItem extends BusinessObject{
-    private int numberOfUnits, numberOfItems
-    private Article article
-    private BigDecimal purchasePriceForUnit
-    private BigDecimal salesPriceForItem
-    private int itemsPerUnit = 0
-    private Integer salesVatRate = null
-    private Integer purchaseVatRate = null
-    private PurchaseOrder purchaseOrder
-    private Order order
+    int numberOfUnits, numberOfItems
+    Article article
+    BigDecimal purchasePriceForUnit
+    BigDecimal salesPriceForItem
+    int itemsPerUnit = 0
+    Integer salesVatRate = null
+    Integer purchaseVatRate = null
+    PurchaseOrder purchaseOrder
+    Order order
 
     OrderItem(Integer numberOfItems, Article article, Order order) {
-        this(numberOfItems, article, article.getName(), order)
+        this(numberOfItems, article, article.name, order)
     }
 
     OrderItem(Integer numberOfItems, Article article, String name, Order order) {
@@ -33,7 +33,7 @@ class OrderItem extends BusinessObject{
     }
 
     static Predicate<OrderItem> withSalesVatRate(Integer vatRate){
-        { orderItem -> orderItem.getSalesVatRate() == vatRate }
+        { orderItem -> orderItem.salesVatRate == vatRate }
     }
 
     static Predicate<OrderItem> withPurchaseVatRate(Integer vatRate){
@@ -41,11 +41,11 @@ class OrderItem extends BusinessObject{
     }
 
     static Predicate<OrderItem> containsArticle(Article article){
-        { orderItem -> orderItem.getArticle() == article }
+        { orderItem -> orderItem.article == article }
     }
 
     int getItemsPerUnit() {
-        itemsPerUnit!=0?itemsPerUnit:article==null?0:article.getItemsPerUnit()
+        itemsPerUnit!=0?itemsPerUnit:article==null?0:article.itemsPerUnit
     }
 
     void setItemsPerUnit(int itemsPerUnit) {
@@ -110,30 +110,30 @@ class OrderItem extends BusinessObject{
 
     BigDecimal getSalesVatAmount(BigDecimal itemPrice){
         BigDecimal salesPriceWithoutVat = getSalesPriceWithoutVat(itemPrice)
-        salesPriceWithoutVat.multiply(getSalesPercentage())
+        salesPriceWithoutVat.multiply(salesPercentage)
     }
 
-    private BigDecimal getSalesPercentage() {
+    BigDecimal getSalesPercentage() {
         new BigDecimal(getSalesVatRate()).divide(new BigDecimal(100))
     }
 
     // 1.06
     BigDecimal getSalesFactor(){
-        BigDecimal.ONE.add(getSalesPercentage())
+        BigDecimal.ONE.add(salesPercentage)
     }
 
     BigDecimal getSalesPriceWithoutVat(BigDecimal itemPrice) {
         BigDecimal salesPriceWithVat = getSalesPriceWithVat(itemPrice)
-        salesPriceWithVat.divide(getSalesFactor(),ROUND_HALF_DOWN)
+        salesPriceWithVat.divide(salesFactor,ROUND_HALF_DOWN)
     }
 
     BigDecimal getSalesPriceWithVat(BigDecimal itemPrice) {
-        if(itemPrice==null) BigDecimal.ZERO
+        if(itemPrice==null) return BigDecimal.ZERO
         itemPrice.multiply(new BigDecimal(numberOfItems))
     }
 
     Integer getSalesVatRate() {
-        salesVatRate!=null?salesVatRate:article==null?null:article.getSalesVatRate()
+        salesVatRate!=null?salesVatRate:article==null?null:article.salesVatRate
     }
 
     void setSalesVatRate(Integer salesVatRate) {
@@ -145,14 +145,14 @@ class OrderItem extends BusinessObject{
 
     BigDecimal getPurchasePriceForItem() {
         BigDecimal purchasePriceForUnit = getPurchasePriceForUnit()
-        if(purchasePriceForUnit==null) null
+        if(purchasePriceForUnit==null) return null
         int itemsPerUnit = getItemsPerUnit()
-        if (itemsPerUnit == 1) purchasePriceForUnit
+        if (itemsPerUnit == 1) return purchasePriceForUnit
         purchasePriceForUnit.divide(new BigDecimal(itemsPerUnit), ROUND_HALF_DOWN)
     }
 
     BigDecimal getPurchasePriceForUnit() {
-        purchasePriceForUnit!=null?purchasePriceForUnit:article.getPurchasePrice()
+        purchasePriceForUnit?purchasePriceForUnit:article.purchasePrice
     }
 
     void setPurchasePriceForUnit(BigDecimal purchasePriceForUnit) {
@@ -181,34 +181,34 @@ class OrderItem extends BusinessObject{
 
     BigDecimal getPurchasePriceWithVat() {
         BigDecimal unitPrice = getPurchasePriceForUnit()
-        unitPrice==null?null:getPurchasePriceWithVat(numberOfUnits, unitPrice)
+        unitPrice?getPurchasePriceWithVat(numberOfUnits, unitPrice):null
     }
 
     BigDecimal getPurchaseVatAmount() {
         BigDecimal unitPrice = getPurchasePriceForUnit()
-        unitPrice==null?null:getPurchaseVatAmount(numberOfUnits, unitPrice)
+        unitPrice?getPurchaseVatAmount(numberOfUnits, unitPrice):null
     }
 
-    private BigDecimal getPurchasePercentage() {
+    BigDecimal getPurchasePercentage() {
         Integer purchaseVatRate = getPurchaseVatRate()
-        purchaseVatRate==null?null:new BigDecimal(purchaseVatRate).divide(new BigDecimal(100))
+        purchaseVatRate?new BigDecimal(purchaseVatRate).divide(new BigDecimal(100)):null
     }
 
     // 1.06
     BigDecimal getPurchaseFactor(){
         BigDecimal purchasePercentage = getPurchasePercentage()
-        purchasePercentage==null?null:BigDecimal.ONE.add(purchasePercentage)
+        purchasePercentage?BigDecimal.ONE.add(purchasePercentage):null
     }
 
     Integer getPurchaseVatRate() {
-//		Contact supplier = article.getSupplier()
+//		Contact supplier = article.supplier
 //		if(supplier.isIntraCommun() && supplier.isInternational){
 //			0
 //		} else {
 //        purchaseVatRate!=null?purchaseVatRate:article.getPurchaseVatRate()
 //		}
         // TODO: getSupplier().isInternational or IntraComm -> 0%
-        purchaseVatRate!=null?purchaseVatRate:article.getPurchaseVatRate()
+        purchaseVatRate?purchaseVatRate:article.getPurchaseVatRate()
     }
 
     void setPurchaseVatRate(Integer purchaseVatRate) {

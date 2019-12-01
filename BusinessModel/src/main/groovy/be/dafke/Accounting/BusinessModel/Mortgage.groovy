@@ -3,10 +3,10 @@ package be.dafke.Accounting.BusinessModel
 import be.dafke.Accounting.ObjectModel.BusinessCollection
 
 class Mortgage extends BusinessCollection<MortgageTransaction> {
-    private int alreadyPayed = 0
-    private Account capital, intrest
-    private BigDecimal startCapital
-    private ArrayList<MortgageTransaction> mortgageTransactions
+    int alreadyPayed = 0
+    Account capital, intrest
+    BigDecimal startCapital
+    ArrayList<MortgageTransaction> mortgageTransactions
 
     Mortgage() {
 //        super(NR)

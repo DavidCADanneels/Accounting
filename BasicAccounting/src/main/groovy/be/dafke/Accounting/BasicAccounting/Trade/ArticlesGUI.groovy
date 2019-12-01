@@ -8,11 +8,11 @@ import javax.swing.*
 import static java.util.ResourceBundle.getBundle
 
 class ArticlesGUI extends JFrame {
-    private final ArticlesPanel articlesPanel
+    final ArticlesPanel articlesPanel
 
-    private static final HashMap<Accounting, ArticlesGUI> articlesGuis = new HashMap<>()
+    static final HashMap<Accounting, ArticlesGUI> articlesGuis = new HashMap<>()
 
-    private ArticlesGUI(Accounting accounting) {
+    ArticlesGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("ARTICLES"))
         articlesPanel = new ArticlesPanel(accounting)
         setContentPane(articlesPanel)

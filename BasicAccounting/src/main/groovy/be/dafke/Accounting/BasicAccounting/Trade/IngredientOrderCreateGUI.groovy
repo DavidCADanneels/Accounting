@@ -9,10 +9,10 @@ import static java.util.ResourceBundle.getBundle
 
 class IngredientOrderCreateGUI extends JFrame {
 
-    private static IngredientOrderCreateGUI gui = null
-    private final IngredientOrderCreatePanel ingredientOrderCreatePanel
+    static IngredientOrderCreateGUI gui = null
+    final IngredientOrderCreatePanel ingredientOrderCreatePanel
 
-    private IngredientOrderCreateGUI(Accounting accounting) {
+    IngredientOrderCreateGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("BUY_INGREDIENTS"))
         ingredientOrderCreatePanel = new IngredientOrderCreatePanel(accounting)
         setContentPane(ingredientOrderCreatePanel)

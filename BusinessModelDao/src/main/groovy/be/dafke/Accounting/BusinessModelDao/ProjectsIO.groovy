@@ -16,10 +16,10 @@ class ProjectsIO {
 
     static void readProjects(Accounting accounting) {
         Projects projects = accounting.getProjects()
-        Accounts accounts = accounting.getAccounts()
-        AccountTypes accountTypes = accounting.getAccountTypes()
-        File projectsFolder = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+PROJECTS)
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+PROJECTS+ XML_EXTENSION)
+        Accounts accounts = accounting.accounts
+        AccountTypes accountTypes = accounting.accountTypes
+        File projectsFolder = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+PROJECTS)
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+PROJECTS+ XML_EXTENSION)
         Element rootElement = getRootElement(xmlFile, PROJECTS)
         for (Element element : getChildren(rootElement, PROJECT)) {
 
@@ -33,13 +33,13 @@ class ProjectsIO {
             }
         }
 
-        for(Project project:projects.getBusinessObjects()){
+        for(Project project:projects.businessObjects){
             readProject(project, accounts, projectsFolder)
         }
     }
 
     static void readProject(Project project, Accounts accounts, File projectsFolder) {
-        String projectName = project.getName()
+        String projectName = project.name
         File xmlFile = new File(projectsFolder, projectName+ XML_EXTENSION)
         Element rootElement = getRootElement(xmlFile, PROJECT)
         for (Element element : getChildren(rootElement, ACCOUNT)) {
@@ -57,15 +57,15 @@ class ProjectsIO {
 
     static void writeProjects(Accounting accounting){
         Projects projects = accounting.getProjects()
-        File projectsFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + PROJECTS+ XML_EXTENSION)
-        File projectsFolder = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + PROJECTS)
+        File projectsFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + PROJECTS+ XML_EXTENSION)
+        File projectsFolder = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + PROJECTS)
         try{
             Writer writer = new FileWriter(projectsFile)
             writer.write(getXmlHeader(PROJECTS, 2))
-            for(Project project: projects.getBusinessObjects()) {
+            for(Project project: projects.businessObjects) {
                 writer.write(
                         "  <"+PROJECT+">\n" +
-                                "    <"+NAME+">"+project.getName()+"</"+NAME+">\n" +
+                                "    <"+NAME+">"+project.name+"</"+NAME+">\n" +
                                 "  </"+PROJECT+">\n"
                 )
             }
@@ -73,24 +73,24 @@ class ProjectsIO {
             writer.flush()
             writer.close()
         } catch (IOException ex) {
-            Logger.getLogger(Projects.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(Projects.class.name).log(Level.SEVERE, null, ex)
         }
 
         projectsFolder.mkdirs()
-        for(Project project: projects.getBusinessObjects()) {
+        for(Project project: projects.businessObjects) {
             writeProject(project, projectsFolder)
         }
     }
 
-    private static void writeProject(Project project, File projectsFolder) {
-        File projectFile = new File(projectsFolder, project.getName()+ XML_EXTENSION)
+    static void writeProject(Project project, File projectsFolder) {
+        File projectFile = new File(projectsFolder, project.name+ XML_EXTENSION)
         try {
             Writer writer = new FileWriter(projectFile)
             writer.write(getXmlHeader(PROJECT, 3))
-            for(Account account:project.getBusinessObjects()) {
+            for(Account account:project.businessObjects) {
                 writer.write(
                         "  <"+ACCOUNT+">\n" +
-                                "    <"+NAME+">"+account.getName()+"</"+NAME+">\n" +
+                                "    <"+NAME+">"+account.name+"</"+NAME+">\n" +
                                 "  </"+ACCOUNT+">\n"
                 )
             }
@@ -98,7 +98,7 @@ class ProjectsIO {
             writer.flush()
             writer.close()
         } catch (IOException ex) {
-            Logger.getLogger(Project.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(Project.class.name).log(Level.SEVERE, null, ex)
         }
     }
 }

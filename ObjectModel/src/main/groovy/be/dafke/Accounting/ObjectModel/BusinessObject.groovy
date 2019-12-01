@@ -1,21 +1,13 @@
 package be.dafke.Accounting.ObjectModel 
 class BusinessObject {
-    private String name
+    String name
     final static String NAME = "name"
 
-//    private boolean isSaved
+//    boolean isSaved
 
     @Override
     String toString() {
         name
-    }
-
-    String getName() {
-        name
-    }
-    void setName(String name) {
-        this.name = name
-//		setSaved(false)
     }
 
     /**Checks if the BusinessObject is editable:

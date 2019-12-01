@@ -10,11 +10,11 @@ import javax.swing.*
 import java.awt.*
 
 class MealIngredientsEditPanel extends JPanel {
-    private final MealsEditDataTableModel mealsEditDataTableModel
-    private final SelectableTable<Meal> overviewTable
-    private final MealIngredientsEditDataTableModel mealRecipeDataTableModel
-    private final SelectableTable<RecipeLine> recipeTable
-    private final JButton addRecipeLine
+    final MealsEditDataTableModel mealsEditDataTableModel
+    final SelectableTable<Meal> overviewTable
+    final MealIngredientsEditDataTableModel mealRecipeDataTableModel
+    final SelectableTable<RecipeLine> recipeTable
+    final JButton addRecipeLine
 
     MealIngredientsEditPanel(Accounting accounting) {
         mealsEditDataTableModel = new MealsEditDataTableModel(this, accounting)
@@ -52,13 +52,13 @@ class MealIngredientsEditPanel extends JPanel {
         add(splitPane, BorderLayout.CENTER)
 
         addRecipeLine = new JButton("Add Ingredient")
-        addRecipeLine.setEnabled(false)
+        addRecipeLine.enabled = false
         addRecipeLine.addActionListener({ e ->
-            Meal meal = overviewTable.getSelectedObject()
+            Meal meal = overviewTable.selectedObject
             if (meal != null) {
-                Ingredients ingredients = accounting.getIngredients()
+                Ingredients ingredients = accounting.ingredients
                 IngredientSelectorDialog ingredientSelector = IngredientSelectorDialog.getIngredientSelector(ingredients)
-                ingredientSelector.setVisible(true)
+                ingredientSelector.visible = true
                 Ingredient ingredient = ingredientSelector.getSelection()
                 BigDecimal amount = BigDecimal.ZERO
                 RecipeLine recipeLine = new RecipeLine(ingredient)
@@ -77,9 +77,9 @@ class MealIngredientsEditPanel extends JPanel {
         add(addRecipeLine, BorderLayout.SOUTH)
     }
 
-    private void updateSelection() {
-        Meal meal = overviewTable.getSelectedObject()
-        addRecipeLine.setEnabled(meal!=null)
+    void updateSelection() {
+        Meal meal = overviewTable.selectedObject
+        addRecipeLine.enabled = meal!=null
         Recipe recipe = meal==null?null:meal.getRecipe()
         mealRecipeDataTableModel.setRecipe(recipe)
         mealRecipeDataTableModel.fireTableDataChanged()

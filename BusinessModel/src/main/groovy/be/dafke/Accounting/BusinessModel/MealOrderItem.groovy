@@ -3,11 +3,11 @@ package be.dafke.Accounting.BusinessModel
 import be.dafke.Accounting.ObjectModel.BusinessObject
 
 class MealOrderItem extends BusinessObject{
-    private int numberOfItems = 0
-    private Meal meal
+    int numberOfItems = 0
+    Meal meal
 
     MealOrderItem(Integer numberOfItems, Meal meal) {
-        setName(meal.getName())
+        setName(meal.name)
         this.numberOfItems = numberOfItems
         this.meal = meal
     }

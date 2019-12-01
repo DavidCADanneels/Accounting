@@ -5,8 +5,8 @@ enum Unit {
     WEIGHT ("Weight", "g."),
     VOLUME ("Volume", "ml.")
 
-    private final String name
-    private final String symbol
+    final String name
+    final String symbol
 
     Unit(String name, String symbol) {
         this.name = name

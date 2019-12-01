@@ -7,19 +7,19 @@ import be.dafke.Utils.Utils
 
 class StockOrders extends BusinessCollection<StockOrder> {
 
-    private int id = 0;
+    int id = 0
 
     StockOrder addBusinessObject(StockOrder order) throws EmptyNameException, DuplicateNameException {
-        id++;
-        if(order.getId()==null) {
-            order.setId(id);
+        id++
+        if(order.id==null) {
+            order.id = id
         }
-        order.setName(Utils.toIDString("ST", order.getId(), 3));
-        order.addStockOrderToArticles();
-        super.addBusinessObject(order);
+        order.setName(Utils.toIDString("ST", order.id, 3))
+        order.addStockOrderToArticles()
+        super.addBusinessObject(order)
     }
 
     void removeBusinessObject(Order order){
-        removeBusinessObject(order.getUniqueProperties());
+        removeBusinessObject(order.getUniqueProperties())
     }
 }

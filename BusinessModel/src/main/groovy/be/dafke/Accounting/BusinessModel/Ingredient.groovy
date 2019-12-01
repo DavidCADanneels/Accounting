@@ -6,8 +6,8 @@ import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException
 import be.dafke.Accounting.ObjectModel.Exceptions.NotEmptyException
 
 class Ingredient extends BusinessObject {
-    private Unit unit
-    private Allergenes allergenes = new Allergenes()
+    Unit unit
+    Allergenes allergenes = new Allergenes()
 
     Ingredient(String name, Unit unit) {
         setName(name)
@@ -19,7 +19,7 @@ class Ingredient extends BusinessObject {
     }
 
     String getAllergenesString() {
-        allergenes.getBusinessObjects().stream().map(BusinessObject.&getName).collect(Collectors.joining(","))
+        allergenes.businessObjects.name.collect().join(",")
     }
 
     Allergenes getAllergenes() {

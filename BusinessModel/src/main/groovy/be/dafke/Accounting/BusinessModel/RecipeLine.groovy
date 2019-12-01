@@ -3,14 +3,14 @@ package be.dafke.Accounting.BusinessModel
 import be.dafke.Accounting.ObjectModel.BusinessObject
 
 class RecipeLine extends BusinessObject {
-    private Ingredient ingredient
-    private BigDecimal amount
-    private String preparation
-    private String instructions
+    Ingredient ingredient
+    BigDecimal amount
+    String preparation
+    String instructions
 
     RecipeLine(Ingredient ingredient) {
         this.ingredient = ingredient
-        setName(ingredient.getName())
+        setName(ingredient.name)
     }
 
     Ingredient getIngredient() {

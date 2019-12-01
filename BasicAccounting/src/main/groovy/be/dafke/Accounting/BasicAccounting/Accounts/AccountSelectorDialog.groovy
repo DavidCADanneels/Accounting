@@ -10,11 +10,11 @@ import javax.swing.*
 import java.awt.*
 
 class AccountSelectorDialog extends RefreshableDialog {
-    private JButton ok
-    private AccountSelectorPanel selectorPanel
-    private static AccountSelectorDialog selectorDialog = null
+    JButton ok
+    AccountSelectorPanel selectorPanel
+    static AccountSelectorDialog selectorDialog = null
 
-    private AccountSelectorDialog(Accounts accounts, ArrayList<AccountType> accountTypes) {
+    AccountSelectorDialog(Accounts accounts, ArrayList<AccountType> accountTypes) {
         this(accounts, accountTypes, "Select Account")
     }
     AccountSelectorDialog(Accounts accounts, ArrayList<AccountType> accountTypes, String title) {

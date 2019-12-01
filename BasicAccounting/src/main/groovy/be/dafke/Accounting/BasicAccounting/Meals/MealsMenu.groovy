@@ -10,11 +10,11 @@ import java.awt.event.KeyEvent
 import static java.util.ResourceBundle.getBundle
 
 class MealsMenu extends JMenu {
-    private JMenuItem ordersOverview, allergenesMenuView, allergenesMenuEdit, ingredientsMenuView, ingredientsMenuEdit,
+    JMenuItem ordersOverview, allergenesMenuView, allergenesMenuEdit, ingredientsMenuView, ingredientsMenuEdit,
                       mealIngredientsEdit, mealRecipeEdit, mealIngredientsView, mealRecipeView, generatePdf
 
-    private Accounting accounting
-    private Allergenes allergenes
+    Accounting accounting
+    Allergenes allergenes
 
     MealsMenu() {
         super("Meals")
@@ -24,7 +24,7 @@ class MealsMenu extends JMenu {
         mealIngredientsView.addActionListener({ e ->
             MealIngredientsViewGUI gui = MealIngredientsViewGUI.showMeals(accounting)
             gui.setLocation(getLocationOnScreen())
-            gui.setVisible(true)
+            gui.visible = true
         })
 
         mealIngredientsEdit = new JMenuItem(getBundle("Accounting").getString("MEAL_INGREDIENTS_EDIT"))
@@ -32,7 +32,7 @@ class MealsMenu extends JMenu {
         mealIngredientsEdit.addActionListener({ e ->
             MealIngredientsEditGUI gui = MealIngredientsEditGUI.showMeals(accounting)
             gui.setLocation(getLocationOnScreen())
-            gui.setVisible(true)
+            gui.visible = true
         })
 
         mealRecipeView = new JMenuItem(getBundle("Accounting").getString("MEAL_RECIPE_VIEW"))
@@ -40,7 +40,7 @@ class MealsMenu extends JMenu {
         mealRecipeView.addActionListener({ e ->
             MealRecipeViewGUI gui = MealRecipeViewGUI.showMeals(accounting)
             gui.setLocation(getLocationOnScreen())
-            gui.setVisible(true)
+            gui.visible = true
         })
 
         mealRecipeEdit = new JMenuItem(getBundle("Accounting").getString("MEAL_RECIPE_EDIT"))
@@ -48,14 +48,14 @@ class MealsMenu extends JMenu {
         mealRecipeEdit.addActionListener({ e ->
             MealRecipeEditGUI gui = MealRecipeEditGUI.showMeals(accounting)
             gui.setLocation(getLocationOnScreen())
-            gui.setVisible(true)
+            gui.visible = true
         })
 
         ordersOverview = new JMenuItem(getBundle("Accounting").getString("MEAL_ORDERS"))
         ordersOverview.addActionListener({ e ->
             MealOrdersOverviewGUI mealOrdersOverviewGUI = MealOrdersOverviewGUI.getInstance(accounting)
             mealOrdersOverviewGUI.setLocation(getLocationOnScreen())
-            mealOrdersOverviewGUI.setVisible(true)
+            mealOrdersOverviewGUI.visible = true
         })
 
         add(mealIngredientsView)
@@ -69,36 +69,36 @@ class MealsMenu extends JMenu {
         ingredientsMenuView.addActionListener({ e ->
             IngredientsViewGUI ingredientsViewGUI = IngredientsViewGUI.showIngredients(accounting)
             ingredientsViewGUI.setLocation(getLocationOnScreen())
-            ingredientsViewGUI.setVisible(true)
+            ingredientsViewGUI.visible = true
         })
-        ingredientsMenuView.setEnabled(false)
+        ingredientsMenuView.enabled = false
 
         ingredientsMenuEdit = new JMenuItem(getBundle("Accounting").getString("INGREDIENTS_EDIT"))
         ingredientsMenuEdit.setMnemonic(KeyEvent.VK_D)
         ingredientsMenuEdit.addActionListener({ e ->
             IngredientsEditGUI ingredientsEditGUI = IngredientsEditGUI.showIngredients(accounting)
             ingredientsEditGUI.setLocation(getLocationOnScreen())
-            ingredientsEditGUI.setVisible(true)
+            ingredientsEditGUI.visible = true
         })
-        ingredientsMenuEdit.setEnabled(false)
+        ingredientsMenuEdit.enabled = false
 
         allergenesMenuEdit = new JMenuItem(getBundle("Accounting").getString("ALLERGENES_EDIT"))
         allergenesMenuEdit.setMnemonic(KeyEvent.VK_E)
         allergenesMenuEdit.addActionListener({ e ->
             AllergenesEditGUI allergenesEditGUI = AllergenesEditGUI.showAllergenes(allergenes)
             allergenesEditGUI.setLocation(getLocationOnScreen())
-            allergenesEditGUI.setVisible(true)
+            allergenesEditGUI.visible = true
         })
-        allergenesMenuEdit.setEnabled(false)
+        allergenesMenuEdit.enabled = false
 
         allergenesMenuView = new JMenuItem(getBundle("Accounting").getString("ALLERGENES_VIEW"))
         allergenesMenuView.setMnemonic(KeyEvent.VK_V)
         allergenesMenuView.addActionListener({ e ->
             AllergenesViewGUI allergenesViewGUI = AllergenesViewGUI.showAllergenes(allergenes)
             allergenesViewGUI.setLocation(getLocationOnScreen())
-            allergenesViewGUI.setVisible(true)
+            allergenesViewGUI.visible = true
         })
-        allergenesMenuView.setEnabled(false)
+        allergenesMenuView.enabled = false
 
         add(ingredientsMenuView)
         add(ingredientsMenuEdit)
@@ -117,18 +117,18 @@ class MealsMenu extends JMenu {
 
     void setAccounting(Accounting accounting) {
         this.accounting = accounting
-        setIngredients(accounting==null?null:accounting.getIngredients())
-        setAllergenes(accounting==null?null:accounting.getAllergenes())
+        setIngredients(accounting?accounting.ingredients:null)
+        setAllergenes(accounting?accounting.allergenes:null)
     }
 
-    private void setIngredients(Ingredients ingredients){
-        ingredientsMenuView.setEnabled(ingredients!=null)
-        ingredientsMenuEdit.setEnabled(ingredients!=null)
+    void setIngredients(Ingredients ingredients){
+        ingredientsMenuView.enabled = ingredients!=null
+        ingredientsMenuEdit.enabled = ingredients!=null
     }
 
-    private void setAllergenes(Allergenes allergenes){
+    void setAllergenes(Allergenes allergenes){
         this.allergenes = allergenes
-        allergenesMenuView.setEnabled(allergenes!=null)
-        allergenesMenuEdit.setEnabled(allergenes!=null)
+        allergenesMenuView.enabled = allergenes!=null
+        allergenesMenuEdit.enabled = allergenes!=null
     }
 }

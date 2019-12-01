@@ -17,18 +17,18 @@ import java.awt.BorderLayout
 import java.awt.Dimension
 
 class IngredientsViewPanel extends JPanel {
-    private final IngredientsDataViewTableModel ingredientsDataViewTableModel
-    private final AllergenesViewPanel allergenesViewPanel
-    private final SelectableTable<Ingredient> ingredientsTable
-//    private final JCheckBox button
-    private boolean multiSelection = false
-    private Ingredient selectedIngredient
+    final IngredientsDataViewTableModel ingredientsDataViewTableModel
+    final AllergenesViewPanel allergenesViewPanel
+    final SelectableTable<Ingredient> ingredientsTable
+//    final JCheckBox button
+    boolean multiSelection = false
+    Ingredient selectedIngredient
 
-    private Ingredients ingredients
+    Ingredients ingredients
 
     IngredientsViewPanel(Accounting accounting, boolean multiSelection) {
         this.multiSelection = multiSelection
-        ingredients = accounting.getIngredients()
+        ingredients = accounting.ingredients
         ingredientsDataViewTableModel = new IngredientsDataViewTableModel(this)
         ingredientsDataViewTableModel.setIngredients(ingredients)
         ingredientsTable = new SelectableTable<>(ingredientsDataViewTableModel)
@@ -74,13 +74,13 @@ class IngredientsViewPanel extends JPanel {
         ingredientsTable.setSelectionModel(selection)
     }
 
-    private void updateSelection() {
+    void updateSelection() {
         if (multiSelection) {
-            ArrayList<Ingredient> selectedObjects = ingredientsTable.getSelectedObjects()
+            ArrayList<Ingredient> selectedObjects = ingredientsTable.selectedObjects
             Allergenes allergenes = new Allergenes()
             selectedObjects.forEach({ ingredient ->
-                Allergenes newAllergenes = ingredient.getAllergenes()
-                newAllergenes.getBusinessObjects().forEach({ allergene ->
+                Allergenes newAllergenes = ingredient.allergenes
+                newAllergenes.businessObjects.forEach({ allergene ->
                     try {
                         allergenes.addBusinessObject(allergene)
                     } catch (EmptyNameException | DuplicateNameException e1) {
@@ -91,8 +91,8 @@ class IngredientsViewPanel extends JPanel {
             allergenesViewPanel.setAllergenes(allergenes)
             allergenesViewPanel.selectAll()
         } else {
-            selectedIngredient = ingredientsTable.getSelectedObject()
-            Allergenes allergenes = selectedIngredient == null ? null : selectedIngredient.getAllergenes()
+            selectedIngredient = ingredientsTable.selectedObject
+            Allergenes allergenes = selectedIngredient == null ? null : selectedIngredient.allergenes
             allergenesViewPanel.setAllergenes(allergenes)
             allergenesViewPanel.selectFirstLine()
         }

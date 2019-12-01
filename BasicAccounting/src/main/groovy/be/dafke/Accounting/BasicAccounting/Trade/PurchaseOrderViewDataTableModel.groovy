@@ -21,8 +21,8 @@ class PurchaseOrderViewDataTableModel  extends SelectableTableModel<OrderItem> {
     static int VAT_AMOUNT_COL = 9
     static int PRICE_TOTAL_INCL_COL = 10
     static int NR_OF_COL = 11
-    private HashMap<Integer,String> columnNames = new HashMap<>()
-    private HashMap<Integer,Class> columnClasses = new HashMap<>()
+    HashMap<Integer,String> columnNames = new HashMap<>()
+    HashMap<Integer,Class> columnClasses = new HashMap<>()
     protected PurchaseOrder order
 
     PurchaseOrderViewDataTableModel() {
@@ -30,7 +30,7 @@ class PurchaseOrderViewDataTableModel  extends SelectableTableModel<OrderItem> {
         setColumnClasses()
     }
 
-    private void setColumnClasses() {
+    void setColumnClasses() {
         columnClasses.put(NR_OF_UNITS_COL, Integer.class)
         columnClasses.put(NR_OF_ITEMS_COL, Integer.class)
         columnClasses.put(ITEMS_PER_UNIT_COL, Integer.class)
@@ -44,7 +44,7 @@ class PurchaseOrderViewDataTableModel  extends SelectableTableModel<OrderItem> {
         columnClasses.put(PRICE_TOTAL_INCL_COL, BigDecimal.class)
     }
 
-    private void setColumnNames() {
+    void setColumnNames() {
         columnNames.put(NR_OF_UNITS_COL, getBundle("Accounting").getString("UNITS_TO_ORDER"))
         columnNames.put(NR_OF_ITEMS_COL, getBundle("Accounting").getString("ITEMS_TO_ORDER"))
         columnNames.put(ITEMS_PER_UNIT_COL, getBundle("Accounting").getString("ITEMS_PER_UNIT"))
@@ -60,46 +60,22 @@ class PurchaseOrderViewDataTableModel  extends SelectableTableModel<OrderItem> {
     // DE GET METHODEN
 // ===============
     Object getValueAt(int row, int col) {
-        if (order == null) null
-
+        if (order == null) return null
         OrderItem orderItem = getObject(row, col)
-        if(orderItem ==null) null
-
-        Article article = orderItem.getArticle()
-        if (article == null) null
-        if (col == INGREDIENT_COL){
-            article.getIngredient()
-        }
-        if (col == NAME_COL) {
-            article.getName()
-        }
-        if (col == VAT_RATE_COL) {
-            orderItem.getPurchaseVatRate()
-        }
-        if (col == HS_COL) {
-            article.getHSCode()
-        }
-        if (col == PRICE_UNIT_COL) {
-            orderItem.getPurchasePriceForUnit()
-        }
-        if (col == PRICE_TOTAL_EXCL_COL) {
-            orderItem.getPurchasePriceWithoutVat()
-        }
-        if (col == VAT_AMOUNT_COL) {
-            orderItem.getPurchaseVatAmount()
-        }
-        if (col == PRICE_TOTAL_INCL_COL) {
-            orderItem.getPurchasePriceWithVat()
-        }
-        if (col == NR_OF_UNITS_COL) {
-            orderItem.getNumberOfUnits()
-        }
-        if (col == NR_OF_ITEMS_COL) {
-            orderItem.getNumberOfItems()
-        }
-        if (col == ITEMS_PER_UNIT_COL) {
-            orderItem.getItemsPerUnit()
-        }
+        if(orderItem ==null) return null
+        Article article = orderItem.article
+        if (article == null) return null
+        if (col == INGREDIENT_COL) return article.getIngredient()
+        if (col == NAME_COL) return article.name
+        if (col == VAT_RATE_COL) return orderItem.getPurchaseVatRate()
+        if (col == HS_COL) return article.getHSCode()
+        if (col == PRICE_UNIT_COL) return orderItem.getPurchasePriceForUnit()
+        if (col == PRICE_TOTAL_EXCL_COL) return orderItem.getPurchasePriceWithoutVat()
+        if (col == VAT_AMOUNT_COL) return orderItem.getPurchaseVatAmount()
+        if (col == PRICE_TOTAL_INCL_COL) return orderItem.getPurchasePriceWithVat()
+        if (col == NR_OF_UNITS_COL) return orderItem.numberOfUnits
+        if (col == NR_OF_ITEMS_COL) return orderItem.numberOfItems
+        if (col == ITEMS_PER_UNIT_COL) return orderItem.itemsPerUnit
         null
     }
 
@@ -108,10 +84,7 @@ class PurchaseOrderViewDataTableModel  extends SelectableTableModel<OrderItem> {
     }
 
     int getRowCount() {
-        if(order==null) 0
-        List<OrderItem> businessObjects = order.getBusinessObjects()
-        if(businessObjects == null || businessObjects.size() == 0) 0
-        businessObjects.size()
+        order?order.businessObjects.size():0
     }
 
     @Override
@@ -138,7 +111,7 @@ class PurchaseOrderViewDataTableModel  extends SelectableTableModel<OrderItem> {
 
     @Override
     OrderItem getObject(int row, int col) {
-        List<OrderItem> orderItems = order.getBusinessObjects()
+        List<OrderItem> orderItems = order.businessObjects
         if(orderItems == null || orderItems.size() == 0) null
         orderItems.get(row)
     }

@@ -20,15 +20,15 @@ import java.awt.BorderLayout
 import java.awt.Dimension
 
 class SalesOrdersOverviewPanel extends JPanel {
-    private final SelectableTable<SalesOrder> overviewTable
-    private final SelectableTable<OrderItem> detailsTable
-    private final SalesOrdersOverviewDataTableModel overviewTableModel
-    private final SalesOrderDetailsDataTableModel detailsTableModel
-    private final TotalsPanel totalsPanel
+    final SelectableTable<SalesOrder> overviewTable
+    final SelectableTable<OrderItem> detailsTable
+    final SalesOrdersOverviewDataTableModel overviewTableModel
+    final SalesOrderDetailsDataTableModel detailsTableModel
+    final TotalsPanel totalsPanel
 
-    private final SalesOrderDetailPanel salesOrderDetailPanel
-    private final SalesOrderDetailsPopupMenu popup
-    private boolean multiSelection
+    final SalesOrderDetailPanel salesOrderDetailPanel
+    final SalesOrderDetailsPopupMenu popup
+    boolean multiSelection
 
     SalesOrdersOverviewPanel(){
         overviewTableModel = new SalesOrdersOverviewDataTableModel()
@@ -75,9 +75,9 @@ class SalesOrdersOverviewPanel extends JPanel {
         add(salesOrderDetailPanel, BorderLayout.EAST)
     }
 
-    private void updateSelection() {
+    void updateSelection() {
         if(multiSelection) {
-            ArrayList<SalesOrder> selectedObjects = overviewTable.getSelectedObjects()
+            ArrayList<SalesOrder> selectedObjects = overviewTable.selectedObjects
             SalesOrder combinedOrder = SalesOrders.mergeOrders(selectedObjects)
             detailsTableModel.setOrder(combinedOrder)
             totalsPanel.fireOrderContentChanged(combinedOrder)
@@ -87,7 +87,7 @@ class SalesOrdersOverviewPanel extends JPanel {
             salesOrderDetailPanel.updateContactDetails(combinedOrder)
             salesOrderDetailPanel.updateInvoiceButtonAndField()
         } else {
-            SalesOrder salesOrder = overviewTable.getSelectedObject()
+            SalesOrder salesOrder = overviewTable.selectedObject
             detailsTableModel.setOrder(salesOrder)
             totalsPanel.fireOrderContentChanged(salesOrder)
             salesOrderDetailPanel.setOrder(salesOrder)
@@ -95,7 +95,7 @@ class SalesOrdersOverviewPanel extends JPanel {
         }
     }
 
-    private JPanel createFilterPane() {
+    JPanel createFilterPane() {
         JRadioButton all = new JRadioButton("All")
         JRadioButton invoice = new JRadioButton("Invoice")
         JRadioButton noInvoice = new JRadioButton("Non-Invoice")
@@ -104,7 +104,7 @@ class SalesOrdersOverviewPanel extends JPanel {
         group.add(invoice)
         group.add(noInvoice)
 
-        all.setSelected(true)
+        all.selected = true
         all.addActionListener({ e ->
             overviewTableModel.setFilter(null)
             overviewTableModel.fireTableDataChanged()
@@ -112,13 +112,13 @@ class SalesOrdersOverviewPanel extends JPanel {
         })
 
         invoice.addActionListener({ e ->
-            overviewTableModel.setFilter({ salesOrder -> salesOrder.isInvoice() })
+            overviewTableModel.setFilter({ salesOrder -> salesOrder.invoice })
             overviewTableModel.fireTableDataChanged()
             overviewTable.revalidate()
         })
 
         noInvoice.addActionListener({ e ->
-            overviewTableModel.setFilter({ salesOrder -> !salesOrder.isInvoice() })
+            overviewTableModel.setFilter({ salesOrder -> !salesOrder.invoice })
             overviewTableModel.fireTableDataChanged()
             overviewTable.revalidate()
         })
@@ -129,9 +129,9 @@ class SalesOrdersOverviewPanel extends JPanel {
         panel.add(noInvoice)
 
         JCheckBox showSummary = new JCheckBox("Combine selected orders")
-        showSummary.setSelected(false)
+        showSummary.selected = false
         showSummary.addActionListener({ e ->
-            multiSelection = showSummary.isSelected()
+            multiSelection = showSummary.selected
             updateSelection()
         })
         panel.add(showSummary)
@@ -143,8 +143,8 @@ class SalesOrdersOverviewPanel extends JPanel {
     }
 
     void setAccounting(Accounting accounting) {
-        overviewTableModel.setAccounting(accounting)
-        popup.setAccounting(accounting)
-        salesOrderDetailPanel.setAccounting(accounting)
+        overviewTableModel.accounting = accounting
+        popup.accounting = accounting
+        salesOrderDetailPanel.accounting = accounting
     }
 }

@@ -8,9 +8,9 @@ import be.dafke.Accounting.BusinessModel.PromoOrder
 import java.util.function.Predicate
 
 class PromoOrderCreateDataTableModel extends PromoOrderViewDataTableModel {
-    private final Articles articles
-    private Predicate<Article> filter = Article.inStock()
-    private TotalsPanel totalsPanel
+    final Articles articles
+    Predicate<Article> filter = Article.inStock()
+    TotalsPanel totalsPanel
 
     PromoOrderCreateDataTableModel(Articles articles, PromoOrder order, TotalsPanel totalsPanel) {
         super()
@@ -22,7 +22,7 @@ class PromoOrderCreateDataTableModel extends PromoOrderViewDataTableModel {
 
     int getRowCount() {
         List<Article> businessObjects = getArticles()
-        if(businessObjects == null) 0
+        if(businessObjects == null) return 0
         businessObjects.size()
     }
 
@@ -31,7 +31,7 @@ class PromoOrderCreateDataTableModel extends PromoOrderViewDataTableModel {
         col==NR_OF_ITEMS_COL || col == PURCHASE_PRICE_UNIT_COL
     }
 
-    private List<Article> getArticles(){
+    List<Article> getArticles(){
         if(articles==null || filter==null) null
         List<Article> businessObjects = articles.getBusinessObjects(filter)
         if(businessObjects == null) null
@@ -61,6 +61,6 @@ class PromoOrderCreateDataTableModel extends PromoOrderViewDataTableModel {
         List<Article> articleList = getArticles()
         if(articleList == null) null
         Article article = articleList.get(row)
-        order.getBusinessObject(article.getName())
+        order.getBusinessObject(article.name)
     }
 }

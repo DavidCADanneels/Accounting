@@ -9,19 +9,19 @@ import javax.swing.*
 import static java.util.ResourceBundle.getBundle
 
 class NewContactDialog extends RefreshableDialog {
-    private final JButton add
-    private final ContactDetailsPanel contactDetailsPanel
+    final JButton addButton
+    final ContactDetailsPanel contactDetailsPanel
 
     NewContactDialog(Accounting accounting) {
         super(getBundle("Contacts").getString("NEW_CONTACT_GUI_TITLE"))
 
         contactDetailsPanel = new ContactDetailsPanel()
-        contactDetailsPanel.setAccounting(accounting)
+        contactDetailsPanel.accounting = accounting
 
-        add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_CONTACT"))
-        add.addActionListener({ e -> contactDetailsPanel.saveAccount() })
+        addButton = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_CONTACT"))
+        addButton.addActionListener({ e -> contactDetailsPanel.saveAccount() })
 
-        contactDetailsPanel.add(add)
+        contactDetailsPanel.add(addButton)
         setContentPane(contactDetailsPanel)
         pack()
     }

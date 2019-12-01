@@ -9,9 +9,9 @@ import javax.swing.JMenuItem
 import static java.util.ResourceBundle.getBundle
 
 class VATMenu extends JMenu {
-    private Accounting accounting
-    private JMenuItem vatFieldsMenuItem
-    private VATFields vatFields
+    Accounting accounting
+    JMenuItem vatFieldsMenuItem
+    VATFields vatFields
 
     VATMenu() {
         super(getBundle("VAT").getString("VAT"))
@@ -21,18 +21,18 @@ class VATMenu extends JMenu {
         vatFieldsMenuItem.addActionListener({ e ->
             VATFieldsGUI vatFieldsGUI = VATFieldsGUI.getInstance(vatFields, accounting)
             vatFieldsGUI.setLocation(getLocationOnScreen())
-            vatFieldsGUI.setVisible(true)
+            vatFieldsGUI.visible = true
         })
-        vatFieldsMenuItem.setEnabled(false)
+        vatFieldsMenuItem.enabled = false
 
         add(vatFieldsMenuItem)
     }
 
     void setAccounting(Accounting accounting) {
         this.accounting = accounting
-        vatFieldsMenuItem.setEnabled(accounting!=null)
+        vatFieldsMenuItem.enabled = accounting!=null
         if(accounting!=null){
-            vatFields = accounting.getVatFields()
+            vatFields = accounting.vatFields
         }
     }
 }

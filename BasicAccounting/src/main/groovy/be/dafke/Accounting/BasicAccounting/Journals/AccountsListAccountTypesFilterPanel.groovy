@@ -12,22 +12,22 @@ import java.awt.*
 import static java.util.ResourceBundle.getBundle
 
 class AccountsListAccountTypesFilterPanel extends JPanel {
-    private final Map<AccountType, JCheckBox> boxes
-    private AccountsList accountsList
-    private JournalType journalType
+    final Map<AccountType, JCheckBox> boxes
+    AccountsList accountsList
+    JournalType journalType
 
     AccountsListAccountTypesFilterPanel(AccountTypes accountTypes, boolean left) {
         setLayout(new GridLayout(0, 3))
         boxes = new HashMap<>()
         if (accountTypes != null) {
-            accountTypes.getBusinessObjects().forEach({ accountType ->
+            accountTypes.businessObjects.forEach({ accountType ->
 
-                JCheckBox checkBox = new JCheckBox(getBundle("BusinessModel").getString(accountType.getName().toUpperCase()))
+                JCheckBox checkBox = new JCheckBox(getBundle("BusinessModel").getString(accountType.name.toUpperCase()))
                 // TODO: save selections per Journal in xml file
 //                boolean enabled = accountsList.isTypeAvailable(accountType)
                 boolean enabled = false
                 checkBox.setSelected(enabled)
-                checkBox.setActionCommand(accountType.getName())
+                checkBox.setActionCommand(accountType.name)
                 checkBox.addActionListener({ e -> checkBoxAction(accountType, checkBox, left) })
                 boxes.put(accountType, checkBox)
                 add(checkBox)
@@ -36,9 +36,9 @@ class AccountsListAccountTypesFilterPanel extends JPanel {
         }
     }
 
-    private void checkBoxAction(AccountType accountType, JCheckBox checkBox, boolean left){
-        accountsList.setTypeAvailable(accountType, checkBox.isSelected())
-        ArrayList<AccountType> accountTypes = accountsList.getAccountTypes()
+    void checkBoxAction(AccountType accountType, JCheckBox checkBox, boolean left){
+        accountsList.setTypeAvailable(accountType, checkBox.selected)
+        ArrayList<AccountType> accountTypes = accountsList.accountTypes
         if(left) {
 //            Main.setAccountsListLeft(journalType, accountsList)
             Main.setAccountsTypesLeft(journalType, accountTypes)
@@ -50,16 +50,12 @@ class AccountsListAccountTypesFilterPanel extends JPanel {
 
     @Override
     void setEnabled(boolean enabled){
-        boxes.forEach({ accountType, checkBox -> checkBox.setEnabled(enabled) })
+        boxes.forEach({ accountType, checkBox -> checkBox.enabled = enabled })
     }
 
     void setAccountsList(AccountsList accountsList) {
         this.accountsList = accountsList
         refresh()
-    }
-
-    void setJournalType(JournalType journalType) {
-        this.journalType = journalType
     }
 
     void refresh() {

@@ -16,12 +16,12 @@ import java.awt.GridLayout
 import static java.util.ResourceBundle.getBundle
 
 class StockPanel extends JPanel {
-    private final JButton viewPurchaseOrder , viewSalesOrder
-    private final SelectableTable<Article> table
-    private final StockDataTableModel stockDataTableModel
+    final JButton viewPurchaseOrder , viewSalesOrder
+    final SelectableTable<Article> table
+    final StockDataTableModel stockDataTableModel
 
     StockPanel(Accounting accounting) {
-        stockDataTableModel = new StockDataTableModel(accounting.getArticles())
+        stockDataTableModel = new StockDataTableModel(accounting.articles)
         table = new SelectableTable<>(stockDataTableModel)
         table.setPreferredScrollableViewportSize(new Dimension(1000, 400))
         JScrollPane scrollPane = new JScrollPane(table)
@@ -32,20 +32,20 @@ class StockPanel extends JPanel {
         viewPurchaseOrder.addActionListener({ e ->
             PurchaseOrdersOverviewGUI purchaseOrdersViewGUI = PurchaseOrdersOverviewGUI.showPurchaseOrderGUI(accounting)
             purchaseOrdersViewGUI.setLocation(getLocationOnScreen())
-            purchaseOrdersViewGUI.setVisible(true)
+            purchaseOrdersViewGUI.visible = true
         })
 
         viewSalesOrder = new JButton(getBundle("Accounting").getString("VIEW_SO"))
         viewSalesOrder.addActionListener({ e ->
             SalesOrdersOverviewGUI salesOrdersViewGUI = SalesOrdersOverviewGUI.showSalesOrderGUI(accounting)
             salesOrdersViewGUI.setLocation(getLocationOnScreen())
-            salesOrdersViewGUI.setVisible(true)
+            salesOrdersViewGUI.visible = true
         })
         add(createFilterPanel(), BorderLayout.NORTH)
         add(createButtonPanel(), BorderLayout.SOUTH)
     }
 
-    private JPanel createFilterPanel(){
+    JPanel createFilterPanel(){
         JPanel panel = new JPanel()
         JRadioButton withOrders = new JRadioButton("with Orders")
         JRadioButton inStock = new JRadioButton("in Stock")
@@ -54,14 +54,14 @@ class StockPanel extends JPanel {
         ButtonGroup group = new ButtonGroup()
         group.add(withOrders)
         group.add(inStock)
-        inStock.setSelected(true)
+        inStock.selected = true
         stockDataTableModel.setFilter(Article.inStock())
         panel.add(inStock)
         panel.add(withOrders)
         panel
     }
 
-    private JPanel createButtonPanel(){
+    JPanel createButtonPanel(){
         JPanel panel = new JPanel(new GridLayout(0,2))
         panel.add(viewPurchaseOrder)
         panel.add(viewSalesOrder)

@@ -10,10 +10,10 @@ import javax.swing.*
 import static java.util.ResourceBundle.getBundle
 
 class ProjectManagementGUI extends JFrame {
-    private static final HashMap<Projects, ProjectManagementGUI> projectManagementGuis = new HashMap<>()
-    private ProjectManagementPanel projectManagementPanel
+    static final HashMap<Projects, ProjectManagementGUI> projectManagementGuis = new HashMap<>()
+    ProjectManagementPanel projectManagementPanel
 
-    private ProjectManagementGUI(Accounts accounts, AccountTypes accountTypes, Projects projects) {
+    ProjectManagementGUI(Accounts accounts, AccountTypes accountTypes, Projects projects) {
         super(getBundle("Projects").getString("PROJECTMANAGER"))
         projectManagementPanel = new ProjectManagementPanel(accounts, accountTypes, projects)
         setContentPane(projectManagementPanel)

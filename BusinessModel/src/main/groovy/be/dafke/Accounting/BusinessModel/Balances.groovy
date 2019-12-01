@@ -12,8 +12,8 @@ class Balances extends BusinessCollection<Balance> {
     static String RELATIONS_BALANCE = "RelationsBalance"
     static String YEAR_BALANCE = "YearBalance"
 
-    private final Accounts accounts
-    private final AccountTypes accountTypes
+    final Accounts accounts
+    final AccountTypes accountTypes
 
     Balances(Accounts accounts, AccountTypes accountTypes) {
         this.accounts = accounts
@@ -112,7 +112,7 @@ class Balances extends BusinessCollection<Balance> {
         try {
             addBusinessObject(value, value.getUniqueProperties())
         } catch (DuplicateNameException ex) {
-            String name = value.getName()
+            String name = value.name
             if (YEAR_BALANCE.equals(name) || RESULT_BALANCE.equals(name) || RELATIONS_BALANCE.equals(name)) {
                 System.err.println("Default Balance (" + name + ") already exists!")
                 getBusinessObject(name)

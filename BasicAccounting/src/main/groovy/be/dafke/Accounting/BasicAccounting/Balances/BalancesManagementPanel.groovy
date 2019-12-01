@@ -17,14 +17,14 @@ import static java.awt.BorderLayout.*
 import static java.util.ResourceBundle.getBundle
 
 class BalancesManagementPanel extends JPanel implements FocusListener {
-    private final Accounts accounts
-    private Balance balance
-    private Balances balances
-    private JList<AccountType> debit, credit, types
-    private ArrayList<AccountType> allTypes
-    private AlphabeticListModel<AccountType> debitModel, creditModel, typesModel
-    private JTextField leftName, rightName, leftTotalName, rightTotalName, leftResultName, rightResultName
-    private JComboBox<Balance> combo
+    final Accounts accounts
+    Balance balance
+    Balances balances
+    JList<AccountType> debit, credit, types
+    ArrayList<AccountType> allTypes
+    AlphabeticListModel<AccountType> debitModel, creditModel, typesModel
+    JTextField leftName, rightName, leftTotalName, rightTotalName, leftResultName, rightResultName
+    JComboBox<Balance> combo
 
     BalancesManagementPanel(Balances balances, Accounts accounts, AccountTypes accountTypes) {
         this.accounts = accounts
@@ -42,7 +42,7 @@ class BalancesManagementPanel extends JPanel implements FocusListener {
         allTypes = new ArrayList<>()
 
         allTypes.clear()
-        allTypes.addAll(accountTypes.getBusinessObjects())
+        allTypes.addAll(accountTypes.businessObjects)
         creditModel.removeAllElements()
         debitModel.removeAllElements()
         typesModel.removeAllElements()
@@ -54,12 +54,12 @@ class BalancesManagementPanel extends JPanel implements FocusListener {
     void setBalances(Balances balances){
         this.balances = balances
         combo.removeAllItems()
-        for(Balance balance : balances.getBusinessObjects()){
+        for(Balance balance : balances.businessObjects){
             ((DefaultComboBoxModel<Balance>) combo.getModel()).addElement(balance)
         }
     }
 
-    private JPanel createSavePanel() {
+    JPanel createSavePanel() {
         JPanel panel = new JPanel()
         JButton newType = new JButton(getBundle("Accounting").getString("NEW_BALANCE"))
         newType.addActionListener({ e -> createNewBalance() })
@@ -70,8 +70,8 @@ class BalancesManagementPanel extends JPanel implements FocusListener {
         panel
     }
 
-    private void comboAction() {
-        balance = (Balance) combo.getSelectedItem()
+    void comboAction() {
+        balance = (Balance) combo.selectedItem
         debitModel.removeAllElements()
         creditModel.removeAllElements()
         if(balance!=null){
@@ -157,7 +157,7 @@ class BalancesManagementPanel extends JPanel implements FocusListener {
         panel
     }
 
-    private JPanel createCreditTypesPanel() {
+    JPanel createCreditTypesPanel() {
         JButton removeCreditType = new JButton(getBundle("Accounting").getString("DELETE"))
         removeCreditType.addActionListener({ e -> removeCredit() })
 
@@ -173,7 +173,7 @@ class BalancesManagementPanel extends JPanel implements FocusListener {
         panel
     }
 
-    private JPanel createDebitTypesPanel() {
+    JPanel createDebitTypesPanel() {
         JButton removeDebitType = new JButton(getBundle("Accounting").getString("DELETE"))
         removeDebitType.addActionListener({ e -> removeDebit() })
 
@@ -191,7 +191,7 @@ class BalancesManagementPanel extends JPanel implements FocusListener {
     }
 
 
-    private JPanel createButtonPanel(){
+    JPanel createButtonPanel(){
         JButton addDebitType = new JButton(getBundle("Accounting").getString("ADD_TO_DEBIT_TYPES"))
         JButton addCreditType = new JButton(getBundle("Accounting").getString("ADD_TO_CREDIT_TYPES"))
         addDebitType.addActionListener({ e -> addDebit() })
@@ -203,7 +203,7 @@ class BalancesManagementPanel extends JPanel implements FocusListener {
         buttonPanel
     }
 
-    private JPanel createAccountTypesPanel() {
+    JPanel createAccountTypesPanel() {
         typesModel = new AlphabeticListModel<>()
         types = new JList<>(typesModel)
         JPanel panel = new JPanel()

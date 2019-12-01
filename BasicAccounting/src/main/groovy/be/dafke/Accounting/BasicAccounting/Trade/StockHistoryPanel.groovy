@@ -10,17 +10,17 @@ import javax.swing.*
 import java.awt.*
 
 class StockHistoryPanel extends JPanel {
-    private final SelectableTable<OrderItem> transactionsTable
-    private final SelectableTable<Article> balanceTable
-    private StockBalanceDataTableModel stockBalanceDataTableModel
-    private StockTransactionsDataTableModel stockTransactionsDataTableModel
+    final SelectableTable<OrderItem> transactionsTable
+    final SelectableTable<Article> balanceTable
+    StockBalanceDataTableModel stockBalanceDataTableModel
+    StockTransactionsDataTableModel stockTransactionsDataTableModel
 
     StockHistoryPanel(Accounting accounting) {
         stockBalanceDataTableModel = new StockBalanceDataTableModel(accounting)
         balanceTable = new SelectableTable<>(stockBalanceDataTableModel)
         balanceTable.setPreferredScrollableViewportSize(new Dimension(1000, 400))
 
-        stockTransactionsDataTableModel = new StockTransactionsDataTableModel(accounting.getStockTransactions())
+        stockTransactionsDataTableModel = new StockTransactionsDataTableModel(accounting.stockTransactions)
         transactionsTable = new SelectableTable<>(stockTransactionsDataTableModel)
         transactionsTable.setPreferredScrollableViewportSize(new Dimension(1000, 400))
 

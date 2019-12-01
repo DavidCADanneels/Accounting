@@ -8,11 +8,11 @@ import javax.swing.*
 import static java.util.ResourceBundle.getBundle
 
 class StockGUI extends JFrame {
-    private final StockPanel stockPanel
+    final StockPanel stockPanel
 
-    private static StockGUI gui = null
+    static StockGUI gui = null
 
-    private StockGUI(Accounting accounting) {
+    StockGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("STOCK"))
         stockPanel = new StockPanel(accounting)
         setContentPane(stockPanel)
@@ -33,7 +33,7 @@ class StockGUI extends JFrame {
         }
     }
 
-    private void updateStockContent() {
+    void updateStockContent() {
         stockPanel.fireStockContentChanged()
     }
 }

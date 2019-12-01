@@ -7,21 +7,21 @@ import be.dafke.ComponentModel.SelectableTableModel
 import static java.util.ResourceBundle.getBundle
 
 class TestBalanceDataModel extends SelectableTableModel<Account> {
-    private final String[] columnNames = [
+    final String[] columnNames = [
             getBundle("BusinessModel").getString("ACCOUNT"),
             getBundle("BusinessModel").getString("TEST_DEBIT"),
             getBundle("BusinessModel").getString("TEST_CREDIT"),
             getBundle("BusinessModel").getString("SALDO_DEBIT"),
             getBundle("BusinessModel").getString("SALDO_CREDIT")
     ]
-    private final Class[] columnClasses = [
+    final Class[] columnClasses = [
             Account.class,
             BigDecimal.class,
             BigDecimal.class,
             BigDecimal.class,
             BigDecimal.class
     ]
-    private final Accounts accounts
+    final Accounts accounts
 
     TestBalanceDataModel(final Accounts accounts) {
         this.accounts = accounts
@@ -31,16 +31,16 @@ class TestBalanceDataModel extends SelectableTableModel<Account> {
     // ===============
     Object getValueAt(int row, int col) {
         Account account = getObject(row, col)
-        if(account==null) null
-        if (col == 0) account
-        else if (col == 1) account.getDebetTotal()
-        else if (col == 2) account.getCreditTotal()
-        else if (col == 3) {
-            if (account.getSaldo().compareTo(BigDecimal.ZERO) > 0) account.getSaldo()
-            ""
+        if(account==null) return null
+        if (col == 0) return account
+        if (col == 1) return account.debitTotal
+        if (col == 2) return account.creditTotal
+        if (col == 3) {
+            if (account.saldo.compareTo(BigDecimal.ZERO) > 0) return account.saldo
+            else return ""
         } else {// col==4)
-            if (account.getSaldo().compareTo(BigDecimal.ZERO) < 0) account.getSaldo().negate()
-            ""
+            if (account.saldo.compareTo(BigDecimal.ZERO) < 0) return account.saldo.negate()
+            else return ""
         }
     }
 
@@ -49,7 +49,7 @@ class TestBalanceDataModel extends SelectableTableModel<Account> {
     }
 
     int getRowCount() {
-        accounts.getBusinessObjects().size()
+        accounts.businessObjects.size()
     }
 
     @Override
@@ -75,13 +75,13 @@ class TestBalanceDataModel extends SelectableTableModel<Account> {
 
     @Override
     Account getObject(int row, int col) {
-        accounts.getBusinessObjects().get(row)
+        accounts.businessObjects.get(row)
     }
 
 //	@Override
 //	int getRow(Account o) {
 //		int row = 0
-//		ArrayList<Account> accountList = accounts.getBusinessObjects()
+//		ArrayList<Account> accountList = accounts.businessObjects
 //		for(Account account : accountList){
 //			if(account != o){
 //				row++

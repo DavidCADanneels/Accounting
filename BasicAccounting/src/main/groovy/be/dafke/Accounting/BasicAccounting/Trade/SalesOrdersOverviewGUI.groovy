@@ -8,11 +8,11 @@ import javax.swing.*
 import static java.util.ResourceBundle.getBundle
 
 class SalesOrdersOverviewGUI extends JFrame {
-    private final SalesOrdersOverviewPanel ordersOverViewPanel
+    final SalesOrdersOverviewPanel ordersOverViewPanel
 
-    private static HashMap<Accounting,SalesOrdersOverviewGUI> map = new HashMap<>()
+    static HashMap<Accounting,SalesOrdersOverviewGUI> map = new HashMap<>()
 
-    private SalesOrdersOverviewGUI(){
+    SalesOrdersOverviewGUI(){
         super(getBundle("Accounting").getString("SO_OVERVIEW"))
         ordersOverViewPanel = new SalesOrdersOverviewPanel()
         setContentPane(ordersOverViewPanel)
@@ -23,7 +23,7 @@ class SalesOrdersOverviewGUI extends JFrame {
         SalesOrdersOverviewGUI gui = map.get(accounting)
         if (gui == null) {
             gui = new SalesOrdersOverviewGUI()
-            gui.setAccounting(accounting)
+            gui.accounting = accounting
             map.put(accounting, gui)
             Main.addFrame(gui)
         }
@@ -31,7 +31,7 @@ class SalesOrdersOverviewGUI extends JFrame {
     }
 
     void setAccounting(Accounting accounting) {
-        ordersOverViewPanel.setAccounting(accounting)
+        ordersOverViewPanel.accounting = accounting
     }
 
     static void fireSalesOrderAddedOrRemovedForAccounting(Accounting accounting){
@@ -41,7 +41,7 @@ class SalesOrdersOverviewGUI extends JFrame {
         }
     }
 
-    private void fireSalesOrderAddedOrRemoved() {
+    void fireSalesOrderAddedOrRemoved() {
         ordersOverViewPanel.fireSalesOrderAddedOrRemoved()
     }
 }

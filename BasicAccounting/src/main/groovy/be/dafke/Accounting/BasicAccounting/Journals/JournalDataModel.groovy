@@ -14,17 +14,17 @@ class JournalDataModel extends SelectableTableModel<Booking> {
     static final int CREDIT_AMOUNT = 3
     static final int VATINFO = 4
 
-    private HashMap<Integer, String> columnNames = new HashMap<>()
-    private HashMap<Integer, Class> columnClasses = new HashMap<>()
+    HashMap<Integer, String> columnNames = new HashMap<>()
+    HashMap<Integer, Class> columnClasses = new HashMap<>()
 
-    private Transaction transaction
+    Transaction transaction
 
     JournalDataModel() {
         createColumnNames()
         createColumnClasses()
     }
 
-    private void createColumnNames() {
+    void createColumnNames() {
         columnNames.put(DEBIT_ACCOUNT, getBundle("Accounting").getString("DEBIT"))
         columnNames.put(CREDIT_ACCOUNT, getBundle("Accounting").getString("CREDIT"))
         columnNames.put(DEBIT_AMOUNT, getBundle("Accounting").getString("D"))
@@ -32,7 +32,7 @@ class JournalDataModel extends SelectableTableModel<Booking> {
         columnNames.put(VATINFO, getBundle("Accounting").getString("VATINFO"))
     }
 
-    private void createColumnClasses() {
+    void createColumnClasses() {
         columnClasses.put(DEBIT_ACCOUNT, Account.class)
         columnClasses.put(CREDIT_ACCOUNT, Account.class)
         columnClasses.put(DEBIT_AMOUNT, BigDecimal.class)
@@ -47,18 +47,18 @@ class JournalDataModel extends SelectableTableModel<Booking> {
         if (col == VATINFO){
             booking.getVATBookingsString()
         } else if (col == DEBIT_ACCOUNT) {
-            booking.isDebit()?booking.getAccount():null
+            booking.debit?booking.account:null
         } else if (col == CREDIT_ACCOUNT) {
-            booking.isDebit()?null:booking.getAccount()
+            booking.debit?null:booking.account
         } else if (col == DEBIT_AMOUNT) {
-            booking.isDebit()?booking.getAmount():null
+            booking.debit?booking.amount:null
         } else if (col == CREDIT_AMOUNT) {
-            booking.isDebit()?null:booking.getAmount()
+            booking.debit?null:booking.amount
         } else null
     }
 
     Booking getBooking(int row){
-        transaction.getBusinessObjects().get(row)
+        transaction.businessObjects.get(row)
     }
 
     int getColumnCount() {
@@ -66,7 +66,7 @@ class JournalDataModel extends SelectableTableModel<Booking> {
     }
 
     int getRowCount() {
-        transaction == null?0:transaction.getBusinessObjects().size()
+        transaction?transaction.businessObjects.size():0
     }
 
     @Override
@@ -102,7 +102,7 @@ class JournalDataModel extends SelectableTableModel<Booking> {
         } else if(col == DEBIT_AMOUNT || col == CREDIT_AMOUNT){
             BigDecimal newAmount = (BigDecimal) value
             if(newAmount!=null){
-                Transaction transaction = booking.getTransaction()
+                Transaction transaction = booking.transaction
                 transaction.removeBusinessObject(booking)
                 booking.setAmount(newAmount)
                 transaction.addBusinessObject(booking)
@@ -121,7 +121,7 @@ class JournalDataModel extends SelectableTableModel<Booking> {
 
     @Override
     Booking getObject(int row, int col) {
-        transaction.getBusinessObjects().get(row)
+        transaction.businessObjects.get(row)
     }
 
 }

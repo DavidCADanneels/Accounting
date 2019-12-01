@@ -40,10 +40,11 @@ class Utils {
                     builder.append("0")
                 }
                 builder.append(id)
-                builder.toString()
+                return builder.toString()
             }
         }
-        prefix + id
+        builder.append(id)
+        return builder.toString()
     }
 
     /** "D, M, YYYY" -> Data */

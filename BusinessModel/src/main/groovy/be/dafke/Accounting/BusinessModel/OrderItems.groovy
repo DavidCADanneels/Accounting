@@ -8,7 +8,7 @@ import be.dafke.Accounting.ObjectModel.Exceptions.NotEmptyException
 class OrderItems extends BusinessCollection<OrderItem> {
 
     OrderItem addBusinessObject(OrderItem orderItem) {
-        String orderItemName = orderItem.getName()
+        String orderItemName = orderItem.name
         try {
             super.addBusinessObject(orderItem)
         } catch (EmptyNameException e) {
@@ -16,7 +16,7 @@ class OrderItems extends BusinessCollection<OrderItem> {
             e.printStackTrace()
             null
         } catch (DuplicateNameException e) {
-            int itemsToAdd = orderItem.getNumberOfItems()
+            int itemsToAdd = orderItem.numberOfItems
             OrderItem itemInStock = getBusinessObject(orderItemName)
             if(itemInStock==null){
                 // cannot be null since DuplicateNameException
@@ -33,17 +33,17 @@ class OrderItems extends BusinessCollection<OrderItem> {
     }
 
     void remove(OrderItem orderItem, boolean calculate, boolean removeIfEmpty){
-        Article article = orderItem.getArticle()
-        String articleName = article.getName()
+        Article article = orderItem.article
+        String articleName = article.name
         orderItem.setName(articleName)
         try {
             super.removeBusinessObject(orderItem)
         } catch (NotEmptyException e1) {
-            int itemsToRemove = orderItem.getNumberOfItems()
+            int itemsToRemove = orderItem.numberOfItems
             OrderItem itemInStock = getBusinessObject(articleName)
             if (itemInStock != null) {
                 itemInStock.removeNumberOfItems(itemsToRemove)
-                int numberOfItems = itemInStock.getNumberOfItems()
+                int numberOfItems = itemInStock.numberOfItems
                 if(removeIfEmpty && numberOfItems==0){
                     try {
                         // remove stock item

@@ -3,15 +3,15 @@ package be.dafke.Accounting.BusinessModel
 import be.dafke.Accounting.ObjectModel.BusinessCollection
 
 class Balance extends BusinessCollection<BalanceLine> {
-    private String leftName=""
-    private String rightName=""
-    private String leftTotalName=""
-    private String rightTotalName=""
-    private String leftResultName=""
-    private String rightResultName=""
-    private ArrayList<AccountType> leftTypes = new ArrayList()
-    private ArrayList<AccountType> rightTypes = new ArrayList()
-    private Accounts accounts
+    String leftName=""
+    String rightName=""
+    String leftTotalName=""
+    String rightTotalName=""
+    String leftResultName=""
+    String rightResultName=""
+    ArrayList<AccountType> leftTypes = new ArrayList()
+    ArrayList<AccountType> rightTypes = new ArrayList()
+    Accounts accounts
 
 
     Balance(String name, Accounts accounts) {
@@ -55,7 +55,7 @@ class Balance extends BusinessCollection<BalanceLine> {
         getAccountsNotEmpty(rightTypes)
     }
 
-    private ArrayList<Account> getAccountsNotEmpty(ArrayList<AccountType> types) {
+    ArrayList<Account> getAccountsNotEmpty(ArrayList<AccountType> types) {
         ArrayList<Account> col = new ArrayList()
         for(AccountType type : types) {
             col.addAll(getAccountsNotEmpty(type))
@@ -67,7 +67,7 @@ class Balance extends BusinessCollection<BalanceLine> {
         ArrayList<Account> accounts = getAccountsByType(leftTypes)
         BigDecimal total = BigDecimal.ZERO
         for (Account account:accounts) {
-            total = total.add(account.getSaldo()).setScale(2)
+            total = total.add(account.saldo).setScale(2)
         }
         total
     }
@@ -76,13 +76,13 @@ class Balance extends BusinessCollection<BalanceLine> {
         ArrayList<Account> accounts = getAccountsByType(rightTypes)
         BigDecimal total = BigDecimal.ZERO
         for (Account account:accounts) {
-            total = total.add(account.getSaldo()).setScale(2)
+            total = total.add(account.saldo).setScale(2)
         }
         total.negate()
 
     }
 
-    private ArrayList<Account> getAccountsByType(ArrayList<AccountType> types) {
+    ArrayList<Account> getAccountsByType(ArrayList<AccountType> types) {
         ArrayList<Account> col = new ArrayList()
         for(AccountType type : types) {
             col.addAll(getAccountsByType(type))
@@ -90,14 +90,14 @@ class Balance extends BusinessCollection<BalanceLine> {
         col
     }
 
-    private ArrayList<Account> getAccountsByType(AccountType type) {
+    ArrayList<Account> getAccountsByType(AccountType type) {
         accounts.getAccountsByType(type)
     }
 
-    private ArrayList<Account> getAccountsNotEmpty(AccountType type) {
+    ArrayList<Account> getAccountsNotEmpty(AccountType type) {
         ArrayList<Account> col = new ArrayList()
-        for(Account account : accounts.getBusinessObjects()) {
-            if (account.getType() == type && account.getSaldo().compareTo(BigDecimal.ZERO) != 0) col.add(account)
+        for(Account account : accounts.businessObjects) {
+            if (account.type == type && account.saldo.compareTo(BigDecimal.ZERO) != 0) col.add(account)
         }
         col
     }

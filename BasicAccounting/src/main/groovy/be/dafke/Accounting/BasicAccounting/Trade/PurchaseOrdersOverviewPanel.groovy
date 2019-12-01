@@ -1,5 +1,6 @@
 package be.dafke.Accounting.BasicAccounting.Trade
 
+import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.OrderItem
 import be.dafke.Accounting.BusinessModel.PurchaseOrder
@@ -14,13 +15,13 @@ import java.awt.Dimension
 import java.awt.Rectangle
 
 class PurchaseOrdersOverviewPanel extends JPanel {
-    private final SelectableTable<PurchaseOrder> overviewTable
-    private final SelectableTable<OrderItem> detailsTable
-    private final PurchaseOrdersOverviewDataTableModel overviewTableModel
-    private final PurchaseOrderViewDataTableModel detailsTableModel
-    private final TotalsPanel totalsPanel
+    final SelectableTable<PurchaseOrder> overviewTable
+    final SelectableTable<OrderItem> detailsTable
+    final PurchaseOrdersOverviewDataTableModel overviewTableModel
+    final PurchaseOrderViewDataTableModel detailsTableModel
+    final TotalsPanel totalsPanel
 
-    private final PurchaseOrdersDetailPanel purchaseOrdersDetailPanel
+    final PurchaseOrdersDetailPanel purchaseOrdersDetailPanel
 
     PurchaseOrdersOverviewPanel() {
         overviewTableModel = new PurchaseOrdersOverviewDataTableModel()
@@ -40,7 +41,7 @@ class PurchaseOrdersOverviewPanel extends JPanel {
         DefaultListSelectionModel selection = new DefaultListSelectionModel()
         selection.addListSelectionListener({ e ->
             if (!e.getValueIsAdjusting()) {
-                PurchaseOrder purchaseOrder = overviewTable.getSelectedObject()
+                PurchaseOrder purchaseOrder = overviewTable.selectedObject
                 detailsTableModel.setOrder(purchaseOrder)
                 totalsPanel.fireOrderContentChanged(purchaseOrder)
                 purchaseOrdersDetailPanel.setOrder(purchaseOrder)
@@ -75,8 +76,8 @@ class PurchaseOrdersOverviewPanel extends JPanel {
     }
 
     void setAccounting(Accounting accounting) {
-        overviewTableModel.setAccounting(accounting)
-//        popup.setAccounting(accounting)
-        purchaseOrdersDetailPanel.setAccounting(accounting)
+        overviewTableModel.accounting = accounting
+//        popup.accounting = accounting
+        purchaseOrdersDetailPanel.accounting = accounting
     }
 }

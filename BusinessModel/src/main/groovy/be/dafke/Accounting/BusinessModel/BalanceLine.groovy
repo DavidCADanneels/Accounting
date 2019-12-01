@@ -3,7 +3,7 @@ package be.dafke.Accounting.BusinessModel
 import be.dafke.Accounting.ObjectModel.BusinessObject
 
 class BalanceLine extends BusinessObject {
-    private Account leftAccount, rightAccount
+    Account leftAccount, rightAccount
 
     BalanceLine(Account leftAccount, Account rightAccount){
         this.leftAccount = leftAccount

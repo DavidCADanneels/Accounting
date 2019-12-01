@@ -14,14 +14,14 @@ import java.util.List
 import static java.util.ResourceBundle.getBundle 
 
 class IngredientsDataEditTableModel extends SelectableTableModel<Ingredient> {
-    private Ingredients ingredients
+    Ingredients ingredients
     static int NAME_COL = 0
     static int UNIT_COL = 1
     static int ALLERGENES_COL = 2
     static int NR_OF_COL = 3
-    private final Component parent
-    private HashMap<Integer,String> columnNames = new HashMap<>()
-    private HashMap<Integer,Class> columnClasses = new HashMap<>()
+    final Component parent
+    HashMap<Integer,String> columnNames = new HashMap<>()
+    HashMap<Integer,Class> columnClasses = new HashMap<>()
     List<Integer> editableColumns = new ArrayList<>()
 
 
@@ -38,13 +38,13 @@ class IngredientsDataEditTableModel extends SelectableTableModel<Ingredient> {
         editableColumns.add(UNIT_COL)
     }
 
-    private void setColumnClasses() {
+    void setColumnClasses() {
         columnClasses.put(NAME_COL, String.class)
         columnClasses.put(UNIT_COL, Unit.class)
         columnClasses.put(ALLERGENES_COL, String.class)
     }
 
-    private void setColumnNames() {
+    void setColumnNames() {
         columnNames.put(NAME_COL, getBundle("Accounting").getString("INGREDIENT_NAME"))
         columnNames.put(UNIT_COL, getBundle("Accounting").getString("INGREDIENT_UNIT"))
         columnNames.put(ALLERGENES_COL, getBundle("Accounting").getString("ALLERGENES"))
@@ -53,16 +53,10 @@ class IngredientsDataEditTableModel extends SelectableTableModel<Ingredient> {
 // ===============
     Object getValueAt(int row, int col) {
         Ingredient ingredient = getObject(row, col)
-        if(ingredient==null) null
-        if (col == NAME_COL) {
-            ingredient.getName()
-        }
-        if (col == UNIT_COL) {
-            ingredient.getUnit()
-        }
-        if (col == ALLERGENES_COL) {
-            ingredient.getAllergenesString()
-        }
+        if(ingredient==null) return null
+        if (col == NAME_COL) return ingredient.name
+        if (col == UNIT_COL) return ingredient.unit
+        if (col == ALLERGENES_COL) return ingredient.allergenesString
         null
     }
 
@@ -71,10 +65,7 @@ class IngredientsDataEditTableModel extends SelectableTableModel<Ingredient> {
     }
 
     int getRowCount() {
-        if(ingredients == null){
-            0
-        }
-        ingredients.getBusinessObjects().size()
+        ingredients?ingredients.businessObjects.size():0
     }
 
     @Override
@@ -102,7 +93,7 @@ class IngredientsDataEditTableModel extends SelectableTableModel<Ingredient> {
         }
         if(col == NAME_COL) {
 //            article.setName((String) value)
-            String oldName = ingredient.getName()
+            String oldName = ingredient.name
             String newName = (String) value
             if (newName != null && !oldName.trim().equals(newName.trim())) {
                 try {
@@ -123,6 +114,6 @@ class IngredientsDataEditTableModel extends SelectableTableModel<Ingredient> {
 
     @Override
     Ingredient getObject(int row, int col) {
-        ingredients.getBusinessObjects().get(row)
+        ingredients.businessObjects.get(row)
     }
 }

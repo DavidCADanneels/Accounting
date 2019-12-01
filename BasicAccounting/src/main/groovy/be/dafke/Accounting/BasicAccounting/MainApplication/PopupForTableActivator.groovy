@@ -9,12 +9,12 @@ import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 
 class PopupForTableActivator extends MouseAdapter {
-    private static ArrayList<JPopupMenu> popupForTableActivators = new ArrayList<>()
+    static ArrayList<JPopupMenu> popupForTableActivators = new ArrayList<>()
 
-    private final SelectableTable<BusinessObject> tabel
-    private final JPopupMenu popup
+    final SelectableTable<BusinessObject> tabel
+    final JPopupMenu popup
 
-    private PopupForTableActivator(JPopupMenu popup, SelectableTable tabel){
+    PopupForTableActivator(JPopupMenu popup, SelectableTable tabel){
         this.popup = popup
         this.tabel = tabel
     }
@@ -26,7 +26,7 @@ class PopupForTableActivator extends MouseAdapter {
 
     static void closeAllPopups(){
         for(JPopupMenu activator:popupForTableActivators){
-            activator.setVisible(false)
+            activator.visible = false
         }
     }
 
@@ -37,7 +37,7 @@ class PopupForTableActivator extends MouseAdapter {
             int row = tabel.rowAtPoint(cell)
 
             ArrayList<Integer> selectedRows = new ArrayList<>()
-            for(int i:tabel.getSelectedRows()){
+            for(int i:tabel.selectedRows){
                 selectedRows.add(i)
             }
             if(!selectedRows.contains(row)){
@@ -45,10 +45,10 @@ class PopupForTableActivator extends MouseAdapter {
             }
             int col = tabel.columnAtPoint(cell)
             tabel.setColumnSelectionInterval(col, col)
-            ArrayList<BusinessObject> selectedObjects = tabel.getSelectedObjects()
-            if(!selectedObjects.isEmpty()) {
+            ArrayList<BusinessObject> selectedObjects = tabel.selectedObjects
+            if(!selectedObjects.empty) {
                 popup.setLocation(me.getLocationOnScreen())
-                popup.setVisible(true)
+                popup.visible = true
             }
         }
     }

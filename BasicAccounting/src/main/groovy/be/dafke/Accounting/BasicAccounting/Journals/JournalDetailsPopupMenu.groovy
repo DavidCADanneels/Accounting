@@ -13,11 +13,11 @@ import java.awt.*
 import static java.util.ResourceBundle.getBundle
 
 class JournalDetailsPopupMenu extends JPopupMenu {
-    private final JMenuItem move, delete, edit, details, balance
+    final JMenuItem move, delete, edit, details, balance
 
-    private SelectableTable<Booking> gui
-    private Journals journals
-//    private Accounting accounting
+    SelectableTable<Booking> gui
+    Journals journals
+//    Accounting accounting
 
     JournalDetailsPopupMenu(Journals journals, SelectableTable<Booking> gui) {
         this(gui)
@@ -48,10 +48,10 @@ class JournalDetailsPopupMenu extends JPopupMenu {
 
 //    void setAccounting(Accounting accounting) {
 //        this.accounting = accounting
-//        setJournals(accounting==null?null:accounting.getJournals())
+//        setJournals(accounting?accounting.journals:null)
 //    }
 
-    private void showBalance() {
+    void showBalance() {
         setVisible(false)
         // choices:
         // 1: all transactions from this journal (e.g. FAM16)
@@ -65,23 +65,23 @@ class JournalDetailsPopupMenu extends JPopupMenu {
         // Accounting.getTransactions(Bookyear year)
         // with Bookyear: a period in time (e.g. 01/07 - 30/06)
 
-        Accounting accounting = Session.getActiveAccounting()
+        Accounting accounting = Session.activeAccounting
 
-        int year = gui.getSelectedObject().getTransaction().getDate().get(Calendar.YEAR)
-        Accounts subAccounts = accounting.getAccounts().getSubAccounts(Movement.ofYear(year))
+        int year = gui.selectedObject.transaction.date.get(Calendar.YEAR)
+        Accounts subAccounts = accounting.accounts.getSubAccounts(Movement.ofYear(year))
 
-        Balances balances = accounting.getBalances()
+        Balances balances = accounting.balances
         Balance closingBalance = balances.createClosingBalance(subAccounts)
         Balance relationsBalance = balances.createRelationsBalance(subAccounts)
         Balance resultBalance = balances.createResultBalance(subAccounts)
 
-        BalanceGUI.getBalance(accounting, closingBalance).setVisible(true)
-        BalanceGUI.getBalance(accounting, resultBalance).setVisible(true)
-        BalanceGUI.getBalance(accounting, relationsBalance).setVisible(true)
+        BalanceGUI.getBalance(accounting, closingBalance).visible = true
+        BalanceGUI.getBalance(accounting, resultBalance).visible = true
+        BalanceGUI.getBalance(accounting, relationsBalance).visible = true
 
         // choice 2: year=year of selected transaction
-//        Accounting accounting = Session.getActiveAccounting()
-//        Balances balances = accounting.getBalances()
+//        Accounting accounting = Session.activeAccounting
+//        Balances balances = accounting.balances
 //        BalanceGUI.getBalance()
 
     }
@@ -90,31 +90,31 @@ class JournalDetailsPopupMenu extends JPopupMenu {
         this.journals=journals
     }
 
-    private void moveTransaction() {
+    void moveTransaction() {
         setVisible(false)
-        ArrayList<Booking> bookings = gui.getSelectedObjects()
+        ArrayList<Booking> bookings = gui.selectedObjects
         Main.moveBookings(bookings, journals)
     }
 
-    private void deleteTransaction() {
+    void deleteTransaction() {
         setVisible(false)
-        ArrayList<Booking> bookings = gui.getSelectedObjects()
+        ArrayList<Booking> bookings = gui.selectedObjects
         Main.deleteBookings(bookings)
     }
 
-    private void editTransaction() {
+    void editTransaction() {
         setVisible(false)
-        Booking booking = gui.getSelectedObject()
-        Transaction transaction = booking.getTransaction()
+        Booking booking = gui.selectedObject
+        Transaction transaction = booking.transaction
         Main.editTransaction(transaction)
     }
 
-    private void showDetails() {
+    void showDetails() {
         Point locationOnScreen = getLocationOnScreen()
         setVisible(false)
-        ArrayList<Booking> bookings = gui.getSelectedObjects()
+        ArrayList<Booking> bookings = gui.selectedObjects
         for (Booking booking : bookings) {
-            Account account = booking.getAccount()
+            Account account = booking.account
             AccountDetailsGUI newGui = AccountDetailsGUI.getAccountDetails(locationOnScreen, account, journals)
             newGui.selectObject(booking)
         }

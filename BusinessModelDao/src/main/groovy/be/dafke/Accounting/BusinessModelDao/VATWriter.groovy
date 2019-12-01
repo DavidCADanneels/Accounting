@@ -11,18 +11,18 @@ import java.util.logging.Logger
 class VATWriter {
     enum Period {QUARTER,MONTH}
 
-    private static void writeDeclarant(Writer writer, Contact contact){
+    static void writeDeclarant(Writer writer, Contact contact){
         try {
             writer.write(
                     "        <ns2:Declarant>\n" +
-                            "            <VATNumber>"+contact.getVatNumber()+"</VATNumber>\n" +
-                            "            <Name>"+contact.getName()+"</Name>\n" +
-                            "            <Street>"+contact.getStreetAndNumber()+"</Street>\n" +
-                            "            <PostCode>"+contact.getPostalCode()+"</PostCode>\n" +
-                            "            <City>"+contact.getCity()+"</City>\n" +
-                            "            <CountryCode>"+contact.getCountryCode()+"</CountryCode>\n" +
-                            "            <EmailAddress>"+contact.getEmail()+"</EmailAddress>\n" +
-                            "            <Phone>"+contact.getPhone()+"</Phone>\n" +
+                            "            <VATNumber>"+contact.vatNumber+"</VATNumber>\n" +
+                            "            <Name>"+contact.name+"</Name>\n" +
+                            "            <Street>"+contact.streetAndNumber+"</Street>\n" +
+                            "            <PostCode>"+contact.postalCode+"</PostCode>\n" +
+                            "            <City>"+contact.city+"</City>\n" +
+                            "            <CountryCode>"+contact.countryCode+"</CountryCode>\n" +
+                            "            <EmailAddress>"+contact.email+"</EmailAddress>\n" +
+                            "            <Phone>"+contact.phone+"</Phone>\n" +
                             "        </ns2:Declarant>\n"
             )
         } catch (IOException e) {
@@ -56,9 +56,9 @@ class VATWriter {
                             "        </ns2:Period>\n" +
                             "        <ns2:Data>\n")
             for(VATField vatField:getAllFields(vatFields)){
-                BigDecimal amount = vatField.getSaldo()
+                BigDecimal amount = vatField.saldo
                 if(amount!=null && amount.compareTo(BigDecimal.ZERO)!=0){
-                    String name = vatField.getName()
+                    String name = vatField.name
                     writer.write(
                             "            <ns2:Amount GridNumber=\""+name+"\">"+amount+"</ns2:Amount>\n"
                     )
@@ -73,21 +73,21 @@ class VATWriter {
             writer.flush()
             writer.close()
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(VATFields.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(VATFields.class.name).log(Level.SEVERE, null, ex)
         } catch (IOException ex) {
-            Logger.getLogger(VATFields.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(VATFields.class.name).log(Level.SEVERE, null, ex)
         }
     }
 
-    private static ArrayList<VATField> getAllFields(VATFields fields){
-        ArrayList<VATField> vatFields = fields.getBusinessObjects()
+    static ArrayList<VATField> getAllFields(VATFields fields){
+        ArrayList<VATField> vatFields = fields.businessObjects
         VATField field71 = fields.get71()
         VATField field72 = fields.get72()
-        if(field71.getSaldo().compareTo(BigDecimal.ZERO) > 0){
+        if(field71.saldo.compareTo(BigDecimal.ZERO) > 0){
             vatFields.add(field71)
         }
         // normally only one if will be used as 71 = -72
-        if(field72.getSaldo().compareTo(BigDecimal.ZERO) > 0){
+        if(field72.saldo.compareTo(BigDecimal.ZERO) > 0){
             vatFields.add(field72)
         }
         vatFields
@@ -100,14 +100,14 @@ class VATWriter {
             BigDecimal totalVatTotal = BigDecimal.ZERO
             int nrOfCustomers=0
             StringBuffer buffer=new StringBuffer()
-            for(Contact contact:contacts.getBusinessObjects()){
-                BigDecimal turnOver = contact.getTurnOver()
-                String vatNumber = contact.getVatNumber()
-                BigDecimal vatTotal = contact.getVATTotal()
-                String countryCode = contact.getCountryCode()
+            for(Contact contact:contacts.businessObjects){
+                BigDecimal turnOver = contact.turnOver
+                String vatNumber = contact.vatNumber
+                BigDecimal vatTotal = contact.VATTotal
+                String countryCode = contact.countryCode
                 if(contact.isCustomer() && vatNumber!=null && turnOver.compareTo(BigDecimal.ZERO)>0) {
-                    totalTurnover = totalTurnover.add(contact.getTurnOver())
-                    totalVatTotal = totalVatTotal.add(contact.getVATTotal())
+                    totalTurnover = totalTurnover.add(contact.turnOver)
+                    totalVatTotal = totalVatTotal.add(contact.VATTotal)
                     nrOfCustomers++
                     buffer.append(
                             "        <ns2:Client SequenceNumber=\"1\">\n" +
@@ -138,9 +138,9 @@ class VATWriter {
             writer.flush()
             writer.close()
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(VATFields.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(VATFields.class.name).log(Level.SEVERE, null, ex)
         } catch (IOException ex) {
-            Logger.getLogger(VATFields.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(VATFields.class.name).log(Level.SEVERE, null, ex)
         }
     }
 }

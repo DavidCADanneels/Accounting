@@ -11,7 +11,7 @@ import java.awt.Color
 import java.awt.Component
 
 class TransactionDataColorRenderer<T> extends DefaultTableCellRenderer {
-    private Journal journal
+    Journal journal
 
     @Override
     Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
@@ -20,9 +20,9 @@ class TransactionDataColorRenderer<T> extends DefaultTableCellRenderer {
         SelectableTableModel<Booking> model = (SelectableTableModel<Booking>)table.getModel()
         Booking booking = model.getObject(row, column)
         if(booking!=null) {
-            Transaction transaction = booking.getTransaction()
+            Transaction transaction = booking.transaction
             if(column == TransactionDataModel.VATINFO) {
-                if (transaction.isRegistered()) {
+                if (transaction.registered) {
                     cell.setForeground(Color.BLACK)
                 } else {
                     cell.setForeground(Color.RED)

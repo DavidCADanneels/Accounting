@@ -13,15 +13,15 @@ class AccountTest {
     static final String NEW_VALUE = "new value"
     static final Calendar TIME = Calendar.getInstance()
     static final String NAME = "name"
-    private final BigDecimal TWENTY = new BigDecimal(20)
-    private final BigDecimal TEN = BigDecimal.TEN
-    private final BigDecimal ZERO = BigDecimal.ZERO
+    final BigDecimal TWENTY = new BigDecimal(20)
+    final BigDecimal TEN = BigDecimal.TEN
+    final BigDecimal ZERO = BigDecimal.ZERO
 
     @Test
     void defaultValues(){
         Account account = new Account("")
 //        assertNull(account.createNewChild())
-        assertEquals(account.getName(), account.toString())
+        assertEquals(account.name, account.toString())
 //        Set<String> initKeySet = account.getInitKeySet()
 //        assertTrue(initKeySet.contains(Account.TYPE))
 //        assertTrue(initKeySet.contains(Account.DEFAULTAMOUNT))
@@ -33,9 +33,9 @@ class AccountTest {
         scaledZero = scaledZero.setScale(2)
 
         Account account = new Account("")
-        BigDecimal debetTotal = account.getDebetTotal()
-        BigDecimal creditTotal = account.getCreditTotal()
-        BigDecimal saldo = account.getSaldo()
+        BigDecimal debetTotal = account.debetTotal
+        BigDecimal creditTotal = account.creditTotal
+        BigDecimal saldo = account.saldo
 
         assertEquals(scaledZero, debetTotal)
         assertEquals(2,debetTotal.scale())
@@ -51,38 +51,38 @@ class AccountTest {
         Account copy = new Account(account)
 
         account.setName("b")
-        assertEquals("a",copy.getName())
+        assertEquals("a",copy.name)
 
         AccountType type = new AccountType()
-        account.setType(type)
-        assertNull(copy.getType())
+        account.type = type
+        assertNull(copy.type)
     }
 
     @Test
     void deletable(){
         Account account = new Account("")
-        assertTrue(account.isDeletable())
+        assertTrue(account.deletable)
         // add movements
-//        assertFalse(account.isDeletable())
+//        assertFalse(account.deletable)
     }
 
     @Test
     void defaultAmount() throws EmptyNameException, DuplicateNameException {
         Account account = new Account("")
-        assertNull(account.getDefaultAmount())
+        assertNull(account.defaultAmount)
         BigDecimal amount = BigDecimal.TEN
-        account.setDefaultAmount(amount)
-        assertEquals(amount, account.getDefaultAmount())
+        account.defaultAmount = amount
+        assertEquals(amount, account.defaultAmount)
     }
 
     @Test
     void type() {
         Account account = new Account("")
-        assertNull(account.getType())
+        assertNull(account.type)
 
         AccountType type = new AccountType()
-        account.setType(type)
-        assertEquals(type, account.getType())
+        account.type = type
+        assertEquals(type, account.type)
     }
 
 //    @Test (expected = NullPointerException.class)
@@ -102,7 +102,7 @@ class AccountTest {
 //        Properties initProperties = account.getOutputProperties()
 //        assertEquals(2, initProperties.size())
 //        assertTrue(initProperties.containsKey(BusinessObject.NAME))
-//        assertEquals(account.getName(), initProperties.get(BusinessObject.NAME))
+//        assertEquals(account.name, initProperties.get(BusinessObject.NAME))
 //        assertTrue(initProperties.containsKey(Account.TYPE))
 //        assertEquals(ACCOUNT_TYPE_NAME, initProperties.get(Account.TYPE))
 //    }
@@ -143,21 +143,21 @@ class AccountTest {
 //        String wrongValue = "30+25"
 //        initProperties.put(Account.DEFAULTAMOUNT, correctValue)
 //        account.setInitProperties(initProperties)
-//        assertEquals(new BigDecimal(correctValue), account.getDefaultAmount())
+//        assertEquals(new BigDecimal(correctValue), account.defaultAmount)
 //        initProperties.put(Account.DEFAULTAMOUNT, wrongValue)
 //        account.setInitProperties(initProperties)
-//        assertNull(account.getDefaultAmount())
+//        assertNull(account.defaultAmount)
 //        initProperties.put(Account.DEFAULTAMOUNT, null)
 //        account.setInitProperties(initProperties)
-//        assertNull(account.getDefaultAmount())
+//        assertNull(account.defaultAmount)
 //    }
 
     @Test
     void initValues() {
         Account account = new Account("")
-        assertEquals(ZERO.setScale(2), account.getSaldo())
-        assertEquals(ZERO.setScale(2), account.getDebetTotal())
-        assertEquals(ZERO.setScale(2), account.getCreditTotal())
+        assertEquals(ZERO.setScale(2), account.saldo)
+        assertEquals(ZERO.setScale(2), account.debetTotal)
+        assertEquals(ZERO.setScale(2), account.creditTotal)
 
     }
 
@@ -166,11 +166,11 @@ class AccountTest {
         Account account = new Account("")
         Movement debit = new Movement(TWENTY, true)
         account.book(TIME, debit, true)
-        assertEquals(TWENTY.setScale(2), account.getSaldo())  // 0 + 20 = 20
-        assertEquals(TWENTY.setScale(2), account.getDebetTotal())  // 20
-        assertEquals(ZERO.setScale(2), account.getCreditTotal())  // 0
+        assertEquals(TWENTY.setScale(2), account.saldo)  // 0 + 20 = 20
+        assertEquals(TWENTY.setScale(2), account.debetTotal)  // 20
+        assertEquals(ZERO.setScale(2), account.creditTotal)  // 0
 
-        ArrayList<Movement> movements = account.getBusinessObjects()
+        ArrayList<Movement> movements = account.businessObjects
         assertEquals(1, movements.size())
         assertTrue(movements.contains(debit))
     }
@@ -180,11 +180,11 @@ class AccountTest {
         Account account = new Account("")
         Movement credit = new Movement(TEN, false)
         account.book(TIME, credit, true)
-        assertEquals(TEN.negate().setScale(2), account.getSaldo())  // 0 - 10 = -10
-        assertEquals(ZERO.setScale(2), account.getDebetTotal())  // 0
-        assertEquals(TEN.setScale(2), account.getCreditTotal())  // 10
+        assertEquals(TEN.negate().setScale(2), account.saldo)  // 0 - 10 = -10
+        assertEquals(ZERO.setScale(2), account.debetTotal)  // 0
+        assertEquals(TEN.setScale(2), account.creditTotal)  // 10
 
-        ArrayList<Movement> movements = account.getBusinessObjects()
+        ArrayList<Movement> movements = account.businessObjects
         assertEquals(1, movements.size())
         assertTrue(movements.contains(credit))
     }
@@ -197,11 +197,11 @@ class AccountTest {
         account.book(TIME, debit, true)
         account.book(TIME, credit, true)
 
-        assertEquals(TEN.setScale(2), account.getSaldo()) // 20 - 10 = 10
-        assertEquals(TWENTY.setScale(2), account.getDebetTotal()) // 20
-        assertEquals(TEN.setScale(2), account.getCreditTotal()) // 10
+        assertEquals(TEN.setScale(2), account.saldo) // 20 - 10 = 10
+        assertEquals(TWENTY.setScale(2), account.debetTotal) // 20
+        assertEquals(TEN.setScale(2), account.creditTotal) // 10
 
-        ArrayList<Movement> movements = account.getBusinessObjects()
+        ArrayList<Movement> movements = account.businessObjects
         assertEquals(2, movements.size())
         assertTrue(movements.contains(debit))
         assertTrue(movements.contains(credit))
@@ -215,44 +215,44 @@ class AccountTest {
 
         account.book(TIME, debit, true)
 
-        ArrayList<Movement> movements = account.getBusinessObjects()
+        ArrayList<Movement> movements = account.businessObjects
         assertEquals(1, movements.size())
         assertTrue(movements.contains(debit))
         assertFalse(movements.contains(credit))
         //
-        assertEquals(TWENTY.setScale(2), account.getSaldo()) // 0 + 20 = 20
-        assertEquals(TWENTY.setScale(2), account.getDebetTotal()) // 0 + 20 = 20
-        assertEquals(ZERO.setScale(2), account.getCreditTotal()) // 0 + 0 = 0
+        assertEquals(TWENTY.setScale(2), account.saldo) // 0 + 20 = 20
+        assertEquals(TWENTY.setScale(2), account.debetTotal) // 0 + 20 = 20
+        assertEquals(ZERO.setScale(2), account.creditTotal) // 0 + 0 = 0
 
         account.book(TIME, credit, true)
 
-        movements = account.getBusinessObjects()
+        movements = account.businessObjects
         assertEquals(2, movements.size())
         assertTrue(movements.contains(debit))
         assertTrue(movements.contains(credit))
         //
-        assertEquals(TEN.setScale(2), account.getSaldo()) // 20 - 10 = 10
-        assertEquals(TWENTY.setScale(2), account.getDebetTotal()) // 20 + 0 = 20
-        assertEquals(TEN.setScale(2), account.getCreditTotal()) // 0 + 10 = 10
+        assertEquals(TEN.setScale(2), account.saldo) // 20 - 10 = 10
+        assertEquals(TWENTY.setScale(2), account.debetTotal) // 20 + 0 = 20
+        assertEquals(TEN.setScale(2), account.creditTotal) // 0 + 10 = 10
 
         account.unbook(TIME,debit, true)
 
-        movements = account.getBusinessObjects()
+        movements = account.businessObjects
         assertEquals(1, movements.size())
         assertFalse(movements.contains(debit))
         assertTrue(movements.contains(credit))
         //
-        assertEquals(TEN.negate().setScale(2), account.getSaldo()) // 20-20 - 10 = -10
-        assertEquals(ZERO.setScale(2), account.getDebetTotal()) // 20 - 20 = 0
-        assertEquals(TEN.setScale(2), account.getCreditTotal()) // 0 + 10 = 10
+        assertEquals(TEN.negate().setScale(2), account.saldo) // 20-20 - 10 = -10
+        assertEquals(ZERO.setScale(2), account.debetTotal) // 20 - 20 = 0
+        assertEquals(TEN.setScale(2), account.creditTotal) // 0 + 10 = 10
 
         account.unbook(TIME,credit, true)
 
-        movements = account.getBusinessObjects()
-        assertTrue(movements.isEmpty())
+        movements = account.businessObjects
+        assertTrue(movements.empty)
         //
-        assertEquals(ZERO.negate().setScale(2), account.getSaldo())
-        assertEquals(ZERO.setScale(2), account.getDebetTotal())
-        assertEquals(ZERO.setScale(2), account.getCreditTotal())
+        assertEquals(ZERO.negate().setScale(2), account.saldo)
+        assertEquals(ZERO.setScale(2), account.debetTotal)
+        assertEquals(ZERO.setScale(2), account.creditTotal)
     }
 }

@@ -29,13 +29,13 @@ class ContactDetailsPanel extends JPanel {
     static final String SUPPLIER = "SUPPLIER"
     static final String CUSTOMER_LABEL = "CUSTOMER_LABEL"
     static final String SUPPLIER_LABEL = "SUPPLIER_LABEL"
-    private final JCheckBox customer, supplier
-    private final JTextField customerAccountName, supplierAccountName
-    private final JTextField contactName, contactVAT, contactStreet, contactPostalCode, contactCity, contactCountry, contactPhone, contactEmail, officialName
-    private Accounting accounting
-    private Contacts contacts
-    private Contact contact
-    private boolean newContact
+    final JCheckBox customer, supplier
+    final JTextField customerAccountName, supplierAccountName
+    final JTextField contactName, contactVAT, contactStreet, contactPostalCode, contactCity, contactCountry, contactPhone, contactEmail, officialName
+    Accounting accounting
+    Contacts contacts
+    Contact contact
+    boolean newContact
 
     ContactDetailsPanel() {
         setLayout(new GridLayout(0,2))
@@ -54,11 +54,11 @@ class ContactDetailsPanel extends JPanel {
         customer = new JCheckBox(getBundle("Contacts").getString(CUSTOMER))
         supplier = new JCheckBox(getBundle("Contacts").getString(SUPPLIER))
 
-        customerAccountName.setEnabled(false)
-        supplierAccountName.setEnabled(false)
+        customerAccountName.enabled = false
+        supplierAccountName.enabled = false
 
         customer.addActionListener({ e ->
-            if (customer.isSelected()) {
+            if (customer.selected) {
                 StockUtils.getCustomerAccount(contact, accounting)
             }
 
@@ -95,7 +95,7 @@ class ContactDetailsPanel extends JPanel {
 
     void setAccounting(Accounting accounting) {
         this.accounting = accounting
-        setContacts(accounting==null?null:accounting.getContacts())
+        setContacts(accounting?accounting.contacts:null)
     }
 
     void setContacts(Contacts contacts) {
@@ -103,39 +103,39 @@ class ContactDetailsPanel extends JPanel {
     }
 
     void setEnabled(boolean enabled){
-        contactName.setEnabled(enabled)
-        contactVAT.setEnabled(enabled)
-        contactStreet.setEnabled(enabled)
-        contactPostalCode.setEnabled(enabled)
-        contactCity.setEnabled(enabled)
-        contactCountry.setEnabled(enabled)
-        contactEmail.setEnabled(enabled)
-        contactPhone.setEnabled(enabled)
-        officialName.setEnabled(enabled)
-        customer.setEnabled(enabled)
-        supplier.setEnabled(enabled)
+        contactName.enabled = enabled
+        contactVAT.enabled = enabled
+        contactStreet.enabled = enabled
+        contactPostalCode.enabled = enabled
+        contactCity.enabled = enabled
+        contactCountry.enabled = enabled
+        contactEmail.enabled = enabled
+        contactPhone.enabled = enabled
+        officialName.enabled = enabled
+        customer.enabled = enabled
+        supplier.enabled = enabled
     }
 
     void setContact(Contact contact) {
         this.contact = contact
-        contactName.setText(contact.getName())
-        contactVAT.setText(contact.getVatNumber())
-        contactStreet.setText(contact.getStreetAndNumber())
-        contactPostalCode.setText(contact.getPostalCode())
-        contactCity.setText(contact.getCity())
-        contactCountry.setText(contact.getCountryCode())
-        contactEmail.setText(contact.getEmail())
-        contactPhone.setText(contact.getPhone())
-        officialName.setText(contact.getOfficialName())
-        customer.setSelected(contact.isCustomer())
-        supplier.setSelected(contact.isSupplier())
-        Account customerAccount = contact.getCustomerAccount()
+        contactName.setText(contact.name)
+        contactVAT.setText(contact.vatNumber)
+        contactStreet.setText(contact.streetAndNumber)
+        contactPostalCode.setText(contact.postalCode)
+        contactCity.setText(contact.city)
+        contactCountry.setText(contact.countryCode)
+        contactEmail.setText(contact.email)
+        contactPhone.setText(contact.phone)
+        officialName.setText(contact.officialName)
+        customer.setSelected(contact.customer)
+        supplier.setSelected(contact.supplier)
+        Account customerAccount = contact.customerAccount
         if (customerAccount != null){
             customerAccountName.setText(customerAccount.toString())
         } else {
             customerAccountName.setText("")
         }
-        Account supplierAccount = contact.getSupplierAccount()
+        Account supplierAccount = contact.supplierAccount
         if(supplierAccount!=null) {
             supplierAccountName.setText(supplierAccount.toString())
         } else {
@@ -148,26 +148,17 @@ class ContactDetailsPanel extends JPanel {
             contact = new Contact()
             newContact = true
         }
-        String name = contactName.getText().trim()
-        contact.setName(name)
-        String officialName = this.officialName.getText().trim()
-        contact.setOfficialName(officialName)
-        String vat = contactVAT.getText().trim()
-        contact.setVatNumber(vat)
-        String street = contactStreet.getText().trim()
-        contact.setStreetAndNumber(street)
-        String postalCode = contactPostalCode.getText().trim()
-        contact.setPostalCode(postalCode)
-        String city = contactCity.getText().trim()
-        contact.setCity(city)
-        String country = contactCountry.getText().trim()
-        contact.setCountryCode(country)
-        String email = contactEmail.getText().trim()
-        contact.setEmail(email)
-        String phone = contactPhone.getText().trim()
-        contact.setPhone(phone)
-//        contact.setCustomer(customer.isSelected())
-//        contact.setSupplier(supplier.isSelected())
+        contact.name = contactName.getText().trim()
+        contact.officialName = officialName.getText().trim()
+        contact.vatNumber = contactVAT.getText().trim()
+        contact.streetAndNumber = contactStreet.getText().trim()
+        contact.postalCode = contactPostalCode.getText().trim()
+        contact.city = contactCity.getText().trim()
+        contact.countryCode = contactCountry.getText().trim()
+        contact.email = contactEmail.getText().trim()
+        contact.phone = contactPhone.getText().trim()
+//        contact.setCustomer(customer.selected)
+//        contact.setSupplier(supplier.selected)
         if(newContact) {
             try {
                 contacts.addBusinessObject(contact)
@@ -195,7 +186,7 @@ class ContactDetailsPanel extends JPanel {
         officialName.setText("")
         customerAccountName.setText("")
         supplierAccountName.setText("")
-        customer.setSelected(false)
-        supplier.setSelected(false)
+        customer.selected = false
+        supplier.selected = false
     }
 }

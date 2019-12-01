@@ -13,10 +13,10 @@ import java.awt.event.WindowListener
 import static java.util.ResourceBundle.getBundle
 
 class JournalDetailsGUI extends JFrame implements WindowListener {
-    private static HashMap<Journal,JournalDetailsGUI> journalDetailsMap = new HashMap<>()
-    private final JournalDetailsPanel journalDetailsPanel
+    static HashMap<Journal,JournalDetailsGUI> journalDetailsMap = new HashMap<>()
+    final JournalDetailsPanel journalDetailsPanel
 
-    private JournalDetailsGUI(Point location, Journal journal, Journals journals) {
+    JournalDetailsGUI(Point location, Journal journal, Journals journals) {
         super(getBundle("Accounting").getString("JOURNAL_DETAILS") + journal.toString())
         journalDetailsPanel = new JournalDetailsPanel(journal, journals)
 //		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE)
@@ -33,7 +33,7 @@ class JournalDetailsGUI extends JFrame implements WindowListener {
             journalDetailsMap.put(journal, journalDetailsGUI)
             Main.addFrame(journalDetailsGUI)
         }
-        journalDetailsGUI.setVisible(true)
+        journalDetailsGUI.visible = true
         journalDetailsGUI
     }
 

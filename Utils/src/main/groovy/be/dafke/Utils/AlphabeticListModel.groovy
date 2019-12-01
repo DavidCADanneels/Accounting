@@ -41,7 +41,7 @@ class AlphabeticListModel<K> extends DefaultListModel<K> {
      * gevonden >> "duplicaat" indien niet vind men de plaats waar de persoon / het object moet worden toegevoegd
      * @see javax.swing.DefaultListModel#add(int index, java.lang.Object element)
      */
-    private void insert(K nieuw, int links, int rechts) {
+    void insert(K nieuw, int links, int rechts) {
         K m
         while (rechts - links > 1) {
             int midden = (links + rechts) / 2

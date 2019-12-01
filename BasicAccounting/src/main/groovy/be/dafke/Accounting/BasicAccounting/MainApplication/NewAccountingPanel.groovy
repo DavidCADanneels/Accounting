@@ -21,13 +21,13 @@ import static java.util.ResourceBundle.getBundle
 
 class NewAccountingPanel extends RefreshableDialog {
 
-    private JButton add
-    private JTextField nameField
-    private Accountings accountings
-    private Accounting accounting
-    private AccountingSettingsPanel accountingSettingsPanel
-    private AccountingCopyPanel accountingCopyPanel
-    private JComboBox<Accounting> accountingToCopyFrom
+    JButton addButton
+    JTextField nameField
+    Accountings accountings
+    Accounting accounting
+    AccountingSettingsPanel accountingSettingsPanel
+    AccountingCopyPanel accountingCopyPanel
+    JComboBox<Accounting> accountingToCopyFrom
 
     NewAccountingPanel(Accountings accountings) {
         super(getBundle("Accounting").getString("NEW_ACCOUNTING_GUI_TITLE"))
@@ -36,15 +36,15 @@ class NewAccountingPanel extends RefreshableDialog {
         pack()
     }
 
-    private JPanel createContentPanel(){
+    JPanel createContentPanel(){
         JPanel panel = new JPanel()
         panel.setLayout(new BorderLayout())
 
         accountingToCopyFrom = new JComboBox<>()
-        for(Accounting accounting:accountings.getBusinessObjects()) {
+        for(Accounting accounting:accountings.businessObjects) {
             accountingToCopyFrom.addItem(accounting)
         }
-        accountingToCopyFrom.setSelectedItem(Session.getActiveAccounting())
+        accountingToCopyFrom.setSelectedItem(Session.activeAccounting)
         accountingToCopyFrom.addActionListener({ e -> selectedAccountChanged() })
 
         nameField = new JTextField(10)
@@ -59,8 +59,8 @@ class NewAccountingPanel extends RefreshableDialog {
             void focusLost(FocusEvent e) {
                 super.focusLost(e)
                 String name = nameField.getText()
-                if(name!=null && !name.trim().isEmpty()){
-                    add.setEnabled(true)
+                if(name!=null && !name.trim().empty){
+                    add.enabled = true
                     accounting.setName(name.trim())
                 } else {
                     accounting.setName(name)
@@ -77,30 +77,30 @@ class NewAccountingPanel extends RefreshableDialog {
         panel.add(namePanel, BorderLayout.NORTH)
 
         accountingCopyPanel = new AccountingCopyPanel()
-        accounting = accountingCopyPanel.getAccounting()
+        accounting = accountingCopyPanel.accounting
         accountingSettingsPanel = new AccountingSettingsPanel(accounting, accountingCopyPanel)
         accountingCopyPanel.setSettingsPanel(accountingSettingsPanel)
 //        JSplitPane splitPane = Main.createSplitPane(accountingCopyPanel, accountingSettingsPanel, JSplitPane.HORIZONTAL_SPLIT)
         panel.add(accountingSettingsPanel, BorderLayout.CENTER)
 
-        add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_ACCOUNTING"))
-        add.setEnabled(false)
-        add.addActionListener({ e -> saveAccounting() })
-        panel.add(add, BorderLayout.SOUTH)
+        addButton = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_ACCOUNTING"))
+        addButton.enabled = false
+        addButton.addActionListener({ e -> saveAccounting() })
+        panel.add(addButton, BorderLayout.SOUTH)
 
         panel
     }
 
-    private void selectedAccountChanged() {
-        Accounting accounting = (Accounting) accountingToCopyFrom.getSelectedItem()
+    void selectedAccountChanged() {
+        Accounting accounting = (Accounting) accountingToCopyFrom.selectedItem
         accountingCopyPanel.setCopyFrom(accounting)
 //        accountingCopyPanel.enableCopyContacts(accounting.isContactsAccounting())
 
     }
 
     void saveAccounting() {
-//        if(accounting.isVatAccounting()) {
-//            accounting.getVatFields().addDefaultFields()
+//        if(accounting.vatAccounting) {
+//            accounting.vatFields.addDefaultFields()
 //        }
         try{
             accountings.addBusinessObject(accounting)

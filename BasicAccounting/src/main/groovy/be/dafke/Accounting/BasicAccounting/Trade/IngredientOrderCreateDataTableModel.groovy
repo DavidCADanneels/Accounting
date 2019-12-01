@@ -7,7 +7,7 @@ import be.dafke.Accounting.BusinessModel.Ingredients
 
 class IngredientOrderCreateDataTableModel extends IngredientOrderViewDataTableModel {
 
-    private Ingredients ingredients
+    Ingredients ingredients
 
     IngredientOrderCreateDataTableModel() {
         super()
@@ -20,7 +20,7 @@ class IngredientOrderCreateDataTableModel extends IngredientOrderViewDataTableMo
     }
 
     int getColumnCount() {
-        NR_OF_COL
+        5
     }
 
     @Override
@@ -55,15 +55,12 @@ class IngredientOrderCreateDataTableModel extends IngredientOrderViewDataTableMo
 
     @Override
     int getRowCount() {
-        if(ingredients == null) 0
-        List<Ingredient> businessObjects = ingredients.getBusinessObjects()
-        if(businessObjects == null || businessObjects.size() == 0) 0
-        businessObjects.size()
+        ingredients?ingredients.businessObjects.size():0
     }
 
-    private List<Ingredient> getIngredients(){
+    List<Ingredient> getIngredients(){
         if(ingredients==null) null
-        List<Ingredient> businessObjects = ingredients.getBusinessObjects()
+        List<Ingredient> businessObjects = ingredients.businessObjects
         if(businessObjects == null || businessObjects.size() == 0) null
         businessObjects
     }
@@ -73,11 +70,11 @@ class IngredientOrderCreateDataTableModel extends IngredientOrderViewDataTableMo
         List<Ingredient> articleList = getIngredients()
         if(articleList == null) null
         Ingredient ingredient = articleList.get(row)
-        order.getBusinessObject(ingredient.getName())
+        order.getBusinessObject(ingredient.name)
     }
 
 //	void setAccounting(Accounting accounting) {
-//		setIngredients(accounting==null?null:accounting.getIngredients())
+//		setIngredients(accounting?accounting.ingredients:null)
 //		fireTableDataChanged()
 //	}
 }

@@ -19,16 +19,16 @@ import java.awt.*
 import static java.util.ResourceBundle.getBundle
 
 class ProjectManagementPanel extends JPanel implements ListSelectionListener {
-    private final PrefixFilterPanel<Account> zoeker
-    private final AlphabeticListModel<Account> allAccountsModel, projectAccountsModel
-    private final JList<Account> allAccounts, projectAccounts
-    private final JButton moveTo
-    private final JButton moveBack
-    private final JComboBox<Project> combo
-    private Project project
-    private Accounts accounts
-    private AccountTypes accountTypes
-    private Projects projects
+    final PrefixFilterPanel<Account> zoeker
+    final AlphabeticListModel<Account> allAccountsModel, projectAccountsModel
+    final JList<Account> allAccounts, projectAccounts
+    final JButton moveTo
+    final JButton moveBack
+    final JComboBox<Project> combo
+    Project project
+    Accounts accounts
+    AccountTypes accountTypes
+    Projects projects
 
     ProjectManagementPanel(Accounts accounts, AccountTypes accountTypes, Projects projects) {
         this.accounts = accounts
@@ -40,19 +40,19 @@ class ProjectManagementPanel extends JPanel implements ListSelectionListener {
         JPanel onder = new JPanel()
         moveTo = new JButton(getBundle("Projects").getString("ADD"))
         moveTo.addActionListener({ e -> moveToProject() })
-        moveTo.setEnabled(false)
+        moveTo.enabled = false
         onder.add(moveTo)
         //
         moveBack = new JButton(getBundle("Projects").getString("DELETE"))
         moveBack.addActionListener({ e -> removeFromProject() })
-        moveBack.setEnabled(false)
+        moveBack.enabled = false
         onder.add(moveBack)
         //
         JButton addAccount = new JButton("Add Account")
         addAccount.addActionListener({ e ->
-            NewAccountDialog newAccountDialog = new NewAccountDialog(accounts, accountTypes.getBusinessObjects())
+            NewAccountDialog newAccountDialog = new NewAccountDialog(accounts, accountTypes.businessObjects)
             newAccountDialog.setLocation(getLocationOnScreen())
-            newAccountDialog.setVisible(true)
+            newAccountDialog.visible = true
         })
         onder.add(addAccount)
         //
@@ -96,21 +96,21 @@ class ProjectManagementPanel extends JPanel implements ListSelectionListener {
     void valueChanged(ListSelectionEvent lse) {
         JList list = (JList) lse.getSource()
         if (list == allAccounts) {
-            if (!lse.getValueIsAdjusting() && allAccounts.getSelectedIndex() != -1 && project != null) {
-                moveTo.setEnabled(true)
+            if (!lse.getValueIsAdjusting() && allAccounts.selectedIndex != -1 && project != null) {
+                moveTo.enabled = true
             } else {
-                moveTo.setEnabled(false)
+                moveTo.enabled = false
             }
         } else if (list == projectAccounts) {
-            if (!lse.getValueIsAdjusting() && projectAccounts.getSelectedIndex() != -1) {
-                moveBack.setEnabled(true)
+            if (!lse.getValueIsAdjusting() && projectAccounts.selectedIndex != -1) {
+                moveBack.enabled = true
             } else {
-                moveBack.setEnabled(false)
+                moveBack.enabled = false
             }
         }
     }
 
-    private void moveToProject(){
+    void moveToProject(){
         for(Account account : allAccounts.getSelectedValuesList()) {
             projectAccountsModel.addElement(account)
             // TODO check if account belongs to another project (and remove it there ?)
@@ -124,7 +124,7 @@ class ProjectManagementPanel extends JPanel implements ListSelectionListener {
         }
     }
 
-    private void removeFromProject(){
+    void removeFromProject(){
         for(Account account : projectAccounts.getSelectedValuesList()) {
             allAccountsModel.addElement(account)
             try {
@@ -136,7 +136,7 @@ class ProjectManagementPanel extends JPanel implements ListSelectionListener {
         }
     }
 
-    private void createNewProject(){
+    void createNewProject(){
         String name = JOptionPane.showInputDialog(this, getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"))
         while (name != null && name.equals(""))
             name = JOptionPane.showInputDialog(this, getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"))
@@ -155,11 +155,11 @@ class ProjectManagementPanel extends JPanel implements ListSelectionListener {
         }
     }
 
-    private void comboAction() {
-        project = (Project) combo.getSelectedItem()
+    void comboAction() {
+        project = (Project) combo.selectedItem
         projectAccountsModel.removeAllElements()
         if(project!=null) {
-            for (Account account : project.getBusinessObjects()) {
+            for (Account account : project.businessObjects) {
                 // System.out.println("Project: " + project + " | account" + account)
                 projectAccountsModel.addElement(account)
             }
@@ -168,10 +168,10 @@ class ProjectManagementPanel extends JPanel implements ListSelectionListener {
         }
     }
 
-    private ArrayList<Account> getAccountNoMatchProject(Project project) {
+    ArrayList<Account> getAccountNoMatchProject(Project project) {
         ArrayList<Account> result = new ArrayList<>()
-        for(Account account : accounts.getBusinessObjects()) {
-            if (!project.getBusinessObjects().contains(account)){
+        for(Account account : accounts.businessObjects) {
+            if (!project.businessObjects.contains(account)){
                 result.add(account)
             }
         }
@@ -179,27 +179,27 @@ class ProjectManagementPanel extends JPanel implements ListSelectionListener {
     }
 
     void refresh() {
-        zoeker.resetMap(accounts.getBusinessObjects())
+        zoeker.resetMap(accounts.businessObjects)
         combo.removeAllItems()
-        for(Project project : projects.getBusinessObjects()) {
+        for(Project project : projects.businessObjects) {
             ((DefaultComboBoxModel<Project>) combo.getModel()).addElement(project)
         }
-        Project[] result = new Project[projects.getBusinessObjects().size()]
-        projects.getBusinessObjects().toArray(result)
-        if (projects.getBusinessObjects().size() != 0) {
+        Project[] result = new Project[projects.businessObjects.size()]
+        projects.businessObjects.toArray(result)
+        if (projects.businessObjects.size() != 0) {
             combo.setSelectedItem(project)
         } else {
             project = null
             allAccountsModel.removeAllElements()
-            for(Account account : accounts.getBusinessObjects()){
+            for(Account account : accounts.businessObjects){
                 allAccountsModel.addElement(account)
             }
         }
     }
 
     void setAccounting(Accounting accounting) {
-        accounts=accounting==null?null:accounting.getAccounts()
-        accountTypes=accounting==null?null:accounting.getAccountTypes()
-        projects=accounting==null?null:accounting.getProjects()
+        accounts=accounting?accounting.accounts:null
+        accountTypes=accounting?accounting.accountTypes:null
+        projects=accounting?accounting.getProjects():null
     }
 }

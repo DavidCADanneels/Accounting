@@ -46,42 +46,30 @@ class MealOrderViewDataTableModel extends SelectableTableModel<MealOrderItem> {
     // DE GET METHODEN
 // ===============
     Object getValueAt(int row, int col) {
-        if(mealOrder == null) null
-        ArrayList<MealOrderItem> mealOrderItems = mealOrder.getBusinessObjects()
-        if(mealOrderItems == null) null
+        if(mealOrder == null) return null
+        ArrayList<MealOrderItem> mealOrderItems = mealOrder.businessObjects
+        if(mealOrderItems == null) return null
         MealOrderItem mealOrderItem = getObject(row, col)
-
-        if(mealOrderItem == null) null
+        if(mealOrderItem == null) return null
         if (col == NR_COL) {
-            mealOrderItem.getNumberOfItems()
+            return mealOrderItem.numberOfItems
         }
         Meal meal = mealOrderItem.getMeal()
-        if(meal ==null) null
-        if (col == ID_COL) {
-            meal.getName()
-        }
-        if (col == NAME_COL) {
-            meal.getMealName()
-        }
-//		if (col == DESCRIPTION_COL) {
-//			meal.getDescription()
-//		}
-        if (col == SALES_PRICE_SINGLE_COL) {
-            meal.getSalesPrice()
-        }
+        if(meal ==null) return null
+        if (col == ID_COL) return meal.name
+        if (col == NAME_COL) return meal.getMealName()
+//		if (col == DESCRIPTION_COL) return meal.description
+        if (col == SALES_PRICE_SINGLE_COL) return meal.getSalesPrice()
         if (col == SALES_PRICE_TOTAL_COL) {
             BigDecimal salesPrice = meal.getSalesPrice()
-            salesPrice.multiply(new BigDecimal(mealOrderItem.getNumberOfItems()))
+            return salesPrice?salesPrice.multiply(new BigDecimal(mealOrderItem.numberOfItems)):null
         }
         null
     }
 
     @Override
     int getRowCount() {
-        if(mealOrder == null) 0
-        List<MealOrderItem> businessObjects = mealOrder.getBusinessObjects()
-        if(businessObjects == null || businessObjects.size() == 0) 0
-        businessObjects.size()
+        mealOrder?mealOrder.businessObjects.size():0
     }
 
     @Override
@@ -91,7 +79,7 @@ class MealOrderViewDataTableModel extends SelectableTableModel<MealOrderItem> {
 
     @Override
     MealOrderItem getObject(int row, int col) {
-        List<MealOrderItem> businessObjects = mealOrder.getBusinessObjects()
+        List<MealOrderItem> businessObjects = mealOrder.businessObjects
         if(businessObjects == null || businessObjects.size() == 0) null
         businessObjects.get(row)
     }

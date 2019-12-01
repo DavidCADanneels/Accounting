@@ -12,10 +12,10 @@ import java.util.List
 import static java.util.ResourceBundle.getBundle
 
 class AccountTypesFilterPanel extends JPanel {
-    private final Map<AccountType, JCheckBox> boxes
-    private AccountDataTableModel model
-    private JournalSession journalSession
-    private boolean left
+    final Map<AccountType, JCheckBox> boxes
+    AccountDataTableModel model
+    JournalSession journalSession
+    boolean left
 
     AccountTypesFilterPanel(AccountDataTableModel model, boolean left) {
         this.model = model
@@ -25,7 +25,7 @@ class AccountTypesFilterPanel extends JPanel {
     }
 
     void setAccountList(AccountsList accountList) {
-        setAvailableAccountTypes(accountList.getAccountTypes())
+        setAvailableAccountTypes(accountList.accountTypes)
         refreshSelectedAccounts()
     }
 
@@ -50,15 +50,15 @@ class AccountTypesFilterPanel extends JPanel {
         }
     }
 
-    private void addCheckBox(AccountType accountType){
-        JCheckBox checkBox = new JCheckBox(getBundle("BusinessModel").getString(accountType.getName().toUpperCase()))
-        checkBox.setActionCommand(accountType.getName())
+    void addCheckBox(AccountType accountType){
+        JCheckBox checkBox = new JCheckBox(getBundle("BusinessModel").getString(accountType.name.toUpperCase()))
+        checkBox.setActionCommand(accountType.name)
         checkBox.addActionListener({ e -> checkBoxAction() })
         boxes.put(accountType, checkBox)
         add(checkBox)
     }
 
-    private void setSelectedAccountTypes(ArrayList<AccountType> accountTypes) {
+    void setSelectedAccountTypes(ArrayList<AccountType> accountTypes) {
         for (Map.Entry<AccountType,JCheckBox> entry:boxes.entrySet()){
             AccountType accountType = entry.getKey()
             JCheckBox checkBox = entry.getValue()
@@ -66,7 +66,7 @@ class AccountTypesFilterPanel extends JPanel {
         }
     }
 
-    private void checkBoxAction(){
+    void checkBoxAction(){
         List<AccountType> selectedAccountTypes = getSelectedAccountTypes()
         model.setAccountTypes(selectedAccountTypes)
         // TODO: can't we just remove and re-add only 'type' i.s.o. all types?
@@ -84,10 +84,10 @@ class AccountTypesFilterPanel extends JPanel {
 //    void setAccounts(Accounts accounts) {
 //        boolean active = accounts != null
 //        if (accountTypes != null) {
-//            for (AccountType type : accountTypes.getBusinessObjects()) {
+//            for (AccountType type : accountTypes.businessObjects) {
 //                JCheckBox checkBox = boxes.get(type)
 //                checkBox.setSelected(selectedAccountTypes.get(type))
-//                checkBox.setEnabled(active)
+//                checkBox.enabled = active
 //            }
 //        }
 //        if (active) {
@@ -100,7 +100,7 @@ class AccountTypesFilterPanel extends JPanel {
         for (Map.Entry<AccountType,JCheckBox> entry : boxes.entrySet()){
             AccountType accountType = entry.getKey()
             JCheckBox checkBox = entry.getValue()
-            if (checkBox.isSelected()) {
+            if (checkBox.selected) {
                 types.add(accountType)
             }
         }

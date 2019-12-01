@@ -11,7 +11,7 @@ import static java.util.ResourceBundle.getBundle
  * @author David Danneels
  */
 class AccountDetailsDataModel extends SelectableTableModel<Booking> {
-    private final Account rekening
+    final Account rekening
 
     static final int NR = 0
     static final int DATE = 1
@@ -19,8 +19,8 @@ class AccountDetailsDataModel extends SelectableTableModel<Booking> {
     static final int CREDIT = 3
     static final int VATINFO = 4
     static final int DESCRIPTION = 5
-    private HashMap<Integer, String> columnNames = new HashMap<>()
-    private HashMap<Integer, Class> columnClasses = new HashMap<>()
+    HashMap<Integer, String> columnNames = new HashMap<>()
+    HashMap<Integer, Class> columnClasses = new HashMap<>()
 
     AccountDetailsDataModel(Account account) {
         rekening = account
@@ -28,7 +28,7 @@ class AccountDetailsDataModel extends SelectableTableModel<Booking> {
         createColumnClasses()
     }
 
-    private void createColumnNames() {
+    void createColumnNames() {
         columnNames.put(NR, getBundle("Accounting").getString("NR"))
         columnNames.put(DATE, getBundle("Accounting").getString("DATE"))
         columnNames.put(DEBIT, getBundle("Accounting").getString("DEBIT"))
@@ -37,7 +37,7 @@ class AccountDetailsDataModel extends SelectableTableModel<Booking> {
         columnNames.put(DESCRIPTION, getBundle("Accounting").getString("DESCRIPTION"))
     }
 
-    private void createColumnClasses() {
+    void createColumnClasses() {
         columnClasses.put(NR, String.class)
         columnClasses.put(DATE, String.class)
         columnClasses.put(DEBIT, BigDecimal.class)
@@ -50,7 +50,7 @@ class AccountDetailsDataModel extends SelectableTableModel<Booking> {
 // ===============
 
     int getRowCount() {
-        rekening.getBusinessObjects().size()
+        rekening.businessObjects.size()
     }
 
     int getColumnCount() {
@@ -63,13 +63,13 @@ class AccountDetailsDataModel extends SelectableTableModel<Booking> {
     }
 
     Booking getObject(int row, int col) {
-        rekening.getBusinessObjects().get(row).getBooking()
+        rekening.businessObjects.get(row).booking
     }
 
     int getRow(Booking booking){
         int row=0
-        for(Movement movement:rekening.getBusinessObjects()){
-            if(movement.getBooking()!=booking){
+        for(Movement movement:rekening.businessObjects){
+            if(movement.booking!=booking){
                 row++
             } else{
                 row
@@ -79,22 +79,20 @@ class AccountDetailsDataModel extends SelectableTableModel<Booking> {
     }
 
     Object getValueAt(int row, int col) {
-        Movement movement = rekening.getBusinessObjects().get(row)
-        if (col == NR) {
-            movement.getTransactionString()
-        } else if (col == DATE) {
-            Utils.toString(movement.getDate())
-        } else if (col == DEBIT) {
-            if (movement.isDebit()) movement.getAmount()
-            ""
-        } else if (col == CREDIT) {
-            if (!movement.isDebit()) movement.getAmount()
-            ""
-        } else if (col == DESCRIPTION) {
-            movement.getDescription()
-        } else if (col == VATINFO) {
-            movement.getBooking().getVATBookingsString()
-        } else null
+        Movement movement = rekening.businessObjects.get(row)
+        if (col == NR) return movement.transactionString
+        if (col == DATE) return Utils.toString(movement.date)
+        if (col == DEBIT) {
+            if (movement.debit) return movement.amount
+            return ""
+        }
+        if (col == CREDIT) {
+            if (!movement.debit) return movement.amount
+            return ""
+        }
+        if (col == DESCRIPTION) return movement.description
+        if (col == VATINFO) return movement.booking.VATBookingsString
+        null
     }
 
     @Override
@@ -112,13 +110,13 @@ class AccountDetailsDataModel extends SelectableTableModel<Booking> {
 
     @Override
     void setValueAt(Object value, int row, int col) {
-        Movement movement = rekening.getBusinessObjects().get(row)
+        Movement movement = rekening.businessObjects.get(row)
         if (col == 1) {
             Calendar newDate = Utils.toCalendar((String) value)
             Transaction transaction = getTransaction(movement)
             Journal journal = getJournal(movement)
             if(newDate!=null && transaction != null && journal != null) {
-                transaction.setDate(newDate)
+                transaction.date = newDate
                 Main.fireJournalDataChanged(journal)
             }
         } else if (col == 4) {
@@ -129,12 +127,12 @@ class AccountDetailsDataModel extends SelectableTableModel<Booking> {
         fireTableDataChanged()
     }
 
-    private Journal getJournal(Movement movement){
-        getTransaction(movement)==null?null:getTransaction(movement).getJournal()
+    Journal getJournal(Movement movement){
+        getTransaction(movement)==null?null:getTransaction(movement).journal
     }
 
-    private Transaction getTransaction(Movement movement){
-        movement==null?null:movement.getBooking()==null?null:movement.getBooking().getTransaction()
+    Transaction getTransaction(Movement movement){
+        movement==null?null:movement.booking==null?null:movement.booking.transaction
     }
 }
 

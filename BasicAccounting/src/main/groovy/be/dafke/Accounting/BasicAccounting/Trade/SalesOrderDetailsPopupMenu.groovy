@@ -9,9 +9,9 @@ import javax.swing.JMenuItem
 import javax.swing.JPopupMenu
 
 class SalesOrderDetailsPopupMenu extends JPopupMenu {
-    private final JMenuItem goToPurchaseOrder
-    private final SelectableTable<OrderItem> table
-    private Accounting accounting
+    final JMenuItem goToPurchaseOrder
+    final SelectableTable<OrderItem> table
+    Accounting accounting
 
     SalesOrderDetailsPopupMenu(SelectableTable<OrderItem> table) {
         this.table = table
@@ -20,10 +20,10 @@ class SalesOrderDetailsPopupMenu extends JPopupMenu {
         add(goToPurchaseOrder)
     }
 
-    private void goToPo() {
+    void goToPo() {
         setVisible(false)
-        OrderItem orderItem = table.getSelectedObject()
-        PurchaseOrder purchaseOrder = orderItem.getPurchaseOrder()
+        OrderItem orderItem = table.selectedObject
+        PurchaseOrder purchaseOrder = orderItem.purchaseOrder
         PurchaseOrdersOverviewGUI purchaseOrdersOverviewGUI = PurchaseOrdersOverviewGUI.showPurchaseOrderGUI(accounting)
         purchaseOrdersOverviewGUI.selectOrder(purchaseOrder)
     }

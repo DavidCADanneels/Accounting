@@ -23,58 +23,61 @@ import java.awt.Dimension
 import java.util.function.Predicate
 
 class SalesOrderCreatePanel extends JPanel {
-    private Contact noInvoice
-    private SalesOrder salesOrder
-    private JCheckBox invoice
-    private JCheckBox creditNote
-    private JComboBox<Contact> comboBox
-    private Contacts contacts
-    private Articles articles
-    private Contact contact
-    private Predicate<Contact> filter
-    private final SalesOrderCreateDataTableModel salesOrderCreateDataTableModel
+    Contact noInvoice
+    SalesOrder salesOrder
+    JCheckBox invoice
+    JCheckBox creditNote
+    JComboBox<Contact> comboBox
+    Contacts contacts
+    Articles articles
+    Accounting accounting
+    Contact contact
+    Predicate<Contact> filter
+    TotalsPanel saleTotalsPanel
+    final SalesOrderCreateDataTableModel salesOrderCreateDataTableModel
 
     SalesOrderCreatePanel(Accounting accounting) {
-        this.contacts = accounting.getContacts()
-        this.articles = accounting.getArticles()
-        noInvoice=accounting.getContactNoInvoice()
+        this.accounting = accounting
+        this.contacts = accounting.contacts
+        this.articles = accounting.articles
+        noInvoice=accounting.contactNoInvoice
         salesOrder = new SalesOrder()
-        salesOrder.setArticles(articles)
+        salesOrder.articles = articles
 
-        TotalsPanel saleTotalsPanel = new TotalsPanel()
+        saleTotalsPanel = new TotalsPanel()
         salesOrderCreateDataTableModel = new SalesOrderCreateDataTableModel(articles, salesOrder, saleTotalsPanel)
         SelectableTable<OrderItem> table = new SelectableTable<>(salesOrderCreateDataTableModel)
         table.setPreferredScrollableViewportSize(new Dimension(1000, 400))
 
         creditNote = new JCheckBox("CreditNote")
-        creditNote.setSelected(false)
+        creditNote.selected = false
         creditNote.addActionListener({ e ->
-            salesOrder.setCreditNote(creditNote.isSelected())
+            salesOrder.creditNote = creditNote.selected
         })
 
         invoice = new JCheckBox("Invoice")
         invoice.addActionListener({ e ->
-            comboBox.setEnabled(invoice.isSelected())
-            salesOrder.setInvoice(invoice.isSelected())
+            comboBox.enabled = invoice.selected
+            salesOrder.invoice = invoice.selected
             ComboBoxModel<Contact> model = comboBox.getModel()
-            if (invoice.isSelected()) {
-                model.setSelectedItem(contact)
+            if (invoice.selected) {
+                model.selectedItem = contact
             } else {
                 if (noInvoice == null) {
                     ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(accounting, Contact.ContactType.CUSTOMERS)
-                    contactSelectorDialog.setLocation(getLocationOnScreen())
-                    contactSelectorDialog.setVisible(true)
-                    noInvoice = contactSelectorDialog.getSelection()
-                    accounting.setContactNoInvoice(noInvoice)
+                    contactSelectorDialog.setLocation getLocationOnScreen()
+                    contactSelectorDialog.visible = true
+                    noInvoice = contactSelectorDialog.selection
+                    accounting.contactNoInvoice = noInvoice
                 }
-                model.setSelectedItem(noInvoice)
+                model.selectedItem = noInvoice
             }
         })
         //
         comboBox = new JComboBox<>()
         comboBox.addActionListener({ e ->
-            if (invoice.isSelected()) {
-                contact = (Contact) comboBox.getSelectedItem()
+            if (invoice.selected) {
+                contact = (Contact) comboBox.selectedItem
             }
         })
         JPanel north = new JPanel()
@@ -82,36 +85,13 @@ class SalesOrderCreatePanel extends JPanel {
         north.add(comboBox)
         north.add(creditNote)
 
-        filter = Contact.&isCustomer
+        filter = {it.customer}
         fireCustomerAddedOrRemoved()
         comboBox.setSelectedItem(noInvoice)
-        comboBox.setEnabled(false)
+        comboBox.enabled = false
 
         JButton orderButton = new JButton("Add Sales Order")
-        orderButton.addActionListener({ e ->
-            SalesOrders salesOrders = accounting.getSalesOrders()
-            if (invoice.isSelected()) {
-                salesOrder.setCustomer(contact)
-            } else {
-                salesOrder.setCustomer(noInvoice)
-            }
-            try {
-                salesOrder.removeEmptyOrderItems()
-                SalesOrder existing = salesOrders.getBusinessObject(salesOrder.getName())
-                if (existing == null) {
-                    salesOrders.addBusinessObject(salesOrder)
-                }
-                salesOrder = new SalesOrder()
-                salesOrder.setArticles(articles)
-                salesOrderCreateDataTableModel.setOrder(salesOrder)
-                saleTotalsPanel.fireOrderContentChanged(salesOrder)
-                SalesOrdersOverviewGUI.fireSalesOrderAddedOrRemovedForAccounting(accounting)
-            } catch (EmptyNameException e1) {
-                e1.printStackTrace()
-            } catch (DuplicateNameException e1) {
-                e1.printStackTrace()
-            }
-        })
+        orderButton.addActionListener({ e -> orderAction() })
         JPanel south = new JPanel(new BorderLayout())
         south.add(orderButton, BorderLayout.SOUTH)
         south.add(saleTotalsPanel, BorderLayout.CENTER)
@@ -124,26 +104,50 @@ class SalesOrderCreatePanel extends JPanel {
         add(south, BorderLayout.SOUTH)
     }
 
+    void orderAction(){
+        SalesOrders salesOrders = accounting.salesOrders
+        if (invoice.selected) {
+            salesOrder.customer = contact
+        } else {
+            salesOrder.customer = noInvoice
+        }
+        try {
+            salesOrder.removeEmptyOrderItems()
+            if (!salesOrder.name) {
+                salesOrders.addBusinessObject salesOrder
+            }
+            salesOrder = new SalesOrder()
+            salesOrder.articles = articles
+            salesOrderCreateDataTableModel.order = salesOrder
+            saleTotalsPanel.fireOrderContentChanged salesOrder
+            SalesOrdersOverviewGUI.fireSalesOrderAddedOrRemovedForAccounting accounting
+        } catch (EmptyNameException e1) {
+            e1.printStackTrace()
+        } catch (DuplicateNameException e1) {
+            e1.printStackTrace()
+        }
+    }
+
     void setSalesOrder(SalesOrder salesOrder) {
         this.salesOrder = salesOrder
-        comboBox.setEnabled(salesOrder!=null)
-        invoice.setEnabled(salesOrder!=null)
-        creditNote.setEnabled(salesOrder != null)
+        comboBox.enabled = salesOrder!=null
+        invoice.enabled = salesOrder!=null
+        creditNote.enabled = salesOrder != null
         if (salesOrder!=null){
-            invoice.setSelected(salesOrder.isInvoice())
-            if(salesOrder.isInvoice()) {
-                contact = salesOrder.getCustomer()
-                comboBox.setSelectedItem(contact)
+            invoice.selected = salesOrder.invoice
+            if(salesOrder.invoice) {
+                contact = salesOrder.customer
+                comboBox.selectedItem = contact
             } else {
-                noInvoice = salesOrder.getCustomer()
-                comboBox.setSelectedItem(noInvoice)
+                noInvoice = salesOrder.customer
+                comboBox.selectedItem = noInvoice
             }
-            creditNote.setSelected(salesOrder.isCreditNote())
+            creditNote.selected = salesOrder.creditNote
         } else {
             contact = null
             noInvoice = null
         }
-        salesOrderCreateDataTableModel.setOrder(salesOrder)
+        salesOrderCreateDataTableModel.order = salesOrder
         salesOrderCreateDataTableModel.fireTableDataChanged()
     }
 

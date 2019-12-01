@@ -14,13 +14,13 @@ import static be.dafke.Accounting.BusinessModel.AccountsList.CREDIT
 
 class ButtonConfigPanel extends JPanel{
 
-    private final JTextField leftButtonLabel
-    private final JTextField rightButtonLabel
-    private final JCheckBox leftButton
-    private final JCheckBox rightButton
-    private final JComboBox<String> leftActions
-    private final JComboBox<String> rightActions
-    private AccountsList accountsList
+    final JTextField leftButtonLabel
+    final JTextField rightButtonLabel
+    final JCheckBox leftButton
+    final JCheckBox rightButton
+    final JComboBox<String> leftActions
+    final JComboBox<String> rightActions
+    AccountsList accountsList
 
     ButtonConfigPanel() {
         setLayout(new GridLayout(0,1))
@@ -88,9 +88,9 @@ class ButtonConfigPanel extends JPanel{
         add(rightPanel)
     }
 
-    private void initialize() {
-        leftButton.setSelected(true)
-        rightButton.setSelected(true)
+    void initialize() {
+        leftButton.selected = true
+        rightButton.selected = true
 
         if(accountsList==null){
             leftActions.setSelectedItem(DEBIT)
@@ -110,13 +110,13 @@ class ButtonConfigPanel extends JPanel{
         initialize()
     }
 
-    private void updateRightAction() {
-        String selectedItem = (String)rightActions.getSelectedItem()
+    void updateRightAction() {
+        String selectedItem = (String)rightActions.selectedItem
         accountsList.setRightAction(DEBIT.equals(selectedItem))
     }
 
-    private void updateLeftAction() {
-        String selectedItem = (String)leftActions.getSelectedItem()
+    void updateLeftAction() {
+        String selectedItem = (String)leftActions.selectedItem
         accountsList.setLeftAction(DEBIT.equals(selectedItem))
     }
 }

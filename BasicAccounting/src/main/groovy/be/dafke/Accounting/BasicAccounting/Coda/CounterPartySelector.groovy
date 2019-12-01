@@ -16,18 +16,18 @@ import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
 
 class CounterPartySelector extends RefreshableDialog implements ActionListener {
-    private final JButton ok, create, apply
-    private final JComboBox<BusinessObject> oldCounterPartyCombo, newCounterPartyCombo
-    private final CounterParties counterParties
-    private CounterParty oldCounterParty, newCounterParty
-    private final JTable movementTable
-    private final GenericStatementDataModel movementDataModel
-    private final Statement statement
-    private final JRadioButton single, multiple
-    private final JCheckBox searchOnTransactionCode, searchOnCommunication, searchOnCounterParty
-    private final JTextField transactionCode, communication
-    private final ButtonGroup singleMultiple
-    private final SearchOptions searchOptions
+    final JButton ok, create, apply
+    final JComboBox<BusinessObject> oldCounterPartyCombo, newCounterPartyCombo
+    final CounterParties counterParties
+    CounterParty oldCounterParty, newCounterParty
+    final JTable movementTable
+    final GenericStatementDataModel movementDataModel
+    final Statement statement
+    final JRadioButton single, multiple
+    final JCheckBox searchOnTransactionCode, searchOnCommunication, searchOnCounterParty
+    final JTextField transactionCode, communication
+    final ButtonGroup singleMultiple
+    final SearchOptions searchOptions
 
     CounterPartySelector(Statement statement, Statements statements, CounterParties counterParties) {
         super("Select Counterparty")
@@ -39,15 +39,15 @@ class CounterPartySelector extends RefreshableDialog implements ActionListener {
         // COMPONENTS
         oldCounterPartyCombo = new JComboBox<BusinessObject>()
         oldCounterPartyCombo.addItem(null)
-        for(BusinessObject counterParty : counterParties.getBusinessObjects()){
+        for(BusinessObject counterParty : counterParties.businessObjects){
             oldCounterPartyCombo.addItem(counterParty)
         }
         oldCounterPartyCombo.setSelectedItem(null)
         oldCounterPartyCombo.addActionListener(this)
-        oldCounterPartyCombo.setEnabled(false)
+        oldCounterPartyCombo.enabled = false
         newCounterPartyCombo = new JComboBox<BusinessObject>()
         newCounterPartyCombo.addItem(null)
-        for(BusinessObject counterParty : counterParties.getBusinessObjects()){
+        for(BusinessObject counterParty : counterParties.businessObjects){
             newCounterPartyCombo.addItem(counterParty)
         }
         newCounterPartyCombo.setSelectedItem(null)
@@ -72,14 +72,14 @@ class CounterPartySelector extends RefreshableDialog implements ActionListener {
         single = new JRadioButton("Single statement")
         multiple = new JRadioButton("Multiple movements")
         searchOnTransactionCode = new JCheckBox("TransactionCode == ")
-        searchOnTransactionCode.setEnabled(false)
-        searchOnTransactionCode.setSelected(true)
+        searchOnTransactionCode.enabled = false
+        searchOnTransactionCode.selected = true
         searchOnTransactionCode.addActionListener(this)
         searchOnCommunication = new JCheckBox("Communication == ")
-        searchOnCommunication.setEnabled(false)
+        searchOnCommunication.enabled = false
         searchOnCommunication.addActionListener(this)
         transactionCode = new JTextField(10)
-        transactionCode.setEnabled(false)
+        transactionCode.enabled = false
         transactionCode.setText(statement.getTransactionCode())
         transactionCode.getDocument().addDocumentListener(new DocumentListener() {
             void changedUpdate(DocumentEvent e) {
@@ -93,7 +93,7 @@ class CounterPartySelector extends RefreshableDialog implements ActionListener {
             }
         })
         communication = new JTextField(10)
-        communication.setEnabled(false)
+        communication.enabled = false
         communication.setText(statement.getCommunication())
         communication.getDocument().addDocumentListener(new DocumentListener() {
             void changedUpdate(DocumentEvent e) {
@@ -107,18 +107,18 @@ class CounterPartySelector extends RefreshableDialog implements ActionListener {
             }
         })
         searchOnCounterParty = new JCheckBox("Counterparty == ")
-        searchOnCounterParty.setEnabled(false)
-        searchOnCounterParty.setSelected(true)
+        searchOnCounterParty.enabled = false
+        searchOnCounterParty.selected = true
         searchOnCounterParty.addActionListener(this)
         singleMultiple = new ButtonGroup()
         singleMultiple.add(single)
         singleMultiple.add(multiple)
-        single.setSelected(true)
+        single.selected = true
         single.addActionListener(this)
         multiple.addActionListener(this)
         apply = new JButton("Apply Changes")
         apply.addActionListener(this)
-        apply.setEnabled(false)
+        apply.enabled = false
 
         // Layout
         JPanel searchOptionsPanel = new JPanel(new GridLayout(0,2))
@@ -143,12 +143,12 @@ class CounterPartySelector extends RefreshableDialog implements ActionListener {
         pack()
     }
 
-    private void setCommunication() {
+    void setCommunication() {
         searchOptions.setCommunication(communication.getText())
         fillInCounterParty()
     }
 
-    private void setTransactionCode(){
+    void setTransactionCode(){
         searchOptions.setTransactionCode(transactionCode.getText())
         fillInCounterParty()
     }
@@ -178,18 +178,18 @@ class CounterPartySelector extends RefreshableDialog implements ActionListener {
                 }
             }
         } else if (e.getSource() == oldCounterPartyCombo) {
-            oldCounterParty = (CounterParty) oldCounterPartyCombo.getSelectedItem()
-            if(searchOnCounterParty.isSelected()){
+            oldCounterParty = (CounterParty) oldCounterPartyCombo.selectedItem
+            if(searchOnCounterParty.selected){
                 searchOptions.searchForCounterParty(oldCounterParty)
             } else {
                 searchOptions.setSearchOnCounterParty(false)
             }
-//            apply.setEnabled(counterParty!=null)
+//            apply.enabled = counterParty!=null
 //			fillInCounterParty()
             movementDataModel.fireTableDataChanged()
         } else if (e.getSource() == newCounterPartyCombo) {
-            newCounterParty = (CounterParty) newCounterPartyCombo.getSelectedItem()
-            apply.setEnabled(newCounterParty != null)
+            newCounterParty = (CounterParty) newCounterPartyCombo.selectedItem
+            apply.enabled = newCounterParty != null
             fillInCounterParty()
         } else if (e.getSource() == single) {
             movementDataModel.setSingleStatement(statement)
@@ -202,21 +202,21 @@ class CounterPartySelector extends RefreshableDialog implements ActionListener {
         } else if (e.getSource() == apply) {
             setCounterParty()
         } else if (e.getSource() == searchOnCommunication){
-            if(searchOnCommunication.isSelected()){
+            if(searchOnCommunication.selected){
                 searchOptions.searchForCommunication(communication.getText())
             } else {
                 searchOptions.setSearchOnCommunication(false)
             }
             fillInCounterParty()
         } else if (e.getSource() == searchOnTransactionCode){
-            if(searchOnTransactionCode.isSelected()){
+            if(searchOnTransactionCode.selected){
                 searchOptions.searchForTransactionCode(transactionCode.getText())
             } else {
                 searchOptions.setSearchOnTransactionCode(false)
             }
             fillInCounterParty()
         } else if (e.getSource() == searchOnCounterParty){
-            if(searchOnCounterParty.isSelected()){
+            if(searchOnCounterParty.selected){
                 searchOptions.searchForCounterParty(oldCounterParty)
             } else {
                 searchOptions.setSearchOnCounterParty(false)
@@ -225,37 +225,37 @@ class CounterPartySelector extends RefreshableDialog implements ActionListener {
         }
     }
 
-    private void enableSearchOptions(boolean enabled){
-        searchOnTransactionCode.setEnabled(enabled)
-        searchOnCommunication.setEnabled(enabled)
-        searchOnCounterParty.setEnabled(enabled)
-        transactionCode.setEnabled(enabled)
-        communication.setEnabled(enabled)
-        oldCounterPartyCombo.setEnabled(enabled)
+    void enableSearchOptions(boolean enabled){
+        searchOnTransactionCode.enabled = enabled
+        searchOnCommunication.enabled = enabled
+        searchOnCounterParty.enabled = enabled
+        transactionCode.enabled = enabled
+        communication.enabled = enabled
+        oldCounterPartyCombo.enabled = enabled
     }
 
-    private void setCounterParty() {
+    void setCounterParty() {
         for(Statement m : movementDataModel.getAllStatements()) {
             TmpCounterParty tmpCounterParty = m.getTmpCounterParty()
             // TODO: check if tmpCounterParty is not null (now null-safe through disabled buttons in GUI)
             m.setCounterParty(tmpCounterParty.getCounterParty())
         }
-        newCounterPartyCombo.setEnabled(false)
-        single.setEnabled(false)
-        multiple.setEnabled(false)
-        create.setEnabled(false)
-        apply.setEnabled(false)
+        newCounterPartyCombo.enabled = false
+        single.enabled = false
+        multiple.enabled = false
+        create.enabled = false
+        apply.enabled = false
         enableSearchOptions(false)
         movementDataModel.fireTableDataChanged()
     }
 
-    private void fillInCounterParty() {
+    void fillInCounterParty() {
         for(Statement m : movementDataModel.getAllStatements()) {
             String name
             if (newCounterParty == null) {
                 name = null
             } else {
-                name = newCounterParty.getName()
+                name = newCounterParty.name
             }
             TmpCounterParty tmp = new TmpCounterParty()
             tmp.setName(name)

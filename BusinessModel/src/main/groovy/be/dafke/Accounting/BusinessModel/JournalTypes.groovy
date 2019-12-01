@@ -11,7 +11,7 @@ class JournalTypes extends BusinessCollection<JournalType> {
     }
 
     JournalTypes(JournalTypes journalTypes){
-        for(JournalType journalType:journalTypes.getBusinessObjects()){
+        for(JournalType journalType:journalTypes.businessObjects){
             try {
                 // TODO: review copy of accounting (copyConstructors ...?)
                 addBusinessObject(new JournalType(journalType))

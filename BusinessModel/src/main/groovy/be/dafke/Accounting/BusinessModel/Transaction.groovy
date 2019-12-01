@@ -5,23 +5,23 @@ import java.util.function.Predicate
 
 class Transaction extends BusinessCollection<Booking> implements Comparable<Transaction>{
     static final String ID = "id"
-    private Integer transactionId = 0
-    private BigDecimal debitTotal
-    private BigDecimal creditTotal
-    private Journal journal
-    private List<Journal> duplicateJournals = new ArrayList()
-    private int nrOfDebits = 0
+    Integer transactionId = 0
+    BigDecimal debitTotal
+    BigDecimal creditTotal
+    Journal journal
+    List<Journal> duplicateJournals = new ArrayList()
+    int nrOfDebits = 0
 
-    private String description
-    private Calendar date
+    String description = ""
+    Calendar date
 
-    private final ArrayList<Booking> bookings
-    private BigDecimal VATAmount
-    private BigDecimal turnOverAmount
-    private Contact contact = null
-    private Mortgage mortgage = null
-    private boolean balanceTransaction = false
-    private boolean registered = false
+    final ArrayList<Booking> bookings
+    BigDecimal VATAmount
+    BigDecimal turnOverAmount
+    Contact contact = null
+    Mortgage mortgage = null
+    boolean balanceTransaction = false
+    boolean registered = false
 
     Transaction(Calendar date, String description) {
         this.date = date==null?Calendar.getInstance():date
@@ -31,17 +31,6 @@ class Transaction extends BusinessCollection<Booking> implements Comparable<Tran
         VATAmount = BigDecimal.ZERO.setScale(2)
         turnOverAmount = BigDecimal.ZERO.setScale(2)
         bookings = new ArrayList()
-    }
-    void setRegistered() {
-        registered = true
-    }
-
-    boolean isRegistered() {
-        registered
-    }
-
-    void setTransactionId(int transactionId) {
-        this.transactionId = transactionId
     }
 
     Mortgage getMortgage() {
@@ -80,7 +69,7 @@ class Transaction extends BusinessCollection<Booking> implements Comparable<Tran
         if(journal == null){
             "NULL"
         }
-        journal.getAbbreviation()
+        journal.abbreviation
     }
 
     Integer getId(){
@@ -89,13 +78,9 @@ class Transaction extends BusinessCollection<Booking> implements Comparable<Tran
         } else journal.getId(this)
     }
 
-    int getTransactionId() {
-        transactionId
-    }
-
-    String getDescription(){
-        (description==null)?"":description
-    }
+//    String getDescription(){
+//        (description==null)?"":description
+//    }
 
     Calendar getDate() {
         date
@@ -124,9 +109,9 @@ class Transaction extends BusinessCollection<Booking> implements Comparable<Tran
     @Override
     Booking addBusinessObject(Booking booking){
         booking.setTransaction(this)
-        BigDecimal amount = booking.getAmount()
+        BigDecimal amount = booking.amount
 
-        if(booking.isDebit()){
+        if(booking.debit){
             bookings.add(nrOfDebits, booking)
             nrOfDebits++
             debitTotal = debitTotal.add(amount)
@@ -142,10 +127,10 @@ class Transaction extends BusinessCollection<Booking> implements Comparable<Tran
     @Override
     void removeBusinessObject(Booking booking){
         booking.setTransaction(null)
-        BigDecimal amount = booking.getAmount()
+        BigDecimal amount = booking.amount
 
         bookings.remove(booking)
-        if(booking.isDebit()){
+        if(booking.debit){
             nrOfDebits--
             debitTotal = debitTotal.subtract(amount)
             debitTotal = debitTotal.setScale(2)
@@ -157,13 +142,13 @@ class Transaction extends BusinessCollection<Booking> implements Comparable<Tran
     }
 
     boolean isBookable() {
-        !getBusinessObjects().isEmpty() && debitTotal.compareTo(creditTotal) == 0 && debitTotal.compareTo(BigDecimal.ZERO) != 0
+        !getBusinessObjects().empty && debitTotal.compareTo(creditTotal) == 0 && debitTotal.compareTo(BigDecimal.ZERO) != 0
     }
 
     ArrayList<Account> getAccounts() {
         ArrayList<Account> accountsList = new ArrayList()
         for (Booking booking : getBusinessObjects()) {
-            accountsList.add(booking.getAccount())
+            accountsList.add(booking.account)
         }
         accountsList
 // Can be very brief but unreadable with collect construction
@@ -173,7 +158,7 @@ class Transaction extends BusinessCollection<Booking> implements Comparable<Tran
     ArrayList<VATBooking> getVatBookings(){
         ArrayList<VATBooking> result = new ArrayList()
         for(Booking booking: bookings){
-            result.addAll(booking.getVatBookings())
+            result.addAll(booking.vatBookings)
         }
         result
     }
@@ -181,20 +166,20 @@ class Transaction extends BusinessCollection<Booking> implements Comparable<Tran
     ArrayList<VATBooking> getMergedVatBookings(){
         HashMap<String, VATBooking> hashMap = new HashMap()
         bookings.forEach({ booking ->
-            ArrayList<VATBooking> vatBookings = booking.getVatBookings()
+            ArrayList<VATBooking> vatBookings = booking.vatBookings
             vatBookings.forEach({ vatBooking ->
-                VATField vatField = vatBooking.getVatField()
-                VATBooking foundBooking = hashMap.get(vatField.getName())
+                VATField vatField = vatBooking.vatField
+                VATBooking foundBooking = hashMap.get(vatField.name)
                 if (foundBooking == null) {
                     foundBooking = vatBooking
                 } else {
-                    VATMovement movement = vatBooking.getVatMovement()
-                    VATMovement foundMovement = foundBooking.getVatMovement()
-                    BigDecimal totalAmount = foundMovement.getAmount().add(movement.getAmount()).setScale(2, BigDecimal.ROUND_HALF_DOWN)
+                    VATMovement movement = vatBooking.vatMovement
+                    VATMovement foundMovement = foundBooking.vatMovement
+                    BigDecimal totalAmount = foundMovement.amount.add(movement.amount).setScale(2, BigDecimal.ROUND_HALF_DOWN)
                     VATMovement totalMovement = new VATMovement(totalAmount)
                     foundBooking = new VATBooking(vatField, totalMovement)
                 }
-                hashMap.put(vatField.getName(), foundBooking)
+                hashMap.put(vatField.name, foundBooking)
             })
         })
         ArrayList<VATBooking> result = new ArrayList()
@@ -202,48 +187,17 @@ class Transaction extends BusinessCollection<Booking> implements Comparable<Tran
         result
     }
 
-    void setVATAmount(BigDecimal VATAmount) {
-        this.VATAmount = VATAmount
-    }
 
 //    void increaseVATAmount(BigDecimal VATAmount) {
 //        this.VATAmount = this.VATAmount.add(VATAmount)
 //    }
 
-    void setTurnOverAmount(BigDecimal turnOverAmount) {
-        this.turnOverAmount = turnOverAmount
-    }
-
     void increaseTurnOverAmount(BigDecimal turnOverAmount) {
         this.turnOverAmount = this.turnOverAmount.add(turnOverAmount)
     }
 
-    BigDecimal getVATAmount() {
-        VATAmount
-    }
-
-    BigDecimal getTurnOverAmount() {
-        turnOverAmount
-    }
-
-    void setContact(Contact contact) {
-        this.contact = contact
-    }
-
-    Contact getContact() {
-        contact
-    }
-
-    void setBalanceTransaction(boolean balanceTransaction) {
-        this.balanceTransaction = balanceTransaction
-    }
-
-    boolean isBalanceTransaction() {
-        balanceTransaction
-    }
-
     static Predicate<Transaction> ofYear(int year) {
-        { transaction -> transaction.getDate() != null && transaction.getDate().get(Calendar.YEAR) == year }
+        { transaction -> transaction.date != null && transaction.date.get(Calendar.YEAR) == year }
     }
 
     @Override
@@ -257,9 +211,5 @@ class Transaction extends BusinessCollection<Booking> implements Comparable<Tran
 
     void addDuplicateJournal(Journal journal) {
         duplicateJournals.add(journal)
-    }
-
-    List<Journal> getDuplicateJournals() {
-        duplicateJournals
     }
 }

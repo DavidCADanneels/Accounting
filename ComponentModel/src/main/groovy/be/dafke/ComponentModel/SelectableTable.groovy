@@ -36,14 +36,14 @@ class SelectableTable<BusinessObject> extends JTable{
 
     BusinessObject getSelectedObject() {
         int selectedRow = getSelectedRow()
-        if(selectedRow == -1) null
+        if(selectedRow == -1) return null
         RowSorter<? extends TableModel> rowSorter = getRowSorter()
         int col = getSelectedColumn()
         if(rowSorter!=null) {
             int rowInModel = rowSorter.convertRowIndexToModel(selectedRow)
-            model.getObject(rowInModel, col)
+            return model.getObject(rowInModel, col)
         } else {
-            model.getObject(selectedRow,col)
+            return model.getObject(selectedRow,col)
         }
     }
 }

@@ -14,7 +14,7 @@ class Accounts extends BusinessCollection<Account> {
     }
 
     Accounts(Accounts accounts) {
-        for(Account account:accounts.getBusinessObjects()){
+        for(Account account:accounts.businessObjects){
             try {
                 addBusinessObject(new Account(account))
             } catch (EmptyNameException | DuplicateNameException e) {
@@ -26,8 +26,8 @@ class Accounts extends BusinessCollection<Account> {
     BigDecimal getSumOfAccountsByNumber(String prefix){
         BigDecimal result = BigDecimal.ZERO
         for (Account account : getAccountsByNumber(prefix)){
-            BigDecimal saldo = account.getSaldo()
-            if(account.getType().isInverted()){
+            BigDecimal saldo = account.saldo
+            if(account.type.isInverted()){
                 result = result.subtract(saldo)
             } else {
                 result = result.add(saldo)

@@ -8,10 +8,10 @@ import be.dafke.Accounting.BusinessModel.Mortgages
 import javax.swing.*
 
 class MortgageGUI extends JFrame  {
-    private static final HashMap<Mortgages, MortgageGUI> mortgageGuis = new HashMap<>()
-    private final MortgagePanel mortgagePanel
+    static final HashMap<Mortgages, MortgageGUI> mortgageGuis = new HashMap<>()
+    final MortgagePanel mortgagePanel
 
-    private MortgageGUI(Mortgages mortgages, Accounts accounts) {
+    MortgageGUI(Mortgages mortgages, Accounts accounts) {
         super("Mortgages")
         mortgagePanel = new MortgagePanel(mortgages, accounts)
         setContentPane(mortgagePanel)
@@ -45,7 +45,7 @@ class MortgageGUI extends JFrame  {
         mortgagePanel.refresh()
     }
 
-    private void reselect(Mortgage mortgage) {
+    void reselect(Mortgage mortgage) {
         mortgagePanel.reselect(mortgage)
     }
 }

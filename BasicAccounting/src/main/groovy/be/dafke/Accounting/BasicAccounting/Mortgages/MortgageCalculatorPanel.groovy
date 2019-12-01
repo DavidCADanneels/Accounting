@@ -17,11 +17,11 @@ import java.awt.event.FocusEvent
 import java.awt.event.FocusListener
 
 class MortgageCalculatorPanel extends JPanel implements FocusListener {
-    private final JTextField amountField, months, yearPercent, monthPercent, mensField, totalIntrestFixed,
+    final JTextField amountField, months, yearPercent, monthPercent, mensField, totalIntrestFixed,
                              totalToPayFixed, totalIntrestDegres, totalToPayDegres, totalIntrestDifference, totalToPayDifference
-    private final JButton converter, create
-    private final JRadioButton fix, degres
-    private final Mortgages mortgages
+    final JButton converter, create
+    final JRadioButton fix, degres
+    final Mortgages mortgages
 
     BigDecimal jaarPercentage = null
     BigDecimal maandPercentage = null
@@ -31,8 +31,8 @@ class MortgageCalculatorPanel extends JPanel implements FocusListener {
 
     Mortgage fixedTable, degressiveTable
 
-    private static int counter = 1
-    private final int nr
+    static int counter = 1
+    final int nr
 
     MortgageCalculatorPanel(Mortgages mortgages) {
         nr = counter++
@@ -60,15 +60,15 @@ class MortgageCalculatorPanel extends JPanel implements FocusListener {
             activateButtons()
         })
 
-        converter.setEnabled(false)
-        create.setEnabled(false)
+        converter.enabled = false
+        create.enabled = false
 
         fix = new JRadioButton("fixed")
         degres = new JRadioButton("degressive")
         ButtonGroup group = new ButtonGroup()
         group.add(fix)
         group.add(degres)
-        fix.setSelected(true)
+        fix.selected = true
 
         totalIntrestDegres = new JTextField(10)
         totalToPayDegres = new JTextField(10)
@@ -123,16 +123,16 @@ class MortgageCalculatorPanel extends JPanel implements FocusListener {
         add(line4)
     }
 
-    private void activateButtons() {
+    void activateButtons() {
         if (maandPercentage != null && startKapitaal != null && aantalMaanden != 0) {
-            converter.setEnabled(true)
+            converter.enabled = true
             if (mensualiteit != null) {
-                create.setEnabled(true)
+                create.enabled = true
             }
         }
     }
 
-    private void berekenMensualiteit() {
+    void berekenMensualiteit() {
         if (maandPercentage != null && startKapitaal != null && aantalMaanden != 0) {
             mensualiteit = Calculate.berekenMensualiteit(startKapitaal, maandPercentage, aantalMaanden)
             mensField.setText(mensualiteit.toString())
@@ -140,10 +140,10 @@ class MortgageCalculatorPanel extends JPanel implements FocusListener {
         calculateTablesAndTotals()
     }
 
-    private void createTable() {
+    void createTable() {
         if (maandPercentage != null && mensualiteit != null && startKapitaal != null && aantalMaanden != 0) {
             Mortgage newMortgage
-            if (fix.isSelected()) {
+            if (fix.selected) {
                 newMortgage = Calculate.createFixedAmountTable(startKapitaal, aantalMaanden, mensualiteit, maandPercentage)
             } else {
                 newMortgage = Calculate.createDegressiveAmountTable(startKapitaal, aantalMaanden,
@@ -154,11 +154,11 @@ class MortgageCalculatorPanel extends JPanel implements FocusListener {
             MortgageTable gui = new MortgageTable(newMortgage, startKapitaal, mortgages)
             Main.addFrame(gui)
             gui.setLocation(getLocationOnScreen())
-            gui.setVisible(true)
+            gui.visible = true
         }
     }
 
-    private void calculateTablesAndTotals() {
+    void calculateTablesAndTotals() {
         fixedTable = Calculate.createFixedAmountTable(startKapitaal, aantalMaanden, mensualiteit, maandPercentage)
         degressiveTable = Calculate.createDegressiveAmountTable(startKapitaal, aantalMaanden,
                 maandPercentage)

@@ -8,13 +8,13 @@ import javax.swing.*
 import static java.util.ResourceBundle.getBundle
 
 class BalancesMenu extends JMenu {
-    private JMenuItem manage
-    private JMenuItem pdfGeneration
-    private Journals journals
-    private Accounts accounts
-    private Balances balances
-    private Accounting accounting
-    private AccountTypes accountTypes
+    JMenuItem manage
+    JMenuItem pdfGeneration
+    Journals journals
+    Accounts accounts
+    Balances balances
+    Accounting accounting
+    AccountTypes accountTypes
 
     BalancesMenu(){
         super(getBundle("BusinessModel").getString("BALANCES"))
@@ -22,7 +22,7 @@ class BalancesMenu extends JMenu {
         manage.addActionListener({ e ->
             BalancesManagementGUI balancesManagementGUI = BalancesManagementGUI.getInstance(balances, accounts, accountTypes)
             balancesManagementGUI.setLocation(getLocationOnScreen())
-            balancesManagementGUI.setVisible(true)
+            balancesManagementGUI.visible = true
         })
         pdfGeneration = new JMenuItem(getBundle("BusinessModel").getString("GENERATE_PDF"))
         pdfGeneration.addActionListener({ e -> BalancesIO.writeBalancePdfFiles(accounting) })
@@ -32,10 +32,10 @@ class BalancesMenu extends JMenu {
 
     void setAccounting(Accounting accounting) {
         this.accounting = accounting
-        journals = accounting==null?null:accounting.getJournals()
-        accounts = accounting==null?null:accounting.getAccounts()
-        balances = accounting==null?null:accounting.getBalances()
-        accountTypes = accounting==null?null:accounting.getAccountTypes()
+        journals = accounting?accounting.journals:null
+        accounts = accounting?accounting.accounts:null
+        balances = accounting?accounting.balances:null
+        accountTypes = accounting?accounting.accountTypes:null
 
         fireBalancesChanged()
     }
@@ -43,13 +43,13 @@ class BalancesMenu extends JMenu {
     void fireBalancesChanged(){
         removeAll()
         if(balances!=null) {
-            balances.getBusinessObjects().forEach({ balance ->
-                String name = balance.getName()
+            balances.businessObjects.forEach({ balance ->
+                String name = balance.name
                 JMenuItem item = new JMenuItem(name)
                 item.addActionListener({ e ->
                     BalanceGUI balanceGUI = BalanceGUI.getBalance(accounting, balances.getBusinessObject(name))
                     balanceGUI.setLocation(getLocationOnScreen())
-                    balanceGUI.setVisible(true)
+                    balanceGUI.visible = true
                 })
                 add(item)
             })

@@ -5,15 +5,15 @@ import be.dafke.Accounting.ObjectModel.BusinessObject
 import java.util.function.Predicate
 
 class Movement extends BusinessObject{
-    private static int count = 0
+    static int count = 0
     static final String DATE = "date"
     static final String ID = "id"
     static final String DEBIT = "debit"
     static final String CREDIT = "credit"
-    private BigDecimal amount
-    private boolean debit
-    private Booking booking
-    private Integer id
+    BigDecimal amount
+    boolean debit
+    Booking booking
+    Integer id
 
     Movement(BigDecimal amount, boolean debit){
         this.amount = amount
@@ -40,63 +40,35 @@ class Movement extends BusinessObject{
         properties
     }
 
-    Booking getBooking() {
-        booking
-    }
-
     Transaction getTransaction(){
-        booking.getTransaction()
+        booking.transaction
     }
 
     Journal getJournal(){
-        getTransaction().getJournal()
+        getTransaction().journal
     }
 
     String getTransactionString(){
-        booking.getTransaction().getAbbreviation() + booking.getTransaction().getId()
-    }
-
-    void setBooking(Booking booking) {
-        this.booking = booking
-    }
-
-    BigDecimal getAmount() {
-        amount
-    }
-
-    boolean isDebit() {
-        debit
-    }
-
-    void setDebit(boolean debit) {
-        this.debit = debit
-    }
-
-    void setAmount(BigDecimal amount) {
-        this.amount = amount
-    }
-
-    Integer getId() {
-        id
+        booking.transaction.abbreviation + booking.transaction.id
     }
 
     Calendar getDate() {
-        booking.getTransaction().getDate()
+        booking.transaction.date
     }
 
     void setDate(Calendar date){
-        booking.getTransaction().setDate(date)
+        booking.transaction.date = date
     }
 
     String getDescription(){
-        booking.getTransaction().getDescription()
+        booking.transaction.description
     }
 
     void setDescription(String description){
-        booking.getTransaction().setDescription(description)
+        booking.transaction.description = description
     }
 
     static Predicate<Movement> ofYear(int year) {
-        { movement -> movement.getDate() != null && movement.getDate().get(Calendar.YEAR) == year }
+        { movement -> movement.date != null && movement.date.get(Calendar.YEAR) == year }
     }
 }

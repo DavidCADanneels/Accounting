@@ -4,8 +4,8 @@ import be.dafke.Accounting.BusinessModel.AccountType
 
 class JournalSession {
 
-    private HashMap<AccountType, Boolean> checkedAccountTypesLeft = new HashMap<>()
-    private HashMap<AccountType, Boolean> checkedAccountTypesRight = new HashMap<>()
+    HashMap<AccountType, Boolean> checkedAccountTypesLeft = new HashMap<>()
+    HashMap<AccountType, Boolean> checkedAccountTypesRight = new HashMap<>()
 
     JournalSession() {
     }

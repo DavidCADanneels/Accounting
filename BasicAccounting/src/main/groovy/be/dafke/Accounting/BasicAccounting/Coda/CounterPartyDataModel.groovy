@@ -8,10 +8,10 @@ import be.dafke.Utils.Utils
 import javax.swing.table.AbstractTableModel
 
 class CounterPartyDataModel extends AbstractTableModel {
-    private final String[] columnNames = [ "Name", "Aliases", "BankAccounts", "BIC", "Currency", "Account (for Accounting)" ]
-    private final Class[] columnClasses = [ CounterParty.class, String.class, String.class, String.class, String.class, Account.class ]
+    final String[] columnNames = [ "Name", "Aliases", "BankAccounts", "BIC", "Currency", "Account (for Accounting)" ]
+    final Class[] columnClasses = [ CounterParty.class, String.class, String.class, String.class, String.class, Account.class ]
 
-    private final CounterParties counterParties
+    final CounterParties counterParties
 
     CounterPartyDataModel(CounterParties counterParties) {
         this.counterParties = counterParties
@@ -20,20 +20,14 @@ class CounterPartyDataModel extends AbstractTableModel {
     // DE GET METHODEN
     // ===============
     Object getValueAt(int row, int col) {
-        CounterParty c = (CounterParty)counterParties.getBusinessObjects().get(row)
-        if (col == 0) {
-            c
-        } else if (col == 1) {
-            Utils.toString(c.getAliases())
-        } else if (col == 2) {
-            c.getBankAccountsString()
-        } else if (col == 3) {
-            c.getBICString()
-        } else if (col == 4) {
-            c.getCurrencyString()
-        } else if (col == 5) {
-            c.getAccount()
-        } else ""
+        CounterParty c = (CounterParty)counterParties.businessObjects.get(row)
+        if (col == 0) return c
+        if (col == 1) return Utils.toString(c.getAliases())
+        if (col == 2) return c.getBankAccountsString()
+        if (col == 3) return c.getBICString()
+        if (col == 4) return c.getCurrencyString()
+        if (col == 5) return c.account
+        return  ""
     }
 
     int getColumnCount() {
@@ -41,7 +35,7 @@ class CounterPartyDataModel extends AbstractTableModel {
     }
 
     int getRowCount() {
-        counterParties.getBusinessObjects().size()
+        counterParties.businessObjects.size()
     }
 
     @Override

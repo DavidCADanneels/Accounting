@@ -8,11 +8,11 @@ import be.dafke.Utils.Utils
 import javax.swing.table.AbstractTableModel
 
 class StatementDataModel extends AbstractTableModel {
-    private final String[] columnNames = [ "Name", "Date", "D/C", "Amount", "CounterParty",
+    final String[] columnNames = [ "Name", "Date", "D/C", "Amount", "CounterParty",
         "TransactionCode", "Communication" ]
-    private final Class[] columnClasses = [ String.class, String.class, String.class, BigDecimal.class,
+    final Class[] columnClasses = [ String.class, String.class, String.class, BigDecimal.class,
         CounterParty.class, String.class, String.class ]
-    private final Statements statements
+    final Statements statements
 
     StatementDataModel(Statements statements) {
         this.statements = statements
@@ -21,22 +21,15 @@ class StatementDataModel extends AbstractTableModel {
     // DE GET METHODEN
     // ===============
     Object getValueAt(int row, int col) {
-        Statement m = (Statement)statements.getBusinessObjects().get(row)
-        if (col == 0) {
-            m.getName()
-        } else if (col == 1) {
-            Utils.toString(m.getDate())
-        } else if (col == 2) {
-            (m.isDebit()) ? "(D) -" : "(C) +"
-        } else if (col == 3) {
-            m.getAmount()
-        } else if (col == 4) {
-            m.getCounterParty()
-        } else if (col == 5) {
-            m.getTransactionCode()
-        } else if (col == 6) {
-            m.getCommunication()
-        } else ""
+        Statement m = (Statement)statements.businessObjects.get(row)
+        if (col == 0) return m.name
+        if (col == 1) return Utils.toString(m.date)
+        if (col == 2) return (m.debit) ? "(D) -" : "(C) +"
+        if (col == 3) return m.amount
+        if (col == 4) return m.getCounterParty()
+        if (col == 5) return m.getTransactionCode()
+        if (col == 6) return m.getCommunication()
+        return ""
     }
 
     int getColumnCount() {
@@ -44,7 +37,7 @@ class StatementDataModel extends AbstractTableModel {
     }
 
     int getRowCount() {
-        statements.getBusinessObjects().size()
+        statements.businessObjects.size()
     }
 
     @Override

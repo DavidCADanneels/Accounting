@@ -29,33 +29,33 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
     int TURNOVER_COL
     int VAT_TOTAL_COL
     int NR_OF_COL
-    private Contact.ContactType contactType
-    private HashMap<Integer,String> columnNames = new HashMap<>()
-    private HashMap<Integer,Class> columnClasses = new HashMap<>()
-    private List<Contact> contacts
-    private ArrayList<Integer> nonEditableColumns = new ArrayList<>()
-    private Accounting accounting
+    Contact.ContactType contactType
+    HashMap<Integer,String> columnNames = new HashMap<>()
+    HashMap<Integer,Class> columnClasses = new HashMap<>()
+    List<Contact> contacts
+    ArrayList<Integer> nonEditableColumns = new ArrayList<>()
+    Accounting accounting
 
     ContactsDataModel(Accounting accounting, Contacts contacts, Contact.ContactType contactType) {
         this.accounting = accounting
         this.contactType = contactType
         if(contactType == Contact.ContactType.ALL) {
-            this.contacts = contacts.getBusinessObjects()
+            this.contacts = contacts.businessObjects
         } else if (contactType == Contact.ContactType.CUSTOMERS){
-            this.contacts = contacts.getBusinessObjects(Contact.&isCustomer)
+            this.contacts = contacts.getBusinessObjects{it.customer}
         } else if (contactType == Contact.ContactType.SUPPLIERS) {
-            this.contacts = contacts.getBusinessObjects(Contact.&isSupplier)
+            this.contacts = contacts.getBusinessObjects{it.supplier}
         }
         initialize()
     }
 
-    private void initialize() {
+    void initialize() {
         setColumnNumbers()
         setColumnNames()
         setColumnClasses()
     }
 
-    private void setColumnNumbers() {
+    void setColumnNumbers() {
         if(contactType == Contact.ContactType.CUSTOMERS){
             NAME_COL = 0
             VAT_NUMBER_COL = 1
@@ -105,7 +105,7 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
     }
 
 
-    private void setColumnClasses() {
+    void setColumnClasses() {
         columnClasses.put(NAME_COL, String.class)
         columnClasses.put(OFFICIAL_COL, String.class)
         columnClasses.put(CUSTOMER_COL, Boolean.class)
@@ -121,7 +121,7 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
         columnClasses.put(VAT_TOTAL_COL, BigDecimal.class)
     }
 
-    private void setColumnNames() {
+    void setColumnNames() {
         columnNames.put(NAME_COL, getBundle("Contacts").getString("NAME"))
         columnNames.put(OFFICIAL_COL, getBundle("Contacts").getString("OFFICIAL_NAME"))
         columnNames.put(CUSTOMER_COL, getBundle("Contacts").getString("CUSTOMER"))
@@ -143,32 +143,33 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
     Object getValueAt(int row, int col) {
         Contact contact = contacts.get(row)
         if (col == NAME_COL) {
-            contact.getName()
+            return contact.name
         } else if (col == OFFICIAL_COL) {
-            contact.getOfficialName()
+            return contact.officialName
         } else if (col == VAT_NUMBER_COL) {
-            contact.getVatNumber()
+            return contact.vatNumber
         } else if (col == STREET_COL) {
-            contact.getStreetAndNumber()
+            return contact.streetAndNumber
         } else if (col == POSTAL_COL) {
-            contact.getPostalCode()
+            return contact.postalCode
         } else if (col == CITY_COL) {
-            contact.getCity()
+            return contact.city
         } else if (col == COUNTRY_COL) {
-            contact.getCountryCode()
+            return contact.countryCode
         } else if (col == PHONE_COL) {
-            contact.getPhone()
+            return contact.phone
         } else if (col == EMAIL_COL) {
-            contact.getEmail()
+            return contact.email
         } else if (col == CUSTOMER_COL) {
-            contact.isCustomer()
+            return contact.customer
         } else if (col == SUPPLIER_COL) {
-            contact.isSupplier()
+            return contact.supplier
         } else if (col == TURNOVER_COL) {
-            contact.getTurnOver()
+            return contact.turnOver
         } else if (col == VAT_TOTAL_COL) {
-            contact.getVATTotal()
-        } else null
+            return contact.VATTotal
+        }
+        null
     }
 
     int getColumnCount() {
@@ -177,7 +178,7 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
 
     int getRowCount() {
         if(contacts == null){
-            0
+            return 0
         }
         contacts.size()
     }
@@ -224,23 +225,23 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
             } else {
                 String stringValue = (String) value
                 if (col == NAME_COL) {
-                    contact.setName(stringValue)
+                    contact.name = stringValue
                 } else if (col == OFFICIAL_COL) {
-                    contact.setOfficialName(stringValue)
+                    contact.officialName = stringValue
                 } else if (col == VAT_NUMBER_COL) {
-                    contact.setVatNumber(stringValue)
+                    contact.vatNumber =stringValue
                 } else if (col == STREET_COL) {
-                    contact.setStreetAndNumber(stringValue)
+                    contact.streetAndNumber = stringValue
                 } else if (col == POSTAL_COL) {
-                    contact.setPostalCode(stringValue)
+                    contact.postalCode = stringValue
                 } else if (col == CITY_COL) {
-                    contact.setCity(stringValue)
+                    contact.city = stringValue
                 } else if (col == COUNTRY_COL) {
-                    contact.setCountryCode(stringValue)
+                    contact.countryCode = stringValue
                 } else if (col == PHONE_COL) {
-                    contact.setPhone(stringValue)
+                    contact.phone = stringValue
                 } else if (col == EMAIL_COL) {
-                    contact.setEmail(stringValue)
+                    contact.email = stringValue
                 }
                 Main.fireContactDataChanged()
             }
@@ -249,7 +250,7 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
 
     void setContacts(Contacts contacts) {
         if(contactType == Contact.ContactType.ALL) {
-            this.contacts = contacts.getBusinessObjects()
+            this.contacts = contacts.businessObjects
         } else if (contactType == Contact.ContactType.CUSTOMERS){
             setCustomers(contacts)
         } else if (contactType == Contact.ContactType.SUPPLIERS){
@@ -258,10 +259,10 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
         fireTableDataChanged()
     }
     void setCustomers(Contacts contacts) {
-        this.contacts = contacts.getBusinessObjects(Contact.&isCustomer)
+        this.contacts = contacts.getBusinessObjects{it.customer}
     }
     void setSuppliers(Contacts contacts) {
-        this.contacts = contacts.getBusinessObjects(Contact.&isSupplier)
+        this.contacts = contacts.getBusinessObjects{it.supplier}
     }
 
     @Override

@@ -25,19 +25,19 @@ import java.awt.Color
 import static java.util.ResourceBundle.getBundle
 
 class PromoOrderDetailPanel extends JPanel {
-    private final JButton editPromoOrder
-    private JButton placeOrderButton, deliveredButton
-    private JButton createPromoOrder
-    private JCheckBox delivered, placed
-    private PromoOrder promoOrder
-    private Accounting accounting
+    final JButton editPromoOrder
+    JButton placeOrderButton, deliveredButton
+    JButton createPromoOrder
+    JCheckBox delivered, placed
+    PromoOrder promoOrder
+    Accounting accounting
 
     PromoOrderDetailPanel() {
         createPromoOrder = new JButton(getBundle("Accounting").getString("CREATE_PR"))
         createPromoOrder.addActionListener({ e ->
             PromoOrderCreateGUI promoOrderCreateGUI = PromoOrderCreateGUI.showPromoOrderGUI(accounting)
             promoOrderCreateGUI.setLocation(getLocationOnScreen())
-            promoOrderCreateGUI.setVisible(true)
+            promoOrderCreateGUI.visible = true
         })
 
 
@@ -46,7 +46,7 @@ class PromoOrderDetailPanel extends JPanel {
             PromoOrderCreateGUI promoOrderCreateGUI = PromoOrderCreateGUI.showPromoOrderGUI(accounting)
             promoOrderCreateGUI.setPromoOrder(promoOrder)
             promoOrderCreateGUI.setLocation(getLocationOnScreen())
-            promoOrderCreateGUI.setVisible(true)
+            promoOrderCreateGUI.visible = true
         })
 
         JPanel orderPanel = createOrderPanel()
@@ -58,7 +58,7 @@ class PromoOrderDetailPanel extends JPanel {
         add(createPromoOrder, BorderLayout.SOUTH)
     }
 
-    private JPanel createOrderPanel(){
+    JPanel createOrderPanel(){
         JPanel panel = new JPanel()
         panel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Order"))
 
@@ -71,11 +71,11 @@ class PromoOrderDetailPanel extends JPanel {
         panel
     }
 
-    private JPanel createStatusPanel(){
+    JPanel createStatusPanel(){
         placed = new JCheckBox("Ordered")
         delivered = new JCheckBox("Delived")
-        placed.setEnabled(false)
-        delivered.setEnabled(false)
+        placed.enabled = false
+        delivered.enabled = false
 
         JPanel panel = new JPanel()
         panel.add(placed)
@@ -84,12 +84,12 @@ class PromoOrderDetailPanel extends JPanel {
     }
 
     void disableButtons(){
-        editPromoOrder.setEnabled(false)
-        placeOrderButton.setEnabled(false)
-        deliveredButton.setEnabled(false)
+        editPromoOrder.enabled = false
+        placeOrderButton.enabled = false
+        deliveredButton.enabled = false
     }
 
-    private JPanel createButtonPanel(){
+    JPanel createButtonPanel(){
         placeOrderButton = new JButton("Place Order")
         placeOrderButton.addActionListener({ e -> placeOrder() })
 
@@ -110,23 +110,23 @@ class PromoOrderDetailPanel extends JPanel {
         panel
     }
 
-    private void deliverOrder() {
+    void deliverOrder() {
         Calendar date
         String description = ""
-        String deliveryDate = promoOrder.getDeliveryDate() // FIXME: Calendar iso String
+        String deliveryDate = promoOrder.deliveryDate // FIXME: Calendar iso String
         if(deliveryDate==null) {
             DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog()
-            dateAndDescriptionDialog.setDescription(description)
-            dateAndDescriptionDialog.setDate(Calendar.getInstance())
-            dateAndDescriptionDialog.setVisible(true)
+            dateAndDescriptionDialog.description = description
+            dateAndDescriptionDialog.date = Calendar.getInstance()
+            dateAndDescriptionDialog.visible = true
 
-            date = dateAndDescriptionDialog.getDate()
-//            description = dateAndDescriptionDialog.getDescription()
+            date = dateAndDescriptionDialog.date
+//            description = dateAndDescriptionDialog.description
 
-            promoOrder.setDeliveryDate(Utils.toString(date))
-            promoOrder.setDescription(description)
+            promoOrder.deliveryDate = Utils.toString(date)
+            promoOrder.description = description
         }
-        StockTransactions stockTransactions = accounting.getStockTransactions()
+        StockTransactions stockTransactions = accounting.stockTransactions
         stockTransactions.addOrder(promoOrder)
 
         StockGUI.fireStockContentChanged()
@@ -135,16 +135,16 @@ class PromoOrderDetailPanel extends JPanel {
         updateButtonsAndCheckBoxes()
     }
 
-    private void placeOrder() {
+    void placeOrder() {
         createPromoTransaction()
         StockHistoryGUI.fireStockContentChanged()
         updateButtonsAndCheckBoxes()
     }
 
     void updateButtonsAndCheckBoxes() {
-        Transaction paymentTransaction = promoOrder ==null?null: promoOrder.getPaymentTransaction()
+        Transaction paymentTransaction = promoOrder ==null?null: promoOrder.paymentTransaction
 
-        StockTransactions stockTransactions = accounting.getStockTransactions()
+        StockTransactions stockTransactions = accounting.stockTransactions
         ArrayList<Order> orders = stockTransactions.getOrders()
         boolean orderDelivered = promoOrder !=null && orders.contains(promoOrder)
         boolean toBeDelivered = promoOrder !=null && !orders.contains(promoOrder)
@@ -152,46 +152,46 @@ class PromoOrderDetailPanel extends JPanel {
         placed.setSelected(paymentTransaction!=null)
         delivered.setSelected(orderDelivered)
 
-        deliveredButton.setEnabled(toBeDelivered)
-        placeOrderButton.setEnabled(paymentTransaction==null)
+        deliveredButton.enabled = toBeDelivered
+        placeOrderButton.enabled = paymentTransaction==null
 
-        editPromoOrder.setEnabled(!orderDelivered && paymentTransaction==null)
+        editPromoOrder.enabled = !orderDelivered && paymentTransaction==null
     }
 
     Transaction createTransaction(){
-        DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog()
-        dateAndDescriptionDialog.setVisible(true)
+        DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.dateAndDescriptionDialog
+        dateAndDescriptionDialog.visible = true
 
-        Calendar date = dateAndDescriptionDialog.getDate()
-        String description = dateAndDescriptionDialog.getDescription()
+        Calendar date = dateAndDescriptionDialog.date
+        String description = dateAndDescriptionDialog.description
         new Transaction(date, description)
     }
 
-    private void createPromoTransaction() {
+    void createPromoTransaction() {
         Transaction transaction = createTransaction()
 
         Account promoCost = StockUtils.getPromoAccount(accounting)
         Account stockAccount = StockUtils.getStockAccount(accounting)
-        BigDecimal totalSalesPriceInclVat = promoOrder.getTotalStockValue()
+        BigDecimal totalSalesPriceInclVat = promoOrder.totalStockValue
 
         Booking costBooking = new Booking(promoCost, totalSalesPriceInclVat, true)
         Booking stockBooking = new Booking(stockAccount, totalSalesPriceInclVat, false)
-        transaction.addBusinessObject(costBooking)
-        transaction.addBusinessObject(stockBooking)
+        transaction.addBusinessObject costBooking
+        transaction.addBusinessObject stockBooking
 
         Journal journal = StockUtils.getGainJournal(accounting)
-        transaction.setJournal(journal)
+        transaction.journal = journal
 
-        Transactions transactions = accounting.getTransactions()
+        Transactions transactions = accounting.transactions
         transactions.setId(transaction)
-        transactions.addBusinessObject(transaction)
-        journal.addBusinessObject(transaction)
-        promoOrder.setPaymentTransaction(transaction)
-        Main.setJournal(journal)
-        Main.selectTransaction(transaction)
-        Main.fireJournalDataChanged(journal)
-        for (Account account : transaction.getAccounts()) {
-            Main.fireAccountDataChanged(account)
+        transactions.addBusinessObject transaction
+        journal.addBusinessObject transaction
+        promoOrder.paymentTransaction = transaction
+        Main.journal = journal
+        Main.selectTransaction transaction
+        Main.fireJournalDataChanged journal
+        for (Account account : transaction.accounts) {
+            Main.fireAccountDataChanged account
         }
     }
 

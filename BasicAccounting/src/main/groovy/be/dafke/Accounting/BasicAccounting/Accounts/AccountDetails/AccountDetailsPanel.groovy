@@ -10,9 +10,9 @@ import javax.swing.*
 import java.awt.*
 
 class AccountDetailsPanel extends JPanel {
-    private final AccountDetailsPopupMenu popup
-    private SelectableTable<Booking> table
-    private AccountDetailsDataModel accountDetailsDataModel
+    final AccountDetailsPopupMenu popup
+    SelectableTable<Booking> table
+    AccountDetailsDataModel accountDetailsDataModel
 
     AccountDetailsPanel(Account account, Journals journals) {
 
@@ -44,7 +44,7 @@ class AccountDetailsPanel extends JPanel {
     }
 
     void closePopups(){
-        popup.setVisible(false)
+        popup.visible = false
     }
 
     void fireAccountDataChanged() {

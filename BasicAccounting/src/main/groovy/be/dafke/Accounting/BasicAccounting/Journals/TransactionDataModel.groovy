@@ -15,17 +15,17 @@ class TransactionDataModel extends SelectableTableModel<Booking> {
     static final int VATINFO = 4
     static final int NR_OF_COLS = 5
 
-    private HashMap<Integer, String> columnNames = new HashMap<>()
-    private HashMap<Integer, Class> columnClasses = new HashMap<>()
+    HashMap<Integer, String> columnNames = new HashMap<>()
+    HashMap<Integer, Class> columnClasses = new HashMap<>()
 
-    private Transaction transaction
+    Transaction transaction
 
     TransactionDataModel() {
         createColumnNames()
         createColumnClasses()
     }
 
-    private void createColumnNames() {
+    void createColumnNames() {
         columnNames.put(DEBIT_ACCOUNT, getBundle("Accounting").getString("ACCOUNT"))
         columnNames.put(CREDIT_ACCOUNT, getBundle("Accounting").getString("ACCOUNT"))
         columnNames.put(DEBIT_AMOUNT, getBundle("Accounting").getString("DEBIT"))
@@ -34,7 +34,7 @@ class TransactionDataModel extends SelectableTableModel<Booking> {
     }
 
 
-    private void createColumnClasses() {
+    void createColumnClasses() {
         columnClasses.put(DEBIT_ACCOUNT, Account.class)
         columnClasses.put(CREDIT_ACCOUNT, Account.class)
         columnClasses.put(DEBIT_AMOUNT, BigDecimal.class)
@@ -50,7 +50,7 @@ class TransactionDataModel extends SelectableTableModel<Booking> {
 // ===============
 
     int getRowCount() {
-        transaction?transaction.getBusinessObjects().size():0
+        transaction?transaction.businessObjects.size():0
     }
 
     int getColumnCount() {
@@ -64,26 +64,27 @@ class TransactionDataModel extends SelectableTableModel<Booking> {
 
     Booking getValueAt(int row) {
         if(transaction) {
-            ArrayList<Booking> bookings = transaction.getBusinessObjects()
-            bookings.get(row)
-        } else null
+            ArrayList<Booking> bookings = transaction.businessObjects
+            return bookings.get(row)
+        }
+        null
     }
 
     Object getValueAt(int row, int col) {
         Booking booking = getValueAt(row)
         if (col == DEBIT_ACCOUNT) {
-            if (booking.isDebit())
-                booking.getAccount()
+            if (booking.debit)
+                booking.account
             else null
         } else if (col == CREDIT_ACCOUNT) {
-            if(!booking.isDebit())
-                booking.getAccount()
+            if(!booking.debit)
+                booking.account
             else null
         } else if (col == DEBIT_AMOUNT) {
-            if (booking.isDebit()) booking.getAmount()
+            if (booking.debit) booking.amount
             ""
         } else if (col == CREDIT_AMOUNT) {
-            if (!booking.isDebit()) booking.getAmount()
+            if (!booking.debit) booking.amount
             ""
         } else if (col == VATINFO){
             booking.getMergedVATBookingsString()
@@ -106,11 +107,11 @@ class TransactionDataModel extends SelectableTableModel<Booking> {
     @Override
     Booking getObject(int row, int col) {
         if(transaction==null) null
-        ArrayList<Booking> bookings = transaction.getBusinessObjects()
+        ArrayList<Booking> bookings = transaction.businessObjects
         bookings.get(row)
     }
 
-    private int getRowInList(ArrayList<Booking> list, Booking booking){
+    int getRowInList(ArrayList<Booking> list, Booking booking){
         int row = 0
         for(Booking search:list){
             if(search!=booking){
@@ -125,7 +126,7 @@ class TransactionDataModel extends SelectableTableModel<Booking> {
 
     int getRow(Booking booking) {
         if(transaction==null) -1
-        ArrayList<Booking> bookings = transaction.getBusinessObjects()
+        ArrayList<Booking> bookings = transaction.businessObjects
         getRowInList(bookings,booking)
     }
 }

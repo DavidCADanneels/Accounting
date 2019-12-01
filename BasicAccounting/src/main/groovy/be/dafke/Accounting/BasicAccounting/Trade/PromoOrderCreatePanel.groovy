@@ -16,14 +16,14 @@ import java.awt.BorderLayout
 import java.awt.Dimension
 
 class PromoOrderCreatePanel extends JPanel {
-    private PromoOrder promoOrder
-    private Articles articles
-    private final PromoOrderCreateDataTableModel promoOrderCreateDataTableModel
+    PromoOrder promoOrder
+    Articles articles
+    final PromoOrderCreateDataTableModel promoOrderCreateDataTableModel
 
     PromoOrderCreatePanel(Accounting accounting) {
-        this.articles = accounting.getArticles()
+        this.articles = accounting.articles
         promoOrder = new PromoOrder()
-        promoOrder.setArticles(articles)
+        promoOrder.articles = articles
 
         TotalsPanel totalsPanel = new TotalsPanel()
         promoOrderCreateDataTableModel = new PromoOrderCreateDataTableModel(articles, promoOrder, totalsPanel)
@@ -35,17 +35,17 @@ class PromoOrderCreatePanel extends JPanel {
 
         JButton orderButton = new JButton("Add Promo Order")
         orderButton.addActionListener({ e ->
-            PromoOrders promoOrders = accounting.getPromoOrders()
+            PromoOrders promoOrders = accounting.promoOrders
 
             try {
                 promoOrder.removeEmptyOrderItems()
 
-                promoOrders.addBusinessObject(promoOrder)
+                promoOrders.addBusinessObject promoOrder
                 promoOrder = new PromoOrder()
-                promoOrder.setArticles(articles)
-                promoOrderCreateDataTableModel.setOrder(promoOrder)
-                totalsPanel.fireOrderContentChanged(promoOrder)
-                PromoOrdersOverviewGUI.firePromoOrderAddedOrRemovedForAccounting(accounting)
+                promoOrder.articles = articles
+                promoOrderCreateDataTableModel.order = promoOrder
+                totalsPanel.fireOrderContentChanged promoOrder
+                PromoOrdersOverviewGUI.firePromoOrderAddedOrRemovedForAccounting accounting
             } catch (EmptyNameException e1) {
                 e1.printStackTrace()
             } catch (DuplicateNameException e1) {

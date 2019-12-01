@@ -12,11 +12,11 @@ class Statements extends BusinessCollection<BusinessObject> {
         counterParties
     }
 
-    private BusinessCollection<BusinessObject> counterParties
+    BusinessCollection<BusinessObject> counterParties
 
     Statements(Accounting accounting){
         setName(STATEMENTS)
-        counterParties = accounting.getCounterParties()
+        counterParties = accounting.counterParties
     }
 
     ArrayList<Statement> getStatements(SearchOptions searchOptions) {

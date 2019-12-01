@@ -20,24 +20,24 @@ import java.awt.Dimension
 import java.util.function.Predicate
 
 class PurchaseOrderCreatePanel extends JPanel {
-    private final JButton orderButton
-    private final SelectableTable<OrderItem> table
-    private final TotalsPanel totalsPanel
-    private PurchaseOrder purchaseOrder
-    private JComboBox<Contact> comboBox
-    private Contacts contacts
-    private Articles articles
-    private Contact contact
+    final JButton orderButton
+    final SelectableTable<OrderItem> table
+    final TotalsPanel totalsPanel
+    PurchaseOrder purchaseOrder
+    JComboBox<Contact> comboBox
+    Contacts contacts
+    Articles articles
+    Contact contact
     Predicate<Contact> filter
-    private Accounting accounting
-    private final PurchaseOrderCreateDataTableModel purchaseOrderCreateDataTableModel
+    Accounting accounting
+    final PurchaseOrderCreateDataTableModel purchaseOrderCreateDataTableModel
 
     PurchaseOrderCreatePanel(Accounting accounting) {
         this.accounting = accounting
-        this.contacts = accounting.getContacts()
-        this.articles = accounting.getArticles()
+        this.contacts = accounting.contacts
+        this.articles = accounting.articles
         purchaseOrder = new PurchaseOrder()
-        purchaseOrder.setArticles(articles)
+        purchaseOrder.articles = articles
 
         totalsPanel = new TotalsPanel()
         purchaseOrderCreateDataTableModel = new PurchaseOrderCreateDataTableModel(articles, null, purchaseOrder, totalsPanel)
@@ -46,10 +46,10 @@ class PurchaseOrderCreatePanel extends JPanel {
 
         comboBox = new JComboBox<>()
         comboBox.addActionListener({ e ->
-            contact = (Contact) comboBox.getSelectedItem()
+            contact = (Contact) comboBox.selectedItem
             purchaseOrderCreateDataTableModel.setContact(contact)
         })
-        filter = Contact.&isSupplier
+        filter = {it.supplier}
         fireSupplierAddedOrRemoved()
 
         orderButton = new JButton("Add Purchase Order")
@@ -66,17 +66,17 @@ class PurchaseOrderCreatePanel extends JPanel {
     }
 
     void order(){
-        PurchaseOrders purchaseOrders = accounting.getPurchaseOrders()
-        purchaseOrder.setSupplier(contact)
+        PurchaseOrders purchaseOrders = accounting.purchaseOrders
+        purchaseOrder.supplier = contact
         try {
             purchaseOrder.removeEmptyOrderItems()
-            purchaseOrders.addBusinessObject(purchaseOrder)
+            purchaseOrders.addBusinessObject purchaseOrder
             purchaseOrder = new PurchaseOrder()
-            purchaseOrder.setArticles(articles)
-            purchaseOrderCreateDataTableModel.setOrder(purchaseOrder)
+            purchaseOrder.articles = articles
+            purchaseOrderCreateDataTableModel.order = purchaseOrder
             // TODO: pass view panel and call directly
-            PurchaseOrdersOverviewGUI.firePurchaseOrderAddedOrRemovedForAccounting(accounting)
-            totalsPanel.fireOrderContentChanged(purchaseOrder)
+            PurchaseOrdersOverviewGUI.firePurchaseOrderAddedOrRemovedForAccounting accounting
+            totalsPanel.fireOrderContentChanged purchaseOrder
         } catch (EmptyNameException e1) {
             e1.printStackTrace()
         } catch (DuplicateNameException e1) {

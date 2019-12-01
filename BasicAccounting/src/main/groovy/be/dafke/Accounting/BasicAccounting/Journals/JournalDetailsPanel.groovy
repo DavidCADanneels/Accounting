@@ -1,5 +1,6 @@
 package be.dafke.Accounting.BasicAccounting.Journals
 
+import be.dafke.Accounting.BasicAccounting.MainApplication.PopupForTableActivator
 import be.dafke.Accounting.BusinessModel.Account
 import be.dafke.Accounting.BusinessModel.Booking
 import be.dafke.Accounting.BusinessModel.Journal
@@ -10,18 +11,18 @@ import javax.swing.*
 import java.awt.*
 
 class JournalDetailsPanel extends JPanel{
-    private final JournalDetailsPopupMenu popup
-    private SelectableTable<Booking> table
-    private JournalDetailsDataModel journalDetailsDataModel
+    final JournalDetailsPopupMenu popup
+    SelectableTable<Booking> table
+    JournalDetailsDataModel journalDetailsDataModel
 
     JournalDetailsPanel(Journal journal, Journals journals) {
         journalDetailsDataModel = new JournalDetailsDataModel()
-        journalDetailsDataModel.setJournal(journal)
+        journalDetailsDataModel.journal = journal
 
         table = new SelectableTable<>(journalDetailsDataModel)
         table.setPreferredScrollableViewportSize(new Dimension(500, 200))
         JournalColorRenderer renderer = new JournalColorRenderer()
-        renderer.setJournal(journal)
+        renderer.journal = journal
         table.setDefaultRenderer(String.class, renderer)
         table.setDefaultRenderer(Account.class, renderer)
         table.setDefaultRenderer(BigDecimal.class, renderer)
@@ -45,7 +46,7 @@ class JournalDetailsPanel extends JPanel{
     }
 
     void closePopups(){
-        popup.setVisible(false)
+        popup.visible = false
     }
 
     void fireJournalDataChanged() {

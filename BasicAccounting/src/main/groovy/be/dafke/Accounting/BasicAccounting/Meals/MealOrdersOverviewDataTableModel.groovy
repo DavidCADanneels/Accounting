@@ -46,32 +46,22 @@ class MealOrdersOverviewDataTableModel extends SelectableTableModel<MealOrder> {
     // DE GET METHODEN
 // ===============
     Object getValueAt(int row, int col) {
-        if (mealOrders == null) null
+        if (mealOrders == null) return null
         MealOrder mealOrder = getObject(row, col)
-        if(mealOrder == null) null
-
-        if (col == ID_COL) {
-            mealOrder.getName()
-        }
+        if(mealOrder == null) return null
+        if (col == ID_COL) return mealOrder.name
         if (col == DATE_COL) {
-            Calendar date = mealOrder.getDate()
-            Utils.toString(date)
+            Calendar date = mealOrder.date
+            return date?Utils.toString(date):null
         }
-        if (col == DESCRIPTION_COL) {
-            mealOrder.getDescription()
-        }
-        if (col == PRICE_TOTAL_COL) {
-            mealOrder.getTotalPrice()
-        }
+        if (col == DESCRIPTION_COL) return mealOrder.description
+        if (col == PRICE_TOTAL_COL) return mealOrder.getTotalPrice()
         null
     }
 
     @Override
     int getRowCount() {
-        if(mealOrders == null) 0
-        List<MealOrder> businessObjects = mealOrders.getBusinessObjects()
-        if(businessObjects == null || businessObjects.size() == 0) 0
-        businessObjects.size()
+        mealOrders?mealOrders.businessObjects.size():0
     }
 
     @Override
@@ -81,13 +71,13 @@ class MealOrdersOverviewDataTableModel extends SelectableTableModel<MealOrder> {
 
     @Override
     MealOrder getObject(int row, int col) {
-        List<MealOrder> businessObjects = this.mealOrders.getBusinessObjects()
+        List<MealOrder> businessObjects = this.mealOrders.businessObjects
         if(businessObjects == null || businessObjects.size() == 0) null
         businessObjects.get(row)
     }
 
     int getRow(MealOrder mealOrder){
-        ArrayList<MealOrder> businessObjects = mealOrders.getBusinessObjects()
+        ArrayList<MealOrder> businessObjects = mealOrders.businessObjects
         businessObjects.indexOf(mealOrder)
     }
 

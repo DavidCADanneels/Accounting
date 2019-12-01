@@ -3,8 +3,8 @@ package be.dafke.Accounting.BusinessModel
 import be.dafke.Accounting.ObjectModel.BusinessCollection
 
 class VATTransactions extends BusinessCollection<VATTransaction> {
-    private Account creditAccount, debitAccount, creditCNAccount, debitCNAccount
-    private Integer[] vatPercentages = [0, 6, 12, 21]
+    Account creditAccount, debitAccount, creditCNAccount, debitCNAccount
+    Integer[] vatPercentages = [0, 6, 12, 21]
 
     Integer[] getVatPercentages() {
         vatPercentages
@@ -44,12 +44,12 @@ class VATTransactions extends BusinessCollection<VATTransaction> {
 
     void registerVATTransactions(List<Transaction> transactions){
         transactions.forEach({ transaction ->
-            ArrayList<VATBooking> vatBookings = transaction.getVatBookings()
+            ArrayList<VATBooking> vatBookings = transaction.vatBookings
             if (vatBookings != null) {
                 vatBookings.forEach({ vatBooking ->
-                    VATField vatField = vatBooking.getVatField()
+                    VATField vatField = vatBooking.vatField
                     if (vatField != null) {
-                        VATMovement vatMovement = vatBooking.getVatMovement()
+                        VATMovement vatMovement = vatBooking.vatMovement
                         vatMovement.setRegistered(true)
                         vatField.setRegistered(vatMovement)
                     }

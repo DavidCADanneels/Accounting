@@ -18,17 +18,17 @@ class TransactionOverviewDataModel extends SelectableTableModel<Transaction> {
     static final int TOTAL_AMOUNT = 5
     static final int NR_OF_COLS = 6
 
-    private HashMap<Integer, String> columnNames = new HashMap<>()
-    private HashMap<Integer, Class> columnClasses = new HashMap<>()
+    HashMap<Integer, String> columnNames = new HashMap<>()
+    HashMap<Integer, Class> columnClasses = new HashMap<>()
 
-    private Journal journal
+    Journal journal
 
     TransactionOverviewDataModel() {
         createColumnNames()
         createColumnClasses()
     }
 
-    private void createColumnNames() {
+    void createColumnNames() {
         columnNames.put(ID, getBundle("Accounting").getString("NR"))
         columnNames.put(DATE, getBundle("Accounting").getString("DATE"))
         columnNames.put(DEBIT, getBundle("Accounting").getString("DEBIT"))
@@ -38,7 +38,7 @@ class TransactionOverviewDataModel extends SelectableTableModel<Transaction> {
     }
 
 
-    private void createColumnClasses() {
+    void createColumnClasses() {
         columnClasses.put(ID, String.class)
         columnClasses.put(DATE, String.class)
         columnClasses.put(DEBIT, Account.class)
@@ -55,7 +55,7 @@ class TransactionOverviewDataModel extends SelectableTableModel<Transaction> {
 // ===============
 
     int getRowCount() {
-        journal?journal.getBusinessObjects().size():0
+        journal?journal.businessObjects.size():0
     }
 
     int getColumnCount() {
@@ -68,38 +68,35 @@ class TransactionOverviewDataModel extends SelectableTableModel<Transaction> {
     }
 
     Transaction getValueAt(int row) {
-        ArrayList<Transaction> transactions = journal.getBusinessObjects()
+        ArrayList<Transaction> transactions = journal.businessObjects
         transactions.get(row)
     }
 
     Object getValueAt(int row, int col) {
         Transaction transaction = getValueAt(row)
         if (col == ID) {
-            if(journal==transaction.getJournal()) {
-                journal.getAbbreviation() + journal.getId(transaction)
+            if(journal==transaction.journal) {
+                return journal.abbreviation + journal.getId(transaction)
             } else {
-                journal.getAbbreviation() + journal.getId(transaction) +
-                        " (" + transaction.getAbbreviation() + transaction.getId() + ")"
+                return journal.abbreviation + journal.getId(transaction) +
+                        " (" + transaction.abbreviation + transaction.id + ")"
             }
-        } else if (col == DATE) {
-            Utils.toString(transaction.getDate())
-        } else if (col == DEBIT) {
-            List<Booking> bookings = transaction.getBusinessObjects(Booking.&isDebit)
+        } else if (col == DATE) return Utils.toString(transaction.date)
+        else if (col == DEBIT) {
+            List<Booking> bookings = transaction.getBusinessObjects{it.debit}
             if(bookings.size() == 1){
                 Booking booking = bookings.get(0)
-                booking.getAccount()
-            } else null
+                return booking?booking.account:null
+            } else return null
         } else if (col == CREDIT) {
-            List<Booking> bookings = transaction.getBusinessObjects(Booking.&isCredit)
+            List<Booking> bookings = transaction.getBusinessObjects{it.credit}
             if(bookings.size() == 1){
                 Booking booking = bookings.get(0)
-                booking.getAccount()
-            } else null
-        } else if (col == TOTAL_AMOUNT) {
-            transaction.getCreditTotaal()
-        } else if (col == DESCRIPTION){
-            transaction.getDescription()
-        } else null
+                booking.account
+            } else return null
+        } else if (col == TOTAL_AMOUNT) return transaction.getCreditTotaal()
+        else if (col == DESCRIPTION) return transaction.description
+        null
     }
 
     @Override
@@ -119,7 +116,7 @@ class TransactionOverviewDataModel extends SelectableTableModel<Transaction> {
     void setValueAt(Object value, int row, int col) {
         Transaction transaction = getObject(row,col)
         if (col == DATE) {
-            Calendar date = transaction.getDate()
+            Calendar date = transaction.date
             Calendar newDate = Utils.toCalendar((String) value)
             if (journal != null && newDate != null) {
                 transaction.setDate(newDate)
@@ -133,13 +130,13 @@ class TransactionOverviewDataModel extends SelectableTableModel<Transaction> {
     @Override
     Transaction getObject(int row, int col) {
         if(journal==null) null
-        ArrayList<Transaction> transactions = journal.getBusinessObjects()
+        ArrayList<Transaction> transactions = journal.businessObjects
         transactions.get(row)
     }
 
-    private int getRowInList(Transaction transaction){
+    int getRowInList(Transaction transaction){
         int row = 0
-        ArrayList<Transaction> list = journal.getBusinessObjects()
+        ArrayList<Transaction> list = journal.businessObjects
         for(Transaction search:list){
             if(search!=transaction){
                 row++

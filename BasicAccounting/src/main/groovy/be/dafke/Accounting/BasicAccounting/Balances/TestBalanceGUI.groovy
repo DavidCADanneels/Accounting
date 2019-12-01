@@ -6,11 +6,13 @@ import be.dafke.Accounting.BusinessModel.Accounts
 
 import javax.swing.*
 
-class TestBalanceGUI extends JFrame {
-    private static HashMap<Accounts,TestBalanceGUI> testBalanceMap = new HashMap<>()
-    private final TestBalancePanel testBalancePanel
+import static java.util.ResourceBundle.getBundle
 
-    private TestBalanceGUI(Accounting accounting, Accounts accounts) {
+class TestBalanceGUI extends JFrame {
+    static HashMap<Accounts,TestBalanceGUI> testBalanceMap = new HashMap<>()
+    final TestBalancePanel testBalancePanel
+
+    TestBalanceGUI(Accounting accounting, Accounts accounts) {
         super(getBundle("BusinessModel").getString("TESTBALANCE"))
 //		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE)
         testBalancePanel = new TestBalancePanel(accounting, accounts)
@@ -19,7 +21,7 @@ class TestBalanceGUI extends JFrame {
     }
 
     static TestBalanceGUI getInstance(Accounting accounting) {
-        Accounts accounts = accounting.getAccounts()
+        Accounts accounts = accounting.accounts
         TestBalanceGUI testBalanceGUI = testBalanceMap.get(accounts)
         if(testBalanceGUI ==null){
             testBalanceGUI = new TestBalanceGUI(accounting, accounts)

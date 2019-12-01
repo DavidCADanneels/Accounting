@@ -12,18 +12,18 @@ import java.awt.*
 import static java.util.ResourceBundle.getBundle
 
 class IngredientsEditPanel extends JPanel {
-    private final IngredientsDataEditTableModel ingredientsDataEditTableModel
-    private final AllergenesViewPanel allergenesViewPanel
-    private final SelectableTable<Ingredient> ingredientsTable
-    private final JButton addAllergene
-    private Ingredient selectedIngredient
+    final IngredientsDataEditTableModel ingredientsDataEditTableModel
+    final AllergenesViewPanel allergenesViewPanel
+    final SelectableTable<Ingredient> ingredientsTable
+    final JButton addAllergene
+    Ingredient selectedIngredient
 
-    private Ingredients ingredients
-    private Allergenes allergenes
+    Ingredients ingredients
+    Allergenes allergenes
 
     IngredientsEditPanel(Accounting accounting) {
-        ingredients = accounting.getIngredients()
-        allergenes = accounting.getAllergenes()
+        ingredients = accounting.ingredients
+        allergenes = accounting.allergenes
         ingredientsDataEditTableModel = new IngredientsDataEditTableModel(this)
         ingredientsDataEditTableModel.setIngredients(ingredients)
         ingredientsTable = new SelectableTable<>(ingredientsDataEditTableModel)
@@ -70,13 +70,13 @@ class IngredientsEditPanel extends JPanel {
         })
 
         addAllergene = new JButton("Update Allergenes")
-        addAllergene.setEnabled(false)
+        addAllergene.enabled = false
         add(addAllergene, BorderLayout.SOUTH)
         addAllergene.addActionListener({ e ->
-            Object[] allergeneList = allergenes.getBusinessObjects().toArray()
+            Object[] allergeneList = allergenes.businessObjects.toArray()
             if (allergeneList.length > 0) {
                 AllergenesPerIngredientDialog dialog = new AllergenesPerIngredientDialog(selectedIngredient, allergenes)
-                dialog.setVisible(true)
+                dialog.visible = true
                 ingredientsDataEditTableModel.fireTableDataChanged()
                 allergenesViewPanel.updateTable()
             }
@@ -86,10 +86,10 @@ class IngredientsEditPanel extends JPanel {
         DefaultListSelectionModel selection = new DefaultListSelectionModel()
         selection.addListSelectionListener({ e ->
             if (!e.getValueIsAdjusting()) {
-                selectedIngredient = ingredientsTable.getSelectedObject()
-                addAllergene.setEnabled(selectedIngredient != null)
-                Allergenes allergenes = selectedIngredient == null ? null : selectedIngredient.getAllergenes()
-                allergenesViewPanel.setAllergenes(allergenes)
+                selectedIngredient = ingredientsTable.selectedObject
+                addAllergene.enabled = selectedIngredient != null
+                Allergenes allergenes = selectedIngredient?selectedIngredient.allergenes:null
+                allergenesViewPanel.allergenes = allergenes
                 allergenesViewPanel.selectFirstLine()
             }
         })

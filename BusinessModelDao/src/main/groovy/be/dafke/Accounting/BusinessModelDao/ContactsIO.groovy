@@ -18,29 +18,29 @@ import static be.dafke.Accounting.BusinessModelDao.XMLWriter.getXmlHeader
 class ContactsIO {
 
     static void readContacts(Accounting accounting){
-        Contacts contacts = accounting.getContacts()
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/" + CONTACTS + XML_EXTENSION)
+        Contacts contacts = accounting.contacts
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/" + CONTACTS + XML_EXTENSION)
         Element rootElement = getRootElement(xmlFile, CONTACTS)
         for (Element element : getChildren(rootElement, CONTACT)) {
             Contact contact = new Contact()
-            contact.setName(getValue(element, NAME))
-            contact.setOfficialName(getValue(element, OFFICIAL_NAME))
-            contact.setStreetAndNumber(getValue(element, STREET_AND_NUMBER))
-            contact.setPostalCode(getValue(element, POSTAL_CODE))
-            contact.setCity(getValue(element, CITY))
-            contact.setCountryCode(getValue(element, COUNTRY_CODE))
-            contact.setEmail(getValue(element, EMAIL_ADDRESS))
-            contact.setPhone(getValue(element, PHONE_NUMBER))
-            contact.setVatNumber(getValue(element, VAT_NUMBER))
-            contact.setVATTotal(Utils.parseBigDecimal(getValue(element, VAT_TOTAL)))
-            contact.setTurnOver(Utils.parseBigDecimal(getValue(element, TURNOVER)))
+            contact.name = getValue(element, NAME)
+            contact.officialName = getValue(element, OFFICIAL_NAME)
+            contact.streetAndNumber = getValue(element, STREET_AND_NUMBER)
+            contact.postalCode = getValue(element, POSTAL_CODE)
+            contact.city = getValue(element, CITY)
+            contact.countryCode = getValue(element, COUNTRY_CODE)
+            contact.email = getValue(element, EMAIL_ADDRESS)
+            contact.phone = getValue(element, PHONE_NUMBER)
+            contact.vatNumber = getValue(element, VAT_NUMBER)
+            contact.VATTotal = Utils.parseBigDecimal(getValue(element, VAT_TOTAL))
+            contact.turnOver = Utils.parseBigDecimal(getValue(element, TURNOVER))
             String customerAccountName = getValue(element, CUSTOMER_ACCOUNT)
             if(customerAccountName!=null){
-                contact.setCustomerAccount(accounting.getAccounts().getBusinessObject(customerAccountName))
+                contact.customerAccount = accounting.accounts.getBusinessObject(customerAccountName)
             }
             String supplierAccountName = getValue(element, SUPPLIER_ACCOUNT)
             if(supplierAccountName!=null) {
-                contact.setSupplierAccount(accounting.getAccounts().getBusinessObject(supplierAccountName))
+                contact.supplierAccount = accounting.accounts.getBusinessObject(supplierAccountName)
             }
             try {
                 contacts.addBusinessObject(contact)
@@ -51,49 +51,49 @@ class ContactsIO {
         String companyContactName = getValue(rootElement, COMPANY_CONTACT)
         if(companyContactName!=null) {
             Contact companyContact = contacts.getBusinessObject(companyContactName)
-            accounting.setCompanyContact(companyContact)
+            accounting.companyContact = companyContact
         }
         String noInvoiceContactName = getValue(rootElement, CONTACT_NO_INVOICE)
         if(noInvoiceContactName!=null) {
             Contact noInvoiceContact = contacts.getBusinessObject(noInvoiceContactName)
-            accounting.setContactNoInvoice(noInvoiceContact)
+            accounting.contactNoInvoice = noInvoiceContact
         }
     }
 
     static void writeContacts(Accounting accounting){
-        Contact companyContact = accounting.getCompanyContact()
-        Contact contactNoInvoice = accounting.getContactNoInvoice()
-        Contacts contacts = accounting.getContacts()
-        File accountsFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + CONTACTS + XML_EXTENSION)
+        Contact companyContact = accounting.companyContact
+        Contact contactNoInvoice = accounting.contactNoInvoice
+        Contacts contacts = accounting.contacts
+        File accountsFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + CONTACTS + XML_EXTENSION)
         try{
             Writer writer = new FileWriter(accountsFile)
             writer.write(getXmlHeader(CONTACTS, 2))
-            for(Contact contact: contacts.getBusinessObjects()) {
+            for(Contact contact: contacts.businessObjects) {
                 writer.write(
                         "  <"+CONTACT+">\n" +
-                                "    <"+NAME+">" + contact.getName() + "</"+NAME+">\n" +
-                                "    <"+OFFICIAL_NAME+">" + contact.getOfficialName() + "</"+OFFICIAL_NAME+">\n" +
-                                "    <"+STREET_AND_NUMBER+">" + contact.getStreetAndNumber() + "</"+STREET_AND_NUMBER+">\n" +
-                                "    <"+POSTAL_CODE+">" + contact.getPostalCode() + "</"+POSTAL_CODE+">\n" +
-                                "    <"+CITY+">" + contact.getCity() + "</"+CITY+">\n" +
-                                "    <"+COUNTRY_CODE+">" + contact.getCountryCode() + "</"+COUNTRY_CODE+">\n" +
-                                "    <"+EMAIL_ADDRESS+">" + contact.getEmail() + "</"+EMAIL_ADDRESS+">\n" +
-                                "    <"+PHONE_NUMBER+">" + contact.getPhone() + "</"+PHONE_NUMBER+">\n" +
-                                "    <"+VAT_NUMBER+">" + contact.getVatNumber() + "</"+VAT_NUMBER+">\n" +
-                                "    <"+VAT_TOTAL+">" + contact.getVATTotal() + "</"+VAT_TOTAL+">\n" +
-                                "    <"+TURNOVER+">" + contact.getTurnOver() + "</"+TURNOVER+">\n" +
-                                "    <"+CUSTOMER_ACCOUNT+">" + contact.getCustomerAccount() + "</"+CUSTOMER_ACCOUNT+">\n" +
-                                "    <"+SUPPLIER_ACCOUNT+">" + contact.getSupplierAccount() + "</"+SUPPLIER_ACCOUNT+">\n" +
+                                "    <"+NAME+">" + contact.name + "</"+NAME+">\n" +
+                                "    <"+OFFICIAL_NAME+">" + contact.officialName + "</"+OFFICIAL_NAME+">\n" +
+                                "    <"+STREET_AND_NUMBER+">" + contact.streetAndNumber + "</"+STREET_AND_NUMBER+">\n" +
+                                "    <"+POSTAL_CODE+">" + contact.postalCode + "</"+POSTAL_CODE+">\n" +
+                                "    <"+CITY+">" + contact.city + "</"+CITY+">\n" +
+                                "    <"+COUNTRY_CODE+">" + contact.countryCode + "</"+COUNTRY_CODE+">\n" +
+                                "    <"+EMAIL_ADDRESS+">" + contact.email + "</"+EMAIL_ADDRESS+">\n" +
+                                "    <"+PHONE_NUMBER+">" + contact.phone + "</"+PHONE_NUMBER+">\n" +
+                                "    <"+VAT_NUMBER+">" + contact.vatNumber + "</"+VAT_NUMBER+">\n" +
+                                "    <"+VAT_TOTAL+">" + contact.VATTotal + "</"+VAT_TOTAL+">\n" +
+                                "    <"+TURNOVER+">" + contact.turnOver + "</"+TURNOVER+">\n" +
+                                "    <"+CUSTOMER_ACCOUNT+">" + contact.customerAccount + "</"+CUSTOMER_ACCOUNT+">\n" +
+                                "    <"+SUPPLIER_ACCOUNT+">" + contact.supplierAccount + "</"+SUPPLIER_ACCOUNT+">\n" +
                                 "  </"+CONTACT+">\n"
                 )
             }
-            writer.write("  <"+COMPANY_CONTACT+">"+(companyContact==null?"null":companyContact.getName())+"</"+COMPANY_CONTACT+">\n")
-            writer.write("  <"+CONTACT_NO_INVOICE+">"+(contactNoInvoice==null?"null":contactNoInvoice.getName())+"</"+CONTACT_NO_INVOICE+">\n")
+            writer.write("  <"+COMPANY_CONTACT+">"+(companyContact==null?"null":companyContact.name)+"</"+COMPANY_CONTACT+">\n")
+            writer.write("  <"+CONTACT_NO_INVOICE+">"+(contactNoInvoice==null?"null":contactNoInvoice.name)+"</"+CONTACT_NO_INVOICE+">\n")
             writer.write("</Contacts>")
             writer.flush()
             writer.close()
         } catch (IOException ex) {
-            Logger.getLogger(Accounting.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(Accounting.class.name).log(Level.SEVERE, null, ex)
         }
     }
 }

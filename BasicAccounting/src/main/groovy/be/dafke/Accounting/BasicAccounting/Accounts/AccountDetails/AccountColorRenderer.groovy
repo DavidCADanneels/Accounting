@@ -15,13 +15,13 @@ class AccountColorRenderer extends DefaultTableCellRenderer {
         Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column)
         Booking booking = ((AccountDetailsDataModel) table.getModel()).getObject(row, column)
         if(booking!=null) {
-            Transaction transaction = booking.getTransaction()
+            Transaction transaction = booking.transaction
             if(isSelected){
                 cell.setBackground(Color.CYAN)
             } else {
                 cell.setBackground(Color.WHITE)
             }
-            if (transaction.isBalanceTransaction()) {
+            if (transaction.balanceTransaction) {
                 cell.setForeground(Color.RED)
             } else {
                 cell.setForeground(Color.BLACK)

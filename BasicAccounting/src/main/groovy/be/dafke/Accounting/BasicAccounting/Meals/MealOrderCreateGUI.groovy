@@ -8,10 +8,10 @@ import javax.swing.*
 import static java.util.ResourceBundle.getBundle
 
 class MealOrderCreateGUI extends JFrame {
-    private static HashMap<Accounting, MealOrderCreateGUI> guis = new HashMap<>()
-    private final MealOrderCreatePanel mealOrderCreatePanel
+    static HashMap<Accounting, MealOrderCreateGUI> guis = new HashMap<>()
+    final MealOrderCreatePanel mealOrderCreatePanel
 
-    private MealOrderCreateGUI(Accounting accounting) {
+    MealOrderCreateGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("MEAL_ORDER_INPUT"))
         mealOrderCreatePanel = new MealOrderCreatePanel(accounting)
         setContentPane(mealOrderCreatePanel)

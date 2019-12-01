@@ -1,5 +1,6 @@
 package be.dafke.Accounting.BasicAccounting.Meals
 
+import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.MealOrder
 import be.dafke.Accounting.BusinessModel.MealOrderItem
@@ -18,16 +19,16 @@ import java.awt.Rectangle
 
 class MealOrdersOverviewPanel extends JPanel {
 
-    private final JButton createButton
-    private SelectableTable<MealOrder> overviewTable
-    private SelectableTable<MealOrderItem> detailsTable
-    private MealOrdersOverviewDataTableModel overviewTableModel
-    private MealOrderViewDataTableModel detailsTableModel
-    private DeliveryTotalsPanel totalsPanel
-    private boolean multiSelection
+    final JButton createButton
+    SelectableTable<MealOrder> overviewTable
+    SelectableTable<MealOrderItem> detailsTable
+    MealOrdersOverviewDataTableModel overviewTableModel
+    MealOrderViewDataTableModel detailsTableModel
+    DeliveryTotalsPanel totalsPanel
+    boolean multiSelection
 
     MealOrdersOverviewPanel(Accounting accounting) {
-        overviewTableModel = new MealOrdersOverviewDataTableModel(accounting.getMealOrders())
+        overviewTableModel = new MealOrdersOverviewDataTableModel(accounting.mealOrders)
         overviewTable = new SelectableTable<>(overviewTableModel)
         overviewTable.setPreferredScrollableViewportSize(new Dimension(1000, 400))
 
@@ -41,7 +42,7 @@ class MealOrdersOverviewPanel extends JPanel {
         createButton.addActionListener({ e ->
             MealOrderCreateGUI mealOrdersGui = MealOrderCreateGUI.getInstance(accounting)
             mealOrdersGui.setLocation(getLocationOnScreen())
-            mealOrdersGui.setVisible(true)
+            mealOrdersGui.visible = true
         })
 
         DefaultListSelectionModel selection = new DefaultListSelectionModel()
@@ -69,25 +70,25 @@ class MealOrdersOverviewPanel extends JPanel {
         totalsPanel.clear()
     }
 
-    private JPanel createFilterPane() {
+    JPanel createFilterPane() {
         JPanel panel = new JPanel()
         JCheckBox showSummary = new JCheckBox("Combine selected orders")
-        showSummary.setSelected(false)
+        showSummary.selected = false
         showSummary.addActionListener({ e ->
-            multiSelection = showSummary.isSelected()
+            multiSelection = showSummary.selected
             updateSelection()
         })
         panel.add(showSummary)
         panel
     }
 
-    private void updateSelection() {
+    void updateSelection() {
         MealOrder mealOrder
         if(multiSelection) {
-            ArrayList<MealOrder> selectedObjects = overviewTable.getSelectedObjects()
+            ArrayList<MealOrder> selectedObjects = overviewTable.selectedObjects
             mealOrder = MealOrders.mergeOrders(selectedObjects)
         } else {
-            mealOrder = overviewTable.getSelectedObject()
+            mealOrder = overviewTable.selectedObject
         }
         detailsTableModel.setMealOrder(mealOrder)
         BigDecimal totalPrice = BigDecimal.ZERO.setScale(2)
@@ -99,13 +100,13 @@ class MealOrdersOverviewPanel extends JPanel {
     }
 
     void fireOrderAdded(Accounting accounting, MealOrder mealOrder) {
-        MealOrders mealOrders = accounting.getMealOrders()
+        MealOrders mealOrders = accounting.mealOrders
         overviewTableModel.setMealOrders(mealOrders)
         overviewTableModel.fireTableDataChanged()
         selectOrder(mealOrder)
     }
 
-    private void selectOrder(MealOrder mealOrder) {
+    void selectOrder(MealOrder mealOrder) {
         int row = overviewTableModel.getRow(mealOrder)
         overviewTable.setRowSelectionInterval(row, row)
         Rectangle cellRect = overviewTable.getCellRect(row, 0, false)

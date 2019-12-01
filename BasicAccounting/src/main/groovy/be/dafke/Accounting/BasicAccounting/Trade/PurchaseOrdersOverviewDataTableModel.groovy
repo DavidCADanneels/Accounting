@@ -19,57 +19,41 @@ class PurchaseOrdersOverviewDataTableModel extends OrdersOverviewDataTableModel<
     // DE GET METHODEN
 // ===============
     Object getValueAt(int row, int col) {
-        if (purchaseOrders == null) null
+        if (purchaseOrders == null) return null
         PurchaseOrder purchaseOrder = getObject(row, col)
-        if(purchaseOrder == null) null
-
-        if (col == CONTACT_COL) {
-            purchaseOrder.getSupplier()
-        }
-        if (col == PRICE_TOTAL_EXCL_COL) {
-            purchaseOrder.getTotalPurchasePriceExclVat()
-        }
-        if (col == VAT_AMOUNT_COL) {
-            purchaseOrder.getTotalPurchaseVat()
-        }
-        if (col == PRICE_TOTAL_INCL_COL) {
-            purchaseOrder.getTotalPurchasePriceInclVat()
-        }
-        if (col == ORDER_NR_COL) {
-            purchaseOrder.getName()
-        }
-        if (col == DATE_COL) {
-            purchaseOrder.getDeliveryDate()
-        }
+        if(purchaseOrder == null) return null
+        if (col == CONTACT_COL) return purchaseOrder.supplier
+        if (col == PRICE_TOTAL_EXCL_COL) return purchaseOrder.totalPurchasePriceExclVat
+        if (col == VAT_AMOUNT_COL) return purchaseOrder.totalPurchaseVat
+        if (col == PRICE_TOTAL_INCL_COL) return purchaseOrder.totalPurchasePriceInclVat
+        if (col == ORDER_NR_COL) return purchaseOrder.name
+        if (col == DATE_COL) return purchaseOrder.deliveryDate
         null
     }
 
     @Override
     int getRowCount() {
-        if(purchaseOrders == null) 0
-        List<PurchaseOrder> businessObjects = purchaseOrders.getBusinessObjects()
-        if(businessObjects == null || businessObjects.size() == 0) 0
-        businessObjects.size()
+        purchaseOrders?purchaseOrders.businessObjects.size():0
     }
 
     @Override
     PurchaseOrder getObject(int row, int col) {
-        List<PurchaseOrder> purchaseOrders = this.purchaseOrders.getBusinessObjects()
-        if(purchaseOrders == null || purchaseOrders.size() == 0) null
+        List<PurchaseOrder> purchaseOrders = this.purchaseOrders.businessObjects
+        if(purchaseOrders == null || purchaseOrders.size() == 0) return null
         purchaseOrders.get(row)
     }
 
     int getRow(PurchaseOrder order) {
-        if(purchaseOrders == null) -1
-        ArrayList<PurchaseOrder> businessObjects = purchaseOrders.getBusinessObjects()
+        if(purchaseOrders == null) return -1
+        ArrayList<PurchaseOrder> businessObjects = purchaseOrders.businessObjects
         for(int row=0;row<businessObjects.size();row++){
-            if(getObject(row,0)==order) row
+            if(getObject(row,0)==order) return row
         }
         -1
     }
 
     void setAccounting(Accounting accounting) {
-        purchaseOrders = accounting.getPurchaseOrders()
+        purchaseOrders = accounting.purchaseOrders
         fireTableDataChanged()
     }
 }

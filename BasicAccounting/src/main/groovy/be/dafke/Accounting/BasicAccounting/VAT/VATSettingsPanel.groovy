@@ -12,9 +12,9 @@ import javax.swing.JPanel
 import java.awt.GridLayout
 
 class VATSettingsPanel extends JPanel {
-    private Accounting accounting
-    private final JComboBox<Account> debitAccountSelection, creditAccountSelection, debitCnAccountSelection, creditCnAccountSelection
-    private final DefaultComboBoxModel<Account> debitAccountModel, creditAccountModel, debitCnAccountModel, creditCnAccountModel
+    Accounting accounting
+    final JComboBox<Account> debitAccountSelection, creditAccountSelection, debitCnAccountSelection, creditCnAccountSelection
+    final DefaultComboBoxModel<Account> debitAccountModel, creditAccountModel, debitCnAccountModel, creditCnAccountModel
 
     VATSettingsPanel(Accounting accounting) {
         this.accounting = accounting
@@ -22,7 +22,7 @@ class VATSettingsPanel extends JPanel {
         creditAccountModel = new DefaultComboBoxModel<>()
         debitCnAccountModel = new DefaultComboBoxModel<>()
         creditCnAccountModel = new DefaultComboBoxModel<>()
-        accounting.getAccounts().getBusinessObjects().forEach({ account ->
+        accounting.accounts.businessObjects.forEach({ account ->
             debitAccountModel.addElement(account)
             creditAccountModel.addElement(account)
             debitCnAccountModel.addElement(account)
@@ -34,7 +34,7 @@ class VATSettingsPanel extends JPanel {
         debitCnAccountSelection = new JComboBox<>(debitCnAccountModel)
         creditCnAccountSelection = new JComboBox<>(creditCnAccountModel)
 
-        VATTransactions vatTransactions = accounting.getVatTransactions()
+        VATTransactions vatTransactions = accounting.vatTransactions
         Account debitAccount = vatTransactions.getDebitAccount()
         Account creditAccount = vatTransactions.getCreditAccount()
         Account debitCNAccount = vatTransactions.getDebitCNAccount()
@@ -42,19 +42,19 @@ class VATSettingsPanel extends JPanel {
 
         debitAccountSelection.setSelectedItem(debitAccount)
         debitAccountSelection.addActionListener({ e -> updateSelectedDebitAccount() })
-        debitAccountSelection.setEnabled(accounting.isVatAccounting())
+        debitAccountSelection.enabled = accounting.vatAccounting
 
         creditAccountSelection.setSelectedItem(creditAccount)
         creditAccountSelection.addActionListener({ e -> updateSelectedCreditAccount() })
-        creditAccountSelection.setEnabled(accounting.isVatAccounting())
+        creditAccountSelection.enabled = accounting.vatAccounting
 
         debitCnAccountSelection.setSelectedItem(debitCNAccount)
         debitCnAccountSelection.addActionListener({ e -> updateSelectedDebitCnAccount() })
-        debitCnAccountSelection.setEnabled(accounting.isVatAccounting())
+        debitCnAccountSelection.enabled = accounting.vatAccounting
 
         creditCnAccountSelection.setSelectedItem(creditCNAccount)
         creditCnAccountSelection.addActionListener({ e -> updateSelectedCreditCnAccount() })
-        creditCnAccountSelection.setEnabled(accounting.isVatAccounting())
+        creditCnAccountSelection.enabled = accounting.vatAccounting
 
         JPanel panel = new JPanel()
         panel.setLayout(new GridLayout(0, 2))
@@ -72,36 +72,36 @@ class VATSettingsPanel extends JPanel {
     }
 
     void updateSelectedDebitAccount() {
-        Account account = (Account) debitAccountSelection.getSelectedItem()
-        VATTransactions vatTransactions = accounting.getVatTransactions()
+        Account account = (Account) debitAccountSelection.selectedItem
+        VATTransactions vatTransactions = accounting.vatTransactions
         vatTransactions.setDebitAccount(account)
     }
 
     void updateSelectedCreditAccount() {
-        Account account = (Account) creditAccountSelection.getSelectedItem()
-        VATTransactions vatTransactions = accounting.getVatTransactions()
+        Account account = (Account) creditAccountSelection.selectedItem
+        VATTransactions vatTransactions = accounting.vatTransactions
         vatTransactions.setCreditAccount(account)
     }
 
     void updateSelectedDebitCnAccount() {
-        Account account = (Account) debitCnAccountSelection.getSelectedItem()
-        VATTransactions vatTransactions = accounting.getVatTransactions()
+        Account account = (Account) debitCnAccountSelection.selectedItem
+        VATTransactions vatTransactions = accounting.vatTransactions
         vatTransactions.setDebitCNAccount(account)
     }
 
     void updateSelectedCreditCnAccount() {
-        Account account = (Account) creditCnAccountSelection.getSelectedItem()
-        VATTransactions vatTransactions = accounting.getVatTransactions()
+        Account account = (Account) creditCnAccountSelection.selectedItem
+        VATTransactions vatTransactions = accounting.vatTransactions
         vatTransactions.setCreditCNAccount(account)
     }
 
     @Override
     void setEnabled(boolean enabled){
         super.setEnabled(enabled)
-        debitAccountSelection.setEnabled(enabled)
-        creditAccountSelection.setEnabled(enabled)
-        debitCnAccountSelection.setEnabled(enabled)
-        creditCnAccountSelection.setEnabled(enabled)
+        debitAccountSelection.enabled = enabled
+        creditAccountSelection.enabled = enabled
+        debitCnAccountSelection.enabled = enabled
+        creditCnAccountSelection.enabled = enabled
         if(!enabled){
             debitAccountSelection.setSelectedItem(null)
             creditAccountSelection.setSelectedItem(null)
@@ -121,16 +121,16 @@ class VATSettingsPanel extends JPanel {
         creditCnAccountModel.removeAllElements()
 
         if (copyFrom != null) {
-            VATTransactions vatTransactions = copyFrom.getVatTransactions()
+            VATTransactions vatTransactions = copyFrom.vatTransactions
 
             Account debitAccount = vatTransactions.getDebitAccount()
             Account creditAccount = vatTransactions.getCreditAccount()
             Account debitCNAccount = vatTransactions.getDebitCNAccount()
             Account creditCNAccount = vatTransactions.getCreditCNAccount()
 
-            Accounts accounts = accounting.getAccounts()
+            Accounts accounts = accounting.accounts
             if (accounts != null) {
-                accounts.getBusinessObjects().forEach({ account ->
+                accounts.businessObjects.forEach({ account ->
                     debitAccountModel.addElement(account)
                     creditAccountModel.addElement(account)
                     debitCnAccountModel.addElement(account)
@@ -139,7 +139,7 @@ class VATSettingsPanel extends JPanel {
             }
 
             if (debitAccount != null) {
-                Account account = accounts.getBusinessObject(debitAccount.getName())
+                Account account = accounts.getBusinessObject(debitAccount.name)
                 vatTransactions.setDebitAccount(account)
                 debitAccountSelection.setSelectedItem(account)
             } else {
@@ -148,7 +148,7 @@ class VATSettingsPanel extends JPanel {
             }
 
             if (creditAccount != null) {
-                Account account = accounts.getBusinessObject(creditAccount.getName())
+                Account account = accounts.getBusinessObject(creditAccount.name)
                 vatTransactions.setCreditAccount(account)
                 creditAccountSelection.setSelectedItem(account)
             } else {
@@ -157,7 +157,7 @@ class VATSettingsPanel extends JPanel {
             }
 
             if (debitCNAccount != null) {
-                Account account = accounts.getBusinessObject(debitCNAccount.getName())
+                Account account = accounts.getBusinessObject(debitCNAccount.name)
                 vatTransactions.setDebitCNAccount(account)
                 debitCnAccountSelection.setSelectedItem(account)
             } else {
@@ -166,7 +166,7 @@ class VATSettingsPanel extends JPanel {
             }
 
             if (creditCNAccount != null) {
-                Account account = accounts.getBusinessObject(creditCNAccount.getName())
+                Account account = accounts.getBusinessObject(creditCNAccount.name)
                 vatTransactions.setCreditCNAccount(account)
                 creditCnAccountSelection.setSelectedItem(account)
             } else {

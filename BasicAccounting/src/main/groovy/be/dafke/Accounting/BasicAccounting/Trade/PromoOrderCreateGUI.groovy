@@ -9,12 +9,12 @@ import javax.swing.*
 import static java.util.ResourceBundle.getBundle
 
 class PromoOrderCreateGUI extends JFrame {
-    private final PromoOrderCreatePanel orderPanel
+    final PromoOrderCreatePanel orderPanel
 
-    private static PromoOrderCreateGUI salesOrderCreateGui = null
-//    private PromoOrder promoOrder
+    static PromoOrderCreateGUI salesOrderCreateGui = null
+//    PromoOrder promoOrder
 
-    private PromoOrderCreateGUI(Accounting accounting) {
+    PromoOrderCreateGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("CREATE_PR"))
         orderPanel = new PromoOrderCreatePanel(accounting)
         setContentPane(orderPanel)

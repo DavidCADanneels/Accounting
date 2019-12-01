@@ -7,11 +7,11 @@ enum PurchaseType {
     VAT_83 ("Investeringen (83)", "83")
 //    VAT_86 ("Intra-comm", "86")
 
-    private final String message
-    private VATField costField = null
-    private static VATField vatField = new VATField("59")
-    private static VATField intraComField = new VATField("86")
-    private static VATField intraComVatField = new VATField("55")
+    final String message
+    VATField costField = null
+    static VATField vatField = new VATField("59")
+    static VATField intraComField = new VATField("86")
+    static VATField intraComVatField = new VATField("55")
 
     PurchaseType(String message, String nr) {
         this.message = message

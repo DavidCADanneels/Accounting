@@ -6,36 +6,36 @@ import org.junit.Test
 import static org.junit.Assert.assertEquals
 
 class AlphabeticListModelTest {
-    private static final NamedObject AAP = new NamedObject("AAP")
-    private static final NamedObject AAP_DUPLICATE = new NamedObject("AAP")
-    private static final NamedObject AAP_TRIPLICATE = new NamedObject("AAP")
+    static final NamedObject AAP = new NamedObject("AAP")
+    static final NamedObject AAP_DUPLICATE = new NamedObject("AAP")
+    static final NamedObject AAP_TRIPLICATE = new NamedObject("AAP")
 
-    private static final NamedObject BEER = new NamedObject("BEER")
-    private static final NamedObject BEER_DUPLICATE = new NamedObject("BEER")
+    static final NamedObject BEER = new NamedObject("BEER")
+    static final NamedObject BEER_DUPLICATE = new NamedObject("BEER")
 
-    private static final NamedObject CLOWN = new NamedObject("CLOWN")
-    private static final NamedObject CLOWN_DUPLICATE = new NamedObject("CLOWN")
+    static final NamedObject CLOWN = new NamedObject("CLOWN")
+    static final NamedObject CLOWN_DUPLICATE = new NamedObject("CLOWN")
 
-    private AlphabeticListModel model
+    AlphabeticListModel model
 
     @Before
     void init(){
         model = new AlphabeticListModel()
     }
 
-    private void createNormalList(){
+    void createNormalList(){
         model.addElement(AAP)
         model.addElement(BEER)
         model.addElement(CLOWN)
     }
 
-    private void createReversedList(){
+    void createReversedList(){
         model.addElement(CLOWN)
         model.addElement(BEER)
         model.addElement(AAP)
     }
 
-    private void assertOrder(){
+    void assertOrder(){
         assertEquals(0, model.indexOf(AAP))
         assertEquals(1, model.indexOf(BEER))
         assertEquals(2, model.indexOf(CLOWN))
@@ -118,8 +118,8 @@ class AlphabeticListModelTest {
         // 4 - 3 - 2 - 1
     }
 
-    private static class NamedObject {
-        private String name
+    static class NamedObject {
+        String name
 
         NamedObject(String name) {
             this.name = name

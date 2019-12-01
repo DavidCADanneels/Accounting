@@ -12,71 +12,71 @@ import java.awt.*
 import static java.util.ResourceBundle.getBundle
 
 class NewJournalPanel extends JPanel {
-    private JTextField name, abbr
-    private JComboBox<JournalType> type
-    private Journals journals
-    private Journal journal
+    JTextField nameField, abbr
+    JComboBox<JournalType> type
+    Journals journals
+    Journal journal
 
     NewJournalPanel(Accounts accounts, Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
         this.journals = journals
 
         setLayout(new GridLayout(0,2))
         add(new JLabel(getBundle("Accounting").getString("NAME_LABEL")))
-        name = new JTextField(20)
-        add(name)
+        nameField = new JTextField(20)
+        add(nameField)
         add(new JLabel(getBundle("Accounting").getString("ABBR_LABEL")))
         abbr = new JTextField(6)
         add(abbr)
         add(new JLabel(getBundle("Accounting").getString("TYPE_LABEL")))
         type = new JComboBox<>()
         DefaultComboBoxModel<JournalType> model = new DefaultComboBoxModel<>()
-        for(JournalType accountType : journalTypes.getBusinessObjects()){
+        for(JournalType accountType : journalTypes.businessObjects){
             model.addElement(accountType)
         }
         type.setModel(model)
         add(type)
-        JButton add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_JOURNAL"))
-        add.addActionListener({ e -> saveJournal() })
-        add(add)
+        JButton addButton = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_JOURNAL"))
+        addButton.addActionListener({ e -> saveJournal() })
+        add(addButton)
         JButton newType = new JButton(getBundle("Accounting").getString("MANAGE_JOURNAL_TYPES"))
         newType.addActionListener({ e ->
             Point locationOnScreen = getLocationOnScreen()
             JournalTypeManagementGUI journalTypeManagementGUI = JournalTypeManagementGUI.getInstance(accounts, journalTypes, accountTypes)
             journalTypeManagementGUI.setLocation(locationOnScreen)
-            journalTypeManagementGUI.setVisible(true)
+            journalTypeManagementGUI.visible = true
         })
         add(newType)
     }
 
     void setJournal(Journal journal){
         this.journal = journal
-        name.setText(journal.getName())
-        abbr.setText(journal.getAbbreviation())
-        type.setSelectedItem(journal.getType())
+        nameField.setText(journal.name)
+        abbr.setText(journal.abbreviation)
+        type.setSelectedItem(journal.type)
     }
 
-    private void saveJournal() {
-        String newName = name.getText().trim()
+    void saveJournal() {
+        String newName = nameField.getText().trim()
         String newAbbreviation = abbr.getText().trim()
-        if(!newName.isEmpty() && newAbbreviation.isEmpty() && newName.length() > 2) {
+        if(!newName.empty && newAbbreviation.empty && newName.length() > 2) {
             newAbbreviation = newName.substring(0, 3).toUpperCase()
             abbr.setText(newAbbreviation)
         }
-        JournalType journalType = (JournalType)type.getSelectedItem()
+        JournalType journalType = (JournalType)type.selectedItem
         try{
             if(journal==null) {
                 journal = new Journal(newName, newAbbreviation)
-                journal.setType(journalType)
+                journal.type = journalType
                 journals.addBusinessObject(journal)
                 Main.fireJournalAdded(journals)
                 clearFields()
                 journal=null
             } else {
-                String oldName = journal.getName()
-                String oldAbbreviation = journal.getAbbreviation()
+                String oldName = journal.name
+                String oldAbbreviation = journal.abbreviation
                 journals.modifyName(oldName, newName)
                 journals.modifyJournalAbbreviation(oldAbbreviation, newAbbreviation)
-                journal.setType(journalType)
+                journal.type = journalType
                 Main.fireJournalDataChanged(journal)
             }
             Main.fireJournalTypeChanges(journal, journalType)
@@ -88,8 +88,8 @@ class NewJournalPanel extends JPanel {
 
     }
 
-    private void clearFields() {
-        name.setText("")
+    void clearFields() {
+        nameField.setText("")
         abbr.setText("")
     }
 }

@@ -6,15 +6,15 @@ class CounterParty extends BusinessObject {
     /**
      *
      */
-    private final HashMap<String, BankAccount> accounts
-    private final ArrayList<BankAccount> accountsList
-    private ArrayList<String> addressLines
-    private ArrayList<String> aliases
+    final HashMap<String, BankAccount> accounts
+    final ArrayList<BankAccount> accountsList
+    ArrayList<String> addressLines
+    ArrayList<String> aliases
 
-    private Account account
-    private boolean mergeable = true
+    Account account
+    boolean mergeable = true
 
-    // private final ArrayList<Account> debetAccounts, creditAccounts
+    // final ArrayList<Account> debetAccounts, creditAccounts
 
     CounterParty() {
         accounts = new HashMap<String, BankAccount>()

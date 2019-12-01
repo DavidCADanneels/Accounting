@@ -7,11 +7,11 @@ import be.dafke.Accounting.ObjectModel.Exceptions.NotEmptyException
 
 class IngredientOrder extends BusinessCollection<IngredientOrderItem> {
 
-    private Integer id
+    Integer id
 
     void addIngredientOrderToArticles() {
         getBusinessObjects().forEach({ orderItem ->
-            Article article = orderItem.getArticle()
+            Article article = orderItem.article
             if (article == null) {
                 System.err.println("article == null")
             } else {
@@ -29,7 +29,7 @@ class IngredientOrder extends BusinessCollection<IngredientOrderItem> {
     }
 
     void setIngredients(Ingredients ingredients){
-        ingredients.getBusinessObjects().forEach({ ingredient ->
+        ingredients.businessObjects.forEach({ ingredient ->
             try {
                 addBusinessObject(new IngredientOrderItem(BigDecimal.ZERO, ingredient, null))
             } catch (EmptyNameException | DuplicateNameException e) {
@@ -49,12 +49,12 @@ class IngredientOrder extends BusinessCollection<IngredientOrderItem> {
 
     void remove(IngredientOrderItem orderItem, boolean removeIfEmpty){
         Ingredient ingredient = orderItem.getIngredient()
-        orderItem.setName(ingredient.getName())
+        orderItem.setName(ingredient.name)
         try {
             super.removeBusinessObject(orderItem)
         } catch (NotEmptyException e1) {
             BigDecimal quantityToRemove = orderItem.getQuantity()
-            IngredientOrderItem itemInStock = getBusinessObject(ingredient.getName())
+            IngredientOrderItem itemInStock = getBusinessObject(ingredient.name)
             if (itemInStock != null) {
                 itemInStock.removeQuantity(quantityToRemove)
                 BigDecimal quantityLeft = itemInStock.getQuantity()

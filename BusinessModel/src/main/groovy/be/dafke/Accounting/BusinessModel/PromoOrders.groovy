@@ -7,14 +7,14 @@ import be.dafke.Utils.Utils
 
 class PromoOrders extends BusinessCollection<PromoOrder> {
 
-    private int id = 0
+    int id = 0
 
     PromoOrder addBusinessObject(PromoOrder order) throws EmptyNameException, DuplicateNameException {
         id++
-        if(order.getId()==null) {
-            order.setId(id)
+        if(order.id==null) {
+            order.id = id
         }
-        order.setName(Utils.toIDString("PR", order.getId(), 3))
+        order.setName(Utils.toIDString("PR", order.id, 3))
         order.addPromoOrderToArticles()
         super.addBusinessObject(order)
     }
@@ -22,12 +22,12 @@ class PromoOrders extends BusinessCollection<PromoOrder> {
     static PromoOrder mergeOrders(ArrayList<PromoOrder> ordersToAdd) {
         PromoOrder promoOrder = new PromoOrder()
         for (PromoOrder orderToAdd:ordersToAdd) {
-            ArrayList<OrderItem> orderItemsToAdd = orderToAdd.getBusinessObjects()
+            ArrayList<OrderItem> orderItemsToAdd = orderToAdd.businessObjects
             for (OrderItem orderitemToAdd : orderItemsToAdd) {
-                String name = orderitemToAdd.getName()
+                String name = orderitemToAdd.name
                 BigDecimal purchasePriceForItem = orderitemToAdd.getPurchasePriceForItem()
-                int numberOfItems = orderitemToAdd.getNumberOfItems()
-                Article article = orderitemToAdd.getArticle()
+                int numberOfItems = orderitemToAdd.numberOfItems
+                Article article = orderitemToAdd.article
                 OrderItem newItem = new OrderItem(numberOfItems, article, name+" @("+purchasePriceForItem+")", null)
                 newItem.setSalesPriceForItem(purchasePriceForItem)
                 promoOrder.addBusinessObject(newItem)

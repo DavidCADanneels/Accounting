@@ -16,10 +16,10 @@ import static be.dafke.Utils.Utils.parseInt
 
 class ArticlesIO {
     static void readArticles(Accounting accounting){
-        Articles articles = accounting.getArticles()
-        Contacts contacts = accounting.getContacts()
-        Ingredients ingredients = accounting.getIngredients()
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+ARTICLES + XML_EXTENSION)
+        Articles articles = accounting.articles
+        Contacts contacts = accounting.contacts
+        Ingredients ingredients = accounting.ingredients
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+ARTICLES + XML_EXTENSION)
         Element rootElement = getRootElement(xmlFile, ARTICLES)
         for (Element element : getChildren(rootElement, ARTICLE)) {
 
@@ -77,24 +77,24 @@ class ArticlesIO {
     }
 
     static void writeArticles(Accounting accounting) {
-        Articles articles = accounting.getArticles()
-        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + ARTICLES + XML_EXTENSION)
+        Articles articles = accounting.articles
+        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + ARTICLES + XML_EXTENSION)
         try {
             Writer writer = new FileWriter(file)
             writer.write(getXmlHeader(ARTICLES, 2))
-            for (Article article : articles.getBusinessObjects()) {
+            for (Article article : articles.businessObjects) {
                 Ingredient ingredient = article.getIngredient()
                 writer.write(
                         "  <" + ARTICLE + ">\n" +
-                                "    <" + NAME + ">" + article.getName() + "</" + NAME + ">\n" +
-                                "    <" + INGREDIENT + ">" + (ingredient==null?"null":ingredient.getName()) + "</" + INGREDIENT + ">\n" +
-                                "    <" + AMOUNT + ">" + article.getIngredientAmount() + "</" + AMOUNT + ">\n" +
-                                "    <" + ITEMS_PER_UNIT + ">" + article.getItemsPerUnit() + "</" + ITEMS_PER_UNIT + ">\n" +
+                                "    <" + NAME + ">" + article.name + "</" + NAME + ">\n" +
+                                "    <" + INGREDIENT + ">" + (ingredient==null?"null":ingredient.name) + "</" + INGREDIENT + ">\n" +
+                                "    <" + AMOUNT + ">" + article.ingredientAmount + "</" + AMOUNT + ">\n" +
+                                "    <" + ITEMS_PER_UNIT + ">" + article.itemsPerUnit + "</" + ITEMS_PER_UNIT + ">\n" +
                                 "    <" + ARTICLE_HS_CODE + ">" + article.getHSCode() + "</" + ARTICLE_HS_CODE + ">\n" +
-                                "    <" + PURCHASE_PRICE + ">" + article.getPurchasePrice() + "</" + PURCHASE_PRICE + ">\n" +
+                                "    <" + PURCHASE_PRICE + ">" + article.purchasePrice + "</" + PURCHASE_PRICE + ">\n" +
                                 "    <" + SALES_SINGLE_PRICE + ">" + article.getSalesPriceItemWithVat() + "</" + SALES_SINGLE_PRICE + ">\n" +
                                 "    <" + PURCHASE_VAT_RATE + ">" + article.getPurchaseVatRate() + "</" + PURCHASE_VAT_RATE + ">\n" +
-                                "    <" + SALES_VAT_RATE + ">" + article.getSalesVatRate() + "</" + SALES_VAT_RATE + ">\n" +
+                                "    <" + SALES_VAT_RATE + ">" + article.salesVatRate + "</" + SALES_VAT_RATE + ">\n" +
                                 "    <" + NR_IN_STOCK + ">" + article.getNrInStock() + "</" + NR_IN_STOCK + ">\n" +
                                 "    <" + NR_ADDED + ">" + article.getNrAdded() + "</" + NR_ADDED + ">\n" +
                                 "    <" + NR_REMOVED + ">" + article.getNrRemoved() + "</" + NR_REMOVED + ">\n" +
@@ -102,27 +102,27 @@ class ArticlesIO {
                                 "    <" + NR_PO_ORDERED + ">" + article.getNrOrderedByPO() + "</" + NR_PO_ORDERED + ">\n" +
                                 "    <" + NR_INIT_STOCK + ">" + article.getInitStock() + "</" + NR_INIT_STOCK + ">\n" +
                                 "    <" + NR_PROMO_REMOVED + ">" + article.getNrPromo() + "</" + NR_PROMO_REMOVED + ">\n" +
-                                "    <" + SUPPLIER + ">" + article.getSupplier() + "</" + SUPPLIER + ">\n"
+                                "    <" + SUPPLIER + ">" + article.supplier + "</" + SUPPLIER + ">\n"
                 )
-                ArrayList<PurchaseOrder> purchaseOrders = article.getPurchaseOrders()
+                ArrayList<PurchaseOrder> purchaseOrders = article.purchaseOrders
                 for(PurchaseOrder purchaseOrder:purchaseOrders) {
                     writer.write(
                             "    <" + PURCHASE_ORDER + ">" + purchaseOrder + "</" + PURCHASE_ORDER + ">\n"
                     )
                 }
-                ArrayList<SalesOrder> salesOrders = article.getSalesOrders()
+                ArrayList<SalesOrder> salesOrders = article.salesOrders
                 for(SalesOrder salesOrder:salesOrders){
                     writer.write(
                             "    <" + SALES_ORDER + ">" + salesOrder + "</" + SALES_ORDER + ">\n"
                     )
                 }
-                ArrayList<StockOrder> stockOrders = article.getStockOrders()
+                ArrayList<StockOrder> stockOrders = article.stockOrders
                 for(StockOrder stockOrder:stockOrders){
                     writer.write(
                             "    <" + STOCK_ORDER + ">" + stockOrder + "</" + STOCK_ORDER + ">\n"
                     )
                 }
-                ArrayList<PromoOrder> promoOrders = article.getPromoOrders()
+                ArrayList<PromoOrder> promoOrders = article.promoOrders
                 for(PromoOrder promoOrder:promoOrders){
                     writer.write(
                             "    <" + PROMO_ORDER + ">" + promoOrder + "</" + PROMO_ORDER + ">\n"
@@ -136,7 +136,7 @@ class ArticlesIO {
             writer.flush()
             writer.close()
         } catch (IOException ex) {
-            Logger.getLogger(Accounts.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(Accounts.class.name).log(Level.SEVERE, null, ex)
         }
     }
 }

@@ -14,20 +14,20 @@ import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
 
 class MortgagePanel extends JPanel implements ActionListener {
-    private final JList<Mortgage> mortgagesList
-    private final JButton create
-    private final JTextField nrPayed
-    private Mortgages mortgages
-    private Accounts accounts
-    private boolean init = true
-    private final JComboBox<Account> comboIntrest, comboCapital
-    private Mortgage selectedMortgage = null
-    private final MortgageDataModel model
-    private DefaultListModel<Mortgage> listModel
-    private DefaultComboBoxModel<Account> intrestModel, capitalModel
+    final JList<Mortgage> mortgagesList
+    final JButton create
+    final JTextField nrPayed
+    Mortgages mortgages
+    Accounts accounts
+    boolean init = true
+    final JComboBox<Account> comboIntrest, comboCapital
+    Mortgage selectedMortgage = null
+    final MortgageDataModel model
+    DefaultListModel<Mortgage> listModel
+    DefaultComboBoxModel<Account> intrestModel, capitalModel
 
-    private final JTable table
-    private final JButton save, delete
+    final JTable table
+    final JButton save, delete
 
     MortgagePanel(Mortgages mortgages, Accounts accounts) {
         this.mortgages = mortgages
@@ -35,7 +35,7 @@ class MortgagePanel extends JPanel implements ActionListener {
         mortgagesList = new JList<>()
         mortgagesList.setModel(new DefaultListModel<>())
         mortgagesList.addListSelectionListener({ e ->
-            if (!e.getValueIsAdjusting() && mortgagesList.getSelectedIndex() != -1) {
+            if (!e.getValueIsAdjusting() && mortgagesList.selectedIndex != -1) {
                 selectedMortgage = mortgagesList.getSelectedValue()
             } else {
                 selectedMortgage = null
@@ -46,7 +46,7 @@ class MortgagePanel extends JPanel implements ActionListener {
         create.addActionListener({ e ->
             MortgageCalculatorGUI mortgageCalculatorGUI = MortgageCalculatorGUI.showCalculator(mortgages)
             mortgageCalculatorGUI.setLocation(getLocationOnScreen())
-            mortgageCalculatorGUI.setVisible(true)
+            mortgageCalculatorGUI.visible = true
         })
 
         JPanel left = new JPanel(new BorderLayout())
@@ -73,7 +73,7 @@ class MortgagePanel extends JPanel implements ActionListener {
         delete.addActionListener(this)
 
         activateButtons(false)
-        save.setEnabled(false)
+        save.enabled = false
 
         JPanel accountsPanel = new JPanel()
         accountsPanel.setLayout(new GridLayout(2,0))
@@ -109,11 +109,11 @@ class MortgagePanel extends JPanel implements ActionListener {
 
     }
 
-    private void activateButtons(boolean active) {
-        comboCapital.setEnabled(active)
-        comboIntrest.setEnabled(active)
-        nrPayed.setEnabled(active)
-        delete.setEnabled(active)
+    void activateButtons(boolean active) {
+        comboCapital.enabled = active
+        comboIntrest.enabled = active
+        nrPayed.enabled = active
+        delete.enabled = active
         if (active) {
             save.setText("Save")
         } else {
@@ -145,12 +145,12 @@ class MortgagePanel extends JPanel implements ActionListener {
             }
         } else if (!init) {
             if (e.getSource() == comboIntrest) {
-                Account intrestAccount = (Account) comboIntrest.getSelectedItem()
+                Account intrestAccount = (Account) comboIntrest.selectedItem
                 if (selectedMortgage != null && intrestAccount != null) {
                     selectedMortgage.setIntrestAccount(intrestAccount)
                 }
             } else if (e.getSource() == comboCapital) {
-                Account capitalAccount = (Account) comboCapital.getSelectedItem()
+                Account capitalAccount = (Account) comboCapital.selectedItem
                 if (selectedMortgage != null && capitalAccount != null) {
                     selectedMortgage.setCapitalAccount(capitalAccount)
                 }
@@ -166,7 +166,7 @@ class MortgagePanel extends JPanel implements ActionListener {
 
     void refresh() {
         listModel = new DefaultListModel<>()
-        for(Mortgage mortgage :mortgages.getBusinessObjects()) {
+        for(Mortgage mortgage :mortgages.businessObjects) {
             if (!listModel.contains(mortgage)) {
                 listModel.addElement(mortgage)
             }
@@ -176,7 +176,7 @@ class MortgagePanel extends JPanel implements ActionListener {
 
         intrestModel = new DefaultComboBoxModel<>()
         capitalModel = new DefaultComboBoxModel<>()
-        for(Account account : accounts.getBusinessObjects()){
+        for(Account account : accounts.businessObjects){
             intrestModel.addElement(account)
             capitalModel.addElement(account)
         }
@@ -191,9 +191,9 @@ class MortgagePanel extends JPanel implements ActionListener {
             select()
         }
     }
-    private void select() {
+    void select() {
         init = true
-        save.setEnabled(selectedMortgage != null)
+        save.enabled = selectedMortgage != null
         nrPayed.setText(selectedMortgage==null?"":selectedMortgage.getNrPayed() + "")
         if (selectedMortgage == null) {
             activateButtons(false)

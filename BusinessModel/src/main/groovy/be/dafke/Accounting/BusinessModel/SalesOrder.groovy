@@ -5,15 +5,15 @@ import java.util.function.Predicate
 
 class SalesOrder extends Order {
 
-    private Transaction salesTransaction, gainTransaction
-    private String invoiceNumber = ""
-    private boolean invoice = false
-    private boolean promoOrder = false
+    Transaction salesTransaction, gainTransaction
+    String invoiceNumber = ""
+    boolean invoice = false
+    boolean promoOrder = false
 
     BigDecimal getTotalSalesPriceExclVat() {
         BigDecimal total = BigDecimal.ZERO.setScale(2)
         for (OrderItem orderItem : getBusinessObjects()) {
-            total = total.add(orderItem.getSalesPriceWithoutVat()).setScale(2, RoundingMode.HALF_DOWN)
+            total = total.add(orderItem.salesPriceWithoutVat).setScale(2, RoundingMode.HALF_DOWN)
         }
         total
     }
@@ -21,7 +21,7 @@ class SalesOrder extends Order {
     BigDecimal getTotalSalesPriceExclVat(Predicate<OrderItem> predicate) {
         BigDecimal totalSalesExcl = BigDecimal.ZERO.setScale(2)
         for (OrderItem orderItem : getBusinessObjects(predicate)) {
-            totalSalesExcl = totalSalesExcl.add(orderItem.getSalesPriceWithoutVat()).setScale(2, RoundingMode.HALF_DOWN)
+            totalSalesExcl = totalSalesExcl.add(orderItem.salesPriceWithoutVat).setScale(2, RoundingMode.HALF_DOWN)
         }
         totalSalesExcl
     }
@@ -29,7 +29,7 @@ class SalesOrder extends Order {
     BigDecimal getTotalSalesVat() {
         BigDecimal totalSalesVat = BigDecimal.ZERO.setScale(2)
         for (OrderItem orderItem : getBusinessObjects()) {
-            totalSalesVat = totalSalesVat.add(orderItem.getSalesVatAmount()).setScale(2, RoundingMode.HALF_DOWN)
+            totalSalesVat = totalSalesVat.add(orderItem.salesVatAmount).setScale(2, RoundingMode.HALF_DOWN)
         }
         totalSalesVat
     }
@@ -37,7 +37,7 @@ class SalesOrder extends Order {
     BigDecimal getTotalSalesVat(Predicate<OrderItem> predicate) {
         BigDecimal totalSalesExcl = BigDecimal.ZERO.setScale(2)
         for (OrderItem orderItem : getBusinessObjects(predicate)) {
-            totalSalesExcl = totalSalesExcl.add(orderItem.getSalesVatAmount()).setScale(2, RoundingMode.HALF_DOWN)
+            totalSalesExcl = totalSalesExcl.add(orderItem.salesVatAmount).setScale(2, RoundingMode.HALF_DOWN)
         }
         totalSalesExcl
     }
@@ -45,7 +45,7 @@ class SalesOrder extends Order {
     BigDecimal getTotalSalesPriceInclVat() {
         BigDecimal totalSalesExcl = BigDecimal.ZERO.setScale(2)
         for (OrderItem orderItem : getBusinessObjects()) {
-            totalSalesExcl = totalSalesExcl.add(orderItem.getSalesPriceWithVat()).setScale(2, RoundingMode.HALF_DOWN)
+            totalSalesExcl = totalSalesExcl.add(orderItem.salesPriceWithVat).setScale(2, RoundingMode.HALF_DOWN)
         }
         totalSalesExcl
     }
@@ -53,29 +53,24 @@ class SalesOrder extends Order {
     BigDecimal getTotalSalesPriceInclVat(Predicate<OrderItem> predicate) {
         BigDecimal totalSalesExcl = BigDecimal.ZERO.setScale(2)
         for (OrderItem orderItem : getBusinessObjects(predicate)) {
-            totalSalesExcl = totalSalesExcl.add(orderItem.getSalesPriceWithVat().setScale(2, RoundingMode.HALF_DOWN))
+            totalSalesExcl = totalSalesExcl.add(orderItem.salesPriceWithVat.setScale(2, RoundingMode.HALF_DOWN))
         }
         totalSalesExcl
     }
-
-    Transaction getSalesTransaction() {
-        salesTransaction
-    }
-
     void setSalesTransaction(Transaction salesTransaction) {
         this.salesTransaction = salesTransaction
 
-        if(!isCreditNote()) {
+        if(!creditNote) {
             getBusinessObjects().forEach({ orderItem ->
-                Article article = orderItem.getArticle()
-                int numberOfItems = orderItem.getNumberOfItems()
+                Article article = orderItem.article
+                int numberOfItems = orderItem.numberOfItems
                 // TODO: do not 'setSoOrdered' for PromoOrder
                 article.setSoOrdered(numberOfItems)
             })
         } else {
             getBusinessObjects().forEach({ orderItem ->
-                Article article = orderItem.getArticle()
-                int numberOfItems = orderItem.getNumberOfItems()
+                Article article = orderItem.article
+                int numberOfItems = orderItem.numberOfItems
                 article.setSoCnOrdered(numberOfItems)
             })
         }
@@ -87,43 +82,14 @@ class SalesOrder extends Order {
         salesTransaction==null
     }
 
-    Transaction getGainTransaction() {
-        gainTransaction
-    }
-
-    void setGainTransaction(Transaction gainTransaction) {
-        this.gainTransaction = gainTransaction
-    }
-
     BigDecimal calculateTotalSalesVat() {
-        getTotalSalesPriceInclVat().subtract(getTotalSalesPriceExclVat()).setScale(2, RoundingMode.HALF_DOWN)
-    }
-
-    String getInvoiceNumber() {
-        invoiceNumber
-    }
-
-    void setInvoiceNumber(String invoiceNumber) {
-        this.invoiceNumber = invoiceNumber
-    }
-
-    boolean isInvoice() {
-        invoice
-    }
-
-    void setInvoice(boolean invoice) {
-        this.invoice = invoice
+        totalSalesPriceInclVat.subtract(totalSalesPriceExclVat).setScale(2, RoundingMode.HALF_DOWN)
     }
 
     void addSalesOrderToArticles() {
         getBusinessObjects().forEach({ orderItem ->
-            Article article = orderItem.getArticle()
+            Article article = orderItem.article
             article.addSalesOrder(this)
         })
     }
-
-    boolean isPromoOrder() {
-        promoOrder
-    }
-
 }

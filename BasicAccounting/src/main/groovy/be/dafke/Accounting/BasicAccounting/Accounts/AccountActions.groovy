@@ -17,7 +17,7 @@ class AccountActions {
     static final String SELECT_TAX_DEBIT_CN_ACCOUNT = "Select VAT Account for Sales CN's"
 
     static void book(Account account, boolean debit, VATTransaction.VATType vatType, Accounting accounting, Component component){
-        Transaction transaction = Main.getTransaction()
+        Transaction transaction = Main.transaction
         BigDecimal amount = askAmount(account, debit, transaction, component)
         if (amount != null) {
             Booking booking = new Booking(account, amount, debit)
@@ -28,7 +28,7 @@ class AccountActions {
                 purchaseAny(booking, accounting, component)
             } else if (vatType == VATTransaction.VATType.CUSTOMER){
                 Contact contact = getContact(account, accounting, Contact.ContactType.CUSTOMERS, component)
-                transaction.setContact(contact)
+                transaction.contact = contact
             } else if (vatType == VATTransaction.VATType.SALE){
                 saleAny(transaction, booking, accounting, component)
             }
@@ -46,7 +46,7 @@ class AccountActions {
         } else if (debitTotal.compareTo(creditTotal) > 0 && !debit) {
             suggestedAmount = debitTotal.subtract(creditTotal)
         } else {
-            BigDecimal defaultAmount = account.getDefaultAmount()
+            BigDecimal defaultAmount = account.defaultAmount
             if (defaultAmount != null) {
                 suggestedAmount = defaultAmount
             }
@@ -62,10 +62,10 @@ class AccountActions {
             if(suggestedAmount!=null){
                 // TODO: add title ...
                 s = JOptionPane.showInputDialog(component, getBundle("BusinessActions").getString(
-                        "ENTER_AMOUNT")+ account.getName(), suggestedAmount.toString())
+                        "ENTER_AMOUNT")+ account.name, suggestedAmount.toString())
             } else {
                 s = JOptionPane.showInputDialog(component, getBundle("BusinessActions").getString(
-                        "ENTER_AMOUNT")+ account.getName())
+                        "ENTER_AMOUNT")+ account.name)
             }
             if (s == null || s.equals("")) {
                 ok = true
@@ -84,7 +84,7 @@ class AccountActions {
     }
 
     static Integer getPercentage(Accounting accounting, Component component){
-        VATTransactions vatTransactions = accounting.getVatTransactions()
+        VATTransactions vatTransactions = accounting.vatTransactions
         Integer[] percentages = vatTransactions.getVatPercentages()
         int nr = JOptionPane.showOptionDialog(component, "BTW %", "BTW %",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, percentages, null)
@@ -109,19 +109,19 @@ class AccountActions {
 
     // PURCHASE
     static void addPurchaseVatTransaction(Booking booking, PurchaseType purchaseType){
-        BigDecimal amount = booking.getAmount()
+        BigDecimal amount = booking.amount
         VATBooking costBooking = purchaseType.getCostBooking(amount)
         booking.addVatBooking(costBooking)
     }
 
     static void addPurchaseVatVatTransaction(Booking booking){
-        BigDecimal amount = booking.getAmount()
+        BigDecimal amount = booking.amount
         VATBooking vatBooking = PurchaseType.getVatBooking(amount)
         booking.addVatBooking(vatBooking)
     }
 
     static void addPurchaseCnVatTransaction(Booking booking, PurchaseType purchaseType){
-        BigDecimal amount = booking.getAmount()
+        BigDecimal amount = booking.amount
 
         VATBooking costBooking = purchaseType.getCostBooking(amount.negate())
         booking.addVatBooking(costBooking)
@@ -147,7 +147,7 @@ class AccountActions {
 
 
     static void addIntraComPurchaseVatBooking(Booking booking){
-        BigDecimal amount = booking.getAmount()
+        BigDecimal amount = booking.amount
         VATBooking intraComBooking = PurchaseType.getIntraComBooking(amount)
         booking.addVatBooking(intraComBooking)
     }
@@ -161,8 +161,8 @@ class AccountActions {
     }
 
     static void purchaseAny(Booking booking, Accounting accounting, Component component){
-        BigDecimal amount = booking.getAmount()
-        boolean debit = booking.isDebit()
+        BigDecimal amount = booking.amount
+        boolean debit = booking.debit
         if(debit) {
             // Ordinary Purchase
             PurchaseType purchaseType = askPurchaseType(component)
@@ -223,7 +223,7 @@ class AccountActions {
     }
 
     static void saleAny(Transaction transaction, Booking booking, Accounting accounting, Component component) {
-        boolean debit = booking.isDebit()
+        boolean debit = booking.debit
         BigDecimal vatAmount = BigDecimal.ZERO.setScale(2)
         if (!debit){
             // Ordinary Sale
@@ -234,7 +234,7 @@ class AccountActions {
                 Integer pct = salesType.getPct()
                 if (pct != null && pct != 0) {
                     Account vatAccount = getVatDebitAccount(accounting)
-                    BigDecimal amount = booking.getAmount()
+                    BigDecimal amount = booking.amount
                     BigDecimal suggestedAmount = getTaxOnNet(amount, pct)
 
                     vatAmount = askAmount(vatAccount, suggestedAmount, component)
@@ -259,15 +259,15 @@ class AccountActions {
         }
 
         if (debit){
-            BigDecimal amount = booking.getAmount()
-            transaction.setTurnOverAmount(amount.negate())
+            BigDecimal amount = booking.amount
+            transaction.turnOverAmount = amount.negate()
             if(vatAmount!=null)
-                transaction.setVATAmount(vatAmount.negate())
+                transaction.VATAmount = vatAmount.negate()
         } else {
-            BigDecimal amount = booking.getAmount()
-            transaction.setTurnOverAmount(amount)
+            BigDecimal amount = booking.amount
+            transaction.turnOverAmount = amount
             if(vatAmount!=null)
-                transaction.setVATAmount(vatAmount)
+                transaction.VATAmount = vatAmount
         }
     }
 
@@ -287,19 +287,19 @@ class AccountActions {
     }
 
     static void addSalesVatTransaction(Booking booking, SalesType salesType){
-        BigDecimal amount = booking.getAmount()
+        BigDecimal amount = booking.amount
         VATBooking revenueBooking = salesType.getRevenueBooking(amount)
         booking.addVatBooking(revenueBooking)
     }
 
     static void addSalesVatVatTransaction(Booking booking){
-        BigDecimal amount = booking.getAmount()
+        BigDecimal amount = booking.amount
         VATBooking vatBooking = SalesType.getVatBooking(amount)
         booking.addVatBooking(vatBooking)
     }
 
     static void addSalesCnVatTransaction(Booking booking){
-        BigDecimal amount = booking.getAmount()
+        BigDecimal amount = booking.amount
         VATBooking cnRevenueBooking = SalesCNType.VAT_49.getSalesCnRevenueBooking(amount)
         booking.addVatBooking(cnRevenueBooking)
     }
@@ -307,26 +307,26 @@ class AccountActions {
     // Get Accounts
 
     static ArrayList<AccountType> getTaxDebitAccounts(Accounting accounting){
-        AccountType accountType = accounting.getAccountTypes().getBusinessObject(AccountTypes.TAXDEBIT)
+        AccountType accountType = accounting.accountTypes.getBusinessObject(AccountTypes.TAXDEBIT)
         ArrayList<AccountType> list = new ArrayList<>()
         list.add(accountType)
         list
     }
 
     static ArrayList<AccountType> getTaxCreditAccounts(Accounting accounting){
-        AccountType accountType = accounting.getAccountTypes().getBusinessObject(AccountTypes.TAXCREDIT)
+        AccountType accountType = accounting.accountTypes.getBusinessObject(AccountTypes.TAXCREDIT)
         ArrayList<AccountType> list = new ArrayList<>()
         list.add(accountType)
         list
     }
 
     static Account getVatDebitAccount(Accounting accounting){
-        VATTransactions vatTransactions = accounting.getVatTransactions()
+        VATTransactions vatTransactions = accounting.vatTransactions
         Account debitAccount = vatTransactions.getDebitAccount()
         if (debitAccount == null){
             ArrayList<AccountType> list = getTaxDebitAccounts(accounting)
-            AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.getAccounts(), list, SELECT_TAX_DEBIT_ACCOUNT)
-            dialog.setVisible(true)
+            AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.accounts, list, SELECT_TAX_DEBIT_ACCOUNT)
+            dialog.visible = true
             debitAccount = dialog.getSelection()
             vatTransactions.setDebitAccount(debitAccount)
         }
@@ -334,25 +334,25 @@ class AccountActions {
     }
 
     static Account getVatCreditAccount(Accounting accounting){
-        VATTransactions vatTransactions = accounting.getVatTransactions()
+        VATTransactions vatTransactions = accounting.vatTransactions
         Account creditAccount = vatTransactions.getCreditAccount()
         if (creditAccount == null){
             ArrayList<AccountType> list = getTaxCreditAccounts(accounting)
-            AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.getAccounts(), list, SELECT_TAX_CREDIT_ACCOUNT)
-            dialog.setVisible(true)
+            AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.accounts, list, SELECT_TAX_CREDIT_ACCOUNT)
+            dialog.visible = true
             creditAccount = dialog.getSelection()
             vatTransactions.setCreditAccount(creditAccount)
         }
         creditAccount
     }
 
-    private static Account getDebitCNAccount(Accounting accounting){
-        VATTransactions vatTransactions = accounting.getVatTransactions()
+    static Account getDebitCNAccount(Accounting accounting){
+        VATTransactions vatTransactions = accounting.vatTransactions
         Account debitCNAccount = vatTransactions.getDebitCNAccount()
         if(debitCNAccount==null){
             ArrayList<AccountType> list = getTaxDebitAccounts(accounting)
-            AccountSelectorDialog accountSelectorDialog = AccountSelectorDialog.getAccountSelector(accounting.getAccounts(), list, SELECT_TAX_DEBIT_CN_ACCOUNT)
-            accountSelectorDialog.setVisible(true)
+            AccountSelectorDialog accountSelectorDialog = AccountSelectorDialog.getAccountSelector(accounting.accounts, list, SELECT_TAX_DEBIT_CN_ACCOUNT)
+            accountSelectorDialog.visible = true
             debitCNAccount = accountSelectorDialog.getSelection()
             vatTransactions.setDebitCNAccount(debitCNAccount)
         }
@@ -360,12 +360,12 @@ class AccountActions {
     }
 
     static Account getVatCreditCNAccount(Accounting accounting){
-        VATTransactions vatTransactions = accounting.getVatTransactions()
+        VATTransactions vatTransactions = accounting.vatTransactions
         Account creditCNAccount = vatTransactions.getCreditCNAccount()
         if(creditCNAccount==null){
             ArrayList<AccountType> list = getTaxCreditAccounts(accounting)
-            AccountSelectorDialog accountSelectorDialog = AccountSelectorDialog.getAccountSelector(accounting.getAccounts(), list, SELECT_TAX_CREDIT_CN_ACCOUNT)
-            accountSelectorDialog.setVisible(true)
+            AccountSelectorDialog accountSelectorDialog = AccountSelectorDialog.getAccountSelector(accounting.accounts, list, SELECT_TAX_CREDIT_CN_ACCOUNT)
+            accountSelectorDialog.visible = true
             creditCNAccount = accountSelectorDialog.getSelection()
             vatTransactions.setCreditCNAccount(creditCNAccount)
         }
@@ -373,16 +373,16 @@ class AccountActions {
     }
 
     static Contact getContact(Account account, Accounting accounting, Contact.ContactType contactType, Component component){
-        Contact contact = account.getContact()
+        Contact contact = account.contact
         if(contact!=null){
             contact
         } else {
             ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(accounting, contactType)
             contactSelectorDialog.setLocation(component.getLocationOnScreen())
-            contactSelectorDialog.setVisible(true)
+            contactSelectorDialog.visible = true
             contact = contactSelectorDialog.getSelection()
             // TODO: null check needed here?
-            account.setContact(contact)
+            account.contact = contact
             contact
         }
     }

@@ -14,7 +14,7 @@ import java.awt.*
 import static java.util.ResourceBundle.getBundle
 
 class AllergenesEditPanel extends JPanel {
-    private final AllergenesDataTableModel allergenesDataTableModel
+    final AllergenesDataTableModel allergenesDataTableModel
 
     AllergenesEditPanel(Allergenes allergenes) {
         allergenesDataTableModel = new AllergenesDataTableModel()
@@ -27,9 +27,9 @@ class AllergenesEditPanel extends JPanel {
         setLayout(new BorderLayout())
         add(scrollPane, BorderLayout.CENTER)
 
-        JButton add = new JButton("Add Allergene")
-        add(add, BorderLayout.NORTH)
-        add.addActionListener({ e ->
+        JButton addButton = new JButton("Add Allergene")
+        add(addButton, BorderLayout.NORTH)
+        addButton.addActionListener({ e ->
             String name = JOptionPane.showInputDialog(this, getBundle("Accounting").getString("NAME_LABEL"))
             while (name != null && name.equals(""))
                 name = JOptionPane.showInputDialog(this, getBundle("Accounting").getString("NAME_LABEL"))

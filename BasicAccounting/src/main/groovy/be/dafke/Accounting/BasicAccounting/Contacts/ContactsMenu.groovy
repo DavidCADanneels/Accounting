@@ -8,10 +8,10 @@ import javax.swing.*
 import static java.util.ResourceBundle.getBundle
 
 class ContactsMenu extends JMenu {
-    private JMenuItem suppliers, customers, all
+    JMenuItem suppliers, customers, all
 
-    private Accounting accounting
-//    private Contacts contacts
+    Accounting accounting
+//    Contacts contacts
 
     ContactsMenu() {
         super(getBundle("Contacts").getString("CONTACTS"))
@@ -20,25 +20,25 @@ class ContactsMenu extends JMenu {
         suppliers.addActionListener({ e ->
             ContactsGUI contactsGUI = ContactsGUI.showSuppliers(accounting)
             contactsGUI.setLocation(getLocationOnScreen())
-            contactsGUI.setVisible(true)
+            contactsGUI.visible = true
         })
-        suppliers.setEnabled(false)
+        suppliers.enabled = false
 
         customers = new JMenuItem(getBundle("Contacts").getString("CUSTOMERS"))
         customers.addActionListener({ e ->
             ContactsGUI contactsGUI = ContactsGUI.showCustomers(accounting)
             contactsGUI.setLocation(getLocationOnScreen())
-            contactsGUI.setVisible(true)
+            contactsGUI.visible = true
         })
-        customers.setEnabled(false)
+        customers.enabled = false
 
         all = new JMenuItem(getBundle("Contacts").getString("ALL"))
         all.addActionListener({ e ->
             ContactsGUI contactsGUI = ContactsGUI.showContacts(accounting)
             contactsGUI.setLocation(getLocationOnScreen())
-            contactsGUI.setVisible(true)
+            contactsGUI.visible = true
         })
-        all.setEnabled(false)
+        all.enabled = false
 
         add(customers)
         add(suppliers)
@@ -47,13 +47,13 @@ class ContactsMenu extends JMenu {
 
     void setAccounting(Accounting accounting) {
         this.accounting = accounting
-        setContacts(accounting==null?null:accounting.getContacts())
+        setContacts(accounting?accounting.contacts:null)
     }
 
     void setContacts(Contacts contacts){
 //        this.contacts = contacts
-        suppliers.setEnabled(contacts!=null)
-        customers.setEnabled(contacts!=null)
-        all.setEnabled(contacts!=null)
+        suppliers.enabled = contacts!=null
+        customers.enabled = contacts!=null
+        all.enabled = contacts!=null
     }
 }

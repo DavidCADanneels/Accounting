@@ -7,22 +7,22 @@ import be.dafke.Accounting.BusinessModel.Accounts
 import javax.swing.*
 
 class AccountSelectorPanel extends JPanel {
-    private Account account
-    private JComboBox<Account> combo
-    private DefaultComboBoxModel<Account> model
-    private Accounts accounts
-    private ArrayList<AccountType> accountTypes
+    Account account
+    JComboBox<Account> combo
+    DefaultComboBoxModel<Account> model
+    Accounts accounts
+    ArrayList<AccountType> accountTypes
 
     AccountSelectorPanel(Accounts accounts, ArrayList<AccountType> accountTypes) {
         this.accountTypes = accountTypes
         model = new DefaultComboBoxModel<>()
         combo = new JComboBox<>(model)
-        combo.addActionListener({ e -> account = (Account) combo.getSelectedItem() })
+        combo.addActionListener({ e -> account = (Account) combo.selectedItem })
         JButton create = new JButton("Add account(s) ...")
         create.addActionListener({ e ->
             NewAccountDialog newAccountDialog = new NewAccountDialog(accounts, accountTypes)
             newAccountDialog.setLocation(getLocationOnScreen())
-            newAccountDialog.setVisible(true)
+            newAccountDialog.visible = true
         })
         add(combo)
         add(create)

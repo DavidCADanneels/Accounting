@@ -10,15 +10,15 @@ import java.awt.Color
 import java.awt.GridLayout
 
 class AccountsListConfigPanel extends JPanel {
-    private final ButtonConfigPanel buttonConfigPanel
-    private JRadioButton byType, singleAccount
-    private AccountsListSingleAccountSelectorPanel accountSelectorPanel
-    private JPanel north
-    private AccountsList accountsList
-    private JTextField taxType
+    final ButtonConfigPanel buttonConfigPanel
+    JRadioButton byType, singleAccount
+    AccountsListSingleAccountSelectorPanel accountSelectorPanel
+    JPanel north
+    AccountsList accountsList
+    JTextField taxType
 
-    private AccountsListAccountTypesFilterPanel accountTypesFilterPanel
-//    private Journal journal
+    AccountsListAccountTypesFilterPanel accountTypesFilterPanel
+//    Journal journal
 
     AccountsListConfigPanel(Accounts accounts, AccountTypes accountTypes, boolean left) {
         setLayout(new BorderLayout())
@@ -62,18 +62,18 @@ class AccountsListConfigPanel extends JPanel {
     }
 
     void refresh(){
-        boolean singleAccountSelected = singleAccount.isSelected()
-        accountsList.setSingleAccount(singleAccountSelected)
-        accountSelectorPanel.setEnabled(singleAccountSelected)
+        boolean singleAccountSelected = singleAccount.selected
+        accountsList.setSingleAccount singleAccountSelected
+        accountSelectorPanel.enabled = singleAccountSelected
         accountSelectorPanel.refresh()
 
-        boolean byTypeSelected = byType.isSelected()
-        accountTypesFilterPanel.setEnabled(byTypeSelected)
+        boolean byTypeSelected = byType.selected
+        accountTypesFilterPanel.enabled = byTypeSelected
         accountTypesFilterPanel.refresh()
     }
 
     void setJournalType(JournalType journalType) {
-        accountTypesFilterPanel.setJournalType(journalType)
+        accountTypesFilterPanel.journalType = journalType
     }
 
     void setVatType(VATTransaction.VATType vatType){

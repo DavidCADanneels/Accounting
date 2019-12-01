@@ -11,9 +11,9 @@ import java.awt.*
 
 class TestBalancePanel extends JPanel{
 
-    private final JPopupMenu popup
-    private SelectableTable<Account> tabel
-    private TestBalanceDataModel testBalanceDataModel
+    final JPopupMenu popup
+    SelectableTable<Account> tabel
+    TestBalanceDataModel testBalanceDataModel
 
     TestBalancePanel(Accounting accounting, Accounts accounts) {
         setLayout(new BorderLayout())

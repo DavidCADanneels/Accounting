@@ -7,11 +7,11 @@ enum SalesType {
     VAT_3 ("21% BTW", "3", 21),
     VAT_46 ("Intra-comm", "46", 0)
 
-    private final String message
-    private final VATField revenueField
+    final String message
+    final VATField revenueField
     // TODO: fetch from vatFields iso new Field
-    private static final VATField vatField = new VATField("54")
-    private final Integer pct
+    static final VATField vatField = new VATField("54")
+    final Integer pct
 
     SalesType(String message, String nr, Integer pct) {
         this.message = message

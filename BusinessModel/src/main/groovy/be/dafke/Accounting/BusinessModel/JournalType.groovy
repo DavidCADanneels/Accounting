@@ -3,16 +3,16 @@ package be.dafke.Accounting.BusinessModel
 import be.dafke.Accounting.ObjectModel.BusinessObject
 
 class JournalType extends BusinessObject {
-    private VATTransaction.VATType vatType = null
-    private AccountsList left, right
+    VATTransaction.VATType vatType = null
+    AccountsList left, right
 
     JournalType(JournalType journalType){
-        this(journalType.getName())
+        this(journalType.name)
         vatType = journalType.getVatType()
-        for(AccountType accountType:journalType.left.getAccountTypes()){
+        for(AccountType accountType:journalType.left.accountTypes){
             left.setTypeAvailable(accountType, Boolean.TRUE)
         }
-        for(AccountType accountType:journalType.right.getAccountTypes()){
+        for(AccountType accountType:journalType.right.accountTypes){
             right.setTypeAvailable(accountType, Boolean.TRUE)
         }
     }

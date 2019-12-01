@@ -10,9 +10,9 @@ import javax.swing.*
 import static java.util.ResourceBundle.getBundle
 
 class BalancesManagementGUI extends JFrame {
-    private static final HashMap<Balances, BalancesManagementGUI> balancesManagementGuis = new HashMap<>()
+    static final HashMap<Balances, BalancesManagementGUI> balancesManagementGuis = new HashMap<>()
 
-    private BalancesManagementGUI(Balances balances, Accounts accounts, AccountTypes accountTypes) {
+    BalancesManagementGUI(Balances balances, Accounts accounts, AccountTypes accountTypes) {
         super(getBundle("Accounting").getString("BALANCE_MANAGEMENT_TITLE"))
         setContentPane(new BalancesManagementPanel(balances, accounts, accountTypes))
         pack()

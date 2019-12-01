@@ -15,9 +15,9 @@ import static be.dafke.Utils.Utils.parseBigDecimal
 
 class MealsIO {
     static void readMeals(Accounting accounting){
-        Meals meals = accounting.getMeals()
-        Ingredients ingredients = accounting.getIngredients()
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+MEALS + XML_EXTENSION)
+        Meals meals = accounting.meals
+        Ingredients ingredients = accounting.ingredients
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+MEALS + XML_EXTENSION)
         Element rootElement = getRootElement(xmlFile, MEALS)
         for (Element mealElement : getChildren(rootElement, MEAL)) {
 
@@ -70,7 +70,7 @@ class MealsIO {
     }
 
     static String calculatePdfPath(Accounting accounting){
-        ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/MealsWithAllergenes" + PDF_EXTENSION
+        ACCOUNTINGS_XML_FOLDER + accounting.name + "/MealsWithAllergenes" + PDF_EXTENSION
     }
 
     static void writeMeals(Accounting accounting) {
@@ -78,40 +78,40 @@ class MealsIO {
     }
 
     static String writeMeals(Accounting accounting, boolean details) {
-        Meals meals = accounting.getMeals()
+        Meals meals = accounting.meals
         String filename = details?"MealDetails":MEALS
-        String path = ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + filename + XML_EXTENSION
+        String path = ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + filename + XML_EXTENSION
         File file = new File(path)
         try {
             Writer writer = new FileWriter(file)
             writer.write(getXmlHeader(MEALS, 2))
-            for (Meal meal : meals.getBusinessObjects()) {
+            for (Meal meal : meals.businessObjects) {
                 writer.write(
                         "  <" + MEAL + ">\n" +
-                                "    <" + MEAL_NR + ">" + meal.getName() + "</" + MEAL_NR + ">\n" +
+                                "    <" + MEAL_NR + ">" + meal.name + "</" + MEAL_NR + ">\n" +
                                 "    <" + MEAL_NAME + ">" + meal.getMealName() + "</" + MEAL_NAME + ">\n" +
                                 "    <" + PRICE + ">" + meal.getSalesPrice() + "</" + PRICE + ">\n" +
-                                "    <" + DESCRIPTION + ">" + meal.getDescription() + "</" + DESCRIPTION + ">\n" +
+                                "    <" + DESCRIPTION + ">" + meal.description + "</" + DESCRIPTION + ">\n" +
                                 "    <" + MEAL_RECIPE + ">\n"
                 )
                 Recipe recipe = meal.getRecipe()
-                for(RecipeLine line:recipe.getBusinessObjects()){
+                for(RecipeLine line:recipe.businessObjects){
                     Ingredient ingredient = line.getIngredient()
                     writer.write(
                             "      <" + MEAL_RECIPE_LINE + ">\n" +
-                                    "        <" + NAME + ">" + ingredient.getName() + "</" + NAME + ">\n" +
+                                    "        <" + NAME + ">" + ingredient.name + "</" + NAME + ">\n" +
 //                            "      <" + AMOUNT + ">" + line.getInstructions() + "</" + AMOUNT + ">\n" +
 //                            "      <" + AMOUNT + ">" + line.getPreparation() + "</" + AMOUNT + ">\n" +
-                                    "        <" + AMOUNT + ">" + line.getAmount() + "</" + AMOUNT + ">\n"
+                                    "        <" + AMOUNT + ">" + line.amount + "</" + AMOUNT + ">\n"
                     )
                     if(details){
-                        Allergenes allergenes = ingredient.getAllergenes()
-                        for (Allergene allergene:allergenes.getBusinessObjects()) {
+                        Allergenes allergenes = ingredient.allergenes
+                        for (Allergene allergene:allergenes.businessObjects) {
                             writer.write(
                                     "        <" + ALLERGENE + ">\n" +
-                                            "          <" + ID + ">" + allergene.getName() + "</" + ID + ">\n" +
-                                            "          <" + NAME + ">" + allergene.getShortName() + "</" + NAME + ">\n" +
-                                            "          <" + DESCRIPTION + ">" + allergene.getDescription() + "</" + DESCRIPTION + ">\n" +
+                                            "          <" + ID + ">" + allergene.name + "</" + ID + ">\n" +
+                                            "          <" + NAME + ">" + allergene.shortName + "</" + NAME + ">\n" +
+                                            "          <" + DESCRIPTION + ">" + allergene.description + "</" + DESCRIPTION + ">\n" +
                                             "        </" + ALLERGENE + ">\n"
                             )
                         }
@@ -128,7 +128,7 @@ class MealsIO {
             writer.flush()
             writer.close()
         } catch (IOException ex) {
-            Logger.getLogger(Meal.class.getName()).log(Level.SEVERE, null, ex)
+            Logger.getLogger(Meal.class.name).log(Level.SEVERE, null, ex)
         } finally {
             path
         }

@@ -10,7 +10,7 @@ user-->>JournalInputGUI:book
 JournalInputGUI->>JournalInputGUI:transaction=saveTransaction()
 JournalInputGUI->>JournalInputGUI:journal.addTransaction(transaction)
 JournalInputGUI->>Main:journal.fireJournalDataChanged
-JournalInputGUI->>JournalInputGUI:clear:\ntransaction = new Transaction()\ntransaction.setJournal(journal)
+JournalInputGUI->>JournalInputGUI:clear:\ntransaction = new Transaction()\ntransaction.journal = journal
 JournalInputGUI->>Main:setTransaction
 group Main.setTransaction()
 Main-->>JournalInputGUI

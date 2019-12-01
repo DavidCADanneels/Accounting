@@ -19,16 +19,16 @@ class MealOrderCreatePanel extends JPanel {
     static final int FOOD_SALES_PERCENTAGE = 6
     static final int DELIVERY_PROFIT_PERCENTAGE = 27
     static final int DELIVERY_SERVICE_PERCENTAGE = 21
-    private JTextField price
-    private JButton book
-    private DeliveryTotalsPanel totalsPanel
-    private DateAndDescriptionPanel dateAndDescriptionPanel
-    private Transaction transaction
-    private Accounting accounting
+    JTextField price
+    JButton book
+    DeliveryTotalsPanel totalsPanel
+    DateAndDescriptionPanel dateAndDescriptionPanel
+    Transaction transaction
+    Accounting accounting
 
-    private JTable table
-    private MealOrderCreateDataTableModel tableModel
-    private MealOrder mealOrder
+    JTable table
+    MealOrderCreateDataTableModel tableModel
+    MealOrder mealOrder
 
     MealOrderCreatePanel(Accounting accounting) {
         this.accounting = accounting
@@ -47,22 +47,22 @@ class MealOrderCreatePanel extends JPanel {
         clear()
     }
 
-    private void clear() {
+    void clear() {
         totalsPanel.clear()
         price.setText("")
-        Calendar date = transaction.getDate()
+        Calendar date = transaction.date
         transaction = new Transaction(date, "")
         dateAndDescriptionPanel.setTransaction(transaction)
         dateAndDescriptionPanel.fireTransactionDataChanged()
 
-        book.setEnabled(false)
+        book.enabled = false
 
         mealOrder = new MealOrder()
-        mealOrder.setMeals(accounting.getMeals())
+        mealOrder.meals = accounting.meals
         tableModel.setMealOrder(mealOrder)
     }
 
-    private JPanel createTopPanel(){
+    JPanel createTopPanel(){
         dateAndDescriptionPanel = new DateAndDescriptionPanel()
         dateAndDescriptionPanel.addDescriptionFocusListener(new FocusAdapter() {
             @Override
@@ -75,8 +75,8 @@ class MealOrderCreatePanel extends JPanel {
 
         book = new JButton("Book")
         book.addActionListener({ e ->
-            Calendar date = dateAndDescriptionPanel.getDate()
-            String description = dateAndDescriptionPanel.getDescription()
+            Calendar date = dateAndDescriptionPanel.date
+            String description = dateAndDescriptionPanel.description
             mealOrder.setDate(date)
             mealOrder.setDescription(description)
             addHistory()
@@ -84,7 +84,7 @@ class MealOrderCreatePanel extends JPanel {
             clear()
         })
         price = new JTextField(10)
-        price.setEnabled(false)
+        price.enabled = false
 //        price.addFocusListener(new FocusAdapter() {
 //            @Override
 //            void focusLost(FocusEvent e) {
@@ -102,9 +102,9 @@ class MealOrderCreatePanel extends JPanel {
         panel
     }
 
-    private void addHistory() {
+    void addHistory() {
         mealOrder.removeEmptyOrderItems()
-        MealOrders mealOrders = accounting.getMealOrders()
+        MealOrders mealOrders = accounting.mealOrders
         try {
             mealOrders.addBusinessObject(mealOrder)
         } catch (EmptyNameException | DuplicateNameException e) {
@@ -114,48 +114,48 @@ class MealOrderCreatePanel extends JPanel {
         Main.fireMealCountUpdated(accounting)
     }
 
-    private void book() {
+    void book() {
         //  MealOrder
         //
-        MealOrders mealOrders = accounting.getMealOrders()
+        MealOrders mealOrders = accounting.mealOrders
         Journal salesJournal = mealOrders.getMealOrderSalesJournal()
         Journal serviceJournal = mealOrders.getMealOrderServiceJournal()
         Account mealOrderBalanceAccount = mealOrders.getMealOrderBalanceAccount()
         Account mealOrderServiceAccount = mealOrders.getMealOrderServiceAccount()
         Account mealOrderRevenueAccount = mealOrders.getMealOrderRevenueAccount()
         if(salesJournal==null){
-            JournalSelectorDialog journalSelectorDialog = new JournalSelectorDialog(accounting.getJournals())
-            journalSelectorDialog.setVisible(true)
+            JournalSelectorDialog journalSelectorDialog = new JournalSelectorDialog(accounting.journals)
+            journalSelectorDialog.visible = true
             salesJournal = journalSelectorDialog.getSelection()
             mealOrders.setMealOrderSalesJournal(salesJournal)
         }
         if(serviceJournal==null){
-            JournalSelectorDialog journalSelectorDialog = new JournalSelectorDialog(accounting.getJournals())
-            journalSelectorDialog.setVisible(true)
+            JournalSelectorDialog journalSelectorDialog = new JournalSelectorDialog(accounting.journals)
+            journalSelectorDialog.visible = true
             serviceJournal = journalSelectorDialog.getSelection()
             mealOrders.setMealOrderServiceJournal(serviceJournal)
         }
         if(mealOrderBalanceAccount==null){
-            Accounts accounts = accounting.getAccounts()
-            ArrayList<AccountType> accountTypes = accounting.getAccountTypes().getBusinessObjects()
+            Accounts accounts = accounting.accounts
+            ArrayList<AccountType> accountTypes = accounting.accountTypes.businessObjects
             AccountSelectorDialog accountSelectorDialog = AccountSelectorDialog.getAccountSelector(accounts, accountTypes, "select Meal Order Balance Account")
-            accountSelectorDialog.setVisible(true)
+            accountSelectorDialog.visible = true
             mealOrderBalanceAccount = accountSelectorDialog.getSelection()
             mealOrders.setMealOrderBalanceAccount(mealOrderBalanceAccount)
         }
         if(mealOrderServiceAccount==null){
-            Accounts accounts = accounting.getAccounts()
-            ArrayList<AccountType> accountTypes = accounting.getAccountTypes().getBusinessObjects()
+            Accounts accounts = accounting.accounts
+            ArrayList<AccountType> accountTypes = accounting.accountTypes.businessObjects
             AccountSelectorDialog accountSelectorDialog = AccountSelectorDialog.getAccountSelector(accounts, accountTypes, "select Meal Order Service Account")
-            accountSelectorDialog.setVisible(true)
+            accountSelectorDialog.visible = true
             mealOrderServiceAccount = accountSelectorDialog.getSelection()
             mealOrders.setMealOrderServiceAccount(mealOrderServiceAccount)
         }
         if(mealOrderRevenueAccount==null){
-            Accounts accounts = accounting.getAccounts()
-            ArrayList<AccountType> accountTypes = accounting.getAccountTypes().getBusinessObjects()
+            Accounts accounts = accounting.accounts
+            ArrayList<AccountType> accountTypes = accounting.accountTypes.businessObjects
             AccountSelectorDialog accountSelectorDialog = AccountSelectorDialog.getAccountSelector(accounts, accountTypes, "select Meal Order Revenue Account")
-            accountSelectorDialog.setVisible(true)
+            accountSelectorDialog.visible = true
             mealOrderRevenueAccount = accountSelectorDialog.getSelection()
             mealOrders.setMealOrderRevenueAccount(mealOrderRevenueAccount)
         }
@@ -163,39 +163,39 @@ class MealOrderCreatePanel extends JPanel {
         // VAT
         //
         Booking customerBooking = new Booking(mealOrderBalanceAccount, totalsPanel.getSalesAmountInclVat(), true)
-        Booking salesVatBooking = AccountActions.createSalesVatBooking(accounting, totalsPanel.getSalesAmountVat())
+        Booking salesVatBooking = AccountActions.createSalesVatBooking accounting, totalsPanel.getSalesAmountVat()
         Booking salesRevenueBooking = new Booking(mealOrderRevenueAccount, totalsPanel.getSalesAmountExclVat(), false)
-        AccountActions.addSalesVatTransaction(salesRevenueBooking, SalesType.VAT_1)
+        AccountActions.addSalesVatTransaction salesRevenueBooking, SalesType.VAT_1
 
-        transaction.setJournal(salesJournal)
-        Calendar date = transaction.getDate()
-        String description = dateAndDescriptionPanel.getDescription()
+        transaction.journal = salesJournal
+        Calendar date = transaction.date
+        String description = dateAndDescriptionPanel.description
 
-        transaction.addBusinessObject(customerBooking)
-        transaction.addBusinessObject(salesRevenueBooking)
-        transaction.addBusinessObject(salesVatBooking)
+        transaction.addBusinessObject customerBooking
+        transaction.addBusinessObject salesRevenueBooking
+        transaction.addBusinessObject salesVatBooking
 
-        Transactions transactions = accounting.getTransactions()
+        Transactions transactions = accounting.transactions
         transactions.setId(transaction)
-        transactions.addBusinessObject(transaction)
-        salesJournal.addBusinessObject(transaction)
+        transactions.addBusinessObject transaction
+        salesJournal.addBusinessObject transaction
 
 
         Booking serviceBooking = new Booking(mealOrderServiceAccount, totalsPanel.getServiceAmountExclVat(), true)
-        AccountActions.addPurchaseVatTransaction(serviceBooking, PurchaseType.VAT_82)
-        Booking serviceVatBooking = AccountActions.createPurchaseVatBooking(accounting, totalsPanel.getServiceAmountVat())
+        AccountActions.addPurchaseVatTransaction serviceBooking, PurchaseType.VAT_82
+        Booking serviceVatBooking = AccountActions.createPurchaseVatBooking accounting, totalsPanel.getServiceAmountVat()
         Booking debtsBooking = new Booking(mealOrderBalanceAccount, totalsPanel.getServiceAmountInclVat(), false)
 
         Transaction serviceTransaction = new Transaction(date, description)
-        serviceTransaction.setJournal(serviceJournal)
+        serviceTransaction.journal = serviceJournal
 
-        serviceTransaction.addBusinessObject(serviceBooking)
-        serviceTransaction.addBusinessObject(serviceVatBooking)
-        serviceTransaction.addBusinessObject(debtsBooking)
+        serviceTransaction.addBusinessObject serviceBooking
+        serviceTransaction.addBusinessObject serviceVatBooking
+        serviceTransaction.addBusinessObject debtsBooking
 
         transactions.setId(serviceTransaction)
-        transactions.addBusinessObject(serviceTransaction)
-        serviceJournal.addBusinessObject(serviceTransaction)
+        transactions.addBusinessObject serviceTransaction
+        serviceJournal.addBusinessObject serviceTransaction
     }
 
     void calculateTotals() {
@@ -204,14 +204,14 @@ class MealOrderCreatePanel extends JPanel {
         totalsPanel.calculateTotals()
         BigDecimal salesAmountInclVat = totalsPanel.getSalesAmountInclVat()
         salesAmountInclVat = salesAmountInclVat.setScale(2,BigDecimal.ROUND_HALF_DOWN)
-        price.setText(salesAmountInclVat.toString())
+        price.text = salesAmountInclVat.toString()
         enableButtonIfPossible()
     }
 
     void enableButtonIfPossible(){
         String text = price.getText()
         BigDecimal salesAmountInclVat = Utils.parseBigDecimal(text)
-        String description = dateAndDescriptionPanel.getDescription()
-        book.setEnabled(salesAmountInclVat !=null && salesAmountInclVat.compareTo(BigDecimal.ZERO)>0 && !description.isEmpty())
+        String description = dateAndDescriptionPanel.description
+        book.enabled = salesAmountInclVat !=null && salesAmountInclVat.compareTo(BigDecimal.ZERO)>0 && !description.empty
     }
 }

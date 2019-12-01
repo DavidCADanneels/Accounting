@@ -8,9 +8,9 @@ import java.awt.event.KeyEvent
 import static java.util.ResourceBundle.getBundle
 
 class AccountsTableButtons extends JPanel {
-    private JButton leftButton, rightButton, accountDetails
-    private boolean leftAction = true
-    private boolean rightAction = false
+    JButton leftButton, rightButton, accountDetails
+    boolean leftAction = true
+    boolean rightAction = false
 
     AccountsTableButtons(AccountsTablePanel accountsGUI, boolean left) {
         leftButton = new JButton()
@@ -31,9 +31,9 @@ class AccountsTableButtons extends JPanel {
         leftButton.setText(getBundle("Accounting").getString("DEBIT_ACTION"))
         rightButton.setText(getBundle("Accounting").getString("CREDIT_ACTION"))
 
-        leftButton.setEnabled(false)
-        rightButton.setEnabled(false)
-        accountDetails.setEnabled(false)
+        leftButton.enabled = false
+        rightButton.enabled = false
+        accountDetails.enabled = false
 
         add(leftButton)
         add(rightButton)
@@ -41,9 +41,9 @@ class AccountsTableButtons extends JPanel {
     }
 
     void setActive(boolean active){
-        accountDetails.setEnabled(active)
-        leftButton.setEnabled(active)
-        rightButton.setEnabled(active)
+        accountDetails.enabled = active
+        leftButton.enabled = active
+        rightButton.enabled = active
     }
 
     void setAccountsList(AccountsList accountsList) {

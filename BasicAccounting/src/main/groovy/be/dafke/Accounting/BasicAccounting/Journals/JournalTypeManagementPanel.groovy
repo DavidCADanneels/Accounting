@@ -17,15 +17,15 @@ import static java.awt.BorderLayout.NORTH
 import static java.util.ResourceBundle.getBundle
 
 class JournalTypeManagementPanel extends JPanel implements ActionListener {
-    private JComboBox<JournalType> combo
-    private JournalTypes journalTypes
-    private JournalType journalType
-    private Accounts accounts
-    private AccountTypes accountTypes
-    private JComboBox<VATTransaction.VATType> taxType
-    //	private JPanel left, right
-    private AccountsListConfigPanel accountsListConfigPanelLeft, accountsListConfigPanelRight
-//	private AccountsListConfigPanel left, right
+    JComboBox<JournalType> combo
+    JournalTypes journalTypes
+    JournalType journalType
+    Accounts accounts
+    AccountTypes accountTypes
+    JComboBox<VATTransaction.VATType> taxType
+    //	JPanel left, right
+    AccountsListConfigPanel accountsListConfigPanelLeft, accountsListConfigPanelRight
+//	AccountsListConfigPanel left, right
 
 
     JournalTypeManagementPanel(Accounts accounts, JournalTypes journalTypes, AccountTypes accountTypes) {
@@ -40,7 +40,7 @@ class JournalTypeManagementPanel extends JPanel implements ActionListener {
 //		comboAction()
     }
 
-    private JPanel createSavePanel() {
+    JPanel createSavePanel() {
         JPanel panel = new JPanel()
         panel.setLayout(new GridLayout(2,0))
         JButton newType = new JButton(getBundle("Accounting").getString("NEW_JOURNAL_TYPE"))
@@ -74,13 +74,13 @@ class JournalTypeManagementPanel extends JPanel implements ActionListener {
     void setJournalTypes(JournalTypes journalTypes){
         this.journalTypes = journalTypes
         combo.removeAllItems()
-        for(JournalType type : journalTypes.getBusinessObjects()){
+        for(JournalType type : journalTypes.businessObjects){
             ((DefaultComboBoxModel<JournalType>) combo.getModel()).addElement(type)
         }
     }
 
-    private void switchVatType(){
-        VATTransaction.VATType vatType = (VATTransaction.VATType) taxType.getSelectedItem()
+    void switchVatType(){
+        VATTransaction.VATType vatType = (VATTransaction.VATType) taxType.selectedItem
         journalType.setVatType(vatType)
         VATTransaction.VATType vatTypeLeft = JournalType.calculateLeftVatType(vatType)
         VATTransaction.VATType vatTypeRight = JournalType.calculateRightVatType(vatType)
@@ -90,8 +90,8 @@ class JournalTypeManagementPanel extends JPanel implements ActionListener {
         accountsListConfigPanelRight.setVatType(vatTypeRight)
     }
 
-    private void comboAction() {
-        journalType = (JournalType) combo.getSelectedItem()
+    void comboAction() {
+        journalType = (JournalType) combo.selectedItem
         taxType.removeActionListener(this)
         taxType.setSelectedItem(journalType.getVatType())
         taxType.addActionListener(this)
