@@ -1,4 +1,4 @@
-package be.dafke.Accounting.AccountingUI
+package be.dafke.Accounting.BasicAccounting.MainApplication
 
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountDetails.AccountDetailsGUI
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountManagement.AccountManagementGUI
@@ -14,18 +14,12 @@ import be.dafke.Accounting.BasicAccounting.Contacts.ContactsGUI
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactsMenu
 import be.dafke.Accounting.BusinessModel.*
 import be.dafke.Accounting.BasicAccounting.Journals.*
-import be.dafke.Accounting.BasicAccounting.MainApplication.AccountingGUIFrame
-import be.dafke.Accounting.BasicAccounting.MainApplication.AccountingMenu
-import be.dafke.Accounting.BasicAccounting.MainApplication.PopupForTableActivator
 import be.dafke.Accounting.BasicAccounting.Meals.*
 import be.dafke.Accounting.BasicAccounting.Mortgages.MortgagesMenu
 import be.dafke.Accounting.BasicAccounting.Mortgages.MortgageGUI
 import be.dafke.Accounting.BasicAccounting.Mortgages.MortgagesPanel
 import be.dafke.Accounting.BasicAccounting.Projects.ProjectsMenu
-import be.dafke.Accounting.BasicAccounting.Trade.ArticlesGUI
-import be.dafke.Accounting.BasicAccounting.Trade.PurchaseOrderCreateGUI
-import be.dafke.Accounting.BasicAccounting.Trade.SalesOrderCreateGUI
-import be.dafke.Accounting.BasicAccounting.Trade.TradeMenu
+import be.dafke.Accounting.BasicAccounting.Trade.*
 import be.dafke.Accounting.BasicAccounting.VAT.VATFieldsGUI
 import be.dafke.Accounting.BasicAccounting.VAT.VATMenu
 import be.dafke.BusinessModelDao.*
@@ -41,7 +35,6 @@ class Main {
     private static final ArrayList<JFrame> disposableComponents = new ArrayList<>()
 
     protected static Accountings accountings
-//    private static Session session
     private static JournalViewPanel journalViewPanel
     private static JournalSelectorPanel journalSelectorPanel
     private static JournalEditPanel journalEditPanel
@@ -98,8 +91,8 @@ class Main {
             @Override
             void windowClosing(WindowEvent e) {
                 PopupForTableActivator.closeAllPopups()
-                closeAllFrames()
-                saveData(false)
+                Main.closeAllFrames()
+                Main.saveData(false)
             }
         })
     }
@@ -125,7 +118,7 @@ class Main {
         accountingMultiPanel.add(accountGuiRight, BorderLayout.EAST)
         accountingMultiPanel.add(centerPanel, BorderLayout.CENTER)
         accountingMultiPanel.add(links, BorderLayout.WEST)
-        return accountingMultiPanel
+        accountingMultiPanel
     }
 
     static JSplitPane createSplitPane(JComponent panel1, JComponent panel2, int orientation) {
@@ -137,7 +130,7 @@ class Main {
             splitPane.add(panel1, LEFT)
             splitPane.add(panel2, RIGHT)
         }
-        return splitPane
+        splitPane
     }
 
     private static void createMenu() {
@@ -169,7 +162,7 @@ class Main {
     }
 
     private static void launchFrame() {
-        addFrame(frame) // MAIN
+        Main.addFrame(frame) // MAIN
         frame.pack()
         frame.setVisible(true)
     }
@@ -311,7 +304,7 @@ class Main {
     }
 
     static Transaction getTransaction(){
-        return journalEditPanel.getTransaction()
+        journalEditPanel.getTransaction()
     }
 
     static void addBooking(Booking booking){
