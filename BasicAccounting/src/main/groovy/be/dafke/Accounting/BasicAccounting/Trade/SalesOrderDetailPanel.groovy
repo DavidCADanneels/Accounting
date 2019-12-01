@@ -286,7 +286,7 @@ class SalesOrderDetailPanel extends JPanel {
 
         boolean isCreditNote = salesOrder!=null&& salesOrder.isCreditNote()
         boolean isPromoOrder = salesOrder!=null&& salesOrder.isPromoOrder()
-        boolean editable = salesOrder != null // && salesOrder.isEditable()
+        boolean editable = salesOrder != null && salesOrder.isEditable()
 
         placed.setSelected(salesTransaction!=null)
         delivered.setSelected(orderDelivered)
