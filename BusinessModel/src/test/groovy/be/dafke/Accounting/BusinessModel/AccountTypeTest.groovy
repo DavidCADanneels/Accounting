@@ -1,6 +1,7 @@
 package be.dafke.Accounting.BusinessModel
 
 import be.dafke.Accounting.ObjectModel.BusinessObject
+import org.junit.Ignore
 import org.junit.Test
 
 import java.util.stream.Collectors
@@ -27,7 +28,7 @@ class AccountTypeTest {
         assertEquals(8, businessObjects.size())
     }
 
-
+    @Ignore
     @Test
     void accountTypesNames() {
         AccountTypes accountTypes = new AccountTypes()

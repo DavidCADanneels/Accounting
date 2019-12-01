@@ -15,12 +15,12 @@ class Utils {
                 int dag = Integer.parseInt(delen[0])
                 int maand = Integer.parseInt(delen[1]) - 1
                 int jaar = Integer.parseInt(delen[2])
-                new GregorianCalendar(jaar, maand, dag)
+                return new GregorianCalendar(jaar, maand, dag)
             } catch (NumberFormatException nfe) {
-                null
+                return null
             }
         }
-        null
+        return null
     }
 
     /**
@@ -136,13 +136,12 @@ class Utils {
 
     static String toString(ArrayList<String> stringList){
         if(stringList.size()==0){
-            ""
+            return ""
         }
         StringBuilder builder = new StringBuilder(stringList.get(0))
-        for(int i=1;i<stringList.size();i++){
+        for(int i=1; i<stringList.size(); i++){
             builder.append(" | ").append(stringList.get(i))
         }
         builder.toString()
-
     }
 }
