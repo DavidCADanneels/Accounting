@@ -3,7 +3,7 @@ package be.dafke.Accounting.BasicAccounting.Journals
 import be.dafke.Accounting.BasicAccounting.Balances.BalanceGUI
 import be.dafke.Accounting.BasicAccounting.VAT.VATFieldsGUI
 import be.dafke.Accounting.BusinessModel.*
-import be.dafke.BusinessModelDao.Session
+import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.ComponentModel.SelectableTable
 
 import javax.swing.*

@@ -4,7 +4,7 @@ import be.dafke.Accounting.BasicAccounting.Accounts.AccountDetails.AccountDetail
 import be.dafke.Accounting.BasicAccounting.Balances.BalanceGUI
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.*
-import be.dafke.BusinessModelDao.Session
+import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.ComponentModel.SelectableTable
 
 import javax.swing.*

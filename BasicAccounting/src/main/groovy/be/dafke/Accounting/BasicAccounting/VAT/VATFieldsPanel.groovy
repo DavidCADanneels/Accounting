@@ -3,7 +3,7 @@ package be.dafke.Accounting.BasicAccounting.VAT
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactsPanel
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.*
-import be.dafke.BusinessModelDao.VATWriter
+import be.dafke.Accounting.BusinessModelDao.VATWriter
 
 import javax.swing.*
 import javax.swing.border.LineBorder
@@ -12,7 +12,7 @@ import javax.swing.filechooser.FileNameExtensionFilter
 import java.awt.*
 import java.util.List
 
-import static be.dafke.BusinessModelDao.VATWriter.Period.QUARTER
+import static be.dafke.Accounting.BusinessModelDao.VATWriter.Period.QUARTER
 import static javax.swing.BoxLayout.Y_AXIS
 
 class VATFieldsPanel extends JPanel {

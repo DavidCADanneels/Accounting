@@ -1,7 +1,7 @@
 package be.dafke.Accounting.BasicAccounting.Balances
 
 import be.dafke.Accounting.BusinessModel.*
-import be.dafke.BusinessModelDao.BalancesIO
+import be.dafke.Accounting.BusinessModelDao.BalancesIO
 
 import javax.swing.*
 

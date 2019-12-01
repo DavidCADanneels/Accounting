@@ -3,7 +3,6 @@ package be.dafke.Accounting.BasicAccounting.Meals
 import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Allergenes
 import be.dafke.Accounting.BusinessModel.Ingredients
-import be.dafke.BusinessModelDao.MealsIO
 
 import javax.swing.*
 import java.awt.event.KeyEvent

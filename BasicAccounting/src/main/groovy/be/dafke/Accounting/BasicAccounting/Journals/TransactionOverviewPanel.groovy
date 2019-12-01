@@ -8,8 +8,8 @@ import be.dafke.Accounting.BusinessModel.Journal
 import be.dafke.Accounting.BusinessModel.Journals
 import be.dafke.Accounting.BusinessModel.Transaction
 import be.dafke.Accounting.BusinessModel.VATBooking
-import be.dafke.BusinessModelDao.AccountingSession
-import be.dafke.BusinessModelDao.Session
+import be.dafke.Accounting.BusinessModelDao.AccountingSession
+import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.ComponentModel.SelectableTable
 
 import javax.swing.DefaultListSelectionModel

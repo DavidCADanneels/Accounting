@@ -6,7 +6,7 @@ import be.dafke.Accounting.BusinessModel.AccountTypes
 import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Accounts
 import be.dafke.Accounting.BusinessModel.Journals
-import be.dafke.BusinessModelDao.AccountsIO
+import be.dafke.Accounting.BusinessModelDao.AccountsIO
 
 import javax.swing.*
 import java.awt.*

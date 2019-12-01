@@ -4,8 +4,8 @@ import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Accountings
 import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException
 import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException
-import be.dafke.BusinessModelDao.Session
-import be.dafke.BusinessModelDao.XMLWriter
+import be.dafke.Accounting.BusinessModelDao.Session
+import be.dafke.Accounting.BusinessModelDao.XMLWriter
 import be.dafke.ComponentModel.RefreshableDialog
 
 import javax.swing.JButton

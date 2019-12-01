@@ -5,9 +5,9 @@ import be.dafke.Accounting.BasicAccounting.Accounts.AccountsFilter.AccountFilter
 import be.dafke.Accounting.BasicAccounting.Accounts.NewAccountDialog
 import be.dafke.Accounting.BusinessModel.*
 import be.dafke.Accounting.BasicAccounting.MainApplication.PopupForTableActivator
-import be.dafke.BusinessModelDao.AccountingSession
-import be.dafke.BusinessModelDao.JournalSession
-import be.dafke.BusinessModelDao.Session
+import be.dafke.Accounting.BusinessModelDao.AccountingSession
+import be.dafke.Accounting.BusinessModelDao.JournalSession
+import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.ComponentModel.SelectableTable
 
 import javax.swing.*

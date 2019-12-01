@@ -12,17 +12,20 @@ import be.dafke.Accounting.BasicAccounting.Coda.CodaMenu
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactSelectorDialog
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactsGUI
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactsMenu
-import be.dafke.Accounting.BusinessModel.*
 import be.dafke.Accounting.BasicAccounting.Journals.*
 import be.dafke.Accounting.BasicAccounting.Meals.*
-import be.dafke.Accounting.BasicAccounting.Mortgages.MortgagesMenu
 import be.dafke.Accounting.BasicAccounting.Mortgages.MortgageGUI
+import be.dafke.Accounting.BasicAccounting.Mortgages.MortgagesMenu
 import be.dafke.Accounting.BasicAccounting.Mortgages.MortgagesPanel
 import be.dafke.Accounting.BasicAccounting.Projects.ProjectsMenu
-import be.dafke.Accounting.BasicAccounting.Trade.*
+import be.dafke.Accounting.BasicAccounting.Trade.ArticlesGUI
+import be.dafke.Accounting.BasicAccounting.Trade.PurchaseOrderCreateGUI
+import be.dafke.Accounting.BasicAccounting.Trade.SalesOrderCreateGUI
+import be.dafke.Accounting.BasicAccounting.Trade.TradeMenu
 import be.dafke.Accounting.BasicAccounting.VAT.VATFieldsGUI
 import be.dafke.Accounting.BasicAccounting.VAT.VATMenu
-import be.dafke.BusinessModelDao.*
+import be.dafke.Accounting.BusinessModel.*
+import be.dafke.Accounting.BusinessModelDao.*
 
 import javax.swing.*
 import java.awt.*

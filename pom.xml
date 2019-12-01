@@ -12,6 +12,5 @@
         <module>BasicAccounting</module>
 		<module>BusinessModel</module>
 		<module>BusinessModelDao</module>
-        <module>AccountingUI</module>
     </modules>
 </project>

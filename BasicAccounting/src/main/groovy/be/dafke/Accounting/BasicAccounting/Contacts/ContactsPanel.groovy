@@ -3,7 +3,7 @@ package be.dafke.Accounting.BasicAccounting.Contacts
 import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Contact
 import be.dafke.Accounting.BusinessModel.Contacts
-import be.dafke.BusinessModelDao.VATWriter
+import be.dafke.Accounting.BusinessModelDao.VATWriter
 
 import javax.swing.*
 import javax.swing.event.ListSelectionEvent

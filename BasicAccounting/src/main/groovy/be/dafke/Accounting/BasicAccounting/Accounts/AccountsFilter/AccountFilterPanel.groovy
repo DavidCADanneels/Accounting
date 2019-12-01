@@ -3,7 +3,7 @@ package be.dafke.Accounting.BasicAccounting.Accounts.AccountsFilter
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountsTable.AccountDataTableModel
 import be.dafke.Accounting.BusinessModel.AccountType
 import be.dafke.Accounting.BusinessModel.AccountsList
-import be.dafke.BusinessModelDao.JournalSession
+import be.dafke.Accounting.BusinessModelDao.JournalSession
 
 import javax.swing.*
 import javax.swing.event.DocumentEvent

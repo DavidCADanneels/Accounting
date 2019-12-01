@@ -4,8 +4,8 @@ import be.dafke.Accounting.BasicAccounting.MainApplication.ActionUtils
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BasicAccounting.MainApplication.PopupForTableActivator
 import be.dafke.Accounting.BusinessModel.*
-import be.dafke.BusinessModelDao.AccountingSession
-import be.dafke.BusinessModelDao.Session
+import be.dafke.Accounting.BusinessModelDao.AccountingSession
+import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.ComponentModel.SelectableTable
 
 import javax.swing.*

@@ -4,7 +4,7 @@ import be.dafke.Accounting.BusinessModel.Account
 import be.dafke.Accounting.BusinessModel.AccountType
 import be.dafke.Accounting.BusinessModel.Accounts
 import be.dafke.Accounting.BusinessModel.AccountsList
-import be.dafke.BusinessModelDao.JournalSession
+import be.dafke.Accounting.BusinessModelDao.JournalSession
 import be.dafke.ComponentModel.SelectableTableModel
 
 import static java.util.ResourceBundle.getBundle

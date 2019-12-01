@@ -7,34 +7,16 @@ import be.dafke.Accounting.BasicAccounting.Contacts.ContactsPanel
 import be.dafke.Accounting.BasicAccounting.Journals.DateAndDescriptionDialog
 import be.dafke.Accounting.BasicAccounting.Journals.JournalSelectorDialog
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
-import be.dafke.Accounting.BusinessModel.Account
-import be.dafke.Accounting.BusinessModel.Accounting
-import be.dafke.Accounting.BusinessModel.Booking
-import be.dafke.Accounting.BusinessModel.Contact
-import be.dafke.Accounting.BusinessModel.Contacts
-import be.dafke.Accounting.BusinessModel.Journal
-import be.dafke.Accounting.BusinessModel.Journals
-import be.dafke.Accounting.BusinessModel.Order
-import be.dafke.Accounting.BusinessModel.OrderItem
-import be.dafke.Accounting.BusinessModel.SalesOrder
-import be.dafke.Accounting.BusinessModel.SalesType
-import be.dafke.Accounting.BusinessModel.StockTransactions
-import be.dafke.Accounting.BusinessModel.Transaction
-import be.dafke.Accounting.BusinessModel.Transactions
-import be.dafke.BusinessModelDao.SalesOrderIO
+import be.dafke.Accounting.BasicAccounting.PDFGeneration.InvoicePDF
+import be.dafke.Accounting.BusinessModel.*
+import be.dafke.Accounting.BusinessModelDao.SalesOrderIO
 import be.dafke.Utils.Utils
 
-import javax.swing.BoxLayout
-import javax.swing.JButton
-import javax.swing.JCheckBox
-import javax.swing.JLabel
-import javax.swing.JOptionPane
-import javax.swing.JPanel
-import javax.swing.JTextField
+import javax.swing.*
 import javax.swing.border.LineBorder
 import javax.swing.border.TitledBorder
-import java.awt.BorderLayout
-import java.awt.Color
+import java.awt.*
+import java.util.List
 
 import static be.dafke.Utils.Utils.parseInt
 import static java.util.ResourceBundle.getBundle

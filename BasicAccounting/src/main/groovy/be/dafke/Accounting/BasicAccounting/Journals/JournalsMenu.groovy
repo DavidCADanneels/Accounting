@@ -1,7 +1,7 @@
 package be.dafke.Accounting.BasicAccounting.Journals
 
 import be.dafke.Accounting.BusinessModel.*
-import be.dafke.BusinessModelDao.JournalsIO
+import be.dafke.Accounting.BusinessModelDao.JournalsIO
 
 import javax.swing.*
 import java.awt.*
