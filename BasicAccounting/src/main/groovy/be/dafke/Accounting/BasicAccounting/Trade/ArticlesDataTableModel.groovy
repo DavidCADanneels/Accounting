@@ -12,7 +12,7 @@ import be.dafke.ComponentModel.SelectableTableModel
 import java.awt.*
 import java.util.List
 
-import static java.util.ResourceBundle.getBundle 
+import static java.util.ResourceBundle.getBundle
 
 class ArticlesDataTableModel extends SelectableTableModel<Article> {
     private final Articles articles
@@ -61,7 +61,7 @@ class ArticlesDataTableModel extends SelectableTableModel<Article> {
         columnClasses.put(PURCHASE_PRICE_COL, BigDecimal.class)
         columnClasses.put(PURCHASE_VAT_COL, Integer.class)
         columnClasses.put(SALES_VAT_COL, Integer.class)
-        columnClasses.put(SUPPLIER_COL, Ingredient.class)
+        columnClasses.put(SUPPLIER_COL, Contact.class)
         columnClasses.put(INGREDIENT_COL, Ingredient.class)
         columnClasses.put(AMOUNT_COL, BigDecimal.class)
         columnClasses.put(SALE_ITEM_EXCL_COL, BigDecimal.class)
