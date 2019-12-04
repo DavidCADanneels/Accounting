@@ -264,7 +264,7 @@ class SalesOrderIO {
         } catch (IOException ex) {
             Logger.getLogger(Accounts.class.name).log(Level.SEVERE, null, ex)
         } finally {
-            path
+            return path
         }
     }
 }
