@@ -234,8 +234,8 @@ class SalesOrderIO {
 
                 writer.write(
                         "    <" + ARTICLE + ">\n" +
-                                "      <" + NAME + ">" + (article.name) + "</" + NAME + ">\n" +
-                                "      <" + NUMBER + ">" + (orderItem.numberOfItems) + "</" + NUMBER + ">\n" +
+                                "      <" + NAME + ">" + article.name + "</" + NAME + ">\n" +
+                                "      <" + NUMBER + ">" + orderItem.numberOfItems + "</" + NUMBER + ">\n" +
                                 "      <" + ITEM_PRICE + ">" + orderItem.salesPriceForItem + "</" + ITEM_PRICE + ">\n" +
                                 "      <" + TAX_RATE + ">" + salesVatRate + "</" + TAX_RATE + ">\n" +
                                 "      <" + TOTAL_PRICE + ">" + orderItem.salesPriceWithVat + "</" + TOTAL_PRICE + ">\n" +
