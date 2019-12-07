@@ -35,20 +35,13 @@ class AccountTypeTest {
         ArrayList<AccountType> businessObjects = accountTypes.businessObjects
         assertTrue(businessObjects.empty)
         accountTypes.addDefaultTypes()
-        businessObjects = accountTypes.businessObjects
-        // make more performant
-        List<String> names = businessObjects.collect(Collectors.toList(), { AccountType accountType ->
-            accountType.name
-        })
-        assertTrue(names.contains(AccountTypes.ASSET))
-        assertTrue(names.contains(AccountTypes.COST))
-        assertTrue(names.contains(AccountTypes.CREDIT))
-        assertTrue(names.contains(AccountTypes.DEBIT))
-        assertTrue(names.contains(AccountTypes.TAXCREDIT))
-        assertTrue(names.contains(AccountTypes.TAXDEBIT))
-        assertTrue(names.contains(AccountTypes.LIABILITY))
-        assertTrue(names.contains(AccountTypes.REVENUE))
-        // FIXME: temp. removed Mortgages from AccountTypes
-//        assertTrue(names.contains(AccountTypes.MORTGAGE))
+        assert accountTypes.businessObjects.name.contains(AccountTypes.ASSET)
+        assert accountTypes.businessObjects.name.contains(AccountTypes.COST)
+        assert accountTypes.businessObjects.name.contains(AccountTypes.CREDIT)
+        assert accountTypes.businessObjects.name.contains(AccountTypes.CREDIT)
+        assert accountTypes.businessObjects.name.contains(AccountTypes.TAXCREDIT)
+        assert accountTypes.businessObjects.name.contains(AccountTypes.TAXDEBIT)
+        assert accountTypes.businessObjects.name.contains(AccountTypes.LIABILITY)
+        assert accountTypes.businessObjects.name.contains(AccountTypes.REVENUE)
     }
 }

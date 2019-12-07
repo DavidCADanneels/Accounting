@@ -85,7 +85,7 @@ class Account extends BusinessCollection<Movement> implements Comparable<Account
 
     @Override
     boolean isDeletable(){
-        movements.empty
+        businessObjects.empty
     }
 
 //    protected
