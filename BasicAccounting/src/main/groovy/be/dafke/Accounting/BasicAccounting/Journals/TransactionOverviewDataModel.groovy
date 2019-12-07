@@ -94,7 +94,7 @@ class TransactionOverviewDataModel extends SelectableTableModel<Transaction> {
                 Booking booking = bookings.get(0)
                 booking.account
             } else return null
-        } else if (col == TOTAL_AMOUNT) return transaction.getCreditTotaal()
+        } else if (col == TOTAL_AMOUNT) return transaction.creditTotal
         else if (col == DESCRIPTION) return transaction.description
         null
     }
@@ -119,10 +119,10 @@ class TransactionOverviewDataModel extends SelectableTableModel<Transaction> {
             Calendar date = transaction.date
             Calendar newDate = Utils.toCalendar((String) value)
             if (journal != null && newDate != null) {
-                transaction.setDate(newDate)
+                transaction.date = newDate
             } else setValueAt(Utils.toString(date), row, col)
         } else if (col == DESCRIPTION) {
-            transaction.setDescription((String) value)
+            transaction.description = (String) value
         }
         fireTableDataChanged()
     }

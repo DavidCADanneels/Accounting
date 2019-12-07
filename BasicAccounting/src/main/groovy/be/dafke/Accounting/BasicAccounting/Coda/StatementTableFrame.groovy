@@ -201,7 +201,7 @@ class StatementTableFrame extends JFrame implements MouseListener {
                         transaction.addBusinessObject booking2
                         String cal = (String) tabel.getValueAt(i, 1)
                         Calendar date = Utils.toCalendar cal
-                        transaction.setDate(date)
+                        transaction.date = date
                         String description = (String) tabel.getValueAt(i, 6)
                         transaction.description = description
                         journal.addBusinessObject transaction

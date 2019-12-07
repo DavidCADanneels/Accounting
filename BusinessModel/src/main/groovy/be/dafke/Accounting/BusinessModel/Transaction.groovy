@@ -33,14 +33,6 @@ class Transaction extends BusinessCollection<Booking> implements Comparable<Tran
         bookings = new ArrayList()
     }
 
-    Mortgage getMortgage() {
-        mortgage
-    }
-
-    void setMortgage(Mortgage mortgage) {
-        this.mortgage = mortgage
-    }
-
 //    TODO: uncomment if saved per ID (ID must be the unique identifier)
 //    (other options is to setName(id), but id is Integer (better save as int, not as String)
 //    @Override
@@ -51,19 +43,7 @@ class Transaction extends BusinessCollection<Booking> implements Comparable<Tran
 //
 //    }
 
-    BigDecimal getDebetTotaal() {
-        debitTotal
-    }
-
-    BigDecimal getCreditTotaal() {
-        creditTotal
-    }
-
     // Getters
-
-    Journal getJournal() {
-        journal
-    }
 
     String getAbbreviation() {
         if(journal == null){
@@ -82,23 +62,6 @@ class Transaction extends BusinessCollection<Booking> implements Comparable<Tran
 //        (description==null)?"":description
 //    }
 
-    Calendar getDate() {
-        date
-    }
-
-    // Setters
-
-    void setJournal(Journal journal) {
-        this.journal = journal
-    }
-
-    void setDescription(String description) {
-        this.description = description
-    }
-
-    void setDate(Calendar date) {
-        this.date = date
-    }
 
     @Override
     ArrayList<Booking> getBusinessObjects(){

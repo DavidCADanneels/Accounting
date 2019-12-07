@@ -362,7 +362,7 @@ class JournalEditPanel extends JPanel implements ActionListener {
         transaction.addBusinessObject(capitalBooking)
         transaction.addBusinessObject(intrestBooking)
 
-        transaction.setMortgage(mortgage)
+        transaction.mortgage = mortgage
         // TODO: pass function "increaseNrPayed/decreaseNrPayed" to call after journal.addBusinessObject(transaction)
 
         fireTransactionDataChanged()
@@ -412,8 +412,8 @@ class JournalEditPanel extends JPanel implements ActionListener {
     void fireTransactionDataChanged() {
         journalDataModel.fireTableDataChanged()
 
-        debettotaal = (transaction)?transaction.getDebetTotaal():BigDecimal.ZERO//.setScale(2)
-        credittotaal = (transaction)?transaction.getCreditTotaal():BigDecimal.ZERO//.setScale(2)
+        debettotaal = (transaction)?transaction.debitTotal:BigDecimal.ZERO//.setScale(2)
+        credittotaal = (transaction)?transaction.creditTotal:BigDecimal.ZERO//.setScale(2)
         debet.setText(debettotaal.toString())
         credit.setText(credittotaal.toString())
         balanceTransaction.selected = transaction&&transaction.balanceTransaction

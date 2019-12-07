@@ -38,8 +38,8 @@ class AccountActions {
 
     static BigDecimal askAmount(Account account, boolean debit, Transaction transaction, Component component) {
         if (transaction == null) null
-        BigDecimal creditTotal = transaction.getCreditTotaal()
-        BigDecimal debitTotal = transaction.getDebetTotaal()
+        BigDecimal creditTotal = transaction.creditTotal
+        BigDecimal debitTotal = transaction.debitTotal
         BigDecimal suggestedAmount = null
         if (creditTotal.compareTo(debitTotal) > 0 && debit) {
             suggestedAmount = creditTotal.subtract(debitTotal)

@@ -116,8 +116,8 @@ class TransactionOverviewPanel extends JPanel {
     }
 
     void updateTotals(Transaction transaction) {
-        debet.setText(transaction == null ? "" : transaction.getDebetTotaal().toString())
-        credit.setText(transaction == null ? "" : transaction.getCreditTotaal().toString())
+        debet.setText(transaction == null ? "" : transaction.debitTotal.toString())
+        credit.setText(transaction == null ? "" : transaction.creditTotal.toString())
     }
 
     void setAccounting(Accounting accounting) {

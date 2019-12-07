@@ -439,7 +439,7 @@ class SalesOrderDetailPanel extends JPanel {
         } else {
             salesJournal = StockUtils.getSalesNoInvoiceJournal(accounting)
         }
-        transaction.setJournal(salesJournal)
+        transaction.journal = salesJournal
         // TODO: ask for Date and Description
 
         Transactions transactions = accounting.transactions
@@ -479,7 +479,7 @@ class SalesOrderDetailPanel extends JPanel {
         // ---
 
         Journal gainJournal = StockUtils.getGainJournal(accounting)
-        gainTransaction.setJournal(gainJournal)
+        gainTransaction.journal = gainJournal
 
 
         Transactions transactions = accounting.transactions
