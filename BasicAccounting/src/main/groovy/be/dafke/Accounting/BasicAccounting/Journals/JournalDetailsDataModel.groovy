@@ -181,15 +181,15 @@ class JournalDetailsDataModel extends SelectableTableModel<Booking> {
             if(search!=booking){
                 row++
             } else{
-                row
+                return row
             }
         }
         // TODO: -1 and catch effects
-        0
+        return 0
     }
 
     int getRow(Booking booking) {
-        if(journal==null) -1
+        if(journal==null) return -1
         ArrayList<Booking> bookings = getAllItems()
         getRowInList(bookings,booking)
     }
