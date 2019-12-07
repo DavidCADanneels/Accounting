@@ -73,7 +73,7 @@ class DateAndDescriptionPanel extends JPanel implements FocusListener {
                 }
             } else if (source == description){
                 // TODO Encode text for XML / HTML (not here, but in toXML() / here escaping ?)
-                transaction.description description.getText().trim()
+                transaction.description = description.getText().trim()
             }
         }
     }
