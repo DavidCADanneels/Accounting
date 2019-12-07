@@ -88,7 +88,7 @@ class BalanceDataModel extends SelectableTableModel<Account> {
             // Left
             if (row < balance.getLeftAccounts(includeEmpty).size()) {
                 Account account = balance.getLeftAccounts(includeEmpty).get(row)
-                if (col == 0) account
+                if (col == 0) return account
                 return account.saldo
             }
             return ""
@@ -96,10 +96,10 @@ class BalanceDataModel extends SelectableTableModel<Account> {
         // Right
         if (row < balance.getRightAccounts(includeEmpty).size()) {
             Account account = balance.getRightAccounts(includeEmpty).get(row)
-            if (col == 3) account
-            account.saldo.negate()
+            if (col == 3) return account
+            return account.saldo.negate()
         }
-        ""
+        return ""
     }
 
     int getColumnCount() {
