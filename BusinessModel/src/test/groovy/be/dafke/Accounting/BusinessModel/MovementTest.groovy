@@ -22,7 +22,7 @@ class MovementTest {
     void getAmount(){
         Movement movement = new Movement(AMOUNT, true)
         assertEquals(AMOUNT,movement.amount)
-        movement.zmount = ANOTHER_AMOUNT
+        movement.amount = ANOTHER_AMOUNT
         assertEquals(ANOTHER_AMOUNT,movement.amount)
 
         movement = new Movement(AMOUNT, false)

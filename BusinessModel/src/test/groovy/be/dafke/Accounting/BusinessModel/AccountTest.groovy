@@ -33,12 +33,12 @@ class AccountTest {
         scaledZero = scaledZero.setScale(2)
 
         Account account = new Account("")
-        BigDecimal debetTotal = account.debetTotal
+        BigDecimal debitTotal = account.debitTotal
         BigDecimal creditTotal = account.creditTotal
         BigDecimal saldo = account.saldo
 
-        assertEquals(scaledZero, debetTotal)
-        assertEquals(2,debetTotal.scale())
+        assertEquals(scaledZero, debitTotal)
+        assertEquals(2,debitTotal.scale())
         assertEquals(scaledZero,creditTotal)
         assertEquals(2,creditTotal.scale())
         assertEquals(scaledZero,saldo)
@@ -156,7 +156,7 @@ class AccountTest {
     void initValues() {
         Account account = new Account("")
         assertEquals(ZERO.setScale(2), account.saldo)
-        assertEquals(ZERO.setScale(2), account.debetTotal)
+        assertEquals(ZERO.setScale(2), account.debitTotal)
         assertEquals(ZERO.setScale(2), account.creditTotal)
 
     }
@@ -167,7 +167,7 @@ class AccountTest {
         Movement debit = new Movement(TWENTY, true)
         account.book(TIME, debit, true)
         assertEquals(TWENTY.setScale(2), account.saldo)  // 0 + 20 = 20
-        assertEquals(TWENTY.setScale(2), account.debetTotal)  // 20
+        assertEquals(TWENTY.setScale(2), account.debitTotal)  // 20
         assertEquals(ZERO.setScale(2), account.creditTotal)  // 0
 
         ArrayList<Movement> movements = account.businessObjects
@@ -181,7 +181,7 @@ class AccountTest {
         Movement credit = new Movement(TEN, false)
         account.book(TIME, credit, true)
         assertEquals(TEN.negate().setScale(2), account.saldo)  // 0 - 10 = -10
-        assertEquals(ZERO.setScale(2), account.debetTotal)  // 0
+        assertEquals(ZERO.setScale(2), account.debitTotal)  // 0
         assertEquals(TEN.setScale(2), account.creditTotal)  // 10
 
         ArrayList<Movement> movements = account.businessObjects
@@ -198,7 +198,7 @@ class AccountTest {
         account.book(TIME, credit, true)
 
         assertEquals(TEN.setScale(2), account.saldo) // 20 - 10 = 10
-        assertEquals(TWENTY.setScale(2), account.debetTotal) // 20
+        assertEquals(TWENTY.setScale(2), account.debitTotal) // 20
         assertEquals(TEN.setScale(2), account.creditTotal) // 10
 
         ArrayList<Movement> movements = account.businessObjects
@@ -221,7 +221,7 @@ class AccountTest {
         assertFalse(movements.contains(credit))
         //
         assertEquals(TWENTY.setScale(2), account.saldo) // 0 + 20 = 20
-        assertEquals(TWENTY.setScale(2), account.debetTotal) // 0 + 20 = 20
+        assertEquals(TWENTY.setScale(2), account.debitTotal) // 0 + 20 = 20
         assertEquals(ZERO.setScale(2), account.creditTotal) // 0 + 0 = 0
 
         account.book(TIME, credit, true)
@@ -232,7 +232,7 @@ class AccountTest {
         assertTrue(movements.contains(credit))
         //
         assertEquals(TEN.setScale(2), account.saldo) // 20 - 10 = 10
-        assertEquals(TWENTY.setScale(2), account.debetTotal) // 20 + 0 = 20
+        assertEquals(TWENTY.setScale(2), account.debitTotal) // 20 + 0 = 20
         assertEquals(TEN.setScale(2), account.creditTotal) // 0 + 10 = 10
 
         account.unbook(TIME,debit, true)
@@ -243,7 +243,7 @@ class AccountTest {
         assertTrue(movements.contains(credit))
         //
         assertEquals(TEN.negate().setScale(2), account.saldo) // 20-20 - 10 = -10
-        assertEquals(ZERO.setScale(2), account.debetTotal) // 20 - 20 = 0
+        assertEquals(ZERO.setScale(2), account.debitTotal) // 20 - 20 = 0
         assertEquals(TEN.setScale(2), account.creditTotal) // 0 + 10 = 10
 
         account.unbook(TIME,credit, true)
@@ -252,7 +252,7 @@ class AccountTest {
         assertTrue(movements.empty)
         //
         assertEquals(ZERO.negate().setScale(2), account.saldo)
-        assertEquals(ZERO.setScale(2), account.debetTotal)
+        assertEquals(ZERO.setScale(2), account.debitTotal)
         assertEquals(ZERO.setScale(2), account.creditTotal)
     }
 }
