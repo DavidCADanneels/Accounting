@@ -72,10 +72,10 @@ class AccountDetailsDataModel extends SelectableTableModel<Booking> {
             if(movement.booking!=booking){
                 row++
             } else{
-                row
+                return row
             }
         }
-        0
+        return 0
     }
 
     Object getValueAt(int row, int col) {
