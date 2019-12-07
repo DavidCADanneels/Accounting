@@ -58,9 +58,9 @@ class Transaction extends BusinessCollection<Booking> implements Comparable<Tran
         } else journal.getId(this)
     }
 
-//    String getDescription(){
-//        (description==null)?"":description
-//    }
+    String getDescription(){
+        (description==null)?"":description
+    }
 
 
     @Override
