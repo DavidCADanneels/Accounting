@@ -17,7 +17,7 @@ class MealsIO {
     static void readMeals(Accounting accounting){
         Meals meals = accounting.meals
         Ingredients ingredients = accounting.ingredients
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+MEALS + XML_EXTENSION)
+        File xmlFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$MEALS$XML_EXTENSION")
         Element rootElement = getRootElement(xmlFile, MEALS)
         for (Element mealElement : getChildren(rootElement, MEAL)) {
 
@@ -70,7 +70,7 @@ class MealsIO {
     }
 
     static String calculatePdfPath(Accounting accounting){
-        ACCOUNTINGS_XML_FOLDER + accounting.name + "/MealsWithAllergenes" + PDF_EXTENSION
+        "$ACCOUNTINGS_XML_PATH/$accounting.name/MealsWithAllergenes$PDF_EXTENSION"
     }
 
     static void writeMeals(Accounting accounting) {
@@ -80,51 +80,49 @@ class MealsIO {
     static String writeMeals(Accounting accounting, boolean details) {
         Meals meals = accounting.meals
         String filename = details?"MealDetails":MEALS
-        String path = ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + filename + XML_EXTENSION
+        String path = "$ACCOUNTINGS_XML_PATH/$accounting.name/$filename$XML_EXTENSION"
         File file = new File(path)
         try {
             Writer writer = new FileWriter(file)
-            writer.write(getXmlHeader(MEALS, 2))
+            writer.write getXmlHeader(MEALS, 2)
             for (Meal meal : meals.businessObjects) {
-                writer.write(
-                        "  <" + MEAL + ">\n" +
-                                "    <" + MEAL_NR + ">" + meal.name + "</" + MEAL_NR + ">\n" +
-                                "    <" + MEAL_NAME + ">" + meal.getMealName() + "</" + MEAL_NAME + ">\n" +
-                                "    <" + PRICE + ">" + meal.getSalesPrice() + "</" + PRICE + ">\n" +
-                                "    <" + DESCRIPTION + ">" + meal.description + "</" + DESCRIPTION + ">\n" +
-                                "    <" + MEAL_RECIPE + ">\n"
-                )
-                Recipe recipe = meal.getRecipe()
+                writer.write """\
+  <$MEAL>
+    <$MEAL_NR>$meal.name</$MEAL_NR>
+    <$MEAL_NAME>$meal.mealName</$MEAL_NAME>
+    <$PRICE>$meal.salesPrice</$PRICE>
+    <$DESCRIPTION>$meal.description</$DESCRIPTION>
+    <$MEAL_RECIPE>"""
+                Recipe recipe = meal.recipe
                 for(RecipeLine line:recipe.businessObjects){
                     Ingredient ingredient = line.getIngredient()
-                    writer.write(
-                            "      <" + MEAL_RECIPE_LINE + ">\n" +
-                                    "        <" + NAME + ">" + ingredient.name + "</" + NAME + ">\n" +
-//                            "      <" + AMOUNT + ">" + line.getInstructions() + "</" + AMOUNT + ">\n" +
-//                            "      <" + AMOUNT + ">" + line.getPreparation() + "</" + AMOUNT + ">\n" +
-                                    "        <" + AMOUNT + ">" + line.amount + "</" + AMOUNT + ">\n"
-                    )
+                    // TODO: safe this as well:
+//                    line.getInstructions()
+//                    line.getPreparation()
+                    writer.write """
+      <$MEAL_RECIPE_LINE>
+        <$NAME>$ingredient.name</$NAME>
+        <$AMOUNT>$line.amount</$AMOUNT>"""
                     if(details){
                         Allergenes allergenes = ingredient.allergenes
-                        for (Allergene allergene:allergenes.businessObjects) {
-                            writer.write(
-                                    "        <" + ALLERGENE + ">\n" +
-                                            "          <" + ID + ">" + allergene.name + "</" + ID + ">\n" +
-                                            "          <" + NAME + ">" + allergene.shortName + "</" + NAME + ">\n" +
-                                            "          <" + DESCRIPTION + ">" + allergene.description + "</" + DESCRIPTION + ">\n" +
-                                            "        </" + ALLERGENE + ">\n"
-                            )
-                        }
+                        for (Allergene allergene:allergenes.businessObjects) writer.write """
+        <$ALLERGENE>
+          <$ID>$allergene.name</$ID>
+          <$NAME>$allergene.shortName</$NAME>
+          <$DESCRIPTION>$allergene.description</$DESCRIPTION>
+        </$ALLERGENE>"""
                     }
-                    writer.write("      </" + MEAL_RECIPE_LINE + ">\n")
+                    writer.write """
+      </$MEAL_RECIPE_LINE>"""
                 }
-                writer.write(
-                        "    </" + MEAL_RECIPE + ">\n" +
-                                "  </" + MEAL + ">\n"
-
-                )
+                writer.write """
+    </$MEAL_RECIPE>
+  </$MEAL>
+"""
             }
-            writer.write("</" + MEALS + ">\n")
+            writer.write """\
+</$MEALS>
+"""
             writer.flush()
             writer.close()
         } catch (IOException ex) {

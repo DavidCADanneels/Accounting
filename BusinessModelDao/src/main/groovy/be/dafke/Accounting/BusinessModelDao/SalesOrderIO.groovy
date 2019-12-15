@@ -20,7 +20,7 @@ class SalesOrderIO {
         PurchaseOrders purchaseOrders = accounting.purchaseOrders
         Contacts contacts = accounting.contacts
         Articles articles = accounting.articles
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+SALES_ORDERS + XML_EXTENSION)
+        File xmlFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$SALES_ORDERS$XML_EXTENSION")
         Element rootElement = getRootElement(xmlFile, SALES_ORDERS)
 
         SalesOrders salesOrders = accounting.salesOrders
@@ -50,7 +50,7 @@ class SalesOrderIO {
                 String name = getValue(element, NAME)
                 Article article = articles.getBusinessObject(name)
                 if(article == null){
-                    System.err.println(name + " not found in Articles")
+                    System.err.println("$name not found in Articles")
                 }
                 //
                 String numberOfItemsString = getValue(element, NR_OF_ITEMS)
@@ -109,64 +109,59 @@ class SalesOrderIO {
 
     static void writeSalesOrders(Accounting accounting) {
         SalesOrders salesOrders = accounting.salesOrders
-        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + SALES_ORDERS + XML_EXTENSION)
+        File file = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$SALES_ORDERS$XML_EXTENSION")
         try {
             Writer writer = new FileWriter(file)
-            writer.write(getXmlHeader(SALES_ORDERS, 2))
+            writer.write getXmlHeader(SALES_ORDERS, 2)
             for (SalesOrder salesOrder : salesOrders.businessObjects) {
-                writer.write(
-                        "  <" + SALES_ORDER + ">\n" +
-                                "    <" + ID + ">" + salesOrder.id + "</" + ID + ">\n" +
-                                "    <" + NAME + ">" + salesOrder.name + "</" + NAME + ">\n" +
-                                "    <" + CUSTOMER + ">" + salesOrder.customer + "</" + CUSTOMER + ">\n" +
-                                "    <" + INVOICE + ">" + salesOrder.invoice + "</" + INVOICE + ">\n"
-                )
-                if(salesOrder.creditNote){
-                    // only write if 'true' ('false' is default value)
-                    writer.write(
-                            "    <" + CREDIT_NOTE + ">" + salesOrder.creditNote + "</" + CREDIT_NOTE + ">\n"
-                    )
-                }
-                if(salesOrder.invoiceNumber!=null) {
-                    writer.write("    <" + INVOICE_NUMBER + ">" + salesOrder.invoiceNumber + "</" + INVOICE_NUMBER + ">\n")
-                }
+                writer.write """\
+  <$SALES_ORDER>
+    <$ID>$salesOrder.id</$ID>
+    <$NAME>$salesOrder.name</$NAME>
+    <$CUSTOMER>$salesOrder.customer</$CUSTOMER>
+    <$INVOICE>$salesOrder.invoice</$INVOICE>"""
+                // only write if 'true' ('false' is default value)
+                if(salesOrder.creditNote) writer.write """
+    <$CREDIT_NOTE>$salesOrder.creditNote</$CREDIT_NOTE>"""
+                if(salesOrder.invoiceNumber!=null) writer.write """
+    <$INVOICE_NUMBER>$salesOrder.invoiceNumber</$INVOICE_NUMBER>"""
                 Transaction salesTransaction = salesOrder.salesTransaction
-                if(salesTransaction!=null) {
-                    writer.write("    <" + SALES_TRANSACTION + ">" + salesTransaction.transactionId + "</" + SALES_TRANSACTION + ">\n")
-                } else {
-                    writer.write("    <" + SALES_TRANSACTION + ">null</" + SALES_TRANSACTION + ">\n")
-                }
+                if(salesTransaction!=null) writer.write """
+    <$SALES_TRANSACTION>$salesTransaction.transactionId</$SALES_TRANSACTION>"""
+                else writer.write """
+    <$SALES_TRANSACTION>null</$SALES_TRANSACTION>"""
                 Transaction gainTransaction = salesOrder.gainTransaction
-                if(gainTransaction!=null) {
-                    writer.write("    <" + GAIN_TRANSACTION + ">" + gainTransaction.transactionId + "</" + GAIN_TRANSACTION + ">\n")
-                } else {
-                    writer.write("    <" + GAIN_TRANSACTION + ">null</" + GAIN_TRANSACTION + ">\n")
-                }
+                if(gainTransaction!=null) writer.write """
+    <$GAIN_TRANSACTION>$gainTransaction.transactionId</$GAIN_TRANSACTION>"""
+                else writer.write """
+    <$GAIN_TRANSACTION>null</$GAIN_TRANSACTION>"""
                 Transaction paymentTransaction = salesOrder.paymentTransaction
-                if(paymentTransaction!=null) {
-                    writer.write("    <" + PAYMENT_TRANSACTION + ">" + paymentTransaction.transactionId + "</" + PAYMENT_TRANSACTION + ">\n")
-                } else {
-                    writer.write("    <" + PAYMENT_TRANSACTION + ">null</" + PAYMENT_TRANSACTION + ">\n")
-                }
+                if(paymentTransaction!=null) writer.write """
+    <$PAYMENT_TRANSACTION>$paymentTransaction.transactionId</$PAYMENT_TRANSACTION>"""
+                else writer.write """
+    <$PAYMENT_TRANSACTION>null</$PAYMENT_TRANSACTION>"""
                 for (OrderItem orderItem : salesOrder.businessObjects) {
                     Article article = orderItem.article
 
                     // TODO: 1/ save OrderItem fields (I/O): itemsPerUnit, salesVatRate
 
-                    writer.write(
-                            "    <" + ARTICLE + ">\n" +
-                                    "      <" + NAME + ">" + article.name + "</" + NAME + ">\n" +
-                                    "      <" + NR_OF_ITEMS + ">" + orderItem.numberOfItems + "</" + NR_OF_ITEMS + ">\n" +
-                                    "      <" + ITEMS_PER_UNIT + ">" + orderItem.itemsPerUnit + "</" + ITEMS_PER_UNIT + ">\n" +
-                                    "      <" + SALES_VAT_RATE + ">" + orderItem.salesVatRate + "</" + SALES_VAT_RATE + ">\n" +
-                                    "      <" + SALESPRICE_FOR_ITEM + ">" + orderItem.salesPriceForItem + "</" + SALESPRICE_FOR_ITEM + ">\n" +
-                                    "      <" + PURCHASE_ORDER + ">" + orderItem.purchaseOrder + "</" + PURCHASE_ORDER + ">\n" +
-                                    "    </" + ARTICLE + ">\n"
-                    )
+                    writer.write """
+    <$ARTICLE>
+      <$NAME>$article.name</$NAME>
+      <$NR_OF_ITEMS>$orderItem.numberOfItems</$NR_OF_ITEMS>
+      <$ITEMS_PER_UNIT>$orderItem.itemsPerUnit</$ITEMS_PER_UNIT>
+      <$SALES_VAT_RATE>$orderItem.salesVatRate</$SALES_VAT_RATE>
+      <$SALESPRICE_FOR_ITEM>$orderItem.salesPriceForItem</$SALESPRICE_FOR_ITEM>
+      <$PURCHASE_ORDER>$orderItem.purchaseOrder</$PURCHASE_ORDER>
+    </$ARTICLE>"""
                 }
-                writer.write("  </" + SALES_ORDER + ">\n")
+                writer.write """
+  </$SALES_ORDER>
+"""
             }
-            writer.write("</" + SALES_ORDERS + ">\n")
+            writer.write """\
+</$SALES_ORDERS>
+"""
             writer.flush()
             writer.close()
         } catch (IOException ex) {
@@ -175,55 +170,55 @@ class SalesOrderIO {
     }
 
     static String calculatePdfPath(Accounting accounting, SalesOrder salesOrder){
-        ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + INVOICES + "/Factuur-" + salesOrder.invoiceNumber + PDF_EXTENSION
+        "$ACCOUNTINGS_XML_PATH/accounting.name/$INVOICES/Factuur-$salesOrder.invoiceNumber$PDF_EXTENSION"
     }
 
     static String writeInvoiceXmlInputFile(Accounting accounting, SalesOrder salesOrder){
         Integer id = salesOrder.id
         String idString = Utils.toIDString("SO", id, 6)
 
-        String folderPath = ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + INVOICES
+        String folderPath = "$ACCOUNTINGS_XML_PATH/$accounting.name/$INVOICES"
         File folder = new File(folderPath)
         folder.mkdirs()
-        String path = folderPath + "/" + idString + XML_EXTENSION
+        String path = "$folderPath/$idString$XML_EXTENSION"
         File file = new File(path)
         try {
             Writer writer = new FileWriter(file)
-            writer.write(getXmlHeader(INVOICE, 3))
+            writer.write getXmlHeader(INVOICE, 3)
 
             Contact supplier = salesOrder.supplier
-            writer.write(
-                    "  <InvoiceNumber>" + salesOrder.invoiceNumber+ "</InvoiceNumber>\n" +
-                            "  <"+DATE+">" + salesOrder.deliveryDate+ "</"+DATE+">\n" +
-                            "  <"+DESCRIPTION+">" + salesOrder.description+ "</"+DESCRIPTION+">\n" +
-                            "  <" + SUPPLIER + ">\n" +
-                            "    <" + NAME + ">" + supplier.name + "</" + NAME + ">\n" +
-                            "    <" + OFFICIAL_NAME + ">" + supplier.officialName + "</" + OFFICIAL_NAME + ">\n" +
-                            "    <" + STREET_AND_NUMBER + ">" + supplier.streetAndNumber + "</" + STREET_AND_NUMBER + ">\n" +
-                            "    <" + POSTAL_CODE + ">" + supplier.postalCode + "</" + POSTAL_CODE + ">\n" +
-                            "    <" + CITY + ">" + supplier.city + "</" + CITY + ">\n" +
-                            "    <" + COUNTRY_CODE + ">" + supplier.countryCode + "</" + COUNTRY_CODE + ">\n" +
-                            "    <" + VAT_NUMBER + ">" + supplier.vatNumber + "</" + VAT_NUMBER + ">\n" +
-                            "  </" + SUPPLIER + ">\n"
-            )
+            writer.write """\
+  <InvoiceNumber>$salesOrder.invoiceNumber</InvoiceNumber>
+  <$DATE>$salesOrder.deliveryDate</$DATE>
+  <$DESCRIPTION>$salesOrder.description</$DESCRIPTION>
+  <$SUPPLIER>
+    <$NAME>$supplier.name</$NAME>
+    <$OFFICIAL_NAME>$supplier.officialName</$OFFICIAL_NAME>
+    <$STREET_AND_NUMBER>$supplier.streetAndNumber</$STREET_AND_NUMBER>
+    <$POSTAL_CODE>$supplier.postalCode</$POSTAL_CODE>
+    <$CITY>$supplier.city</$CITY>
+    <$COUNTRY_CODE>$supplier.countryCode</$COUNTRY_CODE>
+    <$VAT_NUMBER>$supplier.vatNumber</$VAT_NUMBER>
+  </$SUPPLIER>"""
 
             Contact customer = salesOrder.customer
-            writer.write(
-                    "  <" + CUSTOMER + ">\n" +
-                            "    <" + NAME + ">" + customer.name + "</" + NAME + ">\n" +
-                            "    <" + OFFICIAL_NAME + ">" + customer.officialName + "</" + OFFICIAL_NAME + ">\n" +
-                            "    <" + STREET_AND_NUMBER + ">" + customer.streetAndNumber + "</" + STREET_AND_NUMBER + ">\n" +
-                            "    <" + POSTAL_CODE + ">" + customer.postalCode + "</" + POSTAL_CODE + ">\n" +
-                            "    <" + CITY + ">" + customer.city + "</" + CITY + ">\n" +
-                            "    <" + COUNTRY_CODE + ">" + customer.countryCode + "</" + COUNTRY_CODE + ">\n" +
-                            "    <" + VAT_NUMBER + ">" + customer.vatNumber + "</" + VAT_NUMBER + ">\n" +
-                            "  </" + CUSTOMER + ">\n"
-            )
+            writer.write """
+  <$CUSTOMER>
+    <$NAME>$customer.name</$NAME>
+    <$OFFICIAL_NAME>$customer.officialName</$OFFICIAL_NAME>
+    <$STREET_AND_NUMBER>$customer.streetAndNumber</$STREET_AND_NUMBER>
+    <$POSTAL_CODE>$customer.postalCode</$POSTAL_CODE>
+    <$CITY>$customer.city</$CITY>
+    <$COUNTRY_CODE>$customer.countryCode</$COUNTRY_CODE>
+    <$VAT_NUMBER>$customer.vatNumber</$VAT_NUMBER>
+  </$CUSTOMER>"""
 
             ArrayList<Integer> vatRates = new ArrayList<>()
 
-            writer.write("  <"+SALE+">\n")
-            writer.write("  <TotalPrice>" + salesOrder.totalSalesPriceInclVat+ "</TotalPrice>\n")
+            writer.write """
+  <$SALE>"""
+            writer.write """
+  <TotalPrice>$salesOrder.totalSalesPriceInclVat</TotalPrice>"""
 
             for (OrderItem orderItem : salesOrder.businessObjects) {
                 Article article = orderItem.article
@@ -232,32 +227,35 @@ class SalesOrderIO {
                     vatRates.add(salesVatRate)
                 }
 
-                writer.write(
-                        "    <" + ARTICLE + ">\n" +
-                                "      <" + NAME + ">" + (article.name) + "</" + NAME + ">\n" +
-                                "      <" + NUMBER + ">" + (orderItem.numberOfItems) + "</" + NUMBER + ">\n" +
-                                "      <" + ITEM_PRICE + ">" + orderItem.salesPriceForItem + "</" + ITEM_PRICE + ">\n" +
-                                "      <" + TAX_RATE + ">" + salesVatRate + "</" + TAX_RATE + ">\n" +
-                                "      <" + TOTAL_PRICE + ">" + orderItem.salesPriceWithVat + "</" + TOTAL_PRICE + ">\n" +
-                                "    </" + ARTICLE + ">\n"
-                )
+                writer.write """
+    <$ARTICLE>
+          <$NAME>$article.name</$NAME>
+          <$NUMBER>$orderItem.numberOfItems</$NUMBER>
+          <$ITEM_PRICE>$orderItem.salesPriceForItem</$ITEM_PRICE>
+          <$TAX_RATE>$salesVatRate</$TAX_RATE>
+          <$TOTAL_PRICE>$orderItem.salesPriceWithVat</$TOTAL_PRICE>
+        </$ARTICLE>"""
             }
-            writer.write("  </"+SALE+">\n")
+            writer.write """
+  </$SALE>"""
 
-            writer.write("  <"+TOTALS+">\n")
+            writer.write """
+  <$TOTALS>"""
             for (Integer vatRate:vatRates) {
-                writer.write("    <"+TOTALS_LINE+">\n")
-                writer.write("      <"+TOTALS_LINE_EXCL+">" + salesOrder.getTotalSalesPriceExclVat(OrderItem.withSalesVatRate(vatRate)) + "</"+TOTALS_LINE_EXCL+">"+"\n")
-                writer.write("      <"+TOTALS_LINE_VAT_AMOUNT+">" + salesOrder.getTotalSalesVat(OrderItem.withSalesVatRate(vatRate)) + "</"+TOTALS_LINE_VAT_AMOUNT+">"+"\n")
-                writer.write("      <"+TOTALS_LINE_VAT_PCT+">" + vatRate + "</"+TOTALS_LINE_VAT_PCT+">"+"\n")
-                writer.write("      <"+TOTALS_LINE_INCL+">" + salesOrder.getTotalSalesPriceInclVat(OrderItem.withSalesVatRate(vatRate)) + "</"+TOTALS_LINE_INCL+">"+"\n")
-                writer.write("    </"+TOTALS_LINE+">\n")
+                writer.write """
+    <$TOTALS_LINE>
+      <$TOTALS_LINE_EXCL>${salesOrder.getTotalSalesPriceExclVat(OrderItem.withSalesVatRate(vatRate))}</$TOTALS_LINE_EXCL>
+      <$TOTALS_LINE_VAT_AMOUNT>${salesOrder.getTotalSalesVat(OrderItem.withSalesVatRate(vatRate))}</$TOTALS_LINE_VAT_AMOUNT>
+      <$TOTALS_LINE_VAT_PCT>$vatRate</$TOTALS_LINE_VAT_PCT>
+      <$TOTALS_LINE_INCL>${salesOrder.getTotalSalesPriceInclVat(OrderItem.withSalesVatRate(vatRate))}</$TOTALS_LINE_INCL>
+    </$TOTALS_LINE>"""
             }
-            writer.write("    <"+TOTAL_EXCL_VAT+">" + salesOrder.totalSalesPriceExclVat + "</"+TOTAL_EXCL_VAT+">"+"\n")
-            writer.write("    <"+TOTAL_VAT+">" + salesOrder.totalSalesVat + "</"+TOTAL_VAT+">"+"\n")
-            writer.write("    <"+TOTAL_INCL_VAT+">" + salesOrder.totalSalesPriceInclVat + "</"+TOTAL_INCL_VAT+">"+"\n")
-            writer.write("  </"+TOTALS+">\n")
-            writer.write("</"+INVOICE+">\n")
+            writer.write """
+    <$TOTAL_EXCL_VAT>$salesOrder.totalSalesPriceExclVat</$TOTAL_EXCL_VAT>
+    <$TOTAL_VAT>$salesOrder.totalSalesVat</$TOTAL_VAT>
+    <$TOTAL_INCL_VAT>$salesOrder.totalSalesPriceInclVat</$TOTAL_INCL_VAT>
+  </$TOTALS>\n")
+</$INVOICE>"""
 
             writer.flush()
             writer.close()

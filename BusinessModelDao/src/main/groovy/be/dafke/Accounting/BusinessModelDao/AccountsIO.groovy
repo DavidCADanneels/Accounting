@@ -22,7 +22,7 @@ class AccountsIO {
     static void readAccounts(Accounting accounting){
         Accounts accounts = accounting.accounts
         AccountTypes accountTypes = accounting.accountTypes
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+ACCOUNTS+XML_EXTENSION)
+        File xmlFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$ACCOUNTS$XML_EXTENSION")
         Element rootElement = getRootElement xmlFile, ACCOUNTS
         for (Element element : getChildren(rootElement, ACCOUNT)) {
 
@@ -51,7 +51,7 @@ class AccountsIO {
 
     static String createTmpFolder(Accounting accounting) {
         String accountingName = accounting.name
-        String tmpFolderPath = ACCOUNTINGS_XML_FOLDER + accountingName + "/" + TMP + "/"
+        String tmpFolderPath = "$ACCOUNTINGS_XML_PATH/$accountingName/$TMP/"
         File tempFolder = new File(tmpFolderPath)
         tempFolder.mkdirs()
         tmpFolderPath
@@ -59,14 +59,14 @@ class AccountsIO {
 
     static String createPdfFolder(Accounting accounting) {
         String accountingName = accounting.name
-        String resultPdfPolderPath = ACCOUNTINGS_PDF_FOLDER + accountingName + "/" + ACCOUNTS + "/"
+        String resultPdfPolderPath = "$ACCOUNTINGS_PDF_PATH/$accountingName/$ACCOUNTS/"
         File targetFolder = new File(resultPdfPolderPath)
         targetFolder.mkdirs()
         resultPdfPolderPath
     }
 
     static void writeAccountPdfFiles(Accounting accounting){
-        String xslPath = XSLFOLDER + "AccountPdf.xsl"
+        String xslPath = "$XSLPATH/AccountPdf.xsl"
 
         String tmpFolderPath = createTmpFolder(accounting)
         String resultPdfPolderPath = createPdfFolder(accounting)
@@ -81,9 +81,9 @@ class AccountsIO {
         accounts.businessObjects.forEach({ account ->
             if (!account.businessObjects.empty) {
                 try {
-                    String fileName = account.name + XML_EXTENSION
-                    String xmlPath = tmpFolderPath + fileName
-                    PDFCreator.convertToPDF(xmlPath, xslPath, resultPdfPolderPath + account.name + PDF_EXTENSION)
+                    String fileName = "$account.name$XML_EXTENSION"
+                    String xmlPath = "$tmpFolderPath$fileName"
+                    PDFCreator.convertToPDF xmlPath, xslPath, "$resultPdfPolderPath$account.name$PDF_EXTENSION"
                     File file = new File(xmlPath)
                     file.delete()
 
@@ -98,33 +98,31 @@ class AccountsIO {
 
     static void writeAccounts(Accounting accounting, boolean writeHtml){
         Accounts accounts = accounting.accounts
-        File accountsXmlFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + ACCOUNTS+ XML_EXTENSION)
+        File accountsXmlFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$ACCOUNTS$XML_EXTENSION")
         try{
             Writer writer = new FileWriter(accountsXmlFile)
-            writer.write(getXmlHeader(ACCOUNTS, 2))
+            writer.write getXmlHeader(ACCOUNTS, 2)
             for(Account account: accounts.businessObjects) {
-                writer.write(
-                        "  <"+ACCOUNT+">\n" +
-                                "    <"+NAME+">"+account.name+"</"+NAME+">\n" +
-                                "    <"+TYPE+">"+account.type+"</"+TYPE+">\n"
-                )
+                writer.write """\
+  <$ACCOUNT>
+    <$NAME>$account.name</$NAME>
+    <$TYPE>$account.type</$TYPE>"""
+
                 BigDecimal defaultAmount = account.defaultAmount
-                if(defaultAmount!=null){
-                    writer.write(
-                            "    <"+DEFAULT_AMOUNT+">"+defaultAmount+"</"+DEFAULT_AMOUNT+">\n"
-                    )
-                }
+                if(defaultAmount!=null) writer.write """
+    <$DEFAULT_AMOUNT>$defaultAmount</$DEFAULT_AMOUNT>"""
+
                 BigInteger number = account.number
-                if(number!=null) {
-                    writer.write(
-                            "    <"+NUMBER+">"+number+"</"+NUMBER+">\n"
-                    )
-                }
-                writer.write(
-                        "  </"+ACCOUNT+">\n"
-                )
+                if(number!=null) writer.write """
+    <$NUMBER>$number</$NUMBER>"""
+
+                writer.write """
+  </$ACCOUNT>
+"""
             }
-            writer.write("</"+ACCOUNTS+">\n")
+            writer.write """\
+</$ACCOUNTS>
+"""
             writer.flush()
             writer.close()
         } catch (IOException ex) {
@@ -132,8 +130,8 @@ class AccountsIO {
         }
         if(writeHtml){
             writeAllAccounts(accounting, writeHtml)
-            File accountsHtmlFile = new File(ACCOUNTINGS_HTML_FOLDER + accounting.name + "/" + ACCOUNTS+ HTML_EXTENSION)
-            File accountsXslFile = new File(XSLFOLDER + "Accounts.xsl")
+            File accountsHtmlFile = new File("$ACCOUNTINGS_HTML_PATH/$accounting.name/$ACCOUNTS$HTML_EXTENSION")
+            File accountsXslFile = new File("$XSLPATH/Accounts.xsl")
             XMLtoHTMLWriter.xmlToHtml(accountsXmlFile,accountsXslFile,accountsHtmlFile, null)
         }
 
@@ -141,18 +139,18 @@ class AccountsIO {
 
     static void writeAllAccounts(Accounting accounting, boolean writeHtml){
         Accounts accounts =  accounting.accounts
-        String path = ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + ACCOUNTS
+        String path = "$ACCOUNTINGS_XML_PATH/$accounting.name/$ACCOUNTS"
         File accountsXmlFolder = new File(path)
         accountsXmlFolder.mkdirs()
         for (Account account:accounts.businessObjects) {
             if (!account.businessObjects.empty) {
                 writeAccount(account, path)
                 if (writeHtml) {
-                    File accountsHtmlFolder = new File(ACCOUNTINGS_HTML_FOLDER + accounting.name + "/" + ACCOUNTS)
+                    File accountsHtmlFolder = new File("$ACCOUNTINGS_HTML_PATH/$accounting.name/$ACCOUNTS")
                     accountsHtmlFolder.mkdirs()
-                    File accountHtmlFile = new File(accountsHtmlFolder, account.name + HTML_EXTENSION)
-                    File accountXmlFile = new File(accountsXmlFolder, account.name + XML_EXTENSION)
-                    File accountXslFile = new File(XSLFOLDER + "Account.xsl")
+                    File accountHtmlFile = new File(accountsHtmlFolder, "$account.name$HTML_EXTENSION")
+                    File accountXmlFile = new File(accountsXmlFolder, "$account.name$XML_EXTENSION")
+                    File accountXslFile = new File("$XSLPATH/Account.xsl")
                     XMLtoHTMLWriter.xmlToHtml(accountXmlFile, accountXslFile, accountHtmlFile, null)
                 }
             }
@@ -162,35 +160,37 @@ class AccountsIO {
     static void writeAccount(Account account, String accountsPath) {
         File accountsFolder = new File(accountsPath)
 //        accountsFolder.mkdirs()
-        File accountFile = new File(accountsFolder, account.name+ XML_EXTENSION)
+        File accountFile = new File(accountsFolder, "$account.name$XML_EXTENSION")
         try {
             Writer writer = new FileWriter(accountFile)
-            writer.write(getXmlHeader(ACCOUNT, 3))
+            writer.write getXmlHeader(ACCOUNT, 3)
             for(Movement movement:account.businessObjects){
                 Journal journal = movement.journal
                 Transaction transaction = movement.transaction
-                writer.write(
-                        "  <"+MOVEMENT+">\n" +
-                                "    <"+TRANSACTION_ID+">"+transaction.transactionId+"</"+TRANSACTION_ID+">\n" +
-                                "    <"+ID+">"+movement.id+"</"+ID+">\n" +
-                                "    <"+DATE+">"+ Utils.toString(movement.date)+"</"+DATE+">\n" +
-                                "    <"+DESCRIPTION +">"+movement.description+"</"+DESCRIPTION+">\n" +
-                                "    <"+JOURNAL_ABBR+">"+journal.abbreviation+"</"+JOURNAL_ABBR+">\n" +
-                                "    <"+JOURNAL_NAME+">"+journal.name+"</"+JOURNAL_NAME+">\n" +
-                                "    <"+JOURNAL_ID+">"+transaction.id+"</"+JOURNAL_ID+">\n"
-                )
+                writer.write """\
+  <$MOVEMENT>
+    <$TRANSACTION_ID>$transaction.transactionId</$TRANSACTION_ID>
+    <$ID>$movement.id</$ID">
+    <$DATE>${Utils.toString(movement.date)}</$DATE>
+    <$DESCRIPTION>$movement.description</$DESCRIPTION>
+    <$JOURNAL_ABBR>$journal.abbreviation</$JOURNAL_ABBR>
+    <$JOURNAL_NAME>$journal.name</$JOURNAL_NAME>
+    <$JOURNAL_ID>$transaction.id</$JOURNAL_ID>"""
+
                 if(movement.debit){
-                    writer.write(
-                            "    <"+DEBIT+">"+movement.amount+"</"+DEBIT+">\n"
-                    )
+                    writer.write """
+    <$DEBIT>$movement.amount</$DEBIT>"""
                 } else {
-                    writer.write(
-                            "    <"+CREDIT+">"+movement.amount+"</"+CREDIT+">\n"
-                    )
+                    writer.write """
+    <$CREDIT>$movement.amount</$CREDIT>"""
                 }
-                writer.write("  </"+MOVEMENT+">\n")
+
+                writer.write"""
+  </$MOVEMENT>"""
             }
-            writer.write(   "</"+ACCOUNT+">\n")
+            writer.write   """
+</$ACCOUNT>
+"""
             writer.flush()
             writer.close()
         } catch (IOException ex) {

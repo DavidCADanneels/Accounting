@@ -16,7 +16,7 @@ class IngredientsIO {
     static void readIngredients(Accounting accounting){
         Ingredients ingredients = accounting.ingredients
         Allergenes allergenes = accounting.allergenes
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+INGREDIENTS + XML_EXTENSION)
+        File xmlFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$INGREDIENTS$XML_EXTENSION")
         Element rootElement = getRootElement(xmlFile, INGREDIENTS)
         for (Element ingredientElement : getChildren(rootElement, INGREDIENT)) {
 
@@ -39,24 +39,27 @@ class IngredientsIO {
 
     static void writeIngredientes(Accounting accounting) {
         Ingredients ingredients = accounting.ingredients
-        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + INGREDIENTS + XML_EXTENSION)
+        File file = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$INGREDIENTS$XML_EXTENSION")
         try {
             Writer writer = new FileWriter(file)
-            writer.write(getXmlHeader(INGREDIENTS, 2))
+            writer.write getXmlHeader(INGREDIENTS, 2)
             for (Ingredient ingredient : ingredients.businessObjects) {
-                writer.write(
-                        "  <" + INGREDIENT + ">\n" +
-                                "    <" + NAME + ">" + ingredient.name + "</" + NAME + ">\n" +
-                                "    <" + UNIT + ">" + ingredient.unit.name.toUpperCase() + "</" + UNIT + ">\n")
+                writer.write """\
+  <$INGREDIENT>
+    <$NAME>$ingredient.name</$NAME>
+    <$UNIT>${ingredient.unit.name.toUpperCase()}</$UNIT>"""
                 Allergenes allergenes = ingredient.allergenes
-                for (Allergene allergene:allergenes.businessObjects) {
-                    writer.write("    <" + ALLERGENE + ">\n")
-                    writer.write("      <" + ID + ">" + allergene.name + "</" + ID + ">\n")
-                    writer.write("    </" + ALLERGENE + ">\n")
-                }
-                writer.write("  </" + INGREDIENT + ">\n")
+                for (Allergene allergene:allergenes.businessObjects) writer.write"""
+    <$ALLERGENE>
+      <$ID>$allergene.name</$ID>
+    </$ALLERGENE>"""
+                writer.write"""
+  </$INGREDIENT>
+"""
             }
-            writer.write("</" + INGREDIENTS + ">\n")
+            writer.write """\
+</$INGREDIENTS>
+"""
             writer.flush()
             writer.close()
         } catch (IOException ex) {

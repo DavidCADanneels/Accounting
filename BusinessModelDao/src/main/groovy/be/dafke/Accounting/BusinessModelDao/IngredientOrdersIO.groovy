@@ -16,7 +16,7 @@ import static be.dafke.Accounting.BusinessModelDao.XMLWriter.getXmlHeader
 class IngredientOrdersIO {
     public static void readIngredientOrders(Accounting accounting){
         IngredientOrders ingredientOrders = accounting.ingredientOrders;
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+INGREDIENT_ORDERS + XML_EXTENSION);
+        File xmlFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$INGREDIENT_ORDERS$XML_EXTENSION");
         Element rootElement = getRootElement(xmlFile, INGREDIENT_ORDERS);
         for (Element ingredientElement : getChildren(rootElement, INGREDIENT_ORDER)) {
 
@@ -31,26 +31,31 @@ class IngredientOrdersIO {
 
     public static void writeIngredientOrders(Accounting accounting) {
         IngredientOrders ingredientOrders = accounting.ingredientOrders;
-        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + INGREDIENT_ORDERS + XML_EXTENSION);
+        File file = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$INGREDIENT_ORDERS$XML_EXTENSION");
         try {
             Writer writer = new FileWriter(file);
-            writer.write(getXmlHeader(INGREDIENT_ORDERS, 2));
+            writer.write getXmlHeader(INGREDIENT_ORDERS, 2)
             for (IngredientOrder ingredientOrder : ingredientOrders.businessObjects) {
-                writer.write("  <" + INGREDIENT_ORDER + ">\n");
+                writer.write """\
+  <$INGREDIENT_ORDER>"""
                 for (IngredientOrderItem ingredientOrderItem : ingredientOrder.businessObjects) {
                     Ingredient ingredient = ingredientOrderItem.getIngredient();
                     BigDecimal quantity = ingredientOrderItem.getQuantity();
                     Article article = ingredientOrderItem.article;
-                    writer.write(
-                            "    <" + INGREDIENT_ORDER_ITEM + ">\n" +
-                                    "      <" + INGREDIENT + ">" + ingredient.name + "</" + INGREDIENT + ">\n" +
-                                    "      <" + QUANTITY + ">" + quantity + "</" + QUANTITY + ">\n" +
-                                    "      <" + ARTICLE + ">" + article.name + "</" + ARTICLE + ">\n");
-                    writer.write("    </" + INGREDIENT_ORDER_ITEM + ">\n");
+                    writer.write """
+    <$INGREDIENT_ORDER_ITEM>
+      <$INGREDIENT>$ingredient.name</$INGREDIENT>
+      <$QUANTITY>$quantity</$QUANTITY>
+      <$ARTICLE>$article.name</$ARTICLE>
+    </$INGREDIENT_ORDER_ITEM>"""
                 }
-                writer.write("  </" + INGREDIENT_ORDER + ">\n");
+                writer.write"""
+  </$INGREDIENT_ORDER>
+"""
             }
-            writer.write("</" + INGREDIENT_ORDERS + ">\n");
+            writer.write"""\
+</$INGREDIENT_ORDERS>
+"""
             writer.flush();
             writer.close();
         } catch (IOException ex) {

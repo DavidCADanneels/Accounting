@@ -17,7 +17,7 @@ import static be.dafke.Utils.Utils.parseInt
 class PromoOrderIO {
     static void readPromoOrders(Accounting accounting){
         Articles articles = accounting.articles
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+PROMO_ORDERS + XML_EXTENSION)
+        File xmlFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$PROMO_ORDERS$XML_EXTENSION")
         Element rootElement = getRootElement(xmlFile, PROMO_ORDERS)
 
         for (Element orderElement : getChildren(rootElement, PROMO_ORDER)) {
@@ -84,38 +84,38 @@ class PromoOrderIO {
 
     static void writePromoOrders(Accounting accounting) {
         PromoOrders promoOrders = accounting.promoOrders
-        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + PROMO_ORDERS + XML_EXTENSION)
+        File file = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$PROMO_ORDERS$XML_EXTENSION")
         try {
             Writer writer = new FileWriter(file)
-            writer.write(getXmlHeader(PROMO_ORDERS, 2))
+            writer.write getXmlHeader(PROMO_ORDERS, 2)
             for (PromoOrder promoOrder : promoOrders.businessObjects) {
-                writer.write(
-                        "  <" + PROMO_ORDER + ">\n" +
-                                "    <" + ID + ">" + promoOrder.id + "</" + ID + ">\n" +
-                                "    <" + NAME + ">" + promoOrder.name + "</" + NAME + ">\n"
-                )
+                writer.write """\
+  <$PROMO_ORDER>
+    <$ID>$promoOrder.id</$ID>
+    <$NAME>$promoOrder.name</$NAME>"""
                 Transaction paymentTransaction = promoOrder.paymentTransaction
-                if(paymentTransaction!=null) {
-                    writer.write("    <" + PAYMENT_TRANSACTION + ">" + paymentTransaction.transactionId + "</" + PAYMENT_TRANSACTION + ">\n")
-                } else {
-                    writer.write("    <" + PAYMENT_TRANSACTION + ">null</" + PAYMENT_TRANSACTION + ">\n")
-                }
+                if(paymentTransaction!=null) writer.write """
+    <$PAYMENT_TRANSACTION>$paymentTransaction.transactionId</$PAYMENT_TRANSACTION>"""
+                else writer.write """
+    <$PAYMENT_TRANSACTION>null</$PAYMENT_TRANSACTION>"""
                 for (OrderItem orderItem : promoOrder.businessObjects) {
-                    Article article = orderItem.article
-                    writer.write(
-                            "    <" + ARTICLE + ">\n" +
-                                    "      <" + NAME + ">" + article.name + "</" + NAME + ">\n" +
-                                    "      <" + NR_OF_ITEMS + ">" + orderItem.numberOfItems + "</" + NR_OF_ITEMS + ">\n" +
-                                    "      <" + ITEMS_PER_UNIT + ">" + orderItem.itemsPerUnit + "</" + ITEMS_PER_UNIT + ">\n" +
-                                    "      <" + PURCHASE_PRICE_UNIT + ">" + orderItem.getPurchasePriceForUnit() + "</" + PURCHASE_PRICE_UNIT + ">\n" +
-                                    "      <" + PURCHASE_PRICE_ITEM + ">" + orderItem.getPurchasePriceForItem() + "</" + PURCHASE_PRICE_ITEM + ">\n" +
-                                    "      <" + PURCHASE_PRICE_TOTAL + ">" + orderItem.getStockValue() + "</" + PURCHASE_PRICE_TOTAL + ">\n" +
-                                    "    </" + ARTICLE + ">\n"
-                    )
+                    writer.write """
+    <$ARTICLE>
+      <$NAME>$orderItem.article.name</$NAME>
+      <$NR_OF_ITEMS>$orderItem.numberOfItems</$NR_OF_ITEMS>
+      <$ITEMS_PER_UNIT>$orderItem.itemsPerUnit</$ITEMS_PER_UNIT>
+      <$PURCHASE_PRICE_UNIT>$orderItem.purchasePriceForUnit</$PURCHASE_PRICE_UNIT>
+      <$PURCHASE_PRICE_ITEM>$orderItem.purchasePriceForItem</$PURCHASE_PRICE_ITEM>
+      <$PURCHASE_PRICE_TOTAL>$orderItem.stockValue</$PURCHASE_PRICE_TOTAL>
+    </$ARTICLE>"""
                 }
-                writer.write("  </" + PROMO_ORDER + ">\n")
+                writer.write"""
+  </$PROMO_ORDER>
+"""
             }
-            writer.write("</" + PROMO_ORDERS + ">\n")
+            writer.write"""\
+</$PROMO_ORDERS>
+"""
             writer.flush()
             writer.close()
         } catch (IOException ex) {

@@ -32,15 +32,15 @@ import static XMLConstants.*
 class XMLWriter {
     static String getXmlHeader(String className, int depth) {
         StringBuilder builder = new StringBuilder("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n")
-
 //        builder.append("<!DOCTYPE ").append(className).append(" SYSTEM \"")
-
-        builder.append("<"+className+" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
-                "xsi:noNamespaceSchemaLocation=\"")
+        builder.append """\
+<$className xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
+xsi:noNamespaceSchemaLocation=\""""
         for(int i=0;  i<depth; i++){
             builder.append("../")
         }
-        builder.append("../xsd/").append(className).append(".xsd\">\n")
+        builder.append("../xsd/").append(className).append(""".xsd\">
+""")
         builder.toString()
     }
 
@@ -49,22 +49,21 @@ class XMLWriter {
         accountingsXmlFile.getParentFile().mkdirs()
         try {
             Writer writer = new FileWriter(accountingsXmlFile)
-            writer.write(getXmlHeader(ACCOUNTINGS, 0))
-            for(Accounting accounting:accountings.businessObjects){
-                writer.write(
-                        "  <" + ACCOUNTING + ">\n" +
-                                "    <" + NAME + ">"+accounting.name+"</" + NAME + ">\n" +
-                                "    <"+VAT_ACCOUNTING+">"+accounting.vatAccounting+"</"+VAT_ACCOUNTING+">\n" +
-                                "    <"+CONTACTS_ACCOUNTING+">"+accounting.contactsAccounting+"</"+CONTACTS_ACCOUNTING+">\n" +
-                                "    <"+TRADE_ACCOUNTING+">"+accounting.tradeAccounting+"</"+TRADE_ACCOUNTING+">\n" +
-                                "    <"+ MEAL_ORDER_ACCOUNTING +">"+accounting.mealsAccounting+"</"+ MEAL_ORDER_ACCOUNTING +">\n" +
-                                "    <"+PROJECTS_ACCOUNTING+">"+accounting.projectsAccounting+"</"+PROJECTS_ACCOUNTING+">\n" +
-                                "    <"+MORTGAGES_ACCOUNTING+">"+accounting.mortgagesAccounting+"</"+MORTGAGES_ACCOUNTING+">\n" +
-                                "  </" + ACCOUNTING + ">\n"
-                )
-            }
+            writer.write getXmlHeader(ACCOUNTINGS, 0)
+            for(Accounting accounting:accountings.businessObjects) writer.write """\
+  <$ACCOUNTING>
+    <$NAME>$accounting.name</$NAME>
+    <$VAT_ACCOUNTING>$accounting.vatAccounting</$VAT_ACCOUNTING>
+    <$CONTACTS_ACCOUNTING>$accounting.contactsAccounting</$CONTACTS_ACCOUNTING>
+    <$TRADE_ACCOUNTING>$accounting.tradeAccounting</$TRADE_ACCOUNTING>
+    <$MEAL_ORDER_ACCOUNTING>$accounting.mealsAccounting</$MEAL_ORDER_ACCOUNTING>
+    <$PROJECTS_ACCOUNTING>$accounting.projectsAccounting</$PROJECTS_ACCOUNTING>
+    <$MORTGAGES_ACCOUNTING>$accounting.mortgagesAccounting</$MORTGAGES_ACCOUNTING>
+  </$ACCOUNTING>
+"""
 
-            writer.write("</Accountings>")
+            writer.write"""\
+</$ACCOUNTINGS>"""
             writer.flush()
             writer.close()
         } catch (IOException ex) {
@@ -72,7 +71,7 @@ class XMLWriter {
         }
         if(writeHtml){
             File accountingsHtmlFile = new File(ACCOUNTINGS_HTML_FILE)
-            File accountingsXslFile = new File(XSLFOLDER + "Accountings.xsl")
+            File accountingsXslFile = new File("$XSLPATH/Accountings.xsl")
             XMLtoHTMLWriter.xmlToHtml(accountingsXmlFile, accountingsXslFile, accountingsHtmlFile, null)
         }
 
@@ -93,22 +92,23 @@ class XMLWriter {
 
         try {
             Writer writer = new FileWriter(xmlFile)
-            writer.write(getXmlHeader(SESSION, 0))
+            writer.write getXmlHeader(SESSION, 0)
             Accounting currentObject = Session.activeAccounting
             if(currentObject!=null) {
-                writer.write("  <" + ACTIVE_ACCOUNTING + ">" + currentObject.name + "</" + ACTIVE_ACCOUNTING + ">\n")
+                writer.write("  <$ACTIVE_ACCOUNTING>$currentObject.name</$ACTIVE_ACCOUNTING>\n")
             }
             Accountings accountings = Session.accountings
             for(Accounting accounting:accountings.businessObjects) {
                 AccountingSession accountingSession = Session.getAccountingSession(accounting)
                 Journal activeJournal = accountingSession.activeJournal
-                writer.write(
-                        "  <" + ACCOUNTING + ">\n" +
-                                "    <" + NAME + ">"+accounting.name+"</" + NAME + ">\n" +
-                                "    <"+ACTIVE_JOURNAL+">"+(activeJournal==null?"null":activeJournal.name)+"</"+ACTIVE_JOURNAL+">\n")
+                writer.write """
+  <$ACCOUNTING>
+    <$NAME>$accounting.name</$NAME>
+    <$ACTIVE_JOURNAL>${(activeJournal==null?"null":activeJournal.name)}</$ACTIVE_JOURNAL>"""
                 Journals journals = accounting.journals
                 if(journals !=null){
-                    writer.write("    <" + JOURNALS + ">\n")
+                    writer.write"""
+    <$JOURNALS>"""
                     for(Journal journal:journals.businessObjects) {
                         JournalSession journalSession = accountingSession.getJournalSession(journal)
                         ArrayList<AccountType> leftCheckedTypes = journalSession.getCheckedTypesLeft()
@@ -117,18 +117,21 @@ class XMLWriter {
                         String leftCheckedStream = leftCheckedTypes.name.collect().join(",")
                         String rightCheckedStream = rightCheckedTypes.name.collect().join(",")
 
-                        writer.write(
-                                "      <" + JOURNAL + ">\n" +
-                                        "        <"+ NAME + ">"+journal.name+"</"+ NAME + ">\n" +
-                                        "        <"+CHECKED_LEFT+">"+leftCheckedStream+"</"+CHECKED_LEFT+">\n" +
-                                        "        <"+CHECKED_RIGHT+">"+rightCheckedStream+"</"+CHECKED_RIGHT+">\n" +
-                                        "      </" + JOURNAL + ">\n")
+                        writer.write """
+      <$JOURNAL>
+        <$NAME>$journal.name</$NAME>
+        <$CHECKED_LEFT>$leftCheckedStream</$CHECKED_LEFT>
+        <$CHECKED_RIGHT>$rightCheckedStream</$CHECKED_RIGHT>
+      </$JOURNAL>"""
                     }
-                    writer.write("    </" + JOURNALS + ">\n")
+                    writer.write """\
+    </$JOURNALS>"""
                 }
-                writer.write("  </"+ ACCOUNTING + ">\n")
+                writer.write """"
+  </$ACCOUNTING>"""
             }
-            writer.write("</"+SESSION+">")
+            writer.write """
+</$SESSION>"""
             writer.flush()
             writer.close()
         } catch (IOException ex) {
@@ -138,7 +141,7 @@ class XMLWriter {
 
 
     static void writeAccounting(Accounting accounting, boolean writeHtml) {
-        File accountingFolder = new File(ACCOUNTINGS_XML_FOLDER + accounting.name)
+        File accountingFolder = new File("$ACCOUNTINGS_XML_PATH/$accounting.name")
         accountingFolder.mkdirs()
         writeAccounts accounting, writeHtml
         writeTransactions accounting

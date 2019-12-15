@@ -21,7 +21,7 @@ class MealOrderIO {
         MealOrders mealOrders = accounting.mealOrders
         Meals meals = accounting.meals
 
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+MEAL_ORDERS + XML_EXTENSION)
+        File xmlFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$MEAL_ORDERS$XML_EXTENSION")
         if(xmlFile.exists()) {
             Element rootElement = getRootElement(xmlFile, MEAL_ORDERS)
             String mealOrderServiceJournalString = getValue(rootElement, MEAL_ORDER_SERVICE_JOURNAL)
@@ -80,42 +80,42 @@ class MealOrderIO {
 
     static void writeMealOrders(Accounting accounting) {
         MealOrders mealOrders = accounting.mealOrders
-        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + MEAL_ORDERS + XML_EXTENSION)
+        File file = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$MEAL_ORDERS$XML_EXTENSION")
         try {
             Writer writer = new FileWriter(file)
-            writer.write(getXmlHeader(MEAL_ORDERS, 2))
+            writer.write getXmlHeader(MEAL_ORDERS, 2)
             Journal mealOrderSalesJournal = mealOrders.getMealOrderSalesJournal()
             Journal mealOrderServiceJournal = mealOrders.getMealOrderServiceJournal()
-            writer.write(
-                    "  <" + MEAL_ORDER_SALES_JOURNAL + ">" + (mealOrderSalesJournal == null ? "null" : mealOrderSalesJournal.name) + "</" + MEAL_ORDER_SALES_JOURNAL + ">\n" +
-                            "  <" + MEAL_ORDER_SERVICE_JOURNAL + ">" + (mealOrderServiceJournal == null ? "null" : mealOrderServiceJournal.name) + "</" + MEAL_ORDER_SERVICE_JOURNAL + ">\n" +
-                            "  <" + MEAL_ORDER_SERVICE_ACCOUNT + ">" + mealOrders.getMealOrderServiceAccount() + "</" + MEAL_ORDER_SERVICE_ACCOUNT + ">\n" +
-                            "  <" + MEAL_ORDER_REVENUE_ACCOUNT + ">" + mealOrders.getMealOrderRevenueAccount() + "</" + MEAL_ORDER_REVENUE_ACCOUNT + ">\n" +
-                            "  <" + MEAL_ORDER_BALANCE_ACCOUNT + ">" + mealOrders.getMealOrderBalanceAccount() + "</" + MEAL_ORDER_BALANCE_ACCOUNT + ">\n"
-            )
+            writer.write """\
+  <$MEAL_ORDER_SALES_JOURNAL>${(mealOrderSalesJournal==null?"null":mealOrderSalesJournal.name)}</$MEAL_ORDER_SALES_JOURNAL>
+  <$MEAL_ORDER_SERVICE_JOURNAL>${(mealOrderServiceJournal==null?"null":mealOrderServiceJournal.name)}</$MEAL_ORDER_SERVICE_JOURNAL>
+  <$MEAL_ORDER_SERVICE_ACCOUNT>$mealOrders.mealOrderServiceAccount</$MEAL_ORDER_SERVICE_ACCOUNT>
+  <$MEAL_ORDER_REVENUE_ACCOUNT>$mealOrders.mealOrderRevenueAccount</$MEAL_ORDER_REVENUE_ACCOUNT>
+  <$MEAL_ORDER_BALANCE_ACCOUNT>$mealOrders.mealOrderBalanceAccount</$MEAL_ORDER_BALANCE_ACCOUNT>"""
             for (MealOrder order : mealOrders.businessObjects) {
-                writer.write(
-                        "  <" + MEAL_ORDER + ">\n" +
-                                "    <" + DATE + ">" + Utils.toString(order.date) + "</" + DATE + ">\n" +
-                                "    <" + DESCRIPTION + ">" + order.description + "</" + DESCRIPTION + ">\n" +
-                                "    <" + NAME + ">" + order.name + "</" + NAME + ">\n" +
-                                "    <" + ID + ">" + order.id + "</" + ID + ">\n" +
-                                "    <" + TOTAL_PRICE + ">" + order.getTotalPrice() + "</" + TOTAL_PRICE + ">\n"
-                )
+                writer.write """
+  <$MEAL_ORDER>
+    <$DATE>${Utils.toString(order.date)}</$DATE>
+    <$DESCRIPTION>$order.description</$DESCRIPTION>
+    <$NAME>$order.name</$NAME>
+    <$ID>$order.id</$ID>
+    <$TOTAL_PRICE>$order.totalPrice</$TOTAL_PRICE>"""
                 for (MealOrderItem orderItem : order.businessObjects) {
                     Meal meal = orderItem.getMeal()
 
-                    writer.write(
-                            "    <" + MEAL + ">\n" +
-                                    "      <" + NR_OF_ITEMS + ">" + orderItem.numberOfItems + "</" + NR_OF_ITEMS + ">\n" +
-                                    "      <" + MEAL_NR + ">" + meal.name + "</" + MEAL_NR + ">\n" +
-                                    "      <" + NAME + ">" + meal.getMealName() + "</" + NAME + ">\n" +
-                                    "    </" + MEAL + ">\n"
-                    )
+                    writer.write """
+    <$MEAL>
+      <$NR_OF_ITEMS>$orderItem.numberOfItems</$NR_OF_ITEMS>
+      <$MEAL_NR>$meal.name</$MEAL_NR>
+      <$NAME>$meal.mealName</$NAME>
+    </$MEAL>"""
                 }
-                writer.write("  </" + MEAL_ORDER + ">\n")
+                writer.write"""
+  </$MEAL_ORDER>"""
             }
-            writer.write("</" + MEAL_ORDERS + ">\n")
+            writer.write """
+</$MEAL_ORDERS>
+"""
             writer.flush()
             writer.close()
         } catch (IOException ex) {

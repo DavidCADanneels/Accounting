@@ -13,7 +13,7 @@ import static be.dafke.Accounting.BusinessModelDao.XMLWriter.getXmlHeader
 class StockIO {
     static void readStockSettings(Accounting accounting) {
         StockTransactions stockTransactions = accounting.stockTransactions
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + STOCK_TRANSACTIONS + XML_EXTENSION)
+        File xmlFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$STOCK_TRANSACTIONS$XML_EXTENSION")
         Element transactionsElement = getRootElement(xmlFile, STOCK_TRANSACTIONS)
 
         Accounts accounts = accounting.accounts
@@ -87,7 +87,7 @@ class StockIO {
     static void readStockTransactions(Accounting accounting){
         StockTransactions stockTransactions = accounting.stockTransactions
 
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + STOCK_TRANSACTIONS + XML_EXTENSION)
+        File xmlFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$STOCK_TRANSACTIONS$XML_EXTENSION")
         Element transactionsElement = getRootElement(xmlFile, STOCK_TRANSACTIONS)
 
         for (Element element : getChildren(transactionsElement, STOCK_TRANSACTION)) {
@@ -127,10 +127,10 @@ class StockIO {
     static void writeStock(Accounting accounting) {
         Articles articles = accounting.articles
         StockTransactions stockTransactions = accounting.stockTransactions
-        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + STOCK + XML_EXTENSION)
+        File file = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$STOCK$XML_EXTENSION")
         try {
             Writer writer = new FileWriter(file)
-            writer.write(getXmlHeader(STOCK, 2))
+            writer.write getXmlHeader(STOCK, 2)
 
             writer.write"""\
   <$ARTICLES>"""
@@ -156,10 +156,10 @@ class StockIO {
 
     static void writeStockTransactions(Accounting accounting) {
         StockTransactions stockTransactions = accounting.stockTransactions
-        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + STOCK_TRANSACTIONS + XML_EXTENSION)
+        File file = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$STOCK_TRANSACTIONS$XML_EXTENSION")
         try {
             Writer writer = new FileWriter(file)
-            writer.write(getXmlHeader(STOCK_TRANSACTIONS, 2))
+            writer.write getXmlHeader(STOCK_TRANSACTIONS, 2)
 
             Account stockAccount = stockTransactions.stockAccount
             Journal salesJournal = stockTransactions.salesJournal

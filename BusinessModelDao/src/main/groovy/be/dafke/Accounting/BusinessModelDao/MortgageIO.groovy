@@ -19,8 +19,8 @@ class MortgageIO {
     static void readMortgages(Accounting accounting) {
         Mortgages mortgages = accounting.mortgages
         Accounts accounts = accounting.accounts
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+MORTGAGES+ XML_EXTENSION)
-        File mortgagesFolder = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+MORTGAGES)
+        File xmlFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$MORTGAGES$XML_EXTENSION")
+        File mortgagesFolder = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$MORTGAGES")
         Element rootElement = getRootElement(xmlFile, MORTGAGES)
         for (Element element : getChildren(rootElement, MORTGAGE)) {
 
@@ -57,7 +57,7 @@ class MortgageIO {
 
     static void readMortgage(Mortgage mortgage, File mortgagesFolder) {
         String name = mortgage.name
-        File xmlFile = new File(mortgagesFolder, name+ XML_EXTENSION)
+        File xmlFile = new File(mortgagesFolder, "$name$XML_EXTENSION")
         Element rootElement = getRootElement(xmlFile, MORTGAGE)
         for (Element element : getChildren(rootElement, MORTGAGE_TRANSACTION)) {
             MortgageTransaction mortgageTransaction = new MortgageTransaction()
@@ -75,25 +75,23 @@ class MortgageIO {
 
     static void writeMortgages(Accounting accounting){
         Mortgages mortgages = accounting.mortgages
-        File mortgagesFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + MORTGAGES+ XML_EXTENSION)
-        File mortgagesFolder = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + MORTGAGES)
+        File mortgagesFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$MORTGAGES$XML_EXTENSION")
+        File mortgagesFolder = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$MORTGAGES")
         try{
             Writer writer = new FileWriter(mortgagesFile)
-            writer.write(getXmlHeader(MORTGAGES, 2))
-            for(Mortgage mortgage: mortgages.businessObjects) {
-                writer.write(
-                        "<"+MORTGAGE+">\n" +
-                                // TODO: decide whether to store it here or in Mortgage.xml
-                                "  <"+NAME+">" + mortgage.name + "</"+NAME+">\n" +
-                                "  <"+CAPITAL_ACCOUNT+">" + mortgage.getCapitalAccount() + "</"+CAPITAL_ACCOUNT+">\n" +
-                                "  <"+INTREST_ACCOUNT+">" + mortgage.getIntrestAccount() + "</"+INTREST_ACCOUNT+">\n" +
-                                "  <"+NRPAYED+">" + mortgage.getNrPayed() + "</"+NRPAYED+">\n" +
-                                "  <"+TOTAL+">" + mortgage.getStartCapital() + "</"+TOTAL+">\n" +
-                                // TODO: until here
-                                "</"+MORTGAGE+">\n"
-                )
-            }
-            writer.write("</Mortgages>")
+            writer.write getXmlHeader(MORTGAGES, 2)
+            // TODO: decide whether to store it here or in Mortgage.xml
+            for(Mortgage mortgage: mortgages.businessObjects) writer.write """\
+<$MORTGAGE>
+  <$NAME>$mortgage.name</$NAME>
+  <$CAPITAL_ACCOUNT>$mortgage.capitalAccount</$CAPITAL_ACCOUNT>
+  <$INTREST_ACCOUNT>$mortgage.intrestAccount</$INTREST_ACCOUNT>
+  <$NRPAYED>$mortgage.nrPayed</$NRPAYED>
+  <$TOTAL>$mortgage.startCapital</$TOTAL>
+</$MORTGAGE>
+"""
+            writer.write("""\
+</$MORTGAGES>""")
             writer.flush()
             writer.close()
         } catch (IOException ex) {
@@ -106,31 +104,30 @@ class MortgageIO {
 
     static void writeMortgage(Mortgage mortgage, File mortgagesFolder){
         mortgagesFolder.mkdirs()
-        File mortgagesFile = new File(mortgagesFolder, mortgage.name+ XML_EXTENSION)
+        File mortgagesFile = new File(mortgagesFolder, "$mortgage.name$XML_EXTENSION")
         try{
             Writer writer = new FileWriter(mortgagesFile)
-            writer.write(getXmlHeader(MORTGAGE, 3))
+            writer.write getXmlHeader(MORTGAGE, 3)
             // TODO: decide whether to store it here or in Mortgages.xml
-            writer.write(
-                    "  <"+NAME+">" + mortgage.name + "</"+NAME+">\n" +
-                            "  <"+CAPITAL_ACCOUNT+">" + mortgage.getCapitalAccount() + "</"+CAPITAL_ACCOUNT+">\n" +
-                            "  <"+INTREST_ACCOUNT+">" + mortgage.getIntrestAccount() + "</"+INTREST_ACCOUNT+">\n" +
-                            "  <"+NRPAYED+">" + mortgage.getNrPayed() + "</"+NRPAYED+">\n" +
-                            "  <"+TOTAL+">" + mortgage.getStartCapital() + "</"+TOTAL+">\n"
-            )
-            // TODO: until here
-            for(MortgageTransaction mortgageTransaction:mortgage.businessObjects){
-                writer.write(
-                        "  <"+MORTGAGE_TRANSACTION+">\n" +
-                                "    <"+RESTCAPITAL+">"+mortgageTransaction.getRestCapital()+"</"+RESTCAPITAL+">\n" +
-                                "    <"+MENSUALITY+">"+mortgageTransaction.getMensuality()+"</"+MENSUALITY+">\n" +
-                                "    <"+NR+">"+mortgageTransaction.getNr()+"</"+NR+">\n" +
-                                "    <"+INTREST+">"+mortgageTransaction.getIntrest()+"</"+INTREST+">\n" +
-                                "    <"+CAPITAL+">"+mortgageTransaction.getCapital()+"</"+CAPITAL+">\n" +
-                                "  </"+MORTGAGE_TRANSACTION+">\n"
-                )
-            }
-            writer.write("</"+MORTGAGE+">")
+            writer.write """\
+  <$NAME>$mortgage.name</$NAME>
+  <$CAPITAL_ACCOUNT>$mortgage.capitalAccount</$CAPITAL_ACCOUNT>
+  <$INTREST_ACCOUNT>$mortgage.intrestAccount</$INTREST_ACCOUNT>
+  <$NRPAYED>$mortgage.nrPayed</$NRPAYED>
+  <$TOTAL>$mortgage.startCapital</$TOTAL>
+"""
+
+            for(MortgageTransaction mortgageTransaction:mortgage.businessObjects) writer.write """\
+  <$MORTGAGE_TRANSACTION>
+    <$RESTCAPITAL>$mortgageTransaction.restCapital</$RESTCAPITAL>
+    <$MENSUALITY>$mortgageTransaction.mensuality</$MENSUALITY>
+    <$NR>$mortgageTransaction.nr</$NR>
+    <$INTREST>$mortgageTransaction.intrest</$INTREST>
+    <$CAPITAL>$mortgageTransaction.capital</$CAPITAL>
+  </$MORTGAGE_TRANSACTION>
+"""
+            writer.write """\
+</$MORTGAGE>"""
             writer.flush()
             writer.close()
         } catch (IOException ex) {

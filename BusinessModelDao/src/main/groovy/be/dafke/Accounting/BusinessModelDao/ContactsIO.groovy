@@ -19,7 +19,7 @@ class ContactsIO {
 
     static void readContacts(Accounting accounting){
         Contacts contacts = accounting.contacts
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/" + CONTACTS + XML_EXTENSION)
+        File xmlFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$CONTACTS$XML_EXTENSION")
         Element rootElement = getRootElement(xmlFile, CONTACTS)
         for (Element element : getChildren(rootElement, CONTACT)) {
             Contact contact = new Contact()
@@ -64,32 +64,32 @@ class ContactsIO {
         Contact companyContact = accounting.companyContact
         Contact contactNoInvoice = accounting.contactNoInvoice
         Contacts contacts = accounting.contacts
-        File accountsFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + CONTACTS + XML_EXTENSION)
+        File accountsFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$CONTACTS$XML_EXTENSION")
         try{
             Writer writer = new FileWriter(accountsFile)
-            writer.write(getXmlHeader(CONTACTS, 2))
-            for(Contact contact: contacts.businessObjects) {
-                writer.write(
-                        "  <"+CONTACT+">\n" +
-                                "    <"+NAME+">" + contact.name + "</"+NAME+">\n" +
-                                "    <"+OFFICIAL_NAME+">" + contact.officialName + "</"+OFFICIAL_NAME+">\n" +
-                                "    <"+STREET_AND_NUMBER+">" + contact.streetAndNumber + "</"+STREET_AND_NUMBER+">\n" +
-                                "    <"+POSTAL_CODE+">" + contact.postalCode + "</"+POSTAL_CODE+">\n" +
-                                "    <"+CITY+">" + contact.city + "</"+CITY+">\n" +
-                                "    <"+COUNTRY_CODE+">" + contact.countryCode + "</"+COUNTRY_CODE+">\n" +
-                                "    <"+EMAIL_ADDRESS+">" + contact.email + "</"+EMAIL_ADDRESS+">\n" +
-                                "    <"+PHONE_NUMBER+">" + contact.phone + "</"+PHONE_NUMBER+">\n" +
-                                "    <"+VAT_NUMBER+">" + contact.vatNumber + "</"+VAT_NUMBER+">\n" +
-                                "    <"+VAT_TOTAL+">" + contact.VATTotal + "</"+VAT_TOTAL+">\n" +
-                                "    <"+TURNOVER+">" + contact.turnOver + "</"+TURNOVER+">\n" +
-                                "    <"+CUSTOMER_ACCOUNT+">" + contact.customerAccount + "</"+CUSTOMER_ACCOUNT+">\n" +
-                                "    <"+SUPPLIER_ACCOUNT+">" + contact.supplierAccount + "</"+SUPPLIER_ACCOUNT+">\n" +
-                                "  </"+CONTACT+">\n"
-                )
-            }
-            writer.write("  <"+COMPANY_CONTACT+">"+(companyContact==null?"null":companyContact.name)+"</"+COMPANY_CONTACT+">\n")
-            writer.write("  <"+CONTACT_NO_INVOICE+">"+(contactNoInvoice==null?"null":contactNoInvoice.name)+"</"+CONTACT_NO_INVOICE+">\n")
-            writer.write("</Contacts>")
+            writer.write getXmlHeader(CONTACTS, 2)
+            for(Contact contact: contacts.businessObjects) writer.write """\
+  <$CONTACT>
+    <$NAME>$contact.name</$NAME>
+    <$OFFICIAL_NAME>$contact.officialName</$OFFICIAL_NAME>
+    <$STREET_AND_NUMBER>$contact.streetAndNumber</$STREET_AND_NUMBER>
+    <$POSTAL_CODE>$contact.postalCode</$POSTAL_CODE>
+    <$CITY>$contact.city</$CITY>
+    <$COUNTRY_CODE>$contact.countryCode</$COUNTRY_CODE>
+    <$EMAIL_ADDRESS>$contact.email</$EMAIL_ADDRESS>
+    <$PHONE_NUMBER>$contact.phone</$PHONE_NUMBER>
+    <$VAT_NUMBER>$contact.vatNumber</$VAT_NUMBER>
+    <$VAT_TOTAL>$contact.VATTotal</$VAT_TOTAL>
+    <$TURNOVER>$contact.turnOver</$TURNOVER>
+    <$CUSTOMER_ACCOUNT>$contact.customerAccount</$CUSTOMER_ACCOUNT>
+    <$SUPPLIER_ACCOUNT>$contact.supplierAccount</$SUPPLIER_ACCOUNT>
+  </$CONTACT>
+"""
+            
+            writer.write """\
+  <$COMPANY_CONTACT>${(companyContact==null?"null":companyContact.name)}</$COMPANY_CONTACT>
+  <$CONTACT_NO_INVOICE>${(contactNoInvoice==null?"null":contactNoInvoice.name)}</$CONTACT_NO_INVOICE>
+</$CONTACTS>"""
             writer.flush()
             writer.close()
         } catch (IOException ex) {

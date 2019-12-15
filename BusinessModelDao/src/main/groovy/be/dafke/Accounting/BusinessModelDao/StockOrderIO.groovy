@@ -18,7 +18,7 @@ class StockOrderIO {
     static void readStockOrders(Accounting accounting){
         StockOrders stockOrders = accounting.stockOrders
         Articles articles = accounting.articles
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+STOCK_ORDERS + XML_EXTENSION)
+        File xmlFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$STOCK_ORDERS$XML_EXTENSION")
         Element rootElement = getRootElement(xmlFile, STOCK_ORDERS)
 
         for (Element orderElement : getChildren(rootElement, STOCK_ORDER)) {
@@ -69,39 +69,38 @@ class StockOrderIO {
 
     static void writeStockOrders(Accounting accounting) {
         StockOrders stockOrders = accounting.stockOrders
-        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + STOCK_ORDERS + XML_EXTENSION)
+        File file = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$STOCK_ORDERS$XML_EXTENSION")
         try {
             Writer writer = new FileWriter(file)
-            writer.write(getXmlHeader(STOCK_ORDERS, 2))
+            writer.write getXmlHeader(STOCK_ORDERS, 2)
             for (StockOrder order : stockOrders.businessObjects) {
-                writer.write(
-                        "  <" + STOCK_ORDER + ">\n" +
-                                "    <" + ID + ">" + order.id + "</" + ID + ">\n" +
-                                "    <" + NAME + ">" + order.name + "</" + NAME + ">\n"
-                )
+                writer.write """\
+  <$STOCK_ORDER>
+    <$ID>$order.id</$ID>
+    <$NAME>$order.name</$NAME>"""
                 Transaction balanceTransaction = order.balanceTransaction
-                if(balanceTransaction!=null) {
-                    writer.write("    <" + BALANCE_TRANSACTION + ">" + balanceTransaction.transactionId + "</" + BALANCE_TRANSACTION + ">\n")
-                }
-                Transaction paymentTransaction = order.paymentTransaction
-                if(paymentTransaction!=null) {
-                    writer.write("    <" + PAYMENT_TRANSACTION + ">" + paymentTransaction.transactionId + "</" + PAYMENT_TRANSACTION + ">\n")
-                }
+                if(balanceTransaction!=null) writer.write """
+    <$BALANCE_TRANSACTION>$balanceTransaction.transactionId</$BALANCE_TRANSACTION>"""
+                if(order.paymentTransaction!=null) writer.write """
+    <$PAYMENT_TRANSACTION>$order.paymentTransaction.transactionId</$PAYMENT_TRANSACTION>"""
 
                 for (OrderItem orderItem : order.businessObjects) {
                     Article article = orderItem.article
-                    writer.write(
-                            "    <" + ARTICLE + ">\n" +
-                                    "      <" + NAME + ">" + article.name + "</" + NAME + ">\n" +
-                                    "      <" + NR_OF_ITEMS + ">" + orderItem.numberOfItems + "</" + NR_OF_ITEMS + ">\n" +
-                                    "      <" + PURCHASE_VAT_RATE + ">" + orderItem.getPurchaseVatRate() + "</" + PURCHASE_VAT_RATE + ">\n" +
-                                    "      <" + PURCHASE_PRICE + ">" + orderItem.getPurchasePriceForUnit() + "</" + PURCHASE_PRICE + ">\n" +
-                                    "    </" + ARTICLE + ">\n"
-                    )
+                    writer.write """
+    <$ARTICLE>
+      <$NAME>$article.name</$NAME>
+      <$NR_OF_ITEMS>$orderItem.numberOfItems</$NR_OF_ITEMS>
+      <$PURCHASE_VAT_RATE>$orderItem.purchaseVatRate</$PURCHASE_VAT_RATE>
+      <$PURCHASE_PRICE>$orderItem.purchasePriceForUnit</$PURCHASE_PRICE>
+    </$ARTICLE>"""
                 }
-                writer.write("  </" + STOCK_ORDER + ">\n")
+                writer.write """
+  </$STOCK_ORDER>
+"""
             }
-            writer.write("</" + STOCK_ORDERS + ">\n")
+            writer.write """\
+</$STOCK_ORDERS>
+"""
             writer.flush()
             writer.close()
         } catch (IOException ex) {

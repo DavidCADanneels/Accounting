@@ -18,8 +18,8 @@ class ProjectsIO {
         Projects projects = accounting.getProjects()
         Accounts accounts = accounting.accounts
         AccountTypes accountTypes = accounting.accountTypes
-        File projectsFolder = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+PROJECTS)
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+PROJECTS+ XML_EXTENSION)
+        File projectsFolder = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$PROJECTS")
+        File xmlFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$PROJECTS$XML_EXTENSION")
         Element rootElement = getRootElement(xmlFile, PROJECTS)
         for (Element element : getChildren(rootElement, PROJECT)) {
 
@@ -40,7 +40,7 @@ class ProjectsIO {
 
     static void readProject(Project project, Accounts accounts, File projectsFolder) {
         String projectName = project.name
-        File xmlFile = new File(projectsFolder, projectName+ XML_EXTENSION)
+        File xmlFile = new File(projectsFolder, "$projectName$XML_EXTENSION")
         Element rootElement = getRootElement(xmlFile, PROJECT)
         for (Element element : getChildren(rootElement, ACCOUNT)) {
 
@@ -57,19 +57,21 @@ class ProjectsIO {
 
     static void writeProjects(Accounting accounting){
         Projects projects = accounting.getProjects()
-        File projectsFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + PROJECTS+ XML_EXTENSION)
-        File projectsFolder = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + PROJECTS)
+        File projectsFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$PROJECTS$XML_EXTENSION")
+        File projectsFolder = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$PROJECTS")
         try{
             Writer writer = new FileWriter(projectsFile)
-            writer.write(getXmlHeader(PROJECTS, 2))
+            writer.write getXmlHeader(PROJECTS, 2)
             for(Project project: projects.businessObjects) {
-                writer.write(
-                        "  <"+PROJECT+">\n" +
-                                "    <"+NAME+">"+project.name+"</"+NAME+">\n" +
-                                "  </"+PROJECT+">\n"
-                )
+                writer.write """\
+  <$PROJECT>
+    <$NAME>$project.name</$NAME>
+  </$PROJECT>
+"""
             }
-            writer.write("</"+PROJECTS+">\n")
+            writer.write"""\
+</$PROJECTS>
+"""
             writer.flush()
             writer.close()
         } catch (IOException ex) {
@@ -86,15 +88,15 @@ class ProjectsIO {
         File projectFile = new File(projectsFolder, project.name+ XML_EXTENSION)
         try {
             Writer writer = new FileWriter(projectFile)
-            writer.write(getXmlHeader(PROJECT, 3))
+            writer.write getXmlHeader(PROJECT, 3)
             for(Account account:project.businessObjects) {
                 writer.write(
-                        "  <"+ACCOUNT+">\n" +
-                                "    <"+NAME+">"+account.name+"</"+NAME+">\n" +
-                                "  </"+ACCOUNT+">\n"
+                        "  <$ACCOUNT>\n" +
+                                "    <$NAME>$account.name</$NAME>\n" +
+                                "  </$ACCOUNT>\n"
                 )
             }
-            writer.write("</"+PROJECT+">\n")
+            writer.write("</$PROJECT>\n")
             writer.flush()
             writer.close()
         } catch (IOException ex) {

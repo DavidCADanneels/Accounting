@@ -24,7 +24,7 @@ class JournalsIO {
         JournalTypes journalTypes = accounting.journalTypes
         Accounts accounts = accounting.accounts
         AccountTypes accountTypes = accounting.accountTypes
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+JOURNAL_TYPES+XML_EXTENSION)
+        File xmlFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$JOURNAL_TYPES$XML_EXTENSION")
         Element rootElement = getRootElement(xmlFile, JOURNAL_TYPES)
         for (Element element : getChildren(rootElement, JOURNAL_TYPE)) {
 
@@ -100,7 +100,7 @@ class JournalsIO {
         JournalTypes journalTypes = accounting.journalTypes
         Journals journals = accounting.journals
 
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + JOURNALS + XML_EXTENSION)
+        File xmlFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$JOURNALS$XML_EXTENSION")
         Element rootElement = getRootElement(xmlFile, JOURNALS)
         for (Element element : getChildren(rootElement, JOURNAL)) {
 
@@ -131,14 +131,14 @@ class JournalsIO {
     static void readJournal(Journal journal, Accounting accounting) {
         Transactions transactions = accounting.transactions
         String name = journal.name
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+JOURNALS+"/"+name+ XML_EXTENSION)
+        File xmlFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$JOURNALS/$name$XML_EXTENSION")
         Element rootElement = getRootElement(xmlFile, JOURNAL)
         for (Element element: getChildren(rootElement, TRANSACTION)) {
             int id = parseInt(getValue(element, TRANSACTION_ID))
 
             Transaction transaction = transactions.getBusinessObject(id)
             if (transaction == null){
-                System.err.println("id("+id+")not found")
+                System.err.println("id($id)not found")
             } else {
                 journal.addBusinessObject(transaction)
             }
@@ -155,7 +155,7 @@ class JournalsIO {
         Transactions transactions = accounting.transactions
         VATFields vatFields = accounting.vatFields
         Accounts accounts = accounting.accounts
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+TRANSACTIONS+ XML_EXTENSION)
+        File xmlFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$TRANSACTIONS$XML_EXTENSION")
         Element rootElement = getRootElement(xmlFile, TRANSACTIONS)
         int maxId = 0
         for (Element element: getChildren(rootElement, TRANSACTION)) {
@@ -222,11 +222,11 @@ class JournalsIO {
                     for (Element vatBookingsElement : getChildren(bookingsElement, VATBOOKING)) {
                         String vatFieldString = getValue(vatBookingsElement, VATFIELD)
                         VATField vatField = vatFields.getBusinessObject(vatFieldString)
-                        if (vatField == null) System.err.println("Field[" + vatFieldString + "] not found")
+                        if (vatField == null) System.err.println("Field[$vatFieldString] not found")
                         String amountString = getValue(vatBookingsElement, AMOUNT)
                         BigDecimal vatAmount = new BigDecimal(amountString)
                         if(amount.compareTo(vatAmount)!=0){
-                            System.err.println("Difference: "+ amount.toString() + " | " + vatAmount.toString())
+                            System.err.println("Difference: ${amount.toString()} | ${vatAmount.toString()}")
                         }
                         boolean positive = vatAmount.compareTo(BigDecimal.ZERO)>=0
                         VATMovement vatMovement = new VATMovement(positive?amount:amount.negate())
@@ -245,10 +245,10 @@ class JournalsIO {
 
     static void writeJournalTypes(Accounting accounting){
         JournalTypes journalTypes = accounting.journalTypes
-        File journalTypesFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + JOURNAL_TYPES + XML_EXTENSION)
+        File journalTypesFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$JOURNAL_TYPES$XML_EXTENSION")
         try {
             Writer writer = new FileWriter(journalTypesFile)
-            writer.write(getXmlHeader(JOURNAL_TYPES, 2))
+            writer.write getXmlHeader(JOURNAL_TYPES, 2)
             for (JournalType journalType : journalTypes.businessObjects) {
 
                 AccountsList left = journalType.getLeft()
@@ -260,34 +260,34 @@ class JournalsIO {
                 String leftStream = leftAccountTypes.name.stream().sorted().collect(Collectors.joining(","))
                 String rightStream = rightAccountTypes.name.stream().sorted().collect(Collectors.joining(","))
 
-                writer.write(
-                        "  <"+JOURNAL_TYPE+">\n" +
-                                "    <"+NAME+">"+journalType.name+"</"+NAME+">\n" +
-                                "    <"+VATTYPE+">"+(journalType.getVatType()==null?"null":journalType.getVatType().toString())+"</"+VATTYPE+">\n" +
-                                "    <"+LEFT_LIST+">\n" +
-                                "      <"+LEFT_ACTION+">"+left.isLeftAction()+"</"+LEFT_ACTION+">\n" +
-                                "      <"+LEFT_BUTTON+">"+left.getLeftButton()+"</"+LEFT_BUTTON+">\n" +
-                                "      <"+RIGHT_ACTION+">"+left.isRightAction()+"</"+RIGHT_ACTION+">\n" +
-                                "      <"+RIGHT_BUTTON+">"+left.getRightButton()+"</"+RIGHT_BUTTON+">\n" +
-                                "      <"+VATTYPE+">"+journalType.getLeftVatType()+"</"+VATTYPE+">\n" +
-                                "      <"+SINGLE_ACCOUNT+">"+left.isSingleAccount()+"</"+SINGLE_ACCOUNT+">\n" +
-                                "      <"+ACCOUNT+">"+left.account+"</"+ACCOUNT+">\n" +
-                                "      <"+TYPES+">"+leftStream+"</"+TYPES+">\n" +
-                                "    </"+LEFT_LIST+">\n" +
-                                "    <"+RIGHT_LIST+">\n" +
-                                "      <"+LEFT_ACTION+">"+right.isLeftAction()+"</"+LEFT_ACTION+">\n" +
-                                "      <"+LEFT_BUTTON+">"+right.getLeftButton()+"</"+LEFT_BUTTON+">\n" +
-                                "      <"+RIGHT_ACTION+">"+right.isRightAction()+"</"+RIGHT_ACTION+">\n" +
-                                "      <"+RIGHT_BUTTON+">"+right.getRightButton()+"</"+RIGHT_BUTTON+">\n" +
-                                "      <"+VATTYPE+">"+journalType.getRightVatType()+"</"+VATTYPE+">\n" +
-                                "      <"+SINGLE_ACCOUNT+">"+right.isSingleAccount()+"</"+SINGLE_ACCOUNT+">\n" +
-                                "      <"+ACCOUNT+">"+right.account+"</"+ACCOUNT+">\n" +
-                                "      <"+TYPES+">"+rightStream+"</"+TYPES+">\n" +
-                                "    </"+RIGHT_LIST+">\n" +
-                                "  </"+JOURNAL_TYPE+">\n"
-                )
+                writer.write """\
+  <$JOURNAL_TYPE>
+    <$NAME>$journalType.name</$NAME>
+    <$VATTYPE>${(journalType.getVatType()==null?"null":journalType.getVatType().toString())}</$VATTYPE>
+    <$LEFT_LIST>
+      <$LEFT_ACTION>$left.leftAction</$LEFT_ACTION>
+      <$LEFT_BUTTON>$left.leftButton</$LEFT_BUTTON>
+      <$RIGHT_ACTION>$left.rightAction</$RIGHT_ACTION>
+      <$RIGHT_BUTTON>$left.rightButton</$RIGHT_BUTTON>
+      <$VATTYPE>$journalType.leftVatType</$VATTYPE>
+      <$SINGLE_ACCOUNT>$left.singleAccount</$SINGLE_ACCOUNT>
+      <$ACCOUNT>$left.account</$ACCOUNT>
+      <$TYPES>$leftStream</$TYPES>
+    </$LEFT_LIST>
+    <$RIGHT_LIST>
+      <$LEFT_ACTION>$right.leftAction</$LEFT_ACTION>
+      <$LEFT_BUTTON>$right.leftButton</$LEFT_BUTTON>
+      <$RIGHT_ACTION>$right.rightAction</$RIGHT_ACTION>
+      <$RIGHT_BUTTON>$right.rightButton</$RIGHT_BUTTON>
+      <$VATTYPE>$journalType.rightVatType</$VATTYPE>
+      <$SINGLE_ACCOUNT>$right.singleAccount</$SINGLE_ACCOUNT>
+      <$ACCOUNT>$right.account</$ACCOUNT>
+      <$TYPES>$rightStream</$TYPES>
+    </$RIGHT_LIST>
+  </$JOURNAL_TYPE>
+"""
             }
-            writer.write("</"+JOURNAL_TYPES+">\n")
+            writer.write("</$JOURNAL_TYPES>\n")
             writer.flush()
             writer.close()
         } catch (IOException ex) {
@@ -295,27 +295,35 @@ class JournalsIO {
         }
     }
 
-    static String createTmpFolder(Accounting accounting) {
+    static String createTmpPath(Accounting accounting) {
         String accountingName = accounting.name
-        String tmpFolderPath = ACCOUNTINGS_XML_FOLDER + accountingName + "/" + TMP + "/"
+        String tmpFolderPath = "$ACCOUNTINGS_XML_PATH/$accountingName/$TMP"
         File tempFolder = new File(tmpFolderPath)
         tempFolder.mkdirs()
         tmpFolderPath
     }
 
-    static String createPdfFolder(Accounting accounting) {
+    static String createTmpFolder(Accounting accounting) {
         String accountingName = accounting.name
-        String resultPdfPolderPath = ACCOUNTINGS_PDF_FOLDER + accountingName + "/" + JOURNALS + "/"
+        String tmpFolderPath = "$ACCOUNTINGS_XML_PATH/$accountingName/$TMP/"
+        File tempFolder = new File(tmpFolderPath)
+        tempFolder.mkdirs()
+        tmpFolderPath
+    }
+
+    static String createPdfPath(Accounting accounting) {
+        String accountingName = accounting.name
+        String resultPdfPolderPath = "$ACCOUNTINGS_PDF_PATH/$accountingName/$JOURNALS"
         File targetFolder = new File(resultPdfPolderPath)
         targetFolder.mkdirs()
         resultPdfPolderPath
     }
 
     static void writeJournalPdfFiles(Accounting accounting){
-        String xslPath = XSLFOLDER + "JournalPdf.xsl"
+        String xslPath = "$XSLPATH/JournalPdf.xsl"
 
-        String tmpFolderPath = createTmpFolder(accounting)
-        String resultPdfPolderPath = createPdfFolder(accounting)
+        String tmpFolderPath = createTmpPath(accounting)
+        String resultPdfPolderPath = createPdfPath(accounting)
 
         Journals journals = accounting.journals
         for (Journal journal:journals.businessObjects) {
@@ -327,9 +335,9 @@ class JournalsIO {
         journals.businessObjects.forEach({ journal ->
             if (!journal.businessObjects.empty) {
                 try {
-                    String fileName = journal.name + XML_EXTENSION
-                    String xmlPath = tmpFolderPath + fileName
-                    PDFCreator.convertToPDF(xmlPath, xslPath, resultPdfPolderPath + journal.name + PDF_EXTENSION)
+                    String fileName = "$journal.name$XML_EXTENSION"
+                    String xmlPath = "$tmpFolderPath/$fileName"
+                    PDFCreator.convertToPDF(xmlPath, xslPath, "$resultPdfPolderPath/$journal.name$PDF_EXTENSION")
                     File file = new File(xmlPath)
                     file.delete()
                 } catch (IOException | FOPException | TransformerException e1) {
@@ -343,21 +351,21 @@ class JournalsIO {
 
     static void writeJournals(Accounting accounting, boolean writeHtml){
         Journals journals = accounting.journals
-        String path = ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + JOURNALS
-        File journalsXmlFile = new File(path + XML_EXTENSION)
+        String path = "$ACCOUNTINGS_XML_PATH/$accounting.name/$JOURNALS"
+        File journalsXmlFile = new File("$path$XML_EXTENSION")
         try {
             Writer writer = new FileWriter(journalsXmlFile)
-            writer.write(getXmlHeader(JOURNALS, 2))
-            for (Journal journal : journals.businessObjects) {
-                writer.write(
-                        "  <"+JOURNAL+">\n" +
-                                "    <"+NAME+">"+journal.name+"</"+NAME+">\n" +
-                                "    <"+ABBREVIATION+">"+journal.abbreviation+"</"+ABBREVIATION+">\n" +
-                                "    <"+TYPE+">"+journal.type+"</"+TYPE+">\n" +
-                                "  </"+JOURNAL+">\n"
-                )
-            }
-            writer.write("</"+JOURNALS+">\n")
+            writer.write getXmlHeader(JOURNALS, 2)
+            for (Journal journal : journals.businessObjects) writer.write """\
+  <$JOURNAL>
+    <$NAME>$journal.name</$NAME>
+    <$ABBREVIATION>$journal.abbreviation</$ABBREVIATION>
+    <$TYPE>$journal.type</$TYPE>
+  </$JOURNAL>
+"""
+            writer.write """\
+</$JOURNALS>
+"""
             writer.flush()
             writer.close()
         } catch (IOException ex) {
@@ -368,19 +376,19 @@ class JournalsIO {
         }
 
         if(writeHtml){
-            File journalsHtmlFile = new File(ACCOUNTINGS_HTML_FOLDER + accounting.name + "/" + JOURNALS+ HTML_EXTENSION)
-            File journalsXslFile = new File(XSLFOLDER + "Journals.xsl")
+            File journalsHtmlFile = new File("$ACCOUNTINGS_HTML_PATH/$accounting.name/$JOURNALS$HTML_EXTENSION")
+            File journalsXslFile = new File("$XSLPATH/Journals.xsl")
             XMLtoHTMLWriter.xmlToHtml(journalsXmlFile,journalsXslFile,journalsHtmlFile, null)
 
-            String tmpFolderPath = createTmpFolder(accounting)
-            File journalsHtmlFolder = new File(ACCOUNTINGS_HTML_FOLDER + accounting.name + "/" + JOURNALS)
+            String tmpFolderPath = createTmpPath(accounting)
+            File journalsHtmlFolder = new File("$ACCOUNTINGS_HTML_PATH/$accounting.name/$JOURNALS")
             journalsHtmlFolder.mkdirs()
 
             for (Journal journal:journals.businessObjects) {
                 writeJournal(journal, tmpFolderPath, true)
-                File journalXmlFile = new File(tmpFolderPath + "/" + journal.name + XML_EXTENSION)
-                File journalHtmlFile = new File(journalsHtmlFolder, journal.name + HTML_EXTENSION)
-                File journalXslFile = new File(XSLFOLDER + "Journal.xsl")
+                File journalXmlFile = new File("$tmpFolderPath/$journal.name$XML_EXTENSION")
+                File journalHtmlFile = new File(journalsHtmlFolder, "$journal.name$HTML_EXTENSION")
+                File journalXslFile = new File("$XSLPATH/Journal.xsl")
                 XMLtoHTMLWriter.xmlToHtml(journalXmlFile, journalXslFile, journalHtmlFile, null)
             }
         }
@@ -389,56 +397,66 @@ class JournalsIO {
     static void writeJournal(Journal journal, String path, boolean details){
         File journalsFolder = new File(path)
         journalsFolder.mkdirs()
-        File journalFile = new File(path, journal.name + XML_EXTENSION)
+        File journalFile = new File(path, "$journal.name$XML_EXTENSION")
         try {
             Writer writer = new FileWriter(journalFile)
-            writer.write(getXmlHeader(JOURNAL, 3))
-            writer.write(
-                    "  <"+NAME+">"+journal.name+"</"+NAME+">\n" +
-                            "  <"+ABBREVIATION+">"+journal.abbreviation+"</"+ABBREVIATION+">\n" +
-                            "  <"+TYPE+">"+journal.type+"</"+TYPE+">\n")
+            writer.write getXmlHeader(JOURNAL, 3)
+            writer.write """\
+  <$NAME>$journal.name</$NAME>
+  <$ABBREVIATION>$journal.abbreviation</$ABBREVIATION>
+  <$TYPE>$journal.type</$TYPE>"""
             for (Transaction transaction : journal.businessObjects) {
-                writer.write(
-                        "  <" + TRANSACTION + ">\n")
+                writer.write """
+  <$TRANSACTION>"""
+
                 Journal transactionJournal = transaction.journal
-                if (transactionJournal == journal){
-                    writer.write("    <" + ID + ">" + transaction.id + "</" + ID + ">\n")
-                } else {
-                    writer.write("    <" + ID + ">" + journal.getId(transaction) + "</" + ID + ">\n" +
-                            "    <" + ORIGINAL_JOURNAL + ">" + transaction.abbreviation + "</" + ORIGINAL_JOURNAL + ">\n" +
-                            "    <" + ORIGINAL_ID + ">" + transaction.id + "</" + ORIGINAL_ID + ">\n")
-                }
-                writer.write("    <" + TRANSACTION_ID + ">" + transaction.transactionId + "</" + TRANSACTION_ID + ">\n")
-                if(transaction.balanceTransaction){
-                    writer.write("    <"+BALANCE_TRANSACTION+">true</"+BALANCE_TRANSACTION+">\n")
-                }
+                if (transactionJournal == journal) writer.write """
+    <$ID>$transaction.id</$ID>"""
+                else writer.write """
+    <$ID>${journal.getId(transaction)}</$ID>
+    <$ORIGINAL_JOURNAL>$transaction.abbreviation</$ORIGINAL_JOURNAL>
+    <$ORIGINAL_ID>$transaction.id</$ORIGINAL_ID>"""
+
+                writer.write """
+    <$TRANSACTION_ID>$transaction.transactionId</$TRANSACTION_ID>"""
+
+                if(transaction.balanceTransaction) writer.write"""
+    <$BALANCE_TRANSACTION>true</$BALANCE_TRANSACTION>"""
                 if(details){
 //                    TODO: move all to method
 //                    writeDetails()
-                    writer.write("    <" + DATE + ">" + Utils.toString(transaction.date) + "</" + DATE + ">\n" +
-                            "    <" + DESCRIPTION + ">" + transaction.description + "</" + DESCRIPTION + ">\n")
+                    writer.write """
+    <$DATE>${Utils.toString(transaction.date)}</$DATE>
+    <$DESCRIPTION>$transaction.description</$DESCRIPTION>"""
+
                     for (Booking booking : transaction.businessObjects) {
-                        writer.write("    <" + BOOKING + ">\n" +
-                                "      <MovementId>" + booking.id + "</MovementId>\n" +
-                                "      <" + ACCOUNT + ">" + booking.account + "</" + ACCOUNT + ">\n")
+                        writer.write """
+    <$BOOKING>
+      <MovementId>$booking.id</MovementId>
+      <$ACCOUNT>$booking.account</$ACCOUNT>"""
                         Movement movement = booking.getMovement()
-                        if (movement.debit) {
-                            writer.write("      <" + DEBIT + ">" + movement.amount + "</" + DEBIT + ">\n")
-                        } else {
-                            writer.write("      <" + CREDIT + ">" + movement.amount + "</" + CREDIT + ">\n")
-                        }
+                        if (movement.debit) writer.write """
+      <$DEBIT>$movement.amount</$DEBIT>"""
+                        else writer.write"""
+      <$CREDIT>$movement.amount</$CREDIT>"""
+
                         ArrayList<VATBooking> vatBookings = booking.vatBookings
                         for (VATBooking vatBooking : vatBookings) {
                             VATField vatField = vatBooking.vatField
                             VATMovement vatMovement = vatBooking.vatMovement
-                            writer.write("      <" + VATFIELD + ">" + vatField.name + "</" + VATFIELD + ">\n")
+                            writer.write"""
+      <$VATFIELD>$vatField.name</$VATFIELD>"""
                         }
-                        writer.write("    </" + BOOKING + ">\n")
+                        writer.write"""
+    </$BOOKING>"""
                     }
                 }
-                writer.write("  </"+TRANSACTION+">\n")
+                writer.write"""
+  </$TRANSACTION>"""
             }
-            writer.write("</"+JOURNAL+">\n")
+            writer.write"""
+</$JOURNAL>
+"""
             writer.flush()
             writer.close()
         } catch (IOException ex) {
@@ -448,53 +466,61 @@ class JournalsIO {
 
     static void writeTransactions(Accounting accounting){
         Transactions transactions = accounting.transactions
-        File transactionsFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + TRANSACTIONS + XML_EXTENSION)
+        File transactionsFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$TRANSACTIONS$XML_EXTENSION")
         try {
             Writer writer = new FileWriter(transactionsFile)
-            writer.write(getXmlHeader(TRANSACTIONS, 2))
+            writer.write getXmlHeader(TRANSACTIONS, 2)
             for (Transaction transaction : transactions.businessObjects) {
-                writer.write("  <" + TRANSACTION + ">\n" +
-                        "    <" + TRANSACTION_ID + ">" + transaction.transactionId + "</" + TRANSACTION_ID + ">\n" +
-                        "    <" + DATE + ">" + Utils.toString(transaction.date) + "</" + DATE + ">\n" +
-                        "    <" + DESCRIPTION + ">" + transaction.description + "</" + DESCRIPTION + ">\n" +
-                        "    <" + JOURNAL + ">" + transaction.abbreviation + "</" + JOURNAL + ">\n" +
-                        "    <" + JOURNAL_ID + ">" + transaction.id + "</" + JOURNAL_ID + ">\n")
-                for(Journal journal : transaction.duplicateJournals){
-                    writer.write(
-                            "    <" + DUPLICATE_JOURNAL + ">" + journal.abbreviation + "</" + DUPLICATE_JOURNAL + ">\n" +
-                                    "    <" + DUPLICATE_JOURNAL_ID + ">" + journal.getId(transaction) + "</" + DUPLICATE_JOURNAL_ID + ">\n"
-                    )
-                }
+                writer.write"""\
+  <$TRANSACTION>
+    <$TRANSACTION_ID>$transaction.transactionId</$TRANSACTION_ID>
+    <$DATE>${Utils.toString(transaction.date)}</$DATE>
+    <$DESCRIPTION>$transaction.description</$DESCRIPTION>
+    <$JOURNAL>$transaction.abbreviation</$JOURNAL>
+    <$JOURNAL_ID>$transaction.id</$JOURNAL_ID>"""
+
+                for(Journal journal : transaction.duplicateJournals) writer.write """
+    <$DUPLICATE_JOURNAL>$journal.abbreviation</$DUPLICATE_JOURNAL>
+        <$DUPLICATE_JOURNAL_ID>$journal.getId(transaction)</$DUPLICATE_JOURNAL_ID>"""
+
 //                TODO: reuse method writeDetails()
-                if(transaction.balanceTransaction){
-                    writer.write("    <"+BALANCE_TRANSACTION+">true</"+BALANCE_TRANSACTION+">\n")
-                }
-                writer.write("    <"+REGISTERED+">"+transaction.registered+"</"+REGISTERED+">\n")
+                if(transaction.balanceTransaction) writer.write"""
+    <$BALANCE_TRANSACTION>true</$BALANCE_TRANSACTION>"""
+
+                writer.write"""
+    <$REGISTERED>$transaction.registered</$REGISTERED>"""
                 for (Booking booking : transaction.businessObjects) {
-                    writer.write("    <" + BOOKING + ">\n" +
-                            "      <" + ID + ">" + booking.id + "</" + ID + ">\n" +
-                            "      <" + ACCOUNT + ">" + booking.account + "</" + ACCOUNT + ">\n")
+                    writer.write """
+    <$BOOKING>
+      <$ID>$booking.id</$ID>
+      <$ACCOUNT>$booking.account</$ACCOUNT>"""
+
                     Movement movement = booking.getMovement()
-                    if (movement.debit) {
-                        writer.write("      <" + DEBIT + ">" + movement.amount + "</" + DEBIT + ">\n")
-                    } else {
-                        writer.write("      <" + CREDIT + ">" + movement.amount + "</" + CREDIT + ">\n")
-                    }
+                    if (movement.debit) writer.write"""
+      <$DEBIT>$movement.amount</$DEBIT>"""
+                    else writer.write"""
+      <$CREDIT>$movement.amount</$CREDIT>"""
                     ArrayList<VATBooking> vatBookings = booking.vatBookings
                     for (VATBooking vatBooking : vatBookings) {
                         VATField vatField = vatBooking.vatField
                         VATMovement vatMovement = vatBooking.vatMovement
-                        writer.write("      <" + VATBOOKING + ">\n" +
-                                "        <" + VATFIELD + ">" + vatField.name + "</" + VATFIELD + ">\n" +
-                                "        <" + AMOUNT + ">" + vatMovement.amount + "</" + AMOUNT + ">\n" +
-                                "      </" + VATBOOKING + ">\n")
+                        writer.write"""
+      <$VATBOOKING>
+        <$VATFIELD>$vatField.name</$VATFIELD>
+        <$AMOUNT>$vatMovement.amount</$AMOUNT>
+      </$VATBOOKING>"""
                     }
-                    writer.write("    </" + BOOKING + ">\n")
+                    writer.write"""
+    </$BOOKING>"""
                 }
 //                TODO: end of method writeDetails(transaction)
-                writer.write("  </" + TRANSACTION + ">\n")
+                writer.write"""
+  </$TRANSACTION>
+"""
             }
-            writer.write("</" + TRANSACTIONS + ">\n")
+            writer.write"""\
+</$TRANSACTIONS>
+"""
             writer.flush()
             writer.close()
         } catch (IOException ex) {

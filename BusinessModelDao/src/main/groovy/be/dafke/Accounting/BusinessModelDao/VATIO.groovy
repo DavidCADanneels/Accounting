@@ -16,7 +16,7 @@ class VATIO {
 
     static void readVATFields(Accounting accounting) {
         VATFields vatFields = accounting.vatFields
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + VATFIELDS + XML_EXTENSION)
+        File xmlFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$VATFIELDS$XML_EXTENSION")
         if (xmlFile.exists()) {
             Element rootElement = getRootElement(xmlFile, VATFIELDS)
             for (Element element : getChildren(rootElement, VATFIELD)) {
@@ -36,7 +36,7 @@ class VATIO {
     static void readVATTransactions(Accounting accounting) {
         VATTransactions vatTransactions = accounting.vatTransactions
         Accounts accounts = accounting.accounts
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + VATTRANSACTIONS + XML_EXTENSION)
+        File xmlFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$VATTRANSACTIONS$XML_EXTENSION")
         if (xmlFile.exists()) {
             Element rootElement = getRootElement(xmlFile, VATTRANSACTIONS)
             String debitAccountString = getValue(rootElement, DEBIT_ACCOUNT)
@@ -61,19 +61,20 @@ class VATIO {
 
     static void writeVATFields(Accounting accounting) {
         VATFields vatFields = accounting.vatFields
-        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + VATFIELDS + XML_EXTENSION)
+        File file = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$VATFIELDS$XML_EXTENSION")
         try {
             Writer writer = new FileWriter(file)
-            writer.write(getXmlHeader(VATFIELDS, 2))
+            writer.write getXmlHeader(VATFIELDS, 2)
             for (VATField vatField : vatFields.businessObjects) {
-                writer.write(
-                        "  <" + VATFIELD + ">\n" +
-                                "    <" + NAME + ">" + vatField.name + "</" + NAME + ">\n" +
-                                "    <" + AMOUNT + ">" + vatField.saldo + "</" + AMOUNT + ">\n" +
-                                "  </" + VATFIELD + ">\n"
-                )
+                writer.write """\
+  <$VATFIELD>
+    <$NAME>$vatField.name</$NAME>
+    <$AMOUNT>$vatField.saldo</$AMOUNT>
+  </$VATFIELD>
+"""
             }
-            writer.write("</" + VATFIELDS + ">")
+            writer.write """\
+</$VATFIELDS>"""
             writer.flush()
             writer.close()
         } catch (IOException ex) {
@@ -83,17 +84,17 @@ class VATIO {
 
     static void writeVATTransactions(Accounting accounting) {
         VATTransactions vatTransactions = accounting.vatTransactions
-        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + VATTRANSACTIONS + XML_EXTENSION)
+        File file = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$VATTRANSACTIONS$XML_EXTENSION")
         try {
             Writer writer = new FileWriter(file)
-            writer.write(getXmlHeader(VATTRANSACTIONS, 2))
-            writer.write(
-                    "  <" + DEBIT_ACCOUNT + ">" + vatTransactions.getDebitAccount() + "</" + DEBIT_ACCOUNT + ">\n" +
-                            "  <" + CREDIT_ACCOUNT + ">" + vatTransactions.getCreditAccount() + "</" + CREDIT_ACCOUNT + ">\n" +
-                            "  <" + DEBIT_CN_ACCOUNT + ">" + vatTransactions.getDebitCNAccount() + "</" + DEBIT_CN_ACCOUNT + ">\n" +
-                            "  <" + CREDIT_CN_ACCOUNT + ">" + vatTransactions.getCreditCNAccount() + "</" + CREDIT_CN_ACCOUNT + ">\n"
-            )
-            writer.write("</" + VATTRANSACTIONS + ">")
+            writer.write getXmlHeader(VATTRANSACTIONS, 2)
+            writer.write """\
+  <$DEBIT_ACCOUNT>$vatTransactions.debitAccount</$DEBIT_ACCOUNT>
+  <$CREDIT_ACCOUNT>$vatTransactions.creditAccount</$CREDIT_ACCOUNT>
+  <$DEBIT_CN_ACCOUNT>$vatTransactions.debitCNAccount</$DEBIT_CN_ACCOUNT>
+  <$CREDIT_CN_ACCOUNT>$vatTransactions.creditCNAccount</$CREDIT_CN_ACCOUNT>"""
+            writer.write """
+</$VATTRANSACTIONS>"""
             writer.flush()
             writer.close()
         } catch (IOException ex) {

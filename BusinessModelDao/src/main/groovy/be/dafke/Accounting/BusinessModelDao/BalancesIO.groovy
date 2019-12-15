@@ -22,7 +22,7 @@ class BalancesIO {
         Balances balances = accounting.balances
         Accounts accounts = accounting.accounts
         AccountTypes accountTypes = accounting.accountTypes
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/" +BALANCES + XML_EXTENSION)
+        File xmlFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$BALANCES$XML_EXTENSION")
         Element rootElement = getRootElement(xmlFile, BALANCES)
         for (Element element: getChildren(rootElement, BALANCE)){
 
@@ -60,9 +60,9 @@ class BalancesIO {
         }
     }
 
-    static String createPdfFolder(Accounting accounting) {
+    static String createPdfPath(Accounting accounting) {
         String accountingName = accounting.name
-        String resultPdfPolderPath = ACCOUNTINGS_PDF_FOLDER + accountingName + "/" + BALANCES + "/"
+        String resultPdfPolderPath = "$ACCOUNTINGS_PDF_PATH/$accountingName/$BALANCES"
         File targetFolder = new File(resultPdfPolderPath)
         targetFolder.mkdirs()
         resultPdfPolderPath
@@ -70,17 +70,17 @@ class BalancesIO {
 
     static void writeBalancePdfFiles(Accounting accounting){
         String inputXmlPath = writeIndividualBalances(accounting)
-        String xslPath = XSLFOLDER + "BalancePdf.xsl"
+        String xslPath = "$XSLPATH/BalancePdf.xsl"
 
-        String resultPdfPolderPath = createPdfFolder(accounting)
+        String resultPdfPolderPath = createPdfPath(accounting)
 
-        String resultXmlPath = inputXmlPath + "ResultBalance" + XML_EXTENSION
-        String yearXmlPath = inputXmlPath + "YearBalance" + XML_EXTENSION
-        String relationsXmlPath = inputXmlPath + "RelationsBalance" + XML_EXTENSION
+        String resultXmlPath = "$inputXmlPath/ResultBalance$XML_EXTENSION"
+        String yearXmlPath = "$inputXmlPath/YearBalance$XML_EXTENSION"
+        String relationsXmlPath = "$inputXmlPath/RelationsBalance$XML_EXTENSION"
 
-        String resultPdfPath = resultPdfPolderPath + "ResultBalance.pdf"
-        String yearPdfPath = resultPdfPolderPath + "YearBalance.pdf"
-        String relationsPdfPath = resultPdfPolderPath + "RelationsBalance.pdf"
+        String resultPdfPath = "$resultPdfPolderPath/ResultBalance.pdf"
+        String yearPdfPath = "$resultPdfPolderPath/YearBalance.pdf"
+        String relationsPdfPath = "$resultPdfPolderPath/RelationsBalance.pdf"
         try {
             PDFCreator.convertToPDF(resultXmlPath, xslPath, resultPdfPath)
             PDFCreator.convertToPDF(yearXmlPath, xslPath, yearPdfPath)
@@ -92,10 +92,10 @@ class BalancesIO {
 
     static void writeBalances(Accounting accounting){
         Balances balances = accounting.balances
-        File balancesFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + BALANCES+ XML_EXTENSION)
+        File balancesFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$BALANCES$XML_EXTENSION")
         try{
             Writer writer = new FileWriter(balancesFile)
-            writer.write(getXmlHeader(BALANCES, 2))
+            writer.write getXmlHeader(BALANCES, 2)
             for(Balance balance: balances.businessObjects) {
                 ArrayList<String> leftTypesString = new ArrayList<>()
                 for(AccountType type:balance.getLeftTypes()){
@@ -105,21 +105,22 @@ class BalancesIO {
                 for(AccountType type:balance.getRightTypes()){
                     righttTypesString.add(type.name)
                 }
-                writer.write(
-                        "  <"+BALANCE+">\n" +
-                                "    <"+NAME+">" + balance.name + "</"+NAME+">\n" +
-                                "    <"+LEFTNAME+">" + balance.getLeftName() + "</"+LEFTNAME+">\n" +
-                                "    <"+RIGHTNAME+">" + balance.getRightName() + "</"+RIGHTNAME+">\n" +
-                                "    <"+LEFTTOTALNAME+">" + balance.getLeftTotalName() + "</"+LEFTTOTALNAME+">\n" +
-                                "    <"+RIGHTTOTALNAME+">" + balance.getRightTotalName() + "</"+RIGHTTOTALNAME+">\n" +
-                                "    <"+LEFTRESULTNAME+">" + balance.getLeftResultName() + "</"+LEFTRESULTNAME+">\n" +
-                                "    <"+RIGHTRESULTNAME+">" + balance.getRightResultName() + "</"+RIGHTRESULTNAME+">\n" +
-                                "    <"+LEFTTYPES+">" + Utils.toString(leftTypesString) + "</"+LEFTTYPES+">\n" +
-                                "    <"+RIGHTTYPES+">" + Utils.toString(righttTypesString) + "</"+RIGHTTYPES+">\n" +
-                                "  </"+BALANCE+">\n"
-                )
+                writer.write """\
+  <$BALANCE>
+    <$NAME>$balance.name</$NAME>
+    <$LEFTNAME>$balance.leftName</$LEFTNAME>
+    <$RIGHTNAME>$balance.rightName</$RIGHTNAME>
+    <$LEFTTOTALNAME>$balance.leftTotalName</$LEFTTOTALNAME>
+    <$RIGHTTOTALNAME>$balance.rightTotalName</$RIGHTTOTALNAME>
+    <$LEFTRESULTNAME>$balance.leftResultName</$LEFTRESULTNAME>
+    <$RIGHTRESULTNAME>$balance.rightResultName</$RIGHTRESULTNAME>
+    <$LEFTTYPES>${Utils.toString(leftTypesString)}</$LEFTTYPES>
+    <$RIGHTTYPES>${Utils.toString(righttTypesString)}</$RIGHTTYPES>
+  </$BALANCE>
+"""
             }
-            writer.write("</"+BALANCES+">")
+            writer.write"""\
+</$BALANCES>"""
             writer.flush()
             writer.close()
         } catch (IOException ex) {
@@ -130,7 +131,7 @@ class BalancesIO {
 
     static String writeIndividualBalances(Accounting accounting){
         Balances balances = accounting.balances
-        String path = ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + BALANCES + "/"
+        String path = "$ACCOUNTINGS_XML_PATH/$accounting.name/$BALANCES"
         File balancesFolder = new File(path)
         balancesFolder.mkdirs()
         for(Balance balance:balances.businessObjects){
@@ -140,36 +141,38 @@ class BalancesIO {
     }
 
     static void writeBalance(Balance balance, File balancesFolder) {
-        File file = new File(balancesFolder, balance.name+ XML_EXTENSION)
+        File file = new File(balancesFolder, "$balance.name$XML_EXTENSION")
         try {
             Writer writer = new FileWriter(file)
-            writer.write(getXmlHeader(BALANCE, 3))
-            writer.write(
-                    "    <"+NAME+">" + balance.name + "</"+NAME+">\n" +
-                            "    <"+LEFTNAME+">" + balance.getLeftName() + "</"+LEFTNAME+">\n" +
-                            "    <"+RIGHTNAME+">" + balance.getRightName() + "</"+RIGHTNAME+">\n" +
-                            "    <"+LEFTTOTALNAME+">" + balance.getLeftTotalName() + "</"+LEFTTOTALNAME+">\n" +
-                            "    <"+RIGHTTOTALNAME+">" + balance.getRightTotalName() + "</"+RIGHTTOTALNAME+">\n" +
-                            "    <"+LEFTRESULTNAME+">" + balance.getLeftResultName() + "</"+LEFTRESULTNAME+">\n" +
-                            "    <"+RIGHTRESULTNAME+">" + balance.getRightResultName() + "</"+RIGHTRESULTNAME+">\n"
-            )
+            writer.write getXmlHeader(BALANCE, 3)
+            writer.write """\
+    <$NAME>$balance.name</$NAME>
+    <$LEFTNAME>$balance.leftName</$LEFTNAME>
+    <$RIGHTNAME>$balance.rightName</$RIGHTNAME>
+    <$LEFTTOTALNAME>$balance.leftTotalName</$LEFTTOTALNAME>
+    <$RIGHTTOTALNAME>$balance.rightTotalName</$RIGHTTOTALNAME>
+    <$LEFTRESULTNAME>$balance.leftResultName</$LEFTRESULTNAME>
+    <$RIGHTRESULTNAME>$balance.rightResultName</$RIGHTRESULTNAME>"""
+
             for (BalanceLine balanceLine : balance.businessObjects) {
                 Account leftAccount = balanceLine.getLeftAccount()
                 Account rightAccount = balanceLine.getRightAccount()
-                writer.write("  <"+BALANCE_LINE+">\n")
-                if(leftAccount!=null){
-                    writer.write("    <"+NAME1+">"+leftAccount.name+"</"+NAME1+">\n")
-                    writer.write("    <"+AMOUNT1+">"+leftAccount.saldo+"</"+AMOUNT1+">\n")
-                }
-                if(rightAccount!=null){
-                    writer.write("    <"+NAME2+">"+rightAccount.name+"</"+NAME2+">\n")
-                    writer.write("    <"+AMOUNT2+">"+rightAccount.saldo.negate()+"</"+AMOUNT2+">\n")
-                }
-                writer.write("  </"+BALANCE_LINE+">\n")
+                writer.write"""
+  <$BALANCE_LINE>"""
+                if(leftAccount!=null) writer.write"""
+    <$NAME1>$leftAccount.name</$NAME1>
+    <$AMOUNT1>$leftAccount.saldo</$AMOUNT1>"""
+                if(rightAccount!=null) writer.write"""
+    <$NAME2>$rightAccount.name</$NAME2>
+    <$AMOUNT2>${rightAccount.saldo.negate()}</$AMOUNT2>"""
+                writer.write """
+  </$BALANCE_LINE>"""
             }
-            writer.write("    <"+TOTALLEFT+">"+balance.getTotalLeft()+"</"+TOTALLEFT+">\n")
-            writer.write("    <"+TOTALRIGHT+">"+balance.getTotalRight()+"</"+TOTALRIGHT+">\n")
-            writer.write("  </"+BALANCE+">\n")
+            writer.write"""
+    <$TOTALLEFT>$balance.totalLeft</$TOTALLEFT>
+    <$TOTALRIGHT>$balance.totalRight</$TOTALRIGHT>
+  </$BALANCE>
+"""
             writer.flush()
             writer.close()
         } catch (IOException ex) {

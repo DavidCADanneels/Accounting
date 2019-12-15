@@ -19,7 +19,7 @@ class PurchaseOrderIO {
         PurchaseOrders purchaseOrders = accounting.purchaseOrders
         Contacts contacts = accounting.contacts
         Articles articles = accounting.articles
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+PURCHASE_ORDERS + XML_EXTENSION)
+        File xmlFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$PURCHASE_ORDERS$XML_EXTENSION")
         Element rootElement = getRootElement(xmlFile, PURCHASE_ORDERS)
 
         for (Element orderElement : getChildren(rootElement, PURCHASE_ORDER)) {
@@ -74,40 +74,40 @@ class PurchaseOrderIO {
 
     static void writePurchasesOrders(Accounting accounting) {
         PurchaseOrders purchaseOrders = accounting.purchaseOrders
-        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + PURCHASE_ORDERS + XML_EXTENSION)
+        File file = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$PURCHASE_ORDERS$XML_EXTENSION")
         try {
             Writer writer = new FileWriter(file)
-            writer.write(getXmlHeader(PURCHASE_ORDERS, 2))
+            writer.write getXmlHeader(PURCHASE_ORDERS, 2)
             for (PurchaseOrder order : purchaseOrders.businessObjects) {
-                writer.write(
-                        "  <" + PURCHASE_ORDER + ">\n" +
-                                "    <" + ID + ">" + order.id + "</" + ID + ">\n" +
-                                "    <" + NAME + ">" + order.name + "</" + NAME + ">\n" +
-                                "    <" + SUPPLIER + ">" + order.supplier + "</" + SUPPLIER + ">\n"
-                )
+                writer.write """\
+  <$PURCHASE_ORDER>
+    <$ID>$order.id</$ID>
+    <$NAME>$order.name</$NAME>
+    <$SUPPLIER>$order.supplier</$SUPPLIER>"""
                 Transaction purchaseTransaction = order.purchaseTransaction
-                if(purchaseTransaction!=null) {
-                    writer.write("    <" + PURCHASE_TRANSACTION + ">" + purchaseTransaction.transactionId + "</" + PURCHASE_TRANSACTION + ">\n")
-                }
+                if(purchaseTransaction!=null) writer.write"""
+    <$PURCHASE_TRANSACTION>$purchaseTransaction.transactionId</$PURCHASE_TRANSACTION>"""
                 Transaction paymentTransaction = order.paymentTransaction
-                if(paymentTransaction!=null) {
-                    writer.write("    <" + PAYMENT_TRANSACTION + ">" + paymentTransaction.transactionId + "</" + PAYMENT_TRANSACTION + ">\n")
-                }
+                if(paymentTransaction!=null) writer.write"""
+    <$PAYMENT_TRANSACTION>$paymentTransaction.transactionId</$PAYMENT_TRANSACTION>"""
 
                 for (OrderItem orderItem : order.businessObjects) {
                     Article article = orderItem.article
-                    writer.write(
-                            "    <" + ARTICLE + ">\n" +
-                                    "      <" + NAME + ">" + article.name + "</" + NAME + ">\n" +
-                                    "      <" + NR_OF_ITEMS + ">" + orderItem.numberOfItems + "</" + NR_OF_ITEMS + ">\n" +
-                                    "      <" + PURCHASE_VAT_RATE + ">" + orderItem.getPurchaseVatRate() + "</" + PURCHASE_VAT_RATE + ">\n" +
-                                    "      <" + PURCHASE_PRICE + ">" + orderItem.getPurchasePriceForUnit() + "</" + PURCHASE_PRICE + ">\n" +
-                                    "    </" + ARTICLE + ">\n"
-                    )
+                    writer.write """
+    <$ARTICLE>
+      <$NAME>$article.name</$NAME>
+      <$NR_OF_ITEMS>$orderItem.numberOfItems</$NR_OF_ITEMS>
+      <$PURCHASE_VAT_RATE>$orderItem.purchaseVatRate</$PURCHASE_VAT_RATE>
+      <$PURCHASE_PRICE>$orderItem.purchasePriceForUnit</$PURCHASE_PRICE>
+    </$ARTICLE>"""
                 }
-                writer.write("  </" + PURCHASE_ORDER + ">\n")
+                writer.write """
+  </$PURCHASE_ORDER>
+"""
             }
-            writer.write("</" + PURCHASE_ORDERS + ">\n")
+            writer.write """\
+</$PURCHASE_ORDERS>
+"""
             writer.flush()
             writer.close()
         } catch (IOException ex) {

@@ -19,7 +19,7 @@ class ArticlesIO {
         Articles articles = accounting.articles
         Contacts contacts = accounting.contacts
         Ingredients ingredients = accounting.ingredients
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.name+"/"+ARTICLES + XML_EXTENSION)
+        File xmlFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$ARTICLES$XML_EXTENSION")
         Element rootElement = getRootElement(xmlFile, ARTICLES)
         for (Element element : getChildren(rootElement, ARTICLE)) {
 
@@ -78,54 +78,44 @@ class ArticlesIO {
 
     static void writeArticles(Accounting accounting) {
         Articles articles = accounting.articles
-        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + ARTICLES + XML_EXTENSION)
+        File file = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$ARTICLES$XML_EXTENSION")
         try {
             Writer writer = new FileWriter(file)
-            writer.write(getXmlHeader(ARTICLES, 2))
+            writer.write getXmlHeader(ARTICLES, 2)
             for (Article article : articles.businessObjects) {
                 Ingredient ingredient = article.getIngredient()
-                writer.write(
-                        "  <" + ARTICLE + ">\n" +
-                                "    <" + NAME + ">" + article.name + "</" + NAME + ">\n" +
-                                "    <" + INGREDIENT + ">" + (ingredient==null?"null":ingredient.name) + "</" + INGREDIENT + ">\n" +
-                                "    <" + AMOUNT + ">" + article.ingredientAmount + "</" + AMOUNT + ">\n" +
-                                "    <" + ITEMS_PER_UNIT + ">" + article.itemsPerUnit + "</" + ITEMS_PER_UNIT + ">\n" +
-                                "    <" + ARTICLE_HS_CODE + ">" + article.getHSCode() + "</" + ARTICLE_HS_CODE + ">\n" +
-                                "    <" + PURCHASE_PRICE + ">" + article.purchasePrice + "</" + PURCHASE_PRICE + ">\n" +
-                                "    <" + SALES_SINGLE_PRICE + ">" + article.getSalesPriceItemWithVat() + "</" + SALES_SINGLE_PRICE + ">\n" +
-                                "    <" + PURCHASE_VAT_RATE + ">" + article.getPurchaseVatRate() + "</" + PURCHASE_VAT_RATE + ">\n" +
-                                "    <" + SALES_VAT_RATE + ">" + article.salesVatRate + "</" + SALES_VAT_RATE + ">\n" +
-                                "    <" + SUPPLIER + ">" + article.supplier + "</" + SUPPLIER + ">\n"
-                )
-                ArrayList<PurchaseOrder> purchaseOrders = article.purchaseOrders
-                for(PurchaseOrder purchaseOrder:purchaseOrders) {
-                    writer.write(
-                            "    <" + PURCHASE_ORDER + ">" + purchaseOrder + "</" + PURCHASE_ORDER + ">\n"
-                    )
-                }
-                ArrayList<SalesOrder> salesOrders = article.salesOrders
-                for(SalesOrder salesOrder:salesOrders){
-                    writer.write(
-                            "    <" + SALES_ORDER + ">" + salesOrder + "</" + SALES_ORDER + ">\n"
-                    )
-                }
-                ArrayList<StockOrder> stockOrders = article.stockOrders
-                for(StockOrder stockOrder:stockOrders){
-                    writer.write(
-                            "    <" + STOCK_ORDER + ">" + stockOrder + "</" + STOCK_ORDER + ">\n"
-                    )
-                }
-                ArrayList<PromoOrder> promoOrders = article.promoOrders
-                for(PromoOrder promoOrder:promoOrders){
-                    writer.write(
-                            "    <" + PROMO_ORDER + ">" + promoOrder + "</" + PROMO_ORDER + ">\n"
-                    )
-                }
-                writer.write(
-                        "  </" + ARTICLE + ">\n"
-                )
+                writer.write """\
+  <$ARTICLE>
+    <$NAME>$article.name</$NAME>
+    <$INGREDIENT>${(ingredient==null?"null":ingredient.name)}</$INGREDIENT>
+    <$AMOUNT>$article.ingredientAmount</$AMOUNT>
+    <$ITEMS_PER_UNIT>$article.itemsPerUnit</$ITEMS_PER_UNIT>
+    <$ARTICLE_HS_CODE>$article.HSCode</$ARTICLE_HS_CODE>
+    <$PURCHASE_PRICE>$article.purchasePrice</$PURCHASE_PRICE>
+    <$SALES_SINGLE_PRICE>$article.salesPriceItemWithVat</$SALES_SINGLE_PRICE>
+    <$PURCHASE_VAT_RATE>$article.purchaseVatRate</$PURCHASE_VAT_RATE>
+    <$SALES_VAT_RATE>$article.salesVatRate</$SALES_VAT_RATE>
+    <$SUPPLIER>$article.supplier</$SUPPLIER>"""
+                
+                for(PurchaseOrder purchaseOrder:article.purchaseOrders) writer.write """
+    <$PURCHASE_ORDER>$purchaseOrder</$PURCHASE_ORDER>"""
+
+                for(SalesOrder salesOrder:article.salesOrders) writer.write """
+    <$SALES_ORDER>$salesOrder</$SALES_ORDER>"""
+
+                for(StockOrder stockOrder:article.stockOrders) writer.write """
+    <$STOCK_ORDER>$stockOrder</$STOCK_ORDER>"""
+
+                for(PromoOrder promoOrder:article.promoOrders) writer.write """
+    <$PROMO_ORDER>$promoOrder</$PROMO_ORDER>"""
+
+                writer.write """
+  </$ARTICLE>
+"""
             }
-            writer.write("</" + ARTICLES + ">\n")
+            writer.write """\
+</$ARTICLES>
+"""
             writer.flush()
             writer.close()
         } catch (IOException ex) {
