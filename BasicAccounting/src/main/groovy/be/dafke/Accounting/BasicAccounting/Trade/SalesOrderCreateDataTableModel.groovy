@@ -1,42 +1,29 @@
 package be.dafke.Accounting.BasicAccounting.Trade
 
+import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Article
-import be.dafke.Accounting.BusinessModel.Articles
 import be.dafke.Accounting.BusinessModel.OrderItem
 import be.dafke.Accounting.BusinessModel.SalesOrder
-
-import java.util.function.Predicate
+import be.dafke.Accounting.BusinessModel.StockTransactions
 
 class SalesOrderCreateDataTableModel extends SalesOrderViewDataTableModel {
-    final Articles articles
-//	Predicate<Article> filter = article -> article.getSalesPriceItemWithVat()!=null
-    Predicate<Article> filter = Article.inStock()
+    final StockTransactions stockTransactions
     TotalsPanel totalsPanel
 
-    SalesOrderCreateDataTableModel(Articles articles, SalesOrder order, TotalsPanel totalsPanel) {
+    SalesOrderCreateDataTableModel(Accounting accounting, SalesOrder order, TotalsPanel totalsPanel) {
         super()
         this.totalsPanel = totalsPanel
-        // articles should be stock instead (stock/articles contains nrInStock, nrSold, ...
-        this.articles = articles
+        stockTransactions = accounting.stockTransactions
         this.order = order
     }
 
     int getRowCount() {
-        List<Article> businessObjects = getArticles()
-        if(businessObjects == null) return 0
-        businessObjects.size()
+        stockTransactions.stock.keySet().size()
     }
 
     @Override
     boolean isCellEditable(int row, int col) {
         col==NR_OF_ITEMS_COL || col == PRICE_ITEM_COL || col == VAT_RATE_COL
-    }
-
-    List<Article> getArticles(){
-        if(articles==null || filter==null) null
-        List<Article> businessObjects = articles.getBusinessObjects(filter)
-        if(businessObjects == null) null
-        businessObjects
     }
 
 // DE SET METHODEN
@@ -61,7 +48,7 @@ class SalesOrderCreateDataTableModel extends SalesOrderViewDataTableModel {
 
     @Override
     OrderItem getObject(int row, int col) {
-        List<Article> articleList = getArticles()
+        List<Article> articleList = stockTransactions.stock.keySet().collect()
         if(articleList == null) null
         Article article = articleList.get(row)
         order.getBusinessObject(article.name)

@@ -1,6 +1,7 @@
 package be.dafke.Accounting.BusinessModel
 
 import java.math.RoundingMode
+import java.util.function.Predicate
 
 class Order extends OrderItems {
     Contact customer, supplier

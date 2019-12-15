@@ -59,21 +59,6 @@ class SalesOrder extends Order {
     }
     void setSalesTransaction(Transaction salesTransaction) {
         this.salesTransaction = salesTransaction
-
-        if(!creditNote) {
-            getBusinessObjects().forEach({ orderItem ->
-                Article article = orderItem.article
-                int numberOfItems = orderItem.numberOfItems
-                // TODO: do not 'setSoOrdered' for PromoOrder
-                article.setSoOrdered(numberOfItems)
-            })
-        } else {
-            getBusinessObjects().forEach({ orderItem ->
-                Article article = orderItem.article
-                int numberOfItems = orderItem.numberOfItems
-                article.setSoCnOrdered(numberOfItems)
-            })
-        }
     }
 
     @Override

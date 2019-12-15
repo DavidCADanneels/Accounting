@@ -93,20 +93,5 @@ class PurchaseOrder extends Order {
 
     void setPurchaseTransaction(Transaction purchaseTransaction) {
         this.purchaseTransaction = purchaseTransaction
-
-        if(!creditNote) {
-            getBusinessObjects().forEach({ orderItem ->
-                Article article = orderItem.article
-                int numberOfItems = orderItem.numberOfItems
-                article.setPoOrdered(numberOfItems)
-            })
-        } else {
-            getBusinessObjects().forEach({ orderItem ->
-                Article article = orderItem.article
-                int numberOfItems = orderItem.numberOfItems
-                article.setPoCnOrdered(numberOfItems)
-            })
-        }
-
     }
 }

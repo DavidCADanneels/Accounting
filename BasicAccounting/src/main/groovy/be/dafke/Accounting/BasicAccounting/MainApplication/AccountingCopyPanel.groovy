@@ -122,7 +122,6 @@ class AccountingCopyPanel extends JPanel {
                 purchaseOrder.addBusinessObject(orderItem)
                 // TODO: call setPurchaseTransaction (= beginBalans) 'later' iso setPoOrdered
                 // setPurchaseTransaction calls setPoOrdered as well
-                newArticle.setPoOrdered(numberOfItems)
             }
             try {
                 articlesTo.addBusinessObject(newArticle)

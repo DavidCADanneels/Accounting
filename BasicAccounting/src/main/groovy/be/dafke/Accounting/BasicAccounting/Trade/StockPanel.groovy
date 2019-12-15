@@ -21,7 +21,7 @@ class StockPanel extends JPanel {
     final StockDataTableModel stockDataTableModel
 
     StockPanel(Accounting accounting) {
-        stockDataTableModel = new StockDataTableModel(accounting.articles)
+        stockDataTableModel = new StockDataTableModel(accounting)
         table = new SelectableTable<>(stockDataTableModel)
         table.setPreferredScrollableViewportSize(new Dimension(1000, 400))
         JScrollPane scrollPane = new JScrollPane(table)
@@ -49,13 +49,13 @@ class StockPanel extends JPanel {
         JPanel panel = new JPanel()
         JRadioButton withOrders = new JRadioButton("with Orders")
         JRadioButton inStock = new JRadioButton("in Stock")
-        withOrders.addActionListener({ e -> stockDataTableModel.setFilter(Article.withOrders()) })
-        inStock.addActionListener({ e -> stockDataTableModel.setFilter(Article.inStock()) })
+        withOrders.addActionListener({ e -> stockDataTableModel.setWithOrders(true) })
+        inStock.addActionListener({ e -> stockDataTableModel.setWithOrders(false) })
         ButtonGroup group = new ButtonGroup()
         group.add(withOrders)
         group.add(inStock)
         inStock.selected = true
-        stockDataTableModel.setFilter(Article.inStock())
+        stockDataTableModel.setWithOrders(false)
         panel.add(inStock)
         panel.add(withOrders)
         panel

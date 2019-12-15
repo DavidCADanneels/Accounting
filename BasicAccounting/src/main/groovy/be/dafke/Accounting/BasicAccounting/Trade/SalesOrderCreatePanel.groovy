@@ -45,7 +45,7 @@ class SalesOrderCreatePanel extends JPanel {
         salesOrder.articles = articles
 
         saleTotalsPanel = new TotalsPanel()
-        salesOrderCreateDataTableModel = new SalesOrderCreateDataTableModel(articles, salesOrder, saleTotalsPanel)
+        salesOrderCreateDataTableModel = new SalesOrderCreateDataTableModel(accounting, salesOrder, saleTotalsPanel)
         SelectableTable<OrderItem> table = new SelectableTable<>(salesOrderCreateDataTableModel)
         table.setPreferredScrollableViewportSize(new Dimension(1000, 400))
 

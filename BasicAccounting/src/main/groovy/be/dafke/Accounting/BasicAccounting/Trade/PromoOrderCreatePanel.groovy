@@ -1,10 +1,12 @@
 package be.dafke.Accounting.BasicAccounting.Trade
 
 import be.dafke.Accounting.BusinessModel.Accounting
+import be.dafke.Accounting.BusinessModel.Article
 import be.dafke.Accounting.BusinessModel.Articles
 import be.dafke.Accounting.BusinessModel.OrderItem
 import be.dafke.Accounting.BusinessModel.PromoOrder
 import be.dafke.Accounting.BusinessModel.PromoOrders
+import be.dafke.Accounting.BusinessModel.StockTransactions
 import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException
 import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException
 import be.dafke.ComponentModel.SelectableTable
@@ -21,12 +23,17 @@ class PromoOrderCreatePanel extends JPanel {
     final PromoOrderCreateDataTableModel promoOrderCreateDataTableModel
 
     PromoOrderCreatePanel(Accounting accounting) {
+
+        StockTransactions stockTransactions = accounting.getStockTransactions()
+        HashMap<Article, Integer> stock = stockTransactions.stock
+        Set<Article> articles = stock.keySet()
+
         this.articles = accounting.articles
         promoOrder = new PromoOrder()
-        promoOrder.articles = articles
+        promoOrder.articles = this.articles
 
         TotalsPanel totalsPanel = new TotalsPanel()
-        promoOrderCreateDataTableModel = new PromoOrderCreateDataTableModel(articles, promoOrder, totalsPanel)
+        promoOrderCreateDataTableModel = new PromoOrderCreateDataTableModel(accounting, promoOrder, totalsPanel)
         SelectableTable<OrderItem> table = new SelectableTable<>(promoOrderCreateDataTableModel)
         table.setPreferredScrollableViewportSize(new Dimension(1000, 400))
 
@@ -42,7 +49,7 @@ class PromoOrderCreatePanel extends JPanel {
 
                 promoOrders.addBusinessObject promoOrder
                 promoOrder = new PromoOrder()
-                promoOrder.articles = articles
+                promoOrder.articles = this.articles
                 promoOrderCreateDataTableModel.order = promoOrder
                 totalsPanel.fireOrderContentChanged promoOrder
                 PromoOrdersOverviewGUI.firePromoOrderAddedOrRemovedForAccounting accounting

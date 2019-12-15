@@ -126,22 +126,27 @@ class StockIO {
 
     static void writeStock(Accounting accounting) {
         Articles articles = accounting.articles
+        StockTransactions stockTransactions = accounting.stockTransactions
         File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.name + "/" + STOCK + XML_EXTENSION)
         try {
             Writer writer = new FileWriter(file)
             writer.write(getXmlHeader(STOCK, 2))
 
-            writer.write("  <" + ARTICLES + ">\n")
-            for (Article article : articles.getBusinessObjects(Article.inStock())) {
-                writer.write(
-                        "    <" + ARTICLE + ">\n" +
-                                "      <" + NAME + ">" + article.name + "</" + NAME + ">\n" +
-                                "      <" + NR_OF_ITEMS + ">" + article.getNrInStock() + "</" + NR_OF_ITEMS + ">\n" +
-                                "    </" + ARTICLE + ">\n"
-                )
+            writer.write"""\
+  <$ARTICLES>"""
+            for (Article article : articles.getBusinessObjects()) {
+                if(stockTransactions.getNrInStock(article)!=0) {
+                    writer.write """
+    <$ARTICLE>
+      <$NAME>${article.name}</$NAME>
+      <$NR_OF_ITEMS>${stockTransactions.getNrInStock(article)}</$NR_OF_ITEMS>
+    </$ARTICLE>"""
+                }
             }
-            writer.write("  </" + ARTICLES + ">\n")
-            writer.write("</" + STOCK + ">\n")
+            writer.write """
+  </$ARTICLES>
+</$STOCK>
+"""
             writer.flush()
             writer.close()
         } catch (IOException ex) {
@@ -166,36 +171,45 @@ class StockIO {
             Account salesGainAccount = stockTransactions.salesGainAccount
             Account salesPromoAccount = stockTransactions.promoAccount
 
-            writer.write("  <" + PURCHASE_JOURNAL + ">"+ (purchaseJournal==null?"null":purchaseJournal.name)+"</" + PURCHASE_JOURNAL + ">\n")
-            writer.write("  <" + STOCK_ACCOUNT+">"+ (stockAccount==null?"null":stockAccount.name) +"</" + STOCK_ACCOUNT+">\n")
-            writer.write("  <" + SALES_JOURNAL + ">"+ (salesJournal==null?"null":salesJournal.name)+"</" + SALES_JOURNAL + ">\n")
-            writer.write("  <" + SALES_NO_INVOICE_JOURNAL + ">"+ (salesNoInvoiceJournal==null?"null":salesNoInvoiceJournal.name)+"</" + SALES_NO_INVOICE_JOURNAL + ">\n")
-            writer.write("  <" + GAIN_JOURNAL + ">"+ (gainJournal==null?"null":gainJournal.name)+"</" + GAIN_JOURNAL + ">\n")
-            writer.write("  <" + GAIN_ACCOUNT + ">"+(gainAccount==null?"null":gainAccount)+"</" + GAIN_ACCOUNT + ">\n")
-            writer.write("  <" + SALES_ACCOUNT + ">"+(salesAccount==null?"null":salesAccount)+"</" + SALES_ACCOUNT + ">\n")
-            writer.write("  <" + SALES_GAIN_ACCOUNT + ">"+(salesGainAccount==null?"null":salesGainAccount)+"</" + SALES_GAIN_ACCOUNT + ">\n")
-            writer.write("  <" + PROMO_ACCOUNT + ">"+(salesPromoAccount==null?"null":salesPromoAccount)+"</" + PROMO_ACCOUNT + ">\n")
+            writer.write"""\
+  <${PURCHASE_JOURNAL}>${(purchaseJournal==null?"null":purchaseJournal.name)}</${PURCHASE_JOURNAL}>
+  <$STOCK_ACCOUNT>${(stockAccount==null?"null":stockAccount.name)}</$STOCK_ACCOUNT>
+  <$SALES_JOURNAL>${(salesJournal==null?"null":salesJournal.name)}</$SALES_JOURNAL>
+  <$SALES_NO_INVOICE_JOURNAL>${(salesNoInvoiceJournal==null?"null":salesNoInvoiceJournal.name)}</$SALES_NO_INVOICE_JOURNAL>
+  <$GAIN_JOURNAL>${(gainJournal==null?"null":gainJournal.name)}</$GAIN_JOURNAL>
+  <$GAIN_ACCOUNT>${(gainAccount==null?"null":gainAccount)}</$GAIN_ACCOUNT>
+  <$SALES_ACCOUNT>${(salesAccount==null?"null":salesAccount)}</$SALES_ACCOUNT>
+  <$SALES_GAIN_ACCOUNT>${(salesGainAccount==null?"null":salesGainAccount)}</$SALES_GAIN_ACCOUNT>
+  <$PROMO_ACCOUNT>${(salesPromoAccount==null?"null":salesPromoAccount)}</$PROMO_ACCOUNT>"""
 
             for (Order order : stockTransactions.getOrders()) {
-                writer.write("  <" + STOCK_TRANSACTION + ">\n")
-                writer.write("    <" + NAME + ">" + order.name + "</" + NAME + ">\n")
-                writer.write("    <" + DATE + ">" + order.deliveryDate + "</" + DATE + ">\n")
-                writer.write("    <" + DESCRIPTION + ">" + order.description + "</" + DESCRIPTION + ">\n")
+                writer.write """
+  <${STOCK_TRANSACTION}>
+    <$NAME>${order.name}</$NAME>
+    <$DATE>${order.deliveryDate}</$DATE>
+    <$DESCRIPTION>${order.description}</$DESCRIPTION>"""
                 if (order instanceof PurchaseOrder){
-                    writer.write("    <" + TYPE + ">" + PURCHASE_ORDER + "</" + TYPE + ">\n")
+                    writer.write"""
+    <$TYPE>$PURCHASE_ORDER</$TYPE>"""
                 }
                 if (order instanceof SalesOrder){
-                    writer.write("    <" + TYPE + ">" + SALES_ORDER + "</" + TYPE + ">\n")
+                    writer.write"""
+    <$TYPE>$SALES_ORDER</$TYPE>"""
                 }
                 if (order instanceof StockOrder){
-                    writer.write("    <" + TYPE + ">" + STOCK_ORDER + "</" + TYPE + ">\n")
+                    writer.write"""
+    <$TYPE>$STOCK_ORDER</$TYPE>"""
                 }
                 if (order instanceof PromoOrder){
-                    writer.write("    <" + TYPE + ">" + PROMO_ORDER + "</" + TYPE + ">\n")
+                    writer.write"""
+    <$TYPE>$PROMO_ORDER</$TYPE>"""
                 }
-                writer.write("  </" + STOCK_TRANSACTION + ">\n")
+                writer.write"""
+  </$STOCK_TRANSACTION>"""
             }
-            writer.write("</" + STOCK_TRANSACTIONS + ">\n")
+            writer.write"""
+</$STOCK_TRANSACTIONS>
+"""
             writer.flush()
             writer.close()
         } catch (IOException ex) {

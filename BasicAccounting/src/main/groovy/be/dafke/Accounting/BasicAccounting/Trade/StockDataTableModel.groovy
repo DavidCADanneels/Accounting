@@ -1,16 +1,17 @@
 package be.dafke.Accounting.BasicAccounting.Trade
 
+import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Article
 import be.dafke.Accounting.BusinessModel.Articles
 import be.dafke.Accounting.BusinessModel.Contact
+import be.dafke.Accounting.BusinessModel.StockTransactions
 import be.dafke.ComponentModel.SelectableTableModel
 
-import java.util.function.Predicate
-
-import static java.util.ResourceBundle.getBundle 
+import static java.util.ResourceBundle.getBundle
 
 class StockDataTableModel extends SelectableTableModel<Article> {
     final Articles articles
+    final StockTransactions stockTransactions
     static int UNITS_IN_STOCK_COL = 0
     static int ITEMS_PER_UNIT_COL = 1
     static int ITEMS_IN_STOCK_COL = 2
@@ -18,10 +19,11 @@ class StockDataTableModel extends SelectableTableModel<Article> {
     static int SUPPLIER_COL = 4
     HashMap<Integer,String> columnNames = new HashMap<>()
     HashMap<Integer,Class> columnClasses = new HashMap<>()
-    Predicate<Article> filter
+    boolean withOrders
 
-    StockDataTableModel(Articles articles) {
-        this.articles = articles
+    StockDataTableModel(Accounting accounting) {
+        articles = accounting.articles
+        stockTransactions = accounting.stockTransactions
         setColumnNames()
         setColumnClasses()
     }
@@ -46,8 +48,8 @@ class StockDataTableModel extends SelectableTableModel<Article> {
     Object getValueAt(int row, int col) {
         Article article = getObject(row,col)
         if(article == null) return null
-        if (col == UNITS_IN_STOCK_COL) return Math.floor(article.getNrInStock()/article.itemsPerUnit).intValue()
-        if (col == ITEMS_IN_STOCK_COL) return article.getNrInStock()
+        if (col == UNITS_IN_STOCK_COL) return Math.floor(stockTransactions.getNrInStock(article)/article.itemsPerUnit).intValue()
+        if (col == ITEMS_IN_STOCK_COL) return stockTransactions.getNrInStock(article)
         if (col == ITEMS_PER_UNIT_COL) return article.itemsPerUnit
         if (col == ARTIKEL_COL) return article
         if (col == SUPPLIER_COL) return article.supplier
@@ -59,7 +61,9 @@ class StockDataTableModel extends SelectableTableModel<Article> {
     }
 
     int getRowCount() {
-        (articles && filter)?articles.getBusinessObjects(filter).size():0
+        if(withOrders) {
+            articles.getBusinessObjects(Article.withOrders()).size()
+        } else stockTransactions.stock.keySet().size()
     }
 
     @Override
@@ -86,13 +90,16 @@ class StockDataTableModel extends SelectableTableModel<Article> {
 
     @Override
     Article getObject(int row, int col) {
-        if(articles == null || filter == null) null
-        List<Article> businessObjects = articles.getBusinessObjects(filter)
-        businessObjects.get(row)
+        List<Article> articleList
+        if(withOrders) {
+            articleList = articles.getBusinessObjects(Article.withOrders())
+        } else articleList = stockTransactions.stock.keySet().collect()
+        if(articleList == null) return null
+        articleList.get(row)
     }
 
-    void setFilter(Predicate<Article> filter){
-        this.filter = filter
+    void setWithOrders(boolean withOrders) {
+        this.withOrders = withOrders
         fireTableDataChanged()
     }
 }
