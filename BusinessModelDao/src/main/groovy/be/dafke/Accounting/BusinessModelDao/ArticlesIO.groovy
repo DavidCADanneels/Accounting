@@ -95,13 +95,6 @@ class ArticlesIO {
                                 "    <" + SALES_SINGLE_PRICE + ">" + article.getSalesPriceItemWithVat() + "</" + SALES_SINGLE_PRICE + ">\n" +
                                 "    <" + PURCHASE_VAT_RATE + ">" + article.getPurchaseVatRate() + "</" + PURCHASE_VAT_RATE + ">\n" +
                                 "    <" + SALES_VAT_RATE + ">" + article.salesVatRate + "</" + SALES_VAT_RATE + ">\n" +
-                                "    <" + NR_IN_STOCK + ">" + article.getNrInStock() + "</" + NR_IN_STOCK + ">\n" +
-                                "    <" + NR_ADDED + ">" + article.getNrAdded() + "</" + NR_ADDED + ">\n" +
-                                "    <" + NR_REMOVED + ">" + article.getNrRemoved() + "</" + NR_REMOVED + ">\n" +
-                                "    <" + NR_SO_ORDERED + ">" + article.getNrOrderedForSO() + "</" + NR_SO_ORDERED + ">\n" +
-                                "    <" + NR_PO_ORDERED + ">" + article.getNrOrderedByPO() + "</" + NR_PO_ORDERED + ">\n" +
-                                "    <" + NR_INIT_STOCK + ">" + article.getInitStock() + "</" + NR_INIT_STOCK + ">\n" +
-                                "    <" + NR_PROMO_REMOVED + ">" + article.getNrPromo() + "</" + NR_PROMO_REMOVED + ">\n" +
                                 "    <" + SUPPLIER + ">" + article.supplier + "</" + SUPPLIER + ">\n"
                 )
                 ArrayList<PurchaseOrder> purchaseOrders = article.purchaseOrders
