@@ -211,10 +211,10 @@ class Main {
         mortgagesPanel.setMortgages(accounting == null ? null : accounting.mortgages)
 
         setMenuAccounting(accounting)
-//        if (accounting != null) {
-//            AccountingSession accountingSession = session.getAccountingSession.activeAccounting)
-//            setJournal(accountingSession.activeJournal)
-//        }
+        if (accounting != null) {
+            AccountingSession accountingSession = Session.getAccountingSession(Session.activeAccounting)
+            setJournal(accountingSession.activeJournal)
+        }
 
     }
 
@@ -270,14 +270,14 @@ class Main {
         transactionOverviewPanel.journal = journal
         journalEditPanel.journal = journal
         frame.journal = journal
-        accountGuiLeft.setJournal(journal, true)
-        accountGuiRight.setJournal(journal, false)
         Accounting activeAccounting = Session.activeAccounting
         AccountingSession accountingSession = Session.getAccountingSession(activeAccounting)
         Journal activeJournal = accountingSession.activeJournal
         JournalSession journalSession = accountingSession.getJournalSession(activeJournal)
         accountGuiLeft.setJournalSession(journalSession)
         accountGuiRight.setJournalSession(journalSession)
+        accountGuiLeft.setJournal(journal, true)
+        accountGuiRight.setJournal(journal, false)
 //        journalEditPanel.setJournalSession(journalSession)
 //        journalSelectorPanel.setJournalSession(journalSession)
     }
