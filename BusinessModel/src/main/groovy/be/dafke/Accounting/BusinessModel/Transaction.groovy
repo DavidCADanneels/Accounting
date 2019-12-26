@@ -47,15 +47,14 @@ class Transaction extends BusinessCollection<Booking> implements Comparable<Tran
 
     String getAbbreviation() {
         if(journal == null){
-            "NULL"
-        }
-        journal.abbreviation
+            return "NULL"
+        } else return journal.abbreviation
     }
 
     Integer getId(){
         if(journal == null){
-            0
-        } else journal.getId(this)
+            return 0
+        } else return journal.getId(this)
     }
 
     String getDescription(){
