@@ -4,10 +4,25 @@ import be.dafke.Accounting.BusinessModel.AccountType
 
 class JournalSession {
 
+    boolean showNumbersLeft
+    boolean showNumbersRight
     HashMap<AccountType, Boolean> checkedAccountTypesLeft = new HashMap<>()
     HashMap<AccountType, Boolean> checkedAccountTypesRight = new HashMap<>()
 
-    JournalSession() {
+    boolean getShowNumbersLeft() {
+        return showNumbersLeft
+    }
+
+    void setShowNumbersLeft(boolean showNumbersLeft) {
+        this.showNumbersLeft = showNumbersLeft
+    }
+
+    boolean getShowNumbersRight() {
+        return showNumbersRight
+    }
+
+    void setShowNumbersRight(boolean showNumbersRight) {
+        this.showNumbersRight = showNumbersRight
     }
 
     void setTypeCheckedLeft(AccountType accountType, boolean available){

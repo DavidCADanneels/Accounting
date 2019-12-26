@@ -68,7 +68,7 @@ class AccountTypesFilterPanel extends JPanel {
 
     void checkBoxAction(){
         List<AccountType> selectedAccountTypes = getSelectedAccountTypes()
-        model.setAccountTypes(selectedAccountTypes)
+        model.accountTypes = selectedAccountTypes
         // TODO: can't we just remove and re-add only 'type' i.s.o. all types?
         if(journalSession!=null) {
             for (AccountType accountType : boxes.keySet()) {

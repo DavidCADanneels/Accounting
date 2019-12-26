@@ -73,10 +73,6 @@ class AccountDataTableModel extends SelectableTableModel<Account> {
         fireTableStructureChanged()
     }
 
-    boolean isHideEmpty() {
-        return hideEmpty
-    }
-
     void setHideEmpty(boolean hideEmpty) {
         this.hideEmpty = hideEmpty
         fireTableStructureChanged()

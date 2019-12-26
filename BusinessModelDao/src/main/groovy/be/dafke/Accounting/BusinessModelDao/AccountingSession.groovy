@@ -15,4 +15,12 @@ class AccountingSession {
     JournalSession getJournalSession(Journal journal){
         journalSessions.get(journal)
     }
+
+    boolean getShowNumbers() {
+        return showNumbers
+    }
+
+    void setShowNumbers(boolean showNumbers) {
+        this.showNumbers = showNumbers
+    }
 }

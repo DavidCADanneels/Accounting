@@ -165,6 +165,10 @@ class XMLReader {
                 AccountTypes accountTypes = accounting.accountTypes
 
                 JournalSession journalSession = new JournalSession()
+                boolean showNumbersLeftJournal = getBooleanValue(journalElement, SHOW_NUMBERS_LEFT)
+                journalSession.showNumbersLeft = showNumbersLeftJournal
+                boolean showNumbersRightJournal = getBooleanValue(journalElement, SHOW_NUMBERS_RIGHT)
+                journalSession.showNumbersRight = showNumbersRightJournal
 
                 checkedTypesLeft.forEach({ typeName ->
                     AccountType type = accountTypes.getBusinessObject(typeName)

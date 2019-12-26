@@ -137,8 +137,8 @@ class AccountsTablePanel extends JPanel {
     }
 
     void setJournalSession(JournalSession journalSession) {
-        filterPanel.setJournalSession(journalSession)
-        accountDataTableModel.setJournalSession(journalSession)
+        filterPanel.journalSession = journalSession
+        accountDataTableModel.journalSession = journalSession
     }
     void setJournal(Journal journal, boolean left) {
         this.journal = journal

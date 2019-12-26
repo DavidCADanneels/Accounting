@@ -28,9 +28,11 @@ class AccountFilterPanel extends JPanel {
     JLabel nameLabel, numberLabel
 
     Accounting accounting
+    boolean left
 
     AccountFilterPanel(AccountDataTableModel model, boolean left) {
         this.model = model
+        this.left = left
 
         types = new AccountTypesFilterPanel(model, left)
         name = createNamePanel()
@@ -56,16 +58,24 @@ class AccountFilterPanel extends JPanel {
 
     void setAccounting(Accounting accounting) {
         this.accounting = accounting
+//        setJournalSession()
         AccountingSession accountingSession = Session.getAccountingSession(accounting)
-        if(accountingSession) showNumbersCheckbox.selected = accountingSession.showNumbers
+        if(accountingSession) {
+            JournalSession journalSession = accountingSession.getJournalSession(accountingSession.activeJournal)
+            if(journalSession) {
+                showNumbersCheckbox.selected = left?journalSession.showNumbersLeft:journalSession.showNumbersRight
+            }
+        }
         showNumbers()
     }
 
     void showNumbers() {
         boolean selected = showNumbersCheckbox.selected
-        if(accounting!=null) {
+        if(accounting) {
             AccountingSession accountingSession = Session.getAccountingSession(accounting)
-            accountingSession.showNumbers = selected
+            JournalSession journalSession = accountingSession.getJournalSession(accountingSession.activeJournal)
+            if(left) journalSession.showNumbersLeft = selected
+            else journalSession.showNumbersRight = selected
         }
         model.setShowNumbers(selected)
         number.setVisible(selected)
@@ -75,7 +85,7 @@ class AccountFilterPanel extends JPanel {
 
     void hideEmpty() {
         boolean selected = hideEmptyCheckbox.selected
-        model.setHideEmpty(selected)
+        model.hideEmpty = selected
 //        TODO: update Session
         invalidate()
     }

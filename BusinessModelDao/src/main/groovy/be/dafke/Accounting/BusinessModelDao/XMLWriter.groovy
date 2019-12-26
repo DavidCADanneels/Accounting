@@ -120,6 +120,8 @@ xsi:noNamespaceSchemaLocation=\""""
                         writer.write """
       <$JOURNAL>
         <$NAME>$journal.name</$NAME>
+        <$SHOW_NUMBERS_LEFT>$journalSession.showNumbersLeft</$SHOW_NUMBERS_LEFT>
+        <$SHOW_NUMBERS_RIGHT>$journalSession.showNumbersRight</$SHOW_NUMBERS_RIGHT>
         <$CHECKED_LEFT>$leftCheckedStream</$CHECKED_LEFT>
         <$CHECKED_RIGHT>$rightCheckedStream</$CHECKED_RIGHT>
       </$JOURNAL>"""
