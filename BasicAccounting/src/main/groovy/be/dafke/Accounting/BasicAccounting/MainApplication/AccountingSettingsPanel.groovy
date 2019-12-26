@@ -5,6 +5,8 @@ import be.dafke.Accounting.BasicAccounting.Meals.MealsSettingsPanel
 import be.dafke.Accounting.BasicAccounting.Trade.TradeSettingsPanel
 import be.dafke.Accounting.BasicAccounting.VAT.VATSettingsPanel
 import be.dafke.Accounting.BusinessModel.Accounting
+import be.dafke.Accounting.BusinessModelDao.AccountingSession
+import be.dafke.Accounting.BusinessModelDao.Session
 
 import javax.swing.*
 
@@ -16,6 +18,7 @@ class AccountingSettingsPanel extends JTabbedPane {
     static final String CONTACTS = getBundle("Contacts").getString("CONTACTS")
     static final String PROJECTS = getBundle("Projects").getString("PROJECTS")
     static final String MEALS = getBundle("Accounting").getString("MEALS")
+    static final String ACCOUNT_NUMBERS = getBundle("Accounting").getString("ACCOUNT_NUMBERS")
     static final String MORTGAGES = getBundle("Mortgage").getString("MORTGAGES")
     static final int CONTACTS_INDEX = 1
     static final int VAT_INDEX = 2
@@ -27,6 +30,7 @@ class AccountingSettingsPanel extends JTabbedPane {
     JCheckBox projects
     JCheckBox meals
     JCheckBox mortgages
+    JCheckBox accountNumbers
     Accounting accounting
     ContactsSettingsPanel contactsTab
     VATSettingsPanel vatTab
@@ -193,13 +197,18 @@ class AccountingSettingsPanel extends JTabbedPane {
         vatAccounting = new JCheckBox(VAT)
         tradeAccounting = new JCheckBox(TRADE)
         meals = new JCheckBox(MEALS)
+        accountNumbers = new JCheckBox(ACCOUNT_NUMBERS)
 
-        projects.setSelected(accounting==null||accounting.projectsAccounting)
-        mortgages.setSelected(accounting==null||accounting.mortgagesAccounting)
-        contacts.setSelected(accounting==null||accounting.contactsAccounting)
-        vatAccounting.setSelected(accounting==null||accounting.vatAccounting)
-        tradeAccounting.setSelected(accounting==null||accounting.tradeAccounting)
-        meals.setSelected(accounting==null||accounting.mealsAccounting)
+        projects.selected = accounting?accounting.projectsAccounting:true
+        mortgages.selected = accounting?accounting.mortgagesAccounting:true
+        contacts.selected = accounting?accounting.contactsAccounting:true
+        vatAccounting.selected = accounting?accounting.vatAccounting:true
+        tradeAccounting.selected = accounting?accounting.tradeAccounting:true
+        meals.selected = accounting?accounting.mealsAccounting:true
+        if(accounting) {
+            AccountingSession accountingSession = Session.getAccountingSession(accounting)
+            accountNumbers.selected = accountingSession?accountingSession.showNumbers:false
+        } else accountNumbers.selected = false
 
         projects.addActionListener({ e -> updateProjectSetting() })
         mortgages.addActionListener({ e -> updateMortgageSetting() })
@@ -207,6 +216,10 @@ class AccountingSettingsPanel extends JTabbedPane {
         vatAccounting.addActionListener({ e -> updateVatSetting() })
         tradeAccounting.addActionListener({ e -> updateTradeSetting() })
         meals.addActionListener({ e -> updateMealsSetting() })
+        accountNumbers.addActionListener( { e ->
+            AccountingSession accountingSession = Session.getAccountingSession(accounting)
+            accountingSession.showNumbers = accountNumbers.selected
+        })
 
         panel.add(projects)
         panel.add(mortgages)
@@ -214,6 +227,7 @@ class AccountingSettingsPanel extends JTabbedPane {
         panel.add(vatAccounting)
         panel.add(tradeAccounting)
         panel.add(meals)
+        panel.add(accountNumbers)
 
         if(copyPanel==null) {
             panel
