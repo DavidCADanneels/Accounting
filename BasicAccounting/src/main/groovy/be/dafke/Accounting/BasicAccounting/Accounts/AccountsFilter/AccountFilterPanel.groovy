@@ -2,13 +2,16 @@ package be.dafke.Accounting.BasicAccounting.Accounts.AccountsFilter
 
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountsTable.AccountDataTableModel
 import be.dafke.Accounting.BusinessModel.AccountType
+import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.AccountsList
+import be.dafke.Accounting.BusinessModelDao.AccountingSession
 import be.dafke.Accounting.BusinessModelDao.JournalSession
+import be.dafke.Accounting.BusinessModelDao.Session
 
 import javax.swing.*
 import javax.swing.event.DocumentEvent
 import javax.swing.event.DocumentListener
-import java.awt.BorderLayout
+import java.awt.*
 import java.awt.event.FocusAdapter
 import java.awt.event.FocusEvent
 
@@ -23,6 +26,8 @@ class AccountFilterPanel extends JPanel {
 
     AccountDataTableModel model
     JLabel nameLabel, numberLabel
+
+    Accounting accounting
 
     AccountFilterPanel(AccountDataTableModel model, boolean left) {
         this.model = model
@@ -49,8 +54,19 @@ class AccountFilterPanel extends JPanel {
         add(types, BorderLayout.CENTER)
     }
 
+    void setAccounting(Accounting accounting) {
+        this.accounting = accounting
+        AccountingSession accountingSession = Session.getAccountingSession(accounting)
+        if(accountingSession) showNumbersCheckbox.selected = accountingSession.showNumbers
+        showNumbers()
+    }
+
     void showNumbers() {
         boolean selected = showNumbersCheckbox.selected
+        if(accounting!=null) {
+            AccountingSession accountingSession = Session.getAccountingSession(accounting)
+            accountingSession.showNumbers = selected
+        }
         model.setShowNumbers(selected)
         number.setVisible(selected)
 //        TODO: update Session

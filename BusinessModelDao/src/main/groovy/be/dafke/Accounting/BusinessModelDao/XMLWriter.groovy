@@ -4,9 +4,7 @@ import be.dafke.Accounting.BusinessModel.*
 
 import java.util.logging.Level
 import java.util.logging.Logger
-import java.util.stream.Collectors
 
-import static XMLReader.*
 import static AccountsIO.writeAccounts
 import static AllergenesIO.writeAllergenes
 import static ArticlesIO.writeArticles
@@ -14,7 +12,6 @@ import static BalancesIO.writeBalances
 import static ContactsIO.writeContacts
 import static IngredientOrdersIO.writeIngredientOrders
 import static IngredientsIO.writeIngredientes
-import static JournalsIO.*
 import static MealOrderIO.writeMealOrders
 import static MealsIO.writeMeals
 import static MortgageIO.writeMortgages
@@ -27,7 +24,9 @@ import static StockIO.writeStockTransactions
 import static StockOrderIO.writeStockOrders
 import static VATIO.writeVATFields
 import static VATIO.writeVATTransactions
-import static XMLConstants.*
+import static be.dafke.Accounting.BusinessModelDao.JournalsIO.*
+import static be.dafke.Accounting.BusinessModelDao.XMLConstants.*
+import static be.dafke.Accounting.BusinessModelDao.XMLReader.*
 
 class XMLWriter {
     static String getXmlHeader(String className, int depth) {
@@ -93,10 +92,10 @@ xsi:noNamespaceSchemaLocation=\""""
         try {
             Writer writer = new FileWriter(xmlFile)
             writer.write getXmlHeader(SESSION, 0)
-            Accounting currentObject = Session.activeAccounting
-            if(currentObject!=null) {
-                writer.write("  <$ACTIVE_ACCOUNTING>$currentObject.name</$ACTIVE_ACCOUNTING>\n")
-            }
+            Accounting activeAccounting = Session.activeAccounting
+            if(activeAccounting) writer.write"""\
+  <$ACTIVE_ACCOUNTING>$activeAccounting.name</$ACTIVE_ACCOUNTING>
+"""
             Accountings accountings = Session.accountings
             for(Accounting accounting:accountings.businessObjects) {
                 AccountingSession accountingSession = Session.getAccountingSession(accounting)
@@ -104,9 +103,10 @@ xsi:noNamespaceSchemaLocation=\""""
                 writer.write """
   <$ACCOUNTING>
     <$NAME>$accounting.name</$NAME>
-    <$ACTIVE_JOURNAL>${(activeJournal==null?"null":activeJournal.name)}</$ACTIVE_JOURNAL>"""
+    <$SHOW_NUMBERS>$accountingSession.showNumbers</$SHOW_NUMBERS>
+    <$ACTIVE_JOURNAL>${(activeJournal?activeJournal.name:"null")}</$ACTIVE_JOURNAL>"""
                 Journals journals = accounting.journals
-                if(journals !=null){
+                if(journals){
                     writer.write"""
     <$JOURNALS>"""
                     for(Journal journal:journals.businessObjects) {

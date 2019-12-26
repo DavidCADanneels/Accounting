@@ -5,8 +5,8 @@ import be.dafke.Accounting.BasicAccounting.Accounts.AccountDetails.AccountDetail
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountManagement.AccountManagementGUI
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountsFilter.AccountFilterPanel
 import be.dafke.Accounting.BasicAccounting.Accounts.NewAccountDialog
-import be.dafke.Accounting.BusinessModel.*
 import be.dafke.Accounting.BasicAccounting.MainApplication.PopupForTableActivator
+import be.dafke.Accounting.BusinessModel.*
 import be.dafke.Accounting.BusinessModelDao.AccountingSession
 import be.dafke.Accounting.BusinessModelDao.JournalSession
 import be.dafke.Accounting.BusinessModelDao.Session
@@ -110,13 +110,16 @@ class AccountsTablePanel extends JPanel {
 
     void setAccounting(Accounting accounting, boolean left) {
         this.accounting = accounting
-        AccountingSession accountingSession = Session.getAccountingSession(accounting)
-        setJournal(accountingSession.activeJournal, left)
+
         // FIXME: enable buttons if something is selected (Listener) or make sure always something is selected
         // for info: the buttons can be used if nothing is selected, their listeners can deal with non-selections
         accountsTableButtons.setActive(accounting!=null)
 //        accountDataTableModel.setFilter(null)
-        accountDataTableModel.setAccounts(accounting?accounting.accounts:null)
+//        accountDataTableModel.accounts = accounting?accounting.accounts:null
+        accountDataTableModel.accounting = accounting
+        filterPanel.accounting = accounting
+        AccountingSession accountingSession = Session.getAccountingSession(accounting)
+        setJournal(accountingSession.activeJournal, left)
         // if setAccounts() is used here, popup.setAccounts() will be called twice
         table.addMouseListener(PopupForTableActivator.getInstance(popup, table))  // TODO: Needed?
         fireAccountDataChanged()

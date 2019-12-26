@@ -1,11 +1,6 @@
 package be.dafke.Accounting.BusinessModelDao
 
-import be.dafke.Accounting.BusinessModel.AccountType
-import be.dafke.Accounting.BusinessModel.AccountTypes
-import be.dafke.Accounting.BusinessModel.Accounting
-import be.dafke.Accounting.BusinessModel.Accountings
-import be.dafke.Accounting.BusinessModel.Journal
-import be.dafke.Accounting.BusinessModel.Journals
+import be.dafke.Accounting.BusinessModel.*
 import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException
 import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException
 import org.w3c.dom.Document
@@ -22,10 +17,7 @@ import static BalancesIO.readBalances
 import static ContactsIO.readContacts
 import static IngredientOrdersIO.readIngredientOrders
 import static IngredientsIO.readIngredients
-import static JournalsIO.readJournalTypes
-import static JournalsIO.readJournals
-import static JournalsIO.readJournalsContent
-import static JournalsIO.readTransactions
+import static JournalsIO.*
 import static MealOrderIO.readMealOrders
 import static MealsIO.readMeals
 import static MortgageIO.readMortgages
@@ -37,16 +29,7 @@ import static StockIO.readStockSettings
 import static StockIO.readStockTransactions
 import static StockOrderIO.readStockOrders
 import static VATIO.readVATTransactions
-import static XMLConstants.ACCOUNTING
-import static XMLConstants.ACCOUNTINGS
-import static XMLConstants.ACCOUNTINGS_XML_FILE
-import static XMLConstants.ACTIVE_ACCOUNTING
-import static XMLConstants.ACTIVE_JOURNAL
-import static XMLConstants.CHECKED_LEFT
-import static XMLConstants.CHECKED_RIGHT
-import static XMLConstants.JOURNAL
-import static XMLConstants.NAME
-import static XMLConstants.SESSION
+import static XMLConstants.*
 
 class XMLReader {
 
@@ -142,10 +125,8 @@ class XMLReader {
             return
         }
         Element rootElement = getRootElement(xmlFile, SESSION)
-        String value = getValue(rootElement, ACTIVE_ACCOUNTING)
-        if (value != null) {
-            Session.activeAccounting = accountings.getBusinessObject(value)
-        }
+        String activeAccounting = getValue(rootElement, ACTIVE_ACCOUNTING)
+        if (activeAccounting) Session.activeAccounting = accountings.getBusinessObject(activeAccounting)
 
         for (Element accountingElement : getChildren(rootElement, ACCOUNTING)) {
             String accountingName = getValue(accountingElement, NAME)
@@ -154,9 +135,11 @@ class XMLReader {
             Journals journals = accounting.journals
             Journal activeJournal = activeJournalName==null?null:journals.getBusinessObject(activeJournalName)
 //            accounting.setActiveJournal(activeJournal)
+            boolean showNumbers = getBooleanValue(accountingElement, SHOW_NUMBERS)
 
             AccountingSession accountingSession = new AccountingSession()
-            accountingSession.setActiveJournal(activeJournal)
+            accountingSession.activeJournal = activeJournal
+            accountingSession.showNumbers = showNumbers
             Session.addAccountingSession(accounting,accountingSession)
 
             for (Element journalElement : getChildren(accountingElement, JOURNAL)) {

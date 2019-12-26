@@ -263,7 +263,7 @@ class Main {
         if(journal!=null) {
             Accounting accounting = journal.accounting
             AccountingSession accountingSession = Session.getAccountingSession(accounting)
-            accountingSession.setActiveJournal(journal)  // idem, only needed for XMLWriter
+            accountingSession.activeJournal = journal  // idem, only needed for XMLWriter
         }
         journalSelectorPanel.journal = journal
         journalViewPanel.journal = journal

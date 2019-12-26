@@ -4,16 +4,9 @@ import be.dafke.Accounting.BusinessModel.Journal
 
 class AccountingSession {
 
+    boolean showNumbers
     Journal activeJournal
     HashMap<Journal, JournalSession> journalSessions = new HashMap<>()
-
-    Journal getActiveJournal() {
-        activeJournal
-    }
-
-    void setActiveJournal(Journal activeJournal) {
-        this.activeJournal = activeJournal
-    }
 
     void addJournalSession(Journal journal, JournalSession journalSession){
         journalSessions.put(journal, journalSession)

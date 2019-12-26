@@ -213,6 +213,7 @@ class XMLConstants {
     public static final String SESSION = "Session"
     public static final String ACTIVE_ACCOUNTING = "ActiveAccounting"
     public static final String ACTIVE_JOURNAL = "ActiveJournal"
+    public static final String SHOW_NUMBERS = "ShowNumbers"
 
     public static final String NEXT_VAT_ID = "NextVatId"
 

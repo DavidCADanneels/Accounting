@@ -1,13 +1,11 @@
 package be.dafke.Accounting.BasicAccounting.Accounts.AccountsTable
 
-import be.dafke.Accounting.BusinessModel.Account
-import be.dafke.Accounting.BusinessModel.AccountType
-import be.dafke.Accounting.BusinessModel.Accounts
-import be.dafke.Accounting.BusinessModel.AccountsList
+import be.dafke.Accounting.BusinessModel.*
 import be.dafke.Accounting.BusinessModelDao.JournalSession
 import be.dafke.ComponentModel.SelectableTableModel
 
 import static java.util.ResourceBundle.getBundle
+
 /**
  * @author David Danneels
  */
@@ -25,7 +23,8 @@ class AccountDataTableModel extends SelectableTableModel<Account> {
     String namePrefix
     String numberPrefix
     Account account = null
-    Accounts accounts
+    Accounting accounting
+//    Accounts accounts
     JournalSession journalSession
     boolean left
     List<AccountType> accountTypes
@@ -66,10 +65,6 @@ class AccountDataTableModel extends SelectableTableModel<Account> {
     void setNumberPrefix(String numberPrefix) {
         this.numberPrefix = numberPrefix
         fireTableDataChanged()
-    }
-
-    boolean isShowNumbers() {
-        showNumbers
     }
 
     void setShowNumbers(boolean showNumbers) {
@@ -134,9 +129,9 @@ class AccountDataTableModel extends SelectableTableModel<Account> {
     }
 
     int getRowCount() {
-        if(accounts == null){
-            return 0
-        }
+        if(accounting == null) return 0
+        def accounts = accounting.getAccounts()
+        if(accounts == null) return 0
         getFilteredAccounts().size()
     }
 
@@ -165,11 +160,9 @@ class AccountDataTableModel extends SelectableTableModel<Account> {
         }
     }
 
-    void setAccounts(Accounts accounts) {
-        this.accounts = accounts
-    }
-
     List<Account> getFilteredAccounts(){
+        if (accounting == null) return []
+        def accounts = accounting.getAccounts()
         if (accounts == null) return []
         List<Account> accountsList
         if(accountTypes!=null) {
