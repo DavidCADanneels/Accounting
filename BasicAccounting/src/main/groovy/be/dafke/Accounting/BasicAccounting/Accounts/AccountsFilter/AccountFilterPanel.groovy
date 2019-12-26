@@ -60,13 +60,8 @@ class AccountFilterPanel extends JPanel {
         this.accounting = accounting
 //        setJournalSession()
         AccountingSession accountingSession = Session.getAccountingSession(accounting)
-        if(accountingSession) {
-            JournalSession journalSession = accountingSession.getJournalSession(accountingSession.activeJournal)
-            if(journalSession) {
-                showNumbersCheckbox.selected = left?journalSession.showNumbersLeft:journalSession.showNumbersRight
-            }
-        }
-        showNumbers()
+        if(accountingSession) setJournalSession(accountingSession.getJournalSession(accountingSession.activeJournal))
+//        showNumbers()
     }
 
     void showNumbers() {
@@ -124,6 +119,10 @@ class AccountFilterPanel extends JPanel {
 
     void setJournalSession(JournalSession journalSession){
         types.setJournalSession(journalSession)
+        if(journalSession) {
+            showNumbersCheckbox.selected = left?journalSession.showNumbersLeft:journalSession.showNumbersRight
+            showNumbers()
+        }
     }
 
     JPanel createNumberPanel(){
