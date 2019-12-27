@@ -1,9 +1,12 @@
 package be.dafke.Accounting.BasicAccounting.Projects
 
-import be.dafke.Accounting.BasicAccounting.Balances.BalanceDataModel
+import be.dafke.Accounting.BasicAccounting.Balances.BalanceLeftDataModel
+import be.dafke.Accounting.BasicAccounting.Balances.BalanceRightDataModel
 import be.dafke.Accounting.BasicAccounting.Journals.JournalDetailsDataModel
+import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.*
 import be.dafke.ComponentModel.SelectableTable
+import be.dafke.ComponentModel.SelectableTableModel
 
 import javax.swing.*
 import javax.swing.border.LineBorder
@@ -17,7 +20,8 @@ class ProjectPanel extends JPanel{
     final JComboBox<Project> combo
     Project project
     JournalDetailsDataModel journalDetailsDataModel
-    BalanceDataModel resultBalanceDataModel, relationsBalanceDataModel
+    BalanceLeftDataModel resultBalanceLeftDataModel, relationsBalanceLeftDataModel
+    BalanceRightDataModel resultBalanceRightDataModel, relationsBalanceRightDataModel
     Projects projects
 
     ProjectPanel(Accounts accounts, AccountTypes accountTypes, Projects projects) {
@@ -44,19 +48,23 @@ class ProjectPanel extends JPanel{
         add(noord, BorderLayout.NORTH)
 
 //------------------------------------------------------------------------------------------
-        resultBalanceDataModel = new BalanceDataModel(
-                getBundle("BusinessModel").getString("COSTS"),
-                getBundle("BusinessModel").getString("REVENUES"), true)
-        JScrollPane resultBalance = createBalancePanel(resultBalanceDataModel)
-        resultBalance.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
-                "BusinessModel").getString("RESULTBALANCE")))
+        resultBalanceLeftDataModel = new BalanceLeftDataModel(getBundle("BusinessModel").getString("COSTS"), true)
+        resultBalanceRightDataModel = new BalanceRightDataModel(getBundle("BusinessModel").getString("REVENUES"), true)
+        JScrollPane resultLeftBalance = createBalancePanel(resultBalanceLeftDataModel)
+        JScrollPane resultRightBalance = createBalancePanel(resultBalanceRightDataModel)
+
+        JSplitPane resultPane = Main.createSplitPane(resultLeftBalance, resultRightBalance, JSplitPane.HORIZONTAL_SPLIT)
+
+        resultPane.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle("BusinessModel").getString("RESULTBALANCE")))
 //------------------------------------------------------------------------------------------
-        relationsBalanceDataModel = new BalanceDataModel(
-                getBundle("BusinessModel").getString("FUNDS_FROM_CUSTOMERS"),
-                getBundle("BusinessModel").getString("DEBTS_TO_SUPPLIERS"), true)
-        JScrollPane partnerBalance = createBalancePanel(relationsBalanceDataModel)
-        partnerBalance.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
-                "BusinessModel").getString("RELATIONSBALANCE")))
+        relationsBalanceLeftDataModel = new BalanceLeftDataModel(getBundle("BusinessModel").getString("FUNDS_FROM_CUSTOMERS"),true)
+        relationsBalanceRightDataModel = new BalanceRightDataModel(getBundle("BusinessModel").getString("DEBTS_TO_SUPPLIERS"), true)
+        JScrollPane partnerLeftBalance = createBalancePanel(relationsBalanceLeftDataModel)
+        JScrollPane partnerRightBalance = createBalancePanel(relationsBalanceRightDataModel)
+
+        JSplitPane partnerPane = Main.createSplitPane(partnerLeftBalance, partnerRightBalance, JSplitPane.HORIZONTAL_SPLIT)
+
+        partnerPane.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle("BusinessModel").getString("RELATIONSBALANCE")))
 //------------------------------------------------------------------------------------------
         JScrollPane transactionsPanel = createTransactionsPanel()
         transactionsPanel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
@@ -64,15 +72,15 @@ class ProjectPanel extends JPanel{
 //------------------------------------------------------------------------------------------
         JSplitPane center = new JSplitPane(JSplitPane.VERTICAL_SPLIT)
         JSplitPane balances = new JSplitPane(JSplitPane.VERTICAL_SPLIT)
-        balances.add(resultBalance,JSplitPane.TOP)
-        balances.add(partnerBalance, JSplitPane.BOTTOM)
+        balances.add(resultPane,JSplitPane.TOP)
+        balances.add(partnerPane, JSplitPane.BOTTOM)
         center.add(balances, JSplitPane.TOP)
         center.add(transactionsPanel, JSplitPane.BOTTOM)
 //------------------------------------------------------------------------------------------
         add(center,BorderLayout.CENTER)
     }
 
-    JScrollPane createBalancePanel(BalanceDataModel balanceDataModel){
+    JScrollPane createBalancePanel(SelectableTableModel balanceDataModel){
         SelectableTable<Account> table = new SelectableTable<>(balanceDataModel)
         table.setPreferredScrollableViewportSize(new Dimension(500, 200))
         new JScrollPane(table)
@@ -96,11 +104,15 @@ class ProjectPanel extends JPanel{
         }
         if(project!=null) {
             journalDetailsDataModel.setJournal(project.journal)
-            resultBalanceDataModel.setBalance(project.getResultBalance())
-            relationsBalanceDataModel.setBalance(project.getRelationsBalance())
+            resultBalanceLeftDataModel.setBalance(project.getResultBalance())
+            resultBalanceRightDataModel.setBalance(project.getResultBalance())
+            relationsBalanceLeftDataModel.setBalance(project.getRelationsBalance())
+            relationsBalanceRightDataModel.setBalance(project.getRelationsBalance())
         }
         journalDetailsDataModel.fireTableDataChanged()
-        resultBalanceDataModel.fireTableDataChanged()
-        relationsBalanceDataModel.fireTableDataChanged()
+        resultBalanceLeftDataModel.fireTableDataChanged()
+        resultBalanceRightDataModel.fireTableDataChanged()
+        relationsBalanceLeftDataModel.fireTableDataChanged()
+        relationsBalanceRightDataModel.fireTableDataChanged()
     }
 }
