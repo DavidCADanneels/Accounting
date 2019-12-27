@@ -54,6 +54,8 @@ class AccountFilterPanel extends JPanel {
         south.add(showNumbersCheckbox)
         add(south, BorderLayout.SOUTH)
         add(types, BorderLayout.CENTER)
+
+        refresh(false)
     }
 
     void setAccounting(Accounting accounting) {
@@ -66,14 +68,30 @@ class AccountFilterPanel extends JPanel {
 
     void showNumbers() {
         boolean selected = showNumbersCheckbox.selected
-        if(accounting) {
+        if (accounting) {
             AccountingSession accountingSession = Session.getAccountingSession(accounting)
             JournalSession journalSession = accountingSession.getJournalSession(accountingSession.activeJournal)
-            if(left) journalSession.showNumbersLeft = selected
+            if (left) journalSession.showNumbersLeft = selected
             else journalSession.showNumbersRight = selected
         }
-        model.setShowNumbers(selected)
-        number.setVisible(selected)
+        refresh(selected)
+    }
+
+    void refresh(boolean selected){
+        if (accounting) {
+            AccountingSession accountingSession = Session.getAccountingSession(accounting)
+            if(accountingSession.showNumbers){
+                showNumbersCheckbox.visible = true
+//                numberField.visible = true
+                model.showNumbers = selected
+                number.visible = selected
+            } else {
+                showNumbersCheckbox.visible = false
+                numberField.text = ''
+                number.visible = false
+                model.showNumbers = false
+            }
+        }
 //        TODO: update Session
         invalidate()
     }

@@ -219,6 +219,8 @@ class AccountingSettingsPanel extends JTabbedPane {
         accountNumbers.addActionListener( { e ->
             AccountingSession accountingSession = Session.getAccountingSession(accounting)
             accountingSession.showNumbers = accountNumbers.selected
+            // TODO: Main->AccountFilterPanel.refresh()
+            Main.fireGlobalShowNumbersChanged(true)
         })
 
         panel.add(projects)

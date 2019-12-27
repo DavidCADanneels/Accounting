@@ -185,6 +185,10 @@ class AccountsTablePanel extends JPanel {
         }
     }
 
+    void fireGlobalShowNumbersChanged(boolean enabled) {
+        filterPanel.refresh(enabled)
+    }
+
     void fireAccountDataChanged() {
         int row = table.getSelectedRow()
         accountDataTableModel.fireTableDataChanged()

@@ -282,6 +282,11 @@ class Main {
 //        journalSelectorPanel.setJournalSession(journalSession)
     }
 
+    static void fireGlobalShowNumbersChanged(boolean enabled){
+        accountGuiLeft.fireGlobalShowNumbersChanged(enabled)
+        accountGuiRight.fireGlobalShowNumbersChanged(enabled)
+    }
+
     static void fireTransactionInputDataChanged(){
         journalEditPanel.fireTransactionDataChanged()
     }
