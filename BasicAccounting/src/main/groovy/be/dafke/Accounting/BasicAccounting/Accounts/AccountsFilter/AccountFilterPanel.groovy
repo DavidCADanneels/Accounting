@@ -82,9 +82,9 @@ class AccountFilterPanel extends JPanel {
             AccountingSession accountingSession = Session.getAccountingSession(accounting)
             if(accountingSession.showNumbers){
                 showNumbersCheckbox.visible = true
-//                numberField.visible = true
-                model.showNumbers = selected
+                showNumbersCheckbox.selected = selected
                 number.visible = selected
+                model.showNumbers = selected
             } else {
                 showNumbersCheckbox.visible = false
                 numberField.text = ''
