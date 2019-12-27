@@ -1,5 +1,6 @@
 package be.dafke.Accounting.BasicAccounting.Balances
 
+import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BasicAccounting.MainApplication.PopupForTableActivator
 import be.dafke.Accounting.BusinessModel.Account
 import be.dafke.Accounting.BusinessModel.Accounting
@@ -12,25 +13,42 @@ import java.awt.*
 class BalancePanel extends JPanel {
 
     final JPopupMenu popup
-    SelectableTable<Account> balanceTable
-    BalanceDataModel balanceDataModel
+    SelectableTable<Account> balanceLeftTable
+    SelectableTable<Account> balanceRightTable
+    BalanceLeftDataModel balanceLeftDataModel
+    BalanceRightDataModel balanceRightDataModel
     BalanceTotalsDataModel balanceTotalsDataModel
     JTable balanceTotalTable
 
     BalancePanel(Accounting accounting, Balance balance) {
         setLayout(new BorderLayout())
 
-        balanceDataModel = new BalanceDataModel(balance)
+        balanceLeftDataModel = new BalanceLeftDataModel(balance)
+        balanceRightDataModel = new BalanceRightDataModel(balance)
 
-        balanceTable = new SelectableTable<>(balanceDataModel)
-        balanceTable.setPreferredScrollableViewportSize(new Dimension(500, 200))
-        balanceTable.setRowSorter(null)
+        //
+        balanceLeftTable = new SelectableTable<>(balanceLeftDataModel)
+        balanceLeftTable.setPreferredScrollableViewportSize(new Dimension(250, 200))
+//        balanceLeftTable.setRowSorter(null)
 
-        popup = new BalancePopupMenu(accounting, balanceTable)
-        balanceTable.addMouseListener(PopupForTableActivator.getInstance(popup,balanceTable))
-        balanceTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)
+        popup = new BalancePopupMenu(accounting, balanceLeftTable)
+        balanceLeftTable.addMouseListener(PopupForTableActivator.getInstance(popup,balanceLeftTable))
+        balanceLeftTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)
 
-        JScrollPane dataScrollPane = new JScrollPane(balanceTable)
+        JScrollPane dataLeftScrollPane = new JScrollPane(balanceLeftTable)
+        //
+
+        //
+        balanceRightTable = new SelectableTable<>(balanceRightDataModel)
+        balanceRightTable.setPreferredScrollableViewportSize(new Dimension(250, 200))
+//        balanceRightTable.setRowSorter(null)
+
+        popup = new BalancePopupMenu(accounting, balanceRightTable)
+        balanceRightTable.addMouseListener(PopupForTableActivator.getInstance(popup,balanceRightTable))
+        balanceRightTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)
+
+        JScrollPane dataRightScrollPane = new JScrollPane(balanceRightTable)
+        //
 
         balanceTotalsDataModel = new BalanceTotalsDataModel(balance)
         balanceTotalTable = new JTable(balanceTotalsDataModel)
@@ -38,11 +56,14 @@ class BalancePanel extends JPanel {
         balanceTotalTable.setRowSorter(null)
         JScrollPane totalScrollPane = new JScrollPane(balanceTotalTable)
 
-        add(dataScrollPane, BorderLayout.CENTER)
+        JSplitPane splitPane = Main.createSplitPane(dataLeftScrollPane, dataRightScrollPane, JSplitPane.HORIZONTAL_SPLIT)
+
+        add(splitPane, BorderLayout.CENTER)
         add(totalScrollPane, BorderLayout.SOUTH)
     }
 
     void fireAccountDataChanged() {
-        balanceDataModel.fireTableDataChanged()
+        balanceLeftDataModel.fireTableDataChanged()
+        balanceRightDataModel.fireTableDataChanged()
     }
 }

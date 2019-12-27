@@ -22,14 +22,6 @@ class BalanceDataModel extends SelectableTableModel<Account> {
         ]
     }
 
-    BalanceDataModel(Balance balance){
-        this(balance, false)
-    }
-    BalanceDataModel(Balance balance, boolean includeEmpty){
-        this.includeEmpty = includeEmpty
-        setBalance(balance)
-    }
-
     void setBalance(Balance balance) {
         this.balance = balance
         columnNames = [
