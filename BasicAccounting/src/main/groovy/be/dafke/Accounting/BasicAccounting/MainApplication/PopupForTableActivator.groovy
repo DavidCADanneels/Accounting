@@ -26,7 +26,7 @@ class PopupForTableActivator extends MouseAdapter {
 
     static void closeAllPopups(){
         for(JPopupMenu activator:popupForTableActivators){
-            activator.visible = false
+            if(activator) activator.visible = false
         }
     }
 

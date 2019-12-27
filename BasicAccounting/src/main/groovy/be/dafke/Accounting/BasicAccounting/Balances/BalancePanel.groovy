@@ -12,24 +12,34 @@ import java.awt.*
 class BalancePanel extends JPanel {
 
     final JPopupMenu popup
-    SelectableTable<Account> tabel
+    SelectableTable<Account> balanceTable
     BalanceDataModel balanceDataModel
+    BalanceTotalsDataModel balanceTotalsDataModel
+    JTable balanceTotalTable
 
     BalancePanel(Accounting accounting, Balance balance) {
         setLayout(new BorderLayout())
 
         balanceDataModel = new BalanceDataModel(balance)
 
-        tabel = new SelectableTable<>(balanceDataModel)
-        tabel.setPreferredScrollableViewportSize(new Dimension(500, 200))
-        tabel.setRowSorter(null)
-        JScrollPane scrollPane = new JScrollPane(tabel)
+        balanceTable = new SelectableTable<>(balanceDataModel)
+        balanceTable.setPreferredScrollableViewportSize(new Dimension(500, 200))
+        balanceTable.setRowSorter(null)
 
-        popup = new BalancePopupMenu(accounting, tabel)
-        tabel.addMouseListener(PopupForTableActivator.getInstance(popup,tabel))
-        tabel.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)
+        popup = new BalancePopupMenu(accounting, balanceTable)
+        balanceTable.addMouseListener(PopupForTableActivator.getInstance(popup,balanceTable))
+        balanceTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)
 
-        add(scrollPane, BorderLayout.CENTER)
+        JScrollPane dataScrollPane = new JScrollPane(balanceTable)
+
+        balanceTotalsDataModel = new BalanceTotalsDataModel(balance)
+        balanceTotalTable = new JTable(balanceTotalsDataModel)
+        balanceTotalTable.setPreferredScrollableViewportSize(new Dimension(500, 50))
+        balanceTotalTable.setRowSorter(null)
+        JScrollPane totalScrollPane = new JScrollPane(balanceTotalTable)
+
+        add(dataScrollPane, BorderLayout.CENTER)
+        add(totalScrollPane, BorderLayout.SOUTH)
     }
 
     void fireAccountDataChanged() {

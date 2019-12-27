@@ -421,7 +421,7 @@ class Main {
 
     static void closeAllFrames(){
         for(JFrame frame: disposableComponents){
-            frame.dispose()
+            if (frame) frame.dispose()
         }
     }
 
