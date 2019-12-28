@@ -10,14 +10,14 @@ import be.dafke.ComponentModel.SelectableTable
 import javax.swing.*
 import java.awt.*
 
-class JournalViewPanel extends JPanel {
+class JournalSingleViewPanel extends JPanel {
     final SelectableTable<Booking> table
     final JournalDetailsPopupMenu popup
 
     final JournalDetailsDataModel journalDetailsDataModel
     final JournalColorRenderer renderer
 
-    JournalViewPanel() {
+    JournalSingleViewPanel() {
         setLayout(new BorderLayout())
         journalDetailsDataModel = new JournalDetailsDataModel()
 

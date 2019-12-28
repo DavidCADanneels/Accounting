@@ -2,9 +2,9 @@ package be.dafke.Accounting.BasicAccounting.MainApplication
 
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountDetails.AccountDetailsGUI
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountManagement.AccountManagementGUI
-import be.dafke.Accounting.BasicAccounting.Accounts.Selector.AccountSelectorDialog
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountsMenu
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountsTable.AccountsTablePanel
+import be.dafke.Accounting.BasicAccounting.Accounts.Selector.AccountSelectorDialog
 import be.dafke.Accounting.BasicAccounting.Balances.BalanceGUI
 import be.dafke.Accounting.BasicAccounting.Balances.BalancesMenu
 import be.dafke.Accounting.BasicAccounting.Balances.TestBalanceGUI
@@ -12,13 +12,12 @@ import be.dafke.Accounting.BasicAccounting.Coda.CodaMenu
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactSelectorDialog
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactsGUI
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactsMenu
-import be.dafke.Accounting.BasicAccounting.Journals.*
 import be.dafke.Accounting.BasicAccounting.Journals.Edit.JournalEditPanel
+import be.dafke.Accounting.BasicAccounting.Journals.JournalsMenu
 import be.dafke.Accounting.BasicAccounting.Journals.Management.JournalManagementGUI
 import be.dafke.Accounting.BasicAccounting.Journals.Selector.JournalSelectorPanel
-import be.dafke.Accounting.BasicAccounting.Journals.View.DualView.TransactionOverviewPanel
+import be.dafke.Accounting.BasicAccounting.Journals.View.JournalSwitchViewPanel
 import be.dafke.Accounting.BasicAccounting.Journals.View.SingleView.JournalDetailsGUI
-import be.dafke.Accounting.BasicAccounting.Journals.View.SingleView.JournalViewPanel
 import be.dafke.Accounting.BasicAccounting.Meals.*
 import be.dafke.Accounting.BasicAccounting.Mortgages.MortgageGUI
 import be.dafke.Accounting.BasicAccounting.Mortgages.MortgagesMenu
@@ -44,7 +43,6 @@ class Main {
     static final ArrayList<JFrame> disposableComponents = new ArrayList<>()
 
     protected static Accountings accountings
-    static JournalViewPanel journalViewPanel
     static JournalSelectorPanel journalSelectorPanel
     static JournalEditPanel journalEditPanel
     static AccountsTablePanel accountGuiLeft
@@ -64,9 +62,8 @@ class Main {
     static ProjectsMenu projectsMenu
     static CodaMenu codaMenu
     static VATMenu vatMenu
-    static TransactionOverviewPanel transactionOverviewPanel
-    static JPanel cardPanel
     static CardLayout cardLayout
+    static JournalSwitchViewPanel cardPanel
     static JSplitPane journalViewAndEditSplitPane
 
     static void main(String[] args) {
@@ -86,8 +83,6 @@ class Main {
 
     static void createComponents() {
         journalEditPanel = new JournalEditPanel()
-        journalViewPanel = new JournalViewPanel()
-        transactionOverviewPanel = new TransactionOverviewPanel()
         journalSelectorPanel = new JournalSelectorPanel(journalEditPanel)
         accountGuiLeft = new AccountsTablePanel(true)
         accountGuiRight = new AccountsTablePanel(false)
@@ -115,9 +110,7 @@ class Main {
         JPanel accountingMultiPanel = new JPanel()
         accountingMultiPanel.setLayout(new BorderLayout())
         cardLayout = new CardLayout()
-        cardPanel = new JPanel(cardLayout)
-        cardPanel.add(journalViewPanel, JournalSelectorPanel.VIEW1)
-        cardPanel.add(transactionOverviewPanel, JournalSelectorPanel.VIEW2)
+        cardPanel = new JournalSwitchViewPanel()
         journalViewAndEditSplitPane = createSplitPane(cardPanel, journalEditPanel, VERTICAL_SPLIT)
 
         JPanel centerPanel = new JPanel(new BorderLayout())
@@ -211,8 +204,7 @@ class Main {
         accountGuiLeft.setAccounting(accounting, true)
         accountGuiRight.setAccounting(accounting, false)
         journalEditPanel.accounting = accounting
-        journalViewPanel.accounting = accounting
-        transactionOverviewPanel.accounting = accounting
+        cardPanel.accounting = accounting
         journalSelectorPanel.accounting = accounting
         mortgagesPanel.setMortgages(accounting == null ? null : accounting.mortgages)
 
@@ -254,7 +246,7 @@ class Main {
     }
 
     static void fireMultiTransactionChanged(boolean enabled) {
-        transactionOverviewPanel.setMultiSelection(enabled)
+        cardPanel.setMultiSelection(enabled)
     }
 
     static void fireBalancesChanged(){
@@ -272,8 +264,7 @@ class Main {
             accountingSession.activeJournal = journal  // idem, only needed for XMLWriter
         }
         journalSelectorPanel.journal = journal
-        journalViewPanel.journal = journal
-        transactionOverviewPanel.journal = journal
+        cardPanel.journal = journal
         journalEditPanel.journal = journal
         frame.journal = journal
         Accounting activeAccounting = Session.activeAccounting
@@ -328,8 +319,7 @@ class Main {
     static void fireJournalDataChanged(Journal journal){
         JournalDetailsGUI.fireJournalDataChangedForAll(journal)
         JournalManagementGUI.fireJournalDataChangedForAll()
-        journalViewPanel.fireJournalDataChanged()
-        transactionOverviewPanel.fireJournalDataChanged()
+        cardPanel.fireJournalDataChanged()
         journalsMenu.fireJournalDataChanged()
         frame.fireDataChanged()
     }
@@ -350,8 +340,7 @@ class Main {
         AccountSelectorDialog.fireAccountDataChangedForAll()
         // fireAccountDataChanged in AccountsListGUI is only needed if accounts have been added
         // in AccountsTableGUI it is also needed if the saldo of 1 or more accounts has changed
-        journalViewPanel.fireJournalDataChanged()
-        transactionOverviewPanel.fireJournalDataChanged()
+        cardPanel.fireJournalDataChanged()
         accountGuiLeft.fireAccountDataChanged()
         accountGuiRight.fireAccountDataChanged()
 
@@ -454,8 +443,7 @@ class Main {
 //    }
 
     static void selectTransaction(Transaction transaction){
-        journalViewPanel.selectTransaction(transaction)
-        transactionOverviewPanel.selectTransaction(transaction)
+        cardPanel.selectTransaction(transaction)
     }
 
     static void fireJournalTypeChanges(Journal journal, JournalType journalType) {
@@ -483,8 +471,7 @@ class Main {
     }
 
     static void switchView(String view) {
-        cardLayout.show(cardPanel, view)
+        cardPanel.switchView(view)
         journalEditPanel.fireTransactionDataChanged()
-        transactionOverviewPanel.fireJournalDataChanged()
     }
 }
