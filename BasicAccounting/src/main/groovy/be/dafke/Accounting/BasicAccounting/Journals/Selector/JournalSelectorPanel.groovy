@@ -18,10 +18,9 @@ import java.awt.event.ActionListener
 import static java.util.ResourceBundle.getBundle
 
 class JournalSelectorPanel extends JPanel implements ActionListener{
-    static final String VIEW1 = "View1"
-    static final String VIEW2 = "View2"
+
     JComboBox<Journal> combo
-    JCheckBox showInput, mergeTransactions
+    JCheckBox showInput
     JournalEditPanel journalEditPanel
 
     JournalSelectorPanel(JournalEditPanel journalEditPanel){
@@ -35,43 +34,12 @@ class JournalSelectorPanel extends JPanel implements ActionListener{
         combo.enabled = false
         add(combo)
 
-        JRadioButton view1 = new JRadioButton(VIEW1)
-        JRadioButton view2 = new JRadioButton(VIEW2)
-        ButtonGroup group = new ButtonGroup()
-        group.add(view1)
-        group.add(view2)
-
-        view1.selected = true
-        view1.addActionListener({ e ->
-            if (view1.selected) {
-                Main.switchView(VIEW1)
-            } else {
-                Main.switchView(VIEW2)
-            }
-        })
-        view2.addActionListener({ e ->
-            if (view1.selected) {
-                Main.switchView(VIEW1)
-            } else {
-                Main.switchView(VIEW2)
-            }
-        })
-        add(view1)
-        add(view2)
-
         showInput = new JCheckBox("Show Input Panel")
         showInput.addActionListener({ e ->
             Main.fireShowInputChanged(showInput.selected)
         })
         showInput.selected = true
         add(showInput)
-
-        mergeTransactions = new JCheckBox("Merge Transactions")
-        mergeTransactions.addActionListener({ e ->
-            Main.fireMultiTransactionChanged(mergeTransactions.selected)
-        })
-        mergeTransactions.selected = false
-        add(mergeTransactions)
     }
 
     void actionPerformed(ActionEvent ae) {
