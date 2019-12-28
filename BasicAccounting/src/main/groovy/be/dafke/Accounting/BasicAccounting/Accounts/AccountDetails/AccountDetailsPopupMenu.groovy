@@ -1,6 +1,6 @@
 package be.dafke.Accounting.BasicAccounting.Accounts.AccountDetails
 
-import be.dafke.Accounting.BasicAccounting.Journals.JournalDetailsGUI
+import be.dafke.Accounting.BasicAccounting.Journals.View.SingleView.JournalDetailsGUI
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.Booking
 import be.dafke.Accounting.BusinessModel.Journal

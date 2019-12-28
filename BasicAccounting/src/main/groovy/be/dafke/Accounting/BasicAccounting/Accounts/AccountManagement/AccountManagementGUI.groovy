@@ -1,6 +1,6 @@
 package be.dafke.Accounting.BasicAccounting.Accounts.AccountManagement
 
-import be.dafke.Accounting.BasicAccounting.Accounts.NewAccountDialog
+import be.dafke.Accounting.BasicAccounting.Accounts.New.NewAccountDialog
 import be.dafke.Accounting.BasicAccounting.MainApplication.ActionUtils
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.Account

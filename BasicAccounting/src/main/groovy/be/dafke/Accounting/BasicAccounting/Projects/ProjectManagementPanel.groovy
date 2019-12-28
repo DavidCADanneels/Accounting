@@ -1,6 +1,6 @@
 package be.dafke.Accounting.BasicAccounting.Projects
 
-import be.dafke.Accounting.BasicAccounting.Accounts.NewAccountDialog
+import be.dafke.Accounting.BasicAccounting.Accounts.New.NewAccountDialog
 import be.dafke.Accounting.BusinessModel.*
 import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException
 import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException

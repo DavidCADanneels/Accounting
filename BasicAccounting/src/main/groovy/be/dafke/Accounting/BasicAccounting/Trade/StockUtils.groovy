@@ -1,7 +1,7 @@
 package be.dafke.Accounting.BasicAccounting.Trade
 
-import be.dafke.Accounting.BasicAccounting.Accounts.AccountSelectorDialog
-import be.dafke.Accounting.BasicAccounting.Journals.JournalSelectorDialog
+import be.dafke.Accounting.BasicAccounting.Accounts.Selector.AccountSelectorDialog
+import be.dafke.Accounting.BasicAccounting.Journals.Selector.JournalSelectorDialog
 import be.dafke.Accounting.BusinessModel.Account
 import be.dafke.Accounting.BusinessModel.AccountType
 import be.dafke.Accounting.BusinessModel.AccountTypes

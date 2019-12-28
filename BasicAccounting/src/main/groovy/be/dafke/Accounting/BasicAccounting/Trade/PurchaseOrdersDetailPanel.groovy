@@ -2,7 +2,7 @@ package be.dafke.Accounting.BasicAccounting.Trade
 
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountActions
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactDetailsPanel
-import be.dafke.Accounting.BasicAccounting.Journals.DateAndDescriptionDialog
+import be.dafke.Accounting.BasicAccounting.Journals.Edit.DateAndDescriptionDialog
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.Account
 import be.dafke.Accounting.BusinessModel.Accounting

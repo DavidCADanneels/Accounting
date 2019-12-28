@@ -2,7 +2,7 @@ package be.dafke.Accounting.BasicAccounting.MainApplication
 
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountDetails.AccountDetailsGUI
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountManagement.AccountManagementGUI
-import be.dafke.Accounting.BasicAccounting.Accounts.AccountSelectorDialog
+import be.dafke.Accounting.BasicAccounting.Accounts.Selector.AccountSelectorDialog
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountsMenu
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountsTable.AccountsTablePanel
 import be.dafke.Accounting.BasicAccounting.Balances.BalanceGUI
@@ -13,6 +13,12 @@ import be.dafke.Accounting.BasicAccounting.Contacts.ContactSelectorDialog
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactsGUI
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactsMenu
 import be.dafke.Accounting.BasicAccounting.Journals.*
+import be.dafke.Accounting.BasicAccounting.Journals.Edit.JournalEditPanel
+import be.dafke.Accounting.BasicAccounting.Journals.Management.JournalManagementGUI
+import be.dafke.Accounting.BasicAccounting.Journals.Selector.JournalSelectorPanel
+import be.dafke.Accounting.BasicAccounting.Journals.View.DualView.TransactionOverviewPanel
+import be.dafke.Accounting.BasicAccounting.Journals.View.SingleView.JournalDetailsGUI
+import be.dafke.Accounting.BasicAccounting.Journals.View.SingleView.JournalViewPanel
 import be.dafke.Accounting.BasicAccounting.Meals.*
 import be.dafke.Accounting.BasicAccounting.Mortgages.MortgageGUI
 import be.dafke.Accounting.BasicAccounting.Mortgages.MortgagesMenu

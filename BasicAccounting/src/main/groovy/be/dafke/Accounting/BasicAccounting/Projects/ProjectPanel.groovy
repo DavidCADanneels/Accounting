@@ -1,7 +1,7 @@
 package be.dafke.Accounting.BasicAccounting.Projects
 
 import be.dafke.Accounting.BasicAccounting.Balances.BalancePanel
-import be.dafke.Accounting.BasicAccounting.Journals.JournalDetailsDataModel
+import be.dafke.Accounting.BasicAccounting.Journals.View.SingleView.JournalDetailsDataModel
 import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Booking
 import be.dafke.Accounting.BusinessModel.Project

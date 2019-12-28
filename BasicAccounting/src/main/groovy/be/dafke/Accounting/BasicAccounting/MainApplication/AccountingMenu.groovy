@@ -1,5 +1,7 @@
 package be.dafke.Accounting.BasicAccounting.MainApplication
 
+import be.dafke.Accounting.BasicAccounting.MainApplication.New.NewAccountingPanel
+import be.dafke.Accounting.BasicAccounting.MainApplication.Settings.AccountingSettingsGUI
 import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Accountings
 

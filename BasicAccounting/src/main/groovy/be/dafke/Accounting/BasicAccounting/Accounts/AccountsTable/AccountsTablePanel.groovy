@@ -4,7 +4,7 @@ import be.dafke.Accounting.BasicAccounting.Accounts.AccountActions
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountDetails.AccountDetailsGUI
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountManagement.AccountManagementGUI
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountsFilter.AccountFilterPanel
-import be.dafke.Accounting.BasicAccounting.Accounts.NewAccountDialog
+import be.dafke.Accounting.BasicAccounting.Accounts.New.NewAccountDialog
 import be.dafke.Accounting.BasicAccounting.MainApplication.PopupForTableActivator
 import be.dafke.Accounting.BusinessModel.*
 import be.dafke.Accounting.BusinessModelDao.AccountingSession

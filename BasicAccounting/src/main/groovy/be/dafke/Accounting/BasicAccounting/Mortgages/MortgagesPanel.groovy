@@ -1,6 +1,6 @@
 package be.dafke.Accounting.BasicAccounting.Mortgages
 
-import be.dafke.Accounting.BasicAccounting.Journals.JournalEditPanel
+import be.dafke.Accounting.BasicAccounting.Journals.Edit.JournalEditPanel
 import be.dafke.Accounting.BusinessModel.Mortgage
 import be.dafke.Accounting.BusinessModel.Mortgages
 

@@ -1,5 +1,9 @@
 package be.dafke.Accounting.BasicAccounting.Journals
 
+import be.dafke.Accounting.BasicAccounting.Journals.Management.JournalManagementGUI
+import be.dafke.Accounting.BasicAccounting.Journals.Management.JournalTypeManagementGUI
+import be.dafke.Accounting.BasicAccounting.Journals.New.NewJournalDialog
+import be.dafke.Accounting.BasicAccounting.Journals.View.SingleView.JournalDetailsGUI
 import be.dafke.Accounting.BusinessModel.*
 import be.dafke.Accounting.BusinessModelDao.JournalsIO
 

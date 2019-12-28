@@ -1,5 +1,6 @@
 package be.dafke.Accounting.BasicAccounting.Accounts
 
+import be.dafke.Accounting.BasicAccounting.Accounts.Selector.AccountSelectorDialog
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactSelectorDialog
 import be.dafke.Accounting.BasicAccounting.MainApplication.ActionUtils
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main

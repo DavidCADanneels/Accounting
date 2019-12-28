@@ -1,6 +1,6 @@
 package be.dafke.Accounting.BasicAccounting.Coda
 
-import be.dafke.Accounting.BasicAccounting.Accounts.AccountSelectorDialog
+import be.dafke.Accounting.BasicAccounting.Accounts.Selector.AccountSelectorDialog
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.*
 import be.dafke.Accounting.ObjectModel.BusinessObject

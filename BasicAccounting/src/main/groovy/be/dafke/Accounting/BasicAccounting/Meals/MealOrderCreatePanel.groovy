@@ -1,9 +1,9 @@
 package be.dafke.Accounting.BasicAccounting.Meals
 
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountActions
-import be.dafke.Accounting.BasicAccounting.Accounts.AccountSelectorDialog
-import be.dafke.Accounting.BasicAccounting.Journals.DateAndDescriptionPanel
-import be.dafke.Accounting.BasicAccounting.Journals.JournalSelectorDialog
+import be.dafke.Accounting.BasicAccounting.Accounts.Selector.AccountSelectorDialog
+import be.dafke.Accounting.BasicAccounting.Journals.Edit.DateAndDescriptionPanel
+import be.dafke.Accounting.BasicAccounting.Journals.Selector.JournalSelectorDialog
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.*
 import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException

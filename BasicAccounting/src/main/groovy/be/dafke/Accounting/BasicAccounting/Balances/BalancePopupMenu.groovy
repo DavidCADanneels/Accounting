@@ -1,7 +1,7 @@
 package be.dafke.Accounting.BasicAccounting.Balances
 
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountDetails.AccountDetailsGUI
-import be.dafke.Accounting.BasicAccounting.Accounts.NewAccountDialog
+import be.dafke.Accounting.BasicAccounting.Accounts.New.NewAccountDialog
 import be.dafke.Accounting.BusinessModel.Account
 import be.dafke.Accounting.BusinessModel.AccountTypes
 import be.dafke.Accounting.BusinessModel.Accounting
