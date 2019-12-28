@@ -14,7 +14,7 @@ class AccountColorRenderer extends DefaultTableCellRenderer {
                                             int row, int column) {
         Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column)
         Booking booking = ((AccountDetailsDataModel) table.getModel()).getObject(row, column)
-        if(booking!=null) {
+        if(booking) {
             Transaction transaction = booking.transaction
             if(isSelected){
                 cell.setBackground(Color.CYAN)

@@ -74,7 +74,7 @@ class BalancesManagementPanel extends JPanel implements FocusListener {
         balance = (Balance) combo.selectedItem
         debitModel.removeAllElements()
         creditModel.removeAllElements()
-        if(balance!=null){
+        if(balance){
             for (AccountType type : balance.getLeftTypes()) {
                 debitModel.addElement(type)
             }

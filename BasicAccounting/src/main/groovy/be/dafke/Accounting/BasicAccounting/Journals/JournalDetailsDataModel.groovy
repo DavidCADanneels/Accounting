@@ -145,7 +145,7 @@ class JournalDetailsDataModel extends SelectableTableModel<Booking> {
     @Override
     void setValueAt(Object value, int row, int col) {
         Booking booking = getObject(row,col)
-        if(booking!=null) {
+        if(booking) {
             Transaction transaction = booking.transaction
             if (col == DATE) {
                 Calendar date = transaction.date

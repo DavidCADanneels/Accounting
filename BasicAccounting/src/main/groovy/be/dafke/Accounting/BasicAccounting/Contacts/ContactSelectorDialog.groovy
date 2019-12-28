@@ -61,7 +61,7 @@ class ContactSelectorDialog extends RefreshableDialog {
     }
 
     static void fireContactDataChangedForAll() {
-        if(contactSelectorDialog !=null){
+        if(contactSelectorDialog ){
             contactSelectorDialog.fireContactDataChanged()
         }
     }
@@ -76,7 +76,7 @@ class ContactSelectorDialog extends RefreshableDialog {
         } else if (contactType == Contact.ContactType.SUPPLIERS){
             list = contacts.getBusinessObjects{it.supplier}
         }
-        if (list!=null) {
+        if (list) {
             for (Contact contact : list) {
                 model.addElement(contact)
             }

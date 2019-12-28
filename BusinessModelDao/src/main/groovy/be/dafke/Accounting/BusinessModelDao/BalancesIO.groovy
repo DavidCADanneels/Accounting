@@ -159,10 +159,10 @@ class BalancesIO {
                 Account rightAccount = balanceLine.getRightAccount()
                 writer.write"""
   <$BALANCE_LINE>"""
-                if(leftAccount!=null) writer.write"""
+                if(leftAccount) writer.write"""
     <$NAME1>$leftAccount.name</$NAME1>
     <$AMOUNT1>$leftAccount.saldo</$AMOUNT1>"""
-                if(rightAccount!=null) writer.write"""
+                if(rightAccount) writer.write"""
     <$NAME2>$rightAccount.name</$NAME2>
     <$AMOUNT2>${rightAccount.saldo.negate()}</$AMOUNT2>"""
                 writer.write """

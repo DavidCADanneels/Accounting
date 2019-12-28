@@ -146,10 +146,10 @@ class PromoOrderDetailPanel extends JPanel {
 
         StockTransactions stockTransactions = accounting.stockTransactions
         ArrayList<Order> orders = stockTransactions.getOrders()
-        boolean orderDelivered = promoOrder !=null && orders.contains(promoOrder)
-        boolean toBeDelivered = promoOrder !=null && !orders.contains(promoOrder)
+        boolean orderDelivered = promoOrder && orders.contains(promoOrder)
+        boolean toBeDelivered = promoOrder && !orders.contains(promoOrder)
 
-        placed.setSelected(paymentTransaction!=null)
+        placed.setSelected(paymentTransaction)
         delivered.setSelected(orderDelivered)
 
         deliveredButton.enabled = toBeDelivered

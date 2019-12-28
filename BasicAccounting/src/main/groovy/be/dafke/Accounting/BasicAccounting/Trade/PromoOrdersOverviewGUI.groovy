@@ -32,7 +32,7 @@ class PromoOrdersOverviewGUI extends JFrame {
 
     static void firePromoOrderAddedOrRemovedForAccounting(Accounting accounting){
         PromoOrdersOverviewGUI gui = promoOrdersOverviewGuiMap.get(accounting)
-        if(gui!=null){
+        if(gui){
             gui.firePromoOrderAddedOrRemoved()
         }
     }

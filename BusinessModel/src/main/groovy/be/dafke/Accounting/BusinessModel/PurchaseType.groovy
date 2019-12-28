@@ -15,7 +15,7 @@ enum PurchaseType {
 
     PurchaseType(String message, String nr) {
         this.message = message
-        if(nr!=null) costField = new VATField(nr)
+        if(nr) costField = new VATField(nr)
     }
 
     VATField getCostField() {

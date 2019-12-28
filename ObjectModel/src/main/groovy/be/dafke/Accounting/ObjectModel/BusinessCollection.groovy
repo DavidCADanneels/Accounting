@@ -61,7 +61,7 @@ class BusinessCollection <V extends BusinessObject> extends BusinessObject {
                 throw new EmptyNameException()
             }
             V found = getBusinessObject(entry)
-            if(found!=null){
+            if(found){
                 throw new DuplicateNameException(key)
             }
         }
@@ -105,7 +105,7 @@ class BusinessCollection <V extends BusinessObject> extends BusinessObject {
         removeBusinessObject(oldEntry)
 
         V found = getBusinessObject(newEntry)
-        if(found!=null){
+        if(found){
             addBusinessObject(value, oldEntry)
             throw new DuplicateNameException(key)
         }

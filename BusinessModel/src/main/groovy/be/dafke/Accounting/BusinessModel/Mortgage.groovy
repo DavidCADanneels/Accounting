@@ -62,7 +62,7 @@ class Mortgage extends BusinessCollection<MortgageTransaction> {
     }
 
     boolean isBookable(){
-        (capital!=null && intrest!=null && !isPayedOff())
+        (capital && intrest && !isPayedOff())
     }
     @Override
     boolean isDeletable(){

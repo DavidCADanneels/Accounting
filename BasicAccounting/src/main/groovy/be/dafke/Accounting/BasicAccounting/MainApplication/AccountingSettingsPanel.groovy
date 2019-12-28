@@ -95,7 +95,7 @@ class AccountingSettingsPanel extends JTabbedPane {
             insertTab("Contacts", null, contactsTab, "", CONTACTS_INDEX)
         }
         accounting.contactsAccounting = selected
-        if(copyPanel!=null){
+        if(copyPanel){
             copyPanel.enableCopyContacts()
         }
         Main.fireAccountingTypeChanged accounting
@@ -122,7 +122,7 @@ class AccountingSettingsPanel extends JTabbedPane {
             }
         }
         accounting.vatAccounting = selected
-        if(copyPanel!=null){
+        if(copyPanel){
             copyPanel.enableCopyVat()
         }
         Main.fireAccountingTypeChanged accounting
@@ -143,7 +143,7 @@ class AccountingSettingsPanel extends JTabbedPane {
             }
         }
         accounting.tradeAccounting = selected
-        if(copyPanel!=null){
+        if(copyPanel){
             copyPanel.enableCopyTrade()
         }
         Main.fireAccountingTypeChanged accounting
@@ -171,7 +171,7 @@ class AccountingSettingsPanel extends JTabbedPane {
             }
         }
         accounting.mealsAccounting = selected
-        if(copyPanel!=null){
+        if(copyPanel){
             copyPanel.enableCopyMeals()
         }
         Main.fireAccountingTypeChanged accounting

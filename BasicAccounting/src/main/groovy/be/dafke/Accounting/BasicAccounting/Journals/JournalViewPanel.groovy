@@ -59,7 +59,7 @@ class JournalViewPanel extends JPanel {
     void selectBooking(Booking booking) {
         int row = journalDetailsDataModel.getRow(booking)
 
-        if (table != null) {
+        if (table) {
             table.setRowSelectionInterval(row, row)
             Rectangle cellRect = table.getCellRect(row, 0, false)
             table.scrollRectToVisible(cellRect)
@@ -68,13 +68,13 @@ class JournalViewPanel extends JPanel {
 
     void selectTransaction(Transaction transaction) {
         ArrayList<Booking> bookings = transaction.businessObjects
-        if (bookings != null && !bookings.empty) {
+        if (bookings && !bookings.empty) {
             Booking firstBooking = bookings.get(0)
             Booking lastBooking = bookings.get(bookings.size() - 1)
             int firstRow = journalDetailsDataModel.getRow(firstBooking)
             int lastRow = journalDetailsDataModel.getRow(lastBooking)
 
-            if (table != null) {
+            if (table) {
                 table.setRowSelectionInterval(firstRow, lastRow)
                 Rectangle cellRect = table.getCellRect(lastRow, 0, false)
                 table.scrollRectToVisible(cellRect)

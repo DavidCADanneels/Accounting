@@ -281,16 +281,16 @@ class SalesOrderDetailPanel extends JPanel {
 
         StockTransactions stockTransactions = accounting.stockTransactions
         ArrayList<Order> orders = stockTransactions.getOrders()
-        boolean orderDelivered = salesOrder!=null && orders.contains(salesOrder)
-        boolean toBeDelivered = salesOrder!=null && !orders.contains(salesOrder)
+        boolean orderDelivered = salesOrder && orders.contains(salesOrder)
+        boolean toBeDelivered = salesOrder && !orders.contains(salesOrder)
 
-        boolean isCreditNote = salesOrder!=null&& salesOrder.creditNote
-        boolean isPromoOrder = salesOrder!=null&& salesOrder.promoOrder
-        boolean editable = salesOrder != null && salesOrder.editable
+        boolean isCreditNote = salesOrder && salesOrder.creditNote
+        boolean isPromoOrder = salesOrder && salesOrder.promoOrder
+        boolean editable = salesOrder && salesOrder.editable
 
-        placed.setSelected(salesTransaction!=null)
+        placed.setSelected(salesTransaction)
         delivered.setSelected(orderDelivered)
-        payed.setSelected(paymentTransaction !=null)
+        payed.setSelected(paymentTransaction )
         creditNote.setSelected(isCreditNote)
         promoOrder.setSelected(isPromoOrder)
 
@@ -303,13 +303,13 @@ class SalesOrderDetailPanel extends JPanel {
 
         updateContactDetails(salesOrder)
 
-        salesTransactionButton.enabled = salesOrder!=null && salesOrder.salesTransaction==null
-        gainTransactionButton.enabled = salesOrder !=null && salesOrder.gainTransaction==null
-        paymentTransactionButton.enabled = salesOrder !=null && paymentTransaction ==null
+        salesTransactionButton.enabled = salesOrder && salesOrder.salesTransaction==null
+        gainTransactionButton.enabled = salesOrder  && salesOrder.gainTransaction==null
+        paymentTransactionButton.enabled = salesOrder  && paymentTransaction ==null
     }
 
     void updateInvoiceButtonAndField() {
-        if(salesOrder!=null&&salesOrder.invoice){
+        if(salesOrder&&salesOrder.invoice){
             createInvoiceButton.enabled = true
             invoiceNr.setText(salesOrder.invoiceNumber)
         } else {
@@ -319,7 +319,7 @@ class SalesOrderDetailPanel extends JPanel {
     }
 
     void updateContactDetails(SalesOrder salesOrder){
-        if(salesOrder!=null&&salesOrder.customer!=null){
+        if(salesOrder&&salesOrder.customer){
             contactDetailsPanel.setContact(salesOrder.customer)
         } else {
             contactDetailsPanel.clearFields()
@@ -341,7 +341,7 @@ class SalesOrderDetailPanel extends JPanel {
         if (date == null || description == null) {
             DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog()
             dateAndDescriptionDialog.enableDescription(true)
-            if(description!=null){
+            if(description){
                 dateAndDescriptionDialog.description = description
             } else {
                 dateAndDescriptionDialog.description = ""

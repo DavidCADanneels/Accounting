@@ -93,7 +93,7 @@ class OrderItem extends BusinessObject{
     }
 
     BigDecimal getSalesPriceForItem() {
-        salesPriceForItem !=null? salesPriceForItem :article.getSalesPriceItemWithVat()
+        salesPriceForItem?:article.getSalesPriceItemWithVat()
     }
 
     BigDecimal getSalesPriceWithoutVat() {
@@ -133,7 +133,7 @@ class OrderItem extends BusinessObject{
     }
 
     Integer getSalesVatRate() {
-        salesVatRate!=null?salesVatRate:article==null?null:article.salesVatRate
+        salesVatRate?:article?article.salesVatRate:null
     }
 
     void setSalesVatRate(Integer salesVatRate) {
@@ -205,7 +205,7 @@ class OrderItem extends BusinessObject{
 //		if(supplier.isIntraCommun() && supplier.isInternational){
 //			0
 //		} else {
-//        purchaseVatRate!=null?purchaseVatRate:article.getPurchaseVatRate()
+//        purchaseVatRate?:article.getPurchaseVatRate()
 //		}
         // TODO: getSupplier().isInternational or IntraComm -> 0%
         purchaseVatRate?purchaseVatRate:article.getPurchaseVatRate()

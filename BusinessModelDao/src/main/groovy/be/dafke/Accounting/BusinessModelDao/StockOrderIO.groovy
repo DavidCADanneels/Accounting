@@ -79,9 +79,9 @@ class StockOrderIO {
     <$ID>$order.id</$ID>
     <$NAME>$order.name</$NAME>"""
                 Transaction balanceTransaction = order.balanceTransaction
-                if(balanceTransaction!=null) writer.write """
+                if(balanceTransaction) writer.write """
     <$BALANCE_TRANSACTION>$balanceTransaction.transactionId</$BALANCE_TRANSACTION>"""
-                if(order.paymentTransaction!=null) writer.write """
+                if(order.paymentTransaction) writer.write """
     <$PAYMENT_TRANSACTION>$order.paymentTransaction.transactionId</$PAYMENT_TRANSACTION>"""
 
                 for (OrderItem orderItem : order.businessObjects) {

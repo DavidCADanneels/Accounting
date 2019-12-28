@@ -160,7 +160,7 @@ class ProjectManagementPanel extends JPanel implements ListSelectionListener {
     void comboAction() {
         project = (Project) combo.selectedItem
         projectAccountsModel.removeAllElements()
-        if(project!=null) {
+        if(project) {
             for (Account account : project.businessObjects) {
                 // System.out.println("Project: " + project + " | account" + account)
                 projectAccountsModel.addElement(account)

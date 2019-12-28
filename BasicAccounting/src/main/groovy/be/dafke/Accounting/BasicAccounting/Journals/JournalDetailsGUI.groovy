@@ -53,7 +53,7 @@ class JournalDetailsGUI extends JFrame implements WindowListener {
 
     static void fireJournalDataChangedForAll(Journal journal) {
         JournalDetailsGUI journalDetailsGUI = journalDetailsMap.get(journal)
-        if(journalDetailsGUI !=null) {
+        if(journalDetailsGUI) {
             journalDetailsGUI.fireJournalDataChanged()
         }
     }

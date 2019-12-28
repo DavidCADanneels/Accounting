@@ -31,7 +31,7 @@ class MealRecipeEditGUI extends JFrame {
 
     static void fireTableUpdateForAccounting(Accounting accounting){
         MealRecipeEditGUI gui = mealsGuis.get(accounting)
-        if (gui !=null){
+        if (gui){
             gui.fireTableUpdate()
         }
     }

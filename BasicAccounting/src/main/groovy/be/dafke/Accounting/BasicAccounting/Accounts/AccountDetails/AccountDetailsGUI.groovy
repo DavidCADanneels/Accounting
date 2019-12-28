@@ -52,7 +52,7 @@ class AccountDetailsGUI extends JFrame implements WindowListener {
 
     static void fireAccountDataChangedForAll(Account account) {
         AccountDetailsGUI accountDetailsGUI = accountDetailsMap.get(account)
-        if(accountDetailsGUI !=null) {
+        if(accountDetailsGUI ) {
             accountDetailsGUI.fireAccountDataChanged()
         }
     }

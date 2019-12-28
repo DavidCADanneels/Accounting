@@ -61,7 +61,7 @@ class PromoOrderIO {
 //                BigDecimal purchasePriceItem = parseBigDecimal(purchasePriceItemString)
 
                 String purchasePriceUnitString = getValue(element, PURCHASE_PRICE_UNIT)
-                if(purchasePriceUnitString!=null) {
+                if(purchasePriceUnitString) {
                     BigDecimal purchasePriceUnit = parseBigDecimal(purchasePriceUnitString)
                     orderItem.setPurchasePriceForUnit(purchasePriceUnit)
                 }
@@ -94,7 +94,7 @@ class PromoOrderIO {
     <$ID>$promoOrder.id</$ID>
     <$NAME>$promoOrder.name</$NAME>"""
                 Transaction paymentTransaction = promoOrder.paymentTransaction
-                if(paymentTransaction!=null) writer.write """
+                if(paymentTransaction) writer.write """
     <$PAYMENT_TRANSACTION>$paymentTransaction.transactionId</$PAYMENT_TRANSACTION>"""
                 else writer.write """
     <$PAYMENT_TRANSACTION>null</$PAYMENT_TRANSACTION>"""

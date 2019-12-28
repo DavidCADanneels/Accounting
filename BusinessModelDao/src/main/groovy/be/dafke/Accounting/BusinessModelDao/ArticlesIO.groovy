@@ -27,42 +27,42 @@ class ArticlesIO {
             Article article = new Article(name)
 
             String ingredientName = getValue(element, INGREDIENT)
-            if(ingredientName!=null){
+            if(ingredientName){
                 Ingredient ingredient = ingredients.getBusinessObject(ingredientName)
                 article.setIngredient(ingredient)
             }
 
             String ingredientAmountSrting = getValue(element, AMOUNT)
-            if(ingredientAmountSrting!=null){
+            if(ingredientAmountSrting){
                 article.setIngredientAmount(parseBigDecimal(ingredientAmountSrting))
             }
 
             String hsCode = getValue(element, ARTICLE_HS_CODE)
-            if(hsCode!=null)
+            if(hsCode)
                 article.setHSCode(hsCode)
 
             String purchasePrice = getValue(element, PURCHASE_PRICE)
-            if(purchasePrice!=null)
+            if(purchasePrice)
                 article.setPurchasePrice(parseBigDecimal(purchasePrice))
 
             String salesPriceSingle = getValue(element, SALES_SINGLE_PRICE)
-            if(salesPriceSingle!=null)
+            if(salesPriceSingle)
                 article.setSalesPriceItemWithVat(parseBigDecimal(salesPriceSingle))
 
             String purchaseVatRate = getValue(element, PURCHASE_VAT_RATE)
-            if(purchaseVatRate!=null)
+            if(purchaseVatRate)
                 article.setPurchaseVatRate(parseInt(purchaseVatRate))
 
             String salesVatRate = getValue(element, SALES_VAT_RATE)
-            if(salesVatRate!=null)
+            if(salesVatRate)
                 article.setSalesVatRate(parseInt(salesVatRate))
 
             String itemsPerUnit = getValue(element, ITEMS_PER_UNIT)
-            if(itemsPerUnit!=null)
+            if(itemsPerUnit)
                 article.setItemsPerUnit(parseInt(itemsPerUnit))
 
             String supplierName = getValue(element, SUPPLIER)
-            if(supplierName!=null) {
+            if(supplierName) {
                 Contact supplier = contacts.getBusinessObject(supplierName)
                 if (supplier != null) {
                     article.setSupplier(supplier)

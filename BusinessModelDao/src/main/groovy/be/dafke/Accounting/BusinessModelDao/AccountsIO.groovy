@@ -34,11 +34,11 @@ class AccountsIO {
             account.type = accountType
 
             String number = getValue(element, NUMBER)
-            if(number!=null)
+            if(number)
                 account.number = parseBigInteger number
 
             String defaultAmount = getValue element, DEFAULT_AMOUNT
-            if(defaultAmount!=null)
+            if(defaultAmount)
                 account.defaultAmount = parseBigDecimal(defaultAmount)
 
             try {
@@ -109,11 +109,11 @@ class AccountsIO {
     <$TYPE>$account.type</$TYPE>"""
 
                 BigDecimal defaultAmount = account.defaultAmount
-                if(defaultAmount!=null) writer.write """
+                if(defaultAmount) writer.write """
     <$DEFAULT_AMOUNT>$defaultAmount</$DEFAULT_AMOUNT>"""
 
                 BigInteger number = account.number
-                if(number!=null) writer.write """
+                if(number) writer.write """
     <$NUMBER>$number</$NUMBER>"""
 
                 writer.write """

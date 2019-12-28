@@ -98,7 +98,7 @@ class Statement extends BusinessObject {
         properties.put(DATE,Utils.toString(date))
         properties.put(AMOUNT, amount.toString())
         properties.put(COMMUNICATION, communication)
-        if(counterParty!=null){
+        if(counterParty){
             properties.put(COUNTERPARTY,counterParty.name)
         }
         properties.put(TRANSACTIONCODE,transactionCode)

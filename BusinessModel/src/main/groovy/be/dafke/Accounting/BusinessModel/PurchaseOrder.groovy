@@ -12,7 +12,7 @@ class PurchaseOrder extends Order {
         BigDecimal total = BigDecimal.ZERO.setScale(2)
         for (OrderItem orderItem : getBusinessObjects()) {
             BigDecimal purchasePriceWithoutVat = orderItem.getPurchasePriceWithoutVat()
-            if(purchasePriceWithoutVat!=null) {
+            if(purchasePriceWithoutVat) {
                 total = total.add(purchasePriceWithoutVat).setScale(2, RoundingMode.HALF_DOWN)
             }
         }
@@ -23,7 +23,7 @@ class PurchaseOrder extends Order {
         BigDecimal total = BigDecimal.ZERO.setScale(2)
         for (OrderItem orderItem : getBusinessObjects(predicate)) {
             BigDecimal purchasePriceWithoutVat = orderItem.getPurchasePriceWithoutVat()
-            if(purchasePriceWithoutVat!=null) {
+            if(purchasePriceWithoutVat) {
                 total = total.add(purchasePriceWithoutVat).setScale(2, RoundingMode.HALF_DOWN)
             }
         }
@@ -34,7 +34,7 @@ class PurchaseOrder extends Order {
         BigDecimal total = BigDecimal.ZERO.setScale(2)
         for (OrderItem orderItem : getBusinessObjects()) {
             BigDecimal purchasePriceWithVat = orderItem.getPurchasePriceWithVat()
-            if(purchasePriceWithVat!=null) {
+            if(purchasePriceWithVat) {
                 total = total.add(purchasePriceWithVat).setScale(2, RoundingMode.HALF_DOWN)
             }
         }
@@ -45,7 +45,7 @@ class PurchaseOrder extends Order {
         BigDecimal total = BigDecimal.ZERO.setScale(2)
         for (OrderItem orderItem : getBusinessObjects(predicate)) {
             BigDecimal purchasePriceWithVat = orderItem.getPurchasePriceWithVat()
-            if(purchasePriceWithVat!=null) {
+            if(purchasePriceWithVat) {
                 total = total.add(purchasePriceWithVat.setScale(2, RoundingMode.HALF_DOWN))
             }
         }
@@ -56,7 +56,7 @@ class PurchaseOrder extends Order {
         BigDecimal total = BigDecimal.ZERO.setScale(2)
         for (OrderItem orderItem : getBusinessObjects()) {
             BigDecimal purchaseVatAmount = orderItem.getPurchaseVatAmount()
-            if (purchaseVatAmount != null) {
+            if (purchaseVatAmount) {
                 total = total.add(purchaseVatAmount).setScale(2, RoundingMode.HALF_DOWN)
             }
         }
@@ -67,7 +67,7 @@ class PurchaseOrder extends Order {
         BigDecimal total = BigDecimal.ZERO.setScale(2)
         for (OrderItem orderItem : getBusinessObjects(predicate)) {
             BigDecimal purchaseVatAmount = orderItem.getPurchaseVatAmount()
-            if(purchaseVatAmount!=null) {
+            if(purchaseVatAmount) {
                 total = total.add(purchaseVatAmount).setScale(2, RoundingMode.HALF_DOWN)
             }
         }
@@ -78,7 +78,7 @@ class PurchaseOrder extends Order {
         BigDecimal total = BigDecimal.ZERO.setScale(2)
         BigDecimal totalPurchasePriceExclVat = totalPurchasePriceExclVat
         BigDecimal totalPurchasePriceInclVat = totalPurchasePriceInclVat
-        if(totalPurchasePriceExclVat!=null && totalPurchasePriceInclVat!=null) {
+        if(totalPurchasePriceExclVat && totalPurchasePriceInclVat) {
             total = totalPurchasePriceInclVat.subtract(totalPurchasePriceExclVat).setScale(2, RoundingMode.HALF_DOWN)
         }
         total

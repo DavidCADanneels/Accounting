@@ -42,7 +42,7 @@ class BalancesMenu extends JMenu {
 
     void fireBalancesChanged(){
         removeAll()
-        if(balances!=null) {
+        if(balances) {
             balances.businessObjects.forEach({ balance ->
                 String name = balance.name
                 JMenuItem item = new JMenuItem(name)

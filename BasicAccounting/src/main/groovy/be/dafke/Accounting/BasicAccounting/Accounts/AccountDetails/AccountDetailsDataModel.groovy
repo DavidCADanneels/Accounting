@@ -115,12 +115,12 @@ class AccountDetailsDataModel extends SelectableTableModel<Booking> {
             Calendar newDate = Utils.toCalendar((String) value)
             Transaction transaction = getTransaction(movement)
             Journal journal = getJournal(movement)
-            if(newDate!=null && transaction != null && journal != null) {
+            if(newDate && transaction && journal) {
                 transaction.date = newDate
                 Main.fireJournalDataChanged(journal)
             }
         } else if (col == 4) {
-            if(movement!=null) {
+            if(movement) {
                 movement.setDescription((String) value)
             }
         }

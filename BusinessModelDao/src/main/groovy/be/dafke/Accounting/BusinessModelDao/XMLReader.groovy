@@ -273,7 +273,7 @@ class XMLReader {
                     false
                 }
                 String nodeValue = nodeList.item(0).getNodeValue()
-                nodeValue!=null && nodeValue.equals(("true"))
+                nodeValue && nodeValue.equals(("true"))
             }
         }
     }

@@ -28,7 +28,7 @@ class StockGUI extends JFrame {
     }
 
     static void fireStockContentChanged(){
-        if(gui!=null){
+        if(gui){
             gui.updateStockContent()
         }
     }

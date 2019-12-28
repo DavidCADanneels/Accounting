@@ -30,12 +30,12 @@ class Contact extends BusinessObject{
         phone = contact.phone
         officialName = contact.officialName
         Account otherCustomerAccount = contact.customerAccount
-        if(otherCustomerAccount!=null){
+        if(otherCustomerAccount){
             String accountName = otherCustomerAccount.name
             customerAccount = accounts.getBusinessObject(accountName)
         }
         Account otherSupplierAccount = contact.supplierAccount
-        if(otherSupplierAccount!=null){
+        if(otherSupplierAccount){
             String accountName = otherSupplierAccount.name
             supplierAccount = accounts.getBusinessObject(accountName)
         }

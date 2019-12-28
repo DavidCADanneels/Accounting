@@ -260,7 +260,7 @@ class Main {
     }
 
     static void setJournal(Journal journal) {
-        if(journal!=null) {
+        if(journal) {
             Accounting accounting = journal.accounting
             AccountingSession accountingSession = Session.getAccountingSession(accounting)
             accountingSession.activeJournal = journal  // idem, only needed for XMLWriter

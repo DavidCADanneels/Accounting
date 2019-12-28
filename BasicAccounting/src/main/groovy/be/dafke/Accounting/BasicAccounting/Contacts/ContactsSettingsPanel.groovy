@@ -71,7 +71,7 @@ class ContactsSettingsPanel extends JPanel {
         companyContactModel.removeAllElements()
         noInVoiceContactModel.removeAllElements()
 
-        if (copyFrom!=null) {
+        if (copyFrom) {
             Contact companyContactFrom = copyFrom.companyContact
             Contact contactNoInvoiceFrom = copyFrom.contactNoInvoice
             Contacts contacts = accounting.contacts

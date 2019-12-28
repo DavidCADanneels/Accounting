@@ -31,7 +31,7 @@ class ArticlesGUI extends JFrame {
 
     static void fireTableUpdateForAccounting(Accounting accounting){
         ArticlesGUI gui = articlesGuis.get(accounting)
-        if(gui!=null) {
+        if(gui) {
             gui.fireTableUpdate()
         }
     }
@@ -42,7 +42,7 @@ class ArticlesGUI extends JFrame {
 
     static void fireSupplierAddedOrRemovedForAccounting(Accounting accounting){
         ArticlesGUI gui = articlesGuis.get(accounting)
-        if(gui!=null){
+        if(gui){
             gui.fireSupplierAddedOrRemoved()
         }
     }
@@ -54,7 +54,7 @@ class ArticlesGUI extends JFrame {
 
     static void fireIngredientAddedOrRemovedForAccounting(Accounting accounting){
         ArticlesGUI gui = articlesGuis.get(accounting)
-        if(gui!=null){
+        if(gui){
             gui.fireIngredientAddedOrRemoved()
         }
     }

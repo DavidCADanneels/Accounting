@@ -25,15 +25,15 @@ class MealsIO {
             Meal meal = new Meal(mealNr)
 
             String mealName = getValue(mealElement, MEAL_NAME)
-            if(mealName!=null)
+            if(mealName)
                 meal.setMealName(mealName)
 
             String salesPrice = getValue(mealElement, PRICE)
-            if(salesPrice!=null)
+            if(salesPrice)
                 meal.setSalesPrice(parseBigDecimal(salesPrice))
 
             String description = getValue(mealElement, DESCRIPTION)
-            if(description!=null)
+            if(description)
                 meal.setDescription(description)
 
             for (Element recipeElement : getChildren(mealElement, MEAL_RECIPE_LINE)) {
@@ -43,7 +43,7 @@ class MealsIO {
                 RecipeLine recipeLine = new RecipeLine(ingredient)
 
                 String amountString = getValue(mealElement, AMOUNT)
-                if(amountString!=null){
+                if(amountString){
                     BigDecimal amount = new BigDecimal(amountString)
                     recipeLine.setAmount(amount)
                 }

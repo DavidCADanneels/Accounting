@@ -31,7 +31,7 @@ class VATMenu extends JMenu {
     void setAccounting(Accounting accounting) {
         this.accounting = accounting
         vatFieldsMenuItem.enabled = accounting!=null
-        if(accounting!=null){
+        if(accounting){
             vatFields = accounting.vatFields
         }
     }

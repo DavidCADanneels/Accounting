@@ -57,7 +57,7 @@ class VATWriter {
                             "        <ns2:Data>\n")
             for(VATField vatField:getAllFields(vatFields)){
                 BigDecimal amount = vatField.saldo
-                if(amount!=null && amount.compareTo(BigDecimal.ZERO)!=0){
+                if(amount && amount.compareTo(BigDecimal.ZERO)!=0){
                     String name = vatField.name
                     writer.write(
                             "            <ns2:Amount GridNumber=\""+name+"\">"+amount+"</ns2:Amount>\n"
@@ -105,7 +105,7 @@ class VATWriter {
                 String vatNumber = contact.vatNumber
                 BigDecimal vatTotal = contact.VATTotal
                 String countryCode = contact.countryCode
-                if(contact.isCustomer() && vatNumber!=null && turnOver.compareTo(BigDecimal.ZERO)>0) {
+                if(contact.isCustomer() && vatNumber && turnOver.compareTo(BigDecimal.ZERO)>0) {
                     totalTurnover = totalTurnover.add(contact.turnOver)
                     totalVatTotal = totalVatTotal.add(contact.VATTotal)
                     nrOfCustomers++

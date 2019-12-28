@@ -30,7 +30,7 @@ class AccountTypesFilterPanel extends JPanel {
     }
 
     void refreshSelectedAccounts(){
-        if(journalSession!=null) {
+        if(journalSession) {
             if (left) {
                 setSelectedAccountTypes(journalSession.getCheckedTypesLeft())
             } else {
@@ -70,7 +70,7 @@ class AccountTypesFilterPanel extends JPanel {
         List<AccountType> selectedAccountTypes = getSelectedAccountTypes()
         model.accountTypes = selectedAccountTypes
         // TODO: can't we just remove and re-add only 'type' i.s.o. all types?
-        if(journalSession!=null) {
+        if(journalSession) {
             for (AccountType accountType : boxes.keySet()) {
                 if (left) {
                     journalSession.setTypeCheckedLeft(accountType, selectedAccountTypes.contains(accountType))

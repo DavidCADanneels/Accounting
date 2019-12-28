@@ -96,7 +96,7 @@ class AccountsTablePanel extends JPanel {
     void editAccount(){
         popup.visible = false
         Account account = table.selectedObject
-        if(account!=null) {
+        if(account) {
             ArrayList<AccountType> accountTypes = accountsList.accountTypes
             NewAccountDialog newAccountDialog = new NewAccountDialog(accounting.accounts, accountTypes)
             newAccountDialog.account = account
@@ -142,7 +142,7 @@ class AccountsTablePanel extends JPanel {
     }
     void setJournal(Journal journal, boolean left) {
         this.journal = journal
-        if(journal!=null){
+        if(journal){
             JournalType journalType = journal.type
             setJournalType(journalType)
 

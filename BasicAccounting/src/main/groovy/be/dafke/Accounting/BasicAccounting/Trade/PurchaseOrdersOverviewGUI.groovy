@@ -33,7 +33,7 @@ class PurchaseOrdersOverviewGUI extends JFrame {
 
     static void firePurchaseOrderAddedOrRemovedForAccounting(Accounting accounting){
         PurchaseOrdersOverviewGUI gui = purchaseOrderOverviewGuiMap.get(accounting)
-        if(gui!=null){
+        if(gui){
             gui.firePurchaseOrderAddedOrRemoved()
         }
     }

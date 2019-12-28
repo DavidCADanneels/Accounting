@@ -133,7 +133,7 @@ class SalesOrderCreatePanel extends JPanel {
         comboBox.enabled = salesOrder!=null
         invoice.enabled = salesOrder!=null
         creditNote.enabled = salesOrder != null
-        if (salesOrder!=null){
+        if (salesOrder){
             invoice.selected = salesOrder.invoice
             if(salesOrder.invoice) {
                 contact = salesOrder.customer

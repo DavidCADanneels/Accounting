@@ -85,7 +85,7 @@ class JournalsMenu extends JMenu {
         add(manage)
         add(types)
         add(generatePdf)
-        if(journals!=null){
+        if(journals){
             addSeparator()
             journals.businessObjects.stream()
                     .forEach({ journal ->

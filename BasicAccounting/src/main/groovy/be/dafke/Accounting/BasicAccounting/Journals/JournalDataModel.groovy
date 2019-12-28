@@ -1,5 +1,6 @@
 package be.dafke.Accounting.BasicAccounting.Journals
 
+import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.Account
 import be.dafke.Accounting.BusinessModel.Booking
 import be.dafke.Accounting.BusinessModel.Transaction
@@ -95,13 +96,13 @@ class JournalDataModel extends SelectableTableModel<Booking> {
             // if already booked, old account must be unbooked
             // and newAccount booked
             // What to do when editing (booked/unbooked) vatTransactions ???
-            if(newAccount!=null) {
+            if(newAccount) {
                 booking.setAccount(newAccount)
             }
             fireTableDataChanged()
         } else if(col == DEBIT_AMOUNT || col == CREDIT_AMOUNT){
             BigDecimal newAmount = (BigDecimal) value
-            if(newAmount!=null){
+            if(newAmount){
                 Transaction transaction = booking.transaction
                 transaction.removeBusinessObject(booking)
                 booking.setAmount(newAmount)

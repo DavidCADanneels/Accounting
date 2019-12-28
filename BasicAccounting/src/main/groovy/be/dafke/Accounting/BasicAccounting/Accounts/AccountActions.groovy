@@ -59,7 +59,7 @@ class AccountActions {
         BigDecimal amount = null
         while (!ok) {
             String s
-            if(suggestedAmount!=null){
+            if(suggestedAmount){
                 // TODO: add title ...
                 s = JOptionPane.showInputDialog(component, getBundle("BusinessActions").getString(
                         "ENTER_AMOUNT")+ account.name, suggestedAmount.toString())
@@ -252,7 +252,7 @@ class AccountActions {
 
             // TODO? ask percentage and calculate suggested amount ?
             vatAmount = askAmount(vatAccount, null, component)
-            if(vatAmount!=null) {
+            if(vatAmount) {
                 Booking bookingVat = createSalesCnVatBooking(accounting, vatAmount)
                 Main.addBooking(bookingVat)
             }
@@ -261,12 +261,12 @@ class AccountActions {
         if (debit){
             BigDecimal amount = booking.amount
             transaction.turnOverAmount = amount.negate()
-            if(vatAmount!=null)
+            if(vatAmount)
                 transaction.VATAmount = vatAmount.negate()
         } else {
             BigDecimal amount = booking.amount
             transaction.turnOverAmount = amount
-            if(vatAmount!=null)
+            if(vatAmount)
                 transaction.VATAmount = vatAmount
         }
     }
@@ -374,7 +374,7 @@ class AccountActions {
 
     static Contact getContact(Account account, Accounting accounting, Contact.ContactType contactType, Component component){
         Contact contact = account.contact
-        if(contact!=null){
+        if(contact){
             contact
         } else {
             ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(accounting, contactType)

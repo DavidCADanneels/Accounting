@@ -190,7 +190,7 @@ class AccountingCopyPanel extends JPanel {
             selectCopyAccounts(true)
             accountingSettingsPanel.setContactsSelected(true)
             copyContacts()
-            if(copyFrom!=null){
+            if(copyFrom){
                 accountingSettingsPanel.copyContacts(copyFrom)
             } else {
                 accountingSettingsPanel.copyContacts(null)
@@ -210,7 +210,7 @@ class AccountingCopyPanel extends JPanel {
             selectCopyContacts(true)
             accountingSettingsPanel.setVatSelected(true)
             copyVatSettings()
-            if(copyFrom!=null){
+            if(copyFrom){
                 accountingSettingsPanel.copyVatSettings(copyFrom)
             } else {
                 accountingSettingsPanel.copyVatSettings(null)
@@ -227,7 +227,7 @@ class AccountingCopyPanel extends JPanel {
         if(selected){
             selectCopyVat(true)
             accountingSettingsPanel.setTradeSelected(true)
-            if(copyFrom!=null){
+            if(copyFrom){
                 // TODO: need separate check box to copy Articles?
                 accountingSettingsPanel.copyTradeSettings(copyFrom)
                 copyArticles()
@@ -245,7 +245,7 @@ class AccountingCopyPanel extends JPanel {
         if(selected){
             selectCopyVat(true)
             accountingSettingsPanel.setMealsSelected(true)
-            if(copyFrom!=null){
+            if(copyFrom){
                 // TODO: need separate check box to copy Meals?
                 copyMeals()
                 accountingSettingsPanel.copyMealSettings(copyFrom)
@@ -300,28 +300,28 @@ class AccountingCopyPanel extends JPanel {
     // ENABLE
 
     boolean enableCopyContacts() {
-        boolean enabled = copyFrom!=null && copyFrom.isContactsAccounting() && newAccounting.isContactsAccounting()
+        boolean enabled = copyFrom && copyFrom.isContactsAccounting() && newAccounting.isContactsAccounting()
         copyContacts.enabled = enabled
         if(!enabled) copyContacts.selected = false
         enabled
     }
 
     boolean enableCopyVat() {
-        boolean enabled = copyFrom!=null && copyFrom.vatAccounting && newAccounting.vatAccounting
+        boolean enabled = copyFrom && copyFrom.vatAccounting && newAccounting.vatAccounting
         copyVat.enabled = enabled
         if(!enabled) copyVat.selected = false
         enabled
     }
 
     boolean enableCopyTrade() {
-        boolean enabled = copyFrom!=null && copyFrom.tradeAccounting && newAccounting.tradeAccounting
+        boolean enabled = copyFrom && copyFrom.tradeAccounting && newAccounting.tradeAccounting
         copyTrade.enabled = enabled
         if(!enabled) copyTrade.selected = false
         enabled
     }
 
     boolean enableCopyMeals() {
-        boolean enabled = copyFrom!=null && copyFrom.mealsAccounting && newAccounting.mealsAccounting
+        boolean enabled = copyFrom && copyFrom.mealsAccounting && newAccounting.mealsAccounting
         copyMealOrders.enabled = enabled
         if(!enabled) copyMealOrders.selected = false
         enabled

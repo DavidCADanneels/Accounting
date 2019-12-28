@@ -33,7 +33,7 @@ class JournalsIO {
             // Do not add default types here, they are read, right below
 
             String taxString = getValue(element, VATTYPE)
-            if(taxString!=null) journalType.setVatType(VATTransaction.VATType.valueOf(taxString))
+            if(taxString) journalType.setVatType(VATTransaction.VATType.valueOf(taxString))
 
             Element leftElement = getChildren(element, LEFT_LIST).get(0)
             Element rightElement = getChildren(element, RIGHT_LIST).get(0)
@@ -58,7 +58,7 @@ class JournalsIO {
         // TODO: save state ENABLED in xml and call setTypeAvailable(ENABLED)
         accountsList.addAllTypes(accountTypes, false)
 
-        if(typesString!=null) {
+        if(typesString) {
             String[] typesList = typesString.split(",")
             for (String s : typesList) {
                 if (!"".equals(s)) {

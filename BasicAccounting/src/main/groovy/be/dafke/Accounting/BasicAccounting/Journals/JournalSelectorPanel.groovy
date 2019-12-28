@@ -89,7 +89,7 @@ class JournalSelectorPanel extends JPanel implements ActionListener{
         Journal selectedJournal = (Journal)combo.selectedItem
         combo.removeActionListener(this)
         combo.removeAllItems()
-        if (journals!=null) {
+        if (journals) {
             for (Journal journal : journals.businessObjects) {
                 combo.addItem(journal)
             }

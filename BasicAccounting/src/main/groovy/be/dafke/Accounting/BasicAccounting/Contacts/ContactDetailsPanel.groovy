@@ -130,13 +130,13 @@ class ContactDetailsPanel extends JPanel {
         customer.setSelected(contact.customer)
         supplier.setSelected(contact.supplier)
         Account customerAccount = contact.customerAccount
-        if (customerAccount != null){
+        if (customerAccount){
             customerAccountName.setText(customerAccount.toString())
         } else {
             customerAccountName.setText("")
         }
         Account supplierAccount = contact.supplierAccount
-        if(supplierAccount!=null) {
+        if(supplierAccount) {
             supplierAccountName.setText(supplierAccount.toString())
         } else {
             supplierAccountName.setText("")

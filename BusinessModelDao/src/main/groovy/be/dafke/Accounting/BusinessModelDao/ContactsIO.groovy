@@ -35,11 +35,11 @@ class ContactsIO {
             contact.VATTotal = Utils.parseBigDecimal(getValue(element, VAT_TOTAL))
             contact.turnOver = Utils.parseBigDecimal(getValue(element, TURNOVER))
             String customerAccountName = getValue(element, CUSTOMER_ACCOUNT)
-            if(customerAccountName!=null){
+            if(customerAccountName){
                 contact.customerAccount = accounting.accounts.getBusinessObject(customerAccountName)
             }
             String supplierAccountName = getValue(element, SUPPLIER_ACCOUNT)
-            if(supplierAccountName!=null) {
+            if(supplierAccountName) {
                 contact.supplierAccount = accounting.accounts.getBusinessObject(supplierAccountName)
             }
             try {
@@ -49,12 +49,12 @@ class ContactsIO {
             }
         }
         String companyContactName = getValue(rootElement, COMPANY_CONTACT)
-        if(companyContactName!=null) {
+        if(companyContactName) {
             Contact companyContact = contacts.getBusinessObject(companyContactName)
             accounting.companyContact = companyContact
         }
         String noInvoiceContactName = getValue(rootElement, CONTACT_NO_INVOICE)
-        if(noInvoiceContactName!=null) {
+        if(noInvoiceContactName) {
             Contact noInvoiceContact = contacts.getBusinessObject(noInvoiceContactName)
             accounting.contactNoInvoice = noInvoiceContact
         }

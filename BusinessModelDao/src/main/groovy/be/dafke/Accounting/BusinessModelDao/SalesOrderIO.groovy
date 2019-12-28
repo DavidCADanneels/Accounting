@@ -123,20 +123,20 @@ class SalesOrderIO {
                 // only write if 'true' ('false' is default value)
                 if(salesOrder.creditNote) writer.write """
     <$CREDIT_NOTE>$salesOrder.creditNote</$CREDIT_NOTE>"""
-                if(salesOrder.invoiceNumber!=null) writer.write """
+                if(salesOrder.invoiceNumber) writer.write """
     <$INVOICE_NUMBER>$salesOrder.invoiceNumber</$INVOICE_NUMBER>"""
                 Transaction salesTransaction = salesOrder.salesTransaction
-                if(salesTransaction!=null) writer.write """
+                if(salesTransaction) writer.write """
     <$SALES_TRANSACTION>$salesTransaction.transactionId</$SALES_TRANSACTION>"""
                 else writer.write """
     <$SALES_TRANSACTION>null</$SALES_TRANSACTION>"""
                 Transaction gainTransaction = salesOrder.gainTransaction
-                if(gainTransaction!=null) writer.write """
+                if(gainTransaction) writer.write """
     <$GAIN_TRANSACTION>$gainTransaction.transactionId</$GAIN_TRANSACTION>"""
                 else writer.write """
     <$GAIN_TRANSACTION>null</$GAIN_TRANSACTION>"""
                 Transaction paymentTransaction = salesOrder.paymentTransaction
-                if(paymentTransaction!=null) writer.write """
+                if(paymentTransaction) writer.write """
     <$PAYMENT_TRANSACTION>$paymentTransaction.transactionId</$PAYMENT_TRANSACTION>"""
                 else writer.write """
     <$PAYMENT_TRANSACTION>null</$PAYMENT_TRANSACTION>"""

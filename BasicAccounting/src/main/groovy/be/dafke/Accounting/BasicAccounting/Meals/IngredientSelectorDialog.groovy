@@ -54,7 +54,7 @@ class IngredientSelectorDialog extends RefreshableDialog {
     }
 
     static void fireAccountDataChangedForAll() {
-        if(selectorDialog !=null){
+        if(selectorDialog){
             selectorDialog.fireIngredientsDataChanged()
         }
     }

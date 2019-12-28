@@ -36,7 +36,7 @@ class SalesOrdersOverviewGUI extends JFrame {
 
     static void fireSalesOrderAddedOrRemovedForAccounting(Accounting accounting){
         SalesOrdersOverviewGUI gui = map.get(accounting)
-        if (gui!=null){
+        if (gui){
             gui.fireSalesOrderAddedOrRemoved()
         }
     }

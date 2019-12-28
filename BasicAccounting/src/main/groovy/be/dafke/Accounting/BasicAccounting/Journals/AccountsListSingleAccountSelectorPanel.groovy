@@ -30,7 +30,7 @@ class AccountsListSingleAccountSelectorPanel extends JPanel {
     }
     void selectionChanged(){
         Account account = (Account) combo.selectedItem
-        if(accountsList!=null) accountsList.setAccount(account)
+        if(accountsList) accountsList.setAccount(account)
     }
 
     void setAccountsList(AccountsList accountsList) {

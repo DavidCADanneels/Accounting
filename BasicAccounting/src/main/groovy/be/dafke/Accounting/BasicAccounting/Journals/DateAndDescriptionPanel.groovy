@@ -61,7 +61,7 @@ class DateAndDescriptionPanel extends JPanel implements FocusListener {
     }
 
     void focusLost(FocusEvent fe) {
-        if(transaction!=null){
+        if(transaction){
             Object source = fe.getSource()
             if(source == dag || source == maand || source == jaar){
                 Calendar date = getDate()
@@ -86,8 +86,8 @@ class DateAndDescriptionPanel extends JPanel implements FocusListener {
         jaar.enabled = (transaction!=null)
         description.setText(transaction==null?"":transaction.description)
 
-        boolean okEnabled = journal!=null && transaction!=null && transaction.bookable
-        boolean clearEnabled = journal!=null && transaction!=null && !transaction.businessObjects.empty
+        boolean okEnabled = journal && transaction && transaction.bookable
+        boolean clearEnabled = journal && transaction && !transaction.businessObjects.empty
     }
 
     void setDate(Calendar date){

@@ -48,7 +48,7 @@ class Statements extends BusinessCollection<BusinessObject> {
         String sign = properties.get(Statement.SIGN)
         statement.setDebit("D".equals(sign))
         String counterPartyString = properties.get(Statement.COUNTERPARTY)
-        if(counterPartyString!=null && !counterPartyString.equals("")){
+        if(counterPartyString && !counterPartyString.equals("")){
             statement.setCounterParty((CounterParty)getCounterParties().getBusinessObject(counterPartyString))
         }
 

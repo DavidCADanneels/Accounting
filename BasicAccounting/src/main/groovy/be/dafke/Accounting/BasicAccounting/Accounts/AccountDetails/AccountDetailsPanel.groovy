@@ -36,7 +36,7 @@ class AccountDetailsPanel extends JPanel {
 
     void selectObject(Booking object){
         int row = accountDetailsDataModel.getRow(object)
-        if(table !=null){
+        if(table){
             table.setRowSelectionInterval(row, row)
             Rectangle cellRect = table.getCellRect(row, 0, false)
             table.scrollRectToVisible(cellRect)

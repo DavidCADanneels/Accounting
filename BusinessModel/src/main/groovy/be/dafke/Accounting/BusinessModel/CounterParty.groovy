@@ -70,11 +70,11 @@ class CounterParty extends BusinessObject {
         StringBuilder builder = new StringBuilder()
         if(it.hasNext()){
             String accountNumber = it.next().getAccountNumber()
-            builder.append(accountNumber!=null?accountNumber:"")
+            builder.append(accountNumber?:"")
         }
         while(it.hasNext()){
             String accountNumber = it.next().getAccountNumber()
-            builder.append(" | ").append(accountNumber!=null?accountNumber:"")
+            builder.append(" | ").append(accountNumber?:"")
         }
         builder.toString()
     }
@@ -84,11 +84,11 @@ class CounterParty extends BusinessObject {
         StringBuilder builder = new StringBuilder()
         if(it.hasNext()){
             String bic = it.next().getBic()
-            builder.append(bic!=null?bic : "")
+            builder.append(bic?:"")
         }
         while(it.hasNext()){
             String bic = it.next().getBic()
-            builder.append(" | ").append(bic!=null?bic : "")
+            builder.append(" | ").append(bic?:"")
         }
         builder.toString()
     }
@@ -98,11 +98,11 @@ class CounterParty extends BusinessObject {
         StringBuilder builder = new StringBuilder()
         if(it.hasNext()){
             String currency = it.next().getCurrency()
-            builder.append(currency != null ? currency : "")
+            builder.append(currency?:"")
         }
         while(it.hasNext()){
             String currency = it.next().getCurrency()
-            builder.append(" | ").append(currency!=null?currency:"")
+            builder.append(" | ").append(currency?:"")
         }
         builder.toString()
     }

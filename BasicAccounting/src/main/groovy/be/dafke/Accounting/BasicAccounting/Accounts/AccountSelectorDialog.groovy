@@ -55,7 +55,7 @@ class AccountSelectorDialog extends RefreshableDialog {
     }
 
     static void fireAccountDataChangedForAll() {
-        if(selectorDialog !=null){
+        if(selectorDialog){
             selectorDialog.fireAccountDataChanged()
         }
     }

@@ -98,7 +98,7 @@ class AllergenesViewPanel extends JPanel {
         } else {
             Allergene allergene = allergeneOverviewTable.selectedObject
             descriptionField.setText(allergene == null ? "" : allergene.description)
-//        descriptionField.setEditable(allergene!=null)
+//        descriptionField.setEditable(allergene)
         }
     }
 }

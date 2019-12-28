@@ -35,33 +35,33 @@ class CounterParties extends BusinessCollection<BusinessObject> {
         CounterParty counterParty = new CounterParty()
         counterParty.setName(properties.get(NAME))
         String aliasesString = properties.get(CounterParties.ALIAS)
-        if(aliasesString!=null){
+        if(aliasesString){
             counterParty.setAliases(Utils.parseStringList(aliasesString))
         }
         String accountNumberString = properties.get(CounterParties.ACCOUNTNUMBER)
-        if(accountNumberString!=null){
+        if(accountNumberString){
             ArrayList<String> numberList = Utils.parseStringList(accountNumberString)
             for(String s: numberList){
                 counterParty.addAccount(new BankAccount(s))
             }
         }
         String addressLinesString = properties.get(CounterParties.ADDRESS)
-        if(addressLinesString!=null){
+        if(addressLinesString){
             counterParty.setAddressLines(Utils.parseStringList(addressLinesString))
         }
         String bicString = properties.get(CounterParties.BIC)
-        if(bicString!=null){
+        if(bicString){
             parseBicsString(counterParty, bicString)
         }
         String currenciesString = properties.get(CounterParties.CURRENCY)
-        if(currenciesString!=null){
+        if(currenciesString){
             parseCurrenciesString(counterParty, currenciesString)
         }
         counterParty
     }
 
     void parseBicsString(CounterParty counterParty, String bicsString){
-        if(bicsString!=null){
+        if(bicsString){
             String[] bicsStrings = bicsString.split("\\Q | \\E")
             for(int i=0;i<bicsStrings.length;i++){
                 counterParty.getAccountsList().get(i).setBic(bicsStrings[i])
@@ -70,7 +70,7 @@ class CounterParties extends BusinessCollection<BusinessObject> {
     }
 
     void parseCurrenciesString(CounterParty counterParty, String currenciesString){
-        if(currenciesString!=null){
+        if(currenciesString){
             String[] currenciesStrings = currenciesString.split("\\Q | \\E")
             for(int i=0;i<currenciesStrings.length;i++){
                 counterParty.getAccountsList().get(i).setCurrency(currenciesStrings[i])
@@ -93,7 +93,7 @@ class CounterParties extends BusinessCollection<BusinessObject> {
             TreeMap<String, BusinessObject> map = dataTables.get(type)
             CounterParty foundValue = (CounterParty)map.get(key)
 
-            if(foundValue!=null){
+            if(foundValue){
                 if(counterParty.mergeable){
                     // update Accounts
                     counterParty = merge(foundValue, counterParty)
@@ -105,7 +105,7 @@ class CounterParties extends BusinessCollection<BusinessObject> {
             }
         }
         CounterParty foundByName = (CounterParty)getBusinessObject(counterParty.name)
-        if(foundByName!=null){
+        if(foundByName){
             if(counterParty.mergeable){
                 counterParty = merge(foundByName,counterParty)
             } else {

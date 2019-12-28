@@ -108,19 +108,19 @@ class Accounting extends BusinessObject{
         Account debitCNAccount = vatTransactions.getDebitCNAccount()
         Account creditCNAccount = vatTransactions.getCreditCNAccount()
 
-        if(debitAccount!=null){
+        if(debitAccount){
             Account account = accounts.getBusinessObject(debitAccount.name)
             vatTransactions.setDebitAccount(account)
         }
-        if(creditAccount!=null){
+        if(creditAccount){
             Account account = accounts.getBusinessObject(creditAccount.name)
             vatTransactions.setCreditAccount(account)
         }
-        if(debitCNAccount!=null){
+        if(debitCNAccount){
             Account account = accounts.getBusinessObject(debitCNAccount.name)
             vatTransactions.setDebitCNAccount(account)
         }
-        if(creditCNAccount!=null){
+        if(creditCNAccount){
             Account account = accounts.getBusinessObject(creditCNAccount.name)
             vatTransactions.setCreditCNAccount(account)
         }

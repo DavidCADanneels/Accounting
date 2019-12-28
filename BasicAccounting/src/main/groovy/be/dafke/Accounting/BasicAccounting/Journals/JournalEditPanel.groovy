@@ -118,7 +118,7 @@ class JournalEditPanel extends JPanel implements ActionListener {
     void moveTransaction(Set<Transaction> transactions, Journal newJournal) {
         Set<Journal> updatedJournals = new HashSet<>()
         Set<Account> updatedAccounts = new HashSet<>()
-        if(newJournal!=null){
+        if(newJournal){
             updatedJournals.add(newJournal)
         }
         for (Transaction transaction : transactions) {
@@ -212,7 +212,7 @@ class JournalEditPanel extends JPanel implements ActionListener {
         }
 
         Contact contact = transaction.contact
-        if(contact!=null){
+        if(contact){
             Main.fireCustomerDataChanged()
         }
 
@@ -245,10 +245,10 @@ class JournalEditPanel extends JPanel implements ActionListener {
             saveTransaction()
         } else if (e.getSource() == singleBook){
             saveTransaction()
-            if(journal!=null && transaction!=null && transaction.bookable){
+            if(journal && transaction && transaction.bookable){
                 addTransaction(transaction)
                 Mortgage mortgage = transaction.mortgage
-                if(mortgage !=null){
+                if(mortgage){
                     Main.fireMortgageEditedPayButton mortgage
                     Main.fireMortgageEdited mortgage
                 }
@@ -267,7 +267,7 @@ class JournalEditPanel extends JPanel implements ActionListener {
     }
 
     Transaction saveTransaction(){
-        if(transaction!=null){
+        if(transaction){
             Calendar date = dateAndDescriptionPanel.date
             if(date == null){
                 ActionUtils.showErrorMessage(this, ActionUtils.FILL_IN_DATE)
@@ -329,7 +329,7 @@ class JournalEditPanel extends JPanel implements ActionListener {
         this.transaction = transaction
         dateAndDescriptionPanel.setTransaction(transaction)
         journalDataModel.setTransaction(transaction)
-        balanceTransaction.setSelected(transaction!=null && transaction.balanceTransaction)
+        balanceTransaction.setSelected(transaction && transaction.balanceTransaction)
         fireTransactionDataChanged()
     }
 
@@ -347,7 +347,7 @@ class JournalEditPanel extends JPanel implements ActionListener {
             System.out.println("Payed Off already")
             return
         }
-        if (transaction.mortgage!=null){
+        if (transaction.mortgage){
             System.out.println("Transaction already contains a mortgage")
             return
         }
@@ -369,7 +369,7 @@ class JournalEditPanel extends JPanel implements ActionListener {
     }
 
     Journal switchJournal(Journal newJournal) {
-        if(newJournal!=null){
+        if(newJournal){
             journal = checkTransfer(newJournal)
         } else {
             journal = newJournal
@@ -379,10 +379,10 @@ class JournalEditPanel extends JPanel implements ActionListener {
 
     Journal checkTransfer(Journal newJournal){
         Transaction newTransaction = newJournal.currentTransaction
-        if(transaction!=null && !transaction.businessObjects.empty && journal!=newJournal){
+        if(transaction && !transaction.businessObjects.empty && journal!=newJournal){
             StringBuilder builder = new StringBuilder("Do you want to transfer the current transaction from ")
                     .append(journal).append(" to ").append(newJournal)
-            if(newTransaction!=null && !newTransaction.businessObjects.empty){
+            if(newTransaction && !newTransaction.businessObjects.empty){
                 builder.append("\nWARNING: ").append(newJournal).append(" also has an open transactions, which will be lost if you select transfer")
             }
             int answer = JOptionPane.showConfirmDialog(null, builder.toString())

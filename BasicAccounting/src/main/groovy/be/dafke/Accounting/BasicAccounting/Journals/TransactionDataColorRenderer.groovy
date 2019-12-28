@@ -19,7 +19,7 @@ class TransactionDataColorRenderer<T> extends DefaultTableCellRenderer {
         Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column)
         SelectableTableModel<Booking> model = (SelectableTableModel<Booking>)table.getModel()
         Booking booking = model.getObject(row, column)
-        if(booking!=null) {
+        if(booking) {
             Transaction transaction = booking.transaction
             if(column == TransactionDataModel.VATINFO) {
                 if (transaction.registered) {

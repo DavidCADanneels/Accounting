@@ -27,7 +27,7 @@ class StockIO {
         String purchaseJournalString = getValue(transactionsElement, PURCHASE_JOURNAL)
         if (purchaseJournalString != null) {
             Journal journal = journals.getBusinessObject(purchaseJournalString)
-            if(journal!=null) {
+            if(journal) {
                 stockTransactions.setPurchaseJournal(journal)
             }
         }
@@ -96,25 +96,25 @@ class StockIO {
             String date = getValue(element, DATE)
             String description = getValue(element, DESCRIPTION)
 
-            if(type!=null&&type.equals(PURCHASE_ORDER)){
+            if(type&&type.equals(PURCHASE_ORDER)){
                 PurchaseOrders purchaseOrders = accounting.purchaseOrders
                 PurchaseOrder purchaseOrder = purchaseOrders.getBusinessObject name
                 stockTransactions.addOrder purchaseOrder
                 purchaseOrder.description = description
                 purchaseOrder.deliveryDate = date
-            } else if(type!=null&&type.equals(SALES_ORDER)){
+            } else if(type&&type.equals(SALES_ORDER)){
                 SalesOrders salesOrders = accounting.salesOrders
                 SalesOrder salesOrder = salesOrders.getBusinessObject name
                 stockTransactions.addOrder salesOrder
                 salesOrder.description = description
                 salesOrder.deliveryDate = date
-            } else if(type!=null&&type.equals(STOCK_ORDER)){
+            } else if(type&&type.equals(STOCK_ORDER)){
                 StockOrders stockOrders = accounting.stockOrders
                 StockOrder stockOrder = stockOrders.getBusinessObject name
                 stockTransactions.addOrder stockOrder
                 stockOrder.description = description
                 stockOrder.deliveryDate = date
-            } else if(type!=null&&type.equals(PROMO_ORDER)){
+            } else if(type&&type.equals(PROMO_ORDER)){
                 PromoOrders promoOrders = accounting.promoOrders
                 PromoOrder promoOrder = promoOrders.getBusinessObject name
                 stockTransactions.addOrder promoOrder

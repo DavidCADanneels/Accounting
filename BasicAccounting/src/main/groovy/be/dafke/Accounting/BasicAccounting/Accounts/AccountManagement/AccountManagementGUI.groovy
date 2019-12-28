@@ -120,7 +120,7 @@ class AccountManagementGUI extends JFrame implements ListSelectionListener {
     void valueChanged(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting()) {
             ArrayList<Account> accounts = tabel.selectedObjects
-            if (accounts!=null && accounts.size() > 0) {
+            if (accounts && accounts.size() > 0) {
                 delete.enabled = true
                 edit.enabled = true
             } else {

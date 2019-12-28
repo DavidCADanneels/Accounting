@@ -30,7 +30,7 @@ class MealOrderCreateGUI extends JFrame {
 
     static void calculateTotalsForAll(Accounting accounting){
         MealOrderCreateGUI gui = guis.get(accounting)
-        if(gui!=null){
+        if(gui){
             gui.calculateTotals()
         }
     }

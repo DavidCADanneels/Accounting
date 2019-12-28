@@ -36,13 +36,13 @@ class CodaParser {
                             System.err.println("Statement name already exist.")
                         }
                     } else if (line.startsWith("22")) {
-                        if(statement !=null){
+                        if(statement){
                             addPart2(statement, line)
                         } else {
                             System.err.println("Corrupt CODA file: " + file.name)
                         }
                     } else if (line.startsWith("23")) {
-                        if(statement !=null){
+                        if(statement){
                             addPart3(statement, line)
                         } else {
                             System.err.println("Corrupt CODA file: " + file.name)

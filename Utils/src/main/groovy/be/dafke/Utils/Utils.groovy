@@ -126,7 +126,7 @@ class Utils {
 
     static ArrayList<String> parseStringList(String string){
         ArrayList<String> result = new ArrayList<String>()
-        if(string!=null){
+        if(string){
             String[] aliasesStrings = string.split("\\Q | \\E")
             for(String s : aliasesStrings){
                 result.add(s)

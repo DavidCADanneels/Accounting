@@ -17,7 +17,7 @@ class TransactionOverviewColorRenderer<T> extends DefaultTableCellRenderer {
         Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column)
         SelectableTableModel<Transaction> model = (SelectableTableModel<Transaction>)table.getModel()
         Transaction transaction = model.getObject(row, column)
-        if(transaction!=null) {
+        if(transaction) {
             Journal transactionJournal = transaction.journal
             if(isSelected){
                 cell.setBackground(Color.CYAN)

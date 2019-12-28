@@ -43,12 +43,12 @@ class StockTransactionsDataTableModel extends SelectableTableModel<OrderItem> {
         Order order = orderItem.getOrder()
         if (col == ORDER_COL) return order
         if (col == ADDED_COL) {
-            if(order!=null && (order instanceof PurchaseOrder || order instanceof StockOrder)) {
+            if(order && (order instanceof PurchaseOrder || order instanceof StockOrder)) {
                 return orderItem.numberOfItems
             } else return null
         }
         if (col == REMOVED_COL) {
-            if(order!=null && (order instanceof SalesOrder || order instanceof PromoOrder)) {
+            if(order && (order instanceof SalesOrder || order instanceof PromoOrder)) {
                 return orderItem.numberOfItems
             } else return null
         }

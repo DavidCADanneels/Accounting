@@ -161,7 +161,7 @@ class AccountDataTableModel extends SelectableTableModel<Account> {
         def accounts = accounting.getAccounts()
         if (accounts == null) return []
         List<Account> accountsList
-        if(accountTypes!=null) {
+        if(accountTypes) {
             accountsList = accounts.getAccountsByType(accountTypes)
         } else {
             accountsList = accounts.businessObjects
@@ -190,7 +190,7 @@ class AccountDataTableModel extends SelectableTableModel<Account> {
             accountTypes = null
             account = accountList.account
 //            filter = account==null?null:Account.name(accountList.account.name)
-        } else if(journalSession!=null){
+        } else if(journalSession){
             if(left) {
                 accountTypes = journalSession.getCheckedTypesLeft()
             } else {

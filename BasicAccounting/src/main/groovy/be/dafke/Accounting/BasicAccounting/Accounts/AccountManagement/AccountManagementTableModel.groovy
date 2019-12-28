@@ -71,7 +71,7 @@ class AccountManagementTableModel extends SelectableTableModel<Account> {
             return saldo
         } else if (col == DEFAULT_AMOUNT_COL) {
             BigDecimal defaultAmount = account.defaultAmount
-            if(defaultAmount!=null){
+            if(defaultAmount){
                 return defaultAmount
             } else {
                 return null
@@ -99,7 +99,7 @@ class AccountManagementTableModel extends SelectableTableModel<Account> {
     @Override
     void setValueAt(Object value, int row, int col) {
         Account account = getObject(row, col)
-        if(isCellEditable(row, col) && account!=null){
+        if(isCellEditable(row, col) && account){
             if(col== NAME_COL){
                 String oldName = account.name
                 String newName = (String)value

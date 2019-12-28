@@ -55,7 +55,7 @@ class ContactsGUI extends JFrame {
 
     static void fireTableUpdateForAccounting(Accounting accounting){
         ContactsGUI gui = contactGuis.get(accounting)
-        if(gui!=null){
+        if(gui){
             gui.setContacts()
             gui.fireTableUpdate()
         }
@@ -77,7 +77,7 @@ class ContactsGUI extends JFrame {
 
     static void fireCustomerAddedOrRemovedForAccounting(Accounting accounting){
         ContactsGUI gui = customersGuis.get(accounting)
-        if(gui!=null) {
+        if(gui) {
             gui.setContacts()
             gui.fireTableUpdate()
         }
@@ -85,7 +85,7 @@ class ContactsGUI extends JFrame {
 
     static void fireSupplierAddedOrRemovedForAccounting(Accounting accounting){
         ContactsGUI gui = suppliersGuis.get(accounting)
-        if (gui!=null) {
+        if (gui) {
             gui.setContacts()
             gui.fireTableUpdate()
         }

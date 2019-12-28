@@ -100,7 +100,7 @@ class ProjectPanel extends JPanel implements ActionListener{
             combo.setSelectedItem(project)
         }
         combo.addActionListener(this)
-        if(project!=null) {
+        if(project) {
             journalDetailsDataModel.setJournal(project.journal)
             resultBalance.setBalance(project.resultBalance)
             relationsBalance.setBalance(project.relationsBalance)

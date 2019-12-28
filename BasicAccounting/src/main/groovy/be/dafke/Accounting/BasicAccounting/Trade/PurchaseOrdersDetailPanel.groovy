@@ -160,12 +160,12 @@ class PurchaseOrdersDetailPanel extends JPanel {
         StockTransactions stockTransactions = accounting.stockTransactions
         ArrayList<Order> orders = stockTransactions.getOrders()
         Transaction purchaseTransaction = purchaseOrder==null?null:purchaseOrder.purchaseTransaction
-        payed.setSelected(purchaseOrder !=null&& purchaseOrder.purchaseTransaction!=null)
-        placed.setSelected(purchaseTransaction!=null)
-        delivered.setSelected(purchaseOrder !=null&& orders.contains(purchaseOrder))
-        deliveredButton.enabled = purchaseOrder !=null&&!orders.contains(purchaseOrder)
+        payed.setSelected(purchaseOrder && purchaseOrder.purchaseTransaction)
+        placed.setSelected(purchaseTransaction)
+        delivered.setSelected(purchaseOrder && orders.contains(purchaseOrder))
+        deliveredButton.enabled = purchaseOrder && !orders.contains(purchaseOrder)
         placeOrderButton.enabled = purchaseTransaction==null
-        payedButton.enabled = purchaseOrder !=null&&purchaseOrder.purchaseTransaction==null
+        payedButton.enabled = purchaseOrder && purchaseOrder.purchaseTransaction==null
         if(purchaseOrder&&purchaseOrder.supplier){
             contactDetailsPanel.setContact(purchaseOrder.supplier)
         } else {

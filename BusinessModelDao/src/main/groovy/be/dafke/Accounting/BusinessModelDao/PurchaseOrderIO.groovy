@@ -85,10 +85,10 @@ class PurchaseOrderIO {
     <$NAME>$order.name</$NAME>
     <$SUPPLIER>$order.supplier</$SUPPLIER>"""
                 Transaction purchaseTransaction = order.purchaseTransaction
-                if(purchaseTransaction!=null) writer.write"""
+                if(purchaseTransaction) writer.write"""
     <$PURCHASE_TRANSACTION>$purchaseTransaction.transactionId</$PURCHASE_TRANSACTION>"""
                 Transaction paymentTransaction = order.paymentTransaction
-                if(paymentTransaction!=null) writer.write"""
+                if(paymentTransaction) writer.write"""
     <$PAYMENT_TRANSACTION>$paymentTransaction.transactionId</$PAYMENT_TRANSACTION>"""
 
                 for (OrderItem orderItem : order.businessObjects) {

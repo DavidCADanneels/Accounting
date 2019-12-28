@@ -38,10 +38,10 @@ class SalesOrderCreateGUI extends JFrame {
     }
 
     static void fireCustomerAddedOrRemovedForAll() {
-        if(salesOrderCreateGui!=null){
+        if(salesOrderCreateGui){
             salesOrderCreateGui.fireCustomerAddedOrRemoved()
         }
-        if(salesEditCreateGui!=null){
+        if(salesEditCreateGui){
             salesEditCreateGui.fireCustomerAddedOrRemoved()
         }
     }

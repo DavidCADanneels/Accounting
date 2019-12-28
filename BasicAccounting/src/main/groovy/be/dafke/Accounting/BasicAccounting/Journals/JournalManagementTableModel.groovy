@@ -89,7 +89,7 @@ class JournalManagementTableModel extends SelectableTableModel<Journal> {
         if (col == NAME_COL) {
             String oldName = journal.name
             String newName = (String)value
-            if(newName!=null && !oldName.trim().equals(newName.trim())) {
+            if(newName && !oldName.trim().equals(newName.trim())) {
                 try {
                     journals.modifyName(oldName, newName)
                     Main.fireJournalDataChanged(journal)
@@ -102,7 +102,7 @@ class JournalManagementTableModel extends SelectableTableModel<Journal> {
         } else if (col == ABBR_COL) {
             String oldAbbreviation = journal.abbreviation
             String newAbbreviation = (String)value
-            if(newAbbreviation!=null && !oldAbbreviation.trim().equals(newAbbreviation.trim())){
+            if(newAbbreviation && !oldAbbreviation.trim().equals(newAbbreviation.trim())){
                 try {
                     journals.modifyJournalAbbreviation(oldAbbreviation, newAbbreviation)
                 } catch (DuplicateNameException e) {

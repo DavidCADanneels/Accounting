@@ -28,18 +28,18 @@ class MortgageIO {
             mortgage.setName(getValue(element, NAME))
             String startCapitalString = getValue(element, TOTAL)
             String nrPayedString = getValue(element, NRPAYED)
-            if(startCapitalString!=null){
+            if(startCapitalString){
                 mortgage.setStartCapital(parseBigDecimal(startCapitalString))
             }
-            if(nrPayedString!=null){
+            if(nrPayedString){
                 mortgage.setAlreadyPayed(parseInt(nrPayedString))
             }
             String capitalAccount = getValue(element, CAPITAL_ACCOUNT)
-            if(capitalAccount!=null){
+            if(capitalAccount){
                 mortgage.setCapitalAccount(accounts.getBusinessObject(capitalAccount))
             }
             String intrestAccount = getValue(element, INTREST_ACCOUNT)
-            if(intrestAccount!=null){
+            if(intrestAccount){
                 mortgage.setIntrestAccount(accounts.getBusinessObject(intrestAccount))
             }
 

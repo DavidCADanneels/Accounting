@@ -190,7 +190,7 @@ class AccountFilterPanel extends JPanel {
     void setAccountList(AccountsList accountList) {
         clearSearchFields()
         types.setAccountList(accountList)
-        boolean enabled = accountList!=null && (!accountList.isSingleAccount() || accountList.account==null)
+        boolean enabled = accountList && (!accountList.isSingleAccount() || accountList.account==null)
         setEnabled(enabled)
 //        filter()
     }
