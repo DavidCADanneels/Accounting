@@ -1,51 +1,46 @@
 package be.dafke.Accounting.BasicAccounting.Projects
 
-import be.dafke.Accounting.BusinessModel.AccountTypes
-import be.dafke.Accounting.BusinessModel.Accounting
-import be.dafke.Accounting.BusinessModel.Accounts
-import be.dafke.Accounting.BusinessModel.Projects
 
-import javax.swing.JMenu
-import javax.swing.JMenuItem
+import be.dafke.Accounting.BusinessModel.Accounting
+
+import javax.swing.*
 
 import static java.util.ResourceBundle.getBundle
 
 class ProjectsMenu extends JMenu {
     JMenuItem manage, project
-    Projects projects
-    Accounts accounts
-    AccountTypes accountTypes
+    Accounting accounting
 
     ProjectsMenu() {
         super(getBundle("Projects").getString("PROJECTS"))
 //        setMnemonic(KeyEvent.VK_P)
-        manage = new JMenuItem(getBundle("Projects").getString(
-                "PROJECTMANAGER"))
-        manage.addActionListener({ e ->
-            ProjectManagementGUI projectManagementGUI = ProjectManagementGUI.showManager(accounts, accountTypes, projects)
-            projectManagementGUI.setLocation(getLocationOnScreen())
-            projectManagementGUI.visible = true
-        })
+        manage = new JMenuItem(getBundle("Projects").getString("PROJECTMANAGER"))
+        manage.addActionListener({ e -> showProjectManagement() })
         manage.enabled = false
 
-        project = new JMenuItem(getBundle("Projects").getString(
-                "PROJECTS"))
-        project.addActionListener({ e ->
-            ProjectGUI projectGUI = ProjectGUI.showProjects(accounts, accountTypes, projects)
-            projectGUI.setLocation(getLocationOnScreen())
-            projectGUI.visible = true
-        })
+        project = new JMenuItem(getBundle("Projects").getString("PROJECTS"))
+        project.addActionListener({ e -> showProjects() })
         project.enabled = false
 
         add(project)
         add(manage)
     }
 
+    void showProjectManagement(){
+        ProjectManagementGUI projectManagementGUI = ProjectManagementGUI.showManager(accounting)
+        projectManagementGUI.setLocation(getLocationOnScreen())
+        projectManagementGUI.visible = true
+    }
+
+    void showProjects(){
+        ProjectGUI projectGUI = ProjectGUI.showProjects(accounting)
+        projectGUI.setLocation(getLocationOnScreen())
+        projectGUI.visible = true
+    }
+
     void setAccounting(Accounting accounting) {
-        accounts=accounting?accounting.accounts:null
-        accountTypes=accounting?accounting.accountTypes:null
-        projects=accounting?accounting.getProjects():null
-        manage.enabled = projects!=null
-        project.enabled = projects!=null
+        this.accounting = accounting
+        manage.enabled = accounting&&accounting.projects
+        project.enabled = accounting&&accounting.projects
     }
 }

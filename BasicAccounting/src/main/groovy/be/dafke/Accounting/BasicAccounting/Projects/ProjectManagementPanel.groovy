@@ -25,15 +25,17 @@ class ProjectManagementPanel extends JPanel implements ListSelectionListener {
     final JButton moveTo
     final JButton moveBack
     final JComboBox<Project> combo
+    Accounting accounting
     Project project
-    Accounts accounts
-    AccountTypes accountTypes
-    Projects projects
+//    Accounts accounts
+//    AccountTypes accountTypes
+//    Projects projects
 
-    ProjectManagementPanel(Accounts accounts, AccountTypes accountTypes, Projects projects) {
-        this.accounts = accounts
-        this.accountTypes = accountTypes
-        this.projects = projects
+    ProjectManagementPanel(Accounting accounting) {
+        this.accounting = accounting
+//        this.accounts = accounting.accounts
+//        this.accountTypes = accounting.accountTypes
+//        this.projects = accounting.projects
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS))
         //
         // onder
@@ -50,7 +52,7 @@ class ProjectManagementPanel extends JPanel implements ListSelectionListener {
         //
         JButton addAccount = new JButton("Add Account")
         addAccount.addActionListener({ e ->
-            NewAccountDialog newAccountDialog = new NewAccountDialog(accounts, accountTypes.businessObjects)
+            NewAccountDialog newAccountDialog = new NewAccountDialog(accounting.accounts, accounting.accountTypes.businessObjects)
             newAccountDialog.setLocation(getLocationOnScreen())
             newAccountDialog.visible = true
         })
@@ -141,9 +143,9 @@ class ProjectManagementPanel extends JPanel implements ListSelectionListener {
         while (name != null && name.equals(""))
             name = JOptionPane.showInputDialog(this, getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"))
         if (name != null) {
-            Project project = new Project(name, accounts, accountTypes)
+            Project project = new Project(name, accounting.accounts, accounting.accountTypes)
             try {
-                projects.addBusinessObject(project)
+                accounting.projects.addBusinessObject(project)
             } catch (EmptyNameException e) {
                 ActionUtils.showErrorMessage(this, ActionUtils.PROJECT_NAME_EMPTY)
             } catch (DuplicateNameException e) {
@@ -170,7 +172,7 @@ class ProjectManagementPanel extends JPanel implements ListSelectionListener {
 
     ArrayList<Account> getAccountNoMatchProject(Project project) {
         ArrayList<Account> result = new ArrayList<>()
-        for(Account account : accounts.businessObjects) {
+        for(Account account : accounting.accounts.businessObjects) {
             if (!project.businessObjects.contains(account)){
                 result.add(account)
             }
@@ -179,27 +181,28 @@ class ProjectManagementPanel extends JPanel implements ListSelectionListener {
     }
 
     void refresh() {
-        zoeker.resetMap(accounts.businessObjects)
+        zoeker.resetMap(accounting.accounts.businessObjects)
         combo.removeAllItems()
-        for(Project project : projects.businessObjects) {
+        for(Project project : accounting.projects.businessObjects) {
             ((DefaultComboBoxModel<Project>) combo.getModel()).addElement(project)
         }
-        Project[] result = new Project[projects.businessObjects.size()]
-        projects.businessObjects.toArray(result)
-        if (projects.businessObjects.size() != 0) {
+        Project[] result = new Project[accounting.projects.businessObjects.size()]
+        accounting.projects.businessObjects.toArray(result)
+        if (accounting.projects.businessObjects.size() != 0) {
             combo.setSelectedItem(project)
         } else {
             project = null
             allAccountsModel.removeAllElements()
-            for(Account account : accounts.businessObjects){
+            for(Account account : accounting.accounts.businessObjects){
                 allAccountsModel.addElement(account)
             }
         }
     }
 
     void setAccounting(Accounting accounting) {
-        accounts=accounting?accounting.accounts:null
-        accountTypes=accounting?accounting.accountTypes:null
-        projects=accounting?accounting.getProjects():null
+        this.accounting = accounting
+//        accounts=accounting?accounting.accounts:null
+//        accountTypes=accounting?accounting.accountTypes:null
+//        projects=accounting?accounting.getProjects():null
     }
 }

@@ -23,12 +23,8 @@ class BalanceTotalsDataModel extends AbstractTableModel {
         ]
     }
 
-    BalanceTotalsDataModel(Balance balance){
-        this(balance, false)
-    }
-
     BalanceTotalsDataModel(Balance balance, boolean includeEmpty){
-        this.includeEmpty = includeEmpty
+        this(balance.leftName, balance.rightName, includeEmpty)
         setBalance(balance)
     }
 

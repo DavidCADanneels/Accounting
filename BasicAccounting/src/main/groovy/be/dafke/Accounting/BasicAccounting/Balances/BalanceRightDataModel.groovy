@@ -11,40 +11,39 @@ class BalanceRightDataModel extends SelectableTableModel<Account> {
     final Class[] columnClasses = [ BigDecimal.class, Account.class ]
     Balance balance
     boolean includeEmpty
+    final int ACCOUNT_COL = 1
+    final int SALDO_COL = 0
+    final int NR_OF_COL = 2
 
     BalanceRightDataModel(String rightName, boolean includeEmpty) {
         this.includeEmpty = includeEmpty
         columnNames = [ getBundle("Accounting").getString("AMOUNT"), rightName ]
     }
 
-    BalanceRightDataModel(Balance balance){
-        this(balance, false)
-    }
-
     BalanceRightDataModel(Balance balance, boolean includeEmpty){
-        this.includeEmpty = includeEmpty
+        this(balance.rightName, includeEmpty)
         setBalance(balance)
     }
 
     void setBalance(Balance balance) {
         this.balance = balance
-        columnNames = [ getBundle("Accounting").getString("AMOUNT"), balance.getRightName() ]
+        columnNames = [ getBundle("Accounting").getString("AMOUNT"), balance.rightName ]
     }
 
     // DE GET METHODEN
 // ===============
     Object getValueAt(int row, int col) {
         if(balance==null) null
-        if (row < balance.getRightAccounts(includeEmpty).size()) {
-            Account account = balance.getRightAccounts(includeEmpty).get(row)
-            if (col == 1) return account
-            return account.saldo.negate()
+        if (row < balance.getLeftAccounts(includeEmpty).size()) {
+            Account account = balance.getLeftAccounts(includeEmpty).get(row)
+            if (col == ACCOUNT_COL) return account
+            if (col == SALDO_COL) return account.saldo
         }
-        return ""
+        return null
     }
 
     int getColumnCount() {
-        columnNames.length
+        NR_OF_COL
     }
 
     int getRowCount() {

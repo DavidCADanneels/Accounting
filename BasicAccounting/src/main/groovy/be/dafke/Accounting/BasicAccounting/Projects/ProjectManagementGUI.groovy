@@ -1,31 +1,29 @@
 package be.dafke.Accounting.BasicAccounting.Projects
 
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
-import be.dafke.Accounting.BusinessModel.AccountTypes
-import be.dafke.Accounting.BusinessModel.Accounts
-import be.dafke.Accounting.BusinessModel.Projects
+import be.dafke.Accounting.BusinessModel.Accounting
 
 import javax.swing.*
 
 import static java.util.ResourceBundle.getBundle
 
 class ProjectManagementGUI extends JFrame {
-    static final HashMap<Projects, ProjectManagementGUI> projectManagementGuis = new HashMap<>()
+    static final HashMap<Accounting, ProjectManagementGUI> projectManagementGuis = [:]
     ProjectManagementPanel projectManagementPanel
 
-    ProjectManagementGUI(Accounts accounts, AccountTypes accountTypes, Projects projects) {
+    ProjectManagementGUI(Accounting accounting) {
         super(getBundle("Projects").getString("PROJECTMANAGER"))
-        projectManagementPanel = new ProjectManagementPanel(accounts, accountTypes, projects)
+        projectManagementPanel = new ProjectManagementPanel(accounting)
         setContentPane(projectManagementPanel)
         pack()
         refresh()
     }
 
-    static ProjectManagementGUI showManager(Accounts accounts, AccountTypes accountTypes, Projects projects) {
-        ProjectManagementGUI gui = projectManagementGuis.get(projects)
+    static ProjectManagementGUI showManager(Accounting accounting) {
+        ProjectManagementGUI gui = projectManagementGuis.get(accounting)
         if (gui == null) {
-            gui = new ProjectManagementGUI(accounts, accountTypes, projects)
-            projectManagementGuis.put(projects, gui)
+            gui = new ProjectManagementGUI(accounting)
+            projectManagementGuis.put(accounting, gui)
             Main.addFrame(gui)
         }
         gui

@@ -11,24 +11,23 @@ class BalanceLeftDataModel extends SelectableTableModel<Account> {
     final Class[] columnClasses = [ Account.class, BigDecimal.class]
     Balance balance
     boolean includeEmpty
+    final int ACCOUNT_COL = 0
+    final int SALDO_COL = 1
+    final int NR_OF_COL = 2
 
     BalanceLeftDataModel(String leftName, boolean includeEmpty) {
         this.includeEmpty = includeEmpty
         columnNames = [ leftName, getBundle("Accounting").getString("AMOUNT") ]
     }
 
-    BalanceLeftDataModel(Balance balance){
-        this(balance, false)
-    }
-
     BalanceLeftDataModel(Balance balance, boolean includeEmpty){
-        this.includeEmpty = includeEmpty
+        this(balance.leftName, includeEmpty)
         setBalance(balance)
     }
 
     void setBalance(Balance balance) {
         this.balance = balance
-        columnNames = [ balance.getLeftName(), getBundle("Accounting").getString("AMOUNT") ]
+        columnNames = [ balance.leftName, getBundle("Accounting").getString("AMOUNT") ]
     }
 
     // DE GET METHODEN
@@ -37,14 +36,14 @@ class BalanceLeftDataModel extends SelectableTableModel<Account> {
         if(balance==null) null
         if (row < balance.getLeftAccounts(includeEmpty).size()) {
             Account account = balance.getLeftAccounts(includeEmpty).get(row)
-            if (col == 0) return account
-            return account.saldo
+            if (col == ACCOUNT_COL) return account
+            if (col == SALDO_COL) return account.saldo
         }
-        return ""
+        return null
     }
 
     int getColumnCount() {
-        columnNames.length
+        NR_OF_COL
     }
 
     int getRowCount() {

@@ -1,12 +1,12 @@
 package be.dafke.Accounting.BasicAccounting.Projects
 
-import be.dafke.Accounting.BasicAccounting.Balances.BalanceLeftDataModel
-import be.dafke.Accounting.BasicAccounting.Balances.BalanceRightDataModel
+import be.dafke.Accounting.BasicAccounting.Balances.BalancePanel
 import be.dafke.Accounting.BasicAccounting.Journals.JournalDetailsDataModel
-import be.dafke.Accounting.BasicAccounting.MainApplication.Main
-import be.dafke.Accounting.BusinessModel.*
+import be.dafke.Accounting.BusinessModel.Accounting
+import be.dafke.Accounting.BusinessModel.Booking
+import be.dafke.Accounting.BusinessModel.Project
+import be.dafke.Accounting.BusinessModel.Projects
 import be.dafke.ComponentModel.SelectableTable
-import be.dafke.ComponentModel.SelectableTableModel
 
 import javax.swing.*
 import javax.swing.border.LineBorder
@@ -20,12 +20,15 @@ class ProjectPanel extends JPanel{
     final JComboBox<Project> combo
     Project project
     JournalDetailsDataModel journalDetailsDataModel
-    BalanceLeftDataModel resultBalanceLeftDataModel, relationsBalanceLeftDataModel
-    BalanceRightDataModel resultBalanceRightDataModel, relationsBalanceRightDataModel
+    BalancePanel resultBalance, relationsBalance
+//    BalanceLeftDataModel resultBalanceLeftDataModel, relationsBalanceLeftDataModel
+//    BalanceRightDataModel resultBalanceRightDataModel, relationsBalanceRightDataModel
     Projects projects
+    Accounting accounting
 
-    ProjectPanel(Accounts accounts, AccountTypes accountTypes, Projects projects) {
-        this.projects = projects
+    ProjectPanel(Accounting accounting) {
+        this.accounting = accounting
+        projects = accounting.projects
         setLayout(new BorderLayout())
 
         JPanel noord = new JPanel()
@@ -38,7 +41,7 @@ class ProjectPanel extends JPanel{
         //
         manage = new JButton(getBundle("Projects").getString("PROJECTMANAGER"))
         manage.addActionListener({ e ->
-            ProjectManagementGUI projectManagementGUI = ProjectManagementGUI.showManager(accounts, accountTypes, projects)
+            ProjectManagementGUI projectManagementGUI = ProjectManagementGUI.showManager(accounting)
             projectManagementGUI.setLocation(getLocationOnScreen())
             projectManagementGUI.visible = true
         })
@@ -47,24 +50,19 @@ class ProjectPanel extends JPanel{
         noord.add(manage)
         add(noord, BorderLayout.NORTH)
 
+//        Projects projects1 = accounting.projects
+        ArrayList<Project> projects = projects.getBusinessObjects()
+        if(projects.empty){
+            project = new Project('dummy', null, null)
+        } else {
+            project = projects[0]
+        }
 //------------------------------------------------------------------------------------------
-        resultBalanceLeftDataModel = new BalanceLeftDataModel(getBundle("BusinessModel").getString("COSTS"), true)
-        resultBalanceRightDataModel = new BalanceRightDataModel(getBundle("BusinessModel").getString("REVENUES"), true)
-        JScrollPane resultLeftBalance = createBalancePanel(resultBalanceLeftDataModel)
-        JScrollPane resultRightBalance = createBalancePanel(resultBalanceRightDataModel)
-
-        JSplitPane resultPane = Main.createSplitPane(resultLeftBalance, resultRightBalance, JSplitPane.HORIZONTAL_SPLIT)
-
-        resultPane.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle("BusinessModel").getString("RESULTBALANCE")))
+        resultBalance = new BalancePanel(accounting, project.resultBalance, true)
+        resultBalance.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle("BusinessModel").getString("RESULTBALANCE")))
 //------------------------------------------------------------------------------------------
-        relationsBalanceLeftDataModel = new BalanceLeftDataModel(getBundle("BusinessModel").getString("FUNDS_FROM_CUSTOMERS"),true)
-        relationsBalanceRightDataModel = new BalanceRightDataModel(getBundle("BusinessModel").getString("DEBTS_TO_SUPPLIERS"), true)
-        JScrollPane partnerLeftBalance = createBalancePanel(relationsBalanceLeftDataModel)
-        JScrollPane partnerRightBalance = createBalancePanel(relationsBalanceRightDataModel)
-
-        JSplitPane partnerPane = Main.createSplitPane(partnerLeftBalance, partnerRightBalance, JSplitPane.HORIZONTAL_SPLIT)
-
-        partnerPane.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle("BusinessModel").getString("RELATIONSBALANCE")))
+        relationsBalance = new BalancePanel(accounting, project.relationsBalance, true)
+        relationsBalance.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle("BusinessModel").getString("RELATIONSBALANCE")))
 //------------------------------------------------------------------------------------------
         JScrollPane transactionsPanel = createTransactionsPanel()
         transactionsPanel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
@@ -72,19 +70,19 @@ class ProjectPanel extends JPanel{
 //------------------------------------------------------------------------------------------
         JSplitPane center = new JSplitPane(JSplitPane.VERTICAL_SPLIT)
         JSplitPane balances = new JSplitPane(JSplitPane.VERTICAL_SPLIT)
-        balances.add(resultPane,JSplitPane.TOP)
-        balances.add(partnerPane, JSplitPane.BOTTOM)
+        balances.add(resultBalance,JSplitPane.TOP)
+        balances.add(relationsBalance, JSplitPane.BOTTOM)
         center.add(balances, JSplitPane.TOP)
         center.add(transactionsPanel, JSplitPane.BOTTOM)
 //------------------------------------------------------------------------------------------
         add(center,BorderLayout.CENTER)
     }
 
-    JScrollPane createBalancePanel(SelectableTableModel balanceDataModel){
-        SelectableTable<Account> table = new SelectableTable<>(balanceDataModel)
-        table.setPreferredScrollableViewportSize(new Dimension(500, 200))
-        new JScrollPane(table)
-    }
+//    static JScrollPane createBalancePanel(SelectableTableModel balanceDataModel){
+//        SelectableTable<Account> table = new SelectableTable<>(balanceDataModel)
+//        table.setPreferredScrollableViewportSize(new Dimension(500, 200))
+//        new JScrollPane(table)
+//    }
 
     JScrollPane createTransactionsPanel() {
         journalDetailsDataModel = new JournalDetailsDataModel()
@@ -104,15 +102,19 @@ class ProjectPanel extends JPanel{
         }
         if(project!=null) {
             journalDetailsDataModel.setJournal(project.journal)
-            resultBalanceLeftDataModel.setBalance(project.getResultBalance())
-            resultBalanceRightDataModel.setBalance(project.getResultBalance())
-            relationsBalanceLeftDataModel.setBalance(project.getRelationsBalance())
-            relationsBalanceRightDataModel.setBalance(project.getRelationsBalance())
+            resultBalance.setBalance(project.resultBalance)
+            relationsBalance.setBalance(project.relationsBalance)
+//            resultBalanceLeftDataModel.setBalance(project.getResultBalance())
+//            resultBalanceRightDataModel.setBalance(project.getResultBalance())
+//            relationsBalanceLeftDataModel.setBalance(project.getRelationsBalance())
+//            relationsBalanceRightDataModel.setBalance(project.getRelationsBalance())
         }
         journalDetailsDataModel.fireTableDataChanged()
-        resultBalanceLeftDataModel.fireTableDataChanged()
-        resultBalanceRightDataModel.fireTableDataChanged()
-        relationsBalanceLeftDataModel.fireTableDataChanged()
-        relationsBalanceRightDataModel.fireTableDataChanged()
+        resultBalance.fireTableDataChanged()
+        relationsBalance.fireTableDataChanged()
+//        resultBalanceLeftDataModel.fireTableDataChanged()
+//        resultBalanceRightDataModel.fireTableDataChanged()
+//        relationsBalanceLeftDataModel.fireTableDataChanged()
+//        relationsBalanceRightDataModel.fireTableDataChanged()
     }
 }
