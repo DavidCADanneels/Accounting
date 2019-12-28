@@ -73,22 +73,20 @@ class TransactionDataModel extends SelectableTableModel<Booking> {
     Object getValueAt(int row, int col) {
         Booking booking = getValueAt(row)
         if (col == DEBIT_ACCOUNT) {
-            if (booking.debit)
-                booking.account
-            else null
+            if (booking.debit) return booking.account
+            else return null
         } else if (col == CREDIT_ACCOUNT) {
-            if(!booking.debit)
-                booking.account
-            else null
+            if(!booking.debit) return booking.account
+            else return null
         } else if (col == DEBIT_AMOUNT) {
-            if (booking.debit) booking.amount
-            ""
+            if (booking.debit) return booking.amount
+            else return null
         } else if (col == CREDIT_AMOUNT) {
-            if (!booking.debit) booking.amount
-            ""
+            if (!booking.debit) return booking.amount
+            else return null
         } else if (col == VATINFO){
-            booking.getMergedVATBookingsString()
-        } else null
+            return booking.getMergedVATBookingsString()
+        } else return null
     }
 
     @Override
