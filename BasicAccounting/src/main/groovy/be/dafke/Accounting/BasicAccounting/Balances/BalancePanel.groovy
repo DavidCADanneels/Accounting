@@ -15,15 +15,14 @@ class BalancePanel extends JPanel {
     JPopupMenu popupLeft, popupRight
     SelectableTable<Account> balanceLeftTable
     SelectableTable<Account> balanceRightTable
-    BalanceLeftDataModel balanceLeftDataModel
-    BalanceRightDataModel balanceRightDataModel
+    BalanceDataModel balanceLeftDataModel, balanceRightDataModel
     BalanceTotalsDataModel balanceTotalsDataModel
     JTable balanceTotalTable
 
     BalancePanel(Accounting accounting, Balance balance, boolean includeEmpty) {
         setLayout(new BorderLayout())
-        balanceLeftDataModel = new BalanceLeftDataModel(balance, includeEmpty)
-        balanceRightDataModel = new BalanceRightDataModel(balance, includeEmpty)
+        balanceLeftDataModel = new BalanceDataModel(balance, true, includeEmpty)
+        balanceRightDataModel = new BalanceDataModel(balance, false, includeEmpty)
 
         //
         balanceLeftTable = new SelectableTable<>(balanceLeftDataModel)
@@ -69,5 +68,6 @@ class BalancePanel extends JPanel {
     void setBalance(Balance balance) {
         balanceLeftDataModel.balance = balance
         balanceRightDataModel.balance  = balance
+        balanceTotalsDataModel.balance = balance
     }
 }

@@ -6,38 +6,43 @@ import be.dafke.ComponentModel.SelectableTableModel
 
 import static java.util.ResourceBundle.getBundle
 
-class BalanceRightDataModel extends SelectableTableModel<Account> {
+class BalanceDataModel extends SelectableTableModel<Account> {
     String[] columnNames// = {
     final Class[] columnClasses = [ BigDecimal.class, Account.class ]
     Balance balance
+    boolean left
     boolean includeEmpty
-    final int ACCOUNT_COL = 1
-    final int SALDO_COL = 0
+    int ACCOUNT_COL
+    int SALDO_COL
     final int NR_OF_COL = 2
 
-    BalanceRightDataModel(String rightName, boolean includeEmpty) {
+    BalanceDataModel(Balance balance, boolean left, boolean includeEmpty){
         this.includeEmpty = includeEmpty
-        columnNames = [ getBundle("Accounting").getString("AMOUNT"), rightName ]
-    }
-
-    BalanceRightDataModel(Balance balance, boolean includeEmpty){
-        this(balance.rightName, includeEmpty)
+        this.left = left
         setBalance(balance)
+        ACCOUNT_COL = left?0:1
+        SALDO_COL = left?1:0
     }
 
     void setBalance(Balance balance) {
         this.balance = balance
-        columnNames = [ getBundle("Accounting").getString("AMOUNT"), balance.rightName ]
+
+        columnNames = left?
+                [ balance.leftName, getBundle("Accounting").getString("AMOUNT") ]
+                :
+                [ getBundle("Accounting").getString("AMOUNT"), balance.rightName ]
+        fireTableDataChanged()
     }
 
     // DE GET METHODEN
 // ===============
     Object getValueAt(int row, int col) {
         if(balance==null) null
-        if (row < balance.getLeftAccounts(includeEmpty).size()) {
-            Account account = balance.getLeftAccounts(includeEmpty).get(row)
+        def accounts = left?balance.getLeftAccounts(includeEmpty):balance.getRightAccounts(includeEmpty)
+        if (row < accounts.size()) {
+            Account account = accounts.get(row)
             if (col == ACCOUNT_COL) return account
-            if (col == SALDO_COL) return account.saldo
+            if (col == SALDO_COL) return account.type.inverted?account.saldo.negate():account.saldo
         }
         return null
     }
@@ -48,7 +53,8 @@ class BalanceRightDataModel extends SelectableTableModel<Account> {
 
     int getRowCount() {
         if(balance==null) return 0
-        balance.getRightAccounts(includeEmpty).size()
+        def accounts = left?balance.getLeftAccounts(includeEmpty):balance.getRightAccounts(includeEmpty)
+        accounts.size()
     }
 
     @Override

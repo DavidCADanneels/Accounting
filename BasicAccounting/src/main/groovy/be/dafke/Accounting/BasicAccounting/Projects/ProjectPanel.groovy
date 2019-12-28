@@ -21,8 +21,6 @@ class ProjectPanel extends JPanel{
     Project project
     JournalDetailsDataModel journalDetailsDataModel
     BalancePanel resultBalance, relationsBalance
-//    BalanceLeftDataModel resultBalanceLeftDataModel, relationsBalanceLeftDataModel
-//    BalanceRightDataModel resultBalanceRightDataModel, relationsBalanceRightDataModel
     Projects projects
     Accounting accounting
 

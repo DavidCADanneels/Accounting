@@ -36,6 +36,7 @@ class BalanceTotalsDataModel extends AbstractTableModel {
                 getBundle("Accounting").getString("AMOUNT"),
                 balance.getRightName()
         ]
+        fireTableDataChanged()
     }
 
     // DE GET METHODEN
