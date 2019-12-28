@@ -12,7 +12,7 @@ class BalanceGUI extends JFrame {
 
     BalanceGUI(Accounting accounting, Balance balance) {
         super(balance.name)
-        balancePanel = new BalancePanel(accounting, balance, false)
+        balancePanel = new BalancePanel(accounting, balance, false, true)
 //		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE)
         setContentPane(balancePanel)
         pack()

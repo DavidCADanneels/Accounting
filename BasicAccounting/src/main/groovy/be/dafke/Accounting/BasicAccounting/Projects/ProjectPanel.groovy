@@ -12,10 +12,12 @@ import javax.swing.*
 import javax.swing.border.LineBorder
 import javax.swing.border.TitledBorder
 import java.awt.*
+import java.awt.event.ActionEvent
+import java.awt.event.ActionListener
 
 import static java.util.ResourceBundle.getBundle
 
-class ProjectPanel extends JPanel{
+class ProjectPanel extends JPanel implements ActionListener{
     final JButton manage
     final JComboBox<Project> combo
     Project project
@@ -32,10 +34,7 @@ class ProjectPanel extends JPanel{
         JPanel noord = new JPanel()
         //
         combo = new JComboBox<>()
-        combo.addActionListener({ e ->
-            project = (Project) combo.selectedItem
-            refresh()
-        })
+        combo.addActionListener(this)
         //
         manage = new JButton(getBundle("Projects").getString("PROJECTMANAGER"))
         manage.addActionListener({ e ->
@@ -51,15 +50,15 @@ class ProjectPanel extends JPanel{
 //        Projects projects1 = accounting.projects
         ArrayList<Project> projects = projects.getBusinessObjects()
         if(projects.empty){
-            project = new Project('dummy', null, null)
+            project = new Project('all', accounting.accounts, accounting.accountTypes)
         } else {
             project = projects[0]
         }
 //------------------------------------------------------------------------------------------
-        resultBalance = new BalancePanel(accounting, project.resultBalance, true)
+        resultBalance = new BalancePanel(accounting, project.resultBalance, true, false)
         resultBalance.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle("BusinessModel").getString("RESULTBALANCE")))
 //------------------------------------------------------------------------------------------
-        relationsBalance = new BalancePanel(accounting, project.relationsBalance, true)
+        relationsBalance = new BalancePanel(accounting, project.relationsBalance, true, false)
         relationsBalance.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle("BusinessModel").getString("RELATIONSBALANCE")))
 //------------------------------------------------------------------------------------------
         JScrollPane transactionsPanel = createTransactionsPanel()
@@ -90,14 +89,17 @@ class ProjectPanel extends JPanel{
     }
 
     void refresh() {
+        combo.removeActionListener(this)
         combo.removeAllItems()
         for(Project project : projects.businessObjects) {
             ((DefaultComboBoxModel<Project>) combo.getModel()).addElement(project)
         }
+//        combo.addActionListener(this)
         if (!projects.businessObjects.empty) {
             if(project==null) project = projects.businessObjects.get(0)
             combo.setSelectedItem(project)
         }
+        combo.addActionListener(this)
         if(project!=null) {
             journalDetailsDataModel.setJournal(project.journal)
             resultBalance.setBalance(project.resultBalance)
@@ -114,5 +116,11 @@ class ProjectPanel extends JPanel{
 //        resultBalanceRightDataModel.fireTableDataChanged()
 //        relationsBalanceLeftDataModel.fireTableDataChanged()
 //        relationsBalanceRightDataModel.fireTableDataChanged()
+    }
+
+    @Override
+    void actionPerformed(ActionEvent e) {
+        project = (Project) combo.selectedItem
+        refresh()
     }
 }

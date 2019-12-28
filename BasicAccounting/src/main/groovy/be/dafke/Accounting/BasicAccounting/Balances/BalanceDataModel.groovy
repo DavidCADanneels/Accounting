@@ -7,48 +7,70 @@ import be.dafke.ComponentModel.SelectableTableModel
 import static java.util.ResourceBundle.getBundle
 
 class BalanceDataModel extends SelectableTableModel<Account> {
-    String[] columnNames// = {
-    final Class[] columnClasses = [ BigDecimal.class, Account.class ]
+    HashMap<Integer,String> columnNames = new HashMap<>()
+    HashMap<Integer,Class> columnClasses = new HashMap<>()
     Balance balance
     boolean left
-    boolean includeEmpty
-    int ACCOUNT_COL
-    int SALDO_COL
-    final int NR_OF_COL = 2
+    boolean includeEmpty, showNumbers
+    int accountCol
+    int saldoCol
+    int nrCol
+    int nrOfCols
 
-    BalanceDataModel(Balance balance, boolean left, boolean includeEmpty){
+    BalanceDataModel(Balance balance, boolean left, boolean includeEmpty, boolean showNumbers = false){
         this.includeEmpty = includeEmpty
+        this.showNumbers = showNumbers
         this.left = left
         setBalance(balance)
-        ACCOUNT_COL = left?0:1
-        SALDO_COL = left?1:0
     }
 
     void setBalance(Balance balance) {
         this.balance = balance
-
-        columnNames = left?
-                [ balance.leftName, getBundle("Accounting").getString("AMOUNT") ]
-                :
-                [ getBundle("Accounting").getString("AMOUNT"), balance.rightName ]
+        setColumnNumbers()
+        setColumnNames()
+        setColumnClasses()
+        fireTableStructureChanged()
         fireTableDataChanged()
+    }
+
+    void setColumnNumbers(){
+        nrOfCols = showNumbers?3:2
+        nrCol = showNumbers?(left?0:nrOfCols-1):-1
+//        nrCol=showNumbers?(left?0:2):-1
+        accountCol = left?(showNumbers?1:0):1
+        saldoCol = left?nrOfCols-1:0
+    }
+
+    void setColumnNames() {
+        columnNames.clear()
+        if (nrCol > -1) columnNames.put(nrCol, getBundle("Accounting").getString("NR"))
+        columnNames.put(accountCol, balance.leftName)
+        columnNames.put(saldoCol, getBundle("Accounting").getString("AMOUNT"))
+    }
+
+    void setColumnClasses(){
+        columnClasses.clear()
+        if (nrCol > -1) columnClasses.put(nrCol, BigInteger.class)
+        columnClasses.put(accountCol, Account.class)
+        columnClasses.put(saldoCol, BigDecimal.class)
     }
 
     // DE GET METHODEN
 // ===============
     Object getValueAt(int row, int col) {
-        if(balance==null) null
+        if(balance==null) return null
         def accounts = left?balance.getLeftAccounts(includeEmpty):balance.getRightAccounts(includeEmpty)
         if (row < accounts.size()) {
             Account account = accounts.get(row)
-            if (col == ACCOUNT_COL) return account
-            if (col == SALDO_COL) return account.type.inverted?account.saldo.negate():account.saldo
+            if (col == accountCol) return account
+            if (col == nrCol) return account.number
+            if (col == saldoCol) return account.type.inverted?account.saldo.negate():account.saldo
         }
         return null
     }
 
     int getColumnCount() {
-        NR_OF_COL
+        nrOfCols
     }
 
     int getRowCount() {
@@ -59,12 +81,12 @@ class BalanceDataModel extends SelectableTableModel<Account> {
 
     @Override
     String getColumnName(int col) {
-        columnNames[col]
+        columnNames.get(col)
     }
 
     @Override
     Class getColumnClass(int col) {
-        columnClasses[col]
+        columnClasses.get(col)
     }
 
     @Override
@@ -81,7 +103,7 @@ class BalanceDataModel extends SelectableTableModel<Account> {
     @Override
     Account getObject(int row, int col) {
 //        Object valueAt =
-        getValueAt(row, 1)
+        getValueAt(row, accountCol)
 //        if(valueAt && !"".equals(valueAt))
 //            (Account) valueAt
 //        else null

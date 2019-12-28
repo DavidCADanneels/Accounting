@@ -19,10 +19,10 @@ class BalancePanel extends JPanel {
     BalanceTotalsDataModel balanceTotalsDataModel
     JTable balanceTotalTable
 
-    BalancePanel(Accounting accounting, Balance balance, boolean includeEmpty) {
+    BalancePanel(Accounting accounting, Balance balance, boolean includeEmpty, boolean showNumbers = false) {
         setLayout(new BorderLayout())
-        balanceLeftDataModel = new BalanceDataModel(balance, true, includeEmpty)
-        balanceRightDataModel = new BalanceDataModel(balance, false, includeEmpty)
+        balanceLeftDataModel = new BalanceDataModel(balance, true, includeEmpty, showNumbers)
+        balanceRightDataModel = new BalanceDataModel(balance, false, includeEmpty, showNumbers)
 
         //
         balanceLeftTable = new SelectableTable<>(balanceLeftDataModel)
