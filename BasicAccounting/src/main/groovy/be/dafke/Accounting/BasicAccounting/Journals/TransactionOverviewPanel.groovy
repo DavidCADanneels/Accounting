@@ -111,6 +111,7 @@ class TransactionOverviewPanel extends JPanel {
             selectTransactions(transactions)
         } else {
             Transaction transaction = transactionOverviewTable.selectedObject
+            selectTransactionDetails(transaction)
             selectTransaction(transaction)
         }
     }
@@ -136,6 +137,7 @@ class TransactionOverviewPanel extends JPanel {
         transactionOverviewDataModel.journal = journal
         transactionOverviewDataModel.fireTableDataChanged()
         Transaction transaction = transactionOverviewTable.selectedObject
+        selectTransactionDetails(transaction)
         selectTransaction(transaction)
     }
 
@@ -162,10 +164,18 @@ class TransactionOverviewPanel extends JPanel {
         newTransactionData.forEach({ account, booking ->
             mergedTransaction.addBusinessObject(booking)
         })
-        selectTransaction(mergedTransaction)
+        selectTransaction(null)
+        selectTransactionDetails(mergedTransaction)
     }
 
     void selectTransaction(Transaction transaction) {
+        if(transaction) {
+            int row = transactionOverviewDataModel.getRow(transaction)
+            if (row != -1) transactionOverviewTable.setRowSelectionInterval(row, row)
+        }
+    }
+
+    void selectTransactionDetails(Transaction transaction) {
         transactionDataModel.setTransaction(transaction)
         transactionDataModel.fireTableDataChanged()
         vatBookingDataModel.setTransaction(transaction)

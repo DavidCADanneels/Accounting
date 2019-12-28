@@ -129,27 +129,28 @@ class TransactionOverviewDataModel extends SelectableTableModel<Transaction> {
 
     @Override
     Transaction getObject(int row, int col) {
-        if(journal==null) null
+        if(journal==null) return null
         ArrayList<Transaction> transactions = journal.businessObjects
-        transactions.get(row)
+        return transactions.get(row)
     }
 
     int getRowInList(Transaction transaction){
         int row = 0
+        if(journal==null) return 0
         ArrayList<Transaction> list = journal.businessObjects
         for(Transaction search:list){
             if(search!=transaction){
                 row++
             } else{
-                row
+                return row
             }
         }
         // TODO: -1 and catch effects
-        0
+        return 0
     }
 
     int getRow(Transaction transaction) {
-        if(journal==null) -1
-        getRowInList(transaction)
+        if(journal==null) return -1
+        return getRowInList(transaction)
     }
 }
