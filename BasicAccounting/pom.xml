@@ -79,7 +79,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>be.dafke.BasicAccounting.MainApplication.Main</mainClass>
+                            <mainClass>be.dafke.Accounting.BasicAccounting.MainApplication.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
