@@ -1,6 +1,5 @@
 package be.dafke.Accounting.BasicAccounting.Journals.New
 
-import be.dafke.Accounting.BasicAccounting.Journals.New.NewJournalPanel
 import be.dafke.Accounting.BusinessModel.*
 import be.dafke.ComponentModel.RefreshableDialog
 

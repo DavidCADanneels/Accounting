@@ -96,7 +96,7 @@ class JournalsMenu extends JMenu {
                         JMenuItem details = new JMenuItem(journal.name)
                         details.addActionListener({ e ->
                             Point locationOnScreen = getLocationOnScreen()
-                            JournalDetailsGUI.getJournalDetails(locationOnScreen, journal, journals)
+                            JournalDetailsGUI.getJournalDetails locationOnScreen, journal
                         })
                         add(details)
                     })
@@ -106,7 +106,7 @@ class JournalsMenu extends JMenu {
             // (or use BusinessCollection<Transaction> iso Journal in JournalDetailsGUI)
             master.addActionListener({ e ->
                 Point locationOnScreen = getLocationOnScreen()
-                JournalDetailsGUI.getJournalDetails(locationOnScreen, transactions, journals)
+                JournalDetailsGUI.getJournalDetails locationOnScreen, transactions
             })
             add(master)
         }

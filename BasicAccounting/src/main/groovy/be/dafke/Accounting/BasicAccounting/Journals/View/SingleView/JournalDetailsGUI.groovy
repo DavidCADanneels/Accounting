@@ -1,10 +1,9 @@
 package be.dafke.Accounting.BasicAccounting.Journals.View.SingleView
 
-
+import be.dafke.Accounting.BasicAccounting.Journals.View.JournalSwitchViewPanel
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.Booking
 import be.dafke.Accounting.BusinessModel.Journal
-import be.dafke.Accounting.BusinessModel.Journals
 
 import javax.swing.*
 import java.awt.*
@@ -15,35 +14,35 @@ import static java.util.ResourceBundle.getBundle
 
 class JournalDetailsGUI extends JFrame implements WindowListener {
     static HashMap<Journal,JournalDetailsGUI> journalDetailsMap = new HashMap<>()
-    final JournalDetailsPanel journalDetailsPanel
+    final JournalSwitchViewPanel journalSwitchViewPanel
 
-    JournalDetailsGUI(Point location, Journal journal, Journals journals) {
+    JournalDetailsGUI(Point location, Journal journal) {
         super(getBundle("Accounting").getString("JOURNAL_DETAILS") + journal.toString())
-        journalDetailsPanel = new JournalDetailsPanel(journal, journals)
-//		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE)
+        journalSwitchViewPanel = new JournalSwitchViewPanel()
+        journalSwitchViewPanel.journal = journal
         setLocation(location)
-        setContentPane(journalDetailsPanel)
+        setContentPane(journalSwitchViewPanel)
         pack()
 
     }
 
-    static JournalDetailsGUI getJournalDetails(Point location, Journal journal, Journals journals){
+    static JournalDetailsGUI getJournalDetails(Point location, Journal journal){
         JournalDetailsGUI journalDetailsGUI = journalDetailsMap.get(journal)
-        if(journalDetailsGUI ==null){
-            journalDetailsGUI = new JournalDetailsGUI(location, journal, journals)
-            journalDetailsMap.put(journal, journalDetailsGUI)
+        if(journalDetailsGUI==null){
+            journalDetailsGUI = new JournalDetailsGUI(location, journal)
+            journalDetailsMap.put journal, journalDetailsGUI
             Main.addFrame(journalDetailsGUI)
         }
         journalDetailsGUI.visible = true
         journalDetailsGUI
     }
 
-    void selectObject(Booking object){
-        journalDetailsPanel.selectObject(object)
+    void selectObject(Booking booking){
+        journalSwitchViewPanel.selectBooking(booking)
     }
 
     void windowClosing(WindowEvent we) {
-        journalDetailsPanel.closePopups()
+        journalSwitchViewPanel.closePopups()
     }
     void windowOpened(WindowEvent e) {}
     void windowClosed(WindowEvent e) {}
@@ -60,6 +59,6 @@ class JournalDetailsGUI extends JFrame implements WindowListener {
     }
 
     void fireJournalDataChanged() {
-        journalDetailsPanel.fireJournalDataChanged()
+        journalSwitchViewPanel.fireJournalDataChanged()
     }
 }

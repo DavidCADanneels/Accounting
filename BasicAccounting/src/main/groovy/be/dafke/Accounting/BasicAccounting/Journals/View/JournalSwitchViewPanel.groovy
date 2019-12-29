@@ -1,10 +1,9 @@
 package be.dafke.Accounting.BasicAccounting.Journals.View
 
-
 import be.dafke.Accounting.BasicAccounting.Journals.View.DualView.TransactionOverviewPanel
 import be.dafke.Accounting.BasicAccounting.Journals.View.SingleView.JournalSingleViewPanel
-import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.Accounting
+import be.dafke.Accounting.BusinessModel.Booking
 import be.dafke.Accounting.BusinessModel.Journal
 import be.dafke.Accounting.BusinessModel.Transaction
 
@@ -19,8 +18,8 @@ class JournalSwitchViewPanel extends JPanel{
     JPanel center
     JCheckBox mergeTransactions
 
-    static final String VIEW1 = "View1"
-    static final String VIEW2 = "View2"
+    static final String VIEW1 = "Single Table"
+    static final String VIEW2 = "Dual Table"
 
     JournalSwitchViewPanel() {
         cardLayout = new CardLayout()
@@ -48,24 +47,25 @@ class JournalSwitchViewPanel extends JPanel{
         view1.selected = true
         view1.addActionListener({ e ->
             if (view1.selected) {
-                Main.switchView(VIEW1)
+                switchView(VIEW1)
             } else {
-                Main.switchView(VIEW2)
+                switchView(VIEW2)
             }
         })
         view2.addActionListener({ e ->
             if (view1.selected) {
-                Main.switchView(VIEW1)
+                switchView(VIEW1)
             } else {
-                Main.switchView(VIEW2)
+                switchView(VIEW2)
             }
         })
+        panel.add(new JLabel("View:"))
         panel.add(view1)
         panel.add(view2)
 
         mergeTransactions = new JCheckBox("Merge Transactions")
         mergeTransactions.addActionListener({ e ->
-            Main.fireMultiTransactionChanged(mergeTransactions.selected)
+            setMultiSelection(mergeTransactions.selected)
         })
         mergeTransactions.selected = false
         panel.add(mergeTransactions)
@@ -101,5 +101,15 @@ class JournalSwitchViewPanel extends JPanel{
     void setMultiSelection(boolean enabled){
 //        singleView.setMultiSelection(enabled)
         dualView.setMultiSelection(enabled)
+    }
+
+    void selectBooking(Booking booking){
+        singleView.selectBooking(booking)
+//        dualView.selectBooking(booking)
+    }
+
+    void closePopups(){
+        singleView.closePopups()
+        dualView.closePopups()
     }
 }

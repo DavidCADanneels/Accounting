@@ -59,7 +59,6 @@ class JournalSingleViewPanel extends JPanel {
 
     void selectBooking(Booking booking) {
         int row = journalDetailsDataModel.getRow(booking)
-
         if (table) {
             table.setRowSelectionInterval(row, row)
             Rectangle cellRect = table.getCellRect(row, 0, false)
@@ -85,5 +84,9 @@ class JournalSingleViewPanel extends JPanel {
 
     void fireJournalDataChanged() {
         journalDetailsDataModel.fireTableDataChanged()
+    }
+
+    void closePopups(){
+        popup.visible = false
     }
 }

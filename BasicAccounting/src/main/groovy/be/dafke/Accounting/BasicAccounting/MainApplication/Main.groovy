@@ -245,10 +245,6 @@ class Main {
         journalEditPanel.setVisible(enabled)
     }
 
-    static void fireMultiTransactionChanged(boolean enabled) {
-        cardPanel.setMultiSelection(enabled)
-    }
-
     static void fireBalancesChanged(){
         balancesMenu.fireBalancesChanged()
     }
@@ -468,10 +464,5 @@ class Main {
 
     static void fireMortgageEdited(Mortgage mortgage) {
         MortgageGUI.selectMortgage(mortgage)
-    }
-
-    static void switchView(String view) {
-        cardPanel.switchView(view)
-        journalEditPanel.fireTransactionDataChanged()
     }
 }

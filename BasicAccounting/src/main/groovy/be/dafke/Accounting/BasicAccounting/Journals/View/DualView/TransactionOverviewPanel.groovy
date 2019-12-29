@@ -188,4 +188,9 @@ class TransactionOverviewPanel extends JPanel {
     void fireJournalDataChanged() {
         transactionOverviewDataModel.fireTableDataChanged()
     }
+
+    void closePopups(){
+        transactionDataPopupMenu.visible = false
+        transactionOverviewPopupMenu.visible = false
+    }
 }

@@ -71,7 +71,7 @@ class AccountDetailsPopupMenu extends JPopupMenu {
         for (Booking booking : bookings) {
             Transaction transaction = booking.transaction
             Journal journal = transaction.journal
-            JournalDetailsGUI newGui = JournalDetailsGUI.getJournalDetails(locationOnScreen, journal, journals)
+            JournalDetailsGUI newGui = JournalDetailsGUI.getJournalDetails locationOnScreen, journal
             newGui.selectObject(booking)
         }
     }
