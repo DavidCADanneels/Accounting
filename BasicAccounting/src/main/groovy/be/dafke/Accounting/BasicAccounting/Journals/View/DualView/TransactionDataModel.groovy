@@ -114,12 +114,11 @@ class TransactionDataModel extends SelectableTableModel<Booking> {
         for(Booking search:list){
             if(search!=booking){
                 row++
-            } else{
-                row
+            } else {
+                return row
             }
         }
-        // TODO: -1 and catch effects
-        0
+        return -1
     }
 
     int getRow(Booking booking) {

@@ -30,10 +30,8 @@ class JournalEditPanel extends JPanel implements ActionListener {
 
     Journal journal
     Transaction transaction
-    Accounts accounts
-//    VATTransactions vatTransactions
+    Accounting accounting
     DateAndDescriptionPanel dateAndDescriptionPanel
-    Transactions transactions
 
     JournalEditPanel() {
         setLayout(new BorderLayout())
@@ -184,7 +182,7 @@ class JournalEditPanel extends JPanel implements ActionListener {
     void deleteTransaction(Transaction transaction) {//throws NotEmptyException{
         Journal journal = transaction.journal
         journal.removeBusinessObject(transaction)
-        transactions.removeBusinessObject(transaction)
+        accounting.transactions.removeBusinessObject(transaction)
         transaction.journal = null
 
         Main.fireJournalDataChanged(journal)
@@ -285,17 +283,18 @@ class JournalEditPanel extends JPanel implements ActionListener {
     JComboBox<Account> createComboBox() {
         JComboBox<Account> comboBox = new JComboBox<>()
         comboBox.removeAllItems()
-        accounts.businessObjects.forEach({ account -> comboBox.addItem(account) })
+        accounting.accounts.businessObjects.forEach({ account -> comboBox.addItem(account) })
         comboBox
     }
 
     void setAccounting(Accounting accounting){
+        this.accounting = accounting
         popup.accounting = accounting
-        setAccounts(accounting?accounting.accounts:null)
+//        setAccounts(accounting?accounting.accounts:null)
         AccountingSession accountingSession = Session.getAccountingSession(accounting)
         setJournal(accounting?accountingSession.activeJournal:null)
 //        setVatTransactions(accounting?accounting.vatTransactions:null)
-        setTransactions(accounting?accounting.transactions:null)
+//        setTransactions(accounting?accounting.transactions:null)
 
         comboBox=createComboBox()
         debitAccount = table.getColumnModel().getColumn(JournalDataModel.DEBIT_ACCOUNT)
@@ -304,21 +303,6 @@ class JournalEditPanel extends JPanel implements ActionListener {
         creditAccount.setCellEditor(new DefaultCellEditor(comboBox))
     }
 
-    void setTransactions(Transactions transactions) {
-        this.transactions = transactions
-    }
-
-//    void setVatTransactions(VATTransactions vatTransactions) {
-//        this.vatTransactions = vatTransactions
-//    }
-
-    void setAccounts(Accounts accounts) {
-        this.accounts = accounts
-    }
-
-//    void setJournalSession(JournalSession journalSession) {
-//        this.journalSession = journalSession
-//    }
     void setJournal(Journal journal) {
         this.journal=journal
         dateAndDescriptionPanel.journal = journal

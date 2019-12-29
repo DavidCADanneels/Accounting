@@ -184,8 +184,7 @@ class JournalDetailsDataModel extends SelectableTableModel<Booking> {
                 return row
             }
         }
-        // TODO: -1 and catch effects
-        return 0
+        return -1
     }
 
     int getRow(Booking booking) {

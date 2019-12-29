@@ -1,30 +1,18 @@
 package be.dafke.Accounting.BasicAccounting.Journals.View.DualView
 
-
+import be.dafke.Accounting.BasicAccounting.Journals.View.TransactionSelectionModel
 import be.dafke.Accounting.BasicAccounting.MainApplication.PopupForTableActivator
-import be.dafke.Accounting.BusinessModel.Account
-import be.dafke.Accounting.BusinessModel.Accounting
-import be.dafke.Accounting.BusinessModel.Booking
-import be.dafke.Accounting.BusinessModel.Journal
-import be.dafke.Accounting.BusinessModel.Journals
-import be.dafke.Accounting.BusinessModel.Transaction
-import be.dafke.Accounting.BusinessModel.VATBooking
+import be.dafke.Accounting.BusinessModel.*
 import be.dafke.Accounting.BusinessModelDao.AccountingSession
 import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.ComponentModel.SelectableTable
 
-import javax.swing.DefaultListSelectionModel
-import javax.swing.JLabel
-import javax.swing.JPanel
-import javax.swing.JScrollPane
-import javax.swing.JSplitPane
-import javax.swing.JTextField
-import java.awt.BorderLayout
-import java.awt.Dimension
+import javax.swing.*
+import java.awt.*
 
 import static java.util.ResourceBundle.getBundle
 
-class TransactionOverviewPanel extends JPanel {
+class TransactionOverviewPanel extends JPanel { //implements ListSelectionListener {
     final SelectableTable<Transaction> transactionOverviewTable
     final SelectableTable<Booking> transactionDataTable
     final SelectableTable<VATBooking> vatTable
@@ -39,7 +27,9 @@ class TransactionOverviewPanel extends JPanel {
     final TransactionDataColorRenderer transactionDataColorRenderer
     boolean multiSelection = false
 
-    TransactionOverviewPanel() {
+    TransactionSelectionModel transactionSelectionModel
+
+    TransactionOverviewPanel(TransactionSelectionModel transactionSelectionModel) {
         setLayout(new BorderLayout())
         transactionOverviewDataModel = new TransactionOverviewDataModel()
         transactionDataModel = new TransactionDataModel()
@@ -90,31 +80,51 @@ class TransactionOverviewPanel extends JPanel {
         add(center, BorderLayout.CENTER)
         add(totalsPanel, BorderLayout.SOUTH)
 
-        DefaultListSelectionModel selectionModel = new DefaultListSelectionModel()
-        selectionModel.addListSelectionListener({ e ->
-            if (!e.getValueIsAdjusting()) {
-                setSelection()
-            }
-        })
-
-        transactionOverviewTable.setSelectionModel(selectionModel)
+        this.transactionSelectionModel = transactionSelectionModel
+        transactionOverviewTable.setSelectionModel(transactionSelectionModel)
+        // TODO: extra (or same?) model to select booking(s)
+//        transactionDataTable.setSelectionModel(transactionSelectionModel)
     }
 
-    void setMultiSelection(boolean multiSelection) {
-        this.multiSelection = multiSelection
+    void updateSelection() {
+        ArrayList<Transaction> transactions = transactionOverviewTable.selectedObjects
+        ArrayList<Booking> bookings = transactionDataTable.selectedObjects
+//        if (transactionSelectionModel.multiSelection) {
+        if(transactions.size()>1){
+            transactionSelectionModel.selectTransactions(transactions)
+            transactionSelectionModel.selectedBookings = bookings
+        } else if (transactions.size() == 1) {
+            transactionSelectionModel.selectTransaction(transactions[0])
+            transactionSelectionModel.selectedBooking = null
+        } else if (transactions.size() == 0) {
+            transactionSelectionModel.selectBooking(bookings[0])
+        }
         setSelection()
-        transactionOverviewDataModel.fireTableDataChanged()
     }
 
     void setSelection() {
-        if (multiSelection) {
-            ArrayList<Transaction> transactions = transactionOverviewTable.selectedObjects
-            selectTransactions(transactions)
+        ArrayList<Transaction> transactions = transactionSelectionModel.selectedTransactions
+        Transaction transaction = transactionSelectionModel.selectedTransaction
+        Booking booking = transactionSelectionModel.selectedBooking
+        if (transactionSelectionModel.multiSelection) {
+            if (transactions!=null && !transactions.empty) {
+                System.err.println("Transactions:${transactions.size}()")
+                selectTransactions(transactions)
+                selectTransactionDetails(mergeTransactions(transactions))
+            } else if (transaction!=null) {
+                System.err.println("Transaction:${transaction}")
+                selectTransaction(transaction)
+                selectTransactionDetails(transaction)
+            }
         } else {
-//            Transaction transaction =
-            Transaction transaction = transactionOverviewTable.selectedObject
-            selectTransactionDetails(transaction)
-            selectTransaction(transaction)
+            if (transaction!=null) {
+                System.err.println("Transaction:$transaction.transactionId")
+                selectTransaction(transaction)
+                selectTransactionDetails(transaction)
+            } else if (booking!=null) {
+                System.out.println("Booking:$booking")
+                selectBooking(booking)
+            }
         }
     }
 
@@ -143,7 +153,7 @@ class TransactionOverviewPanel extends JPanel {
         selectTransaction(transaction)
     }
 
-    void selectTransactions(ArrayList<Transaction> transactions) {
+    Transaction mergeTransactions(ArrayList<Transaction> transactions) {
         HashMap<Account, Booking> newTransactionData = new HashMap<>()
         transactions.forEach({ transaction ->
             ArrayList<Booking> bookings = transaction.businessObjects
@@ -166,14 +176,36 @@ class TransactionOverviewPanel extends JPanel {
         newTransactionData.forEach({ account, booking ->
             mergedTransaction.addBusinessObject(booking)
         })
-        selectTransaction(null)
-        selectTransactionDetails(mergedTransaction)
+        mergedTransaction
     }
 
+    void setMultiSelection(boolean multiSelection){
+        this.multiSelection = multiSelection
+        setSelection()
+    }
+
+    void selectBooking(Booking booking){
+        if(booking) {
+            selectTransaction(booking.transaction)
+            selectTransactionDetails(booking.transaction)
+            def row = transactionDataModel.getRow(booking)
+            if (row != -1) transactionDataTable.setRowSelectionInterval(row, row)
+        }
+    }
+
+    void selectTransactions(ArrayList<Transaction> transactions) {
+        if(transactions&&!transactions.empty){
+            if(transactions.size()==1) selectTransaction(transactions[0])
+            int first = transactionOverviewDataModel.getRow(transactions[0])
+            int last = transactionOverviewDataModel.getRow(transactions[transactions.size()-1])
+            if(first>-1 && last >-1) transactionOverviewTable.setRowSelectionInterval(first, last)
+        }
+    }
     void selectTransaction(Transaction transaction) {
         if(transaction) {
             int row = transactionOverviewDataModel.getRow(transaction)
             if (row != -1) transactionOverviewTable.setRowSelectionInterval(row, row)
+//            selectTransactionDetails(transaction) // could be selectTransactionDetails(mergedTransactions) as well
         }
     }
 
