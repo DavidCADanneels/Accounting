@@ -126,10 +126,10 @@ xsi:noNamespaceSchemaLocation=\""""
         <$CHECKED_RIGHT>$rightCheckedStream</$CHECKED_RIGHT>
       </$JOURNAL>"""
                     }
-                    writer.write """\
+                    writer.write """
     </$JOURNALS>"""
                 }
-                writer.write """"
+                writer.write """
   </$ACCOUNTING>"""
             }
             writer.write """
