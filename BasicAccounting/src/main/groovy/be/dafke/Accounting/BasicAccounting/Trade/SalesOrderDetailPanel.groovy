@@ -288,9 +288,9 @@ class SalesOrderDetailPanel extends JPanel {
         boolean isPromoOrder = salesOrder && salesOrder.promoOrder
         boolean editable = salesOrder && salesOrder.editable
 
-        placed.setSelected(salesTransaction)
+        placed.setSelected(salesTransaction?true:false)
         delivered.setSelected(orderDelivered)
-        payed.setSelected(paymentTransaction )
+        payed.setSelected(paymentTransaction?true:false)
         creditNote.setSelected(isCreditNote)
         promoOrder.setSelected(isPromoOrder)
 
