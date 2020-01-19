@@ -123,7 +123,13 @@ class Article extends BusinessObject{
     }
 
     static Predicate<Article> withOrders(){
-        { article -> article.purchaseOrders.size() > 0 || article.salesOrders.size() > 0 }
+        { article ->
+            article.purchaseOrders.size() > 0 ||
+                article.salesOrders.size() > 0 ||
+                article.promoOrders.size() > 0 ||
+                article.ingredientOrders.size() > 0 ||
+                article.stockOrders.size() > 0
+        }
     }
 
     static Predicate<Article> inStock(){
