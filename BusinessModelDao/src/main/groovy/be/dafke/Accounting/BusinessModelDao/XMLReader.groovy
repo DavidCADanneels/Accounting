@@ -199,7 +199,7 @@ class XMLReader {
 
     static void readAccountingDetails(Accounting accounting) {
         // FIXME: ID must be updated to max of new accounting: no static int any longer !
-        if(!accounting.read) {
+        if(accounting && !accounting.read) {
             readBalances(accounting)
             readTransactions(accounting)
             readJournalsContent(accounting.journals, accounting)
@@ -230,7 +230,9 @@ class XMLReader {
                 readMealOrders(accounting)
             }
         }
-        accounting.read = true
+        if(accounting){
+            accounting.read = true
+        }
     }
 
     static String getValue(Element element, String tagName){

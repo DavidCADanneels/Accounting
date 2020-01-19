@@ -99,20 +99,20 @@ xsi:noNamespaceSchemaLocation=\""""
             Accountings accountings = Session.accountings
             for(Accounting accounting:accountings.businessObjects) {
                 AccountingSession accountingSession = Session.getAccountingSession(accounting)
-                Journal activeJournal = accountingSession.activeJournal
+                Journal activeJournal = accountingSession?accountingSession.activeJournal:null
                 writer.write """
   <$ACCOUNTING>
     <$NAME>$accounting.name</$NAME>
-    <$SHOW_NUMBERS>$accountingSession.showNumbers</$SHOW_NUMBERS>
+    <$SHOW_NUMBERS>${accountingSession?accountingSession.showNumbers:false}</$SHOW_NUMBERS>
     <$ACTIVE_JOURNAL>${(activeJournal?activeJournal.name:"null")}</$ACTIVE_JOURNAL>"""
                 Journals journals = accounting.journals
                 if(journals){
                     writer.write"""
     <$JOURNALS>"""
                     for(Journal journal:journals.businessObjects) {
-                        JournalSession journalSession = accountingSession.getJournalSession(journal)
-                        ArrayList<AccountType> leftCheckedTypes = journalSession.getCheckedTypesLeft()
-                        ArrayList<AccountType> rightCheckedTypes = journalSession.getCheckedTypesRight()
+                        JournalSession journalSession = accountingSession?accountingSession.getJournalSession(journal):null
+                        ArrayList<AccountType> leftCheckedTypes = journalSession?journalSession.getCheckedTypesLeft():[]
+                        ArrayList<AccountType> rightCheckedTypes = journalSession?journalSession.getCheckedTypesRight():[]
 
                         String leftCheckedStream = leftCheckedTypes.name.collect().join(",")
                         String rightCheckedStream = rightCheckedTypes.name.collect().join(",")
@@ -120,8 +120,8 @@ xsi:noNamespaceSchemaLocation=\""""
                         writer.write """
       <$JOURNAL>
         <$NAME>$journal.name</$NAME>
-        <$SHOW_NUMBERS_LEFT>$journalSession.showNumbersLeft</$SHOW_NUMBERS_LEFT>
-        <$SHOW_NUMBERS_RIGHT>$journalSession.showNumbersRight</$SHOW_NUMBERS_RIGHT>
+        <$SHOW_NUMBERS_LEFT>${journalSession?journalSession.showNumbersLeft:false}</$SHOW_NUMBERS_LEFT>
+        <$SHOW_NUMBERS_RIGHT>${journalSession?journalSession.showNumbersRight:false}</$SHOW_NUMBERS_RIGHT>
         <$CHECKED_LEFT>$leftCheckedStream</$CHECKED_LEFT>
         <$CHECKED_RIGHT>$rightCheckedStream</$CHECKED_RIGHT>
       </$JOURNAL>"""

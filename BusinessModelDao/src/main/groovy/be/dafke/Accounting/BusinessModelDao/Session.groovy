@@ -18,6 +18,6 @@ class Session {
     }
 
     static AccountingSession getAccountingSession(Accounting accounting){
-        accountingSessions.get(accounting)
+        accounting?accountingSessions.get(accounting):null
     }
 }

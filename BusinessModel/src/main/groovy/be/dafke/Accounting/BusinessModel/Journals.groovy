@@ -24,7 +24,6 @@ class Journals extends BusinessCollection<Journal> {
                 e.printStackTrace()
             }
         }
-        currentObject = journals.currentObject==null?null:getBusinessObject(journals.currentObject.name)
     }
 
     @Override
