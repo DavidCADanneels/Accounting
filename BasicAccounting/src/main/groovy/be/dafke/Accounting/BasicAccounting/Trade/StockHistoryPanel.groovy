@@ -27,7 +27,7 @@ class StockHistoryPanel extends JPanel {
         JScrollPane historyPanel = new JScrollPane(transactionsTable)
         JScrollPane balancePanel = new JScrollPane(balanceTable)
 
-        JSplitPane splitPane = Main.createSplitPane(historyPanel, balancePanel, JSplitPane.HORIZONTAL_SPLIT)
+        JSplitPane splitPane = Main.createSplitPane(historyPanel, balancePanel, JSplitPane.VERTICAL_SPLIT)
 
         setLayout(new BorderLayout())
         add(splitPane, BorderLayout.CENTER)
