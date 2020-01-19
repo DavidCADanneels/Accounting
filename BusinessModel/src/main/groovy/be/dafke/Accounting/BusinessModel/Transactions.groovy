@@ -93,7 +93,7 @@ class Transactions extends Journal {
 
     Transaction getBusinessObject(Integer id){
         List<Transaction> transactions = getBusinessObjects({ transaction -> id.equals(transaction.transactionId) })
-        if(transactions==null || transactions.empty){
+        if(transactions==null || transactions.isEmpty()){
             null
         }else transactions.get(0)
     }

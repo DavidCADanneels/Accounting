@@ -3,7 +3,6 @@ package be.dafke.Accounting.BusinessModel
 import be.dafke.Accounting.ObjectModel.BusinessCollection
 
 import java.util.function.Predicate
-import java.util.stream.Collectors
 import java.util.stream.Stream
 
 class Journal extends BusinessCollection<Transaction> {
@@ -26,7 +25,7 @@ class Journal extends BusinessCollection<Transaction> {
 
     @Override
     boolean isDeletable(){
-        transactions.empty
+        transactions.isEmpty()
     }
 
     @Override

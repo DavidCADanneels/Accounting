@@ -46,7 +46,7 @@ class PopupForTableActivator extends MouseAdapter {
             int col = tabel.columnAtPoint(cell)
             tabel.setColumnSelectionInterval(col, col)
             ArrayList<BusinessObject> selectedObjects = tabel.selectedObjects
-            if(!selectedObjects.empty) {
+            if(!selectedObjects.isEmpty()) {
                 popup.setLocation(me.getLocationOnScreen())
                 popup.visible = true
             }

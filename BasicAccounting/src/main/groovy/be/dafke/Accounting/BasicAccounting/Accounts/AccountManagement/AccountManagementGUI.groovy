@@ -131,7 +131,7 @@ class AccountManagementGUI extends JFrame implements ListSelectionListener {
     }
 
     void deleteAccounts(ArrayList<Account> accountList, Accounts accounts){
-        if(!accountList.empty) {
+        if(!accountList.isEmpty()) {
             ArrayList<String> failed = new ArrayList<>()
             for(Account account : accountList) {
                 try{

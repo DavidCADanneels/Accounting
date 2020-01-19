@@ -19,7 +19,7 @@ class MultiValueMap<K,V> {
     V removeValue(K key, V value){
         List<V> list = data.get(key)
         list.remove(value)
-        if(list.empty){
+        if(list.isEmpty()){
             data.remove(key)
         }
         value
@@ -43,7 +43,7 @@ class MultiValueMap<K,V> {
     }
 
     boolean isEmpty(){
-        data.empty
+        data.isEmpty()
     }
 
     ArrayList<V> get(K key){

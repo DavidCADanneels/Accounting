@@ -33,7 +33,7 @@ class AccountTypeTest {
         AccountTypes accountTypes = new AccountTypes()
         accountTypes.businessObjects
         ArrayList<AccountType> businessObjects = accountTypes.businessObjects
-        assertTrue(businessObjects.empty)
+        assertTrue(businessObjects.isEmpty())
         accountTypes.addDefaultTypes()
         assert accountTypes.businessObjects.name.contains(AccountTypes.ASSET)
         assert accountTypes.businessObjects.name.contains(AccountTypes.COST)

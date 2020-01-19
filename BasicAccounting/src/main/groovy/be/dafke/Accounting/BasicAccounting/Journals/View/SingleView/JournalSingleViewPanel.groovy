@@ -102,7 +102,7 @@ class JournalSingleViewPanel extends JPanel {
     void selectTransaction(Transaction transaction) {
         if(transaction) {
             ArrayList<Booking> bookings = transaction.businessObjects
-            if (bookings && !bookings.empty) {
+            if (bookings && !bookings.isEmpty()) {
                 Booking firstBooking = bookings.get(0)
                 Booking lastBooking = bookings.get(bookings.size() - 1)
                 int firstRow = journalDetailsDataModel.getRow(firstBooking)

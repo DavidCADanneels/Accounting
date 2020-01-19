@@ -212,6 +212,6 @@ class MealOrderCreatePanel extends JPanel {
         String text = price.getText()
         BigDecimal salesAmountInclVat = Utils.parseBigDecimal(text)
         String description = dateAndDescriptionPanel.description
-        book.enabled = salesAmountInclVat  && salesAmountInclVat.compareTo(BigDecimal.ZERO)>0 && !description.empty
+        book.enabled = salesAmountInclVat  && salesAmountInclVat.compareTo(BigDecimal.ZERO)>0 && !description.isEmpty()
     }
 }

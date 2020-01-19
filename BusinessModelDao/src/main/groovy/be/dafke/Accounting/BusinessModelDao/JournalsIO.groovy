@@ -327,13 +327,13 @@ class JournalsIO {
 
         Journals journals = accounting.journals
         for (Journal journal:journals.businessObjects) {
-            if(!journal.businessObjects.empty) {
+            if(!journal.businessObjects.isEmpty()) {
                 writeJournal(journal, tmpFolderPath, true)
             }
         }
 
         journals.businessObjects.forEach({ journal ->
-            if (!journal.businessObjects.empty) {
+            if (!journal.businessObjects.isEmpty()) {
                 try {
                     String fileName = "$journal.name$XML_EXTENSION"
                     String xmlPath = "$tmpFolderPath/$fileName"

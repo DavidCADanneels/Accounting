@@ -104,7 +104,7 @@ class Transaction extends BusinessCollection<Booking> implements Comparable<Tran
     }
 
     boolean isBookable() {
-        !getBusinessObjects().empty && debitTotal.compareTo(creditTotal) == 0 && debitTotal.compareTo(BigDecimal.ZERO) != 0
+        !getBusinessObjects().isEmpty() && debitTotal.compareTo(creditTotal) == 0 && debitTotal.compareTo(BigDecimal.ZERO) != 0
     }
 
     ArrayList<Account> getAccounts() {

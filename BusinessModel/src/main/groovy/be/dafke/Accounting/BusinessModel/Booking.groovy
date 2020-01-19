@@ -41,7 +41,7 @@ class Booking extends BusinessObject {
     }
 
     static Predicate<Booking> vatBooking(){
-        { booking -> !booking.vatBookings.empty }
+        { booking -> !booking.vatBookings.isEmpty() }
     }
 
     boolean isDebit(){
@@ -106,7 +106,7 @@ class Booking extends BusinessObject {
     }
 
     String getVATBookingsString(){
-        if(vatBookings == null || vatBookings.empty){
+        if(vatBookings == null || vatBookings.isEmpty()){
             ""
         } else {
             StringBuffer buffer = new StringBuffer("(")
@@ -129,7 +129,7 @@ class Booking extends BusinessObject {
     }
 
     String getMergedVATBookingsString(){
-        if(vatBookings == null || vatBookings.empty){
+        if(vatBookings == null || vatBookings.isEmpty()){
             ""
         } else {
             StringBuffer buffer = new StringBuffer("(")

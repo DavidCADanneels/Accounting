@@ -58,13 +58,13 @@ class MovementTest {
 //    void getUniqueProperties(){
 //        Movement movement = new Movement(AMOUNT,true)
 //        TreeMap<String, String> uniqueProperties = movement.getUniqueProperties()
-//        assertTrue(uniqueProperties.empty)
+//        assertTrue(uniqueProperties.isEmpty())
 //    }
 //
 //    @Test
 //    void getInitProperties(){
 //        Movement movement = new Movement(AMOUNT,true)
 //        TreeMap<String, String> uniqueProperties = movement.getUniqueProperties()
-//        assertTrue(uniqueProperties.empty)
+//        assertTrue(uniqueProperties.isEmpty())
 //    }
 }

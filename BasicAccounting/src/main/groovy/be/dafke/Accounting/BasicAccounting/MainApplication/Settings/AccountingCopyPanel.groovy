@@ -122,7 +122,7 @@ class AccountingCopyPanel extends JPanel {
                 e.printStackTrace()
             }
         })
-        if (!purchaseOrder.businessObjects.empty) {
+        if (!purchaseOrder.businessObjects.isEmpty()) {
             // TODO: 'later' = here !
 //            purchaseOrder.setPurchaseTransaction(beginBalans)
             try {

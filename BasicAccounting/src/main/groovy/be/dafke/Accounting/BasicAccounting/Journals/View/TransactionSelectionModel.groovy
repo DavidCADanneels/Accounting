@@ -20,7 +20,7 @@ class TransactionSelectionModel extends DefaultListSelectionModel {
 
     void selectTransactions(ArrayList<Transaction> list){
         selectedTransactions = list
-        selectedTransaction = null//list.empty?null:list[0]
+        selectedTransaction = null//list.isEmpty()?null:list[0]
         System.out.println("selectTransactions")
         printData()
     }
@@ -35,7 +35,7 @@ class TransactionSelectionModel extends DefaultListSelectionModel {
 
 //    void selectBookings(ArrayList<Booking> bookings) {
 //        selectedBookings = bookings
-//        selectedBooking = null //bookings && !bookings.empty ? bookings[0] : null
+//        selectedBooking = null //bookings && !bookings.isEmpty() ? bookings[0] : null
 //        selectedTransaction = null//selectedBooking ? selectedBooking.transaction : null
 //        selectedTransactions.clear()
 //        System.out.println("selectBookings")

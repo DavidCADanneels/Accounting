@@ -130,7 +130,7 @@ class StatementTableFrame extends JFrame implements MouseListener {
                 set.add(counterParty)
             }
         }
-        if (!list.empty) {
+        if (!list.isEmpty()) {
             System.err.println(list.size() + " movements have no counterparty:")
             StringBuilder builder = new StringBuilder(list.size() + " movements have no counterparty:")
             for(BusinessObject statement : list) {
@@ -144,7 +144,7 @@ class StatementTableFrame extends JFrame implements MouseListener {
             gui.visible = true
             false
         }
-        if (!set.empty) {
+        if (!set.isEmpty()) {
             System.err.println(set.size() + " counterparties have no account:")
             StringBuilder builder = new StringBuilder(set.size() + " counterparties have no account:")
             for(CounterParty counterParty : set) {

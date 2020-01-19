@@ -87,7 +87,7 @@ class DateAndDescriptionPanel extends JPanel implements FocusListener {
         description.setText(transaction==null?"":transaction.description)
 
         boolean okEnabled = journal && transaction && transaction.bookable
-        boolean clearEnabled = journal && transaction && !transaction.businessObjects.empty
+        boolean clearEnabled = journal && transaction && !transaction.businessObjects.isEmpty()
     }
 
     void setDate(Calendar date){

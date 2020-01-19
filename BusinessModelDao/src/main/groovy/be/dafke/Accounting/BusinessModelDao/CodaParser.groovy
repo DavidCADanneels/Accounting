@@ -64,7 +64,7 @@ class CodaParser {
         // Reset communicatie
         String communication = statement.getCommunication()
         String transactionCode = statement.getTransactionCode()
-        if (!statement.isStructured() && !transactionCode.equals("402") && !transactionCode.equals("404") && communication2 != null && !communication2.trim().empty) {
+        if (!statement.isStructured() && !transactionCode.equals("402") && !transactionCode.equals("404") && communication2 != null && !communication2.trim().isEmpty()) {
             // momenteel enkel indien transactionCode = 150 (CM)
             statement.setCommunication(communication.trim() + communication2.trim())
         }

@@ -65,7 +65,7 @@ class Journals extends BusinessCollection<Journal> {
     Journal getJournal(String abbreviation){
         Predicate<Journal> predicate = Journal.withAbbr(abbreviation)
         List<Journal> journals = getBusinessObjects(predicate)
-        (journals==null||journals.empty)?null:journals.get(0)
+        (journals==null||journals.isEmpty())?null:journals.get(0)
     }
 
     Journal modifyJournalAbbreviation(String oldAbbreviation, String newAbbreviation) throws EmptyNameException, DuplicateNameException {

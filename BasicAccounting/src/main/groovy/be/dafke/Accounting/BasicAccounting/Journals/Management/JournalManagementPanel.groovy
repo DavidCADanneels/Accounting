@@ -119,7 +119,7 @@ class JournalManagementPanel extends JPanel implements ListSelectionListener {
 
     void deleteJournal() {
         ArrayList<Journal> journalList = tabel.selectedObjects
-        if (!journalList.empty) {
+        if (!journalList.isEmpty()) {
             deleteJournal(journalList, journals)
             fireJournalDataChanged()
         }

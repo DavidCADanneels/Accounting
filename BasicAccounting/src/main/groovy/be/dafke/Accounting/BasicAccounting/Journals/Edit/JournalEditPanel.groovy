@@ -191,7 +191,7 @@ class JournalEditPanel extends JPanel implements ActionListener {
         }
 
         ArrayList<VATBooking> vatBookings = transaction.vatBookings
-        if (vatBookings != null && !vatBookings.empty) {
+        if (vatBookings != null && !vatBookings.isEmpty()) {
             Main.fireVATFieldsUpdated()
         }
 //        ActionUtils.showErrorMessage(TRANSACTION_REMOVED, journal.name)
@@ -206,7 +206,7 @@ class JournalEditPanel extends JPanel implements ActionListener {
         transaction.journal = journal
 
         ArrayList<VATBooking> vatBookings = transaction.vatBookings
-        if (vatBookings != null && !vatBookings.empty) {
+        if (vatBookings != null && !vatBookings.isEmpty()) {
             Main.fireVATFieldsUpdated(/*vatFields*/)
         }
 
@@ -366,10 +366,10 @@ class JournalEditPanel extends JPanel implements ActionListener {
 
     Journal checkTransfer(Journal newJournal){
         Transaction newTransaction = newJournal.currentTransaction
-        if(transaction && !transaction.businessObjects.empty && journal!=newJournal){
+        if(transaction && !transaction.businessObjects.isEmpty() && journal!=newJournal){
             StringBuilder builder = new StringBuilder("Do you want to transfer the current transaction from ")
                     .append(journal).append(" to ").append(newJournal)
-            if(newTransaction && !newTransaction.businessObjects.empty){
+            if(newTransaction && !newTransaction.businessObjects.isEmpty()){
                 builder.append("\nWARNING: ").append(newJournal).append(" also has an open transactions, which will be lost if you select transfer")
             }
             int answer = JOptionPane.showConfirmDialog(null, builder.toString())
@@ -407,7 +407,7 @@ class JournalEditPanel extends JPanel implements ActionListener {
         dateAndDescriptionPanel.fireTransactionDataChanged()
 
         boolean okEnabled = journal && transaction && transaction.bookable
-        boolean clearEnabled = journal && transaction && !transaction.businessObjects.empty
+        boolean clearEnabled = journal && transaction && !transaction.businessObjects.isEmpty()
         clear.enabled = clearEnabled
         save.enabled = clearEnabled
         singleBook.enabled = okEnabled

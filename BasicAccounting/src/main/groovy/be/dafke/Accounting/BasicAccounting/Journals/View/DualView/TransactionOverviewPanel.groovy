@@ -107,7 +107,7 @@ class TransactionOverviewPanel extends JPanel { //implements ListSelectionListen
         Transaction transaction = transactionSelectionModel.selectedTransaction
         Booking booking = transactionSelectionModel.selectedBooking
         if (transactionSelectionModel.multiSelection) {
-            if (transactions!=null && !transactions.empty) {
+            if (transactions!=null && !transactions.isEmpty()) {
                 System.err.println("Transactions:${transactions.size}()")
                 selectTransactions(transactions)
                 selectTransactionDetails(mergeTransactions(transactions))
@@ -194,7 +194,7 @@ class TransactionOverviewPanel extends JPanel { //implements ListSelectionListen
     }
 
     void selectTransactions(ArrayList<Transaction> transactions) {
-        if(transactions&&!transactions.empty){
+        if(transactions&&!transactions.isEmpty()){
             if(transactions.size()==1) selectTransaction(transactions[0])
             int first = transactionOverviewDataModel.getRow(transactions[0])
             int last = transactionOverviewDataModel.getRow(transactions[transactions.size()-1])

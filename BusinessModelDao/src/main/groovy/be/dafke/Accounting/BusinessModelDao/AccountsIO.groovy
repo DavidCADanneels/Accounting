@@ -73,13 +73,13 @@ class AccountsIO {
 
         Accounts accounts = accounting.accounts
         for (Account account:accounts.businessObjects) {
-            if(!account.businessObjects.empty) {
+            if(!account.businessObjects.isEmpty()) {
                 writeAccount(account, tmpFolderPath)
             }
         }
 
         accounts.businessObjects.forEach({ account ->
-            if (!account.businessObjects.empty) {
+            if (!account.businessObjects.isEmpty()) {
                 try {
                     String fileName = "$account.name$XML_EXTENSION"
                     String xmlPath = "$tmpFolderPath$fileName"
@@ -143,7 +143,7 @@ class AccountsIO {
         File accountsXmlFolder = new File(path)
         accountsXmlFolder.mkdirs()
         for (Account account:accounts.businessObjects) {
-            if (!account.businessObjects.empty) {
+            if (!account.businessObjects.isEmpty()) {
                 writeAccount(account, path)
                 if (writeHtml) {
                     File accountsHtmlFolder = new File("$ACCOUNTINGS_HTML_PATH/$accounting.name/$ACCOUNTS")

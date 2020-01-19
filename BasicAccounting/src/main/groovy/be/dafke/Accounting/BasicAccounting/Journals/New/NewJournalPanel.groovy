@@ -59,7 +59,7 @@ class NewJournalPanel extends JPanel {
     void saveJournal() {
         String newName = nameField.getText().trim()
         String newAbbreviation = abbr.getText().trim()
-        if(!newName.empty && newAbbreviation.empty && newName.length() > 2) {
+        if(!newName.isEmpty() && newAbbreviation.isEmpty() && newName.length() > 2) {
             newAbbreviation = newName.substring(0, 3).toUpperCase()
             abbr.setText(newAbbreviation)
         }

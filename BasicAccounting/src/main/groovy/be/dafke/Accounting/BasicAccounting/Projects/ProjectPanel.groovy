@@ -49,7 +49,7 @@ class ProjectPanel extends JPanel implements ActionListener{
 
 //        Projects projects1 = accounting.projects
         ArrayList<Project> projects = projects.getBusinessObjects()
-        if(projects.empty){
+        if(projects.isEmpty()){
             project = new Project('all', accounting.accounts, accounting.accountTypes)
         } else {
             project = projects[0]
@@ -95,7 +95,7 @@ class ProjectPanel extends JPanel implements ActionListener{
             ((DefaultComboBoxModel<Project>) combo.getModel()).addElement(project)
         }
 //        combo.addActionListener(this)
-        if (!projects.businessObjects.empty) {
+        if (!projects.businessObjects.isEmpty()) {
             if(project==null) project = projects.businessObjects.get(0)
             combo.setSelectedItem(project)
         }

@@ -62,7 +62,7 @@ class NewAccountingPanel extends RefreshableDialog {
             void focusLost(FocusEvent e) {
                 super.focusLost(e)
                 String name = nameField.getText()
-                if(name && !name.trim().empty){
+                if(name && !name.trim().isEmpty()){
                     addButton.enabled = true
                     accounting.setName(name.trim())
                 } else {

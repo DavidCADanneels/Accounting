@@ -249,7 +249,7 @@ class AccountTest {
         account.unbook(TIME,credit, true)
 
         movements = account.businessObjects
-        assertTrue(movements.empty)
+        assertTrue(movements.isEmpty())
         //
         assertEquals(ZERO.negate().setScale(2), account.saldo)
         assertEquals(ZERO.setScale(2), account.debitTotal)
