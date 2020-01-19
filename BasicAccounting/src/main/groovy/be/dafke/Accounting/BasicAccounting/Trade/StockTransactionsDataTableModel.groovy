@@ -43,16 +43,25 @@ class StockTransactionsDataTableModel extends SelectableTableModel<OrderItem> {
         Order order = orderItem.getOrder()
         if (col == ORDER_COL) return order
         if (col == ADDED_COL) {
-            if(order && (order instanceof PurchaseOrder || order instanceof StockOrder)) {
-                return orderItem.numberOfItems
-            } else return null
+            if(!order) return null
+            else {
+                if ((order instanceof PurchaseOrder && !order.creditNote) ||
+                        (order instanceof SalesOrder && order.creditNote) ||
+                        (order instanceof StockOrder)){
+                    return orderItem.numberOfItems
+                } else return null
+            }
         }
         if (col == REMOVED_COL) {
-            if(order && (order instanceof SalesOrder || order instanceof PromoOrder)) {
-                return orderItem.numberOfItems
-            } else return null
-        }
-        null
+            if (!order) return null
+            else {
+                if ((order instanceof SalesOrder && !order.creditNote) ||
+                        (order instanceof PurchaseOrder && order.creditNote) ||
+                        order instanceof PromoOrder) {
+                    return orderItem.numberOfItems
+                } else return null
+            }
+        } else return null
     }
 
     int getColumnCount() {
