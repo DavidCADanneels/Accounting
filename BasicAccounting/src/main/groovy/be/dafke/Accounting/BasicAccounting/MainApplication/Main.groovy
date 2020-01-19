@@ -194,7 +194,9 @@ class Main {
     static void setAccounting(Accounting accounting, boolean readDetails) {
 
         Accounting activeAccounting = Session.activeAccounting
-        XMLWriter.writeAccounting(activeAccounting, false)
+        if(activeAccounting) {
+            XMLWriter.writeAccounting(activeAccounting, false)
+        }
 
         if (readDetails) XMLReader.readAccountingDetails(accounting)
         Session.activeAccounting = accounting // only need to write to XML, call this only when writing XML files?
@@ -206,12 +208,12 @@ class Main {
         journalEditPanel.accounting = accounting
         cardPanel.accounting = accounting
         journalSelectorPanel.accounting = accounting
-        mortgagesPanel.setMortgages(accounting == null ? null : accounting.mortgages)
+        mortgagesPanel.setMortgages(accounting?accounting.mortgages:null)
 
         setMenuAccounting(accounting)
         if (accounting != null) {
             AccountingSession accountingSession = Session.getAccountingSession(Session.activeAccounting)
-            setJournal(accountingSession.activeJournal)
+            setJournal(accountingSession?accountingSession.activeJournal:null)
         }
 
     }
@@ -257,7 +259,7 @@ class Main {
         if(journal) {
             Accounting accounting = journal.accounting
             AccountingSession accountingSession = Session.getAccountingSession(accounting)
-            accountingSession.activeJournal = journal  // idem, only needed for XMLWriter
+            if(accountingSession) accountingSession.activeJournal = journal  // idem, only needed for XMLWriter
         }
         journalSelectorPanel.journal = journal
         cardPanel.journal = journal
@@ -265,8 +267,8 @@ class Main {
         frame.journal = journal
         Accounting activeAccounting = Session.activeAccounting
         AccountingSession accountingSession = Session.getAccountingSession(activeAccounting)
-        Journal activeJournal = accountingSession.activeJournal
-        JournalSession journalSession = accountingSession.getJournalSession(activeJournal)
+        Journal activeJournal = accountingSession?accountingSession.activeJournal:null
+        JournalSession journalSession = activeJournal?accountingSession.getJournalSession(activeJournal):null
         accountGuiLeft.setJournalSession(journalSession)
         accountGuiRight.setJournalSession(journalSession)
         accountGuiLeft.setJournal(journal, true)

@@ -283,7 +283,9 @@ class JournalEditPanel extends JPanel implements ActionListener {
     JComboBox<Account> createComboBox() {
         JComboBox<Account> comboBox = new JComboBox<>()
         comboBox.removeAllItems()
-        accounting.accounts.businessObjects.forEach({ account -> comboBox.addItem(account) })
+        if(accounting && accounting.accounts) {
+            accounting.accounts.businessObjects.forEach({ account -> comboBox.addItem(account) })
+        }
         comboBox
     }
 
@@ -292,7 +294,7 @@ class JournalEditPanel extends JPanel implements ActionListener {
         popup.accounting = accounting
 //        setAccounts(accounting?accounting.accounts:null)
         AccountingSession accountingSession = Session.getAccountingSession(accounting)
-        setJournal(accounting?accountingSession.activeJournal:null)
+        setJournal(accountingSession?accountingSession.activeJournal:null)
 //        setVatTransactions(accounting?accounting.vatTransactions:null)
 //        setTransactions(accounting?accounting.transactions:null)
 

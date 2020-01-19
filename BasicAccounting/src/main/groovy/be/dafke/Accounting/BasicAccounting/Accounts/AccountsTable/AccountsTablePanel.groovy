@@ -119,7 +119,7 @@ class AccountsTablePanel extends JPanel {
         accountDataTableModel.accounting = accounting
         filterPanel.accounting = accounting
         AccountingSession accountingSession = Session.getAccountingSession(accounting)
-        setJournal(accountingSession.activeJournal, left)
+        setJournal(accountingSession?accountingSession.activeJournal:null, left)
         // if setAccounts() is used here, popup.setAccounts() will be called twice
         table.addMouseListener(PopupForTableActivator.getInstance(popup, table))  // TODO: Needed?
         fireAccountDataChanged()
@@ -154,10 +154,12 @@ class AccountsTablePanel extends JPanel {
 //            accountGuiLeft.setJournalType(null)
 //            accountGuiRight.setJournalType(null)
             Accounting accounting = Session.activeAccounting
-            AccountTypes accountTypes = accounting.accountTypes
+            AccountTypes accountTypes = accounting?accounting.accountTypes:null
 
             AccountsList list = new AccountsList()
-            list.addAllTypes(accountTypes, true)
+            if(accountTypes) {
+                list.addAllTypes(accountTypes, true)
+            }
             setAccountsList(list)
             setVatType(null)
         }

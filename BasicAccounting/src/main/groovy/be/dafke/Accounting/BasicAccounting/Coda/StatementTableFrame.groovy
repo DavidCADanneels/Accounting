@@ -193,7 +193,7 @@ class StatementTableFrame extends JFrame implements MouseListener {
                         }
                         BigDecimal amount = (BigDecimal) tabel.getValueAt(i, 3)
                         AccountingSession accountingSession = Session.getAccountingSession(accounting)
-                        Journal activeJournal = accountingSession.activeJournal
+                        Journal activeJournal = accountingSession?accountingSession.activeJournal:null
                         Transaction transaction = activeJournal.currentTransaction
                         Booking booking1 = new Booking(account, amount, debet)
                         Booking booking2 = new Booking(bankAccount, amount, !debet)

@@ -136,7 +136,7 @@ class TransactionOverviewPanel extends JPanel { //implements ListSelectionListen
     void setAccounting(Accounting accounting) {
         setJournals(accounting == null ? null : accounting.journals)
         AccountingSession accountingSession = Session.getAccountingSession(accounting)
-        setJournal(accounting?accountingSession.activeJournal:null)
+        setJournal(accountingSession?accountingSession.activeJournal:null)
     }
 
     void setJournals(Journals journals) {

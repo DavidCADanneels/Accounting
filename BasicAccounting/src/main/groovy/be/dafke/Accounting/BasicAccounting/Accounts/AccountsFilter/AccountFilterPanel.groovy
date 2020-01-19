@@ -70,9 +70,11 @@ class AccountFilterPanel extends JPanel {
         boolean selected = showNumbersCheckbox.selected
         if (accounting) {
             AccountingSession accountingSession = Session.getAccountingSession(accounting)
-            JournalSession journalSession = accountingSession.getJournalSession(accountingSession.activeJournal)
-            if (left) journalSession.showNumbersLeft = selected
-            else journalSession.showNumbersRight = selected
+            JournalSession journalSession = accountingSession?accountingSession.getJournalSession(accountingSession.activeJournal):null
+            if(journalSession) {
+                if (left) journalSession.showNumbersLeft = selected
+                else journalSession.showNumbersRight = selected
+            }
         }
         refresh(selected)
     }
@@ -80,7 +82,7 @@ class AccountFilterPanel extends JPanel {
     void refresh(boolean selected){
         if (accounting) {
             AccountingSession accountingSession = Session.getAccountingSession(accounting)
-            if(accountingSession.showNumbers){
+            if(accountingSession && accountingSession.showNumbers){
                 showNumbersCheckbox.visible = true
                 showNumbersCheckbox.selected = selected
                 number.visible = selected
