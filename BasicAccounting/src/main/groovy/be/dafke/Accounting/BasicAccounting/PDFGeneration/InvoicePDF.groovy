@@ -6,7 +6,8 @@ import org.apache.fop.apps.FOPException
 import javax.xml.transform.TransformerException
 
 class InvoicePDF {
-    static String xslPath = "data/accounting/xsl/invoice.xsl"
+    static String xslPathInvoice = "data/accounting/xsl/invoice.xsl"
+    static String xslPathCreditNote = "data/accounting/xsl/cn.xsl"
 
     static void main(String[] args) {
         String xmlPath = "data/accounting/xml/invoice.xml"
@@ -16,7 +17,15 @@ class InvoicePDF {
 
     static void createInvoice(String xmlPath, String pdfPath){
         try {
-            PDFCreator.convertToPDF(xmlPath, xslPath, pdfPath)
+            PDFCreator.convertToPDF(xmlPath, xslPathInvoice, pdfPath)
+        } catch (IOException | FOPException | TransformerException e) {
+            e.printStackTrace()
+        }
+    }
+
+    static void createCreditNote(String xmlPath, String pdfPath){
+        try {
+            PDFCreator.convertToPDF(xmlPath, xslPathCreditNote, pdfPath)
         } catch (IOException | FOPException | TransformerException e) {
             e.printStackTrace()
         }

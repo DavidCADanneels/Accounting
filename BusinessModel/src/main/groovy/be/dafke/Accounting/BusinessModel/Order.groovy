@@ -1,14 +1,15 @@
 package be.dafke.Accounting.BusinessModel
 
 import java.math.RoundingMode
-import java.util.function.Predicate
 
 class Order extends OrderItems {
     Contact customer, supplier
     Transaction paymentTransaction
     Integer id
     String deliveryDate = null
-    String description
+    String invoiceDate = null
+    String deliveryDescription
+    String invoiceDescription
     boolean creditNote
 
     void setArticles(Articles articles) {
@@ -25,7 +26,7 @@ class Order extends OrderItems {
         }
         // FIXME: set scale for each addition or only at the end?
 //        total.setScale(2, RoundingMode.HALF_DOWN)
-        total
+        return total
     }
 
     void removeEmptyOrderItems() {

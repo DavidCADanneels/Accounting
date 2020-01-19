@@ -124,7 +124,7 @@ class PromoOrderDetailPanel extends JPanel {
 //            description = dateAndDescriptionDialog.description
 
             promoOrder.deliveryDate = Utils.toString(date)
-            promoOrder.description = description
+            promoOrder.deliveryDescription = description
         }
         StockTransactions stockTransactions = accounting.stockTransactions
         stockTransactions.addOrder(promoOrder)

@@ -145,7 +145,7 @@ class PurchaseOrdersDetailPanel extends JPanel {
         String description = dateAndDescriptionDialog.description
 
         purchaseOrder.deliveryDate = Utils.toString date
-        purchaseOrder.description = description
+        purchaseOrder.deliveryDescription = description
 
         StockTransactions stockTransactions = accounting.stockTransactions
         stockTransactions.addOrder purchaseOrder

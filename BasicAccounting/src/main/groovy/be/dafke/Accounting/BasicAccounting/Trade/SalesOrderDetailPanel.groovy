@@ -218,7 +218,7 @@ class SalesOrderDetailPanel extends JPanel {
 //            description = dateAndDescriptionDialog.description
 
             salesOrder.deliveryDate = Utils.toString(date)
-            salesOrder.description = description
+            salesOrder.deliveryDescription = description
         }
         StockTransactions stockTransactions = accounting.stockTransactions
         stockTransactions.addOrder(salesOrder)
@@ -267,12 +267,16 @@ class SalesOrderDetailPanel extends JPanel {
         Calendar date = dateAndDescriptionDialog.date
         String description = dateAndDescriptionDialog.description
 
-        salesOrder.deliveryDate = Utils.toString(date)
-        salesOrder.description = description
+        salesOrder.invoiceDate = Utils.toString(date)
+        salesOrder.invoiceDescription = description
 
         String xmlPath = SalesOrderIO.writeInvoiceXmlInputFile accounting, salesOrder
         String pdfPath = SalesOrderIO.calculatePdfPath accounting, salesOrder
-        InvoicePDF.createInvoice xmlPath, pdfPath
+        if(salesOrder.creditNote){
+            InvoicePDF.createCreditNote xmlPath, pdfPath
+        } else {
+            InvoicePDF.createInvoice xmlPath, pdfPath
+        }
     }
 
     void updateButtonsAndCheckBoxes() {

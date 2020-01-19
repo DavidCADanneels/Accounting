@@ -170,7 +170,7 @@ class SalesOrderIO {
     }
 
     static String calculatePdfPath(Accounting accounting, SalesOrder salesOrder){
-        "$ACCOUNTINGS_XML_PATH/$accounting.name/$INVOICES/Factuur-$salesOrder.invoiceNumber$PDF_EXTENSION"
+        "$ACCOUNTINGS_XML_PATH/$accounting.name/$INVOICES/${salesOrder.creditNote?'Creditnota':'Factuur'}-$salesOrder.invoiceNumber$PDF_EXTENSION"
     }
 
     static String writeInvoiceXmlInputFile(Accounting accounting, SalesOrder salesOrder){
@@ -189,8 +189,8 @@ class SalesOrderIO {
             Contact supplier = salesOrder.supplier
             writer.write """\
   <InvoiceNumber>$salesOrder.invoiceNumber</InvoiceNumber>
-  <$DATE>$salesOrder.deliveryDate</$DATE>
-  <$DESCRIPTION>$salesOrder.description</$DESCRIPTION>
+  <$DATE>$salesOrder.invoiceDate</$DATE>
+  <$DESCRIPTION>$salesOrder.invoiceDescription</$DESCRIPTION>
   <$SUPPLIER>
     <$NAME>$supplier.name</$NAME>
     <$OFFICIAL_NAME>$supplier.officialName</$OFFICIAL_NAME>

@@ -100,25 +100,25 @@ class StockIO {
                 PurchaseOrders purchaseOrders = accounting.purchaseOrders
                 PurchaseOrder purchaseOrder = purchaseOrders.getBusinessObject name
                 stockTransactions.addOrder purchaseOrder
-                purchaseOrder.description = description
+                purchaseOrder.deliveryDescription = description
                 purchaseOrder.deliveryDate = date
             } else if(type&&type.equals(SALES_ORDER)){
                 SalesOrders salesOrders = accounting.salesOrders
                 SalesOrder salesOrder = salesOrders.getBusinessObject name
                 stockTransactions.addOrder salesOrder
-                salesOrder.description = description
+                salesOrder.deliveryDescription = description
                 salesOrder.deliveryDate = date
             } else if(type&&type.equals(STOCK_ORDER)){
                 StockOrders stockOrders = accounting.stockOrders
                 StockOrder stockOrder = stockOrders.getBusinessObject name
                 stockTransactions.addOrder stockOrder
-                stockOrder.description = description
+                stockOrder.deliveryDescription = description
                 stockOrder.deliveryDate = date
             } else if(type&&type.equals(PROMO_ORDER)){
                 PromoOrders promoOrders = accounting.promoOrders
                 PromoOrder promoOrder = promoOrders.getBusinessObject name
                 stockTransactions.addOrder promoOrder
-                promoOrder.description = description
+                promoOrder.deliveryDescription = description
                 promoOrder.deliveryDate = date
             }
         }
@@ -187,7 +187,7 @@ class StockIO {
   <${STOCK_TRANSACTION}>
     <$NAME>${order.name}</$NAME>
     <$DATE>${order.deliveryDate}</$DATE>
-    <$DESCRIPTION>${order.description}</$DESCRIPTION>"""
+    <$DESCRIPTION>${order.deliveryDescription}</$DESCRIPTION>"""
                 if (order instanceof PurchaseOrder){
                     writer.write"""
     <$TYPE>$PURCHASE_ORDER</$TYPE>"""
