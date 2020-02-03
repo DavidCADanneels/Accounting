@@ -254,7 +254,7 @@ class SalesOrderIO {
     <$TOTAL_EXCL_VAT>$salesOrder.totalSalesPriceExclVat</$TOTAL_EXCL_VAT>
     <$TOTAL_VAT>$salesOrder.totalSalesVat</$TOTAL_VAT>
     <$TOTAL_INCL_VAT>$salesOrder.totalSalesPriceInclVat</$TOTAL_INCL_VAT>
-  </$TOTALS>\n")
+  </$TOTALS>
 </$INVOICE>"""
 
             writer.flush()
