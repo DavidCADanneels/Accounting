@@ -1,6 +1,7 @@
 package be.dafke.Accounting.BasicAccounting.Journals.View.DualView
 
 import be.dafke.Accounting.BasicAccounting.Balances.BalanceGUI
+import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BasicAccounting.VAT.VATFieldsGUI
 import be.dafke.Accounting.BusinessModel.*
 import be.dafke.Accounting.BusinessModelDao.Session
@@ -78,7 +79,7 @@ class TransactionOverviewPopupMenu extends JPopupMenu {
         int year = gui.selectedObject.date.get(Calendar.YEAR)
         Accounts subAccounts = accounting.accounts.getSubAccounts(Movement.ofYear(year))
 
-        Journals journals = accounting.journals
+//        Journals journals = accounting.journals
 
         Balances balances = accounting.balances
         Balance closingBalance = balances.createClosingBalance(subAccounts)
