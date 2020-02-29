@@ -52,6 +52,11 @@ class JournalSwitchPanel extends JPanel {
         paymentLayoutPanel.setJournal(journal)
     }
 
+    void switchView(String view) {
+        cardLayout.show(center, view)
+        currentView = view
+    }
+
     void fireTransactionInputDataChanged(){
         defaultLayoutPanel.fireTransactionInputDataChanged()
         paymentLayoutPanel.fireTransactionInputDataChanged()
@@ -151,7 +156,4 @@ class JournalSwitchPanel extends JPanel {
         defaultLayoutPanel.fireGlobalShowNumbersChanged(enabled)
     }
 
-    void switchView(String view) {
-        cardLayout.show(center, view)
-    }
 }

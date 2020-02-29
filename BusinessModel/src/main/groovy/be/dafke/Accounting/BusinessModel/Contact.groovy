@@ -53,7 +53,16 @@ class Contact extends BusinessObject{
     boolean isCustomer() {
         customerAccount!=null
     }
-    
+
+    boolean withDebts(){
+        // Customer
+        isCustomer() && customerAccount.saldo != 0
+    }
+
+    boolean withCredits(){
+        // Supplier
+        isSupplier() && supplierAccount.saldo != 0
+    }
 
     void increaseTurnOver(BigDecimal amount){
         turnOver = turnOver.add(amount)

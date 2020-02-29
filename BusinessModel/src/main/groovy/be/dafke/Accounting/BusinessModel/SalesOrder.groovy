@@ -67,6 +67,14 @@ class SalesOrder extends Order {
         salesTransaction==null
     }
 
+    static Predicate<SalesOrder> payed() {
+        { order -> order.paymentTransaction != null }
+    }
+
+    static Predicate<SalesOrder> unPayed() {
+        { order -> order.paymentTransaction == null }
+    }
+
     BigDecimal calculateTotalSalesVat() {
         totalSalesPriceInclVat.subtract(totalSalesPriceExclVat).setScale(2, RoundingMode.HALF_DOWN)
     }

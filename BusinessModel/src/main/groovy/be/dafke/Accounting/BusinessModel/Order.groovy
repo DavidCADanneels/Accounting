@@ -1,6 +1,7 @@
 package be.dafke.Accounting.BusinessModel
 
 import java.math.RoundingMode
+import java.util.function.Predicate
 
 class Order extends OrderItems {
     Contact customer, supplier
@@ -38,6 +39,15 @@ class Order extends OrderItems {
             }
         })
     }
+
+    static Predicate<Order> payed() {
+        { order -> order.paymentTransaction != null }
+    }
+
+    static Predicate<Order> unPayed() {
+        { order -> order.paymentTransaction == null }
+    }
+
 //
 //    void setName(String name) {
 //        super.setName(name)

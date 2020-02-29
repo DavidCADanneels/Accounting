@@ -18,6 +18,8 @@ class PaymentLayoutPanel extends JPanel {
     JournalEditPanel journalEditPanel
     JournalSwitchViewPanel journalSwitchViewPanel
 
+    OpenCustomerInvoicesPanel openCustomerInvoices
+    OpenSupplierInvoicesPanel openSupplierInvoices
     MortgagesPanel mortgagesPanel
     JSplitPane journalViewAndEditSplitPane
 
@@ -27,11 +29,18 @@ class PaymentLayoutPanel extends JPanel {
         journalSelectorPanel = new JournalSelectorPanel(journalEditPanel)
         journalSwitchViewPanel = new JournalSwitchViewPanel()
 
+        openCustomerInvoices = new OpenCustomerInvoicesPanel()
+        openSupplierInvoices = new OpenSupplierInvoicesPanel()
         mortgagesPanel = new MortgagesPanel(journalEditPanel)
+
+        JPanel openInvoices = new JPanel()
+        openInvoices.setLayout(new BoxLayout(openInvoices, BoxLayout.Y_AXIS))
+        openInvoices.add(openCustomerInvoices)
+        openInvoices.add(openSupplierInvoices)
 
         JPanel links = new JPanel()
         links.setLayout(new BorderLayout())
-//        links.add(accountGuiLeft, BorderLayout.CENTER)
+        links.add(openInvoices, BorderLayout.CENTER)
         links.add(mortgagesPanel, BorderLayout.SOUTH)
 
         setLayout(new BorderLayout())
@@ -51,6 +60,8 @@ class PaymentLayoutPanel extends JPanel {
         journalSwitchViewPanel.accounting = accounting
         journalEditPanel.accounting = accounting
         journalSelectorPanel.accounting = accounting
+        openCustomerInvoices.accounting = accounting
+        openSupplierInvoices.accounting = accounting
     }
 
     void setJournal(Journal journal){
