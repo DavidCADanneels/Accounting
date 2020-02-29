@@ -34,7 +34,7 @@ class JournalSelectorPanel extends JPanel implements ActionListener{
         combo.enabled = false
         add(combo)
 
-        showInput = new JCheckBox("Show Input Panel")
+        showInput = new JCheckBox("Show Input Panels")
         showInput.addActionListener({ e ->
             Main.fireShowInputChanged(showInput.selected)
         })

@@ -244,7 +244,10 @@ class Main {
     }
 
     static void fireShowInputChanged(boolean enabled) {
-        journalEditPanel.setVisible(enabled)
+        accountGuiLeft.visible = enabled
+        accountGuiRight.visible = enabled
+        mortgagesPanel.visible = enabled
+        journalEditPanel.visible = enabled
     }
 
     static void fireBalancesChanged(){
