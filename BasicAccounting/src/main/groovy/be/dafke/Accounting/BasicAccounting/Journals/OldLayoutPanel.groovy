@@ -1,9 +1,10 @@
-package be.dafke.Accounting.BasicAccounting.MainApplication
+package be.dafke.Accounting.BasicAccounting.Journals
 
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountsTable.AccountsTablePanel
 import be.dafke.Accounting.BasicAccounting.Journals.Edit.JournalEditPanel
 import be.dafke.Accounting.BasicAccounting.Journals.Selector.JournalSelectorPanel
 import be.dafke.Accounting.BasicAccounting.Journals.View.JournalSwitchViewPanel
+import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BasicAccounting.Mortgages.MortgagesPanel
 import be.dafke.Accounting.BusinessModel.*
 import be.dafke.Accounting.BusinessModelDao.AccountingSession
