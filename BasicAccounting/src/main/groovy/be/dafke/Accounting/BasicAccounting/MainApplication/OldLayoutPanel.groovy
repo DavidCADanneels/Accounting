@@ -20,12 +20,10 @@ class OldLayoutPanel extends JPanel {
     AccountsTablePanel accountGuiLeft
     AccountsTablePanel accountGuiRight
     MortgagesPanel mortgagesPanel
-    CardLayout cardLayout
-    JournalSwitchViewPanel cardPanel
     JSplitPane journalViewAndEditSplitPane
 
 
-    OldLayoutPanel(JournalEditPanel journalEditPanel, JournalSelectorPanel journalSelectorPanel) {
+    OldLayoutPanel(JournalEditPanel journalEditPanel, JournalSelectorPanel journalSelectorPanel, JournalSwitchViewPanel journalSwitchViewPanel) {
 
         accountGuiLeft = new AccountsTablePanel(true)
         accountGuiRight = new AccountsTablePanel(false)
@@ -38,9 +36,7 @@ class OldLayoutPanel extends JPanel {
         links.add(mortgagesPanel, BorderLayout.SOUTH)
 
         setLayout(new BorderLayout())
-        cardLayout = new CardLayout()
-        cardPanel = new JournalSwitchViewPanel()
-        journalViewAndEditSplitPane = Main.createSplitPane(cardPanel, journalEditPanel, VERTICAL_SPLIT)
+        journalViewAndEditSplitPane = Main.createSplitPane(journalSwitchViewPanel, journalEditPanel, VERTICAL_SPLIT)
 
         JPanel centerPanel = new JPanel(new BorderLayout())
         centerPanel.add(journalViewAndEditSplitPane, BorderLayout.CENTER)
@@ -52,7 +48,6 @@ class OldLayoutPanel extends JPanel {
     }
 
     void setAccounting(Accounting accounting){
-        cardPanel.accounting = accounting
         accountGuiLeft.setAccounting(accounting, true)
         accountGuiRight.setAccounting(accounting, false)
         mortgagesPanel.setMortgages(accounting?accounting.mortgages:null)
@@ -65,7 +60,6 @@ class OldLayoutPanel extends JPanel {
     }
 
     void setJournal(Journal journal){
-        cardPanel.journal = journal
         Accounting activeAccounting = Session.activeAccounting
         AccountingSession accountingSession = Session.getAccountingSession(activeAccounting)
         Journal activeJournal = accountingSession?accountingSession.activeJournal:null
@@ -81,18 +75,9 @@ class OldLayoutPanel extends JPanel {
         accountGuiRight.fireGlobalShowNumbersChanged(enabled)
     }
 
-    void selectTransaction(Transaction transaction){
-        cardPanel.selectTransaction(transaction)
-    }
-
-    void fireJournalDataChanged(){
-        cardPanel.fireJournalDataChanged()
-    }
-
     void fireAccountDataChanged(){
         // fireAccountDataChanged in AccountsListGUI is only needed if accounts have been added
         // in AccountsTableGUI it is also needed if the saldo of 1 or more accounts has changed
-        cardPanel.fireJournalDataChanged()
         accountGuiLeft.fireAccountDataChanged()
         accountGuiRight.fireAccountDataChanged()
     }

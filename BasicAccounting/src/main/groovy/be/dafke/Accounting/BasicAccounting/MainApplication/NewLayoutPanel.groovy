@@ -15,12 +15,9 @@ import static javax.swing.JSplitPane.VERTICAL_SPLIT
 class NewLayoutPanel extends JPanel {
 
     MortgagesPanel mortgagesPanel
-    CardLayout cardLayout
-    JournalSwitchViewPanel cardPanel
     JSplitPane journalViewAndEditSplitPane
 
-
-    NewLayoutPanel(JournalEditPanel journalEditPanel, JournalSelectorPanel journalSelectorPanel) {
+    NewLayoutPanel(JournalEditPanel journalEditPanel, JournalSelectorPanel journalSelectorPanel, JournalSwitchViewPanel journalSwitchViewPanel) {
 
         mortgagesPanel = new MortgagesPanel(journalEditPanel)
 
@@ -31,9 +28,7 @@ class NewLayoutPanel extends JPanel {
         links.add(mortgagesPanel, BorderLayout.SOUTH)
 
         setLayout(new BorderLayout())
-        cardLayout = new CardLayout()
-        cardPanel = new JournalSwitchViewPanel()
-        journalViewAndEditSplitPane = Main.createSplitPane(cardPanel, journalEditPanel, VERTICAL_SPLIT)
+        journalViewAndEditSplitPane = Main.createSplitPane(journalSwitchViewPanel, journalEditPanel, VERTICAL_SPLIT)
 
         JPanel centerPanel = new JPanel(new BorderLayout())
         centerPanel.add(journalViewAndEditSplitPane, BorderLayout.CENTER)
@@ -45,44 +40,12 @@ class NewLayoutPanel extends JPanel {
     }
 
     void setAccounting(Accounting accounting){
-        cardPanel.accounting = accounting
         mortgagesPanel.setMortgages(accounting?accounting.mortgages:null)
     }
 
     void fireShowInputChanged(boolean enabled) {
         mortgagesPanel.visible = enabled
     }
-
-    void setJournal(Journal journal){
-        cardPanel.journal = journal
-    }
-
-//    void fireGlobalShowNumbersChanged(boolean enabled){
-//
-//    }
-
-    void selectTransaction(Transaction transaction){
-        cardPanel.selectTransaction(transaction)
-    }
-
-    void fireJournalDataChanged(){
-        cardPanel.fireJournalDataChanged()
-    }
-
-    void fireAccountDataChanged(){
-        // fireAccountDataChanged in AccountsListGUI is only needed if accounts have been added
-        // in AccountsTableGUI it is also needed if the saldo of 1 or more accounts has changed
-        cardPanel.fireJournalDataChanged()
-    }
-
-//    void setAccountsTypesLeft(JournalType journalType, ArrayList<AccountType> accountTypes) {
-//
-//    }
-//    void setAccountsTypesRight(JournalType journalType, ArrayList<AccountType> accountTypes) {
-//    }
-//
-//    void fireJournalTypeChanges(Journal journal, JournalType journalType) {
-//    }
 
     void setMortgages(Mortgages mortgages) {
         mortgagesPanel.setMortgages(mortgages)

@@ -62,15 +62,15 @@ class Main {
     static CodaMenu codaMenu
     static VATMenu vatMenu
 
-    static JournalSwitchViewPanel cardPanel
+    static JournalSwitchViewPanel journalSwitchViewPanel
 
     static void main(String[] args) {
         readXmlData()
         journalEditPanel = new JournalEditPanel()
         journalSelectorPanel = new JournalSelectorPanel(journalEditPanel)
-
-        oldLayoutPanel = new OldLayoutPanel(journalEditPanel, journalSelectorPanel)
-//        newLayoutPanel = new NewLayoutPanel(journalEditPanel, journalSelectorPanel)
+        journalSwitchViewPanel = new JournalSwitchViewPanel()
+        oldLayoutPanel = new OldLayoutPanel(journalEditPanel, journalSelectorPanel, journalSwitchViewPanel)
+//        newLayoutPanel = new NewLayoutPanel(journalEditPanel, journalSelectorPanel, journalSwitchViewPanel)
         frame = new AccountingGUIFrame("Accounting-all")
         frame.setContentPane(oldLayoutPanel)
 //        frame.setContentPane(newLayoutPanel)
@@ -176,7 +176,9 @@ class Main {
 
         frame.accounting = accounting
 
+        journalSwitchViewPanel.accounting = accounting
         oldLayoutPanel.accounting = accounting
+//        newLayoutPanel.accounting = accounting
         journalEditPanel.accounting = accounting
         journalSelectorPanel.accounting = accounting
 
@@ -213,6 +215,7 @@ class Main {
 
     static void fireShowInputChanged(boolean enabled) {
         oldLayoutPanel.fireShowInputChanged(enabled)
+//        newLayoutPanel.fireShowInputChanged(enabled)
         journalEditPanel.visible = enabled
     }
 
@@ -234,6 +237,7 @@ class Main {
         journalEditPanel.journal = journal
         frame.journal = journal
         oldLayoutPanel.setJournal(journal)
+        journalSwitchViewPanel.journal = journal
 //        journalEditPanel.setJournalSession(journalSession)
 //        journalSelectorPanel.setJournalSession(journalSession)
     }
@@ -277,7 +281,7 @@ class Main {
     static void fireJournalDataChanged(Journal journal){
         JournalDetailsGUI.fireJournalDataChangedForAll(journal)
         JournalManagementGUI.fireJournalDataChangedForAll()
-        oldLayoutPanel.fireJournalDataChanged()
+        journalSwitchViewPanel.fireJournalDataChanged()
         journalsMenu.fireJournalDataChanged()
         frame.fireDataChanged()
     }
@@ -296,6 +300,7 @@ class Main {
     static void fireAccountDataChanged(Account account){
         AccountDetailsGUI.fireAccountDataChangedForAll(account)
         AccountSelectorDialog.fireAccountDataChangedForAll()
+        journalSwitchViewPanel.fireJournalDataChanged()
         oldLayoutPanel.fireAccountDataChanged()
         AccountManagementGUI.fireAccountDataChangedForAll()
         // refresh all balances if an account is update, filtering on accounting/accounts/accountType could be applied
@@ -394,7 +399,7 @@ class Main {
 //    }
 
     static void selectTransaction(Transaction transaction){
-        oldLayoutPanel.selectTransaction(transaction)
+        journalSwitchViewPanel.selectTransaction(transaction)
     }
 
     static void fireJournalTypeChanges(Journal journal, JournalType journalType) {
@@ -404,10 +409,12 @@ class Main {
     static void fireMortgageAddedOrRemoved(Mortgages mortgages) {
         MortgageGUI.refreshAllFrames()
         oldLayoutPanel.setMortgages(mortgages)
+//        newLayoutPanel.setMortgages(mortgages)
     }
 
     static void fireMortgageEditedPayButton(Mortgage mortgage) {
         oldLayoutPanel.enableMortgagePayButton(mortgage)
+//        newLayoutPanel.enableMortgagePayButton(mortgage)
     }
 
     static void fireMortgageEdited(Mortgage mortgage) {
