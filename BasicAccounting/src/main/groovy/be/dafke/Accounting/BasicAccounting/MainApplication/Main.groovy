@@ -3,7 +3,6 @@ package be.dafke.Accounting.BasicAccounting.MainApplication
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountDetails.AccountDetailsGUI
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountManagement.AccountManagementGUI
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountsMenu
-import be.dafke.Accounting.BasicAccounting.Accounts.AccountsTable.AccountsTablePanel
 import be.dafke.Accounting.BasicAccounting.Accounts.Selector.AccountSelectorDialog
 import be.dafke.Accounting.BasicAccounting.Balances.BalanceGUI
 import be.dafke.Accounting.BasicAccounting.Balances.BalancesMenu
@@ -21,7 +20,6 @@ import be.dafke.Accounting.BasicAccounting.Journals.View.SingleView.JournalDetai
 import be.dafke.Accounting.BasicAccounting.Meals.*
 import be.dafke.Accounting.BasicAccounting.Mortgages.MortgageGUI
 import be.dafke.Accounting.BasicAccounting.Mortgages.MortgagesMenu
-import be.dafke.Accounting.BasicAccounting.Mortgages.MortgagesPanel
 import be.dafke.Accounting.BasicAccounting.Projects.ProjectsMenu
 import be.dafke.Accounting.BasicAccounting.Trade.ArticlesGUI
 import be.dafke.Accounting.BasicAccounting.Trade.PurchaseOrderCreateGUI
@@ -30,10 +28,12 @@ import be.dafke.Accounting.BasicAccounting.Trade.TradeMenu
 import be.dafke.Accounting.BasicAccounting.VAT.VATFieldsGUI
 import be.dafke.Accounting.BasicAccounting.VAT.VATMenu
 import be.dafke.Accounting.BusinessModel.*
-import be.dafke.Accounting.BusinessModelDao.*
+import be.dafke.Accounting.BusinessModelDao.AccountingSession
+import be.dafke.Accounting.BusinessModelDao.Session
+import be.dafke.Accounting.BusinessModelDao.XMLReader
+import be.dafke.Accounting.BusinessModelDao.XMLWriter
 
 import javax.swing.*
-import java.awt.*
 import java.awt.event.WindowAdapter
 import java.awt.event.WindowEvent
 
@@ -45,9 +45,7 @@ class Main {
     protected static Accountings accountings
     static JournalSelectorPanel journalSelectorPanel
     static JournalEditPanel journalEditPanel
-    static AccountsTablePanel accountGuiLeft
-    static AccountsTablePanel accountGuiRight
-    static MortgagesPanel mortgagesPanel
+    static OldLayoutPanel oldLayoutPanel
     static JMenuBar menuBar
     static AccountingMenu accountingMenu
     static AccountingGUIFrame frame
@@ -62,15 +60,17 @@ class Main {
     static ProjectsMenu projectsMenu
     static CodaMenu codaMenu
     static VATMenu vatMenu
-    static CardLayout cardLayout
+
     static JournalSwitchViewPanel cardPanel
-    static JSplitPane journalViewAndEditSplitPane
 
     static void main(String[] args) {
         readXmlData()
-        createComponents()
+        journalEditPanel = new JournalEditPanel()
+        journalSelectorPanel = new JournalSelectorPanel(journalEditPanel)
+
+        oldLayoutPanel = new OldLayoutPanel(journalEditPanel, journalSelectorPanel)
         frame = new AccountingGUIFrame("Accounting-all")
-        frame.setContentPane(createContentPanel())
+        frame.setContentPane(oldLayoutPanel)
         createMenu()
         frame.setJMenuBar(menuBar)
 
@@ -79,14 +79,6 @@ class Main {
         setAccounting(Session.activeAccounting)
 
         launchFrame()
-    }
-
-    static void createComponents() {
-        journalEditPanel = new JournalEditPanel()
-        journalSelectorPanel = new JournalSelectorPanel(journalEditPanel)
-        accountGuiLeft = new AccountsTablePanel(true)
-        accountGuiRight = new AccountsTablePanel(false)
-        mortgagesPanel = new MortgagesPanel(journalEditPanel)
     }
 
     static void setCloseOperation() {
@@ -99,28 +91,6 @@ class Main {
                 Main.saveData(false)
             }
         })
-    }
-
-    static JPanel createContentPanel() {
-        JPanel links = new JPanel()
-        links.setLayout(new BorderLayout())
-        links.add(accountGuiLeft, BorderLayout.CENTER)
-        links.add(mortgagesPanel, BorderLayout.SOUTH)
-
-        JPanel accountingMultiPanel = new JPanel()
-        accountingMultiPanel.setLayout(new BorderLayout())
-        cardLayout = new CardLayout()
-        cardPanel = new JournalSwitchViewPanel()
-        journalViewAndEditSplitPane = createSplitPane(cardPanel, journalEditPanel, VERTICAL_SPLIT)
-
-        JPanel centerPanel = new JPanel(new BorderLayout())
-        centerPanel.add(journalViewAndEditSplitPane, BorderLayout.CENTER)
-        centerPanel.add(journalSelectorPanel, BorderLayout.NORTH)
-
-        accountingMultiPanel.add(accountGuiRight, BorderLayout.EAST)
-        accountingMultiPanel.add(centerPanel, BorderLayout.CENTER)
-        accountingMultiPanel.add(links, BorderLayout.WEST)
-        accountingMultiPanel
     }
 
     static JSplitPane createSplitPane(JComponent panel1, JComponent panel2, int orientation) {
@@ -203,12 +173,9 @@ class Main {
 
         frame.accounting = accounting
 
-        accountGuiLeft.setAccounting(accounting, true)
-        accountGuiRight.setAccounting(accounting, false)
+        oldLayoutPanel.accounting = accounting
         journalEditPanel.accounting = accounting
-        cardPanel.accounting = accounting
         journalSelectorPanel.accounting = accounting
-        mortgagesPanel.setMortgages(accounting?accounting.mortgages:null)
 
         setMenuAccounting(accounting)
         if (accounting != null) {
@@ -242,9 +209,7 @@ class Main {
     }
 
     static void fireShowInputChanged(boolean enabled) {
-        accountGuiLeft.visible = enabled
-        accountGuiRight.visible = enabled
-        mortgagesPanel.visible = enabled
+        oldLayoutPanel.fireShowInputChanged(enabled)
         journalEditPanel.visible = enabled
     }
 
@@ -263,24 +228,15 @@ class Main {
             if(accountingSession) accountingSession.activeJournal = journal  // idem, only needed for XMLWriter
         }
         journalSelectorPanel.journal = journal
-        cardPanel.journal = journal
         journalEditPanel.journal = journal
         frame.journal = journal
-        Accounting activeAccounting = Session.activeAccounting
-        AccountingSession accountingSession = Session.getAccountingSession(activeAccounting)
-        Journal activeJournal = accountingSession?accountingSession.activeJournal:null
-        JournalSession journalSession = activeJournal?accountingSession.getJournalSession(activeJournal):null
-        accountGuiLeft.setJournalSession(journalSession)
-        accountGuiRight.setJournalSession(journalSession)
-        accountGuiLeft.setJournal(journal, true)
-        accountGuiRight.setJournal(journal, false)
+        oldLayoutPanel.setJournal(journal)
 //        journalEditPanel.setJournalSession(journalSession)
 //        journalSelectorPanel.setJournalSession(journalSession)
     }
 
     static void fireGlobalShowNumbersChanged(boolean enabled){
-        accountGuiLeft.fireGlobalShowNumbersChanged(enabled)
-        accountGuiRight.fireGlobalShowNumbersChanged(enabled)
+        oldLayoutPanel.fireGlobalShowNumbersChanged(enabled)
     }
 
     static void fireTransactionInputDataChanged(){
@@ -318,7 +274,7 @@ class Main {
     static void fireJournalDataChanged(Journal journal){
         JournalDetailsGUI.fireJournalDataChangedForAll(journal)
         JournalManagementGUI.fireJournalDataChangedForAll()
-        cardPanel.fireJournalDataChanged()
+        oldLayoutPanel.fireJournalDataChanged()
         journalsMenu.fireJournalDataChanged()
         frame.fireDataChanged()
     }
@@ -337,12 +293,7 @@ class Main {
     static void fireAccountDataChanged(Account account){
         AccountDetailsGUI.fireAccountDataChangedForAll(account)
         AccountSelectorDialog.fireAccountDataChangedForAll()
-        // fireAccountDataChanged in AccountsListGUI is only needed if accounts have been added
-        // in AccountsTableGUI it is also needed if the saldo of 1 or more accounts has changed
-        cardPanel.fireJournalDataChanged()
-        accountGuiLeft.fireAccountDataChanged()
-        accountGuiRight.fireAccountDataChanged()
-
+        oldLayoutPanel.fireAccountDataChanged()
         AccountManagementGUI.fireAccountDataChangedForAll()
         // refresh all balances if an account is update, filtering on accounting/accounts/accountType could be applied
         TestBalanceGUI.fireAccountDataChangedForAll()
@@ -424,12 +375,10 @@ class Main {
     }
 
     static void setAccountsTypesLeft(JournalType journalType, ArrayList<AccountType> accountTypes) {
-        if(journalType == accountGuiLeft.getJournalType())
-            accountGuiLeft.setAccountTypesList(accountTypes)
+        oldLayoutPanel.setAccountsTypesLeft(journalType, accountTypes)
     }
     static void setAccountsTypesRight(JournalType journalType, ArrayList<AccountType> accountTypes) {
-        if(journalType == accountGuiRight.getJournalType())
-            accountGuiRight.setAccountTypesList(accountTypes)
+        oldLayoutPanel.setAccountsTypesRight(journalType, accountTypes)
     }
 //    static void setAccountsListLeft(JournalType journalType, AccountsList accountsList) {
 //        if(journalType == accountGuiLeft.getJournalType())
@@ -442,27 +391,20 @@ class Main {
 //    }
 
     static void selectTransaction(Transaction transaction){
-        cardPanel.selectTransaction(transaction)
+        oldLayoutPanel.selectTransaction(transaction)
     }
 
     static void fireJournalTypeChanges(Journal journal, JournalType journalType) {
-        if(journal==accountGuiLeft.journal) {
-            accountGuiLeft.setJournalType(journalType)
-            accountGuiLeft.setAccountsList(journalType.getLeft())
-        }
-        if(journal==accountGuiRight.journal) {
-            accountGuiRight.setJournalType(journalType)
-            accountGuiRight.setAccountsList(journalType.getRight())
-        }
+        oldLayoutPanel.fireJournalTypeChanges(journal, journalType)
     }
 
     static void fireMortgageAddedOrRemoved(Mortgages mortgages) {
         MortgageGUI.refreshAllFrames()
-        mortgagesPanel.setMortgages(mortgages)
+        oldLayoutPanel.setMortgages(mortgages)
     }
 
     static void fireMortgageEditedPayButton(Mortgage mortgage) {
-        mortgagesPanel.enablePayButton(mortgage)
+        oldLayoutPanel.enableMortgagePayButton(mortgage)
     }
 
     static void fireMortgageEdited(Mortgage mortgage) {
