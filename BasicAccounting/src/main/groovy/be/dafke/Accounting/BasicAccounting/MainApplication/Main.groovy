@@ -65,7 +65,6 @@ class Main {
         JPanel panel = new JPanel(new BorderLayout())
         panel.add(journalSwitchPanel, BorderLayout.CENTER)
         frame.setContentPane(panel)
-//        frame.setContentPane(newLayoutPanel)
         createMenu()
         frame.setJMenuBar(menuBar)
 

@@ -14,8 +14,8 @@ class JournalSwitchPanel extends JPanel {
     String currentView = DEFAULT_VIEW
     CardLayout cardLayout
     JPanel center
-    OldLayoutPanel oldLayoutPanel
-    NewLayoutPanel newLayoutPanel
+    DefaultLayoutPanel defaultLayoutPanel
+    PaymentLayoutPanel paymentLayoutPanel
 
     JournalSwitchPanel() {
         cardLayout = new CardLayout()
@@ -23,23 +23,23 @@ class JournalSwitchPanel extends JPanel {
 
         center = new JPanel(cardLayout)
 
-        oldLayoutPanel = new OldLayoutPanel()
-        newLayoutPanel = new NewLayoutPanel()
+        defaultLayoutPanel = new DefaultLayoutPanel()
+        paymentLayoutPanel = new PaymentLayoutPanel()
         
-        center.add(oldLayoutPanel, DEFAULT_VIEW)
-        center.add(newLayoutPanel, PAYMENTS_VIEW)
+        center.add(defaultLayoutPanel, DEFAULT_VIEW)
+        center.add(paymentLayoutPanel, PAYMENTS_VIEW)
 
         add(center, BorderLayout.CENTER)
     }
 
     void setAccounting(Accounting accounting) {
-        oldLayoutPanel.accounting = accounting
-        newLayoutPanel.accounting = accounting
+        defaultLayoutPanel.accounting = accounting
+        paymentLayoutPanel.accounting = accounting
     }
 
     void fireShowInputChanged(boolean enabled) {
-        oldLayoutPanel.fireShowInputChanged(enabled)
-        newLayoutPanel.fireShowInputChanged(enabled)
+        defaultLayoutPanel.fireShowInputChanged(enabled)
+        paymentLayoutPanel.fireShowInputChanged(enabled)
     }
 
     void setJournal(Journal journal) {
@@ -48,75 +48,75 @@ class JournalSwitchPanel extends JPanel {
         } else {
             switchView(JournalSwitchPanel.DEFAULT_VIEW)
         }
-        oldLayoutPanel.setJournal(journal)
-        newLayoutPanel.setJournal(journal)
+        defaultLayoutPanel.setJournal(journal)
+        paymentLayoutPanel.setJournal(journal)
     }
 
     void fireTransactionInputDataChanged(){
-        oldLayoutPanel.fireTransactionInputDataChanged()
-        newLayoutPanel.fireTransactionInputDataChanged()
+        defaultLayoutPanel.fireTransactionInputDataChanged()
+        paymentLayoutPanel.fireTransactionInputDataChanged()
     }
 
     void editTransaction(Transaction transaction){
-        oldLayoutPanel.editTransaction(transaction)
-        newLayoutPanel.editTransaction(transaction)
+        defaultLayoutPanel.editTransaction(transaction)
+        paymentLayoutPanel.editTransaction(transaction)
     }
 
     void deleteBookings(ArrayList<Booking> bookings){
-        oldLayoutPanel.deleteBookings(bookings)
-        newLayoutPanel.deleteBookings(bookings)
+        defaultLayoutPanel.deleteBookings(bookings)
+        paymentLayoutPanel.deleteBookings(bookings)
     }
 
     void deleteTransactions(Set<Transaction> transactions){
-        oldLayoutPanel.deleteTransactions(transactions)
-        newLayoutPanel.deleteTransactions(transactions)
+        defaultLayoutPanel.deleteTransactions(transactions)
+        paymentLayoutPanel.deleteTransactions(transactions)
     }
 
     void moveBookings(ArrayList<Booking> bookings, Journals journals){
-        oldLayoutPanel.moveBookings(bookings, journals)
-        newLayoutPanel.moveBookings(bookings, journals)
+        defaultLayoutPanel.moveBookings(bookings, journals)
+        paymentLayoutPanel.moveBookings(bookings, journals)
     }
 
     void moveTransactions(Set<Transaction> bookings, Journals journals){
-        oldLayoutPanel.moveTransactions(bookings, journals)
-        newLayoutPanel.moveTransactions(bookings, journals)
+        defaultLayoutPanel.moveTransactions(bookings, journals)
+        paymentLayoutPanel.moveTransactions(bookings, journals)
     }
 
     Transaction getTransaction(){
         if(currentView == PAYMENTS_VIEW) {
-            newLayoutPanel.transaction
+            paymentLayoutPanel.transaction
         } else {
-            oldLayoutPanel.transaction
+            defaultLayoutPanel.transaction
         }
     }
 
     void addBooking(Booking booking){
         if(currentView == PAYMENTS_VIEW) {
-            newLayoutPanel.addBooking(booking)
+            paymentLayoutPanel.addBooking(booking)
         } else {
-            oldLayoutPanel.addBooking(booking)
+            defaultLayoutPanel.addBooking(booking)
         }
     }
 
     void fireJournalDataChanged(){
-        oldLayoutPanel.fireJournalDataChanged()
-        newLayoutPanel.fireJournalDataChanged()
+        defaultLayoutPanel.fireJournalDataChanged()
+        paymentLayoutPanel.fireJournalDataChanged()
     }
 
     void setJournals(Journals journals) {
-        oldLayoutPanel.setJournals(journals)
-        newLayoutPanel.setJournals(journals)
+        defaultLayoutPanel.setJournals(journals)
+        paymentLayoutPanel.setJournals(journals)
     }
 
     void fireAccountDataChanged(){
-        oldLayoutPanel.fireAccountDataChanged()
+        defaultLayoutPanel.fireAccountDataChanged()
     }
 
     void setAccountsTypesLeft(JournalType journalType, ArrayList<AccountType> accountTypes) {
-        oldLayoutPanel.setAccountsTypesLeft(journalType, accountTypes)
+        defaultLayoutPanel.setAccountsTypesLeft(journalType, accountTypes)
     }
     void setAccountsTypesRight(JournalType journalType, ArrayList<AccountType> accountTypes) {
-        oldLayoutPanel.setAccountsTypesRight(journalType, accountTypes)
+        defaultLayoutPanel.setAccountsTypesRight(journalType, accountTypes)
     }
 //    void setAccountsListLeft(JournalType journalType, AccountsList accountsList) {
 //        if(journalType == accountGuiLeft.getJournalType())
@@ -129,26 +129,26 @@ class JournalSwitchPanel extends JPanel {
 //    }
 
     void selectTransaction(Transaction transaction){
-        oldLayoutPanel.selectTransaction(transaction)
-        newLayoutPanel.selectTransaction(transaction)
+        defaultLayoutPanel.selectTransaction(transaction)
+        paymentLayoutPanel.selectTransaction(transaction)
     }
 
     void fireJournalTypeChanges(Journal journal, JournalType journalType) {
-        oldLayoutPanel.fireJournalTypeChanges(journal, journalType)
+        defaultLayoutPanel.fireJournalTypeChanges(journal, journalType)
     }
 
     void setMortgages(Mortgages mortgages) {
-        oldLayoutPanel.setMortgages(mortgages)
-        newLayoutPanel.setMortgages(mortgages)
+        defaultLayoutPanel.setMortgages(mortgages)
+        paymentLayoutPanel.setMortgages(mortgages)
     }
 
     void enableMortgagePayButton(Mortgage mortgage) {
-        oldLayoutPanel.enableMortgagePayButton(mortgage)
-        newLayoutPanel.enableMortgagePayButton(mortgage)
+        defaultLayoutPanel.enableMortgagePayButton(mortgage)
+        paymentLayoutPanel.enableMortgagePayButton(mortgage)
     }
 
     void fireGlobalShowNumbersChanged(boolean enabled){
-        oldLayoutPanel.fireGlobalShowNumbersChanged(enabled)
+        defaultLayoutPanel.fireGlobalShowNumbersChanged(enabled)
     }
 
     void switchView(String view) {

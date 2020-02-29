@@ -12,7 +12,7 @@ import java.awt.*
 
 import static javax.swing.JSplitPane.VERTICAL_SPLIT
 
-class NewLayoutPanel extends JPanel {
+class PaymentLayoutPanel extends JPanel {
 
     JournalSelectorPanel journalSelectorPanel
     JournalEditPanel journalEditPanel
@@ -21,7 +21,7 @@ class NewLayoutPanel extends JPanel {
     MortgagesPanel mortgagesPanel
     JSplitPane journalViewAndEditSplitPane
 
-    NewLayoutPanel() {
+    PaymentLayoutPanel() {
 
         journalEditPanel = new JournalEditPanel()
         journalSelectorPanel = new JournalSelectorPanel(journalEditPanel)
