@@ -46,6 +46,7 @@ class Main {
     static JournalSelectorPanel journalSelectorPanel
     static JournalEditPanel journalEditPanel
     static OldLayoutPanel oldLayoutPanel
+    static NewLayoutPanel newLayoutPanel
     static JMenuBar menuBar
     static AccountingMenu accountingMenu
     static AccountingGUIFrame frame
@@ -69,8 +70,10 @@ class Main {
         journalSelectorPanel = new JournalSelectorPanel(journalEditPanel)
 
         oldLayoutPanel = new OldLayoutPanel(journalEditPanel, journalSelectorPanel)
+//        newLayoutPanel = new NewLayoutPanel(journalEditPanel, journalSelectorPanel)
         frame = new AccountingGUIFrame("Accounting-all")
         frame.setContentPane(oldLayoutPanel)
+//        frame.setContentPane(newLayoutPanel)
         createMenu()
         frame.setJMenuBar(menuBar)
 
