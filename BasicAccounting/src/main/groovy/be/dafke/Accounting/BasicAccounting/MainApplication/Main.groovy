@@ -125,7 +125,7 @@ class Main {
 
     static JSplitPane createSplitPane(JComponent panel1, JComponent panel2, int orientation) {
         JSplitPane splitPane = new JSplitPane(orientation)
-        if (orientation == JSplitPane.VERTICAL_SPLIT) {
+        if (orientation == VERTICAL_SPLIT) {
             splitPane.add(panel1, TOP)
             splitPane.add(panel2, BOTTOM)
         } else {
@@ -232,14 +232,12 @@ class Main {
         vatMenu.accounting = accounting
 
         if (accounting != null) {
-            vatMenu.setVisible(accounting.vatAccounting)
-            morgagesMenu.setVisible(accounting.mortgagesAccounting)
-            tradeMenu.setVisible(accounting.tradeAccounting)
-            contactsMenu.setVisible(accounting.contactsAccounting)
-            projectsMenu.setVisible(accounting.projectsAccounting)
-            mealsMenu.setVisible(accounting.mealsAccounting)
-            mortgagesPanel.setVisible(accounting.mortgagesAccounting)
-
+            vatMenu.visible = accounting.vatAccounting
+            morgagesMenu.visible = accounting.mortgagesAccounting
+            tradeMenu.visible = accounting.tradeAccounting
+            contactsMenu.visible = accounting.contactsAccounting
+            projectsMenu.visible  = accounting.projectsAccounting
+            mealsMenu.visible = accounting.mealsAccounting
         }
     }
 

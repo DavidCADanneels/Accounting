@@ -178,10 +178,10 @@ class AccountFilterPanel extends JPanel {
 
     @Override
     void setEnabled(boolean enabled){
-        nameLabel.setVisible(enabled)
-        nameField.setVisible(enabled)
-        numberLabel.setVisible(enabled)
-        numberField.setVisible(enabled)
+        nameLabel.visible = enabled
+        nameField.visible = enabled
+        numberLabel.visible= enabled
+        numberField.visible = enabled
     }
 
 
