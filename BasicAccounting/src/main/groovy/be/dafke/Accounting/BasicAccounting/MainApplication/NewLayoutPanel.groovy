@@ -1,6 +1,5 @@
 package be.dafke.Accounting.BasicAccounting.MainApplication
 
-
 import be.dafke.Accounting.BasicAccounting.Journals.Edit.JournalEditPanel
 import be.dafke.Accounting.BasicAccounting.Journals.Selector.JournalSelectorPanel
 import be.dafke.Accounting.BasicAccounting.Journals.View.JournalSwitchViewPanel
@@ -14,13 +13,20 @@ import static javax.swing.JSplitPane.VERTICAL_SPLIT
 
 class NewLayoutPanel extends JPanel {
 
+    JournalSelectorPanel journalSelectorPanel
+    JournalEditPanel journalEditPanel
+    JournalSwitchViewPanel journalSwitchViewPanel
+
     MortgagesPanel mortgagesPanel
     JSplitPane journalViewAndEditSplitPane
 
-    NewLayoutPanel(JournalEditPanel journalEditPanel, JournalSelectorPanel journalSelectorPanel, JournalSwitchViewPanel journalSwitchViewPanel) {
+    NewLayoutPanel() {
+
+        journalEditPanel = new JournalEditPanel()
+        journalSelectorPanel = new JournalSelectorPanel(journalEditPanel)
+        journalSwitchViewPanel = new JournalSwitchViewPanel()
 
         mortgagesPanel = new MortgagesPanel(journalEditPanel)
-
 
         JPanel links = new JPanel()
         links.setLayout(new BorderLayout())
@@ -41,10 +47,20 @@ class NewLayoutPanel extends JPanel {
 
     void setAccounting(Accounting accounting){
         mortgagesPanel.setMortgages(accounting?accounting.mortgages:null)
+        journalSwitchViewPanel.accounting = accounting
+        journalEditPanel.accounting = accounting
+        journalSelectorPanel.accounting = accounting
+    }
+
+    void setJournal(Journal journal){
+        journalSelectorPanel.journal = journal
+        journalEditPanel.journal = journal
+        journalSwitchViewPanel.journal = journal
     }
 
     void fireShowInputChanged(boolean enabled) {
         mortgagesPanel.visible = enabled
+        journalEditPanel.visible = enabled
     }
 
     void setMortgages(Mortgages mortgages) {
@@ -53,5 +69,50 @@ class NewLayoutPanel extends JPanel {
 
     void enableMortgagePayButton(Mortgage mortgage) {
         mortgagesPanel.enablePayButton(mortgage)
+    }
+
+    void setJournals(Journals journals) {
+        journalSelectorPanel.setJournals(journals)
+    }
+
+    void fireJournalDataChanged(){
+        journalSwitchViewPanel.fireJournalDataChanged()
+    }
+    void selectTransaction(Transaction transaction){
+        journalSwitchViewPanel.selectTransaction(transaction)
+    }
+
+    // TODO: move to abstract parent:
+
+    void fireTransactionInputDataChanged(){
+        journalEditPanel.fireTransactionDataChanged()
+    }
+
+    void editTransaction(Transaction transaction){
+        journalEditPanel.editTransaction(transaction)
+    }
+
+    void deleteBookings(ArrayList<Booking> bookings){
+        journalEditPanel.deleteBookings(bookings)
+    }
+
+    void deleteTransactions(Set<Transaction> transactions){
+        journalEditPanel.deleteTransactions(transactions)
+    }
+
+    void moveBookings(ArrayList<Booking> bookings, Journals journals){
+        journalEditPanel.moveBookings(bookings, journals)
+    }
+
+    void moveTransactions(Set<Transaction> bookings, Journals journals){
+        journalEditPanel.moveTransaction(bookings, journals)
+    }
+
+    Transaction getTransaction(){
+        journalEditPanel.transaction
+    }
+
+    void addBooking(Booking booking){
+        journalEditPanel.addBooking(booking)
     }
 }

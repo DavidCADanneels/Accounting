@@ -11,11 +11,8 @@ import be.dafke.Accounting.BasicAccounting.Coda.CodaMenu
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactSelectorDialog
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactsGUI
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactsMenu
-import be.dafke.Accounting.BasicAccounting.Journals.Edit.JournalEditPanel
 import be.dafke.Accounting.BasicAccounting.Journals.JournalsMenu
 import be.dafke.Accounting.BasicAccounting.Journals.Management.JournalManagementGUI
-import be.dafke.Accounting.BasicAccounting.Journals.Selector.JournalSelectorPanel
-import be.dafke.Accounting.BasicAccounting.Journals.View.JournalSwitchViewPanel
 import be.dafke.Accounting.BasicAccounting.Journals.View.SingleView.JournalDetailsGUI
 import be.dafke.Accounting.BasicAccounting.Meals.*
 import be.dafke.Accounting.BasicAccounting.Mortgages.MortgageGUI
@@ -43,8 +40,6 @@ class Main {
     static final ArrayList<JFrame> disposableComponents = new ArrayList<>()
 
     protected static Accountings accountings
-    static JournalSelectorPanel journalSelectorPanel
-    static JournalEditPanel journalEditPanel
     static OldLayoutPanel oldLayoutPanel
     static NewLayoutPanel newLayoutPanel
     static JMenuBar menuBar
@@ -62,15 +57,10 @@ class Main {
     static CodaMenu codaMenu
     static VATMenu vatMenu
 
-    static JournalSwitchViewPanel journalSwitchViewPanel
-
     static void main(String[] args) {
         readXmlData()
-        journalEditPanel = new JournalEditPanel()
-        journalSelectorPanel = new JournalSelectorPanel(journalEditPanel)
-        journalSwitchViewPanel = new JournalSwitchViewPanel()
-        oldLayoutPanel = new OldLayoutPanel(journalEditPanel, journalSelectorPanel, journalSwitchViewPanel)
-//        newLayoutPanel = new NewLayoutPanel(journalEditPanel, journalSelectorPanel, journalSwitchViewPanel)
+        oldLayoutPanel = new OldLayoutPanel()
+        newLayoutPanel = new NewLayoutPanel()
         frame = new AccountingGUIFrame("Accounting-all")
         frame.setContentPane(oldLayoutPanel)
 //        frame.setContentPane(newLayoutPanel)
@@ -176,11 +166,8 @@ class Main {
 
         frame.accounting = accounting
 
-        journalSwitchViewPanel.accounting = accounting
         oldLayoutPanel.accounting = accounting
-//        newLayoutPanel.accounting = accounting
-        journalEditPanel.accounting = accounting
-        journalSelectorPanel.accounting = accounting
+        newLayoutPanel.accounting = accounting
 
         setMenuAccounting(accounting)
         if (accounting != null) {
@@ -215,8 +202,7 @@ class Main {
 
     static void fireShowInputChanged(boolean enabled) {
         oldLayoutPanel.fireShowInputChanged(enabled)
-//        newLayoutPanel.fireShowInputChanged(enabled)
-        journalEditPanel.visible = enabled
+        newLayoutPanel.fireShowInputChanged(enabled)
     }
 
     static void fireBalancesChanged(){
@@ -233,11 +219,9 @@ class Main {
             AccountingSession accountingSession = Session.getAccountingSession(accounting)
             if(accountingSession) accountingSession.activeJournal = journal  // idem, only needed for XMLWriter
         }
-        journalSelectorPanel.journal = journal
-        journalEditPanel.journal = journal
         frame.journal = journal
         oldLayoutPanel.setJournal(journal)
-        journalSwitchViewPanel.journal = journal
+        newLayoutPanel.setJournal(journal)
 //        journalEditPanel.setJournalSession(journalSession)
 //        journalSelectorPanel.setJournalSession(journalSession)
     }
@@ -247,47 +231,63 @@ class Main {
     }
 
     static void fireTransactionInputDataChanged(){
-        journalEditPanel.fireTransactionDataChanged()
+        oldLayoutPanel.fireTransactionInputDataChanged()
+        newLayoutPanel.fireTransactionInputDataChanged()
     }
 
     static void editTransaction(Transaction transaction){
-        journalEditPanel.editTransaction(transaction)
+        oldLayoutPanel.editTransaction(transaction)
+        newLayoutPanel.editTransaction(transaction)
     }
 
     static void deleteBookings(ArrayList<Booking> bookings){
-        journalEditPanel.deleteBookings(bookings)
+        oldLayoutPanel.deleteBookings(bookings)
+        newLayoutPanel.deleteBookings(bookings)
     }
 
     static void deleteTransactions(Set<Transaction> transactions){
-        journalEditPanel.deleteTransactions(transactions)
+        oldLayoutPanel.deleteTransactions(transactions)
+        newLayoutPanel.deleteTransactions(transactions)
     }
 
     static void moveBookings(ArrayList<Booking> bookings, Journals journals){
-        journalEditPanel.moveBookings(bookings, journals)
+        oldLayoutPanel.moveBookings(bookings, journals)
+        newLayoutPanel.moveBookings(bookings, journals)
     }
 
     static void moveTransactions(Set<Transaction> bookings, Journals journals){
-        journalEditPanel.moveTransaction(bookings, journals)
+        oldLayoutPanel.moveTransactions(bookings, journals)
+        newLayoutPanel.moveTransactions(bookings, journals)
     }
 
     static Transaction getTransaction(){
-        journalEditPanel.transaction
+        if("View" == "View") {
+            oldLayoutPanel.transaction
+        } else {
+            newLayoutPanel.transaction
+        }
     }
 
     static void addBooking(Booking booking){
-        journalEditPanel.addBooking(booking)
+        if("View" == "View") {
+            oldLayoutPanel.addBooking(booking)
+        } else {
+            newLayoutPanel.addBooking(booking)
+        }
     }
 
     static void fireJournalDataChanged(Journal journal){
         JournalDetailsGUI.fireJournalDataChangedForAll(journal)
         JournalManagementGUI.fireJournalDataChangedForAll()
-        journalSwitchViewPanel.fireJournalDataChanged()
+        oldLayoutPanel.fireJournalDataChanged()
+        newLayoutPanel.fireJournalDataChanged()
         journalsMenu.fireJournalDataChanged()
         frame.fireDataChanged()
     }
 
     static void fireJournalAdded(Journals journals) {
-        journalSelectorPanel.setJournals(journals)
+        oldLayoutPanel.setJournals(journals)
+        newLayoutPanel.setJournals(journals)
     }
 
     static void fireAccountingTypeChanged(Accounting accounting){
@@ -300,7 +300,8 @@ class Main {
     static void fireAccountDataChanged(Account account){
         AccountDetailsGUI.fireAccountDataChangedForAll(account)
         AccountSelectorDialog.fireAccountDataChangedForAll()
-        journalSwitchViewPanel.fireJournalDataChanged()
+        oldLayoutPanel.fireJournalDataChanged()
+        newLayoutPanel.fireJournalDataChanged()
         oldLayoutPanel.fireAccountDataChanged()
         AccountManagementGUI.fireAccountDataChangedForAll()
         // refresh all balances if an account is update, filtering on accounting/accounts/accountType could be applied
@@ -399,7 +400,8 @@ class Main {
 //    }
 
     static void selectTransaction(Transaction transaction){
-        journalSwitchViewPanel.selectTransaction(transaction)
+        oldLayoutPanel.selectTransaction(transaction)
+        newLayoutPanel.selectTransaction(transaction)
     }
 
     static void fireJournalTypeChanges(Journal journal, JournalType journalType) {
