@@ -93,6 +93,7 @@ class XMLConstants {
     public static final String PROMO_ORDER = "PromoOrder"
     public static final String STOCK_ORDERS = "StockOrders"
     public static final String STOCK_ORDER = "StockOrder"
+    public static final String COST_ACCOUNT = "CostAccount"
 
     public static final String MORTGAGES = "Mortgages"
     public static final String MORTGAGE = "Mortgage"

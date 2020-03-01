@@ -15,9 +15,6 @@ import static be.dafke.Utils.Utils.parseBigDecimal
 
 class ServicesIO {
     static void readServices(Accounting accounting){
-        Services services = accounting.services
-        Articles articles = accounting.articles
-        Contacts contacts = accounting.contacts
         File xmlFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$SERVICES$XML_EXTENSION")
         Element rootElement = getRootElement(xmlFile, SERVICES)
         for (Element element : getChildren(rootElement, SERVICE)) {
@@ -32,14 +29,23 @@ class ServicesIO {
 
             String supplierName = getValue(element, SUPPLIER)
             if(supplierName) {
-                Contact supplier = contacts.getBusinessObject(supplierName)
-                if (supplier != null) {
-                    service.setSupplier(supplier)
-                }
+                Contact supplier = accounting.contacts.getBusinessObject(supplierName)
+                if (supplier) {
+                    service.supplier = supplier
+                } else service.supplier = null
             }
+
+            String costAccountName = getValue(element, COST_ACCOUNT)
+            if(costAccountName){
+                Account account = accounting.accounts.getBusinessObject(costAccountName)
+                if(account) {
+                    service.costAccount = account
+                } else service.costAccount = null
+            }
+
             try {
-                services.addBusinessObject(service)
-                articles.addBusinessObject(service)
+                accounting.services.addBusinessObject(service)
+                accounting.articles.addBusinessObject(service)
             } catch (EmptyNameException | DuplicateNameException e) {
                 e.printStackTrace()
             }
@@ -58,6 +64,7 @@ class ServicesIO {
     <$NAME>$service.name</$NAME>
     <$UNIT_PRICE>$service.purchasePrice</$UNIT_PRICE>
     <$SUPPLIER>$service.supplier</$SUPPLIER>
+    <$COST_ACCOUNT>$service.costAccount</$COST_ACCOUNT>
   </$SERVICE>
 """
             }
