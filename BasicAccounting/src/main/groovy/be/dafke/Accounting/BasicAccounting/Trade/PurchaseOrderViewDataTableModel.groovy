@@ -81,7 +81,7 @@ class PurchaseOrderViewDataTableModel  extends SelectableTableModel<OrderItem> {
         if (col == VAT_AMOUNT_COL) return orderItem.getPurchaseVatAmount()
         if (col == PRICE_TOTAL_INCL_COL) return orderItem.getPurchasePriceWithVat()
         if (col == NR_OF_UNITS_COL) return orderItem.numberOfUnits
-        if (col == NR_OF_ITEMS_COL) return orderItem.numberOfItems
+        if (col == NR_OF_ITEMS_COL) return orderItem.calculateNumberOfItems()
         if (col == ITEMS_PER_UNIT_COL) return orderItem.itemsPerUnit
         null
     }
