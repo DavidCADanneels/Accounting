@@ -31,6 +31,14 @@ class OrderItem extends BusinessObject{
     boolean isDeletable() {
         numberOfItems==0 && numberOfUnits==0
     }
+    static Predicate<OrderItem> isGood(){
+        { orderItem -> orderItem.article instanceof Good }
+    }
+
+    static Predicate<OrderItem> isService(){
+        { orderItem -> orderItem.article instanceof Service }
+    }
+
 
     static Predicate<OrderItem> withSalesVatRate(Integer vatRate){
         { orderItem -> orderItem.salesVatRate == vatRate }
@@ -142,7 +150,6 @@ class OrderItem extends BusinessObject{
 
     // ========== PURCHASE =============
 
-
     BigDecimal getPurchasePriceForItem() {
         BigDecimal purchasePriceForUnit = getPurchasePriceForUnit()
         if(purchasePriceForUnit==null) return null
@@ -157,6 +164,10 @@ class OrderItem extends BusinessObject{
 
     void setPurchasePriceForUnit(BigDecimal purchasePriceForUnit) {
         this.purchasePriceForUnit = purchasePriceForUnit
+    }
+
+    BigDecimal getPurchasePriceWithoutVat(int number, BigDecimal unitPrice) {
+        unitPrice.multiply(new BigDecimal(number))
     }
 
     BigDecimal getPurchasePriceWithVat(int number, BigDecimal unitPrice) {

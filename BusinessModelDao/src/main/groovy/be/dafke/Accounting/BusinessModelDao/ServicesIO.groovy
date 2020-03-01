@@ -27,7 +27,7 @@ class ServicesIO {
 
             String unitPriceString = getValue(element, UNIT_PRICE)
             if(unitPriceString){
-                service.unitPrice = parseBigDecimal(unitPriceString)
+                service.purchasePrice = parseBigDecimal(unitPriceString)
             }
 
             String supplierName = getValue(element, SUPPLIER)
@@ -56,7 +56,7 @@ class ServicesIO {
                 writer.write """\
   <$SERVICE>
     <$NAME>$service.name</$NAME>
-    <$UNIT_PRICE>$service.unitPrice</$UNIT_PRICE>
+    <$UNIT_PRICE>$service.purchasePrice</$UNIT_PRICE>
     <$SUPPLIER>$service.supplier</$SUPPLIER>
   </$SERVICE>
 """

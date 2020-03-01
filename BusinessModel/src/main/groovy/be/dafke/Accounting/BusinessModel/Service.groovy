@@ -2,9 +2,8 @@ package be.dafke.Accounting.BusinessModel
 
 class Service extends Article {
 
-    BigDecimal unitPrice
     Contact supplier
-//    Contact customer
+    Account costAccount
 
     Service(String name) {
         setName(name)
@@ -16,19 +15,19 @@ class Service extends Article {
         supplier = contacts.getBusinessObject(supplierName)
     }
 
-    BigDecimal getUnitPrice() {
-        return unitPrice
-    }
-
-    void setUnitPrice(BigDecimal unitPrice) {
-        this.unitPrice = unitPrice
-    }
-
     Contact getSupplier() {
         return supplier
     }
 
     void setSupplier(Contact supplier) {
         this.supplier = supplier
+    }
+
+    Account getCostAccount() {
+        return costAccount
+    }
+
+    void setCostAccount(Account costAccount) {
+        this.costAccount = costAccount
     }
 }

@@ -53,7 +53,7 @@ class ServicesDataTableModel extends SelectableTableModel<Service> {
         Service service = getObject(row, col)
         if(service==null) return null
         if (col == SERVICE_NAME_COL) return service.name
-        if (col == UNIT_PRICE_COL) return service.unitPrice
+        if (col == UNIT_PRICE_COL) return service.purchasePrice
         if (col == SUPPLIER_COL) return service.supplier
         null
     }
@@ -87,7 +87,7 @@ class ServicesDataTableModel extends SelectableTableModel<Service> {
     void setValueAt(Object value, int row, int col) {
         Service service = getObject(row,col)
         if(col == UNIT_PRICE_COL){
-            service.unitPrice = (Integer) value
+            service.purchasePrice = (Integer) value
         }
         if(col == SUPPLIER_COL){
             service.supplier = (Contact) value

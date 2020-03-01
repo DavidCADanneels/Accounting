@@ -10,8 +10,10 @@ import be.dafke.Accounting.BusinessModel.Booking
 import be.dafke.Accounting.BusinessModel.Contact
 import be.dafke.Accounting.BusinessModel.Journal
 import be.dafke.Accounting.BusinessModel.Order
+import be.dafke.Accounting.BusinessModel.OrderItem
 import be.dafke.Accounting.BusinessModel.PurchaseOrder
 import be.dafke.Accounting.BusinessModel.PurchaseType
+import be.dafke.Accounting.BusinessModel.Service
 import be.dafke.Accounting.BusinessModel.StockTransactions
 import be.dafke.Accounting.BusinessModel.Transaction
 import be.dafke.Accounting.BusinessModel.Transactions
@@ -183,7 +185,6 @@ class PurchaseOrdersDetailPanel extends JPanel {
         String description = dateAndDescriptionDialog.description
 
         Transaction transaction = new Transaction(date, description)
-        Account stockAccount = StockUtils.getStockAccount accounting
 
         Contact supplier = purchaseOrder.supplier
         if(supplier == null){
@@ -193,32 +194,81 @@ class PurchaseOrdersDetailPanel extends JPanel {
 
         boolean creditNote = purchaseOrder.creditNote
 
-        BigDecimal stockAmount = purchaseOrder.totalPurchasePriceExclVat
-        Booking stockBooking = new Booking(stockAccount, stockAmount, !creditNote)
 
-        PurchaseType purchaseType = PurchaseType.VAT_81
-        if(!creditNote){
-            AccountActions.addPurchaseVatTransaction stockBooking, purchaseType
-        } else {
-            AccountActions.addPurchaseCnVatTransaction stockBooking, purchaseType
+        List<OrderItem> goodItems = purchaseOrder.getBusinessObjects(OrderItem.isGood())
+        List<OrderItem> serviceItems = purchaseOrder.getBusinessObjects(OrderItem.isService())
+
+        BigDecimal goodsAmount = BigDecimal.ZERO
+
+        if(!goodItems.empty) {
+            goodItems.forEach { goodItem ->
+                goodsAmount = goodsAmount.add(goodItem.purchasePriceWithoutVat)
+            }
+            goodsAmount = goodsAmount.setScale(2)
         }
-        transaction.addBusinessObject stockBooking
 
+        if(goodsAmount.compareTo(BigDecimal.ZERO)>0) {
+            PurchaseType purchaseType = PurchaseType.VAT_81
+            Account stockAccount = StockUtils.getStockAccount accounting
+            Booking purchaseBooking = new Booking(stockAccount, goodsAmount, !creditNote)
+            BigDecimal vatAmount = purchaseOrder.getTotalPurchaseVat(OrderItem.isGood())
+            Booking bookingVat
+            if (!creditNote) {
+                // Cost excl VAT
+                //
+                AccountActions.addPurchaseVatTransaction purchaseBooking, purchaseType
+                // VAT
+                //
+                bookingVat = AccountActions.createPurchaseVatBooking accounting, vatAmount
+            } else {
+                // CN excl VAT
+                //
+                AccountActions.addPurchaseCnVatTransaction purchaseBooking, purchaseType
+                // VAT
+                //
+                bookingVat = AccountActions.createPurchaseCnVatBooking accounting, vatAmount
+            }
+            transaction.addBusinessObject purchaseBooking
+            transaction.addBusinessObject bookingVat
+        }
+
+        if(!serviceItems.empty) {
+            PurchaseType purchaseType = PurchaseType.VAT_82
+            serviceItems.forEach { serviceOrderItem ->
+                BigDecimal purchasePriceWithoutVat = serviceOrderItem.getPurchasePriceWithoutVat()
+                Service service = (Service) serviceOrderItem.article
+
+                Account costAccount = service.costAccount // FIXME: will be 'null' initially
+                Booking costBooking = new Booking(costAccount, purchasePriceWithoutVat, !creditNote)
+                BigDecimal vatAmount = serviceOrderItem.getPurchaseVatAmount()
+                Booking bookingVat
+                if (!creditNote) {
+                    // Cost excl VAT
+                    //
+                    AccountActions.addPurchaseVatTransaction costBooking, purchaseType
+                    // VAT
+                    //
+                    bookingVat = AccountActions.createPurchaseVatBooking accounting, vatAmount
+
+                } else {
+                    // CN excl VAT
+                    //
+                    AccountActions.addPurchaseCnVatTransaction costBooking, purchaseType
+                    // VAT
+                    //
+                    bookingVat = AccountActions.createPurchaseCnVatBooking accounting, vatAmount
+                }
+                transaction.addBusinessObject costBooking
+                transaction.addBusinessObject bookingVat
+            }
+        }
+
+        // Supplier booking is common
+        //
         BigDecimal supplierAmount = purchaseOrder.totalPurchasePriceInclVat
         Booking supplierBooking = new Booking(supplierAccount, supplierAmount, creditNote)
         // (no VAT Booking for Supplier)
         transaction.addBusinessObject(supplierBooking)
-
-        BigDecimal vatAmount = purchaseOrder.totalPurchaseVat
-        if(vatAmount.compareTo(BigDecimal.ZERO) != 0) {
-            if(!creditNote) {
-                Booking bookingVat = AccountActions.createPurchaseVatBooking accounting, vatAmount
-                transaction.addBusinessObject bookingVat
-            } else {
-                Booking bookingVat = AccountActions.createPurchaseCnVatBooking accounting, vatAmount
-                transaction.addBusinessObject bookingVat
-            }
-        }
 
         Journal journal = StockUtils.getPurchaseJournal accounting
         transaction.journal = journal
