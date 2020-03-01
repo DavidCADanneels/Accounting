@@ -58,13 +58,15 @@ class ContactDetailsPanel extends JPanel {
         supplierAccountName.enabled = false
 
         customer.addActionListener({ e ->
-            if (customer.selected) {
+            if (customer.selected && contact) {
                 StockUtils.getCustomerAccount(contact, accounting)
             }
 
         })
         supplier.addActionListener({ e ->
-            StockUtils.getSupplierAccount(contact, accounting)
+            if (supplier.selected && contact){
+                StockUtils.getSupplierAccount(contact, accounting)
+            }
         })
 
         add(new JLabel(getBundle("Contacts").getString(NAME)))
