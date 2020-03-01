@@ -1,32 +1,18 @@
 package be.dafke.Accounting.BasicAccounting.Trade
 
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountActions
+import be.dafke.Accounting.BasicAccounting.Accounts.Selector.AccountSelectorDialog
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactDetailsPanel
 import be.dafke.Accounting.BasicAccounting.Journals.Edit.DateAndDescriptionDialog
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
-import be.dafke.Accounting.BusinessModel.Account
-import be.dafke.Accounting.BusinessModel.Accounting
-import be.dafke.Accounting.BusinessModel.Booking
-import be.dafke.Accounting.BusinessModel.Contact
-import be.dafke.Accounting.BusinessModel.Journal
-import be.dafke.Accounting.BusinessModel.Order
-import be.dafke.Accounting.BusinessModel.OrderItem
-import be.dafke.Accounting.BusinessModel.PurchaseOrder
-import be.dafke.Accounting.BusinessModel.PurchaseType
-import be.dafke.Accounting.BusinessModel.Service
-import be.dafke.Accounting.BusinessModel.StockTransactions
-import be.dafke.Accounting.BusinessModel.Transaction
-import be.dafke.Accounting.BusinessModel.Transactions
+import be.dafke.Accounting.BusinessModel.*
 import be.dafke.Utils.Utils
 
-import javax.swing.BoxLayout
-import javax.swing.JButton
-import javax.swing.JCheckBox
-import javax.swing.JPanel
+import javax.swing.*
 import javax.swing.border.LineBorder
 import javax.swing.border.TitledBorder
-import java.awt.BorderLayout
-import java.awt.Color
+import java.awt.*
+import java.util.List
 
 import static java.util.ResourceBundle.getBundle
 
@@ -162,8 +148,8 @@ class PurchaseOrdersDetailPanel extends JPanel {
         StockTransactions stockTransactions = accounting.stockTransactions
         ArrayList<Order> orders = stockTransactions.getOrders()
         Transaction purchaseTransaction = purchaseOrder==null?null:purchaseOrder.purchaseTransaction
-        payed.setSelected(purchaseOrder && purchaseOrder.purchaseTransaction)
-        placed.setSelected(purchaseTransaction)
+        payed.setSelected(purchaseOrder && purchaseOrder.paymentTransaction)
+        placed.setSelected(purchaseOrder && purchaseOrder.purchaseTransaction)
         delivered.setSelected(purchaseOrder && orders.contains(purchaseOrder))
         deliveredButton.enabled = purchaseOrder && !orders.contains(purchaseOrder)
         placeOrderButton.enabled = purchaseTransaction==null
@@ -238,7 +224,7 @@ class PurchaseOrdersDetailPanel extends JPanel {
                 BigDecimal purchasePriceWithoutVat = serviceOrderItem.getPurchasePriceWithoutVat()
                 Service service = (Service) serviceOrderItem.article
 
-                Account costAccount = service.costAccount // FIXME: will be 'null' initially
+                Account costAccount = getCostAccount(service) // FIXME: will be 'null' initially
                 Booking costBooking = new Booking(costAccount, purchasePriceWithoutVat, !creditNote)
                 BigDecimal vatAmount = serviceOrderItem.getPurchaseVatAmount()
                 Booking bookingVat
@@ -282,6 +268,20 @@ class PurchaseOrdersDetailPanel extends JPanel {
         journal.addBusinessObject transaction
         Main.journal = journal
         Main.selectTransaction transaction
+    }
+
+    Account getCostAccount(Service service){
+        Account result = service.costAccount
+        if(result==null) {
+            AccountType accountType = accounting.accountTypes.getBusinessObject(AccountTypes.COST)
+            ArrayList<AccountType> list = new ArrayList<>()
+            list.add accountType
+            AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.accounts, list, 'Select Cost account for this Service')
+            dialog.visible = true
+            result = dialog.getSelection()
+            service.costAccount = result
+        }
+        result
     }
 
     void setAccounting(Accounting accounting) {
