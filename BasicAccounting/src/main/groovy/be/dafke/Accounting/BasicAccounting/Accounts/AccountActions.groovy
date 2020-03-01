@@ -8,6 +8,7 @@ import be.dafke.Accounting.BusinessModel.*
 
 import javax.swing.*
 import java.awt.*
+import java.math.RoundingMode
 
 import static java.util.ResourceBundle.getBundle
 
@@ -110,19 +111,19 @@ class AccountActions {
 
     // PURCHASE
     static void addPurchaseVatTransaction(Booking booking, PurchaseType purchaseType){
-        BigDecimal amount = booking.amount
+        BigDecimal amount = booking.amount.setScale(2, RoundingMode.HALF_EVEN)
         VATBooking costBooking = purchaseType.getCostBooking(amount)
         booking.addVatBooking(costBooking)
     }
 
     static void addPurchaseVatVatTransaction(Booking booking){
-        BigDecimal amount = booking.amount
+        BigDecimal amount = booking.amount.setScale(2, RoundingMode.HALF_EVEN)
         VATBooking vatBooking = PurchaseType.getVatBooking(amount)
         booking.addVatBooking(vatBooking)
     }
 
     static void addPurchaseCnVatTransaction(Booking booking, PurchaseType purchaseType){
-        BigDecimal amount = booking.amount
+        BigDecimal amount = booking.amount.setScale(2, RoundingMode.HALF_EVEN)
 
         VATBooking costBooking = purchaseType.getCostBooking(amount.negate())
         booking.addVatBooking(costBooking)
@@ -148,7 +149,7 @@ class AccountActions {
 
 
     static void addIntraComPurchaseVatBooking(Booking booking){
-        BigDecimal amount = booking.amount
+        BigDecimal amount = booking.amount.setScale(2, RoundingMode.HALF_EVEN)
         VATBooking intraComBooking = PurchaseType.getIntraComBooking(amount)
         booking.addVatBooking(intraComBooking)
     }
@@ -162,7 +163,7 @@ class AccountActions {
     }
 
     static void purchaseAny(Booking booking, Accounting accounting, Component component){
-        BigDecimal amount = booking.amount
+        BigDecimal amount = booking.amount.setScale(2, RoundingMode.HALF_EVEN)
         boolean debit = booking.debit
         if(debit) {
             // Ordinary Purchase
