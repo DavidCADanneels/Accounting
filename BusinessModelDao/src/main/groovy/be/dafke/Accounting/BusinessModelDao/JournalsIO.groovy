@@ -481,7 +481,7 @@ class JournalsIO {
 
                 for(Journal journal : transaction.duplicateJournals) writer.write """
     <$DUPLICATE_JOURNAL>$journal.abbreviation</$DUPLICATE_JOURNAL>
-        <$DUPLICATE_JOURNAL_ID>$journal.getId(transaction)</$DUPLICATE_JOURNAL_ID>"""
+        <$DUPLICATE_JOURNAL_ID>${journal.getId(transaction)}</$DUPLICATE_JOURNAL_ID>"""
 
 //                TODO: reuse method writeDetails()
                 if(transaction.balanceTransaction) writer.write"""
