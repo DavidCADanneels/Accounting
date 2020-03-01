@@ -1,8 +1,6 @@
 package be.dafke.Accounting.BusinessModel
 
-import be.dafke.Accounting.ObjectModel.BusinessObject
-
-class Service extends BusinessObject{
+class Service extends Article {
 
     BigDecimal unitPrice
     Contact supplier

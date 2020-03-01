@@ -118,26 +118,47 @@ class AccountingCopyPanel extends JPanel {
             }
         })
 
-        Articles articlesFrom = copyFrom.articles
-        Articles articlesTo = newAccounting.articles
-        articlesTo.clear()
-        articlesFrom.businessObjects.forEach({ article ->
-            Article newArticle = new Article(article, newAccounting.contacts)
-            Integer numberOfItems = stockTransactionsFrom.getNrInStock(article)
+        Goods goodsFrom = copyFrom.goods
+        Goods goodsTo = newAccounting.goods
+        goodsTo.clear()
+        goodsFrom.businessObjects.forEach( {goodFrom ->
+            Good newGood = new Good(goodFrom, newAccounting.contacts)
+            Integer numberOfItems = stockTransactionsFrom.getNrInStock(goodFrom)
             if (numberOfItems > 0) {
-                OrderItem orderItem = new OrderItem(numberOfItems, newArticle, purchaseOrder)
+                OrderItem orderItem = new OrderItem(numberOfItems, newGood, purchaseOrder)
                 purchaseOrder.addBusinessObject(orderItem)
                 // TODO: call setPurchaseTransaction (= beginBalans) 'later' iso setPoOrdered
                 // setPurchaseTransaction calls setPoOrdered as well
             }
             try {
-                articlesTo.addBusinessObject(newArticle)
+                goodsTo.addBusinessObject(newGood)
             } catch (EmptyNameException e) {
                 e.printStackTrace()
             } catch (DuplicateNameException e) {
                 e.printStackTrace()
             }
         })
+
+//        Articles articlesFrom = copyFrom.articles
+//        Articles articlesTo = newAccounting.articles
+//        articlesTo.clear()
+//        articlesFrom.businessObjects.forEach({ article ->
+//            Article newArticle = new Article(article, newAccounting.contacts)
+//            Integer numberOfItems = stockTransactionsFrom.getNrInStock(article)
+//            if (numberOfItems > 0) {
+//                OrderItem orderItem = new OrderItem(numberOfItems, newArticle, purchaseOrder)
+//                purchaseOrder.addBusinessObject(orderItem)
+//                // TODO: call setPurchaseTransaction (= beginBalans) 'later' iso setPoOrdered
+//                // setPurchaseTransaction calls setPoOrdered as well
+//            }
+//            try {
+//                articlesTo.addBusinessObject(newArticle)
+//            } catch (EmptyNameException e) {
+//                e.printStackTrace()
+//            } catch (DuplicateNameException e) {
+//                e.printStackTrace()
+//            }
+//        })
         if (!purchaseOrder.businessObjects.isEmpty()) {
             // TODO: 'later' = here !
 //            purchaseOrder.setPurchaseTransaction(beginBalans)

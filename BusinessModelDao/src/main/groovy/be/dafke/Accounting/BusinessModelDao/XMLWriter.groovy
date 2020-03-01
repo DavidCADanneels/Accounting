@@ -7,7 +7,6 @@ import java.util.logging.Logger
 
 import static AccountsIO.writeAccounts
 import static AllergenesIO.writeAllergenes
-import static ArticlesIO.writeArticles
 import static BalancesIO.writeBalances
 import static ContactsIO.writeContacts
 import static IngredientOrdersIO.writeIngredientOrders
@@ -24,6 +23,7 @@ import static StockIO.writeStockTransactions
 import static StockOrderIO.writeStockOrders
 import static VATIO.writeVATFields
 import static VATIO.writeVATTransactions
+import static be.dafke.Accounting.BusinessModelDao.GoodsIO.writeGoods
 import static be.dafke.Accounting.BusinessModelDao.JournalsIO.*
 import static be.dafke.Accounting.BusinessModelDao.ServicesIO.writeServices
 import static be.dafke.Accounting.BusinessModelDao.XMLConstants.*
@@ -162,8 +162,9 @@ xsi:noNamespaceSchemaLocation=\""""
             writeContacts accounting
         }
         if(accounting.tradeAccounting) {
-            writeArticles accounting
+//            writeArticles accounting
             writeServices accounting
+            writeGoods accounting
             writeAllergenes accounting
             writeIngredientes accounting
             writeIngredientOrders accounting

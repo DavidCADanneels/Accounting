@@ -25,6 +25,7 @@ class Accounting extends BusinessObject{
     VATFields vatFields
     Articles articles
     Services services
+    Goods goods
     Ingredients ingredients
     Allergenes allergenes
     Contact companyContact=null
@@ -69,6 +70,8 @@ class Accounting extends BusinessObject{
         articles = new Articles()
 
         services = new Services()
+
+        goods = new Goods()
 
         ingredients = new Ingredients()
 

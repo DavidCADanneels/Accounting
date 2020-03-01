@@ -1,6 +1,7 @@
 package be.dafke.Accounting.BasicAccounting.Trade
 
 import be.dafke.Accounting.BusinessModel.Article
+import be.dafke.Accounting.BusinessModel.Good
 import be.dafke.Accounting.BusinessModel.Ingredient
 import be.dafke.Accounting.BusinessModel.OrderItem
 import be.dafke.Accounting.BusinessModel.PurchaseOrder
@@ -68,7 +69,13 @@ class PurchaseOrderViewDataTableModel  extends SelectableTableModel<OrderItem> {
         if (col == INGREDIENT_COL) return article.getIngredient()
         if (col == NAME_COL) return article.name
         if (col == VAT_RATE_COL) return orderItem.getPurchaseVatRate()
-        if (col == HS_COL) return article.getHSCode()
+        if (col == HS_COL) {
+            if(article instanceof Good) {
+                Good good = (Good)article
+                return good.getHSCode()
+            }
+            return null
+        }
         if (col == PRICE_UNIT_COL) return orderItem.getPurchasePriceForUnit()
         if (col == PRICE_TOTAL_EXCL_COL) return orderItem.getPurchasePriceWithoutVat()
         if (col == VAT_AMOUNT_COL) return orderItem.getPurchaseVatAmount()

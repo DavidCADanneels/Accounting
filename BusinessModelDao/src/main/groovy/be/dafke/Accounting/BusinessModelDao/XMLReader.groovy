@@ -12,7 +12,6 @@ import javax.xml.parsers.DocumentBuilderFactory
 
 import static AccountsIO.readAccounts
 import static AllergenesIO.readAllergenes
-import static ArticlesIO.readArticles
 import static BalancesIO.readBalances
 import static ContactsIO.readContacts
 import static IngredientOrdersIO.readIngredientOrders
@@ -28,6 +27,7 @@ import static StockIO.readStockSettings
 import static StockIO.readStockTransactions
 import static StockOrderIO.readStockOrders
 import static VATIO.readVATTransactions
+import static be.dafke.Accounting.BusinessModelDao.GoodsIO.readGoods
 import static be.dafke.Accounting.BusinessModelDao.JournalsIO.*
 import static be.dafke.Accounting.BusinessModelDao.ServicesIO.readServices
 import static be.dafke.Accounting.BusinessModelDao.XMLConstants.*
@@ -218,8 +218,9 @@ class XMLReader {
                 readAllergenes accounting
                 readIngredients accounting
                 readIngredientOrders accounting
-                readArticles accounting
+//                readArticles accounting
                 readServices accounting
+                readGoods accounting
                 readPurchaseOrders accounting
                 readSalesOrders accounting
                 readStockOrders accounting

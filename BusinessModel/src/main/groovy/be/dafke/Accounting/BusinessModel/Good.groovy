@@ -1,11 +1,12 @@
 package be.dafke.Accounting.BusinessModel
 
-import be.dafke.Accounting.ObjectModel.BusinessObject
+
 import be.dafke.Utils.Utils
 
 import java.util.function.Predicate
 
-abstract class Article extends BusinessObject{
+class Good extends Article{
+    String HSCode = ""
     Integer purchaseVatRate = 0
     Integer salesVatRate = 6
     Integer itemsPerUnit = 1
@@ -14,11 +15,31 @@ abstract class Article extends BusinessObject{
     Contact supplier
     Ingredient ingredient
     BigDecimal ingredientAmount = BigDecimal.ZERO
-    ArrayList<StockOrder> stockOrders = new ArrayList()
-    ArrayList<PromoOrder> promoOrders = new ArrayList()
-    ArrayList<IngredientOrder> ingredientOrders = new ArrayList()
-    ArrayList<PurchaseOrder> purchaseOrders = new ArrayList()
-    ArrayList<SalesOrder> salesOrders = new ArrayList()
+//    ArrayList<StockOrder> stockOrders = new ArrayList()
+//    ArrayList<PromoOrder> promoOrders = new ArrayList()
+//    ArrayList<IngredientOrder> ingredientOrders = new ArrayList()
+//    ArrayList<PurchaseOrder> purchaseOrders = new ArrayList()
+//    ArrayList<SalesOrder> salesOrders = new ArrayList()
+
+    Good(Good good, Contacts contacts){
+        this(good.name)
+        HSCode = good.HSCode
+        purchaseVatRate = good.purchaseVatRate
+        salesVatRate = good.salesVatRate
+        itemsPerUnit = good.itemsPerUnit
+        purchasePrice = good.purchasePrice
+        salesPriceItemWithVat = good.salesPriceItemWithVat
+        String supplierName = good.supplier.name
+        supplier = contacts.getBusinessObject(supplierName)
+    }
+
+    Good(String name){
+        setName(name)
+    }
+
+    void setHSCode(String HSCode) {
+        this.HSCode = HSCode
+    }
 
     void setSalesVatRate(Integer salesVatRate) {
         this.salesVatRate = salesVatRate
@@ -72,6 +93,10 @@ abstract class Article extends BusinessObject{
         purchasePrice
     }
 
+    String getHSCode() {
+        HSCode
+    }
+
     Integer getSalesVatRate() {
         salesVatRate
     }
@@ -93,11 +118,11 @@ abstract class Article extends BusinessObject{
         Utils.getFactor(salesVatRate)
     }
 
-    static Predicate<Article> ofSupplier(Contact supplier) {
+    static Predicate<Good> ofSupplier(Contact supplier) {
         { article -> article.supplier == supplier }
     }
 
-    static Predicate<Article> withOrders(){
+    static Predicate<Good> withOrders(){
         { article ->
             article.purchaseOrders.size() > 0 ||
                 article.salesOrders.size() > 0 ||
@@ -111,43 +136,43 @@ abstract class Article extends BusinessObject{
 //        { article -> article.getNrInStock() > 0 }
 //    }
 
-    ArrayList<PurchaseOrder> getPurchaseOrders() {
-        purchaseOrders
-    }
-
-    ArrayList<SalesOrder> getSalesOrders() {
-        salesOrders
-    }
-
-    ArrayList<StockOrder> getStockOrders() {
-        stockOrders
-    }
-
-    ArrayList<PromoOrder> getPromoOrders() {
-        promoOrders
-    }
-
-    ArrayList<IngredientOrder> getIngredientOrders() {
-        ingredientOrders
-    }
-
-    void addPurchaseOrder(PurchaseOrder purchaseOrder) {
-        purchaseOrders.add(purchaseOrder)
-    }
-
-    void addStockOrder(StockOrder stockOrder) {
-        stockOrders.add(stockOrder)
-    }
-
-    void addPromoOrder(PromoOrder promoOrder) {
-        promoOrders.add(promoOrder)
-    }
-
-    void addIngredientOrder(IngredientOrder ingredientOrder) {
-        ingredientOrders.add(ingredientOrder)
-    }
-
-    void addSalesOrder(SalesOrder salesOrder) {
-        salesOrders.add(salesOrder)
-    }
+//    ArrayList<PurchaseOrder> getPurchaseOrders() {
+//        purchaseOrders
+//    }
+//
+//    ArrayList<SalesOrder> getSalesOrders() {
+//        salesOrders
+//    }
+//
+//    ArrayList<StockOrder> getStockOrders() {
+//        stockOrders
+//    }
+//
+//    ArrayList<PromoOrder> getPromoOrders() {
+//        promoOrders
+//    }
+//
+//    ArrayList<IngredientOrder> getIngredientOrders() {
+//        ingredientOrders
+//    }
+//
+//    void addPurchaseOrder(PurchaseOrder purchaseOrder) {
+//        purchaseOrders.add(purchaseOrder)
+//    }
+//
+//    void addStockOrder(StockOrder stockOrder) {
+//        stockOrders.add(stockOrder)
+//    }
+//
+//    void addPromoOrder(PromoOrder promoOrder) {
+//        promoOrders.add(promoOrder)
+//    }
+//
+//    void addIngredientOrder(IngredientOrder ingredientOrder) {
+//        ingredientOrders.add(ingredientOrder)
+//    }
+//
+//    void addSalesOrder(SalesOrder salesOrder) {
+//        salesOrders.add(salesOrder)
+//    }
 }

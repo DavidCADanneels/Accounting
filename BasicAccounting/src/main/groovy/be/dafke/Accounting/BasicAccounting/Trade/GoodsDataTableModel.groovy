@@ -1,11 +1,7 @@
 package be.dafke.Accounting.BasicAccounting.Trade
 
 import be.dafke.Accounting.BasicAccounting.MainApplication.ActionUtils
-import be.dafke.Accounting.BusinessModel.Article
-import be.dafke.Accounting.BusinessModel.Articles
-import be.dafke.Accounting.BusinessModel.Contact
-import be.dafke.Accounting.BusinessModel.Good
-import be.dafke.Accounting.BusinessModel.Ingredient
+import be.dafke.Accounting.BusinessModel.*
 import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException
 import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException
 import be.dafke.ComponentModel.SelectableTableModel
@@ -15,8 +11,8 @@ import java.util.List
 
 import static java.util.ResourceBundle.getBundle
 
-class ArticlesDataTableModel extends SelectableTableModel<Article> {
-    final Articles articles
+class GoodsDataTableModel extends SelectableTableModel<Good> {
+    final Goods goods
     static int UNIT_NAME_COL = 0
     static int INGREDIENT_COL = 1
     static int AMOUNT_COL = 2
@@ -34,9 +30,9 @@ class ArticlesDataTableModel extends SelectableTableModel<Article> {
     HashMap<Integer,Class> columnClasses = new HashMap<>()
     List<Integer> editableColumns = new ArrayList<>()
 
-    ArticlesDataTableModel(Component parent, Articles articles) {
+    GoodsDataTableModel(Component parent, Goods goods) {
         this.parent = parent
-        this.articles = articles
+        this.goods = goods
         setColumnNames()
         setColumnClasses()
         setEditableColumns()
@@ -118,7 +114,7 @@ class ArticlesDataTableModel extends SelectableTableModel<Article> {
     }
 
     int getRowCount() {
-        articles?articles.businessObjects.size():0
+        goods?goods.businessObjects.size():0
     }
 
     @Override
@@ -140,48 +136,45 @@ class ArticlesDataTableModel extends SelectableTableModel<Article> {
 // ===============
     @Override
     void setValueAt(Object value, int row, int col) {
-        Article article = getObject(row,col)
+        Good good = getObject(row,col)
         if(col == PURCHASE_PRICE_COL){
             BigDecimal purchasePrice = (BigDecimal) value
             if(purchasePrice.scale()<2)
                 purchasePrice = purchasePrice.setScale(2)
-            article.setPurchasePrice(purchasePrice)
+            good.setPurchasePrice(purchasePrice)
         }
         if(col == HS_COL){
-            if(article instanceof Good){
-                Good good = (Good) article
-                good.setHSCode((String) value)
-            }
+            good.setHSCode((String) value)
         }
         if(col == PURCHASE_VAT_COL){
-            article.setPurchaseVatRate((Integer) value)
+            good.setPurchaseVatRate((Integer) value)
         }
         if(col == SALES_VAT_COL){
-            article.setSalesVatRate((Integer) value)
+            good.setSalesVatRate((Integer) value)
         }
         if(col == SUPPLIER_COL){
-            article.setSupplier((Contact) value)
+            good.setSupplier((Contact) value)
         }
         if(col == INGREDIENT_COL) {
-            article.setIngredient((Ingredient) value)
+            good.setIngredient((Ingredient) value)
         }
         if(col == AMOUNT_COL) {
-            article.setIngredientAmount((BigDecimal) value)
+            good.setIngredientAmount((BigDecimal) value)
         }
         if(col == ITEMS_PER_UNIT_COL){
-            article.setItemsPerUnit((Integer) value)
+            good.setItemsPerUnit((Integer) value)
         }
         if (col == SALE_ITEM_INCL_COL) {
             BigDecimal amount = (BigDecimal) value
-            article.setSalesPriceItemWithVat(amount.setScale(2))
+            good.setSalesPriceItemWithVat(amount.setScale(2))
         }
         if(col == UNIT_NAME_COL) {
-//            article.setName((String) value)
-            String oldName = article.name
+//            good.setName((String) value)
+            String oldName = good.name
             String newName = (String) value
             if (newName != null && !oldName.trim().equals(newName.trim())) {
                 try {
-                    articles.modifyName(oldName, newName)
+                    goods.modifyName(oldName, newName)
                 } catch (DuplicateNameException e) {
                     ActionUtils.showErrorMessage(parent, ActionUtils.ARTICLE_DUPLICATE_NAME, newName.trim())
                 } catch (EmptyNameException e) {
@@ -193,7 +186,7 @@ class ArticlesDataTableModel extends SelectableTableModel<Article> {
     }
 
     @Override
-    Article getObject(int row, int col) {
-        articles.businessObjects.get(row)
+    Good getObject(int row, int col) {
+        goods.businessObjects.get(row)
     }
 }

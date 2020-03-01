@@ -133,6 +133,8 @@ class XMLConstants {
     public static final String ARTICLE = "Article"
     public static final String SERVICES = "Services"
     public static final String SERVICE = "Service"
+    public static final String GOODS = "Goods"
+    public static final String GOOD = "Good"
     public static final String QUANTITY = "Quantity"
 //    public static final String ARTICLE_MIN_REDUCTION = "MinForReduction"
     public static final String INGREDIENTS = "Ingredients"

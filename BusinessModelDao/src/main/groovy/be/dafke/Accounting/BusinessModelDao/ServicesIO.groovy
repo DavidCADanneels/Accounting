@@ -16,6 +16,7 @@ import static be.dafke.Utils.Utils.parseBigDecimal
 class ServicesIO {
     static void readServices(Accounting accounting){
         Services services = accounting.services
+        Articles articles = accounting.articles
         Contacts contacts = accounting.contacts
         File xmlFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$SERVICES$XML_EXTENSION")
         Element rootElement = getRootElement(xmlFile, SERVICES)
@@ -38,6 +39,7 @@ class ServicesIO {
             }
             try {
                 services.addBusinessObject(service)
+                articles.addBusinessObject(service)
             } catch (EmptyNameException | DuplicateNameException e) {
                 e.printStackTrace()
             }

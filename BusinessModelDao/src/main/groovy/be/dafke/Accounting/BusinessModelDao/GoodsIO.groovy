@@ -12,109 +12,112 @@ import static be.dafke.Accounting.BusinessModelDao.XMLConstants.*
 import static be.dafke.Accounting.BusinessModelDao.XMLReader.*
 import static be.dafke.Accounting.BusinessModelDao.XMLWriter.getXmlHeader
 import static be.dafke.Utils.Utils.parseBigDecimal
-import static be.dafke.Utils.Utils.parseInt 
+import static be.dafke.Utils.Utils.parseInt
 
-class ArticlesIO {
-    static void readArticles(Accounting accounting){
+class GoodsIO {
+    static void readGoods(Accounting accounting){
+        Goods goods = accounting.goods
         Articles articles = accounting.articles
         Contacts contacts = accounting.contacts
         Ingredients ingredients = accounting.ingredients
-        File xmlFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$ARTICLES$XML_EXTENSION")
-        Element rootElement = getRootElement(xmlFile, ARTICLES)
-        for (Element element : getChildren(rootElement, ARTICLE)) {
+        File xmlFile = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$GOODS$XML_EXTENSION")
+        Element rootElement = getRootElement(xmlFile, GOODS)
+        for (Element element : getChildren(rootElement, GOOD)) {
 
             String name = getValue(element, NAME)
-            Article article = new Article(name)
+            Good good = new Good(name)
+
+            String hsCode = getValue(element, ARTICLE_HS_CODE)
+            if(hsCode) {
+                good.setHSCode(hsCode)
+            }
 
             String ingredientName = getValue(element, INGREDIENT)
             if(ingredientName){
                 Ingredient ingredient = ingredients.getBusinessObject(ingredientName)
-                article.setIngredient(ingredient)
+                good.setIngredient(ingredient)
             }
 
             String ingredientAmountSrting = getValue(element, AMOUNT)
             if(ingredientAmountSrting){
-                article.setIngredientAmount(parseBigDecimal(ingredientAmountSrting))
+                good.setIngredientAmount(parseBigDecimal(ingredientAmountSrting))
             }
-
-            String hsCode = getValue(element, ARTICLE_HS_CODE)
-            if(hsCode)
-                article.setHSCode(hsCode)
 
             String purchasePrice = getValue(element, PURCHASE_PRICE)
             if(purchasePrice)
-                article.setPurchasePrice(parseBigDecimal(purchasePrice))
+                good.setPurchasePrice(parseBigDecimal(purchasePrice))
 
             String salesPriceSingle = getValue(element, SALES_SINGLE_PRICE)
             if(salesPriceSingle)
-                article.setSalesPriceItemWithVat(parseBigDecimal(salesPriceSingle))
+                good.setSalesPriceItemWithVat(parseBigDecimal(salesPriceSingle))
 
             String purchaseVatRate = getValue(element, PURCHASE_VAT_RATE)
             if(purchaseVatRate)
-                article.setPurchaseVatRate(parseInt(purchaseVatRate))
+                good.setPurchaseVatRate(parseInt(purchaseVatRate))
 
             String salesVatRate = getValue(element, SALES_VAT_RATE)
             if(salesVatRate)
-                article.setSalesVatRate(parseInt(salesVatRate))
+                good.setSalesVatRate(parseInt(salesVatRate))
 
             String itemsPerUnit = getValue(element, ITEMS_PER_UNIT)
             if(itemsPerUnit)
-                article.setItemsPerUnit(parseInt(itemsPerUnit))
+                good.setItemsPerUnit(parseInt(itemsPerUnit))
 
             String supplierName = getValue(element, SUPPLIER)
             if(supplierName) {
                 Contact supplier = contacts.getBusinessObject(supplierName)
                 if (supplier != null) {
-                    article.setSupplier(supplier)
+                    good.setSupplier(supplier)
                 }
             }
             try {
-                articles.addBusinessObject(article)
+                goods.addBusinessObject(good)
+                articles.addBusinessObject(good)
             } catch (EmptyNameException | DuplicateNameException e) {
                 e.printStackTrace()
             }
         }
     }
 
-    static void writeArticles(Accounting accounting) {
-        Articles articles = accounting.articles
-        File file = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$ARTICLES$XML_EXTENSION")
+    static void writeGoods(Accounting accounting) {
+        Goods goods = accounting.goods
+        File file = new File("$ACCOUNTINGS_XML_PATH/$accounting.name/$GOODS$XML_EXTENSION")
         try {
             Writer writer = new FileWriter(file)
-            writer.write getXmlHeader(ARTICLES, 2)
-            for (Article article : articles.businessObjects) {
-                Ingredient ingredient = article.getIngredient()
+            writer.write getXmlHeader(GOODS, 2)
+            for (Good good : goods.businessObjects) {
+                Ingredient ingredient = good.getIngredient()
                 writer.write """\
-  <$ARTICLE>
-    <$NAME>$article.name</$NAME>
+  <$GOOD>
+    <$NAME>$good.name</$NAME>
     <$INGREDIENT>${(ingredient==null?"null":ingredient.name)}</$INGREDIENT>
-    <$AMOUNT>$article.ingredientAmount</$AMOUNT>
-    <$ITEMS_PER_UNIT>$article.itemsPerUnit</$ITEMS_PER_UNIT>
-    <$ARTICLE_HS_CODE>$article.HSCode</$ARTICLE_HS_CODE>
-    <$PURCHASE_PRICE>$article.purchasePrice</$PURCHASE_PRICE>
-    <$SALES_SINGLE_PRICE>$article.salesPriceItemWithVat</$SALES_SINGLE_PRICE>
-    <$PURCHASE_VAT_RATE>$article.purchaseVatRate</$PURCHASE_VAT_RATE>
-    <$SALES_VAT_RATE>$article.salesVatRate</$SALES_VAT_RATE>
-    <$SUPPLIER>$article.supplier</$SUPPLIER>"""
+    <$AMOUNT>$good.ingredientAmount</$AMOUNT>
+    <$ITEMS_PER_UNIT>$good.itemsPerUnit</$ITEMS_PER_UNIT>
+    <$ARTICLE_HS_CODE>$good.HSCode</$ARTICLE_HS_CODE>
+    <$PURCHASE_PRICE>$good.purchasePrice</$PURCHASE_PRICE>
+    <$SALES_SINGLE_PRICE>$good.salesPriceItemWithVat</$SALES_SINGLE_PRICE>
+    <$PURCHASE_VAT_RATE>$good.purchaseVatRate</$PURCHASE_VAT_RATE>
+    <$SALES_VAT_RATE>$good.salesVatRate</$SALES_VAT_RATE>
+    <$SUPPLIER>$good.supplier</$SUPPLIER>"""
                 
-                for(PurchaseOrder purchaseOrder:article.purchaseOrders) writer.write """
+                for(PurchaseOrder purchaseOrder:good.purchaseOrders) writer.write """
     <$PURCHASE_ORDER>$purchaseOrder</$PURCHASE_ORDER>"""
 
-                for(SalesOrder salesOrder:article.salesOrders) writer.write """
+                for(SalesOrder salesOrder:good.salesOrders) writer.write """
     <$SALES_ORDER>$salesOrder</$SALES_ORDER>"""
 
-                for(StockOrder stockOrder:article.stockOrders) writer.write """
+                for(StockOrder stockOrder:good.stockOrders) writer.write """
     <$STOCK_ORDER>$stockOrder</$STOCK_ORDER>"""
 
-                for(PromoOrder promoOrder:article.promoOrders) writer.write """
+                for(PromoOrder promoOrder:good.promoOrders) writer.write """
     <$PROMO_ORDER>$promoOrder</$PROMO_ORDER>"""
 
                 writer.write """
-  </$ARTICLE>
+  </$GOOD>
 """
             }
             writer.write """\
-</$ARTICLES>
+</$GOODS>
 """
             writer.flush()
             writer.close()
