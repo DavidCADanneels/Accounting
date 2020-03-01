@@ -39,8 +39,14 @@ class PurchaseOrderIO {
                 String name = getValue(element, NAME)
                 Article article = articles.getBusinessObject(name)
 
+                String numberOfUnitsString = getValue(element, NR_OF_UNITS)
+                int numberOfUnits = parseInt(numberOfUnitsString)
+
                 String numberOfItemsString = getValue(element, NR_OF_ITEMS)
                 int numberOfItems = parseInt(numberOfItemsString)
+
+                String itemsPerUnitString = getValue(element, ITEMS_PER_UNIT)
+                int itemsPerUnit = parseInt(itemsPerUnitString)
 
                 String purchaseVatRateString = getValue(element, PURCHASE_VAT_RATE)
                 int purchaseVatRate = parseInt(purchaseVatRateString)
@@ -49,6 +55,12 @@ class PurchaseOrderIO {
                 BigDecimal purchasePrice = parseBigDecimal(purchasePriceString)
 
                 OrderItem orderItem = new OrderItem(numberOfItems, article, order)
+                // should be:
+//                OrderItem orderItem = new OrderItem(numberOfUnits, article, order)
+                orderItem.itemsPerUnit = itemsPerUnit
+                orderItem.numberOfUnits = numberOfUnits
+                orderItem.calculateNumberOfItems()
+                assert orderItem.numberOfItems == numberOfItems
                 orderItem.setPurchaseVatRate(purchaseVatRate)
                 orderItem.setPurchasePriceForUnit(purchasePrice)
                 orderItem.setName(name)
@@ -97,6 +109,8 @@ class PurchaseOrderIO {
     <$ARTICLE>
       <$NAME>$article.name</$NAME>
       <$NR_OF_ITEMS>$orderItem.numberOfItems</$NR_OF_ITEMS>
+      <$NR_OF_UNITS>$orderItem.numberOfUnits</$NR_OF_UNITS>
+      <$ITEMS_PER_UNIT>$orderItem.itemsPerUnit</$ITEMS_PER_UNIT>
       <$PURCHASE_VAT_RATE>$orderItem.purchaseVatRate</$PURCHASE_VAT_RATE>
       <$PURCHASE_PRICE>$orderItem.purchasePriceForUnit</$PURCHASE_PRICE>
     </$ARTICLE>"""
