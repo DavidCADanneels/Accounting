@@ -1,6 +1,6 @@
 package be.dafke.Accounting.BasicAccounting.MainApplication.Settings
 
-import be.dafke.Accounting.BasicAccounting.MainApplication.Settings.AccountingSettingsPanel
+
 import be.dafke.Accounting.BusinessModel.*
 import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException
 import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException
@@ -98,16 +98,32 @@ class AccountingCopyPanel extends JPanel {
         newAccounting.copyVatSettings(copyFrom.vatTransactions)
     }
 
-    void copyArticles() {
+    void copyArticlesAndServices() {
         PurchaseOrder purchaseOrder = new PurchaseOrder()
         purchaseOrder.setName("PO0")
+
+        StockTransactions stockTransactionsFrom = copyFrom.stockTransactions
+
+        Services servicesFrom = copyFrom.services
+        Services servicesTo = newAccounting.services
+        servicesTo.clear()
+        servicesFrom.businessObjects.forEach( {serviceFrom ->
+            Service newService = new Service(serviceFrom, newAccounting.contacts)
+            try {
+                servicesTo.addBusinessObject(newService)
+            } catch (EmptyNameException e) {
+                e.printStackTrace()
+            } catch (DuplicateNameException e) {
+                e.printStackTrace()
+            }
+        })
 
         Articles articlesFrom = copyFrom.articles
         Articles articlesTo = newAccounting.articles
         articlesTo.clear()
         articlesFrom.businessObjects.forEach({ article ->
             Article newArticle = new Article(article, newAccounting.contacts)
-            Integer numberOfItems = article.getNrInStock()
+            Integer numberOfItems = stockTransactionsFrom.getNrInStock(article)
             if (numberOfItems > 0) {
                 OrderItem orderItem = new OrderItem(numberOfItems, newArticle, purchaseOrder)
                 purchaseOrder.addBusinessObject(orderItem)
@@ -133,8 +149,8 @@ class AccountingCopyPanel extends JPanel {
             } catch (DuplicateNameException e) {
                 e.printStackTrace()
             }
-            StockTransactions stockTransactions = newAccounting.stockTransactions
-            stockTransactions.addOrder(purchaseOrder)
+            StockTransactions stockTransactionsTo = newAccounting.stockTransactions
+            stockTransactionsTo.addOrder(purchaseOrder)
         }
     }
 
@@ -221,7 +237,7 @@ class AccountingCopyPanel extends JPanel {
             if(copyFrom){
                 // TODO: need separate check box to copy Articles?
                 accountingSettingsPanel.copyTradeSettings(copyFrom)
-                copyArticles()
+                copyArticlesAndServices()
             } else {
                 accountingSettingsPanel.copyTradeSettings(null)
             }

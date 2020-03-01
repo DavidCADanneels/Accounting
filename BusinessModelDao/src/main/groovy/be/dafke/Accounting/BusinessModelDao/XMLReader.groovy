@@ -17,7 +17,6 @@ import static BalancesIO.readBalances
 import static ContactsIO.readContacts
 import static IngredientOrdersIO.readIngredientOrders
 import static IngredientsIO.readIngredients
-import static JournalsIO.*
 import static MealOrderIO.readMealOrders
 import static MealsIO.readMeals
 import static MortgageIO.readMortgages
@@ -29,7 +28,9 @@ import static StockIO.readStockSettings
 import static StockIO.readStockTransactions
 import static StockOrderIO.readStockOrders
 import static VATIO.readVATTransactions
-import static XMLConstants.*
+import static be.dafke.Accounting.BusinessModelDao.JournalsIO.*
+import static be.dafke.Accounting.BusinessModelDao.ServicesIO.readServices
+import static be.dafke.Accounting.BusinessModelDao.XMLConstants.*
 
 class XMLReader {
 
@@ -218,6 +219,7 @@ class XMLReader {
                 readIngredients accounting
                 readIngredientOrders accounting
                 readArticles accounting
+                readServices accounting
                 readPurchaseOrders accounting
                 readSalesOrders accounting
                 readStockOrders accounting

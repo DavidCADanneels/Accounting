@@ -25,6 +25,7 @@ import static StockOrderIO.writeStockOrders
 import static VATIO.writeVATFields
 import static VATIO.writeVATTransactions
 import static be.dafke.Accounting.BusinessModelDao.JournalsIO.*
+import static be.dafke.Accounting.BusinessModelDao.ServicesIO.writeServices
 import static be.dafke.Accounting.BusinessModelDao.XMLConstants.*
 import static be.dafke.Accounting.BusinessModelDao.XMLReader.*
 
@@ -162,6 +163,7 @@ xsi:noNamespaceSchemaLocation=\""""
         }
         if(accounting.tradeAccounting) {
             writeArticles accounting
+            writeServices accounting
             writeAllergenes accounting
             writeIngredientes accounting
             writeIngredientOrders accounting

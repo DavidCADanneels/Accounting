@@ -132,9 +132,9 @@ class Article extends BusinessObject{
         }
     }
 
-    static Predicate<Article> inStock(){
-        { article -> article.getNrInStock() > 0 }
-    }
+//    static Predicate<Article> inStock(){
+//        { article -> article.getNrInStock() > 0 }
+//    }
 
     ArrayList<PurchaseOrder> getPurchaseOrders() {
         purchaseOrders

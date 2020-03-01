@@ -131,6 +131,8 @@ class XMLConstants {
 
     public static final String ARTICLES = "Articles"
     public static final String ARTICLE = "Article"
+    public static final String SERVICES = "Services"
+    public static final String SERVICE = "Service"
     public static final String QUANTITY = "Quantity"
 //    public static final String ARTICLE_MIN_REDUCTION = "MinForReduction"
     public static final String INGREDIENTS = "Ingredients"
@@ -191,7 +193,7 @@ class XMLConstants {
     public static final String NR_OF_UNITS = "NrOfUnits"
     public static final String NR_OF_ITEMS = "NrOfItems"
     public static final String SALESPRICE_FOR_ITEM = "SalesPriceForItem"
-//    public static final String UNIT_PRICE = "UnitPrice"
+    public static final String UNIT_PRICE = "UnitPrice"
     public static final String ITEM_PRICE = "ItemPrice"
     public static final String TOTAL_PRICE = "TotalPrice"
     public static final String TAX_RATE = "TaxRate"
