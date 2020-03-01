@@ -166,7 +166,9 @@ class OrderItem extends BusinessObject{
 
     BigDecimal getPurchaseVatAmount(int number, BigDecimal unitPrice){
         BigDecimal purchasePriceWithoutVat = unitPrice.multiply(new BigDecimal(number))
-        purchasePriceWithoutVat.multiply(getPurchasePercentage())
+        def percentage = getPurchasePercentage()
+        if(percentage==null || percentage.compareTo(BigDecimal.ZERO) == 0) return BigDecimal.ZERO
+        purchasePriceWithoutVat.multiply(percentage)
     }
 
     BigDecimal getStockValue(){
@@ -191,13 +193,13 @@ class OrderItem extends BusinessObject{
 
     BigDecimal getPurchasePercentage() {
         Integer purchaseVatRate = getPurchaseVatRate()
-        purchaseVatRate?new BigDecimal(purchaseVatRate).divide(new BigDecimal(100)):null
+        purchaseVatRate?new BigDecimal(purchaseVatRate).divide(new BigDecimal(100)):BigDecimal.ZERO
     }
 
     // 1.06
     BigDecimal getPurchaseFactor(){
         BigDecimal purchasePercentage = getPurchasePercentage()
-        purchasePercentage?BigDecimal.ONE.add(purchasePercentage):null
+        purchasePercentage?BigDecimal.ONE.add(purchasePercentage):BigDecimal.ZERO
     }
 
     Integer getPurchaseVatRate() {
