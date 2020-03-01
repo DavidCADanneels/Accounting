@@ -277,7 +277,7 @@ class PurchaseOrdersDetailPanel extends JPanel {
             AccountType accountType = accounting.accountTypes.getBusinessObject(AccountTypes.COST)
             ArrayList<AccountType> list = new ArrayList<>()
             list.add accountType
-            AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.accounts, list, 'Select Cost account for this Service')
+            AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.accounts, list, "Select Cost account for Service: ${service.name}")
             dialog.visible = true
             result = dialog.getSelection()
             service.costAccount = result
