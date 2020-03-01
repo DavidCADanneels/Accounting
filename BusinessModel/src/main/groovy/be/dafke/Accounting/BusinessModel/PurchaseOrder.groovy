@@ -88,6 +88,14 @@ class PurchaseOrder extends Order {
         getBusinessObjects().forEach({ orderItem ->
             Article article = orderItem.article
             article.addPurchaseOrder(this)
+//            if(article instanceof Good){
+//                Good good = (Good) orderItem.article
+//                good.addPurchaseOrder(this)
+//            }
+//            if(article instanceof Service){
+//                Service service = (Service) orderItem.article
+//                service.addPurchaseOrder(this)
+//            }
         })
     }
 
