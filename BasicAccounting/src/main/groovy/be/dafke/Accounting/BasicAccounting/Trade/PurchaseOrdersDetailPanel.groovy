@@ -198,7 +198,7 @@ class PurchaseOrdersDetailPanel extends JPanel {
             PurchaseType purchaseType = PurchaseType.VAT_81
             Account stockAccount = StockUtils.getStockAccount accounting
             Booking purchaseBooking = new Booking(stockAccount, goodsAmount, !creditNote)
-            BigDecimal vatAmount = purchaseOrder.getTotalPurchaseVat(OrderItem.isGood()).setScale(2, RoundingMode.HALF_EVEN)
+            BigDecimal vatAmount = purchaseOrder.getTotalPurchaseVat(OrderItem.isGood()).setScale(2, RoundingMode.HALF_UP)
             Booking bookingVat
             if (!creditNote) {
                 // Cost excl VAT
@@ -222,12 +222,12 @@ class PurchaseOrdersDetailPanel extends JPanel {
         if(!serviceItems.empty) {
             PurchaseType purchaseType = PurchaseType.VAT_82
             serviceItems.forEach { serviceOrderItem ->
-                BigDecimal purchasePriceWithoutVat = serviceOrderItem.getPurchasePriceWithoutVat().setScale(2, RoundingMode.HALF_EVEN)
+                BigDecimal purchasePriceWithoutVat = serviceOrderItem.getPurchasePriceWithoutVat().setScale(2, RoundingMode.HALF_UP)
                 Service service = (Service) serviceOrderItem.article
 
                 Account costAccount = getCostAccount(service) // FIXME: will be 'null' initially
                 Booking costBooking = new Booking(costAccount, purchasePriceWithoutVat, !creditNote)
-                BigDecimal vatAmount = serviceOrderItem.getPurchaseVatAmount().setScale(2, RoundingMode.HALF_EVEN)
+                BigDecimal vatAmount = serviceOrderItem.getPurchaseVatAmount().setScale(2, RoundingMode.HALF_UP)
                 Booking bookingVat
                 if (!creditNote) {
                     // Cost excl VAT

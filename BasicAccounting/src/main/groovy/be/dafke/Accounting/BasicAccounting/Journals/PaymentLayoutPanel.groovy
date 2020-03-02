@@ -33,15 +33,30 @@ class PaymentLayoutPanel extends JPanel {
         openSupplierInvoices = new OpenSupplierInvoicesPanel()
         mortgagesPanel = new MortgagesPanel(journalEditPanel)
 
-        JPanel openInvoices = new JPanel()
-        openInvoices.setLayout(new BoxLayout(openInvoices, BoxLayout.Y_AXIS))
-        openInvoices.add(openCustomerInvoices)
-        openInvoices.add(openSupplierInvoices)
+        JPanel boxPanel = new JPanel()
+        boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.Y_AXIS))
+        boxPanel.add openCustomerInvoices
+        boxPanel.add openSupplierInvoices
+//        boxPanel.add mortgagesPanel
+
+        JPanel accountPanel = new JPanel()
+        accountPanel.add new JLabel('Account to book against: ')
+        JTextField textField = new JTextField(20)
+        textField.editable = false
+        accountPanel.add textField
+        JButton accountBooking = new JButton("Pay / Receive")
+        accountPanel.add accountBooking
+
+//        JPanel south = new JPanel()
+//        south.layout = new BoxLayout(south, BoxLayout.Y_AXIS)
+//        south.add accountPanel
+//        south.add mortgagesPanel
 
         JPanel links = new JPanel()
         links.setLayout(new BorderLayout())
-        links.add(openInvoices, BorderLayout.CENTER)
-        links.add(mortgagesPanel, BorderLayout.SOUTH)
+        links.add(mortgagesPanel, BorderLayout.NORTH)
+        links.add(boxPanel, BorderLayout.CENTER)
+        links.add(accountPanel, BorderLayout.SOUTH)
 
         setLayout(new BorderLayout())
         journalViewAndEditSplitPane = Main.createSplitPane(journalSwitchViewPanel, journalEditPanel, VERTICAL_SPLIT)
