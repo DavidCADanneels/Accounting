@@ -181,13 +181,9 @@ class JournalEditPanel extends JPanel implements ActionListener {
 
     void deleteTransaction(Transaction transaction) {//throws NotEmptyException{
         Journal journal = transaction.journal
-        if(journal!=null) {
-            journal.removeBusinessObject(transaction)
-        } else {
-            println "transaction.journal is null (while trying to remove transaction)"
-        }
+        journal.removeBusinessObject(transaction)
         accounting.transactions.removeBusinessObject(transaction)
-//        transaction.journal = null (is already done at the end of transactions.removeBusinessObject
+        transaction.journal = null
 
         Main.fireJournalDataChanged(journal)
         for (Account account : transaction.accounts) {

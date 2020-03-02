@@ -131,11 +131,7 @@ class TransactionOverviewDataModel extends SelectableTableModel<Transaction> {
     Transaction getObject(int row, int col) {
         if(journal==null) return null
         ArrayList<Transaction> transactions = journal.businessObjects
-        if(row>-1&&row<transactions.size())
-            return transactions.get(row)
-        else {
-            System.err.println('out of bounds transactions')
-        }
+        return transactions.get(row)
     }
 
     int getRowInList(Transaction transaction){
