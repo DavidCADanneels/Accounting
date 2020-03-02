@@ -11,6 +11,7 @@ class Journal extends BusinessCollection<Transaction> {
     JournalType type
     Transaction currentTransaction
     Accounting accounting
+    Account baseAccount = null
 
     Journal(Journal journal) {
         this(journal.name, journal.abbreviation)
@@ -21,6 +22,14 @@ class Journal extends BusinessCollection<Transaction> {
         setName(name)
         setAbbreviation(abbreviation)
         currentTransaction = new Transaction(Calendar.getInstance(),"")
+    }
+
+    Account getBaseAccount() {
+        return baseAccount
+    }
+
+    void setBaseAccount(Account baseAccount) {
+        this.baseAccount = baseAccount
     }
 
     @Override
