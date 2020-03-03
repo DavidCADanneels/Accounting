@@ -18,9 +18,10 @@ class AccountActions {
     static final String SELECT_TAX_CREDIT_CN_ACCOUNT = "Select VAT Account for Purchases CN's"
     static final String SELECT_TAX_DEBIT_CN_ACCOUNT = "Select VAT Account for Sales CN's"
 
-    static void book(Account account, boolean debit, VATTransaction.VATType vatType, Accounting accounting, Component component){
+    static void book(Account account, boolean debit, VATTransaction.VATType vatType, Accounting accounting, Component component, BigDecimal amount = null){
+        if (account == null) return
         Transaction transaction = Main.transaction
-        BigDecimal amount = askAmount(account, debit, transaction, component)
+        if(amount == null) amount = askAmount(account, debit, transaction, component)
         if (amount != null) {
             Booking booking = new Booking(account, amount, debit)
             Main.addBooking(booking)

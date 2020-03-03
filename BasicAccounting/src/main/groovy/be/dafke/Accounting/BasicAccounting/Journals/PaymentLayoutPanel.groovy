@@ -1,5 +1,6 @@
 package be.dafke.Accounting.BasicAccounting.Journals
 
+import be.dafke.Accounting.BasicAccounting.Accounts.AccountActions
 import be.dafke.Accounting.BasicAccounting.Journals.Edit.JournalEditPanel
 import be.dafke.Accounting.BasicAccounting.Journals.Selector.JournalSelectorPanel
 import be.dafke.Accounting.BasicAccounting.Journals.View.JournalSwitchViewPanel
@@ -22,6 +23,8 @@ class PaymentLayoutPanel extends JPanel {
     OpenSupplierInvoicesPanel openSupplierInvoices
     MortgagesPanel mortgagesPanel
     JSplitPane journalViewAndEditSplitPane
+    Accounting accounting
+    Journal journal
 
     PaymentLayoutPanel() {
 
@@ -44,8 +47,24 @@ class PaymentLayoutPanel extends JPanel {
         JTextField textField = new JTextField(20)
         textField.editable = false
         accountPanel.add textField
-        JButton accountBooking = new JButton("Pay / Receive")
-        accountPanel.add accountBooking
+        JButton accountPay = new JButton("Pay")
+        JButton accountReceive = new JButton("Receive")
+        accountPanel.add accountPay
+        accountPanel.add accountReceive
+        accountPay.addActionListener({e->
+            def account = journal.baseAccount
+            if(account == null){
+                println 'TODO: ask user to set journal.baseAccount'
+            }
+            AccountActions.book account, false, null, accounting, this
+        })
+        accountReceive.addActionListener({e->
+            def account = journal.baseAccount
+            if(account == null){
+                println 'TODO: ask user to set journal.baseAccount'
+            }
+            AccountActions.book account, true, null, accounting, this
+        })
 
 //        JPanel south = new JPanel()
 //        south.layout = new BoxLayout(south, BoxLayout.Y_AXIS)
@@ -54,9 +73,9 @@ class PaymentLayoutPanel extends JPanel {
 
         JPanel links = new JPanel()
         links.setLayout(new BorderLayout())
-        links.add(mortgagesPanel, BorderLayout.NORTH)
+        links.add(mortgagesPanel, BorderLayout.SOUTH)
         links.add(boxPanel, BorderLayout.CENTER)
-        links.add(accountPanel, BorderLayout.SOUTH)
+        links.add(accountPanel, BorderLayout.NORTH)
 
         setLayout(new BorderLayout())
         journalViewAndEditSplitPane = Main.createSplitPane(journalSwitchViewPanel, journalEditPanel, VERTICAL_SPLIT)
@@ -71,6 +90,7 @@ class PaymentLayoutPanel extends JPanel {
     }
 
     void setAccounting(Accounting accounting){
+        this.accounting = accounting
         mortgagesPanel.setMortgages(accounting?accounting.mortgages:null)
         journalSwitchViewPanel.accounting = accounting
         journalEditPanel.accounting = accounting
@@ -80,6 +100,7 @@ class PaymentLayoutPanel extends JPanel {
     }
 
     void setJournal(Journal journal){
+        this.journal = journal
         journalSelectorPanel.journal = journal
         journalEditPanel.journal = journal
         journalSwitchViewPanel.journal = journal
