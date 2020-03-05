@@ -33,13 +33,19 @@ class JournalSwitchPanel extends JPanel {
     }
 
     void setAccounting(Accounting accounting) {
-        defaultLayoutPanel.accounting = accounting
-        paymentLayoutPanel.accounting = accounting
+        // if (currentView == DEFAULT_VIEW) {
+            defaultLayoutPanel.accounting = accounting
+        // } else if (currentView == PAYMENTS_VIEW) {
+            paymentLayoutPanel.accounting = accounting
+//        }
     }
 
     void fireShowInputChanged(boolean enabled) {
-        defaultLayoutPanel.fireShowInputChanged(enabled)
-        paymentLayoutPanel.fireShowInputChanged(enabled)
+        // if (currentView == DEFAULT_VIEW) {
+            defaultLayoutPanel.fireShowInputChanged(enabled)
+        // } else if (currentView == PAYMENTS_VIEW) {
+            paymentLayoutPanel.fireShowInputChanged(enabled)
+//        }
     }
 
     void setJournal(Journal journal) {
@@ -48,8 +54,11 @@ class JournalSwitchPanel extends JPanel {
         } else {
             switchView(JournalSwitchPanel.DEFAULT_VIEW)
         }
-        defaultLayoutPanel.setJournal(journal)
-        paymentLayoutPanel.setJournal(journal)
+        // if (currentView == DEFAULT_VIEW) {
+            defaultLayoutPanel.setJournal(journal)
+        // } else if (currentView == PAYMENTS_VIEW) {
+            paymentLayoutPanel.setJournal(journal)
+//        }
     }
 
     void switchView(String view) {
@@ -57,44 +66,63 @@ class JournalSwitchPanel extends JPanel {
         currentView = view
     }
 
-    void fireTransactionInputDataChanged(){
-        defaultLayoutPanel.fireTransactionInputDataChanged()
-        paymentLayoutPanel.fireTransactionInputDataChanged()
+    void fireTransactionInputDataChanged() {
+        // if (currentView == DEFAULT_VIEW) {
+            defaultLayoutPanel.fireTransactionInputDataChanged()
+        // } else if (currentView == PAYMENTS_VIEW) {
+            paymentLayoutPanel.fireTransactionInputDataChanged()
+//        }
     }
 
     void editTransaction(Transaction transaction){
-        defaultLayoutPanel.editTransaction(transaction)
-        paymentLayoutPanel.editTransaction(transaction)
+        // if (currentView == DEFAULT_VIEW) {
+            defaultLayoutPanel.editTransaction(transaction)
+        // } else if (currentView == PAYMENTS_VIEW) {
+            paymentLayoutPanel.editTransaction(transaction)
+//        }
     }
 
     void deleteBookings(ArrayList<Booking> bookings){
-        defaultLayoutPanel.deleteBookings(bookings)
-        paymentLayoutPanel.deleteBookings(bookings)
+        // if (currentView == DEFAULT_VIEW) {
+            defaultLayoutPanel.deleteBookings(bookings)
+        // } else if (currentView == PAYMENTS_VIEW) {
+            paymentLayoutPanel.deleteBookings(bookings)
+//        }
     }
 
     void deleteTransactions(Set<Transaction> transactions){
-        defaultLayoutPanel.deleteTransactions(transactions)
-        paymentLayoutPanel.deleteTransactions(transactions)
+        // if (currentView == DEFAULT_VIEW) {
+            defaultLayoutPanel.deleteTransactions(transactions)
+        // } else if (currentView == PAYMENTS_VIEW) {
+            paymentLayoutPanel.deleteTransactions(transactions)
+//        }
     }
 
     void moveBookings(ArrayList<Booking> bookings, Journals journals){
-        defaultLayoutPanel.moveBookings(bookings, journals)
-        paymentLayoutPanel.moveBookings(bookings, journals)
+        // if (currentView == DEFAULT_VIEW) {
+            defaultLayoutPanel.moveBookings(bookings, journals)
+        // } else if (currentView == PAYMENTS_VIEW) {
+            paymentLayoutPanel.moveBookings(bookings, journals)
+//        }
     }
 
-    void moveTransactions(Set<Transaction> bookings, Journals journals){
-        defaultLayoutPanel.moveTransactions(bookings, journals)
-        paymentLayoutPanel.moveTransactions(bookings, journals)
+    void moveTransactions(Set<Transaction> bookings, Journals journals) {
+        // if (currentView == DEFAULT_VIEW) {
+            defaultLayoutPanel.moveTransactions(bookings, journals)
+        // } else if (currentView == PAYMENTS_VIEW) {
+            paymentLayoutPanel.moveTransactions(bookings, journals)
+//        }
     }
 
     Transaction getTransaction(){
-        if(currentView == PAYMENTS_VIEW) {
+        if (currentView == PAYMENTS_VIEW) {
             paymentLayoutPanel.transaction
         } else {
             defaultLayoutPanel.transaction
         }
     }
 
+    // TODO: add directly in (shared) JournalInputPanel (not via LayoutPanel)
     void addBooking(Booking booking){
         if(currentView == PAYMENTS_VIEW) {
             paymentLayoutPanel.addBooking(booking)
@@ -104,13 +132,19 @@ class JournalSwitchPanel extends JPanel {
     }
 
     void fireJournalDataChanged(){
-        defaultLayoutPanel.fireJournalDataChanged()
-        paymentLayoutPanel.fireJournalDataChanged()
+        // if (currentView == DEFAULT_VIEW) {
+            defaultLayoutPanel.fireJournalDataChanged()
+        // } else if(currentView == PAYMENTS_VIEW) {
+            paymentLayoutPanel.fireJournalDataChanged()
+//        }
     }
 
     void setJournals(Journals journals) {
-        defaultLayoutPanel.setJournals(journals)
-        paymentLayoutPanel.setJournals(journals)
+        // if (currentView == DEFAULT_VIEW) {
+            defaultLayoutPanel.setJournals(journals)
+        // } else if (currentView == PAYMENTS_VIEW) {
+            paymentLayoutPanel.setJournals(journals)
+//        }
     }
 
     void fireAccountDataChanged(){
@@ -134,8 +168,11 @@ class JournalSwitchPanel extends JPanel {
 //    }
 
     void selectTransaction(Transaction transaction){
-        defaultLayoutPanel.selectTransaction(transaction)
-        paymentLayoutPanel.selectTransaction(transaction)
+        // if (currentView == DEFAULT_VIEW) {
+            defaultLayoutPanel.selectTransaction(transaction)
+        // } else if(currentView == PAYMENTS_VIEW) {
+            paymentLayoutPanel.selectTransaction(transaction)
+//        }
     }
 
     void fireJournalTypeChanges(Journal journal, JournalType journalType) {
@@ -143,13 +180,19 @@ class JournalSwitchPanel extends JPanel {
     }
 
     void setMortgages(Mortgages mortgages) {
-        defaultLayoutPanel.setMortgages(mortgages)
-        paymentLayoutPanel.setMortgages(mortgages)
+        // if (currentView == DEFAULT_VIEW) {
+            defaultLayoutPanel.setMortgages(mortgages)
+        // } else if(currentView == PAYMENTS_VIEW) {
+            paymentLayoutPanel.setMortgages(mortgages)
+//        }
     }
 
     void enableMortgagePayButton(Mortgage mortgage) {
-        defaultLayoutPanel.enableMortgagePayButton(mortgage)
-        paymentLayoutPanel.enableMortgagePayButton(mortgage)
+        // if (currentView == DEFAULT_VIEW) {
+            defaultLayoutPanel.enableMortgagePayButton(mortgage)
+        // } else if (currentView == PAYMENTS_VIEW) {
+            paymentLayoutPanel.enableMortgagePayButton(mortgage)
+//        }
     }
 
     void fireGlobalShowNumbersChanged(boolean enabled){

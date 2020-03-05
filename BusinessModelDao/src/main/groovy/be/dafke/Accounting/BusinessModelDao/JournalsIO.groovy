@@ -114,6 +114,11 @@ class JournalsIO {
             String type = getValue(element, TYPE)
             journal.type = journalTypes.getBusinessObject(type)
 
+            String baseAccountName = getValue(element, BASE_ACCOUNT)
+            if(baseAccountName){
+                journal.baseAccount = accounting.accounts.getBusinessObject(baseAccountName)
+            }
+
             try {
                 journals.addBusinessObject(journal)
             } catch (EmptyNameException | DuplicateNameException e) {
