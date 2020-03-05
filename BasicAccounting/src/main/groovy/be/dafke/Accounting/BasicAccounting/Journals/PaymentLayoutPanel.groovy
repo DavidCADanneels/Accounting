@@ -6,6 +6,7 @@ import be.dafke.Accounting.BasicAccounting.Journals.Selector.JournalSelectorPane
 import be.dafke.Accounting.BasicAccounting.Journals.View.JournalSwitchViewPanel
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BasicAccounting.Mortgages.MortgagesPanel
+import be.dafke.Accounting.BasicAccounting.Trade.StockUtils
 import be.dafke.Accounting.BusinessModel.*
 
 import javax.swing.*
@@ -51,18 +52,12 @@ class PaymentLayoutPanel extends JPanel {
         JButton accountReceive = new JButton("Receive")
         accountPanel.add accountPay
         accountPanel.add accountReceive
-        accountPay.addActionListener({e->
-            def account = journal.baseAccount
-            if(account == null){
-                println 'TODO: ask user to set journal.baseAccount'
-            }
+        accountPay.addActionListener({ e ->
+            def account = StockUtils.getJournalBaseAccount(journal)
             AccountActions.book account, false, null, accounting, this
         })
-        accountReceive.addActionListener({e->
-            def account = journal.baseAccount
-            if(account == null){
-                println 'TODO: ask user to set journal.baseAccount'
-            }
+        accountReceive.addActionListener({ e ->
+            def account = StockUtils.getJournalBaseAccount(journal)
             AccountActions.book account, true, null, accounting, this
         })
 

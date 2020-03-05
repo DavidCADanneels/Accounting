@@ -11,6 +11,21 @@ import be.dafke.Accounting.BusinessModel.Journal
 import be.dafke.Accounting.BusinessModel.StockTransactions
 
 class StockUtils {
+    static Account getJournalBaseAccount(Journal journal){
+        Account baseAccount = journal.baseAccount
+        Accounting accounting = journal.accounting
+        if(baseAccount == null){
+            AccountType accountType = accounting.accountTypes.getBusinessObject(AccountTypes.ASSET)
+            ArrayList<AccountType> list = new ArrayList<>()
+            list.add(accountType)
+            AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.accounts, list, "Select Base Account for ${journal.name}")
+            dialog.visible = true
+            baseAccount = dialog.getSelection()
+            journal.baseAccount = baseAccount
+        }
+        baseAccount
+    }
+    
     static Account getStockAccount(Accounting accounting){
         StockTransactions stockTransactions = accounting.stockTransactions
         Account stockAccount = stockTransactions.stockAccount
@@ -21,7 +36,7 @@ class StockUtils {
             AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.accounts, list, "Select Stock Account")
             dialog.visible = true
             stockAccount = dialog.getSelection()
-            stockTransactions.setStockAccount(stockAccount)
+            stockTransactions.stockAccount = stockAccount
         }
         stockAccount
     }
@@ -36,7 +51,7 @@ class StockUtils {
             AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.accounts, list, "Select Gain Account")
             dialog.visible = true
             account = dialog.getSelection()
-            stockTransactions.setGainAccount(account)
+            stockTransactions.gainAccount = account
         }
         account
     }
@@ -51,7 +66,7 @@ class StockUtils {
             AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.accounts, list, "Select Sales Account")
             dialog.visible = true
             account = dialog.getSelection()
-            stockTransactions.setSalesAccount(account)
+            stockTransactions.salesAccount = account
         }
         account
     }
@@ -66,7 +81,7 @@ class StockUtils {
             AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.accounts, list, "Select Sales Gain Account")
             dialog.visible = true
             account = dialog.getSelection()
-            stockTransactions.setSalesGainAccount(account)
+            stockTransactions.salesGainAccount = account
         }
         account
     }
@@ -80,7 +95,7 @@ class StockUtils {
             AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.accounts, list, "Select Customer Account")
             dialog.visible = true
             customerAccount = dialog.getSelection()
-            customer.setCustomerAccount(customerAccount)
+            customer.customerAccount = customerAccount
         }
         customerAccount
     }
@@ -94,7 +109,7 @@ class StockUtils {
             AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.accounts, list, "Select Supplier Account")
             dialog.visible = true
             supplierAccount = dialog.getSelection()
-            supplier.setSupplierAccount(supplierAccount)
+            supplier.supplierAccount = supplierAccount
         }
         supplierAccount
     }
@@ -109,7 +124,7 @@ class StockUtils {
             AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.accounts, list, "Select Promo Account")
             dialog.visible = true
             promoAccount = dialog.getSelection()
-            stockTransactions.setPromoAccount(promoAccount)
+            stockTransactions.promoAccount = promoAccount
         }
         promoAccount
     }
@@ -128,8 +143,8 @@ class StockUtils {
         JournalSelectorDialog journalSelectorDialog = new JournalSelectorDialog(accounting.journals)
         journalSelectorDialog.setTitle("Select Sales Journal")
         journalSelectorDialog.visible = true
-        Journal journal = journalSelectorDialog.getSelection()
-        stockTransactions.setSalesJournal(journal)
+        Journal journal = journalSelectorDialog.selection
+        stockTransactions.salesJournal = journal
         journal
     }
 
@@ -147,8 +162,8 @@ class StockUtils {
         JournalSelectorDialog journalSelectorDialog = new JournalSelectorDialog(accounting.journals)
         journalSelectorDialog.setTitle("Select Sales (No Invoice) Journal")
         journalSelectorDialog.visible = true
-        Journal journal = journalSelectorDialog.getSelection()
-        stockTransactions.setSalesNoInvoiceJournal(journal)
+        Journal journal = journalSelectorDialog.selection
+        stockTransactions.salesNoInvoiceJournal journal
         journal
     }
 
@@ -166,8 +181,8 @@ class StockUtils {
         JournalSelectorDialog journalSelectorDialog = new JournalSelectorDialog(accounting.journals)
         journalSelectorDialog.setTitle("Select Gain Journal")
         journalSelectorDialog.visible = true
-        Journal journal = journalSelectorDialog.getSelection()
-        stockTransactions.setGainJournal(journal)
+        Journal journal = journalSelectorDialog.selection
+        stockTransactions.gainJournal = journal
         journal
     }
 
@@ -185,8 +200,8 @@ class StockUtils {
         JournalSelectorDialog journalSelectorDialog = new JournalSelectorDialog(accounting.journals)
         journalSelectorDialog.setTitle("Select Purchase Journal")
         journalSelectorDialog.visible = true
-        Journal journal = journalSelectorDialog.getSelection()
-        stockTransactions.setPurchaseJournal(journal)
+        Journal journal = journalSelectorDialog.selection
+        stockTransactions.purchaseJournal = journal
         journal
     }
 }
