@@ -364,6 +364,7 @@ class JournalsIO {
             for (Journal journal : journals.businessObjects) writer.write """\
   <$JOURNAL>
     <$NAME>$journal.name</$NAME>
+    <$BASE_ACCOUNT>$journal.baseAccount</$BASE_ACCOUNT>
     <$ABBREVIATION>$journal.abbreviation</$ABBREVIATION>
     <$TYPE>$journal.type</$TYPE>
   </$JOURNAL>
@@ -409,7 +410,6 @@ class JournalsIO {
             writer.write """\
   <$NAME>$journal.name</$NAME>
   <$ABBREVIATION>$journal.abbreviation</$ABBREVIATION>
-  <$BASE_ACCOUNT>$journal.baseAccount</$BASE_ACCOUNT>
   <$TYPE>$journal.type</$TYPE>"""
             for (Transaction transaction : journal.businessObjects) {
                 writer.write """
