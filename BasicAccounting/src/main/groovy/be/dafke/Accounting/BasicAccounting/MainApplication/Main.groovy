@@ -158,7 +158,7 @@ class Main {
     static void setAccounting(Accounting accounting, boolean readDetails) {
 
         Accounting activeAccounting = Session.activeAccounting
-        if(activeAccounting) {
+        if(activeAccounting!=accounting) {
             XMLWriter.writeAccounting(activeAccounting, false)
         }
 
