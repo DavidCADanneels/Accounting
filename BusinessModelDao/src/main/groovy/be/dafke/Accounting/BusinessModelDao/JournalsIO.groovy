@@ -404,6 +404,7 @@ class JournalsIO {
             writer.write """\
   <$NAME>$journal.name</$NAME>
   <$ABBREVIATION>$journal.abbreviation</$ABBREVIATION>
+  <$BASE_ACCOUNT>$journal.baseAccount</$BASE_ACCOUNT>
   <$TYPE>$journal.type</$TYPE>"""
             for (Transaction transaction : journal.businessObjects) {
                 writer.write """

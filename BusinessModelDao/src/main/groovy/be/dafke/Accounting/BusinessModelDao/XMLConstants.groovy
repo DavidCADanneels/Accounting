@@ -11,6 +11,7 @@ class XMLConstants {
     public static final String TYPE = "type"
     public static final String NUMBER = "number"
     public static final String DEFAULT_AMOUNT = "defaultAmount"
+    public static final String BASE_ACCOUNT = "baseAccount"
     public static final String JOURNAL_TYPES = "JournalTypes"
     public static final String JOURNAL_TYPE = "JournalType"
     public static final String LEFT_LIST = "leftList"
