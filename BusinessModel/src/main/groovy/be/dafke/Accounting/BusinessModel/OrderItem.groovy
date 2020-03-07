@@ -210,7 +210,7 @@ class OrderItem extends BusinessObject{
     // 1.06
     BigDecimal getPurchaseFactor(){
         BigDecimal purchasePercentage = getPurchasePercentage()
-        purchasePercentage?BigDecimal.ONE.add(purchasePercentage):BigDecimal.ZERO
+        purchasePercentage?BigDecimal.ONE.add(purchasePercentage):BigDecimal.ONE
     }
 
     Integer getPurchaseVatRate() {
