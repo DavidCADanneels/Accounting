@@ -309,7 +309,7 @@ class JournalEditPanel extends JPanel implements ActionListener {
         this.journal=journal
         dateAndDescriptionPanel.journal = journal
         ident.setText(journal==null?"":journal.abbreviation + " " + journal.id)
-        setTransaction(journal==null?null:journal.currentTransaction)
+        setTransaction(journal?.currentTransaction)
     }
 
     void setTransaction(Transaction transaction){

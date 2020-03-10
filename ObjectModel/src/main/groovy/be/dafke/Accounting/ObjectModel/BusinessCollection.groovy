@@ -42,7 +42,7 @@ class BusinessCollection <V extends BusinessObject> extends BusinessObject {
         String type = entry.getKey()
         String key = entry.getValue()
         TreeMap<String, V> map = dataTables.get(type)
-        map==null?null:map.get(key)
+        map?.get(key)
     }
 
     // -------------------------------------------------------------------------------------

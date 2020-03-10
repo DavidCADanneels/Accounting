@@ -82,12 +82,12 @@ class BalancesManagementPanel extends JPanel implements FocusListener {
                 creditModel.addElement(type)
             }
         }
-        leftName.setText(balance==null?"":balance.getLeftName())
-        rightName.setText(balance==null?"":balance.getRightName())
-        leftTotalName.setText(balance==null?"":balance.getLeftTotalName())
-        rightTotalName.setText(balance==null?"":balance.getRightTotalName())
-        leftResultName.setText(balance==null?"":balance.getLeftResultName())
-        rightResultName.setText(balance==null?"":balance.getRightResultName())
+        leftName.setText(balance?.getLeftName())
+        rightName.setText(balance?.getRightName())
+        leftTotalName.setText(balance?.getLeftTotalName())
+        rightTotalName.setText(balance?.getRightTotalName())
+        leftResultName.setText(balance?.getLeftResultName())
+        rightResultName.setText(balance?.getRightResultName())
     }
 
     void createNewBalance(){

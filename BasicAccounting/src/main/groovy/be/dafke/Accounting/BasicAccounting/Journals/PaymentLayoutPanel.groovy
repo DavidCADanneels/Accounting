@@ -26,6 +26,7 @@ class PaymentLayoutPanel extends JPanel {
     JSplitPane journalViewAndEditSplitPane
     Accounting accounting
     Journal journal
+    JTextField accountNameField
 
     PaymentLayoutPanel() {
 
@@ -45,9 +46,9 @@ class PaymentLayoutPanel extends JPanel {
 
         JPanel accountPanel = new JPanel()
         accountPanel.add new JLabel('Account to book against: ')
-        JTextField textField = new JTextField(20)
-        textField.editable = false
-        accountPanel.add textField
+        accountNameField = new JTextField(20)
+        accountNameField.editable = false
+        accountPanel.add accountNameField
         JButton accountPay = new JButton("Pay")
         JButton accountReceive = new JButton("Receive")
         accountPanel.add accountPay
@@ -86,7 +87,7 @@ class PaymentLayoutPanel extends JPanel {
 
     void setAccounting(Accounting accounting){
         this.accounting = accounting
-        mortgagesPanel.setMortgages(accounting?accounting.mortgages:null)
+        mortgagesPanel.setMortgages(accounting?.mortgages)
         journalSwitchViewPanel.accounting = accounting
         journalEditPanel.accounting = accounting
         journalSelectorPanel.accounting = accounting
@@ -99,6 +100,8 @@ class PaymentLayoutPanel extends JPanel {
         journalSelectorPanel.journal = journal
         journalEditPanel.journal = journal
         journalSwitchViewPanel.journal = journal
+        // TODO: use this everywhere
+        accountNameField.setText(journal?.baseAccount?.name)
     }
 
     void fireShowInputChanged(boolean enabled) {

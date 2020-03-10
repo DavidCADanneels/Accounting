@@ -76,6 +76,6 @@ class AccountsListConfigPanel extends JPanel {
     }
 
     void setVatType(VATTransaction.VATType vatType){
-        taxType.setText(vatType==null?"":vatType.toString())
+        taxType.setText(vatType?.toString())
     }
 }

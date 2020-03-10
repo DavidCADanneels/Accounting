@@ -3,16 +3,11 @@ package be.dafke.Accounting.BasicAccounting.Meals
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Meal
-import be.dafke.Accounting.BusinessModel.Recipe
 import be.dafke.Accounting.BusinessModel.RecipeLine
 import be.dafke.ComponentModel.SelectableTable
 
-import javax.swing.DefaultListSelectionModel
-import javax.swing.JPanel
-import javax.swing.JScrollPane
-import javax.swing.JSplitPane
-import java.awt.BorderLayout
-import java.awt.Dimension
+import javax.swing.*
+import java.awt.*
 
 class MealRecipeViewPanel extends JPanel {
     final MealsEditDataViewTableModel mealsDataTableModel
@@ -55,8 +50,7 @@ class MealRecipeViewPanel extends JPanel {
 
     void updateSelection() {
         Meal meal = overviewTable.selectedObject
-        Recipe recipe = meal==null?null:meal.getRecipe()
-        mealRecipeViewDataTableModel.setRecipe(recipe)
+        mealRecipeViewDataTableModel.recipe = meal?.recipe
         mealRecipeViewDataTableModel.fireTableDataChanged()
         int rowCount = recipeTable.getRowCount()
         if(rowCount >0){

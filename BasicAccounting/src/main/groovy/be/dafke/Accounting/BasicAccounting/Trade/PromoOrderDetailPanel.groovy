@@ -142,14 +142,14 @@ class PromoOrderDetailPanel extends JPanel {
     }
 
     void updateButtonsAndCheckBoxes() {
-        Transaction paymentTransaction = promoOrder ==null?null: promoOrder.paymentTransaction
+        Transaction paymentTransaction = promoOrder?.paymentTransaction
 
         StockTransactions stockTransactions = accounting.stockTransactions
         ArrayList<Order> orders = stockTransactions.getOrders()
         boolean orderDelivered = promoOrder && orders.contains(promoOrder)
         boolean toBeDelivered = promoOrder && !orders.contains(promoOrder)
 
-        placed.setSelected(paymentTransaction)
+        placed.setSelected(paymentTransaction!=null)  // FIXME: is not correct
         delivered.setSelected(orderDelivered)
 
         deliveredButton.enabled = toBeDelivered
@@ -158,7 +158,7 @@ class PromoOrderDetailPanel extends JPanel {
         editPromoOrder.enabled = !orderDelivered && paymentTransaction==null
     }
 
-    Transaction createTransaction(){
+    static Transaction createTransaction(){
         DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.dateAndDescriptionDialog
         dateAndDescriptionDialog.visible = true
 

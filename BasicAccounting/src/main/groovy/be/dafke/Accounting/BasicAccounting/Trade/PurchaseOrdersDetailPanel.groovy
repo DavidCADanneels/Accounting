@@ -148,7 +148,7 @@ class PurchaseOrdersDetailPanel extends JPanel {
     void updateButtonsAndCheckBoxes() {
         StockTransactions stockTransactions = accounting.stockTransactions
         ArrayList<Order> orders = stockTransactions.getOrders()
-        Transaction purchaseTransaction = purchaseOrder==null?null:purchaseOrder.purchaseTransaction
+        Transaction purchaseTransaction = purchaseOrder?.purchaseTransaction
         payed.setSelected(purchaseOrder && purchaseOrder.paymentTransaction)
         placed.setSelected(purchaseOrder && purchaseOrder.purchaseTransaction)
         delivered.setSelected(purchaseOrder && orders.contains(purchaseOrder))

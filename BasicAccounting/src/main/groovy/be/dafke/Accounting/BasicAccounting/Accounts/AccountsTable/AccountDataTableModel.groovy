@@ -189,7 +189,7 @@ class AccountDataTableModel extends SelectableTableModel<Account> {
         if(singleAccount){
             accountTypes = null
             account = accountList.account
-//            filter = account==null?null:Account.name(accountList.account.name)
+//            filter = account?.name(accountList.account.name)
         } else if(journalSession){
             if(left) {
                 accountTypes = journalSession.getCheckedTypesLeft()

@@ -127,12 +127,12 @@ class AccountDetailsDataModel extends SelectableTableModel<Booking> {
         fireTableDataChanged()
     }
 
-    Journal getJournal(Movement movement){
-        getTransaction(movement)==null?null:getTransaction(movement).journal
+    static Journal getJournal(Movement movement){
+        getTransaction(movement)?.journal
     }
 
-    Transaction getTransaction(Movement movement){
-        movement==null?null:movement.booking==null?null:movement.booking.transaction
+    static Transaction getTransaction(Movement movement){
+        movement?.booking?.transaction
     }
 }
 

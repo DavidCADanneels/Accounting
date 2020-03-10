@@ -184,12 +184,12 @@ class OrderItem extends BusinessObject{
 
     BigDecimal getStockValue(){
         BigDecimal itemPrice = getPurchasePriceForItem()
-        itemPrice==null?null:itemPrice.multiply(new BigDecimal(numberOfItems))
+        itemPrice?.multiply(new BigDecimal(numberOfItems))
     }
 
     BigDecimal getPurchasePriceWithoutVat() {
         BigDecimal unitPrice = getPurchasePriceForUnit()
-        unitPrice==null?null:unitPrice.multiply(new BigDecimal(numberOfUnits))
+        unitPrice?.multiply(new BigDecimal(numberOfUnits))
     }
 
     BigDecimal getPurchasePriceWithVat() {

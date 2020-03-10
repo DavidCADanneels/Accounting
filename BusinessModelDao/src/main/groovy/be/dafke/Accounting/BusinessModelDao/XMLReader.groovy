@@ -134,7 +134,7 @@ class XMLReader {
             String activeJournalName = getValue(accountingElement, ACTIVE_JOURNAL)
             Accounting accounting = accountings.getBusinessObject(accountingName)
             Journals journals = accounting.journals
-            Journal activeJournal = activeJournalName==null?null:journals.getBusinessObject(activeJournalName)
+            Journal activeJournal = activeJournalName==null?null:journals?.getBusinessObject(activeJournalName)
 //            accounting.setActiveJournal(activeJournal)
             boolean showNumbers = getBooleanValue(accountingElement, SHOW_NUMBERS)
 

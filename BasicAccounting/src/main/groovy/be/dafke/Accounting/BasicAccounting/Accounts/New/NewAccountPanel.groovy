@@ -50,9 +50,9 @@ class NewAccountPanel extends JPanel {
         this.account = account
         nameField.setText(account.name)
         BigInteger number = account.number
-        numberField.setText(number==null?"":number.toString())
+        numberField.setText(number?.toString())
         BigDecimal defaultAmount = account.defaultAmount
-        defaultAmountField.setText(defaultAmount==null?"":defaultAmount.toString())
+        defaultAmountField.setText(defaultAmount?.toString())
         type.setSelectedItem(account.type)
     }
 

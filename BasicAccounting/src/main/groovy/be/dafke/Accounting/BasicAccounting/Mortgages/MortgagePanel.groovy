@@ -194,7 +194,7 @@ class MortgagePanel extends JPanel implements ActionListener {
     void select() {
         init = true
         save.enabled = selectedMortgage != null
-        nrPayed.setText(selectedMortgage==null?"":selectedMortgage.getNrPayed() + "")
+        nrPayed.setText(selectedMortgage?.getNrPayed() + "")
         if (selectedMortgage == null) {
             activateButtons(false)
             comboIntrest.setSelectedIndex(-1)

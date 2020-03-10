@@ -102,6 +102,6 @@ class MealRecipeEditDataTableModel extends SelectableTableModel<RecipeLine> {
 
     @Override
     RecipeLine getObject(int row, int col) {
-        recipe==null?null:recipe.businessObjects.get(row)
+        recipe?.businessObjects?.get(row)
     }
 }

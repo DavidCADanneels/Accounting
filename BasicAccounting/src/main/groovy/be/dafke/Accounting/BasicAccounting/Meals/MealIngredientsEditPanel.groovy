@@ -80,8 +80,7 @@ class MealIngredientsEditPanel extends JPanel {
     void updateSelection() {
         Meal meal = overviewTable.selectedObject
         addRecipeLine.enabled = meal!=null
-        Recipe recipe = meal==null?null:meal.getRecipe()
-        mealRecipeDataTableModel.setRecipe(recipe)
+        mealRecipeDataTableModel.recipe = meal?.recipe
         mealRecipeDataTableModel.fireTableDataChanged()
 //        int rowCount = recipeTable.getRowCount()
 //        if(rowCount >0){
