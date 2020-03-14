@@ -21,8 +21,6 @@ class JournalSwitchViewPanel extends JPanel {
 
     JournalSwitchViewPanel() {
         cardLayout = new CardLayout()
-        setLayout(new BorderLayout())
-
         center = new JPanel(cardLayout)
 
         transactionSelectionModel = new TransactionSelectionModel()
@@ -36,6 +34,7 @@ class JournalSwitchViewPanel extends JPanel {
         center.add(singleView, TransactionSelectionModel.VIEW1)
         center.add(dualView, TransactionSelectionModel.VIEW2)
 
+        setLayout(new BorderLayout())
         add(center, BorderLayout.CENTER)
         add(createTopPanel(),BorderLayout.NORTH)
     }
