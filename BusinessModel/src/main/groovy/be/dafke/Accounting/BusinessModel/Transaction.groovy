@@ -22,6 +22,7 @@ class Transaction extends BusinessCollection<Booking> implements Comparable<Tran
     Mortgage mortgage = null
     boolean balanceTransaction = false
     boolean registered = false
+    Order order = null
 
     Transaction(Calendar date, String description) {
         this.date = date==null?Calendar.getInstance():date

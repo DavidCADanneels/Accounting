@@ -183,7 +183,7 @@ class AccountsTablePanel extends JPanel {
     void book(boolean debit) {
         popup.visible = false
         for(Account account : table.selectedObjects){
-            AccountActions.book(account, debit, vatType, accounting, this)
+            AccountActions.book account, debit, vatType, accounting, this
         }
     }
 

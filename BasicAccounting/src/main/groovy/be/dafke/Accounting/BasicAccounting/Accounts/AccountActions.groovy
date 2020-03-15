@@ -18,9 +18,21 @@ class AccountActions {
     static final String SELECT_TAX_CREDIT_CN_ACCOUNT = "Select VAT Account for Purchases CN's"
     static final String SELECT_TAX_DEBIT_CN_ACCOUNT = "Select VAT Account for Sales CN's"
 
-    static void book(Account account, boolean debit, VATTransaction.VATType vatType, Accounting accounting, Component component, BigDecimal amount = null){
+    // TODO: return Transaction ? (or Booking only?) or both in a map ?
+    static void book(Account account, boolean debit, VATTransaction.VATType vatType, Accounting accounting, Component component, Order order = null) { //BigDecimal amount = null, Order order = null){
         if (account == null) return
         Transaction transaction = Main.transaction
+        BigDecimal amount = null
+        if(order){
+            transaction.setOrder order
+            if(order instanceof PurchaseOrder){
+                PurchaseOrder purchaseOrder = (PurchaseOrder) order
+                amount = purchaseOrder.totalPurchasePriceInclVat
+            } else if (order instanceof SalesOrder){
+                SalesOrder salesOrder = (SalesOrder)order
+                amount = salesOrder.getTotalSalesPriceInclVat()
+            }
+        }
         if(amount == null) amount = askAmount(account, debit, transaction, component)
         if (amount != null) {
             Booking booking = new Booking(account, amount, debit)
@@ -29,13 +41,15 @@ class AccountActions {
             //
             if (vatType == VATTransaction.VATType.PURCHASE) {
                 purchaseAny(booking, accounting, component)
-            } else if (vatType == VATTransaction.VATType.CUSTOMER){
+            } else if (vatType == VATTransaction.VATType.CUSTOMER) {
                 Contact contact = getContact(account, accounting, Contact.ContactType.CUSTOMERS, component)
                 transaction.contact = contact
-            } else if (vatType == VATTransaction.VATType.SALE){
+            } else if (vatType == VATTransaction.VATType.SALE) {
                 saleAny(transaction, booking, accounting, component)
             }
             Main.fireTransactionInputDataChanged()
+//            transaction
+//        } else return null
         }
     }
 

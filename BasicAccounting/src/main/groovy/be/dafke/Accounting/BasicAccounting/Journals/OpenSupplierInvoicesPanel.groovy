@@ -31,11 +31,19 @@ class OpenSupplierInvoicesPanel extends JPanel {
         receive = new JButton("Receive (CN)")
 
         pay.addActionListener({ e ->
-            AccountActions.book selectedAccount, true, null, accounting, this, orderAmount
+            PurchaseOrder purchaseOrder = tabel.getSelectedObject()
+            if(purchaseOrder) {
+                AccountActions.book selectedAccount, true, null, accounting, this, purchaseOrder
+                // Too early: not booked yet
+//                purchaseOrder.setPurchaseTransaction()
+            }
         })
 
         receive.addActionListener({ e ->
-            AccountActions.book selectedAccount, false, null, accounting, this, orderAmount
+            PurchaseOrder purchaseOrder = tabel.getSelectedObject()
+            if(purchaseOrder) {
+                AccountActions.book selectedAccount, false, null, accounting, this, purchaseOrder
+            }
         })
 
         JPanel buttonPanel = new JPanel()
@@ -52,11 +60,11 @@ class OpenSupplierInvoicesPanel extends JPanel {
         purchaseOrder?purchaseOrder.supplier.supplierAccount:null
     }
 
-    BigDecimal getOrderAmount(){
-        PurchaseOrder purchaseOrder = tabel.getSelectedObject()
-        if (purchaseOrder == null) return null
-        purchaseOrder.getTotalPurchasePriceInclVat()
-    }
+//    BigDecimal getOrderAmount(){
+//        PurchaseOrder purchaseOrder = tabel.getSelectedObject()
+//        if (purchaseOrder == null) return null
+//        purchaseOrder.getTotalPurchasePriceInclVat()
+//    }
 
     void setAccounting(Accounting accounting) {
         this.accounting = accounting
