@@ -18,10 +18,6 @@ class JournalSwitchPanel extends JPanel {
     final JournalSwitchViewPanel journalSwitchViewPanel
     final JournalSwitchInputPanel journalSwitchInputPanel
 
-
-
-
-
     JournalSwitchPanel() {
         setLayout(new BorderLayout())
 
@@ -30,12 +26,13 @@ class JournalSwitchPanel extends JPanel {
         journalSelectorPanel = new JournalSelectorPanel(journalEditPanel)
         journalSwitchViewPanel = new JournalSwitchViewPanel()
 
-
-
         JSplitPane journalViewAndEditSplitPane = Main.createSplitPane(journalSwitchViewPanel, journalEditPanel, VERTICAL_SPLIT)
 
-        add journalViewAndEditSplitPane, BorderLayout.CENTER
-        add journalSelectorPanel, BorderLayout.NORTH
+        JPanel center = new JPanel(new BorderLayout())
+
+        center.add journalViewAndEditSplitPane, BorderLayout.CENTER
+        center.add journalSelectorPanel, BorderLayout.NORTH
+        add center, BorderLayout.CENTER
         add journalSwitchInputPanel, BorderLayout.WEST
     }
 
@@ -83,32 +80,13 @@ class JournalSwitchPanel extends JPanel {
     void setAccountsTypesRight(JournalType journalType, ArrayList<AccountType> accountTypes) {
         journalSwitchInputPanel.setAccountsTypesRight(journalType, accountTypes)
     }
-//    void setAccountsListLeft(JournalType journalType, AccountsList accountsList) {
-//        if(journalType == accountGuiLeft.getJournalType())
-//            accountGuiLeft.setAccountsList(accountsList)
-//    }
-//
-//    void setAccountsListRight(JournalType journalType, AccountsList accountsList) {
-//        if(journalType == accountGuiRight.getJournalType())
-//            accountGuiRight.setAccountsList(accountsList)
-//    }
 
     void fireTransactionInputDataChanged() {
         journalEditPanel.fireTransactionDataChanged()
-//        // if (currentView == DEFAULT_VIEW) {
-//            defaultLayoutPanel.fireTransactionInputDataChanged()
-//        // } else if (currentView == PAYMENTS_VIEW) {
-//            paymentLayoutPanel.fireTransactionInputDataChanged()
-////        }
     }
 
     void editTransaction(Transaction transaction){
         journalEditPanel.editTransaction(transaction)
-//        // if (currentView == DEFAULT_VIEW) {
-//            defaultLayoutPanel.editTransaction(transaction)
-//        // } else if (currentView == PAYMENTS_VIEW) {
-//            paymentLayoutPanel.editTransaction(transaction)
-////        }
     }
 
     void deleteBookings(ArrayList<Booking> bookings){
@@ -144,11 +122,6 @@ class JournalSwitchPanel extends JPanel {
 
     void setJournals(Journals journals) {
         journalSelectorPanel.setJournals(journals)
-//        // if (currentView == DEFAULT_VIEW) {
-//            defaultLayoutPanel.setJournals(journals)
-//        // } else if (currentView == PAYMENTS_VIEW) {
-//            paymentLayoutPanel.setJournals(journals)
-////        }
     }
 
     void selectTransaction(Transaction transaction){
