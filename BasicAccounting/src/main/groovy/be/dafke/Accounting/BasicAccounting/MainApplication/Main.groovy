@@ -32,7 +32,7 @@ import be.dafke.Accounting.BusinessModelDao.XMLReader
 import be.dafke.Accounting.BusinessModelDao.XMLWriter
 
 import javax.swing.*
-import java.awt.*
+import java.awt.CardLayout
 import java.awt.event.WindowAdapter
 import java.awt.event.WindowEvent
 
@@ -57,14 +57,21 @@ class Main {
     static ProjectsMenu projectsMenu
     static CodaMenu codaMenu
     static VATMenu vatMenu
+    static CardLayout cardLayout
+    static JPanel center
 
     static void main(String[] args) {
         readXmlData()
+
+        cardLayout = new CardLayout()
+        center = new JPanel(cardLayout)
+
         journalSwitchPanel = new JournalSwitchPanel()
+
+        center.add(journalSwitchPanel, 'defaultView')
+
         frame = new AccountingGUIFrame("Accounting-all")
-        JPanel panel = new JPanel(new BorderLayout())
-        panel.add(journalSwitchPanel, BorderLayout.CENTER)
-        frame.setContentPane(panel)
+        frame.setContentPane(center)
         createMenu()
         frame.setJMenuBar(menuBar)
 
