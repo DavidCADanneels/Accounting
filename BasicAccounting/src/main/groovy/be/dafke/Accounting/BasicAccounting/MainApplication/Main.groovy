@@ -19,10 +19,7 @@ import be.dafke.Accounting.BasicAccounting.Meals.*
 import be.dafke.Accounting.BasicAccounting.Mortgages.MortgageGUI
 import be.dafke.Accounting.BasicAccounting.Mortgages.MortgagesMenu
 import be.dafke.Accounting.BasicAccounting.Projects.ProjectsMenu
-import be.dafke.Accounting.BasicAccounting.Trade.ArticlesGUI
-import be.dafke.Accounting.BasicAccounting.Trade.PurchaseOrderCreateGUI
-import be.dafke.Accounting.BasicAccounting.Trade.SalesOrderCreateGUI
-import be.dafke.Accounting.BasicAccounting.Trade.TradeMenu
+import be.dafke.Accounting.BasicAccounting.Trade.*
 import be.dafke.Accounting.BasicAccounting.VAT.VATFieldsGUI
 import be.dafke.Accounting.BasicAccounting.VAT.VATMenu
 import be.dafke.Accounting.BusinessModel.*
@@ -32,7 +29,7 @@ import be.dafke.Accounting.BusinessModelDao.XMLReader
 import be.dafke.Accounting.BusinessModelDao.XMLWriter
 
 import javax.swing.*
-import java.awt.CardLayout
+import java.awt.*
 import java.awt.event.WindowAdapter
 import java.awt.event.WindowEvent
 
@@ -59,6 +56,12 @@ class Main {
     static VATMenu vatMenu
     static CardLayout cardLayout
     static JPanel center
+    static SalesOrdersOverviewPanel salesOrdersOverViewPanel
+    static PurchaseOrdersOverviewPanel purchaseOrdersOverviewPanel
+
+    static final String JOURNALS_VIEW = 'Journals'
+    static final String SO_VIEW = 'SalesOrders'
+    static final String PO_VIEW = 'PurchaseOrders'
 
     static void main(String[] args) {
         readXmlData()
@@ -67,11 +70,20 @@ class Main {
         center = new JPanel(cardLayout)
 
         journalSwitchPanel = new JournalSwitchPanel()
+        salesOrdersOverViewPanel = new SalesOrdersOverviewPanel()
+        purchaseOrdersOverviewPanel = new PurchaseOrdersOverviewPanel()
 
-        center.add(journalSwitchPanel, 'defaultView')
+
+        center.add(journalSwitchPanel, JOURNALS_VIEW)
+        center.add(salesOrdersOverViewPanel, SO_VIEW)
+        center.add(purchaseOrdersOverviewPanel, PO_VIEW)
+
+        JPanel contentPanel = new JPanel(new BorderLayout())
+        contentPanel.add new MainViewSelectorPanel(), BorderLayout.NORTH
+        contentPanel.add center, BorderLayout.CENTER
 
         frame = new AccountingGUIFrame("Accounting-all")
-        frame.setContentPane(center)
+        frame.setContentPane(contentPanel)
         createMenu()
         frame.setJMenuBar(menuBar)
 
@@ -80,6 +92,10 @@ class Main {
         setAccounting(Session.activeAccounting)
 
         launchFrame()
+    }
+
+    static void switchView(String view) {
+        cardLayout.show(center, view)
     }
 
     static void setCloseOperation() {
@@ -175,6 +191,8 @@ class Main {
         frame.accounting = accounting
 
         journalSwitchPanel.accounting = accounting
+        salesOrdersOverViewPanel.accounting = accounting
+        purchaseOrdersOverviewPanel.accounting = accounting
 
         setMenuAccounting(accounting)
         if (accounting != null) {
