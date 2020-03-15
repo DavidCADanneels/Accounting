@@ -19,6 +19,7 @@ class PaymentLayoutPanel extends JPanel {
     Accounting accounting
     Journal journal
     JTextField accountNameField
+    JPanel accountPanel
 
     MortgagesPanel mortgagesPanel
 
@@ -34,7 +35,7 @@ class PaymentLayoutPanel extends JPanel {
         boxPanel.add openSupplierInvoices
 //        if(mortgagesPanel)boxPanel.add mortgagesPanel
 
-        JPanel accountPanel = new JPanel()
+        accountPanel = new JPanel()
         accountPanel.add new JLabel('Account to book against: ')
         accountNameField = new JTextField(20)
         accountNameField.editable = false
@@ -73,6 +74,9 @@ class PaymentLayoutPanel extends JPanel {
 
     void fireShowInputChanged(boolean enabled) {
         mortgagesPanel.visible = enabled
+        openCustomerInvoices.visible = enabled
+        openSupplierInvoices.visible = enabled
+        accountPanel.visible = enabled
     }
 
     void setMortgages(Mortgages mortgages) {
