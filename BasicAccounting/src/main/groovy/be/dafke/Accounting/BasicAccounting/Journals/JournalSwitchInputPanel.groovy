@@ -43,8 +43,10 @@ class JournalSwitchInputPanel extends JPanel{
     void setJournal(Journal journal){
         if (journal && journal.type.name == "Payments"){
             switchView(JournalSwitchInputPanel.PAYMENTS_VIEW)
+            paymentLayoutPanel.setJournal(journal)
         } else {
             switchView(JournalSwitchInputPanel.DEFAULT_VIEW)
+            defaultLayoutPanel.setJournal(journal)
         }
     }
 
