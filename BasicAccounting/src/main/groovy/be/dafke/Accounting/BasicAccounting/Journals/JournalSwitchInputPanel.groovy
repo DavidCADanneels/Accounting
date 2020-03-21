@@ -50,6 +50,10 @@ class JournalSwitchInputPanel extends JPanel{
         }
     }
 
+    void fireOrderPayed() {
+        paymentLayoutPanel.fireOrderPayed()
+    }
+
     void fireAccountDataChanged() {
         defaultLayoutPanel.fireAccountDataChanged()
     }

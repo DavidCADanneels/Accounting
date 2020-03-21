@@ -285,6 +285,11 @@ class Main {
         journalSwitchPanel.addBooking(booking)
     }
 
+    static void fireOrderPayed(){
+        journalSwitchPanel.fireOrderPayed()
+        PurchaseOrdersOverviewGUI.firePurchaseOrderAddedOrRemovedForAccounting()
+    }
+
     static void fireJournalDataChanged(Journal journal){
         JournalDetailsGUI.fireJournalDataChangedForAll(journal)
         JournalManagementGUI.fireJournalDataChangedForAll()

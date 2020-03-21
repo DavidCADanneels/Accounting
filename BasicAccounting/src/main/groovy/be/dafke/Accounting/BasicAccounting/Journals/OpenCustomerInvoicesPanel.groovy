@@ -58,6 +58,10 @@ class OpenCustomerInvoicesPanel extends JPanel {
         salesOrder?salesOrder.customer.customerAccount:null
     }
 
+    void fireOrderPayed() {
+        openCustomerInvoicesTableModel.fireTableDataChanged()
+    }
+
 //    BigDecimal getOrderAmount(){
 //        SalesOrder salesOrder = tabel.getSelectedObject()
 //        if (salesOrder == null) return null

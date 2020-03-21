@@ -72,6 +72,11 @@ class PaymentLayoutPanel extends JPanel {
         accountNameField.setText(journal?.baseAccount?.name)
     }
 
+    void fireOrderPayed() {
+        openCustomerInvoices.fireOrderPayed()
+        openSupplierInvoices.fireOrderPayed()
+    }
+
     void fireShowInputChanged(boolean enabled) {
         mortgagesPanel.visible = enabled
         openCustomerInvoices.visible = enabled

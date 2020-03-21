@@ -130,6 +130,10 @@ class JournalSwitchPanel extends JPanel {
 
     // MORTGAGES
 
+    void fireOrderPayed(){
+        journalSwitchInputPanel.fireOrderPayed()
+    }
+
     void setMortgages(Mortgages mortgages) {
         journalSwitchInputPanel.setMortgages(mortgages)
     }

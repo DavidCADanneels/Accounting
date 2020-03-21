@@ -246,6 +246,10 @@ class JournalEditPanel extends JPanel implements ActionListener {
             saveTransaction()
             if(journal && transaction && transaction.bookable){
                 addTransaction(transaction)
+                if(transaction.order){
+                    transaction.order.setPaymentTransaction(transaction)
+                    Main.fireOrderPayed()
+                }
                 Mortgage mortgage = transaction.mortgage
                 if(mortgage){
                     Main.fireMortgageEditedPayButton mortgage

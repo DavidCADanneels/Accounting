@@ -60,6 +60,10 @@ class OpenSupplierInvoicesPanel extends JPanel {
         purchaseOrder?purchaseOrder.supplier.supplierAccount:null
     }
 
+    void fireOrderPayed() {
+        openSupplierInvoicesTableModel.fireTableDataChanged()
+    }
+
 //    BigDecimal getOrderAmount(){
 //        PurchaseOrder purchaseOrder = tabel.getSelectedObject()
 //        if (purchaseOrder == null) return null
