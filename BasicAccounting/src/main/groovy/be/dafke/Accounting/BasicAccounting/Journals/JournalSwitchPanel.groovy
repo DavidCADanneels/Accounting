@@ -21,8 +21,8 @@ class JournalSwitchPanel extends JPanel {
     JournalSwitchPanel() {
         setLayout(new BorderLayout())
 
-        journalSwitchInputPanel = new JournalSwitchInputPanel()
         journalEditPanel = new JournalEditPanel()
+        journalSwitchInputPanel = new JournalSwitchInputPanel(journalEditPanel)
         journalSelectorPanel = new JournalSelectorPanel(journalEditPanel)
         journalSwitchViewPanel = new JournalSwitchViewPanel()
 
