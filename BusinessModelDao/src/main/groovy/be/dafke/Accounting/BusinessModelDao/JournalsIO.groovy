@@ -318,7 +318,7 @@ class JournalsIO {
 
     static String createPdfPath(Accounting accounting) {
         String accountingName = accounting.name
-        String resultPdfPolderPath = "$ACCOUNTINGS_PDF_PATH/$accountingName/$JOURNALS"
+        String resultPdfPolderPath = "$PDFPATH/$accountingName/$JOURNALS"
         File targetFolder = new File(resultPdfPolderPath)
         targetFolder.mkdirs()
         resultPdfPolderPath

@@ -225,6 +225,7 @@ class XMLConstants {
 
     public static final String NEXT_VAT_ID = "NextVatId"
 
+    public static final String DYMO_EXTENSION = ".dymo"
     public static final String XML_EXTENSION = ".xml"
     public static final String PDF_EXTENSION = ".pdf"
     public static final String HTML_EXTENSION = ".html"
@@ -234,10 +235,11 @@ class XMLConstants {
     public static final String XSLPATH = "data/accounting/xsl"
     public static final String HTMLPATH = "data/accounting/html"
     public static final String PDFPATH = "data/accounting/pdf"
+    public static final String DYMOPATH = "data/accounting/dymo"
 
     public static final String ACCOUNTINGS_XML_PATH = "$XMLPATH/Accountings"
     public static final String ACCOUNTINGS_XML_FILE = ACCOUNTINGS_XML_PATH + XML_EXTENSION
     public static final String ACCOUNTINGS_HTML_PATH = "$HTMLPATH/Accountings"
     public static final String ACCOUNTINGS_HTML_FILE = ACCOUNTINGS_HTML_PATH + HTML_EXTENSION
-    public static final String ACCOUNTINGS_PDF_PATH = "$PDFPATH/Accountings"
+//    public static final String ACCOUNTINGS_PDF_PATH = "$PDFPATH/Accountings"
 }

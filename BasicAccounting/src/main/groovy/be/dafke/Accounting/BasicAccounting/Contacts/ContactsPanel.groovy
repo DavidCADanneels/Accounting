@@ -3,6 +3,7 @@ package be.dafke.Accounting.BasicAccounting.Contacts
 import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Contact
 import be.dafke.Accounting.BusinessModel.Contacts
+import be.dafke.Accounting.BusinessModelDao.LabelWriter
 import be.dafke.Accounting.BusinessModelDao.VATWriter
 
 import javax.swing.*
@@ -34,8 +35,11 @@ class ContactsPanel extends JPanel implements ListSelectionListener {
             newContactDialog.visible = true
         })
 
-        JButton createList = new JButton(getBundle("Contacts").getString("CUSTUMER_LISTING"))
+        JButton createList = new JButton(getBundle("Contacts").getString("CUSTOMER_LISTING"))
         createList.addActionListener({ e -> createCustomerListing() })
+
+        JButton printLabels = new JButton(getBundle("Contacts").getString("CUSTOMER_ADRES_LABEL"))
+        printLabels.addActionListener({ e -> printCustomerLabels() })
 
         details = new JButton(getBundle("Contacts").getString("EDIT_CONTACT"))
         details.addActionListener({ e ->
@@ -54,6 +58,7 @@ class ContactsPanel extends JPanel implements ListSelectionListener {
         south.add(details)
         if(contactType == Contact.ContactType.CUSTOMERS) {
             south.add(createList)
+            south.add(printLabels)
         }
 
         contactsDataModel = new ContactsDataModel(accounting, contacts, contactType)
@@ -66,6 +71,11 @@ class ContactsPanel extends JPanel implements ListSelectionListener {
         setLayout(new BorderLayout())
         add(scroll, CENTER)
         add(south, SOUTH)
+    }
+
+    void printCustomerLabels(){
+        Accounting accounting = contacts.accounting
+        LabelWriter.printLabels(accounting)
     }
 
     void createCustomerListing() {

@@ -59,7 +59,7 @@ class AccountsIO {
 
     static String createPdfFolder(Accounting accounting) {
         String accountingName = accounting.name
-        String resultPdfPolderPath = "$ACCOUNTINGS_PDF_PATH/$accountingName/$ACCOUNTS/"
+        String resultPdfPolderPath = "$PDFPATH/$accountingName/$ACCOUNTS/"
         File targetFolder = new File(resultPdfPolderPath)
         targetFolder.mkdirs()
         resultPdfPolderPath
