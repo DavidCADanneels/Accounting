@@ -1,19 +1,30 @@
 def mavenInstallation = 'Maven 3.3.3'
 def jdkVersion = 'JDK8'
+def baseVersion
 
 pipeline {
     agent any
     stages {
         stage('Define Version') {
-            environment {
-                POM_VERSION = "${readMavenPom().getVersion()}"
-            }
             steps{
                 script {
                     echo "running on ${BRANCH_NAME}"
-                    def shortHash = sh(returnStdout: true, script: 'git  rev-parse --short HEAD')
-                    shortHash = shortHash.trim()
-                    version = POM_VERSION.replaceAll('SNAPSHOT', shortHash)
+                    baseVersion = "${BRANCH_NAME}"
+                    baseVersion = baseVersion.replaceAll('release/','')
+                    baseVersion = baseVersion.replaceAll('/','-')
+                    int nr = 0
+                    List<String> tags = sh(returnStdout: true, script: "git tag --list --sort=-version:refname ${branch}.*").split()
+                    if (tags.isEmpty()) {
+                        echo "No previous tag with pattern ${baseVersion}.* was found, returning ${baseVersion}.0"
+                    } else {
+                        def latestTag = tags.get(0)
+                        int lastIndex = latestTag.lastIndexOf('.')
+                        echo ""
+                        nr = latestTag.substring(latestTag+1) as Integer
+                        nr++
+                        echo ""
+                    }
+                    version = "${baseVersion}.${nr}"
                     currentBuild.description = version
                 }
             }
