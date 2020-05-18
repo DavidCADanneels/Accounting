@@ -13,18 +13,18 @@ pipeline {
                     baseVersion = baseVersion.replaceAll('release/','')
                     baseVersion = baseVersion.replaceAll('/','-')
                     int nr = 0
-                    List<String> tags = sh(returnStdout: true, script: "git tag --list --sort=-version:refname ${branch}.*").split()
+                    List<String> tags = sh(returnStdout: true, script: "git tag --list --sort=-version:refname ${baseVersion}.*").split()
                     if (tags.isEmpty()) {
                         echo "No previous tag with pattern ${baseVersion}.* was found, returning ${baseVersion}.0"
                     } else {
                         def latestTag = tags.get(0)
                         int lastIndex = latestTag.lastIndexOf('.')
-                        echo ""
-                        nr = latestTag.substring(latestTag+1) as Integer
+                        echo "Latest tag found with pattern ${baseVersion}.* was ${latestTag}"
+                        nr = latestTag.substring(lastIndex+1) as Integer
                         nr++
-                        echo ""
                     }
                     version = "${baseVersion}.${nr}"
+                    echo "version = ${version}"
                     currentBuild.description = version
                 }
             }
