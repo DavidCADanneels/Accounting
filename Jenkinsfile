@@ -35,6 +35,25 @@ pipeline {
                         maven: mavenInstallation,
                         jdk: jdkVersion
                 ){
+                    sh """\
+mvn org.codehause.mojo:versions-maven-plugin:2.2:set \
+-DgenerateBackupPoms=false \
+-DprocessAllModules=true \
+-DprocessDependencies=true \
+-DnewVerson=${version} \
+-DartifactId=* \
+-DgroupId=* \
+-DoldVersion=*
+"""
+                }
+            }
+        }
+        stage('Build'){
+            steps {
+                withMaven(
+                        maven: mavenInstallation,
+                        jdk: jdkVersion
+                ){
                     sh 'mvn clean package'
 
                 }
