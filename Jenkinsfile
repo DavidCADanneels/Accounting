@@ -13,11 +13,7 @@ pipeline {
                     baseVersion = baseVersion.replaceAll('release/','')
                     baseVersion = baseVersion.replaceAll('/','-')
                     int nr = 0
-                    sh(returnStdout: false, script: "LIST=`git tag --list --sort=-version:refname ${baseVersion}.*`")
-                    List<String> all = "\${LIST}"
-                    echo "all=${all}"
-                    def tags = all.split()
-//                    List<String> tags = sh(returnStdout: true, script: "git tag --list --sort=-version:refname ${baseVersion}.*").split()
+                    List<String> tags = sh(returnStdout: true, script: "git tag --list --sort=-version:refname ${baseVersion}.*").split()
                     if (tags.isEmpty()) {
                         echo "No previous tag with pattern ${baseVersion}.* was found, returning ${baseVersion}.0"
                     } else {
