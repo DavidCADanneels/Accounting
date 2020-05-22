@@ -33,10 +33,7 @@ pipeline {
             steps {
                 withMaven(
                         maven: mavenInstallation,
-                        jdk: jdkVersion,
-                        options: [
-                                artifactsPublisher(disabled: true)
-                        ]
+                        jdk: jdkVersion
                 ){
                     sh 'mvn clean package'
 
