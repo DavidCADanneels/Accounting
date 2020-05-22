@@ -13,7 +13,8 @@ pipeline {
                     baseVersion = baseVersion.replaceAll('release/','')
                     baseVersion = baseVersion.replaceAll('/','-')
                     int nr = 0
-                    def all = sh(returnStdout: true, script: "git tag --list --sort=-version:refname ${baseVersion}.*")
+                    sh(returnStdout: false, script: "LIST=`git tag --list --sort=-version:refname ${baseVersion}.*`")
+                    List<String> all = "\${LIST}"
                     echo "all=${all}"
                     def tags = all.split()
 //                    List<String> tags = sh(returnStdout: true, script: "git tag --list --sort=-version:refname ${baseVersion}.*").split()
