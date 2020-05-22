@@ -36,7 +36,7 @@ pipeline {
                         jdk: jdkVersion
                 ){
                     sh """\
-mvn org.codehause.mojo:versions-maven-plugin:2.2:set \
+mvn org.codehaus.mojo:versions-maven-plugin:2.2:set \
 -DgenerateBackupPoms=false \
 -DprocessAllModules=true \
 -DprocessDependencies=true \
