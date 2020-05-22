@@ -40,7 +40,7 @@ mvn org.codehaus.mojo:versions-maven-plugin:2.2:set \\
 -DgenerateBackupPoms=false \\
 -DprocessAllModules=true \\
 -DprocessDependencies=true \\
--DnewVerson=${version} \\
+-DnewVersion=${version} \\
 -DartifactId=* \\
 -DgroupId=* \\
 -DoldVersion=*
