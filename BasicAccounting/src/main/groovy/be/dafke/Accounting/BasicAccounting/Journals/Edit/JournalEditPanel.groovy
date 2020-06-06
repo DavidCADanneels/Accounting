@@ -219,8 +219,6 @@ class JournalEditPanel extends JPanel implements ActionListener {
         for (Account account : transaction.accounts) {
             Main.fireAccountDataChanged(account)
         }
-
-        Main.selectTransaction(transaction)
     }
 
     void editTransaction(Transaction transaction) {//throws NotEmptyException{
@@ -246,6 +244,7 @@ class JournalEditPanel extends JPanel implements ActionListener {
             saveTransaction()
             if(journal && transaction && transaction.bookable){
                 addTransaction(transaction)
+                Main.selectTransaction(transaction)
                 if(transaction.order){
                     transaction.order.setPaymentTransaction(transaction)
                     Main.fireOrderPayed()

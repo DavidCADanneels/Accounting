@@ -188,7 +188,6 @@ class PromoOrderDetailPanel extends JPanel {
         journal.addBusinessObject transaction
         promoOrder.paymentTransaction = transaction
         Main.journal = journal
-        Main.selectTransaction transaction
         Main.fireJournalDataChanged journal
         for (Account account : transaction.accounts) {
             Main.fireAccountDataChanged account

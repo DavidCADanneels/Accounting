@@ -268,7 +268,6 @@ class PurchaseOrdersDetailPanel extends JPanel {
         transactions.addBusinessObject transaction
         journal.addBusinessObject transaction
         Main.journal = journal
-        Main.selectTransaction transaction
     }
 
     Account getCostAccount(Service service){

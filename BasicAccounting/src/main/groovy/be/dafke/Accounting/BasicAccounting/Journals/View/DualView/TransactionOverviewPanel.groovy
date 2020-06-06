@@ -108,7 +108,7 @@ class TransactionOverviewPanel extends JPanel { //implements ListSelectionListen
         Booking booking = transactionSelectionModel.selectedBooking
         if (transactionSelectionModel.multiSelection) {
             if (transactions!=null && !transactions.isEmpty()) {
-                System.err.println("Transactions:${transactions.size}()")
+                System.err.println("Transactions:${transactions.size()}()")
                 selectTransactions(transactions)
                 selectTransactionDetails(mergeTransactions(transactions))
             } else if (transaction!=null) {

@@ -333,7 +333,6 @@ class SalesOrderDetailPanel extends JPanel {
     Contact getCustomer(){
         Contact customer = salesOrder.customer
         if(customer == null){
-            Contacts contacts = accounting.contacts
             ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(accounting, Contact.ContactType.CUSTOMERS)
             contactSelectorDialog.visible = true
             customer = contactSelectorDialog.getSelection()
@@ -380,7 +379,7 @@ class SalesOrderDetailPanel extends JPanel {
         salesOrder.salesTransaction = transaction
         salesOrder.gainTransaction = transaction
         Main.journal = journal
-        Main.selectTransaction(transaction)
+//        Main.selectTransaction(transaction)
         Main.fireJournalDataChanged(journal)
         for (Account account : transaction.accounts) {
             Main.fireAccountDataChanged(account)
@@ -452,7 +451,7 @@ class SalesOrderDetailPanel extends JPanel {
         salesJournal.addBusinessObject transaction
         salesOrder.salesTransaction = transaction
         Main.setJournal salesJournal
-        Main.selectTransaction transaction
+//        Main.selectTransaction transaction
         Main.fireJournalDataChanged salesJournal
         for (Account account : transaction.accounts) {
             Main.fireAccountDataChanged account
