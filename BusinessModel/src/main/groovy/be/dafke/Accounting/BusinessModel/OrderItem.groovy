@@ -141,7 +141,9 @@ class OrderItem extends BusinessObject{
     }
 
     Integer getSalesVatRate() {
-        salesVatRate?:article?article.salesVatRate:null
+        if(salesVatRate!=null) salesVatRate
+        else if (article!=null) article.salesVatRate
+        else null
     }
 
     void setSalesVatRate(Integer salesVatRate) {
