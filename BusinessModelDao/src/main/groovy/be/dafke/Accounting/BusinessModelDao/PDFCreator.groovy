@@ -17,9 +17,8 @@ import javax.xml.transform.stream.StreamSource
 class PDFCreator {
 
     static void main(String[] args) {
-        PDFCreator fOPPdfDemo = new PDFCreator()
         try {
-            fOPPdfDemo.convertToPDF("F:\\Temp\\Employees.xml","F:\\Temp\\template.xsl", "F:\\Temp\\employee.pdf")
+            PDFCreator.convertToPDF("F:\\Temp\\Employees.xml","F:\\Temp\\template.xsl", "F:\\Temp\\employee.pdf")
         } catch (FOPException e) {
             // TODO Auto-generated catch block
             e.printStackTrace()
@@ -50,7 +49,7 @@ class PDFCreator {
         FOUserAgent foUserAgent = fopFactory.newFOUserAgent()
         // Setup output
         OutputStream out
-        out = new java.io.FileOutputStream(pdfPath)
+        out = new FileOutputStream(pdfPath)
 
         try {
             // Construct fop with desired output format

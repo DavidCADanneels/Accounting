@@ -1,17 +1,13 @@
 package be.dafke.Accounting.BasicAccounting.Trade
 
+import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.IngredientOrder
 import be.dafke.Accounting.BusinessModel.IngredientOrderItem
 import be.dafke.ComponentModel.SelectableTable
 
-import javax.swing.DefaultListSelectionModel
-import javax.swing.JButton
-import javax.swing.JPanel
-import javax.swing.JScrollPane
-import javax.swing.JSplitPane
-import java.awt.BorderLayout
-import java.awt.Dimension
+import javax.swing.*
+import java.awt.*
 
 class IngredientOrdersOverviewPanel extends JPanel {
 

@@ -128,7 +128,7 @@ class MealsIO {
         } catch (IOException ex) {
             Logger.getLogger(Meal.class.name).log(Level.SEVERE, null, ex)
         } finally {
-            path
+            return path
         }
     }
 }
