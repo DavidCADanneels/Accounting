@@ -223,7 +223,9 @@ class OrderItem extends BusinessObject{
 //        purchaseVatRate?:article.getPurchaseVatRate()
 //		}
         // TODO: getSupplier().isInternational or IntraComm -> 0%
-        purchaseVatRate?purchaseVatRate:article.getPurchaseVatRate()
+        if(purchaseVatRate!=null) purchaseVatRate
+        else if (article!=null) article.purchaseVatRate
+        else null
     }
 
     void setPurchaseVatRate(Integer purchaseVatRate) {
