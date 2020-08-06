@@ -170,7 +170,7 @@ class AccountsIO {
                 writer.write """\
   <$MOVEMENT>
     <$TRANSACTION_ID>$transaction.transactionId</$TRANSACTION_ID>
-    <$ID>$movement.id</$ID">
+    <$ID>$movement.id</$ID>
     <$DATE>${Utils.toString(movement.date)}</$DATE>
     <$DESCRIPTION>$movement.description</$DESCRIPTION>
     <$JOURNAL_ABBR>$journal.abbreviation</$JOURNAL_ABBR>
