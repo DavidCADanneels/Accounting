@@ -18,6 +18,11 @@ class JournalSwitchViewPanel extends JPanel {
     JPanel center
     TransactionSelectionListener transactionSelectionListener
 
+    static final String VIEW1 = "Single Table"
+    static final String VIEW2 = "Dual Table"
+
+    String view = VIEW1
+
     JournalSwitchViewPanel() {
         cardLayout = new CardLayout()
         center = new JPanel(cardLayout)
@@ -27,11 +32,11 @@ class JournalSwitchViewPanel extends JPanel {
         singleView = new JournalSingleViewPanel(transactionSelectionModel)
         dualView = new TransactionOverviewPanel(transactionSelectionModel)
 
-        transactionSelectionListener = new TransactionSelectionListener(singleView, dualView)
+        transactionSelectionListener = new TransactionSelectionListener(this)
         transactionSelectionModel.addListSelectionListener(transactionSelectionListener)
 
-        center.add(singleView, TransactionSelectionModel.VIEW1)
-        center.add(dualView, TransactionSelectionModel.VIEW2)
+        center.add(singleView, VIEW1)
+        center.add(dualView, VIEW2)
 
         setLayout(new BorderLayout())
         add(center, BorderLayout.CENTER)
@@ -41,8 +46,8 @@ class JournalSwitchViewPanel extends JPanel {
     JPanel createTopPanel(){
         JPanel panel = new JPanel()
 
-        JRadioButton view1 = new JRadioButton(TransactionSelectionModel.VIEW1)
-        JRadioButton view2 = new JRadioButton(TransactionSelectionModel.VIEW2)
+        JRadioButton view1 = new JRadioButton(VIEW1)
+        JRadioButton view2 = new JRadioButton(VIEW2)
         ButtonGroup group = new ButtonGroup()
         group.add(view1)
         group.add(view2)
@@ -50,16 +55,16 @@ class JournalSwitchViewPanel extends JPanel {
         view1.selected = true
         view1.addActionListener({ e ->
             if (view1.selected) {
-                switchView(TransactionSelectionModel.VIEW1)
+                switchView(VIEW1)
             } else {
-                switchView(TransactionSelectionModel.VIEW2)
+                switchView(VIEW2)
             }
         })
         view2.addActionListener({ e ->
             if (view1.selected) {
-                switchView(TransactionSelectionModel.VIEW1)
+                switchView(VIEW1)
             } else {
-                switchView(TransactionSelectionModel.VIEW2)
+                switchView(VIEW2)
             }
         })
         panel.add(new JLabel("View:"))
@@ -70,8 +75,12 @@ class JournalSwitchViewPanel extends JPanel {
     }
 
     void switchView(String view) {
+        println("===========")
+        println("Switch VIEW")
+        println("===========")
         cardLayout.show(center, view)
-        transactionSelectionListener.view = view
+        this.view = view
+        setSelection()
     }
 
     void setAccounting(Accounting accounting){
@@ -87,6 +96,22 @@ class JournalSwitchViewPanel extends JPanel {
     void fireJournalDataChanged(){
         singleView.fireJournalDataChanged()
         dualView.fireJournalDataChanged()
+    }
+
+    void updateSelection(){
+        if(view==JournalSwitchViewPanel.VIEW1){
+            singleView.updateSelection()
+        } else {
+            dualView.updateSelection()
+        }
+    }
+
+    void setSelection(){
+        if(view==JournalSwitchViewPanel.VIEW1){
+            singleView.setSelection()
+        } else {
+            dualView.setSelection()
+        }
     }
 
     void selectTransaction(Transaction transaction){

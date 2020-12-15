@@ -94,13 +94,13 @@ class TransactionOverviewPanel extends JPanel {
 
     void updateSelection() {
         Transaction transaction = transactionOverviewTable.selectedObject
-        Booking booking = transactionDataTable.selectedObject
+//        Booking booking = transactionDataTable.selectedObject
         if(transaction) {
             transactionSelectionModel.selectedTransaction = transaction
             transactionSelectionModel.selectedBooking = null
-        } else {
-            transactionSelectionModel.selectedBooking = booking
-            transactionSelectionModel.selectedTransaction = null
+//        } else {
+//            transactionSelectionModel.selectedBooking = booking
+//            transactionSelectionModel.selectedTransaction = null
         }
         setSelection()
     }
