@@ -17,6 +17,7 @@ class JournalSwitchViewPanel extends JPanel {
     CardLayout cardLayout
     JPanel center
 
+    JRadioButton view1, view2
     static final String VIEW1 = "Single Table"
     static final String VIEW2 = "Dual Table"
 
@@ -33,7 +34,11 @@ class JournalSwitchViewPanel extends JPanel {
 
         transactionSelectionModel.addListSelectionListener( { e ->
             if (!e.getValueIsAdjusting()) {
-                updateSelection()
+                if(view==VIEW1){
+                    singleView.updateSelection()
+                } else {
+                    dualView.updateSelection()
+                }
             }
         })
 
@@ -48,32 +53,32 @@ class JournalSwitchViewPanel extends JPanel {
     JPanel createTopPanel(){
         JPanel panel = new JPanel()
 
-        JRadioButton view1 = new JRadioButton(VIEW1)
-        JRadioButton view2 = new JRadioButton(VIEW2)
+        view1 = new JRadioButton(VIEW1)
+        view2 = new JRadioButton(VIEW2)
         ButtonGroup group = new ButtonGroup()
         group.add(view1)
         group.add(view2)
 
         view1.selected = true
         view1.addActionListener({ e ->
-            if (view1.selected) {
-                switchView(VIEW1)
-            } else {
-                switchView(VIEW2)
-            }
+            switchView()
         })
         view2.addActionListener({ e ->
-            if (view1.selected) {
-                switchView(VIEW1)
-            } else {
-                switchView(VIEW2)
-            }
+            switchView()
         })
         panel.add(new JLabel("View:"))
         panel.add(view1)
         panel.add(view2)
 
         panel
+    }
+
+    void switchView() {
+        if (view1.selected) {
+            switchView(VIEW1)
+        } else {
+            switchView(VIEW2)
+        }
     }
 
     void switchView(String view) {
@@ -100,16 +105,8 @@ class JournalSwitchViewPanel extends JPanel {
         dualView.fireJournalDataChanged()
     }
 
-    void updateSelection(){
-        if(view==JournalSwitchViewPanel.VIEW1){
-            singleView.updateSelection()
-        } else {
-            dualView.updateSelection()
-        }
-    }
-
     void setSelection(){
-        if(view==JournalSwitchViewPanel.VIEW1){
+        if(view==VIEW1){
             singleView.setSelection()
         } else {
             dualView.setSelection()
@@ -120,16 +117,14 @@ class JournalSwitchViewPanel extends JPanel {
         transactionSelectionModel.selectedTransaction = transaction
         transactionSelectionModel.selectedBooking = null
 
-        dualView.setSelection()
-        singleView.setSelection()
+        setSelection()
     }
 
     void selectBooking(Booking booking){
         transactionSelectionModel.selectedTransaction = null
         transactionSelectionModel.selectedBooking = booking
 
-        dualView.setSelection()
-        singleView.setSelection()
+        setSelection()
     }
 
     void closePopups(){
