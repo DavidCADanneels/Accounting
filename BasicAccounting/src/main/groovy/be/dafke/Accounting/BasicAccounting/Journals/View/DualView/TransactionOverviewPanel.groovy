@@ -109,11 +109,9 @@ class TransactionOverviewPanel extends JPanel {
         Transaction transaction = transactionSelectionModel.selectedTransaction
         Booking booking = transactionSelectionModel.selectedBooking
         if (transaction!=null) {
-            System.err.println("Transaction:$transaction.transactionId")
             selectTransaction(transaction)
             selectTransactionDetails(transaction)
         } else if (booking!=null) {
-            System.out.println("Booking:$booking")
             selectBooking(booking)
         }
     }
