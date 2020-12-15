@@ -16,7 +16,6 @@ class JournalSwitchViewPanel extends JPanel {
     TransactionOverviewPanel dualView
     CardLayout cardLayout
     JPanel center
-    TransactionSelectionListener transactionSelectionListener
 
     static final String VIEW1 = "Single Table"
     static final String VIEW2 = "Dual Table"
@@ -32,8 +31,11 @@ class JournalSwitchViewPanel extends JPanel {
         singleView = new JournalSingleViewPanel(transactionSelectionModel)
         dualView = new TransactionOverviewPanel(transactionSelectionModel)
 
-        transactionSelectionListener = new TransactionSelectionListener(this)
-        transactionSelectionModel.addListSelectionListener(transactionSelectionListener)
+        transactionSelectionModel.addListSelectionListener( { e ->
+            if (!e.getValueIsAdjusting()) {
+                updateSelection()
+            }
+        })
 
         center.add(singleView, VIEW1)
         center.add(dualView, VIEW2)
