@@ -83,17 +83,14 @@ class TransactionOverviewPanel extends JPanel {
         transactionOverviewTable.setSelectionModel(transactionSelectionModel)
 
         ListSelectionModel selectionModel = transactionDataTable.getSelectionModel()
-        selectionModel.addListSelectionListener( {e ->
+        selectionModel.addListSelectionListener( { e ->
             if(!e.valueIsAdjusting){
                 Booking booking = transactionDataTable.getSelectedObject()
                 if(booking) {
                     println('----select B ----')
                     transactionSelectionModel.selectedBooking = booking
                     transactionSelectionModel.selectedTransaction = null
-//                setSelection()
                     println('-----------------')
-                } else {
-                    println('-------ignore set B = null')
                 }
             }
         })
@@ -101,19 +98,13 @@ class TransactionOverviewPanel extends JPanel {
 
     void updateSelection() {
         Transaction transaction = transactionOverviewTable.selectedObject
-//        Booking booking = transactionDataTable.selectedObject
         if(transaction) {
             println('----select T ----')
             transactionSelectionModel.selectedTransaction = transaction
             transactionSelectionModel.selectedBooking = null
-//        } else {
-//            transactionSelectionModel.selectedBooking = booking
-//            transactionSelectionModel.selectedTransaction = null
-            println('-----details--------')
             selectTransactionDetails(transaction)
             println('-----------------')
         }
-//        setSelection()
     }
 
     void setSelection() {
@@ -169,17 +160,11 @@ class TransactionOverviewPanel extends JPanel {
     }
 
     void selectTransactionDetails(Transaction transaction) {
-        println('----1----')
         transactionDataModel.setTransaction(transaction)
-        println('----2----')
         transactionDataModel.fireTableDataChanged() // !!!!!!!!!
-        println('----3----')
         vatBookingDataModel.setTransaction(transaction)
-        println('----4----')
         vatBookingDataModel.fireTableDataChanged()
-        println('----5----')
         updateTotals(transaction)
-        println('----6----')
     }
 
     void fireJournalDataChanged() {

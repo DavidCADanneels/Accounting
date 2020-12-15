@@ -82,9 +82,7 @@ class JournalSwitchViewPanel extends JPanel {
     }
 
     void switchView(String view) {
-        println("===========")
-        println("Switch VIEW")
-        println("===========")
+        println("===== Switch VIEW ======")
         cardLayout.show(center, view)
         this.view = view
         setSelection()
