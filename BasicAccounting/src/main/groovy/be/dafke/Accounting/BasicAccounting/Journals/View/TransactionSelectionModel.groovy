@@ -16,7 +16,7 @@ class TransactionSelectionModel extends DefaultListSelectionModel {
     ArrayList<Booking> selectedBookings = new ArrayList<>()
     Booking selectedBooking = null
 
-    boolean multiSelection
+//    boolean multiSelection
 
     void selectTransactions(ArrayList<Transaction> list){
         selectedTransactions = list

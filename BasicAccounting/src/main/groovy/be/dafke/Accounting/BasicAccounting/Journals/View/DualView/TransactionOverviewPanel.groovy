@@ -25,7 +25,7 @@ class TransactionOverviewPanel extends JPanel { //implements ListSelectionListen
     final JTextField debet, credit
     final VATBookingDataModel vatBookingDataModel
     final TransactionDataColorRenderer transactionDataColorRenderer
-    boolean multiSelection = false
+//    boolean multiSelection = false
 
     TransactionSelectionModel transactionSelectionModel
 
@@ -106,17 +106,17 @@ class TransactionOverviewPanel extends JPanel { //implements ListSelectionListen
         ArrayList<Transaction> transactions = transactionSelectionModel.selectedTransactions
         Transaction transaction = transactionSelectionModel.selectedTransaction
         Booking booking = transactionSelectionModel.selectedBooking
-        if (transactionSelectionModel.multiSelection) {
-            if (transactions!=null && !transactions.isEmpty()) {
-                System.err.println("Transactions:${transactions.size()}()")
-                selectTransactions(transactions)
-                selectTransactionDetails(mergeTransactions(transactions))
-            } else if (transaction!=null) {
-                System.err.println("Transaction:${transaction}")
-                selectTransaction(transaction)
-                selectTransactionDetails(transaction)
-            }
-        } else {
+//        if (transactionSelectionModel.multiSelection) {
+//            if (transactions!=null && !transactions.isEmpty()) {
+//                System.err.println("Transactions:${transactions.size()}()")
+//                selectTransactions(transactions)
+//                selectTransactionDetails(mergeTransactions(transactions))
+//            } else if (transaction!=null) {
+//                System.err.println("Transaction:${transaction}")
+//                selectTransaction(transaction)
+//                selectTransactionDetails(transaction)
+//            }
+//        } else {
             if (transaction!=null) {
                 System.err.println("Transaction:$transaction.transactionId")
                 selectTransaction(transaction)
@@ -125,7 +125,7 @@ class TransactionOverviewPanel extends JPanel { //implements ListSelectionListen
                 System.out.println("Booking:$booking")
                 selectBooking(booking)
             }
-        }
+//        }
     }
 
     void updateTotals(Transaction transaction) {
@@ -153,36 +153,36 @@ class TransactionOverviewPanel extends JPanel { //implements ListSelectionListen
         selectTransaction(transaction)
     }
 
-    Transaction mergeTransactions(ArrayList<Transaction> transactions) {
-        HashMap<Account, Booking> newTransactionData = new HashMap<>()
-        transactions.forEach({ transaction ->
-            ArrayList<Booking> bookings = transaction.businessObjects
-            bookings.forEach({ booking ->
-                Account account = booking.account
-                Booking foundBooking = newTransactionData.get(account)
-                if (foundBooking == null) {
-                    Booking newBooking = new Booking(booking)
-                    newTransactionData.put(account, newBooking)
-                } else {
-                    BigDecimal totalAmount = foundBooking.amount.add(booking.amount).setScale(2, BigDecimal.ROUND_HALF_DOWN)
-                    foundBooking.setAmount(totalAmount)
-                    ArrayList<VATBooking> vatBookings = booking.vatBookings
-                    vatBookings.each {foundBooking.addVatBooking(it)}
-                    newTransactionData.put(account, foundBooking)
-                }
-            })
-        })
-        Transaction mergedTransaction = new Transaction(Calendar.getInstance(), "")
-        newTransactionData.forEach({ account, booking ->
-            mergedTransaction.addBusinessObject(booking)
-        })
-        mergedTransaction
-    }
+//    Transaction mergeTransactions(ArrayList<Transaction> transactions) {
+//        HashMap<Account, Booking> newTransactionData = new HashMap<>()
+//        transactions.forEach({ transaction ->
+//            ArrayList<Booking> bookings = transaction.businessObjects
+//            bookings.forEach({ booking ->
+//                Account account = booking.account
+//                Booking foundBooking = newTransactionData.get(account)
+//                if (foundBooking == null) {
+//                    Booking newBooking = new Booking(booking)
+//                    newTransactionData.put(account, newBooking)
+//                } else {
+//                    BigDecimal totalAmount = foundBooking.amount.add(booking.amount).setScale(2, BigDecimal.ROUND_HALF_DOWN)
+//                    foundBooking.setAmount(totalAmount)
+//                    ArrayList<VATBooking> vatBookings = booking.vatBookings
+//                    vatBookings.each {foundBooking.addVatBooking(it)}
+//                    newTransactionData.put(account, foundBooking)
+//                }
+//            })
+//        })
+//        Transaction mergedTransaction = new Transaction(Calendar.getInstance(), "")
+//        newTransactionData.forEach({ account, booking ->
+//            mergedTransaction.addBusinessObject(booking)
+//        })
+//        mergedTransaction
+//    }
 
-    void setMultiSelection(boolean multiSelection){
-        this.multiSelection = multiSelection
-        setSelection()
-    }
+//    void setMultiSelection(boolean multiSelection){
+//        this.multiSelection = multiSelection
+//        setSelection()
+//    }
 
     void selectBooking(Booking booking){
         if(booking) {

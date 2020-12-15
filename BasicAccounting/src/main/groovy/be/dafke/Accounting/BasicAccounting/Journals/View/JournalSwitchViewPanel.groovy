@@ -69,13 +69,13 @@ class JournalSwitchViewPanel extends JPanel {
         panel.add(view1)
         panel.add(view2)
 
-        mergeTransactions = new JCheckBox("Merge Transactions")
-        mergeTransactions.addActionListener({ e ->
-            dualView.setMultiSelection(mergeTransactions.selected)
-        })
-        mergeTransactions.selected = false
-        mergeTransactions.visible = true//false
-        panel.add(mergeTransactions)
+//        mergeTransactions = new JCheckBox("Merge Transactions")
+//        mergeTransactions.addActionListener({ e ->
+//            dualView.setMultiSelection(mergeTransactions.selected)
+//        })
+//        mergeTransactions.selected = false
+//        mergeTransactions.visible = true//false
+//        panel.add(mergeTransactions)
 
         panel
     }
