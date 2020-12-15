@@ -16,7 +16,6 @@ class JournalSwitchViewPanel extends JPanel {
     TransactionOverviewPanel dualView
     CardLayout cardLayout
     JPanel center
-    JCheckBox mergeTransactions
     TransactionSelectionListener transactionSelectionListener
 
     JournalSwitchViewPanel() {
@@ -91,16 +90,19 @@ class JournalSwitchViewPanel extends JPanel {
     }
 
     void selectTransaction(Transaction transaction){
-//        transactionSelectionModel.selectTransaction(transaction)
-        // TODO: just reload 'singleView' and 'dualView' (model is already updated)
-        singleView.selectTransaction(transaction)
-        dualView.selectTransaction(transaction)
+        transactionSelectionModel.selectedTransaction = transaction
+        transactionSelectionModel.selectedBooking = null
+
+        dualView.setSelection()
+        singleView.setSelection()
     }
 
     void selectBooking(Booking booking){
-        singleView.selectBooking(booking)
-        dualView.selectBooking(booking)
-//        transactionSelectionModel.selectBooking(booking)
+        transactionSelectionModel.selectedTransaction = null
+        transactionSelectionModel.selectedBooking = booking
+
+        dualView.setSelection()
+        singleView.setSelection()
     }
 
     void closePopups(){
