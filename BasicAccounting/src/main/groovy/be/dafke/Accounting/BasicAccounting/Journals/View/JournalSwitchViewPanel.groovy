@@ -55,7 +55,6 @@ class JournalSwitchViewPanel extends JPanel {
             } else {
                 switchView(TransactionSelectionModel.VIEW2)
             }
-            transactionSelectionModel.printData()
         })
         view2.addActionListener({ e ->
             if (view1.selected) {
@@ -63,19 +62,10 @@ class JournalSwitchViewPanel extends JPanel {
             } else {
                 switchView(TransactionSelectionModel.VIEW2)
             }
-            transactionSelectionModel.printData()
         })
         panel.add(new JLabel("View:"))
         panel.add(view1)
         panel.add(view2)
-
-//        mergeTransactions = new JCheckBox("Merge Transactions")
-//        mergeTransactions.addActionListener({ e ->
-//            dualView.setMultiSelection(mergeTransactions.selected)
-//        })
-//        mergeTransactions.selected = false
-//        mergeTransactions.visible = true//false
-//        panel.add(mergeTransactions)
 
         panel
     }
@@ -101,7 +91,7 @@ class JournalSwitchViewPanel extends JPanel {
     }
 
     void selectTransaction(Transaction transaction){
-        transactionSelectionModel.selectTransaction(transaction)
+//        transactionSelectionModel.selectTransaction(transaction)
         // TODO: just reload 'singleView' and 'dualView' (model is already updated)
         singleView.selectTransaction(transaction)
         dualView.selectTransaction(transaction)
@@ -110,7 +100,7 @@ class JournalSwitchViewPanel extends JPanel {
     void selectBooking(Booking booking){
         singleView.selectBooking(booking)
         dualView.selectBooking(booking)
-        transactionSelectionModel.selectBooking(booking)
+//        transactionSelectionModel.selectBooking(booking)
     }
 
     void closePopups(){

@@ -48,12 +48,14 @@ class JournalSingleViewPanel extends JPanel {
         ArrayList<Booking> bookings = journalDetailsTable.selectedObjects
         if(bookings.size() == 1){
             Booking booking = journalDetailsTable.selectedObject
-            transactionSelectionModel.selectBooking(booking)
+            transactionSelectionModel.selectedBooking = booking
+            transactionSelectionModel.selectedTransaction = null
+//            transactionSelectionModel.selectBooking(booking)
         } else if(bookings.size() > 1) {
-            transactionSelectionModel.selectTransaction(bookings[0].transaction)
-//            transactionSelectionModel.selectBookings(bookings)
+            transactionSelectionModel.selectedTransaction = bookings[0].transaction
+            transactionSelectionModel.selectedBooking = null
+//            transactionSelectionModel.selectTransaction(bookings[0].transaction)
         }
-//        setSelection()
     }
 
     void setSelection(){
@@ -62,8 +64,6 @@ class JournalSingleViewPanel extends JPanel {
         } else
         if (transactionSelectionModel.selectedTransaction) {
             selectTransaction(transactionSelectionModel.selectedTransaction)
-//        } else if (transactionSelectionModel.selectedBooking) {
-//            selectBooking(transactionSelectionModel.selectedBooking)
         }
     }
 
@@ -94,10 +94,6 @@ class JournalSingleViewPanel extends JPanel {
             }
         }
     }
-
-//    void selectTransactions(ArrayList<Transaction> transactions) {
-//
-//    }
 
     void selectTransaction(Transaction transaction) {
         if(transaction) {

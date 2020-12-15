@@ -36,9 +36,4 @@ class TransactionSelectionListener implements ListSelectionListener {//}, Action
             transactionOverviewPanel.setSelection()
         }
     }
-
-//    @Override
-//    void actionPerformed(ActionEvent e) {
-//
-//    }
 }
