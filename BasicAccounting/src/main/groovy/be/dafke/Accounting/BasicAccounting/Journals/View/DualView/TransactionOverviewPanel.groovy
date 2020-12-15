@@ -81,6 +81,15 @@ class TransactionOverviewPanel extends JPanel {
 
         this.transactionSelectionModel = transactionSelectionModel
         transactionOverviewTable.setSelectionModel(transactionSelectionModel)
+
+        ListSelectionModel selectionModel = transactionDataTable.getSelectionModel()
+        selectionModel.addListSelectionListener( {e ->
+            if(!e.valueIsAdjusting){
+                Booking booking = transactionDataTable.getSelectedObject()
+                transactionSelectionModel.selectedBooking = booking
+                transactionSelectionModel.selectedTransaction = null
+            }
+        })
     }
 
     void updateSelection() {
