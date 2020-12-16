@@ -149,6 +149,8 @@ class TransactionOverviewPanel extends JPanel {
             selectTransactionDetails(booking.transaction)
             def row = transactionDataModel.getRow(booking)
             if (row != -1) transactionDataTable.setRowSelectionInterval(row, row)
+            Rectangle cellRect = transactionDataTable.getCellRect(row, 0, false)
+            transactionDataTable.scrollRectToVisible(cellRect)
         }
     }
 
@@ -156,6 +158,8 @@ class TransactionOverviewPanel extends JPanel {
         if(transaction) {
             int row = transactionOverviewDataModel.getRow(transaction)
             if (row != -1) transactionOverviewTable.setRowSelectionInterval(row, row)
+            Rectangle cellRect = transactionOverviewTable.getCellRect(row, 0, false)
+            transactionOverviewTable.scrollRectToVisible(cellRect)
         }
     }
 
