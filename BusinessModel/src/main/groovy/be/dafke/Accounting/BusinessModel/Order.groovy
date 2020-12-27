@@ -22,7 +22,9 @@ class Order extends OrderItems {
     BigDecimal getTotalStockValue() {
         BigDecimal total = BigDecimal.ZERO.setScale(2)
         for (OrderItem orderItem : getBusinessObjects()) {
-            total = total.add(orderItem.getStockValue()).setScale(2, RoundingMode.HALF_DOWN)
+            def value = orderItem.getStockValue()
+            if(value)
+                total = total.add(value).setScale(2, RoundingMode.HALF_DOWN)
 //            total = total.add(orderItem.getStockValue())
         }
         // FIXME: set scale for each addition or only at the end?

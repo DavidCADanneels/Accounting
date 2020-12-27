@@ -53,7 +53,7 @@ class OrderItem extends BusinessObject{
     }
 
     int getItemsPerUnit() {
-        itemsPerUnit!=0?itemsPerUnit:article==null?0:article.itemsPerUnit
+        itemsPerUnit!=0?itemsPerUnit:article==null?1:article.itemsPerUnit
     }
 
     void setItemsPerUnit(int itemsPerUnit) {
@@ -156,7 +156,7 @@ class OrderItem extends BusinessObject{
         BigDecimal purchasePriceForUnit = getPurchasePriceForUnit()
         if(purchasePriceForUnit==null) return null
         int itemsPerUnit = getItemsPerUnit()
-        if (itemsPerUnit == 1) return purchasePriceForUnit
+        if (itemsPerUnit == 0 || itemsPerUnit == 1)return purchasePriceForUnit
         purchasePriceForUnit.divide(new BigDecimal(itemsPerUnit), ROUND_HALF_DOWN)
     }
 
