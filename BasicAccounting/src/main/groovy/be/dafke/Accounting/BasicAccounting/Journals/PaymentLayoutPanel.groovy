@@ -19,6 +19,7 @@ class PaymentLayoutPanel extends JPanel {
     Accounting accounting
     Journal journal
     JTextField accountNameField
+    JTextField saldoField
     JPanel accountPanel
 
     MortgagesPanel mortgagesPanel
@@ -37,9 +38,12 @@ class PaymentLayoutPanel extends JPanel {
 
         accountPanel = new JPanel()
         accountPanel.add new JLabel('Account to book against: ')
-        accountNameField = new JTextField(20)
+        accountNameField = new JTextField(15)
         accountNameField.editable = false
+        saldoField = new JTextField(5)
+        saldoField.editable = false
         accountPanel.add accountNameField
+        accountPanel.add saldoField
         JButton accountPay = new JButton("Pay")
         JButton accountReceive = new JButton("Receive")
         accountPanel.add accountPay
@@ -47,10 +51,12 @@ class PaymentLayoutPanel extends JPanel {
         accountPay.addActionListener({ e ->
             def account = StockUtils.getJournalBaseAccount(journal)
             AccountActions.book account, false, null, accounting, this
+            saldoField.setText(journal?.baseAccount?.saldo?.toString())
         })
         accountReceive.addActionListener({ e ->
             def account = StockUtils.getJournalBaseAccount(journal)
             AccountActions.book account, true, null, accounting, this
+            saldoField.setText(journal?.baseAccount?.saldo?.toString())
         })
 
         setLayout(new BorderLayout())
@@ -70,6 +76,7 @@ class PaymentLayoutPanel extends JPanel {
     void setJournal(Journal journal){
         this.journal = journal
         accountNameField.setText(journal?.baseAccount?.name)
+        saldoField.setText(journal?.baseAccount?.saldo?.toString())
     }
 
     void fireOrderPayed() {
