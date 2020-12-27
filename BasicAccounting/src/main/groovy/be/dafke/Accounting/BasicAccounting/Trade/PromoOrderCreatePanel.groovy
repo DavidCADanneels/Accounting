@@ -1,12 +1,10 @@
 package be.dafke.Accounting.BasicAccounting.Trade
 
 import be.dafke.Accounting.BusinessModel.Accounting
-import be.dafke.Accounting.BusinessModel.Article
 import be.dafke.Accounting.BusinessModel.Articles
 import be.dafke.Accounting.BusinessModel.OrderItem
 import be.dafke.Accounting.BusinessModel.PromoOrder
 import be.dafke.Accounting.BusinessModel.PromoOrders
-import be.dafke.Accounting.BusinessModel.StockTransactions
 import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException
 import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException
 import be.dafke.ComponentModel.SelectableTable
@@ -23,10 +21,6 @@ class PromoOrderCreatePanel extends JPanel {
     final PromoOrderCreateDataTableModel promoOrderCreateDataTableModel
 
     PromoOrderCreatePanel(Accounting accounting) {
-
-        StockTransactions stockTransactions = accounting.getStockTransactions()
-        HashMap<Article, Integer> stock = stockTransactions.stock
-        Set<Article> articles = stock.keySet()
 
         this.articles = accounting.articles
         promoOrder = new PromoOrder()
