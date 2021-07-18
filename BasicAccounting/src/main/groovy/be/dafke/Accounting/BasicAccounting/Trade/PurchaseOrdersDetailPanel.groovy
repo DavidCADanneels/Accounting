@@ -191,7 +191,7 @@ class PurchaseOrdersDetailPanel extends JPanel {
             goodItems.forEach { goodItem ->
                 goodsAmount = goodsAmount.add(goodItem.purchasePriceWithoutVat)
             }
-            goodsAmount = goodsAmount.setScale(2)
+            goodsAmount = goodsAmount.setScale(2,BigDecimal.ROUND_HALF_DOWN)
         }
 
         if(goodsAmount.compareTo(BigDecimal.ZERO)>0) {
