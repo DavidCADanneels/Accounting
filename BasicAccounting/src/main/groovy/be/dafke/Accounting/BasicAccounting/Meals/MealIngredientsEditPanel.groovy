@@ -14,9 +14,11 @@ class MealIngredientsEditPanel extends JPanel {
     final SelectableTable<Meal> overviewTable
     final MealIngredientsEditDataTableModel mealRecipeDataTableModel
     final SelectableTable<RecipeLine> recipeTable
-    final JButton addRecipeLine
+    final JButton addRecipeLineButton
+    Accounting accounting
 
     MealIngredientsEditPanel(Accounting accounting) {
+        this.accounting = accounting
         mealsEditDataTableModel = new MealsEditDataTableModel(this, accounting)
         overviewTable = new SelectableTable<>(mealsEditDataTableModel)
         overviewTable.setPreferredScrollableViewportSize(new Dimension(500, 200))
@@ -51,35 +53,39 @@ class MealIngredientsEditPanel extends JPanel {
         setLayout(new BorderLayout())
         add(splitPane, BorderLayout.CENTER)
 
-        addRecipeLine = new JButton("Add Ingredient")
-        addRecipeLine.enabled = false
-        addRecipeLine.addActionListener({ e ->
-            Meal meal = overviewTable.selectedObject
-            if (meal != null) {
-                Ingredients ingredients = accounting.ingredients
-                IngredientSelectorDialog ingredientSelector = IngredientSelectorDialog.getIngredientSelector(ingredients)
-                ingredientSelector.visible = true
-                Ingredient ingredient = ingredientSelector.getSelection()
-                BigDecimal amount = BigDecimal.ZERO
-                RecipeLine recipeLine = new RecipeLine(ingredient)
-                recipeLine.setAmount(amount)
-                recipeLine.setIngredient(ingredient)
-                Recipe recipe = meal.getRecipe()
-                try {
-                    recipe.addBusinessObject(recipeLine)
-                    Main.fireRecipeDataUpdated(accounting)
-                } catch (EmptyNameException | DuplicateNameException e1) {
-                    e1.printStackTrace()
-                }
-                mealRecipeDataTableModel.fireTableDataChanged()
-            }
+        addRecipeLineButton = new JButton("Add Ingredient")
+        addRecipeLineButton.enabled = false
+        addRecipeLineButton.addActionListener({ e ->
+            addRecipeLine()
         })
-        add(addRecipeLine, BorderLayout.SOUTH)
+        add(addRecipeLineButton, BorderLayout.SOUTH)
+    }
+
+    void addRecipeLine(){
+        Meal meal = overviewTable.selectedObject
+        if (meal != null) {
+            Ingredients ingredients = accounting.ingredients
+            IngredientSelectorDialog ingredientSelector = IngredientSelectorDialog.getIngredientSelector(ingredients)
+            ingredientSelector.visible = true
+            Ingredient ingredient = ingredientSelector.getSelection()
+            BigDecimal amount = BigDecimal.ZERO
+            RecipeLine recipeLine = new RecipeLine(ingredient)
+            recipeLine.setAmount(amount)
+            recipeLine.setIngredient(ingredient)
+            Recipe recipe = meal.getRecipe()
+            try {
+                recipe.addBusinessObject(recipeLine)
+                Main.fireRecipeDataUpdated(accounting)
+            } catch (EmptyNameException | DuplicateNameException e1) {
+                e1.printStackTrace()
+            }
+            mealRecipeDataTableModel.fireTableDataChanged()
+        }
     }
 
     void updateSelection() {
         Meal meal = overviewTable.selectedObject
-        addRecipeLine.enabled = meal!=null
+        addRecipeLineButton.enabled = meal!=null
         mealRecipeDataTableModel.recipe = meal?.recipe
         mealRecipeDataTableModel.fireTableDataChanged()
 //        int rowCount = recipeTable.getRowCount()

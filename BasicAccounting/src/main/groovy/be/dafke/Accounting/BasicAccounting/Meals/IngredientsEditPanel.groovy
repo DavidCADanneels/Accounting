@@ -1,5 +1,7 @@
 package be.dafke.Accounting.BasicAccounting.Meals
 
+import be.dafke.Accounting.BasicAccounting.MainApplication.ActionUtils
+import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.*
 import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException
 import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException
@@ -15,19 +17,26 @@ class IngredientsEditPanel extends JPanel {
     final IngredientsDataEditTableModel ingredientsDataEditTableModel
     final AllergenesViewPanel allergenesViewPanel
     final SelectableTable<Ingredient> ingredientsTable
-    final JButton addAllergene
+    final JButton addAllergeneButton
     Ingredient selectedIngredient
 
     Ingredients ingredients
     Allergenes allergenes
+    Accounting accounting
 
     IngredientsEditPanel(Accounting accounting) {
+        this.accounting = accounting
         ingredients = accounting.ingredients
         allergenes = accounting.allergenes
         ingredientsDataEditTableModel = new IngredientsDataEditTableModel(this)
         ingredientsDataEditTableModel.setIngredients(ingredients)
         ingredientsTable = new SelectableTable<>(ingredientsDataEditTableModel)
         ingredientsTable.setPreferredScrollableViewportSize(new Dimension(500, 200))
+//        ingredientsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION)
+        ingredientsTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)
+        //SINGLE_SELECTION            ListSelectionModel.SINGLE_SELECTION
+        //SINGLE_INTERVAL_SELECTION   ListSelectionModel.SINGLE_INTERVAL_SELECTION
+        //MULTIPLE_INTERVAL_SELECTION ListSelectionModel.MULTIPLE_INTERVAL_SELECTION
 
         allergenesViewPanel = new AllergenesViewPanel(false)
 
@@ -50,53 +59,61 @@ class IngredientsEditPanel extends JPanel {
         setLayout(new BorderLayout())
         add(splitPane, BorderLayout.CENTER)
 
-        JButton addIngredient = new JButton("Add Ingredient")
-        add(addIngredient, BorderLayout.NORTH)
-        addIngredient.addActionListener({ e ->
-            String name = JOptionPane.showInputDialog(this, getBundle("Accounting").getString("NAME_LABEL"))
-            while (name != null && name.equals(""))
-                name = JOptionPane.showInputDialog(this, getBundle("Accounting").getString("NAME_LABEL"))
-            if (name != null) {
-                try {
-                    ingredients.addBusinessObject(new Ingredient(name, Unit.PIECE))
-                    allergenesViewPanel.updateTable()
-                    Main.fireIngredientsAddedOrRemoved(accounting)
-                } catch (EmptyNameException ex) {
-                    ActionUtils.showErrorMessage(this, ActionUtils.INGREDIENT_NAME_EMPTY)
-                } catch (DuplicateNameException ex) {
-                    ActionUtils.showErrorMessage(this, ActionUtils.INGREDIENT_DUPLICATE_NAME, name.trim())
-                }
-            }
+        JButton addIngredientButton = new JButton("Add Ingredient")
+        add(addIngredientButton, BorderLayout.NORTH)
+        addIngredientButton.addActionListener({ e ->
+            addIngredient()
         })
 
-        addAllergene = new JButton("Update Allergenes")
-        addAllergene.enabled = false
-        add(addAllergene, BorderLayout.SOUTH)
-        addAllergene.addActionListener({ e ->
-            Object[] allergeneList = allergenes.businessObjects.toArray()
-            if (allergeneList.length > 0) {
-                AllergenesPerIngredientDialog dialog = new AllergenesPerIngredientDialog(selectedIngredient, allergenes)
-                dialog.visible = true
-                ingredientsDataEditTableModel.fireTableDataChanged()
-                allergenesViewPanel.updateTable()
-            }
+        addAllergeneButton = new JButton("Update Allergenes")
+        addAllergeneButton.enabled = false
+        add(addAllergeneButton, BorderLayout.SOUTH)
+        addAllergeneButton.addActionListener({ e ->
+            addAllergene()
         })
 
 
         DefaultListSelectionModel selection = new DefaultListSelectionModel()
         selection.addListSelectionListener({ e ->
             if (!e.getValueIsAdjusting()) {
-                selectedIngredient = ingredientsTable.selectedObject
-                addAllergene.enabled = selectedIngredient != null
-                Allergenes allergenes = selectedIngredient?selectedIngredient.allergenes:null
-                allergenesViewPanel.allergenes = allergenes
-                allergenesViewPanel.selectFirstLine()
+                updateSelection()
             }
         })
         ingredientsTable.setSelectionModel(selection)
-        ingredientsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION)
-        //SINGLE_SELECTION            ListSelectionModel.SINGLE_SELECTION
-        //SINGLE_INTERVAL_SELECTION   ListSelectionModel.SINGLE_INTERVAL_SELECTION
-        //MULTIPLE_INTERVAL_SELECTION ListSelectionModel.MULTIPLE_INTERVAL_SELECTION
+    }
+
+    void updateSelection() {
+        selectedIngredient = ingredientsTable.selectedObject
+        addAllergeneButton.enabled = selectedIngredient != null
+        Allergenes allergenes = selectedIngredient?selectedIngredient.allergenes:null
+        allergenesViewPanel.allergenes = allergenes
+        allergenesViewPanel.selectFirstLine()
+    }
+
+    void addIngredient(){
+        String name = JOptionPane.showInputDialog(this, getBundle("Accounting").getString("NAME_LABEL"))
+        while (name != null && name.equals(""))
+            name = JOptionPane.showInputDialog(this, getBundle("Accounting").getString("NAME_LABEL"))
+        if (name != null) {
+            try {
+                ingredients.addBusinessObject(new Ingredient(name, Unit.PIECE))
+                allergenesViewPanel.updateTable()
+                Main.fireIngredientsAddedOrRemoved(accounting)
+            } catch (EmptyNameException ex) {
+                ActionUtils.showErrorMessage(this, ActionUtils.INGREDIENT_NAME_EMPTY)
+            } catch (DuplicateNameException ex) {
+                ActionUtils.showErrorMessage(this, ActionUtils.INGREDIENT_DUPLICATE_NAME, name.trim())
+            }
+        }
+    }
+
+    void addAllergene(){
+        Object[] allergeneList = allergenes.businessObjects.toArray()
+        if (allergeneList.length > 0) {
+            AllergenesPerIngredientDialog dialog = new AllergenesPerIngredientDialog(selectedIngredient, allergenes)
+            dialog.visible = true
+            ingredientsDataEditTableModel.fireTableDataChanged()
+            allergenesViewPanel.updateTable()
+        }
     }
 }
