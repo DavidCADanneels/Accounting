@@ -16,8 +16,8 @@ import static java.util.ResourceBundle.getBundle
 class IngredientsEditDataTableModel extends SelectableTableModel<Ingredient> {
     Ingredients ingredients
     static int NAME_COL = 0
-    static int UNIT_COL = 1
-    static int ALLERGENES_COL = 2
+    static int ALLERGENES_COL = 1
+    static int UNIT_COL = 2
     static int NR_OF_COL = 3
     final Component parent
     HashMap<Integer,String> columnNames = new HashMap<>()
