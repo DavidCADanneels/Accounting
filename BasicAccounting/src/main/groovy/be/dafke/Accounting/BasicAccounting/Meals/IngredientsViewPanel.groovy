@@ -31,7 +31,7 @@ class IngredientsViewPanel extends JPanel {
         ingredientsTable.setPreferredScrollableViewportSize(new Dimension(500, 200))
         ingredientsTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)
 
-        allergenesViewPanel = new AllergenesViewPanel(true)
+        allergenesViewPanel = new AllergenesViewPanel(true, accounting.allergenes)
 
         JScrollPane ingredientsScrollPane = new JScrollPane(ingredientsTable)
         JPanel ingredientsPanel = new JPanel(new BorderLayout())

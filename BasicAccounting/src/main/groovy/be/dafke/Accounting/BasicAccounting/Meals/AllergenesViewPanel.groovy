@@ -1,6 +1,7 @@
 package be.dafke.Accounting.BasicAccounting.Meals
 
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
+import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Allergene
 import be.dafke.Accounting.BusinessModel.Allergenes
 import be.dafke.ComponentModel.SelectableTable
@@ -14,9 +15,12 @@ class AllergenesViewPanel extends JPanel {
     JTextArea descriptionField
     boolean multiSelection
 
-    AllergenesViewPanel(boolean multiSelection) {
+    AllergenesViewPanel(boolean multiSelection, Allergenes allergenes) {
         this.multiSelection = multiSelection
+
         allergenesDataTableModel = new AllergenesViewDataTableModel()
+        allergenesDataTableModel.setAllergenes(allergenes)
+
         allergeneOverviewTable = new SelectableTable<>(allergenesDataTableModel)
         allergeneOverviewTable.setPreferredScrollableViewportSize(new Dimension(500, 200))
 

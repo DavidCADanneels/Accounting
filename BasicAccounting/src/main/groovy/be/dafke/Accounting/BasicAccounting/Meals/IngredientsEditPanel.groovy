@@ -34,7 +34,7 @@ class IngredientsEditPanel extends JPanel {
         ingredientsTable.setPreferredScrollableViewportSize(new Dimension(500, 200))
         ingredientsTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)
 
-        allergenesViewPanel = new AllergenesViewPanel(false)
+        allergenesViewPanel = new AllergenesViewPanel(false, accounting.allergenes)
 
         JComboBox<Unit> comboBox = new JComboBox<>(Unit.values())
         TableColumn unitColumn = ingredientsTable.getColumnModel().getColumn(IngredientsEditDataTableModel.UNIT_COL)
