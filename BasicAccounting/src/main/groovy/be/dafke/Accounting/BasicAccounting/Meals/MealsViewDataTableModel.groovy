@@ -4,8 +4,8 @@ import be.dafke.Accounting.BusinessModel.Accounting
 
 import java.awt.Component
 
-class MealsEditDataViewTableModel extends MealsEditDataTableModel {
-    MealsEditDataViewTableModel(Component parent, Accounting accounting) {
+class MealsViewDataTableModel extends MealsEditDataTableModel {
+    MealsViewDataTableModel(Component parent, Accounting accounting) {
         super(parent, accounting)
     }
 

@@ -57,7 +57,6 @@ class NewMealPanel extends JPanel {
             if (meal == null) {
                 meal = new Meal(newName.trim())
                 meals.addBusinessObject(meal)
-//                Main.fireAccountDataChanged(meal)
                 saveOtherProperties()
                 meal = null
                 clearFields()
@@ -80,8 +79,6 @@ class NewMealPanel extends JPanel {
         String priceText = price.getText()
         BigDecimal salesPrice = Utils.parseBigDecimal(priceText)
         meal.setSalesPrice(salesPrice)
-
-//        Main.fireAccountDataChanged(account)
     }
 
     void clearFields() {

@@ -38,5 +38,4 @@ class MealOrderCreateGUI extends JFrame {
     void calculateTotals(){
         mealOrderCreatePanel.calculateTotals()
     }
-
 }

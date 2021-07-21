@@ -4,12 +4,12 @@ import be.dafke.Accounting.BusinessModel.Ingredient
 
 import java.awt.Component
 
-class IngredientsDataViewTableModel extends IngredientsDataEditTableModel{
+class IngredientsViewDataTableModel extends IngredientsEditDataTableModel{
 
     static int OVERWRITE_NAME_COL = 0
     static int OVERWRITE_ALLERGENES_COL = 1
 
-    IngredientsDataViewTableModel(Component parent) {
+    IngredientsViewDataTableModel(Component parent) {
         super(parent)
     }
 

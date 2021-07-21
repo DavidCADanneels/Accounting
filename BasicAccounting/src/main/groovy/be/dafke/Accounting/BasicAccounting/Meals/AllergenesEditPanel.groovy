@@ -14,10 +14,10 @@ import java.awt.*
 import static java.util.ResourceBundle.getBundle
 
 class AllergenesEditPanel extends JPanel {
-    final AllergenesDataTableModel allergenesDataTableModel
+    final AllergenesEditDataTableModel allergenesDataTableModel
 
     AllergenesEditPanel(Allergenes allergenes) {
-        allergenesDataTableModel = new AllergenesDataTableModel()
+        allergenesDataTableModel = new AllergenesEditDataTableModel()
         allergenesDataTableModel.setAllergenes(allergenes)
         SelectableTable<Allergene> table = new SelectableTable<>(allergenesDataTableModel)
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION)
@@ -28,7 +28,7 @@ class AllergenesEditPanel extends JPanel {
         add(scrollPane, BorderLayout.CENTER)
 
         JButton addButton = new JButton("Add Allergene")
-        add(addButton, BorderLayout.NORTH)
+        add(addButton, BorderLayout.SOUTH)
         addButton.addActionListener({ e ->
             String name = JOptionPane.showInputDialog(this, getBundle("Accounting").getString("NAME_LABEL"))
             while (name != null && name.equals(""))

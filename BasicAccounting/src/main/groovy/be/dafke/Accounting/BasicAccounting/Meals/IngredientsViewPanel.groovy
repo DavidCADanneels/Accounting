@@ -17,34 +17,21 @@ import java.awt.BorderLayout
 import java.awt.Dimension
 
 class IngredientsViewPanel extends JPanel {
-    final IngredientsDataViewTableModel ingredientsDataViewTableModel
+    final IngredientsViewDataTableModel ingredientsDataViewTableModel
     final AllergenesViewPanel allergenesViewPanel
     final SelectableTable<Ingredient> ingredientsTable
-//    final JCheckBox button
-    boolean multiSelection = false
-    Ingredient selectedIngredient
 
     Ingredients ingredients
 
-    IngredientsViewPanel(Accounting accounting, boolean multiSelection) {
-        this.multiSelection = multiSelection
+    IngredientsViewPanel(Accounting accounting) {
         ingredients = accounting.ingredients
-        ingredientsDataViewTableModel = new IngredientsDataViewTableModel(this)
+        ingredientsDataViewTableModel = new IngredientsViewDataTableModel(this)
         ingredientsDataViewTableModel.setIngredients(ingredients)
         ingredientsTable = new SelectableTable<>(ingredientsDataViewTableModel)
         ingredientsTable.setPreferredScrollableViewportSize(new Dimension(500, 200))
-        ingredientsTable.setSelectionMode(multiSelection? ListSelectionModel.MULTIPLE_INTERVAL_SELECTION:ListSelectionModel.SINGLE_SELECTION)
+        ingredientsTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)
 
-//        allergenesDataTableModel = new AllergenesDataTableModel()
-//        allergenesTable = new SelectableTable<>(allergenesDataTableModel)
-//        allergenesTable.setPreferredScrollableViewportSize(new Dimension(500, 200))
-
-        allergenesViewPanel = new AllergenesViewPanel(multiSelection)
-
-        // Unit column is not editable anyway
-//        JComboBox<Unit> comboBox = new JComboBox<>(Unit.values())
-//        TableColumn unitColumn = ingredientsTable.getColumnModel().getColumn(IngredientsDataEditTableModel.UNIT_COL)
-//        unitColumn.setCellEditor(new DefaultCellEditor(comboBox))
+        allergenesViewPanel = new AllergenesViewPanel(true)
 
         JScrollPane ingredientsScrollPane = new JScrollPane(ingredientsTable)
         JPanel ingredientsPanel = new JPanel(new BorderLayout())
@@ -58,11 +45,7 @@ class IngredientsViewPanel extends JPanel {
         splitPane.add(ingredientsPanel, JSplitPane.TOP)
         splitPane.add(allergenesScrollPane, JSplitPane.BOTTOM)
 
-//        button = new JCheckBox("multiSelection")
-
-
         setLayout(new BorderLayout())
-//        add(button, BorderLayout.NORTH)
         add(splitPane, BorderLayout.CENTER)
 
         DefaultListSelectionModel selection = new DefaultListSelectionModel()
@@ -75,33 +58,20 @@ class IngredientsViewPanel extends JPanel {
     }
 
     void updateSelection() {
-        if (multiSelection) {
-            ArrayList<Ingredient> selectedObjects = ingredientsTable.selectedObjects
-            Allergenes allergenes = new Allergenes()
-            selectedObjects.forEach({ ingredient ->
-                Allergenes newAllergenes = ingredient.allergenes
-                newAllergenes.businessObjects.forEach({ allergene ->
-                    try {
-                        allergenes.addBusinessObject(allergene)
-                    } catch (EmptyNameException | DuplicateNameException e1) {
-                        e1.printStackTrace()
-                    }
-                })
+        ArrayList<Ingredient> selectedObjects = ingredientsTable.selectedObjects
+        Allergenes allergenes = new Allergenes()
+        selectedObjects.forEach({ ingredient ->
+            Allergenes newAllergenes = ingredient.allergenes
+            newAllergenes.businessObjects.forEach({ allergene ->
+                try {
+                    allergenes.addBusinessObject(allergene)
+                } catch (EmptyNameException | DuplicateNameException e1) {
+                    e1.printStackTrace()
+                }
             })
-            allergenesViewPanel.setAllergenes(allergenes)
-            allergenesViewPanel.selectAll()
-        } else {
-            selectedIngredient = ingredientsTable.selectedObject
-            Allergenes allergenes = selectedIngredient == null ? null : selectedIngredient.allergenes
-            allergenesViewPanel.setAllergenes(allergenes)
-            allergenesViewPanel.selectFirstLine()
-        }
-    }
-
-    void setMultiSelection(boolean multiSelection) {
-        this.multiSelection = multiSelection
-        ingredientsTable.setSelectionMode(multiSelection?ListSelectionModel.MULTIPLE_INTERVAL_SELECTION:ListSelectionModel.SINGLE_SELECTION)
-        allergenesViewPanel.setMultiSelection(multiSelection)
+        })
+        allergenesViewPanel.setAllergenes(allergenes)
+        allergenesViewPanel.selectAll()
     }
 
     void setIngredients(Ingredients ingredients){

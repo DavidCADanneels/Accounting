@@ -27,15 +27,7 @@ class IngredientSelectorDialog extends RefreshableDialog {
         innerPanel.add(ok, BorderLayout.SOUTH)
 
         setContentPane(innerPanel)
-        setIngredients(ingredients)
         pack()
-    }
-
-    static IngredientSelectorDialog getIngredientSelector(Ingredients ingredients, String title){
-        if(selectorDialog ==null){
-            selectorDialog = new IngredientSelectorDialog(ingredients, title)
-        } else selectorDialog.setTitle(title)
-        selectorDialog
     }
 
     static IngredientSelectorDialog getIngredientSelector(Ingredients ingredients){
@@ -47,19 +39,5 @@ class IngredientSelectorDialog extends RefreshableDialog {
 
     Ingredient getSelection() {
         selectorPanel.getSelection()
-    }
-
-    void setIngredients(Ingredients ingredients) {
-        selectorPanel.setIngredients(ingredients)
-    }
-
-    static void fireAccountDataChangedForAll() {
-        if(selectorDialog){
-            selectorDialog.fireIngredientsDataChanged()
-        }
-    }
-
-    void fireIngredientsDataChanged() {
-        selectorPanel.fireIngredientsDataChanged()
     }
 }

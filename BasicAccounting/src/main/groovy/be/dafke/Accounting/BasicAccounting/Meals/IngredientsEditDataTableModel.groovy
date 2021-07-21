@@ -13,7 +13,7 @@ import java.util.List
 
 import static java.util.ResourceBundle.getBundle 
 
-class IngredientsDataEditTableModel extends SelectableTableModel<Ingredient> {
+class IngredientsEditDataTableModel extends SelectableTableModel<Ingredient> {
     Ingredients ingredients
     static int NAME_COL = 0
     static int UNIT_COL = 1
@@ -25,7 +25,7 @@ class IngredientsDataEditTableModel extends SelectableTableModel<Ingredient> {
     List<Integer> editableColumns = new ArrayList<>()
 
 
-    IngredientsDataEditTableModel(Component parent) {
+    IngredientsEditDataTableModel(Component parent) {
         this.parent = parent
         setColumnNames()
         setColumnClasses()
@@ -92,7 +92,6 @@ class IngredientsDataEditTableModel extends SelectableTableModel<Ingredient> {
             ingredient.setUnit((Unit) value)
         }
         if(col == NAME_COL) {
-//            article.setName((String) value)
             String oldName = ingredient.name
             String newName = (String) value
             if (newName != null && !oldName.trim().equals(newName.trim())) {

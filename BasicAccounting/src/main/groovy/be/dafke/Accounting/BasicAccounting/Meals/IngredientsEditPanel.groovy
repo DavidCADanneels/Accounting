@@ -14,7 +14,7 @@ import java.awt.*
 import static java.util.ResourceBundle.getBundle
 
 class IngredientsEditPanel extends JPanel {
-    final IngredientsDataEditTableModel ingredientsDataEditTableModel
+    final IngredientsEditDataTableModel ingredientsDataEditTableModel
     final AllergenesViewPanel allergenesViewPanel
     final SelectableTable<Ingredient> ingredientsTable
     final JButton addAllergeneButton
@@ -28,20 +28,16 @@ class IngredientsEditPanel extends JPanel {
         this.accounting = accounting
         ingredients = accounting.ingredients
         allergenes = accounting.allergenes
-        ingredientsDataEditTableModel = new IngredientsDataEditTableModel(this)
+        ingredientsDataEditTableModel = new IngredientsEditDataTableModel(this)
         ingredientsDataEditTableModel.setIngredients(ingredients)
         ingredientsTable = new SelectableTable<>(ingredientsDataEditTableModel)
         ingredientsTable.setPreferredScrollableViewportSize(new Dimension(500, 200))
-//        ingredientsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION)
         ingredientsTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)
-        //SINGLE_SELECTION            ListSelectionModel.SINGLE_SELECTION
-        //SINGLE_INTERVAL_SELECTION   ListSelectionModel.SINGLE_INTERVAL_SELECTION
-        //MULTIPLE_INTERVAL_SELECTION ListSelectionModel.MULTIPLE_INTERVAL_SELECTION
 
         allergenesViewPanel = new AllergenesViewPanel(false)
 
         JComboBox<Unit> comboBox = new JComboBox<>(Unit.values())
-        TableColumn unitColumn = ingredientsTable.getColumnModel().getColumn(IngredientsDataEditTableModel.UNIT_COL)
+        TableColumn unitColumn = ingredientsTable.getColumnModel().getColumn(IngredientsEditDataTableModel.UNIT_COL)
         unitColumn.setCellEditor(new DefaultCellEditor(comboBox))
 
         JScrollPane ingredientsScrollPane = new JScrollPane(ingredientsTable)

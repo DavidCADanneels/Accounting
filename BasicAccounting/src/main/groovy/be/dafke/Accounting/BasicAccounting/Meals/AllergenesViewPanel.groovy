@@ -43,28 +43,6 @@ class AllergenesViewPanel extends JPanel {
 
         allergeneOverviewTable.setSelectionMode(multiSelection? ListSelectionModel.MULTIPLE_INTERVAL_SELECTION:ListSelectionModel.SINGLE_SELECTION)
 
-//        JButton addButton = new JButton("Add Allergene")
-//        add(addButton, BorderLayout.NORTH)
-//        addButton.addActionListener(e -> {
-//            String name = JOptionPane.showInputDialog(this, getBundle("Accounting").getString("NAME_LABEL"))
-//            while (name != null && name.equals(""))
-//                name = JOptionPane.showInputDialog(this, getBundle("Accounting").getString("NAME_LABEL"))
-//            if (name != null) {
-//                try {
-//                    allergenes.addBusinessObject(new Allergene(name, "",""))
-//                    allergenesDataTableModel.fireTableDataChanged()
-//                } catch (EmptyNameException ex) {
-//                    ActionUtils.showErrorMessage(this, ActionUtils.INGREDIENT_NAME_EMPTY)
-//                } catch (DuplicateNameException ex) {
-//                    ActionUtils.showErrorMessage(this, ActionUtils.INGREDIENT_DUPLICATE_NAME, name.trim())
-//                }
-//            }
-//        })
-    }
-
-    void setMultiSelection(boolean multiSelection) {
-        this.multiSelection = multiSelection
-        allergeneOverviewTable.setSelectionMode(multiSelection?ListSelectionModel.MULTIPLE_INTERVAL_SELECTION:ListSelectionModel.SINGLE_SELECTION)
     }
 
     void updateTable(){
@@ -82,7 +60,6 @@ class AllergenesViewPanel extends JPanel {
     }
 
     void selectAll(){
-//        allergeneOverviewTable.selectAll()
         int rowCount = allergeneOverviewTable.getRowCount()
         if(rowCount >0){
             allergeneOverviewTable.setRowSelectionInterval(0, rowCount - 1)
@@ -98,7 +75,6 @@ class AllergenesViewPanel extends JPanel {
         } else {
             Allergene allergene = allergeneOverviewTable.selectedObject
             descriptionField.setText(allergene == null ? "" : allergene.description)
-//        descriptionField.setEditable(allergene)
         }
     }
 }

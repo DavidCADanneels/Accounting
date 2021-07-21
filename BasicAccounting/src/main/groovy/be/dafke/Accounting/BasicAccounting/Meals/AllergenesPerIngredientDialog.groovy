@@ -23,11 +23,6 @@ class AllergenesPerIngredientDialog extends RefreshableDialog {
         innerPanel.add(ok, BorderLayout.SOUTH)
 
         setContentPane(innerPanel)
-//        setIngredient(ingredient)
         pack()
     }
-
-//    void setIngredient(Ingredient ingredient) {
-//        selectorPanel.setIngredient(ingredient)
-//    }
 }

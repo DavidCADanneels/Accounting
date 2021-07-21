@@ -1,6 +1,6 @@
 package be.dafke.Accounting.BasicAccounting.Meals
 
-class AllergenesViewDataTableModel extends AllergenesDataTableModel {
+class AllergenesViewDataTableModel extends AllergenesEditDataTableModel {
 
     @Override
     int getColumnCount() {

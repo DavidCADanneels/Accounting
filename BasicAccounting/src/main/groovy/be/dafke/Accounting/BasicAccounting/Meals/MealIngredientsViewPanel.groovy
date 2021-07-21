@@ -13,12 +13,12 @@ import javax.swing.*
 import java.awt.*
 
 class MealIngredientsViewPanel extends JPanel {
-    final MealsEditDataViewTableModel mealsDataTableModel
+    final MealsViewDataTableModel mealsDataTableModel
     final SelectableTable<Meal> overviewTable
     final IngredientsViewPanel ingredientsViewPanel
 
     MealIngredientsViewPanel(Accounting accounting) {
-        mealsDataTableModel = new MealsEditDataViewTableModel(this, accounting)
+        mealsDataTableModel = new MealsViewDataTableModel(this, accounting)
         overviewTable = new SelectableTable<>(mealsDataTableModel)
         overviewTable.setPreferredScrollableViewportSize(new Dimension(500, 200))
 
@@ -30,17 +30,12 @@ class MealIngredientsViewPanel extends JPanel {
         })
         overviewTable.setSelectionModel(selectionModel)
 
-        ingredientsViewPanel = new IngredientsViewPanel(accounting, true)
+        ingredientsViewPanel = new IngredientsViewPanel(accounting)
 
         JPanel overviewPanel = new JPanel()
         JScrollPane overviewScroll = new JScrollPane(overviewTable)
         overviewPanel.setLayout(new BorderLayout())
         overviewPanel.add(overviewScroll, BorderLayout.CENTER)
-
-//        JPanel detailPanel = new JPanel()
-//        JScrollPane detailScroll = new JScrollPane(ingredientsViewPanel)
-//        detailPanel.setLayout(new BorderLayout())
-//        detailPanel.add(detailScroll, BorderLayout.CENTER)
 
         JSplitPane splitPane = Main.createSplitPane(overviewScroll, ingredientsViewPanel, JSplitPane.VERTICAL_SPLIT)
 

@@ -6,6 +6,7 @@ import be.dafke.Accounting.BusinessModel.Ingredients
 import be.dafke.Accounting.BusinessModel.Unit
 import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException
 import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException
+import be.dafke.Accounting.BasicAccounting.MainApplication.ActionUtils
 
 import javax.swing.*
 
@@ -22,9 +23,12 @@ class IngredientSelectorPanel extends JPanel {
     IngredientSelectorPanel(Ingredients ingredients) {
         this.ingredients = ingredients
         this.accountTypes = accountTypes
+
         model = new DefaultComboBoxModel<>()
         combo = new JComboBox<>(model)
         combo.addActionListener({ e -> ingredient = (Ingredient) combo.selectedItem })
+        ingredients.businessObjects.forEach({ ingredient -> model.addElement(ingredient) })
+
         addIngredient = new JButton("Add Ingredient")
         addIngredient.addActionListener({ e ->
             String name = JOptionPane.showInputDialog(this, getBundle("Accounting").getString("NAME_LABEL"))
@@ -40,24 +44,12 @@ class IngredientSelectorPanel extends JPanel {
                 }
             }
         })
+
         add(combo)
         add(addIngredient)
-        setIngredients(ingredients)
     }
 
     Ingredient getSelection() {
         ingredient
-    }
-
-    void fireIngredientsDataChanged() {
-        model.removeAllElements()
-        ingredients.businessObjects.forEach({ ingredient -> model.addElement(ingredient) })
-        invalidate()
-        combo.invalidate()
-    }
-
-    void setIngredients(Ingredients ingredients) {
-        this.ingredients = ingredients
-        fireIngredientsDataChanged()
     }
 }

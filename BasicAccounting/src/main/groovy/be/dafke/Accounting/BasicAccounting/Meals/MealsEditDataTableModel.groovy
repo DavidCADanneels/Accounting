@@ -111,7 +111,6 @@ class MealsEditDataTableModel extends SelectableTableModel<Meal> {
             meal.setMealName((String) value)
         }
         if(col == NR_COL) {
-//            meal.setName((String) value)
             String oldName = meal.name
             String newName = (String) value
             if (newName != null && !oldName.trim().equals(newName.trim())) {

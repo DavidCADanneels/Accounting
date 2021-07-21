@@ -6,7 +6,7 @@ import be.dafke.ComponentModel.SelectableTableModel
 
 import static java.util.ResourceBundle.getBundle 
 
-class AllergenesDataTableModel extends SelectableTableModel<Allergene> {
+class AllergenesEditDataTableModel extends SelectableTableModel<Allergene> {
     Allergenes allergenes
     static int ID_COL = 0
     static int NAME_COL = 1
@@ -16,7 +16,7 @@ class AllergenesDataTableModel extends SelectableTableModel<Allergene> {
     HashMap<Integer,Class> columnClasses = new HashMap<>()
     List<Integer> editableColumns = new ArrayList<>()
 
-    AllergenesDataTableModel() {
+    AllergenesEditDataTableModel() {
         setColumnNames()
         setColumnClasses()
         setEditableColumns()
@@ -46,7 +46,7 @@ class AllergenesDataTableModel extends SelectableTableModel<Allergene> {
         if(allergene==null) return null
         if (col == ID_COL) return allergene.name
         if (col == NAME_COL) return allergene.shortName
-        if (col == DESC_COL) allergene.description
+        if (col == DESC_COL) return allergene.description
         null
     }
 

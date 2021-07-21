@@ -10,13 +10,13 @@ import javax.swing.*
 import java.awt.*
 
 class MealRecipeViewPanel extends JPanel {
-    final MealsEditDataViewTableModel mealsDataTableModel
+    final MealsViewDataTableModel mealsDataTableModel
     final SelectableTable<Meal> overviewTable
     final MealRecipeViewDataTableModel mealRecipeViewDataTableModel
     final SelectableTable<RecipeLine> recipeTable
 
     MealRecipeViewPanel(Accounting accounting) {
-        mealsDataTableModel = new MealsEditDataViewTableModel(this, accounting)
+        mealsDataTableModel = new MealsViewDataTableModel(this, accounting)
         overviewTable = new SelectableTable<>(mealsDataTableModel)
         overviewTable.setPreferredScrollableViewportSize(new Dimension(500, 200))
 
