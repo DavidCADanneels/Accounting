@@ -14,7 +14,7 @@ class MealRecipeEditPanel extends JPanel {
     final SelectableTable<Meal> overviewTable
     final MealRecipeEditDataTableModel mealRecipeEditDataTableModel
     final SelectableTable<RecipeLine> recipeTable
-    final JButton addRecipeLine
+    final JButton addMeal, mealDetails, addRecipeLine
 
     MealRecipeEditPanel(Accounting accounting) {
         mealsEditDataTableModel = new MealsEditDataTableModel(this, accounting)
@@ -33,20 +33,40 @@ class MealRecipeEditPanel extends JPanel {
         })
         overviewTable.setSelectionModel(selectionModel)
 
+        mealDetails = new JButton("Meal Details")
+        mealDetails.enabled = false
+        mealDetails.addActionListener( { e ->
+            Meal meal = overviewTable.selectedObject
+            if(meal){
+                MealDetailsGUI gui = MealDetailsGUI.showDetails(meal)
+                gui.setLocation(getLocationOnScreen())
+                gui.visible = true
+            }
+        })
+
         JPanel overviewPanel = new JPanel()
         JScrollPane overviewScroll = new JScrollPane(overviewTable)
         overviewPanel.setLayout(new BorderLayout())
         overviewPanel.add(overviewScroll, BorderLayout.CENTER)
+        overviewPanel.add(mealDetails, BorderLayout.SOUTH)
 
         JPanel detailPanel = new JPanel()
         JScrollPane detailScroll = new JScrollPane(recipeTable)
         detailPanel.setLayout(new BorderLayout())
         detailPanel.add(detailScroll, BorderLayout.CENTER)
 
-        JSplitPane splitPane = Main.createSplitPane(overviewScroll, detailScroll, JSplitPane.VERTICAL_SPLIT)
+        JSplitPane splitPane = Main.createSplitPane(overviewPanel, detailPanel, JSplitPane.VERTICAL_SPLIT)
 
         setLayout(new BorderLayout())
         add(splitPane, BorderLayout.CENTER)
+
+        addMeal = new JButton("Add Meal")
+        addMeal.addActionListener( { e ->
+            NewMealGUI gui = NewMealGUI.showMeals(accounting.meals)
+            gui.setLocation(getLocationOnScreen())
+            gui.visible = true
+        })
+        add(addMeal, BorderLayout.NORTH)
 
         addRecipeLine = new JButton("Add Ingredient (+ amount)")
         addRecipeLine.enabled = false
@@ -77,6 +97,7 @@ class MealRecipeEditPanel extends JPanel {
     void updateSelection() {
         Meal meal = overviewTable.selectedObject
         addRecipeLine.enabled = meal!=null
+        mealDetails.enabled = meal!=null
         mealRecipeEditDataTableModel.recipe = meal?.recipe
         mealRecipeEditDataTableModel.fireTableDataChanged()
     }

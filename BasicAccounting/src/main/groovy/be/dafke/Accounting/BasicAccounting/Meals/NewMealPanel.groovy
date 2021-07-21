@@ -9,6 +9,8 @@ import be.dafke.Utils.Utils
 
 import javax.swing.*
 import java.awt.*
+import java.awt.event.FocusAdapter
+import java.awt.event.FocusEvent
 
 import static java.util.ResourceBundle.getBundle
 
@@ -33,38 +35,58 @@ class NewMealPanel extends JPanel {
         price = new JTextField(10)
         add(price)
 
+        price.addFocusListener(new FocusAdapter() {
+            @Override
+            void focusGained(FocusEvent e) {
+                super.focusGained(e)
+            }
+
+            @Override
+            void focusLost(FocusEvent e) {
+                super.focusLost(e)
+                validatePrice()
+            }
+        })
+
         add(new JLabel(getBundle("Accounting").getString("DESCRIPTION")))
         description = new JTextField(10)
         add(description)
 
         addButton = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_MEAL"))
+        addButton.enabled = false
         addButton.addActionListener({ e -> saveMeal() })
         add(addButton)
     }
 
-    void setMeal(Meal meal) {
-        this.meal = meal
-        mealNr.setText(meal.name)
-        mealName.setText(meal.getMealName())
-        description.setText(meal.description)
-        BigDecimal salesPrice = meal.getSalesPrice()
-        price.setText(salesPrice.toString())
+    void validatePrice(){
+        String priceString = price.getText()
+        BigDecimal salesPrice = Utils.parseBigDecimal(priceString)
+        if(salesPrice == null){
+            ActionUtils.showErrorMessage(this, ActionUtils.INVALID_INPUT)
+        }
+        addButton.enabled = salesPrice!=null
     }
+
+//    void setMeal(Meal meal) {
+//        this.meal = meal
+//        mealNr.setText(meal.name)
+//        mealName.setText(meal.getMealName())
+//        description.setText(meal.description)
+//        BigDecimal salesPrice = meal.getSalesPrice()
+//        price.setText(salesPrice.toString())
+//    }
 
     void saveMeal() {
         String newName = mealNr.getText().trim()
         try {
-            if (meal == null) {
-                meal = new Meal(newName.trim())
-                meals.addBusinessObject(meal)
-                saveOtherProperties()
-                meal = null
-                clearFields()
-            } else {
-                String oldName = meal.name
-                meals.modifyName(oldName, newName)
-                saveOtherProperties()
-            }
+            Meal meal = new Meal(newName.trim())
+            meals.addBusinessObject(meal)
+            meal.setDescription(description.getText())
+            meal.setMealName(mealName.getText())
+            String priceText = price.getText()
+            BigDecimal salesPrice = Utils.parseBigDecimal(priceText)
+            meal.setSalesPrice(salesPrice)
+            clearFields()
         } catch (DuplicateNameException e) {
             ActionUtils.showErrorMessage(this, ActionUtils.ACCOUNT_DUPLICATE_NAME, newName)
         } catch (EmptyNameException e) {
@@ -72,19 +94,11 @@ class NewMealPanel extends JPanel {
         }
     }
 
-
-    void saveOtherProperties(){
-        meal.setDescription(description.getText())
-        meal.setMealName(mealName.getText())
-        String priceText = price.getText()
-        BigDecimal salesPrice = Utils.parseBigDecimal(priceText)
-        meal.setSalesPrice(salesPrice)
-    }
-
     void clearFields() {
         mealNr.setText("")
         mealName.setText("")
         description.setText("")
+        price.setText("")
     }
 
 }
