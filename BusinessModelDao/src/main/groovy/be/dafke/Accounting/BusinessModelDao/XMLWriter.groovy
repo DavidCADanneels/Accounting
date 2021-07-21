@@ -24,7 +24,7 @@ import static VATIO.writeVATFields
 import static VATIO.writeVATTransactions
 import static be.dafke.Accounting.BusinessModelDao.GoodsIO.writeGoods
 import static be.dafke.Accounting.BusinessModelDao.JournalsIO.*
-import static be.dafke.Accounting.BusinessModelDao.MealsIO.writeMeals
+import static be.dafke.Accounting.BusinessModelDao.MealsIO.writeMealsWithAllDetails
 import static be.dafke.Accounting.BusinessModelDao.ServicesIO.writeServices
 import static be.dafke.Accounting.BusinessModelDao.XMLConstants.*
 import static be.dafke.Accounting.BusinessModelDao.XMLReader.*
@@ -179,7 +179,7 @@ xsi:noNamespaceSchemaLocation=\""""
             writeMortgages accounting
         }
         if(accounting.mealsAccounting){
-            writeMeals accounting
+            writeMealsWithAllDetails accounting
             writeMealOrders accounting
         }
 

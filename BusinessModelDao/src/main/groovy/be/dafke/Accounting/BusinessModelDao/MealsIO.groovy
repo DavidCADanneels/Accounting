@@ -71,7 +71,7 @@ class MealsIO {
         }
     }
 
-    static void writeMeals(Accounting accounting) {
+    static String writeMealsWithAllDetails(Accounting accounting) {
         String path = "$ACCOUNTINGS_XML_PATH/$accounting.name/$MEALS$XML_EXTENSION"
         File file = new File(path)
         try {
@@ -90,44 +90,7 @@ class MealsIO {
       <$MEAL_RECIPE_LINE>
         <$NAME>$line.ingredient.name</$NAME>
         <$AMOUNT>$line.amount</$AMOUNT>
-      </$MEAL_RECIPE_LINE>"""
-                }
-                writer.write """
-      <$MEAL_RECIPE_PREPARATION>$meal.recipe.preparation</$MEAL_RECIPE_PREPARATION>
-      <$MEAL_RECIPE_INSTRUCTIONS>$meal.recipe.instructions</$MEAL_RECIPE_INSTRUCTIONS>
-    </$MEAL_RECIPE>
-  </$MEAL>
-"""
-            }
-            writer.write """\
-</$MEALS>
-"""
-            writer.flush()
-            writer.close()
-        } catch (IOException ex) {
-            Logger.getLogger(Meal.class.name).log(Level.SEVERE, null, ex)
-        }
-    }
-
-    static String writeMealsWithAllergenesDetails(Accounting accounting) {
-        String path = "$ACCOUNTINGS_XML_PATH/$accounting.name/MealWithAllergenes$XML_EXTENSION"
-        File file = new File(path)
-        try {
-            Writer writer = new FileWriter(file)
-            writer.write getXmlHeader(MEALS, 2)
-            accounting.meals.businessObjects.each { meal ->
-                writer.write """\
-  <$MEAL>
-    <$MEAL_NR>$meal.name</$MEAL_NR>
-    <$MEAL_NAME>$meal.mealName</$MEAL_NAME>
-    <$PRICE>$meal.salesPrice</$PRICE>
-    <$DESCRIPTION>$meal.description</$DESCRIPTION>
-    <$MEAL_RECIPE>"""
-                meal.recipe.businessObjects.each { line ->
-                    writer.write """
-      <$MEAL_RECIPE_LINE>
-        <$NAME>$line.ingredient.name</$NAME>
-        <$AMOUNT>${line.amount} ${line.ingredient.unit.symbol}</$AMOUNT>"""
+        <$AMOUNT_AND_UNIT>${line.amount} ${line.ingredient.unit.symbol}</$AMOUNT_AND_UNIT>"""
                     line.ingredient.allergenes.businessObjects.each { allergene ->
                         writer.write """
         <$ALLERGENE>
@@ -140,44 +103,6 @@ class MealsIO {
       </$MEAL_RECIPE_LINE>"""
                 }
                 writer.write """
-    </$MEAL_RECIPE>
-  </$MEAL>
-"""
-            }
-            writer.write """\
-</$MEALS>
-"""
-            writer.flush()
-            writer.close()
-        } catch (IOException ex) {
-            Logger.getLogger(Meal.class.name).log(Level.SEVERE, null, ex)
-        } finally {
-            return path
-        }
-    }
-
-    static String writeMealsWithInstructionsDetails(Accounting accounting) {
-        String path = "$ACCOUNTINGS_XML_PATH/$accounting.name/MealInstructionDetails$XML_EXTENSION"
-        File file = new File(path)
-        try {
-            Writer writer = new FileWriter(file)
-            writer.write getXmlHeader(MEALS, 2)
-            accounting.meals.businessObjects.each { meal ->
-                writer.write """\
-  <$MEAL>
-    <$MEAL_NR>$meal.name</$MEAL_NR>
-    <$MEAL_NAME>$meal.mealName</$MEAL_NAME>
-    <$PRICE>$meal.salesPrice</$PRICE>
-    <$DESCRIPTION>$meal.description</$DESCRIPTION>
-    <$MEAL_RECIPE>"""
-                meal.recipe.businessObjects.each { line ->
-                    writer.write """
-      <$MEAL_RECIPE_LINE>
-        <$NAME>$line.ingredient.name</$NAME>
-        <$AMOUNT>$line.amount</$AMOUNT>
-      </$MEAL_RECIPE_LINE>"""
-                }
-                writer.write """
       <$MEAL_RECIPE_PREPARATION>$meal.recipe.preparation</$MEAL_RECIPE_PREPARATION>
       <$MEAL_RECIPE_INSTRUCTIONS>$meal.recipe.instructions</$MEAL_RECIPE_INSTRUCTIONS>
     </$MEAL_RECIPE>
@@ -195,5 +120,6 @@ class MealsIO {
             return path
         }
     }
+
 }
 
