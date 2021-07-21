@@ -26,7 +26,6 @@ class MealsMenu extends JMenu {
         super("Meals")
 
         ingredientsAndAllergenes = new JMenuItem(getBundle("Accounting").getString("INGREDIENTS_AND_ALLERGENES"))
-        new JMenuItem("Ingredients and Allergenes")
         ingredientsAndAllergenes.addActionListener({ e ->
             IngredientsAndAllergenesSwitchViewGUI gui = IngredientsAndAllergenesSwitchViewGUI.show(accounting)
             gui.setLocation(getLocationOnScreen())
@@ -34,7 +33,6 @@ class MealsMenu extends JMenu {
         })
 
         mealIngredientsView = new JMenuItem(getBundle("Accounting").getString("MEAL_INGREDIENTS_VIEW"))
-        new JMenuItem("Meal Ingredients (View)")
         mealIngredientsView.addActionListener({ e ->
             MealIngredientsViewGUI gui = MealIngredientsViewGUI.showMeals(accounting)
             gui.setLocation(getLocationOnScreen())
@@ -42,7 +40,6 @@ class MealsMenu extends JMenu {
         })
 
         mealRecipeView = new JMenuItem(getBundle("Accounting").getString("MEAL_RECIPE_VIEW"))
-        new JMenuItem("Meal Recipe (View)")
         mealRecipeView.addActionListener({ e ->
             MealRecipeViewGUI gui = MealRecipeViewGUI.showMeals(accounting)
             gui.setLocation(getLocationOnScreen())
@@ -50,7 +47,6 @@ class MealsMenu extends JMenu {
         })
 
         mealRecipeEdit = new JMenuItem(getBundle("Accounting").getString("MEAL_RECIPE_EDIT"))
-        new JMenuItem("Meal Recipe (Edit)")
         mealRecipeEdit.addActionListener({ e ->
             MealRecipeEditGUI gui = MealRecipeEditGUI.showMeals(accounting)
             gui.setLocation(getLocationOnScreen())
