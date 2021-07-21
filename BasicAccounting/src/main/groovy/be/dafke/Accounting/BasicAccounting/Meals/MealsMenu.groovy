@@ -15,7 +15,7 @@ import static java.util.ResourceBundle.getBundle
 
 class MealsMenu extends JMenu {
     JMenuItem ordersOverview, allergenesMenuView, allergenesMenuEdit, ingredientsMenuView, ingredientsMenuEdit,
-            mealIngredientsEdit, mealRecipeEdit, mealIngredientsView, mealRecipeView, generateMealsAllergenesPdf,
+            mealRecipeEdit, mealIngredientsView, mealRecipeView, generateMealsAllergenesPdf,
     generateMealsInstructionPdf, generateMealsIngredientsPdf
 
 
@@ -29,14 +29,6 @@ class MealsMenu extends JMenu {
         new JMenuItem("Meal Ingredients (View)")
         mealIngredientsView.addActionListener({ e ->
             MealIngredientsViewGUI gui = MealIngredientsViewGUI.showMeals(accounting)
-            gui.setLocation(getLocationOnScreen())
-            gui.visible = true
-        })
-
-        mealIngredientsEdit = new JMenuItem(getBundle("Accounting").getString("MEAL_INGREDIENTS_EDIT"))
-        new JMenuItem("Meal Ingredients (Edit)")
-        mealIngredientsEdit.addActionListener({ e ->
-            MealIngredientsEditGUI gui = MealIngredientsEditGUI.showMeals(accounting)
             gui.setLocation(getLocationOnScreen())
             gui.visible = true
         })
@@ -65,7 +57,6 @@ class MealsMenu extends JMenu {
         })
 
         add(mealIngredientsView)
-        add(mealIngredientsEdit)
         add(mealRecipeView)
         add(mealRecipeEdit)
         add(ordersOverview)

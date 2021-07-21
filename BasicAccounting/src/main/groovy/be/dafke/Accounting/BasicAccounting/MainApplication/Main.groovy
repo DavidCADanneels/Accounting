@@ -360,7 +360,6 @@ class Main {
         MealRecipeViewGUI.fireTableUpdateForAccounting(accounting)
         MealRecipeEditGUI.fireTableUpdateForAccounting(accounting)
         MealIngredientsViewGUI.fireTableUpdateForAccounting(accounting)
-        MealIngredientsEditGUI.fireTableUpdateForAccounting(accounting)
     }
 
     static void fireArticleAddedOrRemoved(Accounting accounting) {
