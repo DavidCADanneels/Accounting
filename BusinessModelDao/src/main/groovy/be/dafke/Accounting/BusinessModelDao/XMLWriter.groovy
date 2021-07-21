@@ -12,7 +12,6 @@ import static ContactsIO.writeContacts
 import static IngredientOrdersIO.writeIngredientOrders
 import static IngredientsIO.writeIngredientes
 import static MealOrderIO.writeMealOrders
-import static MealsIO.writeMeals
 import static MortgageIO.writeMortgages
 import static ProjectsIO.writeProjects
 import static PromoOrderIO.writePromoOrders
@@ -25,6 +24,7 @@ import static VATIO.writeVATFields
 import static VATIO.writeVATTransactions
 import static be.dafke.Accounting.BusinessModelDao.GoodsIO.writeGoods
 import static be.dafke.Accounting.BusinessModelDao.JournalsIO.*
+import static be.dafke.Accounting.BusinessModelDao.MealsIO.writeMeals
 import static be.dafke.Accounting.BusinessModelDao.ServicesIO.writeServices
 import static be.dafke.Accounting.BusinessModelDao.XMLConstants.*
 import static be.dafke.Accounting.BusinessModelDao.XMLReader.*

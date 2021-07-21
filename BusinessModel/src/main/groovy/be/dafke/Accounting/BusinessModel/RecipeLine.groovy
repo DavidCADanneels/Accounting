@@ -5,8 +5,6 @@ import be.dafke.Accounting.ObjectModel.BusinessObject
 class RecipeLine extends BusinessObject {
     Ingredient ingredient
     BigDecimal amount
-    String preparation
-    String instructions
 
     RecipeLine(Ingredient ingredient) {
         this.ingredient = ingredient
@@ -27,21 +25,5 @@ class RecipeLine extends BusinessObject {
 
     void setAmount(BigDecimal amount) {
         this.amount = amount
-    }
-
-    String getPreparation() {
-        preparation
-    }
-
-    void setPreparation(String preparation) {
-        this.preparation = preparation
-    }
-
-    String getInstructions() {
-        instructions
-    }
-
-    void setInstructions(String instructions) {
-        this.instructions = instructions
     }
 }

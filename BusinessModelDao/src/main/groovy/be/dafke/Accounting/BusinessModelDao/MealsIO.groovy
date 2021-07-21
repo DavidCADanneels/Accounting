@@ -36,6 +36,14 @@ class MealsIO {
             if(description)
                 meal.setDescription(description)
 
+            Recipe recipe = meal.getRecipe()
+
+            String preparation = getValue(mealElement, MEAL_RECIPE_PREPARATION)
+            String instructions = getValue(mealElement, MEAL_RECIPE_INSTRUCTIONS)
+
+            recipe.setPreparation(preparation)
+            recipe.setInstructions(instructions)
+
             for (Element recipeElement : getChildren(mealElement, MEAL_RECIPE_LINE)) {
                 String ingredientName = getValue(recipeElement, NAME)
                 Ingredient ingredient = ingredients.getBusinessObject(ingredientName)
@@ -48,12 +56,6 @@ class MealsIO {
                     recipeLine.setAmount(amount)
                 }
 
-                String preparation = getValue(mealElement, MEAL_RECIPE_PREPARATION)
-                String instructions = getValue(mealElement, MEAL_RECIPE_INSTRUCTIONS)
-                recipeLine.setPreparation(preparation)
-                recipeLine.setInstructions(instructions)
-
-                Recipe recipe = meal.getRecipe()
                 try {
                     recipe.addBusinessObject(recipeLine)
                 } catch (EmptyNameException | DuplicateNameException e) {
@@ -69,23 +71,13 @@ class MealsIO {
         }
     }
 
-    static String calculatePdfPath(Accounting accounting){
-        "$ACCOUNTINGS_XML_PATH/$accounting.name/MealsWithAllergenes$PDF_EXTENSION"
-    }
-
     static void writeMeals(Accounting accounting) {
-        writeMeals(accounting, false)
-    }
-
-    static String writeMeals(Accounting accounting, boolean details) {
-        Meals meals = accounting.meals
-        String filename = details?"MealDetails":MEALS
-        String path = "$ACCOUNTINGS_XML_PATH/$accounting.name/$filename$XML_EXTENSION"
+        String path = "$ACCOUNTINGS_XML_PATH/$accounting.name/$MEALS$XML_EXTENSION"
         File file = new File(path)
         try {
             Writer writer = new FileWriter(file)
             writer.write getXmlHeader(MEALS, 2)
-            for (Meal meal : meals.businessObjects) {
+            accounting.meals.businessObjects.each { meal ->
                 writer.write """\
   <$MEAL>
     <$MEAL_NR>$meal.name</$MEAL_NR>
@@ -93,19 +85,51 @@ class MealsIO {
     <$PRICE>$meal.salesPrice</$PRICE>
     <$DESCRIPTION>$meal.description</$DESCRIPTION>
     <$MEAL_RECIPE>"""
-                Recipe recipe = meal.recipe
-                for(RecipeLine line:recipe.businessObjects){
-                    Ingredient ingredient = line.getIngredient()
-                    // TODO: safe this as well:
-//                    line.getInstructions()
-//                    line.getPreparation()
+                meal.recipe.businessObjects.each { line ->
                     writer.write """
       <$MEAL_RECIPE_LINE>
-        <$NAME>$ingredient.name</$NAME>
-        <$AMOUNT>$line.amount</$AMOUNT>"""
-                    if(details){
-                        Allergenes allergenes = ingredient.allergenes
-                        for (Allergene allergene:allergenes.businessObjects) writer.write """
+        <$NAME>$line.ingredient.name</$NAME>
+        <$AMOUNT>$line.amount</$AMOUNT>
+      </$MEAL_RECIPE_LINE>"""
+                }
+                writer.write """
+      <$MEAL_RECIPE_PREPARATION>$meal.recipe.preparation</$MEAL_RECIPE_PREPARATION>
+      <$MEAL_RECIPE_INSTRUCTIONS>$meal.recipe.instructions</$MEAL_RECIPE_INSTRUCTIONS>
+    </$MEAL_RECIPE>
+  </$MEAL>
+"""
+            }
+            writer.write """\
+</$MEALS>
+"""
+            writer.flush()
+            writer.close()
+        } catch (IOException ex) {
+            Logger.getLogger(Meal.class.name).log(Level.SEVERE, null, ex)
+        }
+    }
+
+    static String writeMealsWithAllergenesDetails(Accounting accounting) {
+        String path = "$ACCOUNTINGS_XML_PATH/$accounting.name/MealWithAllergenes$XML_EXTENSION"
+        File file = new File(path)
+        try {
+            Writer writer = new FileWriter(file)
+            writer.write getXmlHeader(MEALS, 2)
+            accounting.meals.businessObjects.each { meal ->
+                writer.write """\
+  <$MEAL>
+    <$MEAL_NR>$meal.name</$MEAL_NR>
+    <$MEAL_NAME>$meal.mealName</$MEAL_NAME>
+    <$PRICE>$meal.salesPrice</$PRICE>
+    <$DESCRIPTION>$meal.description</$DESCRIPTION>
+    <$MEAL_RECIPE>"""
+                meal.recipe.businessObjects.each { line ->
+                    writer.write """
+      <$MEAL_RECIPE_LINE>
+        <$NAME>$line.ingredient.name</$NAME>
+        <$AMOUNT>${line.amount} ${line.ingredient.unit.symbol}</$AMOUNT>"""
+                    line.ingredient.allergenes.businessObjects.each { allergene ->
+                        writer.write """
         <$ALLERGENE>
           <$ID>$allergene.name</$ID>
           <$NAME>$allergene.shortName</$NAME>
@@ -131,4 +155,45 @@ class MealsIO {
             return path
         }
     }
+
+    static String writeMealsWithInstructionsDetails(Accounting accounting) {
+        String path = "$ACCOUNTINGS_XML_PATH/$accounting.name/MealInstructionDetails$XML_EXTENSION"
+        File file = new File(path)
+        try {
+            Writer writer = new FileWriter(file)
+            writer.write getXmlHeader(MEALS, 2)
+            accounting.meals.businessObjects.each { meal ->
+                writer.write """\
+  <$MEAL>
+    <$MEAL_NR>$meal.name</$MEAL_NR>
+    <$MEAL_NAME>$meal.mealName</$MEAL_NAME>
+    <$PRICE>$meal.salesPrice</$PRICE>
+    <$DESCRIPTION>$meal.description</$DESCRIPTION>
+    <$MEAL_RECIPE>"""
+                meal.recipe.businessObjects.each { line ->
+                    writer.write """
+      <$MEAL_RECIPE_LINE>
+        <$NAME>$line.ingredient.name</$NAME>
+        <$AMOUNT>$line.amount</$AMOUNT>
+      </$MEAL_RECIPE_LINE>"""
+                }
+                writer.write """
+      <$MEAL_RECIPE_PREPARATION>$meal.recipe.preparation</$MEAL_RECIPE_PREPARATION>
+      <$MEAL_RECIPE_INSTRUCTIONS>$meal.recipe.instructions</$MEAL_RECIPE_INSTRUCTIONS>
+    </$MEAL_RECIPE>
+  </$MEAL>
+"""
+            }
+            writer.write """\
+</$MEALS>
+"""
+            writer.flush()
+            writer.close()
+        } catch (IOException ex) {
+            Logger.getLogger(Meal.class.name).log(Level.SEVERE, null, ex)
+        } finally {
+            return path
+        }
+    }
 }
+

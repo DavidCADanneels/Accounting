@@ -9,11 +9,15 @@ import be.dafke.Accounting.BusinessModelDao.MealsIO
 import javax.swing.*
 import java.awt.event.KeyEvent
 
+import static be.dafke.Accounting.BusinessModelDao.XMLConstants.ACCOUNTINGS_XML_PATH
+import static be.dafke.Accounting.BusinessModelDao.XMLConstants.PDF_EXTENSION
 import static java.util.ResourceBundle.getBundle
 
 class MealsMenu extends JMenu {
     JMenuItem ordersOverview, allergenesMenuView, allergenesMenuEdit, ingredientsMenuView, ingredientsMenuEdit,
-                      mealIngredientsEdit, mealRecipeEdit, mealIngredientsView, mealRecipeView, generatePdf
+            mealIngredientsEdit, mealRecipeEdit, mealIngredientsView, mealRecipeView, generateMealsAllergenesPdf,
+    generateMealsInstructionPdf, generateMealsIngredientsPdf
+
 
     Accounting accounting
     Allergenes allergenes
@@ -107,14 +111,32 @@ class MealsMenu extends JMenu {
         add(allergenesMenuView)
         add(allergenesMenuEdit)
 
-        generatePdf = new JMenuItem(getBundle("Accounting").getString("MEAL_PDF"))
-        generatePdf.setMnemonic(KeyEvent.VK_P)
-        generatePdf.addActionListener({ e ->
-            String xmlPath = MealsIO.writeMeals(accounting, true)
-            String pdfPath = MealsIO.calculatePdfPath(accounting)
-            MealsPDF.createPdf(xmlPath, pdfPath)
+        generateMealsAllergenesPdf = new JMenuItem(getBundle("Accounting").getString("MEAL_ALLERGENE_PDF"))
+        generateMealsAllergenesPdf.setMnemonic(KeyEvent.VK_R)
+        generateMealsAllergenesPdf.addActionListener({ e ->
+            String xmlPath = MealsIO.writeMealsWithAllergenesDetails(accounting)
+            String pdfPath = "$ACCOUNTINGS_XML_PATH/$accounting.name/MealsWithAllergenes$PDF_EXTENSION"
+            MealsPDF.createPdf(xmlPath, pdfPath, MealsPDF.xslPathWithAllergenes)
         })
-        add(generatePdf)
+        add(generateMealsAllergenesPdf)
+
+        generateMealsInstructionPdf = new JMenuItem(getBundle("Accounting").getString("MEAL_INSTRUCTIONS_PDF"))
+        generateMealsInstructionPdf.setMnemonic(KeyEvent.VK_A)
+        generateMealsInstructionPdf.addActionListener({ e ->
+            String xmlPath = MealsIO.writeMealsWithInstructionsDetails(accounting)
+            String pdfPath = "$ACCOUNTINGS_XML_PATH/$accounting.name/MealsWithInstructions$PDF_EXTENSION"
+            MealsPDF.createPdf(xmlPath, pdfPath, MealsPDF.xslPathWithInstructions)
+        })
+        add(generateMealsInstructionPdf)
+
+        generateMealsIngredientsPdf = new JMenuItem(getBundle("Accounting").getString("MEAL_INGREDIENTS_PDF"))
+        generateMealsIngredientsPdf.setMnemonic(KeyEvent.VK_T)
+        generateMealsIngredientsPdf.addActionListener({ e ->
+            String xmlPath = MealsIO.writeMealsWithAllergenesDetails(accounting)
+            String pdfPath = "$ACCOUNTINGS_XML_PATH/$accounting.name/MealsWithIngredients$PDF_EXTENSION"
+            MealsPDF.createPdf(xmlPath, pdfPath, MealsPDF.xslPathWithIngredients)
+        })
+        add(generateMealsIngredientsPdf)
     }
 
     void setAccounting(Accounting accounting) {

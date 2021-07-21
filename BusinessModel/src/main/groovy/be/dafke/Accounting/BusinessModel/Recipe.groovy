@@ -6,6 +6,9 @@ import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException
 
 class Recipe extends BusinessCollection<RecipeLine> {
 
+    String preparation
+    String instructions
+
     Ingredients getIngredients() {
         Ingredients ingredients = new Ingredients()
         ArrayList<RecipeLine> recipeLines = getBusinessObjects()
@@ -18,5 +21,21 @@ class Recipe extends BusinessCollection<RecipeLine> {
             }
         }
         ingredients
+    }
+
+    String getPreparation() {
+        return preparation
+    }
+
+    void setPreparation(String preparation) {
+        this.preparation = preparation
+    }
+
+    String getInstructions() {
+        return instructions
+    }
+
+    void setInstructions(String instructions) {
+        this.instructions = instructions
     }
 }
