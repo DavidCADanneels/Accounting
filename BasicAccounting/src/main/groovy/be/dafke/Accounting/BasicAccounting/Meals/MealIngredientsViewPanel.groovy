@@ -30,7 +30,8 @@ class MealIngredientsViewPanel extends JPanel {
         })
         overviewTable.setSelectionModel(selectionModel)
 
-        ingredientsViewPanel = new IngredientsViewPanel(accounting)
+        ingredientsViewPanel = new IngredientsViewPanel()
+        ingredientsViewPanel.ingredients = accounting.ingredients
 
         JPanel overviewPanel = new JPanel()
         JScrollPane overviewScroll = new JScrollPane(overviewTable)
@@ -59,11 +60,13 @@ class MealIngredientsViewPanel extends JPanel {
                 })
             })
             ingredientsViewPanel.setIngredients(ingredients)
+            ingredientsViewPanel.selectAll()
         } else {
             Meal meal = overviewTable.selectedObject
             Recipe recipe = meal == null ? null : meal.getRecipe()
             Ingredients ingredients = recipe == null ? null : recipe.ingredients
             ingredientsViewPanel.setIngredients(ingredients)
+            ingredientsViewPanel.selectAll()
         }
     }
 

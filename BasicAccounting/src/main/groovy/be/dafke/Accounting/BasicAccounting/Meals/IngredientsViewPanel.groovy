@@ -21,18 +21,13 @@ class IngredientsViewPanel extends JPanel {
     final AllergenesViewPanel allergenesViewPanel
     final SelectableTable<Ingredient> ingredientsTable
 
-    Ingredients ingredients
-
-    IngredientsViewPanel(Accounting accounting) {
-        ingredients = accounting.ingredients
+    IngredientsViewPanel() {
         ingredientsDataViewTableModel = new IngredientsViewDataTableModel(this)
-        ingredientsDataViewTableModel.setIngredients(ingredients)
         ingredientsTable = new SelectableTable<>(ingredientsDataViewTableModel)
         ingredientsTable.setPreferredScrollableViewportSize(new Dimension(500, 200))
         ingredientsTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)
 
         allergenesViewPanel = new AllergenesViewPanel(true)
-        allergenesViewPanel.allergenes = accounting.allergenes
 
         JScrollPane ingredientsScrollPane = new JScrollPane(ingredientsTable)
         JPanel ingredientsPanel = new JPanel(new BorderLayout())
@@ -75,10 +70,13 @@ class IngredientsViewPanel extends JPanel {
         allergenesViewPanel.selectAll()
     }
 
-    void setIngredients(Ingredients ingredients){
+    void setIngredients(Ingredients ingredients) {
         ingredientsDataViewTableModel.setIngredients(ingredients)
         ingredientsDataViewTableModel.fireTableDataChanged()
-        // TODO: use select all
+    }
+
+    void selectAll(){
+//        // TODO: use select all
         int rowCount = ingredientsTable.getRowCount()
         if(rowCount >0){
             ingredientsTable.setRowSelectionInterval(0, rowCount - 1)

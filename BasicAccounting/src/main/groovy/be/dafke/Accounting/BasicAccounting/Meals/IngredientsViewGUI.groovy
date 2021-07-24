@@ -14,7 +14,8 @@ class IngredientsViewGUI extends JFrame {
 
     IngredientsViewGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("INGREDIENTS"))
-        ingredientsViewPanel = new IngredientsViewPanel(accounting)
+        ingredientsViewPanel = new IngredientsViewPanel()
+        ingredientsViewPanel.ingredients = accounting.ingredients
         setContentPane(ingredientsViewPanel)
         pack()
     }
