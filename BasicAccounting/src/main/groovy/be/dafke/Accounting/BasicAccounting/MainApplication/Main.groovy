@@ -59,7 +59,7 @@ class Main {
     static CodaMenu codaMenu
     static VATMenu vatMenu
     static CardLayout cardLayoutCenter, cardLayoutTop
-    static JPanel center, subMenu
+    static JPanel center, topRightPanel
     static SalesOrdersOverviewPanel salesOrdersOverViewPanel
     static PurchaseOrdersOverviewPanel purchaseOrdersOverviewPanel
     static IngredientsSwitchViewPanel ingredientsSwitchViewPanel
@@ -86,7 +86,7 @@ class Main {
         cardLayoutCenter = new CardLayout()
         cardLayoutTop = new CardLayout()
         center = new JPanel(cardLayoutCenter)
-        subMenu = new JPanel(cardLayoutTop)
+        topRightPanel = new JPanel(cardLayoutTop)
 
         journalEditPanel = new JournalEditPanel()
         journalSwitchPanel = new JournalSwitchPanel(journalEditPanel)
@@ -107,14 +107,14 @@ class Main {
         ordersViewSelectorPanel = new OrdersViewSelectorPanel()
         journalSelectorPanel = new JournalSelectorPanel()
 
-        subMenu.add journalSelectorPanel, JOURNALS_CENTER_VIEW
-        subMenu.add ordersViewSelectorPanel, ORDERS_MENU_VIEW
-        subMenu.add mealViewSelectorPanel, MEALS_MENU_VIEW
-        subMenu.add(new JPanel(), EMPTY_MENU_VIEW)
+        topRightPanel.add journalSelectorPanel, JOURNALS_CENTER_VIEW
+        topRightPanel.add ordersViewSelectorPanel, ORDERS_MENU_VIEW
+        topRightPanel.add mealViewSelectorPanel, MEALS_MENU_VIEW
+        topRightPanel.add(new JPanel(), EMPTY_MENU_VIEW)
 
         JPanel top = new JPanel(new BorderLayout())
         top.add new MainViewSelectorPanel(), BorderLayout.WEST
-        top.add subMenu, BorderLayout.CENTER
+        top.add topRightPanel, BorderLayout.CENTER
 
         JPanel contentPanel = new JPanel(new BorderLayout())
         contentPanel.add top, BorderLayout.NORTH
@@ -133,7 +133,7 @@ class Main {
     }
 
     static void switchSubView(String view) {
-        cardLayoutTop.show(subMenu, view)
+        cardLayoutTop.show(topRightPanel, view)
     }
 
     static void switchView(String view) {
@@ -285,16 +285,53 @@ class Main {
         VATFieldsGUI.fireVATFieldsUpdated(/*vatFields*/)
     }
 
-    static boolean isOpenTransaction(){
-        journalEditPanel.openTransaction
+    static Journal getCurrentJournal(){
+        journalEditPanel.journal
     }
 
-    static boolean isCurrentJournal(Journal journal){
-        journalEditPanel.isCurrentJournal(journal)
+    static Transaction getCurrentTransaction(){
+        journalEditPanel.transaction
     }
 
-    static Journal askInput(Journal newJournal){
-        journalEditPanel.askInput(newJournal)
+    static void saveCurrentTransaction(){
+        currentJournal.currentTransaction = currentTransaction
+    }
+
+    static Journal switchJournal(Journal newJournal){
+        if (!currentTransaction.businessObjects.empty && currentJournal != newJournal) {
+            newJournal = askInputMove(newJournal)
+        }
+        if (currentJournal != newJournal) {
+            journal = newJournal
+        }
+        newJournal
+    }
+
+    static Journal askInputMove(Journal newJournal) {
+//        Transaction transaction = Main.getCurrentTransaction()
+        Transaction newTransaction = newJournal.currentTransaction
+        String text = """\
+Do you want to transfer the current transaction from ${currentJournal} to ${newJournal}?
+${newTransaction && !newTransaction.businessObjects.isEmpty()?"""\
+WARNING: ${newJournal} also has an open transactions, which will be lost if you select transfer
+""":''}\
+"""
+        int answer = JOptionPane.showConfirmDialog(null, text)
+        if (answer == JOptionPane.YES_OPTION) {
+            moveTransactionToNewJournal(newJournal)
+            newJournal
+        } else if (answer == JOptionPane.NO_OPTION) {
+            saveCurrentTransaction()
+            newJournal
+        } else {
+            currentJournal
+        }
+
+    }
+
+    static void moveTransactionToNewJournal(Journal newJournal){
+        newJournal.currentTransaction = currentTransaction
+        currentJournal.currentTransaction = new Transaction(Calendar.getInstance(), "")
     }
 
     static void setJournal(Journal journal) {
@@ -319,8 +356,54 @@ class Main {
     }
 
     static void editTransaction(Transaction transaction){
-        journalEditPanel.editTransaction(transaction)
+//        journalEditPanel.editTransaction(transaction)
+
+        // deleteTransaction should throw NotEmptyException if not deletable/editable !
+
+//        if (!Main.currentTransaction.businessObjects.empty) {
+        saveCurrentTransaction()
+//        }
+
+        Journal journal = transaction.journal
+
+        if(!transaction.businessObjects.empty){
+            String text = """\
+${journal} has an open transaction, which will be lost if you select transfer
+"""
+            int answer = JOptionPane.showConfirmDialog(null, text)
+            if (answer == JOptionPane.YES_OPTION) {
+                journalEditPanel.deleteTransaction(transaction)
+                //TODO: GUI with question where to open the transaction? (only usefull if multiple input GUIs are open)
+                // set Journal before Transaction: setJournal sets transaction to currentObject !!!
+
+                setAccounting(journal.accounting)
+                Main.journal = journal
+                journal.currentTransaction = transaction
+                // TODO: when calling setTransaction we need to check if the currentTransaction is empty (see switchJournal() -> checkTransfer)
+                journalEditPanel.setTransaction(transaction)
+            } else if (answer == JOptionPane.NO_OPTION) {
+                saveCurrentTransaction()
+            }
+        }
     }
+
+//    static void deleteTransaction(Transaction transaction) {//throws NotEmptyException{
+//        Journal journal = transaction.journal
+//        journal.removeBusinessObject(transaction)
+//        accounting.transactions.removeBusinessObject(transaction)
+//        transaction.journal = null
+//
+//        Main.fireJournalDataChanged(journal)
+//        for (Account account : transaction.accounts) {
+//            Main.fireAccountDataChanged(account)
+//        }
+//
+//        ArrayList<VATBooking> vatBookings = transaction.vatBookings
+//        if (vatBookings != null && !vatBookings.isEmpty()) {
+//            Main.fireVATFieldsUpdated()
+//        }
+////        ActionUtils.showErrorMessage(TRANSACTION_REMOVED, journal.name)
+//    }
 
     static void deleteBookings(ArrayList<Booking> bookings){
         journalEditPanel.deleteBookings(bookings)

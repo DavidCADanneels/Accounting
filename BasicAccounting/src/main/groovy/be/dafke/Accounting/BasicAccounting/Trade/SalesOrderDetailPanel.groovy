@@ -378,12 +378,12 @@ class SalesOrderDetailPanel extends JPanel {
         journal.addBusinessObject transaction
         salesOrder.salesTransaction = transaction
         salesOrder.gainTransaction = transaction
-        Main.journal = journal
+//        Main.journal = journal
 //        Main.selectTransaction(transaction)
-        Main.fireJournalDataChanged(journal)
-        for (Account account : transaction.accounts) {
-            Main.fireAccountDataChanged(account)
-        }
+//        Main.fireJournalDataChanged(journal)
+//        for (Account account : transaction.accounts) {
+//            Main.fireAccountDataChanged(account)
+//        }
     }
 
     void createSalesTransaction(Transaction transaction){
@@ -450,12 +450,12 @@ class SalesOrderDetailPanel extends JPanel {
         transactions.addBusinessObject transaction
         salesJournal.addBusinessObject transaction
         salesOrder.salesTransaction = transaction
-        Main.setJournal salesJournal
+//        Main.journal = salesJournal
 //        Main.selectTransaction transaction
-        Main.fireJournalDataChanged salesJournal
-        for (Account account : transaction.accounts) {
-            Main.fireAccountDataChanged account
-        }
+//        Main.fireJournalDataChanged salesJournal
+//        for (Account account : transaction.accounts) {
+//            Main.fireAccountDataChanged account
+//        }
     }
 
     void createGainTransaction(Calendar date){

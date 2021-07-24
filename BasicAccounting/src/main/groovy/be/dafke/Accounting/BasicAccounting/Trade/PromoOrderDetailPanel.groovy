@@ -187,11 +187,11 @@ class PromoOrderDetailPanel extends JPanel {
         transactions.addBusinessObject transaction
         journal.addBusinessObject transaction
         promoOrder.paymentTransaction = transaction
-        Main.journal = journal
-        Main.fireJournalDataChanged journal
-        for (Account account : transaction.accounts) {
-            Main.fireAccountDataChanged account
-        }
+//        Main.journal = journal
+//        Main.fireJournalDataChanged journal
+//        for (Account account : transaction.accounts) {
+//            Main.fireAccountDataChanged account
+//        }
     }
 
     void setOrder(PromoOrder promoOrder){

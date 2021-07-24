@@ -221,20 +221,36 @@ class JournalEditPanel extends JPanel implements ActionListener {
         }
     }
 
-    void editTransaction(Transaction transaction) {//throws NotEmptyException{
-        // deleteTransaction should throw NotEmptyException if not deletable/editable !
-        Journal journal = transaction.journal
-//        Main.checkAndSetJournal(journal)
-        deleteTransaction(transaction)
-        //TODO: GUI with question where to open the transaction? (only usefull if multiple input GUIs are open)
-        // set Journal before Transaction: setJournal sets transaction to currentObject !!!
-
-        Main.setAccounting(journal.accounting)
-        Main.journal = journal
-        journal.currentTransaction = transaction
-        // TODO: when calling setTransaction we need to check if the currentTransaction is empty (see switchJournal() -> checkTransfer)
-        setTransaction(transaction)
-    }
+//    void editTransaction(Transaction transaction) {//throws NotEmptyException{
+//        // deleteTransaction should throw NotEmptyException if not deletable/editable !
+//
+////        if (!Main.currentTransaction.businessObjects.empty) {
+//            Main.saveCurrentTransaction()
+////        }
+//
+//        Journal journal = transaction.journal
+//
+//        if(!transaction.businessObjects.empty){
+//            String text = """\
+//${journal} has an open transaction, which will be lost if you select transfer
+//"""
+//            int answer = JOptionPane.showConfirmDialog(null, text)
+//            if (answer == JOptionPane.YES_OPTION) {
+//                deleteTransaction(transaction)
+//                //TODO: GUI with question where to open the transaction? (only usefull if multiple input GUIs are open)
+//                // set Journal before Transaction: setJournal sets transaction to currentObject !!!
+//
+//                Main.setAccounting(journal.accounting)
+//                Main.journal = journal
+//                journal.currentTransaction = transaction
+//                // TODO: when calling setTransaction we need to check if the currentTransaction is empty (see switchJournal() -> checkTransfer)
+//                setTransaction(transaction)
+//            } else if (answer == JOptionPane.NO_OPTION) {
+//                Main.saveCurrentTransaction()
+//            }
+//        }
+//
+//    }
 
     void actionPerformed(ActionEvent e) {
         if (e.getSource() == clear) {
@@ -359,42 +375,38 @@ class JournalEditPanel extends JPanel implements ActionListener {
         fireTransactionDataChanged()
     }
 
-    boolean isOpenTransaction(){
-        return transaction && !transaction.businessObjects.empty
+    Journal getJournal() {
+        return journal
     }
 
-    boolean isCurrentJournal(Journal newJournal){
-        journal == newJournal
-    }
-
-    Journal askInput(Journal newJournal) {
-        Transaction newTransaction = newJournal.currentTransaction
-        StringBuilder builder = new StringBuilder("Do you want to transfer the current transaction from ")
-                .append(journal).append(" to ").append(newJournal)
-        if (newTransaction && !newTransaction.businessObjects.isEmpty()) {
-            builder.append("\nWARNING: ").append(newJournal).append(" also has an open transactions, which will be lost if you select transfer")
-        }
-        int answer = JOptionPane.showConfirmDialog(null, builder.toString())
-        if (answer == JOptionPane.YES_OPTION) {
-            moveTransactionToNewJournal(newJournal)
-            newJournal
-        } else if (answer == JOptionPane.NO_OPTION) {
-            saveCurrentTransaction()
-            newJournal
-        } else {
-            journal
-        }
-
-    }
-
-    void moveTransactionToNewJournal(Journal newJournal){
-        newJournal.currentTransaction = transaction
-        journal.currentTransaction = new Transaction(Calendar.getInstance(), "")
-    }
-
-    void saveCurrentTransaction(){
-        journal.currentTransaction = transaction
-    }
+//    Journal askInput(Journal newJournal) {
+//        Transaction newTransaction = newJournal.currentTransaction
+//        StringBuilder builder = new StringBuilder("Do you want to transfer the current transaction from ")
+//                .append(journal).append(" to ").append(newJournal)
+//        if (newTransaction && !newTransaction.businessObjects.isEmpty()) {
+//            builder.append("\nWARNING: ").append(newJournal).append(" also has an open transactions, which will be lost if you select transfer")
+//        }
+//        int answer = JOptionPane.showConfirmDialog(null, builder.toString())
+//        if (answer == JOptionPane.YES_OPTION) {
+//            moveTransactionToNewJournal(newJournal)
+//            newJournal
+//        } else if (answer == JOptionPane.NO_OPTION) {
+//            saveCurrentTransaction()
+//            newJournal
+//        } else {
+//            journal
+//        }
+//
+//    }
+//
+//    void moveTransactionToNewJournal(Journal newJournal){
+//        newJournal.currentTransaction = transaction
+//        journal.currentTransaction = new Transaction(Calendar.getInstance(), "")
+//    }
+//
+//    void saveCurrentTransaction(){
+//        journal.currentTransaction = transaction
+//    }
 
     void fireTransactionDataChanged() {
         journalDataModel.fireTableDataChanged()
