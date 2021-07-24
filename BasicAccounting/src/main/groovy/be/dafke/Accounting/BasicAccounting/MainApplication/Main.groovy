@@ -11,6 +11,7 @@ import be.dafke.Accounting.BasicAccounting.Coda.CodaMenu
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactSelectorDialog
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactsGUI
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactsMenu
+import be.dafke.Accounting.BasicAccounting.Contacts.ContactsPanel
 import be.dafke.Accounting.BasicAccounting.Journals.Edit.JournalEditPanel
 import be.dafke.Accounting.BasicAccounting.Journals.JournalSwitchPanel
 import be.dafke.Accounting.BasicAccounting.Journals.JournalsMenu
@@ -66,11 +67,14 @@ class Main {
     static MealViewSelectorPanel mealViewSelectorPanel
     static OrdersViewSelectorPanel ordersViewSelectorPanel
     static JournalSelectorPanel journalSelectorPanel
+    static ContactsPanel contactsPanel
 
     static final String JOURNALS_VIEW = 'Journals'
     static final String SO_VIEW = 'SalesOrders'
     static final String PO_VIEW = 'PurchaseOrders'
+    static final String CONTACTS_VIEW = 'Contacts'
 
+    static final String EMPTY = 'empty'
     static final String ORDERS_VIEW = 'Orders'
     static final String MEALS_VIEW = 'Meals'
     static final String IN_VIEW = 'Ingredients'
@@ -90,12 +94,14 @@ class Main {
         purchaseOrdersOverviewPanel = new PurchaseOrdersOverviewPanel()
         ingredientsSwitchViewPanel = new IngredientsSwitchViewPanel()
         allergenesSwitchViewPanel = new AllergenesSwitchViewPanel()
+        contactsPanel = new ContactsPanel(Contact.ContactType.ALL)
 
         center.add journalSwitchPanel, JOURNALS_VIEW
         center.add salesOrdersOverViewPanel, SO_VIEW
         center.add purchaseOrdersOverviewPanel, PO_VIEW
         center.add ingredientsSwitchViewPanel, IN_VIEW
         center.add allergenesSwitchViewPanel, AL_VIEW
+        center.add contactsPanel, CONTACTS_VIEW
 
         mealViewSelectorPanel = new MealViewSelectorPanel()
         ordersViewSelectorPanel = new OrdersViewSelectorPanel()
@@ -104,6 +110,7 @@ class Main {
         subMenu.add journalSelectorPanel, JOURNALS_VIEW
         subMenu.add ordersViewSelectorPanel, ORDERS_VIEW
         subMenu.add mealViewSelectorPanel, MEALS_VIEW
+        subMenu.add(new JPanel(), EMPTY)
 
         JPanel top = new JPanel()
         top.add new MainViewSelectorPanel()
@@ -231,6 +238,7 @@ class Main {
         purchaseOrdersOverviewPanel.accounting = accounting
         ingredientsSwitchViewPanel.accounting = accounting
         allergenesSwitchViewPanel.accounting = accounting
+        contactsPanel.accounting = accounting
 
         setMenuAccounting(accounting)
         if (accounting != null) {

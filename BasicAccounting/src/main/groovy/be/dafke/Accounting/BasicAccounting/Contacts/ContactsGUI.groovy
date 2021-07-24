@@ -47,7 +47,8 @@ class ContactsGUI extends JFrame {
 
     ContactsGUI(Accounting accounting, Contact.ContactType contactType) {
         super("Contacts")
-        contactsPanel = new ContactsPanel(contactType, accounting)
+        contactsPanel = new ContactsPanel(contactType)
+        contactsPanel.accounting = accounting
         setContentPane(contactsPanel)
         setPreferredSize(new Dimension(1000,400))
         pack()

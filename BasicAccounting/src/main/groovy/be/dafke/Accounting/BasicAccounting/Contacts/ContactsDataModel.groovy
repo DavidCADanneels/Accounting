@@ -36,17 +36,21 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
     ArrayList<Integer> nonEditableColumns = new ArrayList<>()
     Accounting accounting
 
-    ContactsDataModel(Accounting accounting, Contacts contacts, Contact.ContactType contactType) {
-        this.accounting = accounting
+    ContactsDataModel(Contact.ContactType contactType) {
         this.contactType = contactType
-        if(contactType == Contact.ContactType.ALL) {
-            this.contacts = contacts.businessObjects
-        } else if (contactType == Contact.ContactType.CUSTOMERS){
-            this.contacts = contacts.getBusinessObjects{it.customer}
-        } else if (contactType == Contact.ContactType.SUPPLIERS) {
-            this.contacts = contacts.getBusinessObjects{it.supplier}
-        }
         initialize()
+    }
+
+    void setAccounting(Accounting accounting) {
+        this.accounting = accounting
+        if(contactType == Contact.ContactType.ALL) {
+            this.contacts = accounting.contacts.businessObjects
+        } else if (contactType == Contact.ContactType.CUSTOMERS){
+            this.contacts = accounting.contacts.getBusinessObjects{it.customer}
+        } else if (contactType == Contact.ContactType.SUPPLIERS) {
+            this.contacts = accounting.contacts.getBusinessObjects{it.supplier}
+        }
+//        initialize()
     }
 
     void initialize() {

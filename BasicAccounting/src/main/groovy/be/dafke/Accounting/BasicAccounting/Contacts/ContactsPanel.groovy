@@ -17,17 +17,14 @@ import static java.awt.BorderLayout.SOUTH
 import static java.util.ResourceBundle.getBundle
 
 class ContactsPanel extends JPanel implements ListSelectionListener {
-    final Contacts contacts
-    final Accounting accounting
+    Contacts contacts
+    Accounting accounting
 
     JTable table
     ContactsDataModel contactsDataModel
     JButton details
 
-    ContactsPanel(Contact.ContactType contactType, Accounting accounting) {
-        this.accounting = accounting
-        contacts = accounting.contacts
-
+    ContactsPanel(Contact.ContactType contactType) {
         JButton create = new JButton(getBundle("Contacts").getString("NEW_CONTACT"))
         create.addActionListener({ e ->
             NewContactDialog newContactDialog = new NewContactDialog(accounting)
@@ -56,12 +53,12 @@ class ContactsPanel extends JPanel implements ListSelectionListener {
         JPanel south = new JPanel()
         south.add(create)
         south.add(details)
-        if(contactType == Contact.ContactType.CUSTOMERS) {
+//        if(contactType == Contact.ContactType.CUSTOMERS) {
             south.add(createList)
             south.add(printLabels)
-        }
+//        }
 
-        contactsDataModel = new ContactsDataModel(accounting, contacts, contactType)
+        contactsDataModel = new ContactsDataModel(contactType)
         table = new JTable(contactsDataModel)
         DefaultListSelectionModel selection = new DefaultListSelectionModel()
         selection.addListSelectionListener(this)
@@ -71,6 +68,12 @@ class ContactsPanel extends JPanel implements ListSelectionListener {
         setLayout(new BorderLayout())
         add(scroll, CENTER)
         add(south, SOUTH)
+    }
+
+    void setAccounting(Accounting accounting) {
+        this.accounting = accounting
+        contacts = accounting.contacts
+        contactsDataModel.accounting = accounting
     }
 
     void printCustomerLabels(){
