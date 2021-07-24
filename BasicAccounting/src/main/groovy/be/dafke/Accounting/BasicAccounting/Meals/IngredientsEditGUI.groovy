@@ -14,7 +14,8 @@ class IngredientsEditGUI extends JFrame {
 
     IngredientsEditGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("INGREDIENTS"))
-        ingredientsViewPanel = new IngredientsEditPanel(accounting)
+        ingredientsViewPanel = new IngredientsEditPanel()
+        ingredientsViewPanel.accounting = accounting
         setContentPane(ingredientsViewPanel)
         pack()
     }

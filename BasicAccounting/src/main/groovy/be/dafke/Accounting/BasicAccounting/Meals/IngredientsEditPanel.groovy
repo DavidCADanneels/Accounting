@@ -24,18 +24,12 @@ class IngredientsEditPanel extends JPanel {
     Allergenes allergenes
     Accounting accounting
 
-    IngredientsEditPanel(Accounting accounting) {
-        this.accounting = accounting
-        ingredients = accounting.ingredients
-        allergenes = accounting.allergenes
+    IngredientsEditPanel() {
         ingredientsDataEditTableModel = new IngredientsEditDataTableModel(this)
-        ingredientsDataEditTableModel.setIngredients(ingredients)
         ingredientsTable = new SelectableTable<>(ingredientsDataEditTableModel)
         ingredientsTable.setPreferredScrollableViewportSize(new Dimension(500, 200))
         ingredientsTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)
-
         allergenesViewPanel = new AllergenesViewPanel(false)
-        allergenesViewPanel.allergenes = accounting.allergenes
 
         JComboBox<Unit> comboBox = new JComboBox<>(Unit.values())
         TableColumn unitColumn = ingredientsTable.getColumnModel().getColumn(IngredientsEditDataTableModel.UNIT_COL)
@@ -102,6 +96,22 @@ class IngredientsEditPanel extends JPanel {
                 ActionUtils.showErrorMessage(this, ActionUtils.INGREDIENT_DUPLICATE_NAME, name.trim())
             }
         }
+    }
+
+    void setAccounting(Accounting accounting){
+        this.accounting = accounting
+        setAllergenes(accounting?.allergenes)
+        setIngredients(accounting?.ingredients)
+    }
+
+    void setAllergenes(Allergenes allergenes){
+        this.allergenes = allergenes
+
+    }
+
+    void setIngredients(Ingredients ingredients){
+        this.ingredients = ingredients
+        ingredientsDataEditTableModel.setIngredients(ingredients)
     }
 
     void addAllergene(){

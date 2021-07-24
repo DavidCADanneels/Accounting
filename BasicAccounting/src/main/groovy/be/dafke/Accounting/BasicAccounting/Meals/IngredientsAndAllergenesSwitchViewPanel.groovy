@@ -20,7 +20,7 @@ class IngredientsAndAllergenesSwitchViewPanel extends JPanel {
     IngredientsAndAllergenesViewPanel viewPanel
     IngredientsAndAllergenesEditPanel editPanel
 
-    IngredientsAndAllergenesSwitchViewPanel(Accounting accounting) {
+    IngredientsAndAllergenesSwitchViewPanel() {
         cardLayout = new CardLayout()
         center = new JPanel(cardLayout)
 
@@ -30,8 +30,8 @@ class IngredientsAndAllergenesSwitchViewPanel extends JPanel {
             switchView()
         })
 
-        viewPanel = new IngredientsAndAllergenesViewPanel(accounting)
-        editPanel = new IngredientsAndAllergenesEditPanel(accounting)
+        viewPanel = new IngredientsAndAllergenesViewPanel()
+        editPanel = new IngredientsAndAllergenesEditPanel()
 
         center.add(viewPanel, VIEW)
         center.add(editPanel, EDIT)
@@ -39,6 +39,11 @@ class IngredientsAndAllergenesSwitchViewPanel extends JPanel {
         setLayout(new BorderLayout())
         add(center, BorderLayout.CENTER)
         add(switchButton,BorderLayout.NORTH)
+    }
+
+    void setAccounting(Accounting accounting){
+        viewPanel.accounting = accounting
+        editPanel.accounting = accounting
     }
 
     void switchView(){

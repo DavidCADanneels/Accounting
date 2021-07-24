@@ -13,13 +13,9 @@ class IngredientsAndAllergenesEditPanel extends JPanel {
     final IngredientsEditPanel ingredientsEditPanel
     final AllergenesEditPanel allergenesEditPanel
 
-    IngredientsAndAllergenesEditPanel(Accounting accounting) {
-        ingredientsEditPanel = new IngredientsEditPanel(accounting)
+    IngredientsAndAllergenesEditPanel() {
+        ingredientsEditPanel = new IngredientsEditPanel()
         allergenesEditPanel = new AllergenesEditPanel()
-        allergenesEditPanel.setAccounting(accounting)
-        // or:
-//        allergenesEditPanel.setAllergenes(accounting.allergenes)
-
 
         setLayout(new BorderLayout())
 
@@ -28,5 +24,10 @@ class IngredientsAndAllergenesEditPanel extends JPanel {
         JSplitPane splitPane = Main.createSplitPane(leftScroll, rightScroll, JSplitPane.HORIZONTAL_SPLIT)
 
         add(splitPane, BorderLayout.CENTER)
+    }
+
+    void setAccounting(Accounting accounting){
+        ingredientsEditPanel.accounting = accounting
+        allergenesEditPanel.accounting = accounting
     }
 }

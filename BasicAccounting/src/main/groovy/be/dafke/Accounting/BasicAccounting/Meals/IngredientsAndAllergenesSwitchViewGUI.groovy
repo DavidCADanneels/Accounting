@@ -14,7 +14,8 @@ class IngredientsAndAllergenesSwitchViewGUI extends JFrame {
 
     IngredientsAndAllergenesSwitchViewGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("INGREDIENTS_AND_ALLERGENES"))
-        panel = new IngredientsAndAllergenesSwitchViewPanel(accounting)
+        panel = new IngredientsAndAllergenesSwitchViewPanel()
+        panel.accounting = accounting
         setContentPane(panel)
         pack()
     }

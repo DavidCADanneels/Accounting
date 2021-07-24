@@ -15,11 +15,9 @@ class IngredientsAndAllergenesViewPanel extends JPanel {
 
     Ingredients ingredients
 
-    IngredientsAndAllergenesViewPanel(Accounting accounting) {
+    IngredientsAndAllergenesViewPanel() {
         ingredientsViewPanel = new IngredientsViewPanel()
-        ingredientsViewPanel.ingredients = accounting.ingredients
         allergenesViewPanel = new AllergenesViewPanel(false)
-        allergenesViewPanel.allergenes = accounting.allergenes
 
         setLayout(new BorderLayout())
 
@@ -28,5 +26,10 @@ class IngredientsAndAllergenesViewPanel extends JPanel {
         JSplitPane splitPane = Main.createSplitPane(leftScroll, rightScroll, JSplitPane.HORIZONTAL_SPLIT)
 
         add(splitPane, BorderLayout.CENTER)
+    }
+
+    void setAccounting(Accounting accounting){
+        ingredientsViewPanel.ingredients = accounting.ingredients
+        allergenesViewPanel.allergenes = accounting.allergenes
     }
 }
