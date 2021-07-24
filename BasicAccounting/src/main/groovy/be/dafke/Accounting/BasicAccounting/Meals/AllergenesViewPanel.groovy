@@ -15,11 +15,10 @@ class AllergenesViewPanel extends JPanel {
     JTextArea descriptionField
     boolean multiSelection
 
-    AllergenesViewPanel(boolean multiSelection, Allergenes allergenes) {
+    AllergenesViewPanel(boolean multiSelection) {
         this.multiSelection = multiSelection
 
         allergenesDataTableModel = new AllergenesViewDataTableModel()
-        allergenesDataTableModel.setAllergenes(allergenes)
 
         allergeneOverviewTable = new SelectableTable<>(allergenesDataTableModel)
         allergeneOverviewTable.setPreferredScrollableViewportSize(new Dimension(500, 200))
@@ -55,6 +54,7 @@ class AllergenesViewPanel extends JPanel {
 
     void setAllergenes(Allergenes allergenes) {
         allergenesDataTableModel.setAllergenes(allergenes)
+        allergenesDataTableModel.fireTableDataChanged()
     }
 
     void selectFirstLine(){

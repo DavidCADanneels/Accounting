@@ -17,7 +17,8 @@ class IngredientsAndAllergenesViewPanel extends JPanel {
 
     IngredientsAndAllergenesViewPanel(Accounting accounting) {
         ingredientsViewPanel = new IngredientsViewPanel(accounting)
-        allergenesViewPanel = new AllergenesViewPanel(false, accounting.allergenes)
+        allergenesViewPanel = new AllergenesViewPanel(false)
+        allergenesViewPanel.allergenes = accounting.allergenes
 
         setLayout(new BorderLayout())
 
