@@ -61,12 +61,14 @@ class Main {
     static IngredientsSwitchViewPanel ingredientsSwitchViewPanel
     static AllergenesSwitchViewPanel allergenesSwitchViewPanel
     static MealViewSelectorPanel mealViewSelectorPanel
+    static OrdersViewSelectorPanel ordersViewSelectorPanel
 
     static final String JOURNALS_VIEW = 'Journals'
     static final String SO_VIEW = 'SalesOrders'
     static final String PO_VIEW = 'PurchaseOrders'
 
     static final String EMPTY = 'empty'
+    static final String ORDERS_VIEW = 'Orders'
     static final String MEALS_VIEW = 'Meals'
     static final String IN_VIEW = 'Ingredients'
     static final String AL_VIEW = 'Allergenes'
@@ -85,15 +87,17 @@ class Main {
         ingredientsSwitchViewPanel = new IngredientsSwitchViewPanel()
         allergenesSwitchViewPanel = new AllergenesSwitchViewPanel()
 
-        center.add(journalSwitchPanel, JOURNALS_VIEW)
-        center.add(salesOrdersOverViewPanel, SO_VIEW)
-        center.add(purchaseOrdersOverviewPanel, PO_VIEW)
-        center.add(ingredientsSwitchViewPanel, IN_VIEW)
-        center.add(allergenesSwitchViewPanel, AL_VIEW)
+        center.add journalSwitchPanel, JOURNALS_VIEW
+        center.add salesOrdersOverViewPanel, SO_VIEW
+        center.add purchaseOrdersOverviewPanel, PO_VIEW
+        center.add ingredientsSwitchViewPanel, IN_VIEW
+        center.add allergenesSwitchViewPanel, AL_VIEW
 
         mealViewSelectorPanel = new MealViewSelectorPanel()
+        ordersViewSelectorPanel = new OrdersViewSelectorPanel()
 
-        subMenu.add(mealViewSelectorPanel, MEALS_VIEW)
+        subMenu.add mealViewSelectorPanel, MEALS_VIEW
+        subMenu.add ordersViewSelectorPanel, ORDERS_VIEW
         subMenu.add(new JPanel(), EMPTY)
 
         JPanel top = new JPanel()
