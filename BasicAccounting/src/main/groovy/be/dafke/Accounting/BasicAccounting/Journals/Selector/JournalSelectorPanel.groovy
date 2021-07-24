@@ -4,7 +4,6 @@ import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Journal
 import be.dafke.Accounting.BusinessModel.Journals
-import be.dafke.Accounting.BusinessModel.Transaction
 import be.dafke.Accounting.BusinessModelDao.AccountingSession
 import be.dafke.Accounting.BusinessModelDao.Session
 
@@ -49,53 +48,6 @@ class JournalSelectorPanel extends JPanel implements ActionListener{
             combo.addActionListener(this)
         }
     }
-
-//    void switchJournal(Journal newJournal){
-//        Journal currentJournal = Main.currentJournal
-//        Transaction currentTransaction = Main.currentTransaction
-//        if (!currentTransaction.businessObjects.empty && currentJournal != newJournal) {
-//            newJournal = askInput(newJournal)
-//        }
-//        if (currentJournal != newJournal) {
-//            Main.journal = newJournal
-//        }
-//    }
-
-//    Journal askInput(Journal newJournal) {
-//        Journal journal = Main.getCurrentJournal()
-////        Transaction transaction = Main.getCurrentTransaction()
-//        Transaction newTransaction = newJournal.currentTransaction
-//        String text = """\
-//Do you want to transfer the current transaction from ${journal} to ${newJournal}?
-//${newTransaction && !newTransaction.businessObjects.isEmpty()?"""\
-//WARNING: ${newJournal} also has an open transactions, which will be lost if you select transfer
-//""":''}\
-//"""
-//        int answer = JOptionPane.showConfirmDialog(null, text)
-//        if (answer == JOptionPane.YES_OPTION) {
-//            Main.moveTransactionToNewJournal(newJournal)
-//            newJournal
-//        } else if (answer == JOptionPane.NO_OPTION) {
-//            Main.saveCurrentTransaction()
-//            newJournal
-//        } else {
-//            journal
-//        }
-//
-//    }
-
-//    void moveTransactionToNewJournal(Journal newJournal){
-//        Journal journal = Main.getCurrentJournal()
-//        Transaction transaction = Main.getCurrentTransaction()
-//        newJournal.currentTransaction = transaction
-//        journal.currentTransaction = new Transaction(Calendar.getInstance(), "")
-//    }
-
-//    void saveCurrentTransaction(){
-//        Journal journal = Main.getCurrentJournal()
-//        Transaction transaction = Main.getCurrentTransaction()
-//        journal.currentTransaction = transaction
-//    }
 
     void setAccounting(Accounting accounting) {
         setJournals(accounting?accounting.journals:null)

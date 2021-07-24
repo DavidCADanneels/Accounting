@@ -343,6 +343,7 @@ WARNING: ${newJournal} also has an open transactions, which will be lost if you 
         frame.journal = journal
         journalEditPanel.journal = journal
         journalSwitchPanel.setJournal(journal)
+        journalSelectorPanel.setJournal(journal)
 //        journalEditPanel.setJournalSession(journalSession)
 //        journalSelectorPanel.setJournalSession(journalSession)
     }
@@ -356,33 +357,26 @@ WARNING: ${newJournal} also has an open transactions, which will be lost if you 
     }
 
     static void editTransaction(Transaction transaction){
-//        journalEditPanel.editTransaction(transaction)
-
-        // deleteTransaction should throw NotEmptyException if not deletable/editable !
-
-//        if (!Main.currentTransaction.businessObjects.empty) {
         saveCurrentTransaction()
-//        }
-
-        Journal journal = transaction.journal
-
-        if(!transaction.businessObjects.empty){
+        Journal journal = transaction?.journal
+        Transaction currentTransaction = journal?.currentTransaction
+        if (!currentTransaction.businessObjects.empty) {
+            Accounting accounting = journal.accounting
             String text = """\
-${journal} has an open transaction, which will be lost if you select transfer
+${transaction.journal} has an open transaction, which will be lost if click Y
 """
-            int answer = JOptionPane.showConfirmDialog(null, text)
-            if (answer == JOptionPane.YES_OPTION) {
+            int answer = JOptionPane.showConfirmDialog(null, text, "Continue ?", JOptionPane.OK_CANCEL_OPTION)
+            if (answer == JOptionPane.OK_OPTION) {
                 journalEditPanel.deleteTransaction(transaction)
                 //TODO: GUI with question where to open the transaction? (only usefull if multiple input GUIs are open)
                 // set Journal before Transaction: setJournal sets transaction to currentObject !!!
 
-                setAccounting(journal.accounting)
+                setAccounting(accounting)
+                setJournal(journal)
                 Main.journal = journal
                 journal.currentTransaction = transaction
                 // TODO: when calling setTransaction we need to check if the currentTransaction is empty (see switchJournal() -> checkTransfer)
                 journalEditPanel.setTransaction(transaction)
-            } else if (answer == JOptionPane.NO_OPTION) {
-                saveCurrentTransaction()
             }
         }
     }
