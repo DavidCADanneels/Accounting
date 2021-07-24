@@ -5,6 +5,7 @@ import be.dafke.Accounting.BasicAccounting.Accounts.AccountDetails.AccountDetail
 import be.dafke.Accounting.BasicAccounting.Accounts.Selector.AccountSelectorDialog
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.*
+import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.ComponentModel.SelectableTable
 
 import javax.swing.*
@@ -15,9 +16,6 @@ import static java.util.ResourceBundle.getBundle
 class JournalGUIPopupMenu extends JPopupMenu{
     final JMenuItem delete, edit, change, debitCredit, details
     final SelectableTable<Booking> table
-    Accounts accounts
-    Journals journals
-    AccountTypes accountTypes
 
     JournalGUIPopupMenu(SelectableTable<Booking> table) {
         this.table = table
@@ -37,13 +35,6 @@ class JournalGUIPopupMenu extends JPopupMenu{
         add(change)
         add(debitCredit)
     }
-
-    void setAccounting(Accounting accounting){
-        accounts = accounting?accounting.accounts:null
-        journals = accounting?accounting.journals:null
-        accountTypes = accounting?accounting.accountTypes:null
-    }
-
 
     void deleteBooking() {
         setVisible(false)
@@ -90,7 +81,7 @@ class JournalGUIPopupMenu extends JPopupMenu{
         setVisible(false)
         ArrayList<Booking> bookings = table.selectedObjects
         for (Booking booking : bookings) {
-            AccountSelectorDialog sel = AccountSelectorDialog.getAccountSelector(accounts, accountTypes.businessObjects)
+            AccountSelectorDialog sel = AccountSelectorDialog.getAccountSelector(Session.activeAccounting.accounts, Session.activeAccounting.accountTypes.businessObjects)
             sel.visible = true
             Account account = sel.getSelection()
             if (account != null) {
@@ -106,7 +97,7 @@ class JournalGUIPopupMenu extends JPopupMenu{
         ArrayList<Booking> bookings = table.selectedObjects
         for (Booking booking : bookings) {
             Account account = booking.account
-            AccountDetailsGUI.getAccountDetails(locationOnScreen, account, journals)
+            AccountDetailsGUI.getAccountDetails(locationOnScreen, account, Session.activeAccounting.journals)
         }
     }
 }

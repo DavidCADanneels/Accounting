@@ -1,6 +1,6 @@
 package be.dafke.Accounting.BasicAccounting.Journals.Edit
 
-
+import be.dafke.Accounting.BasicAccounting.Journals.JournalActions
 import be.dafke.Accounting.BasicAccounting.MainApplication.ActionUtils
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BasicAccounting.MainApplication.PopupForTableActivator
@@ -30,7 +30,6 @@ class JournalEditPanel extends JPanel implements ActionListener {
 
     Journal journal
     Transaction transaction
-    Accounting accounting
     DateAndDescriptionPanel dateAndDescriptionPanel
 
     JournalEditPanel() {
@@ -103,124 +102,6 @@ class JournalEditPanel extends JPanel implements ActionListener {
         mainPanel
     }
 
-    void moveTransaction(Set<Transaction> transactions, Journals journals) {
-        // ask journal only once
-        Journal newJournal = getNewJournal(transaction, journals)
-        moveTransaction(transactions, newJournal)
-    }
-
-    void moveBookings(ArrayList<Booking> bookings, Journals journals) {
-        Set<Transaction> transactions = getTransactions(bookings)
-        moveTransaction(transactions, journals)
-    }
-
-    void moveTransaction(Set<Transaction> transactions, Journal newJournal) {
-        Set<Journal> updatedJournals = new HashSet<>()
-        Set<Account> updatedAccounts = new HashSet<>()
-        if(newJournal){
-            updatedJournals.add(newJournal)
-        }
-        for (Transaction transaction : transactions) {
-            if (transaction != null) {
-                Journal oldJournal = transaction.journal
-                if (oldJournal != null) {
-                    oldJournal.removeBusinessObject(transaction)
-                }
-
-                if (newJournal != null) { // e.g. when Cancel has been clicked
-                    newJournal.addBusinessObject(transaction)
-                }
-                transaction.journal = newJournal
-                for (Account account : transaction.accounts) {
-                    updatedAccounts.add(account)
-                }
-            }
-        }
-
-        for (Journal journal:updatedJournals) {
-            Main.fireJournalDataChanged(journal)
-        }
-
-        for (Account account : updatedAccounts) {
-            Main.fireAccountDataChanged(account)
-        }
-//        ActionUtils.showErrorMessage(ActionUtils.TRANSACTION_MOVED, oldJournal.name, newJournal.name)
-    }
-
-    Set<Transaction> getTransactions(ArrayList<Booking> bookings){
-        Set<Transaction> transactions = new HashSet<>()
-        for (Booking booking:bookings) {
-            transactions.add(booking.transaction)
-        }
-        transactions
-    }
-
-    Journal getNewJournal(Transaction transaction, Journals journals){
-        Journal journal = transaction.journal
-        ArrayList<Journal> dagboeken = journals.getAllJournalsExcept(journal)
-        Object[] lijst = dagboeken.toArray()
-        int keuze = JOptionPane.showOptionDialog(null,
-                getBundle("BusinessActions").getString("CHOOSE_JOURNAL"),
-                getBundle("BusinessActions").getString("JOURNAL_CHOICE"),
-                JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, lijst, lijst[0])
-        if(keuze!=JOptionPane.CLOSED_OPTION){
-            (Journal) lijst[keuze]
-        }else null
-    }
-
-    void deleteBookings(ArrayList<Booking> bookings) {
-        Set<Transaction> transactions = getTransactions(bookings)
-        deleteTransactions(transactions)
-    }
-
-    void deleteTransactions(Set<Transaction> transactions){
-        for (Transaction transaction : transactions) {
-            deleteTransaction(transaction)
-        }
-    }
-
-    void deleteTransaction(Transaction transaction) {//throws NotEmptyException{
-        Journal journal = transaction.journal
-        journal.removeBusinessObject(transaction)
-        accounting.transactions.removeBusinessObject(transaction)
-        transaction.journal = null
-
-        Main.fireJournalDataChanged(journal)
-        for (Account account : transaction.accounts) {
-            Main.fireAccountDataChanged(account)
-        }
-
-        ArrayList<VATBooking> vatBookings = transaction.vatBookings
-        if (vatBookings != null && !vatBookings.isEmpty()) {
-            Main.fireVATFieldsUpdated()
-        }
-//        ActionUtils.showErrorMessage(TRANSACTION_REMOVED, journal.name)
-    }
-
-    void addTransaction(Transaction transaction){
-        Accounting accounting = journal.accounting
-        Transactions transactions = accounting.transactions
-        transactions.setId(transaction)
-        transactions.addBusinessObject transaction
-        journal.addBusinessObject transaction
-        transaction.journal = journal
-
-        ArrayList<VATBooking> vatBookings = transaction.vatBookings
-        if (vatBookings != null && !vatBookings.isEmpty()) {
-            Main.fireVATFieldsUpdated(/*vatFields*/)
-        }
-
-        Contact contact = transaction.contact
-        if(contact){
-            Main.fireCustomerDataChanged()
-        }
-
-        Main.fireJournalDataChanged(journal)
-        for (Account account : transaction.accounts) {
-            Main.fireAccountDataChanged(account)
-        }
-    }
-
     void actionPerformed(ActionEvent e) {
         if (e.getSource() == clear) {
             clear()
@@ -229,11 +110,11 @@ class JournalEditPanel extends JPanel implements ActionListener {
         } else if (e.getSource() == singleBook){
             saveTransaction()
             if(journal && transaction && transaction.bookable){
-                addTransaction(transaction)
+                JournalActions.addTransactionToJournal(transaction, journal)
                 Main.selectTransaction(transaction)
                 if(transaction.order){
                     transaction.order.setPaymentTransaction(transaction)
-                    Main.fireOrderPayed(accounting)
+                    Main.fireOrderPayed(Session.activeAccounting)
                 }
                 Mortgage mortgage = transaction.mortgage
                 if(mortgage){
@@ -269,23 +150,19 @@ class JournalEditPanel extends JPanel implements ActionListener {
         transaction
     }
 
-    JComboBox<Account> createComboBox() {
+    static JComboBox<Account> createComboBox() {
         JComboBox<Account> comboBox = new JComboBox<>()
         comboBox.removeAllItems()
-        if(accounting && accounting.accounts) {
-            accounting.accounts.businessObjects.forEach({ account -> comboBox.addItem(account) })
+        if(Session.activeAccounting && Session.activeAccounting.accounts) {
+            Session.activeAccounting.accounts.businessObjects.forEach({ account -> comboBox.addItem(account) })
         }
         comboBox
     }
 
     void setAccounting(Accounting accounting){
-        this.accounting = accounting
-        popup.accounting = accounting
-//        setAccounts(accounting?accounting.accounts:null)
+//        this.accounting = accounting
         AccountingSession accountingSession = Session.getAccountingSession(accounting)
         setJournal(accountingSession?accountingSession.activeJournal:null)
-//        setVatTransactions(accounting?accounting.vatTransactions:null)
-//        setTransactions(accounting?accounting.transactions:null)
 
         comboBox=createComboBox()
         debitAccount = table.getColumnModel().getColumn(JournalDataModel.DEBIT_ACCOUNT)
@@ -305,7 +182,7 @@ class JournalEditPanel extends JPanel implements ActionListener {
         this.transaction = transaction
         dateAndDescriptionPanel.setTransaction(transaction)
         journalDataModel.setTransaction(transaction)
-        balanceTransaction.setSelected(transaction && transaction.balanceTransaction)
+        balanceTransaction.setSelected(transaction?.balanceTransaction)
         fireTransactionDataChanged()
     }
 

@@ -1,6 +1,7 @@
 package be.dafke.Accounting.BasicAccounting.Journals.View.DualView
 
 import be.dafke.Accounting.BasicAccounting.Balances.BalanceGUI
+import be.dafke.Accounting.BasicAccounting.Journals.JournalActions
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BasicAccounting.VAT.VATFieldsGUI
 import be.dafke.Accounting.BusinessModel.*
@@ -105,14 +106,16 @@ class TransactionOverviewPopupMenu extends JPopupMenu {
         setVisible(false)
         ArrayList<Transaction> transactions = gui.selectedObjects
         Set<Transaction> set = new HashSet<>(transactions)
-        Main.moveTransactions(set, journals)
+        JournalActions.moveTransaction(set, journals, Main.transaction)
+//        Main.moveTransactions(set, journals)
     }
 
     void deleteTransaction() {
         setVisible(false)
         ArrayList<Transaction> transactions = gui.selectedObjects
         Set<Transaction> set = new HashSet<>(transactions)
-        Main.deleteTransactions(set)
+        JournalActions.deleteTransactions(transactions)
+//        Main.deleteTransactions(set)
     }
 
     void editTransaction() {

@@ -2,6 +2,7 @@ package be.dafke.Accounting.BasicAccounting.Journals.View.SingleView
 
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountDetails.AccountDetailsGUI
 import be.dafke.Accounting.BasicAccounting.Balances.BalanceGUI
+import be.dafke.Accounting.BasicAccounting.Journals.JournalActions
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.*
 import be.dafke.Accounting.BusinessModelDao.Session
@@ -93,13 +94,13 @@ class JournalDetailsPopupMenu extends JPopupMenu {
     void moveTransaction() {
         setVisible(false)
         ArrayList<Booking> bookings = gui.selectedObjects
-        Main.moveBookings(bookings, journals)
+        JournalActions.moveBookings(bookings, journals)
     }
 
     void deleteTransaction() {
         setVisible(false)
         ArrayList<Booking> bookings = gui.selectedObjects
-        Main.deleteBookings(bookings)
+        JournalActions.deleteBookings(bookings)
     }
 
     void editTransaction() {

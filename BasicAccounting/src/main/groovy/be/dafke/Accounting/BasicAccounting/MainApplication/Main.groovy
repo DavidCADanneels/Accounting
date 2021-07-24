@@ -13,6 +13,7 @@ import be.dafke.Accounting.BasicAccounting.Contacts.ContactsGUI
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactsMenu
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactsPanel
 import be.dafke.Accounting.BasicAccounting.Journals.Edit.JournalEditPanel
+import be.dafke.Accounting.BasicAccounting.Journals.JournalActions
 import be.dafke.Accounting.BasicAccounting.Journals.JournalSwitchPanel
 import be.dafke.Accounting.BasicAccounting.Journals.JournalsMenu
 import be.dafke.Accounting.BasicAccounting.Journals.Management.JournalManagementGUI
@@ -367,7 +368,7 @@ ${transaction.journal} has an open transaction, which will be lost if click Y
 """
             int answer = JOptionPane.showConfirmDialog(null, text, "Continue ?", JOptionPane.OK_CANCEL_OPTION)
             if (answer == JOptionPane.OK_OPTION) {
-                journalEditPanel.deleteTransaction(transaction)
+                JournalActions.deleteTransaction(transaction)
                 //TODO: GUI with question where to open the transaction? (only usefull if multiple input GUIs are open)
                 // set Journal before Transaction: setJournal sets transaction to currentObject !!!
 
@@ -379,40 +380,6 @@ ${transaction.journal} has an open transaction, which will be lost if click Y
                 journalEditPanel.setTransaction(transaction)
             }
         }
-    }
-
-//    static void deleteTransaction(Transaction transaction) {//throws NotEmptyException{
-//        Journal journal = transaction.journal
-//        journal.removeBusinessObject(transaction)
-//        accounting.transactions.removeBusinessObject(transaction)
-//        transaction.journal = null
-//
-//        Main.fireJournalDataChanged(journal)
-//        for (Account account : transaction.accounts) {
-//            Main.fireAccountDataChanged(account)
-//        }
-//
-//        ArrayList<VATBooking> vatBookings = transaction.vatBookings
-//        if (vatBookings != null && !vatBookings.isEmpty()) {
-//            Main.fireVATFieldsUpdated()
-//        }
-////        ActionUtils.showErrorMessage(TRANSACTION_REMOVED, journal.name)
-//    }
-
-    static void deleteBookings(ArrayList<Booking> bookings){
-        journalEditPanel.deleteBookings(bookings)
-    }
-
-    static void deleteTransactions(Set<Transaction> transactions){
-        journalEditPanel.deleteTransactions(transactions)
-    }
-
-    static void moveBookings(ArrayList<Booking> bookings, Journals journals){
-        journalEditPanel.moveBookings(bookings, journals)
-    }
-
-    static void moveTransactions(Set<Transaction> bookings, Journals journals){
-        journalEditPanel.moveTransaction(bookings, journals)
     }
 
     static Transaction getTransaction(){

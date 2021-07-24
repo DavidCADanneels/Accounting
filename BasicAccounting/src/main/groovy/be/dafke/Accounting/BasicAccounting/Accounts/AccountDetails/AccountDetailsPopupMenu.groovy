@@ -1,5 +1,6 @@
 package be.dafke.Accounting.BasicAccounting.Accounts.AccountDetails
 
+import be.dafke.Accounting.BasicAccounting.Journals.JournalActions
 import be.dafke.Accounting.BasicAccounting.Journals.View.SingleView.JournalDetailsGUI
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.Booking
@@ -48,13 +49,13 @@ class AccountDetailsPopupMenu extends JPopupMenu {
     void moveTransaction() {
         setVisible(false)
         ArrayList<Booking> bookings = gui.selectedObjects
-        Main.moveBookings(bookings, journals)
+        JournalActions.moveBookings(bookings, journals)
     }
 
     void deleteTransaction() {
         setVisible(false)
         ArrayList<Booking> bookings = gui.selectedObjects
-        Main.deleteBookings(bookings)
+        JournalActions.deleteBookings(bookings)
     }
 
     void editTransaction() {
