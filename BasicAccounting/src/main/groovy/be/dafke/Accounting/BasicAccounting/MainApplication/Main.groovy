@@ -112,9 +112,9 @@ class Main {
         subMenu.add mealViewSelectorPanel, MEALS_MENU_VIEW
         subMenu.add(new JPanel(), EMPTY_MENU_VIEW)
 
-        JPanel top = new JPanel()
-        top.add new MainViewSelectorPanel()
-        top.add subMenu
+        JPanel top = new JPanel(new BorderLayout())
+        top.add new MainViewSelectorPanel(), BorderLayout.WEST
+        top.add subMenu, BorderLayout.CENTER
 
         JPanel contentPanel = new JPanel(new BorderLayout())
         contentPanel.add top, BorderLayout.NORTH

@@ -1,8 +1,10 @@
 package be.dafke.Accounting.BasicAccounting.MainApplication
 
+import javax.swing.BoxLayout
 import javax.swing.ButtonGroup
 import javax.swing.JPanel
 import javax.swing.JToggleButton
+import java.awt.GridLayout
 
 class MainViewSelectorPanel extends JPanel {
 
@@ -23,6 +25,7 @@ class MainViewSelectorPanel extends JPanel {
         buttonGroup.add meals
         buttonGroup.add contacts
 
+        setLayout(new GridLayout(0,1))
         add journals
         add orders
         add meals
