@@ -58,10 +58,12 @@ class Main {
     static JPanel center
     static SalesOrdersOverviewPanel salesOrdersOverViewPanel
     static PurchaseOrdersOverviewPanel purchaseOrdersOverviewPanel
+    static IngredientsAndAllergenesSwitchViewPanel ingredientsAndAllergenesSwitchViewPanel
 
     static final String JOURNALS_VIEW = 'Journals'
     static final String SO_VIEW = 'SalesOrders'
     static final String PO_VIEW = 'PurchaseOrders'
+    static final String IA_VIEW = 'Ingredients/Allergenes'
 
     static void main(String[] args) {
         readXmlData()
@@ -72,11 +74,13 @@ class Main {
         journalSwitchPanel = new JournalSwitchPanel()
         salesOrdersOverViewPanel = new SalesOrdersOverviewPanel()
         purchaseOrdersOverviewPanel = new PurchaseOrdersOverviewPanel()
+        ingredientsAndAllergenesSwitchViewPanel = new IngredientsAndAllergenesSwitchViewPanel()
 
 
         center.add(journalSwitchPanel, JOURNALS_VIEW)
         center.add(salesOrdersOverViewPanel, SO_VIEW)
         center.add(purchaseOrdersOverviewPanel, PO_VIEW)
+        center.add(ingredientsAndAllergenesSwitchViewPanel, IA_VIEW)
 
         JPanel contentPanel = new JPanel(new BorderLayout())
         contentPanel.add new MainViewSelectorPanel(), BorderLayout.NORTH
@@ -193,6 +197,7 @@ class Main {
         journalSwitchPanel.accounting = accounting
         salesOrdersOverViewPanel.accounting = accounting
         purchaseOrdersOverviewPanel.accounting = accounting
+        ingredientsAndAllergenesSwitchViewPanel.accounting = accounting
 
         setMenuAccounting(accounting)
         if (accounting != null) {
