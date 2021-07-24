@@ -71,7 +71,6 @@ class Main {
     static final String SO_VIEW = 'SalesOrders'
     static final String PO_VIEW = 'PurchaseOrders'
 
-//    static final String EMPTY = 'empty'
     static final String ORDERS_VIEW = 'Orders'
     static final String MEALS_VIEW = 'Meals'
     static final String IN_VIEW = 'Ingredients'
@@ -105,7 +104,6 @@ class Main {
         subMenu.add journalSelectorPanel, JOURNALS_VIEW
         subMenu.add ordersViewSelectorPanel, ORDERS_VIEW
         subMenu.add mealViewSelectorPanel, MEALS_VIEW
-//        subMenu.add(new JPanel(), EMPTY)
 
         JPanel top = new JPanel()
         top.add new MainViewSelectorPanel()

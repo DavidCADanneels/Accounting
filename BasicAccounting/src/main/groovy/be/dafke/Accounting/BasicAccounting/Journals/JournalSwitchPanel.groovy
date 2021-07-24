@@ -13,7 +13,6 @@ import static javax.swing.JSplitPane.VERTICAL_SPLIT
 
 class JournalSwitchPanel extends JPanel {
 
-//    final JournalSelectorPanel journalSelectorPanel
     final JournalEditPanel journalEditPanel
     final JournalSwitchViewPanel journalSwitchViewPanel
     final JournalSwitchInputPanel journalSwitchInputPanel
@@ -22,7 +21,6 @@ class JournalSwitchPanel extends JPanel {
         setLayout(new BorderLayout())
         this.journalEditPanel = journalEditPanel
         journalSwitchInputPanel = new JournalSwitchInputPanel(journalEditPanel)
-//        journalSelectorPanel = new JournalSelectorPanel(journalEditPanel)
         journalSwitchViewPanel = new JournalSwitchViewPanel()
 
         JSplitPane journalViewAndEditSplitPane = Main.createSplitPane(journalSwitchViewPanel, journalEditPanel, VERTICAL_SPLIT)
@@ -30,7 +28,6 @@ class JournalSwitchPanel extends JPanel {
         JPanel center = new JPanel(new BorderLayout())
 
         center.add journalViewAndEditSplitPane, BorderLayout.CENTER
-//        center.add journalSelectorPanel, BorderLayout.NORTH
         add center, BorderLayout.CENTER
         add journalSwitchInputPanel, BorderLayout.WEST
     }
@@ -38,7 +35,6 @@ class JournalSwitchPanel extends JPanel {
     void setAccounting(Accounting accounting) {
         journalSwitchViewPanel.accounting = accounting
         journalEditPanel.accounting = accounting
-//        journalSelectorPanel.accounting = accounting
         journalSwitchInputPanel.accounting = accounting
     }
 
@@ -48,7 +44,6 @@ class JournalSwitchPanel extends JPanel {
     }
 
     void setJournal(Journal journal) {
-//        journalSelectorPanel.journal = journal
         journalEditPanel.journal = journal
         journalSwitchViewPanel.journal = journal
         journalSwitchInputPanel.journal = journal
