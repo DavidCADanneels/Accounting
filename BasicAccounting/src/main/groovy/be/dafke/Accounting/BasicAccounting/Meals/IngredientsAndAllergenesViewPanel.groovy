@@ -13,8 +13,6 @@ class IngredientsAndAllergenesViewPanel extends JPanel {
     final IngredientsViewPanel ingredientsViewPanel
     final AllergenesViewPanel allergenesViewPanel
 
-    Ingredients ingredients
-
     IngredientsAndAllergenesViewPanel() {
         ingredientsViewPanel = new IngredientsViewPanel()
         allergenesViewPanel = new AllergenesViewPanel(false)
