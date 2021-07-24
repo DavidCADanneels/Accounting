@@ -248,7 +248,7 @@ class JournalEditPanel extends JPanel implements ActionListener {
                 Main.selectTransaction(transaction)
                 if(transaction.order){
                     transaction.order.setPaymentTransaction(transaction)
-                    Main.fireOrderPayed()
+                    Main.fireOrderPayed(accounting)
                 }
                 Mortgage mortgage = transaction.mortgage
                 if(mortgage){

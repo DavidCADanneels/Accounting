@@ -13,13 +13,11 @@ import static javax.swing.JSplitPane.VERTICAL_SPLIT
 
 class JournalSwitchPanel extends JPanel {
 
-    final JournalEditPanel journalEditPanel
     final JournalSwitchViewPanel journalSwitchViewPanel
     final JournalSwitchInputPanel journalSwitchInputPanel
 
     JournalSwitchPanel(JournalEditPanel journalEditPanel) {
         setLayout(new BorderLayout())
-        this.journalEditPanel = journalEditPanel
         journalSwitchInputPanel = new JournalSwitchInputPanel(journalEditPanel)
         journalSwitchViewPanel = new JournalSwitchViewPanel()
 
@@ -34,17 +32,14 @@ class JournalSwitchPanel extends JPanel {
 
     void setAccounting(Accounting accounting) {
         journalSwitchViewPanel.accounting = accounting
-        journalEditPanel.accounting = accounting
         journalSwitchInputPanel.accounting = accounting
     }
 
     void fireShowInputChanged(boolean enabled) {
-        journalEditPanel.visible = enabled
         journalSwitchInputPanel.fireShowInputChanged(enabled)
     }
 
     void setJournal(Journal journal) {
-        journalEditPanel.journal = journal
         journalSwitchViewPanel.journal = journal
         journalSwitchInputPanel.journal = journal
         if (journal && journal.type.name == "Payments"){
@@ -73,39 +68,6 @@ class JournalSwitchPanel extends JPanel {
     }
     void setAccountsTypesRight(JournalType journalType, ArrayList<AccountType> accountTypes) {
         journalSwitchInputPanel.setAccountsTypesRight(journalType, accountTypes)
-    }
-
-    void fireTransactionInputDataChanged() {
-        journalEditPanel.fireTransactionDataChanged()
-    }
-
-    void editTransaction(Transaction transaction){
-        journalEditPanel.editTransaction(transaction)
-    }
-
-    void deleteBookings(ArrayList<Booking> bookings){
-        journalEditPanel.deleteBookings(bookings)
-    }
-
-    void deleteTransactions(Set<Transaction> transactions){
-        journalEditPanel.deleteTransactions(transactions)
-    }
-
-    void moveBookings(ArrayList<Booking> bookings, Journals journals){
-        journalEditPanel.moveBookings(bookings, journals)
-    }
-
-    void moveTransactions(Set<Transaction> bookings, Journals journals) {
-        journalEditPanel.moveTransaction(bookings, journals)
-    }
-
-    Transaction getTransaction(){
-        journalEditPanel.transaction
-    }
-
-    // TODO: add directly in (shared) JournalInputPanel (not via LayoutPanel)
-    void addBooking(Booking booking){
-        journalEditPanel.addBooking(booking)
     }
 
     // VIEW and SELECTION

@@ -232,6 +232,7 @@ class Main {
 
         frame.accounting = accounting
 
+        journalEditPanel.accounting = accounting
         journalSwitchPanel.accounting = accounting
         journalSelectorPanel.accounting = accounting
         salesOrdersOverViewPanel.accounting = accounting
@@ -272,6 +273,7 @@ class Main {
     }
 
     static void fireShowInputChanged(boolean enabled) {
+        journalEditPanel.visible = enabled
         journalSwitchPanel.fireShowInputChanged(enabled)
     }
 
@@ -302,6 +304,7 @@ class Main {
             if(accountingSession) accountingSession.activeJournal = journal  // idem, only needed for XMLWriter
         }
         frame.journal = journal
+        journalEditPanel.journal = journal
         journalSwitchPanel.setJournal(journal)
 //        journalEditPanel.setJournalSession(journalSession)
 //        journalSelectorPanel.setJournalSession(journalSession)
@@ -312,40 +315,40 @@ class Main {
     }
 
     static void fireTransactionInputDataChanged(){
-        journalSwitchPanel.fireTransactionInputDataChanged()
+        journalEditPanel.fireTransactionDataChanged()
     }
 
     static void editTransaction(Transaction transaction){
-        journalSwitchPanel.editTransaction(transaction)
+        journalEditPanel.editTransaction(transaction)
     }
 
     static void deleteBookings(ArrayList<Booking> bookings){
-        journalSwitchPanel.deleteBookings(bookings)
+        journalEditPanel.deleteBookings(bookings)
     }
 
     static void deleteTransactions(Set<Transaction> transactions){
-        journalSwitchPanel.deleteTransactions(transactions)
+        journalEditPanel.deleteTransactions(transactions)
     }
 
     static void moveBookings(ArrayList<Booking> bookings, Journals journals){
-        journalSwitchPanel.moveBookings(bookings, journals)
+        journalEditPanel.moveBookings(bookings, journals)
     }
 
     static void moveTransactions(Set<Transaction> bookings, Journals journals){
-        journalSwitchPanel.moveTransactions(bookings, journals)
+        journalEditPanel.moveTransaction(bookings, journals)
     }
 
     static Transaction getTransaction(){
-        journalSwitchPanel.getTransaction()
+        journalEditPanel.transaction
     }
 
     static void addBooking(Booking booking){
-        journalSwitchPanel.addBooking(booking)
+        journalEditPanel.addBooking(booking)
     }
 
-    static void fireOrderPayed(){
+    static void fireOrderPayed(Accounting accounting){
         journalSwitchPanel.fireOrderPayed()
-        PurchaseOrdersOverviewGUI.firePurchaseOrderAddedOrRemovedForAccounting()
+        PurchaseOrdersOverviewGUI.firePurchaseOrderAddedOrRemovedForAccounting(accounting)
     }
 
     static void fireJournalDataChanged(Journal journal){
