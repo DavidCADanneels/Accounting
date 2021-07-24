@@ -27,7 +27,7 @@ class MainViewSelectorPanel extends JPanel {
 
         journals.addActionListener( {
             Main.switchView(Main.JOURNALS_VIEW)
-            Main.switchSubView(Main.EMPTY)
+            Main.switchSubView(Main.JOURNALS_VIEW)
         })
         orders.addActionListener( {
             Main.switchSubView(Main.ORDERS_VIEW)

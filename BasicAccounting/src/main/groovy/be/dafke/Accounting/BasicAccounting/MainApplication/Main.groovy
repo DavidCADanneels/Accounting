@@ -11,9 +11,11 @@ import be.dafke.Accounting.BasicAccounting.Coda.CodaMenu
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactSelectorDialog
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactsGUI
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactsMenu
+import be.dafke.Accounting.BasicAccounting.Journals.Edit.JournalEditPanel
 import be.dafke.Accounting.BasicAccounting.Journals.JournalSwitchPanel
 import be.dafke.Accounting.BasicAccounting.Journals.JournalsMenu
 import be.dafke.Accounting.BasicAccounting.Journals.Management.JournalManagementGUI
+import be.dafke.Accounting.BasicAccounting.Journals.Selector.JournalSelectorPanel
 import be.dafke.Accounting.BasicAccounting.Journals.View.SingleView.JournalDetailsGUI
 import be.dafke.Accounting.BasicAccounting.Meals.*
 import be.dafke.Accounting.BasicAccounting.Mortgages.MortgageGUI
@@ -39,6 +41,7 @@ class Main {
     static final ArrayList<JFrame> disposableComponents = new ArrayList<>()
 
     protected static Accountings accountings
+    static JournalEditPanel journalEditPanel
     static JournalSwitchPanel journalSwitchPanel
     static JMenuBar menuBar
     static AccountingMenu accountingMenu
@@ -62,12 +65,13 @@ class Main {
     static AllergenesSwitchViewPanel allergenesSwitchViewPanel
     static MealViewSelectorPanel mealViewSelectorPanel
     static OrdersViewSelectorPanel ordersViewSelectorPanel
+    static JournalSelectorPanel journalSelectorPanel
 
     static final String JOURNALS_VIEW = 'Journals'
     static final String SO_VIEW = 'SalesOrders'
     static final String PO_VIEW = 'PurchaseOrders'
 
-    static final String EMPTY = 'empty'
+//    static final String EMPTY = 'empty'
     static final String ORDERS_VIEW = 'Orders'
     static final String MEALS_VIEW = 'Meals'
     static final String IN_VIEW = 'Ingredients'
@@ -81,7 +85,8 @@ class Main {
         center = new JPanel(cardLayoutCenter)
         subMenu = new JPanel(cardLayoutTop)
 
-        journalSwitchPanel = new JournalSwitchPanel()
+        journalEditPanel = new JournalEditPanel()
+        journalSwitchPanel = new JournalSwitchPanel(journalEditPanel)
         salesOrdersOverViewPanel = new SalesOrdersOverviewPanel()
         purchaseOrdersOverviewPanel = new PurchaseOrdersOverviewPanel()
         ingredientsSwitchViewPanel = new IngredientsSwitchViewPanel()
@@ -95,10 +100,12 @@ class Main {
 
         mealViewSelectorPanel = new MealViewSelectorPanel()
         ordersViewSelectorPanel = new OrdersViewSelectorPanel()
+        journalSelectorPanel = new JournalSelectorPanel(journalEditPanel)
 
-        subMenu.add mealViewSelectorPanel, MEALS_VIEW
+        subMenu.add journalSelectorPanel, JOURNALS_VIEW
         subMenu.add ordersViewSelectorPanel, ORDERS_VIEW
-        subMenu.add(new JPanel(), EMPTY)
+        subMenu.add mealViewSelectorPanel, MEALS_VIEW
+//        subMenu.add(new JPanel(), EMPTY)
 
         JPanel top = new JPanel()
         top.add new MainViewSelectorPanel()
@@ -221,6 +228,7 @@ class Main {
         frame.accounting = accounting
 
         journalSwitchPanel.accounting = accounting
+        journalSelectorPanel.accounting = accounting
         salesOrdersOverViewPanel.accounting = accounting
         purchaseOrdersOverviewPanel.accounting = accounting
         ingredientsSwitchViewPanel.accounting = accounting
@@ -331,7 +339,7 @@ class Main {
     }
 
     static void fireJournalAdded(Journals journals) {
-        journalSwitchPanel.setJournals(journals)
+        journalSelectorPanel.setJournals(journals)
     }
 
     static void fireAccountingTypeChanged(Accounting accounting){
