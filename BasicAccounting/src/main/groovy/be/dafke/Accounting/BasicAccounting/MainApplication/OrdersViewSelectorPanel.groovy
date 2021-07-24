@@ -21,10 +21,10 @@ class OrdersViewSelectorPanel extends JPanel {
         add purchaseOrders
 
         salesOrders.addActionListener( {
-            Main.switchView(Main.SO_VIEW)
+            Main.switchView(Main.SO_CENTER_VIEW)
         })
         purchaseOrders.addActionListener( {
-            Main.switchView(Main.PO_VIEW)
+            Main.switchView(Main.PO_CENTER_VIEW)
         })
     }
 }

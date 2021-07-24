@@ -29,18 +29,18 @@ class MainViewSelectorPanel extends JPanel {
         add contacts
 
         journals.addActionListener( {
-            Main.switchView(Main.JOURNALS_VIEW)
-            Main.switchSubView(Main.JOURNALS_VIEW)
+            Main.switchView(Main.JOURNALS_CENTER_VIEW)
+            Main.switchSubView(Main.JOURNALS_CENTER_VIEW)
         })
         orders.addActionListener( {
-            Main.switchSubView(Main.ORDERS_VIEW)
+            Main.switchSubView(Main.ORDERS_MENU_VIEW)
         })
         contacts.addActionListener( {
-            Main.switchView(Main.CONTACTS_VIEW)
-            Main.switchSubView(Main.EMPTY)
+            Main.switchView(Main.CONTACTS_CENTER_VIEW)
+            Main.switchSubView(Main.EMPTY_MENU_VIEW)
         })
         meals.addActionListener( {
-            Main.switchSubView(Main.MEALS_VIEW)
+            Main.switchSubView(Main.MEALS_MENU_VIEW)
         })
     }
 }

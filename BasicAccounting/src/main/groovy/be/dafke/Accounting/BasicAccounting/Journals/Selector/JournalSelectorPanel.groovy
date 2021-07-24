@@ -1,6 +1,5 @@
 package be.dafke.Accounting.BasicAccounting.Journals.Selector
 
-import be.dafke.Accounting.BasicAccounting.Journals.Edit.JournalEditPanel
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Journal
@@ -21,10 +20,8 @@ class JournalSelectorPanel extends JPanel implements ActionListener{
 
     JComboBox<Journal> combo
     JCheckBox showInput
-    JournalEditPanel journalEditPanel
 
-    JournalSelectorPanel(JournalEditPanel journalEditPanel){
-        this.journalEditPanel = journalEditPanel
+    JournalSelectorPanel(){
         setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("JOURNALS")))
         // this will strech the component
@@ -44,8 +41,12 @@ class JournalSelectorPanel extends JPanel implements ActionListener{
 
     void actionPerformed(ActionEvent ae) {
         Journal newJournal = (Journal) combo.selectedItem
-        Journal journal = journalEditPanel.switchJournal(newJournal)
-        Main.journal = journal
+        if (Main.openTransaction && !Main.isCurrentJournal(newJournal)) {
+            newJournal = Main.askInput(newJournal)
+        }
+        if (!Main.isCurrentJournal(newJournal)) {
+            Main.journal = newJournal
+        }
     }
 
     void setAccounting(Accounting accounting) {

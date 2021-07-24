@@ -69,16 +69,16 @@ class Main {
     static JournalSelectorPanel journalSelectorPanel
     static ContactsPanel contactsPanel
 
-    static final String JOURNALS_VIEW = 'Journals'
-    static final String SO_VIEW = 'SalesOrders'
-    static final String PO_VIEW = 'PurchaseOrders'
-    static final String CONTACTS_VIEW = 'Contacts'
+    static final String JOURNALS_CENTER_VIEW = 'Journals'
+    static final String SO_CENTER_VIEW = 'SalesOrders'
+    static final String PO_CENTER_VIEW = 'PurchaseOrders'
+    static final String INGREDIENTS_CENTER_VIEW = 'Ingredients'
+    static final String ALLERGENES_CENTER_VIEW = 'Allergenes'
+    static final String CONTACTS_CENTER_VIEW = 'Contacts'
 
-    static final String EMPTY = 'empty'
-    static final String ORDERS_VIEW = 'Orders'
-    static final String MEALS_VIEW = 'Meals'
-    static final String IN_VIEW = 'Ingredients'
-    static final String AL_VIEW = 'Allergenes'
+    static final String EMPTY_MENU_VIEW = 'empty'
+    static final String ORDERS_MENU_VIEW = 'Orders'
+    static final String MEALS_MENU_VIEW = 'Meals'
 
     static void main(String[] args) {
         readXmlData()
@@ -96,21 +96,21 @@ class Main {
         allergenesSwitchViewPanel = new AllergenesSwitchViewPanel()
         contactsPanel = new ContactsPanel(Contact.ContactType.ALL)
 
-        center.add journalSwitchPanel, JOURNALS_VIEW
-        center.add salesOrdersOverViewPanel, SO_VIEW
-        center.add purchaseOrdersOverviewPanel, PO_VIEW
-        center.add ingredientsSwitchViewPanel, IN_VIEW
-        center.add allergenesSwitchViewPanel, AL_VIEW
-        center.add contactsPanel, CONTACTS_VIEW
+        center.add journalSwitchPanel, JOURNALS_CENTER_VIEW
+        center.add salesOrdersOverViewPanel, SO_CENTER_VIEW
+        center.add purchaseOrdersOverviewPanel, PO_CENTER_VIEW
+        center.add ingredientsSwitchViewPanel, INGREDIENTS_CENTER_VIEW
+        center.add allergenesSwitchViewPanel, ALLERGENES_CENTER_VIEW
+        center.add contactsPanel, CONTACTS_CENTER_VIEW
 
         mealViewSelectorPanel = new MealViewSelectorPanel()
         ordersViewSelectorPanel = new OrdersViewSelectorPanel()
-        journalSelectorPanel = new JournalSelectorPanel(journalEditPanel)
+        journalSelectorPanel = new JournalSelectorPanel()
 
-        subMenu.add journalSelectorPanel, JOURNALS_VIEW
-        subMenu.add ordersViewSelectorPanel, ORDERS_VIEW
-        subMenu.add mealViewSelectorPanel, MEALS_VIEW
-        subMenu.add(new JPanel(), EMPTY)
+        subMenu.add journalSelectorPanel, JOURNALS_CENTER_VIEW
+        subMenu.add ordersViewSelectorPanel, ORDERS_MENU_VIEW
+        subMenu.add mealViewSelectorPanel, MEALS_MENU_VIEW
+        subMenu.add(new JPanel(), EMPTY_MENU_VIEW)
 
         JPanel top = new JPanel()
         top.add new MainViewSelectorPanel()
@@ -281,6 +281,18 @@ class Main {
 
     static void fireVATFieldsUpdated(/*VATFields vatFields*/){
         VATFieldsGUI.fireVATFieldsUpdated(/*vatFields*/)
+    }
+
+    static boolean isOpenTransaction(){
+        journalEditPanel.openTransaction
+    }
+
+    static boolean isCurrentJournal(Journal journal){
+        journalEditPanel.isCurrentJournal(journal)
+    }
+
+    static Journal askInput(Journal newJournal){
+        journalEditPanel.askInput(newJournal)
     }
 
     static void setJournal(Journal journal) {

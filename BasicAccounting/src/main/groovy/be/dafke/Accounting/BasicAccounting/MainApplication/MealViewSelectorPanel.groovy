@@ -21,10 +21,10 @@ class MealViewSelectorPanel extends JPanel {
         add allergenes
 
         ingredients.addActionListener( {
-            Main.switchView(Main.IN_VIEW)
+            Main.switchView(Main.INGREDIENTS_CENTER_VIEW)
         })
         allergenes.addActionListener( {
-            Main.switchView(Main.AL_VIEW)
+            Main.switchView(Main.ALLERGENES_CENTER_VIEW)
         })
     }
 }
