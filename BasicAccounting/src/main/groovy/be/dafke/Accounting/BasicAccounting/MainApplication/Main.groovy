@@ -54,24 +54,30 @@ class Main {
     static ProjectsMenu projectsMenu
     static CodaMenu codaMenu
     static VATMenu vatMenu
-    static CardLayout cardLayout
-    static JPanel center
+    static CardLayout cardLayoutCenter, cardLayoutTop
+    static JPanel center, subMenu
     static SalesOrdersOverviewPanel salesOrdersOverViewPanel
     static PurchaseOrdersOverviewPanel purchaseOrdersOverviewPanel
     static IngredientsSwitchViewPanel ingredientsSwitchViewPanel
     static AllergenesSwitchViewPanel allergenesSwitchViewPanel
+    static MealViewSelectorPanel mealViewSelectorPanel
 
     static final String JOURNALS_VIEW = 'Journals'
     static final String SO_VIEW = 'SalesOrders'
     static final String PO_VIEW = 'PurchaseOrders'
+
+    static final String EMPTY = 'empty'
+    static final String MEALS_VIEW = 'Meals'
     static final String IN_VIEW = 'Ingredients'
     static final String AL_VIEW = 'Allergenes'
 
     static void main(String[] args) {
         readXmlData()
 
-        cardLayout = new CardLayout()
-        center = new JPanel(cardLayout)
+        cardLayoutCenter = new CardLayout()
+        cardLayoutTop = new CardLayout()
+        center = new JPanel(cardLayoutCenter)
+        subMenu = new JPanel(cardLayoutTop)
 
         journalSwitchPanel = new JournalSwitchPanel()
         salesOrdersOverViewPanel = new SalesOrdersOverviewPanel()
@@ -79,15 +85,23 @@ class Main {
         ingredientsSwitchViewPanel = new IngredientsSwitchViewPanel()
         allergenesSwitchViewPanel = new AllergenesSwitchViewPanel()
 
-
         center.add(journalSwitchPanel, JOURNALS_VIEW)
         center.add(salesOrdersOverViewPanel, SO_VIEW)
         center.add(purchaseOrdersOverviewPanel, PO_VIEW)
         center.add(ingredientsSwitchViewPanel, IN_VIEW)
         center.add(allergenesSwitchViewPanel, AL_VIEW)
 
+        mealViewSelectorPanel = new MealViewSelectorPanel()
+
+        subMenu.add(mealViewSelectorPanel, MEALS_VIEW)
+        subMenu.add(new JPanel(), EMPTY)
+
+        JPanel top = new JPanel()
+        top.add new MainViewSelectorPanel()
+        top.add subMenu
+
         JPanel contentPanel = new JPanel(new BorderLayout())
-        contentPanel.add new MainViewSelectorPanel(), BorderLayout.NORTH
+        contentPanel.add top, BorderLayout.NORTH
         contentPanel.add center, BorderLayout.CENTER
 
         frame = new AccountingGUIFrame("Accounting-all")
@@ -102,8 +116,12 @@ class Main {
         launchFrame()
     }
 
+    static void switchSubView(String view) {
+        cardLayoutTop.show(subMenu, view)
+    }
+
     static void switchView(String view) {
-        cardLayout.show(center, view)
+        cardLayoutCenter.show(center, view)
     }
 
     static void setCloseOperation() {

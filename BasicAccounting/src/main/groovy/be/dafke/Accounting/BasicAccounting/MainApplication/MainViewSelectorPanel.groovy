@@ -7,7 +7,7 @@ import javax.swing.JToggleButton
 
 class MainViewSelectorPanel extends JPanel {
 
-    JToggleButton journals, salesOrders, purchaseOrders, ingredients, allergenes
+    JToggleButton journals, salesOrders, purchaseOrders, meals
 
     ButtonGroup buttonGroup
 
@@ -15,37 +15,35 @@ class MainViewSelectorPanel extends JPanel {
         journals = new JToggleButton('Journals', true)
         salesOrders = new JToggleButton('Sales Orders')
         purchaseOrders = new JToggleButton('Purchase Orders')
-        ingredients = new JToggleButton('Ingredients')
-        allergenes = new JToggleButton('Allergenes')
+        meals = new JToggleButton('Meals')
 
         buttonGroup = new ButtonGroup()
 
         buttonGroup.add journals
         buttonGroup.add salesOrders
         buttonGroup.add purchaseOrders
-        buttonGroup.add ingredients
-        buttonGroup.add allergenes
+        buttonGroup.add meals
 
         add journals
         add salesOrders
         add purchaseOrders
-        add ingredients
-        add allergenes
+        add meals
 
         journals.addActionListener( {
             Main.switchView(Main.JOURNALS_VIEW)
+            Main.switchSubView(Main.EMPTY)
         })
         salesOrders.addActionListener( {
             Main.switchView(Main.SO_VIEW)
+            Main.switchSubView(Main.EMPTY)
         })
         purchaseOrders.addActionListener( {
             Main.switchView(Main.PO_VIEW)
+            Main.switchSubView(Main.EMPTY)
         })
-        ingredients.addActionListener( {
-            Main.switchView(Main.IN_VIEW)
+        meals.addActionListener( {
+            Main.switchSubView(Main.MEALS_VIEW)
         })
-        allergenes.addActionListener( {
-            Main.switchView(Main.AL_VIEW)
-        })
+
     }
 }
