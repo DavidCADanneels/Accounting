@@ -15,7 +15,11 @@ class IngredientsAndAllergenesEditPanel extends JPanel {
 
     IngredientsAndAllergenesEditPanel(Accounting accounting) {
         ingredientsEditPanel = new IngredientsEditPanel(accounting)
-        allergenesEditPanel = new AllergenesEditPanel(accounting.allergenes)
+        allergenesEditPanel = new AllergenesEditPanel()
+        allergenesEditPanel.setAccounting(accounting)
+        // or:
+//        allergenesEditPanel.setAllergenes(accounting.allergenes)
+
 
         setLayout(new BorderLayout())
 
