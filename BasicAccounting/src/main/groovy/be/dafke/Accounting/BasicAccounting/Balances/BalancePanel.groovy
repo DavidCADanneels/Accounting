@@ -3,7 +3,6 @@ package be.dafke.Accounting.BasicAccounting.Balances
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BasicAccounting.MainApplication.PopupForTableActivator
 import be.dafke.Accounting.BusinessModel.Account
-import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Balance
 import be.dafke.ComponentModel.SelectableTable
 
@@ -19,7 +18,7 @@ class BalancePanel extends JPanel {
     BalanceTotalsDataModel balanceTotalsDataModel
     JTable balanceTotalTable
 
-    BalancePanel(Accounting accounting, Balance balance, boolean includeEmpty, boolean showNumbers = false) {
+    BalancePanel(Balance balance, boolean includeEmpty, boolean showNumbers = false) {
         setLayout(new BorderLayout())
         balanceLeftDataModel = new BalanceDataModel(balance, true, includeEmpty, showNumbers)
         balanceRightDataModel = new BalanceDataModel(balance, false, includeEmpty, showNumbers)
@@ -29,7 +28,7 @@ class BalancePanel extends JPanel {
         balanceLeftTable.setPreferredScrollableViewportSize(new Dimension(250, 200))
 //        balanceLeftTable.setRowSorter(null)
 
-        popupLeft = new BalancePopupMenu(accounting, balanceLeftTable)
+        popupLeft = new BalancePopupMenu(balanceLeftTable)
         balanceLeftTable.addMouseListener(PopupForTableActivator.getInstance(popupLeft,balanceLeftTable))
         balanceLeftTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)
 
@@ -41,7 +40,7 @@ class BalancePanel extends JPanel {
         balanceRightTable.setPreferredScrollableViewportSize(new Dimension(250, 200))
 //        balanceRightTable.setRowSorter(null)
 
-        popupRight = new BalancePopupMenu(accounting, balanceRightTable)
+        popupRight = new BalancePopupMenu(balanceRightTable)
         balanceRightTable.addMouseListener(PopupForTableActivator.getInstance(popupRight,balanceRightTable))
         balanceRightTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)
 

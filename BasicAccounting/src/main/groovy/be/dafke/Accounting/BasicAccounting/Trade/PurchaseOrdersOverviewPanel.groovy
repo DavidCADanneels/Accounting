@@ -1,7 +1,6 @@
 package be.dafke.Accounting.BasicAccounting.Trade
 
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
-import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.OrderItem
 import be.dafke.Accounting.BusinessModel.PurchaseOrder
 import be.dafke.ComponentModel.SelectableTable
@@ -36,8 +35,6 @@ class PurchaseOrdersOverviewPanel extends JPanel {
 
         purchaseOrdersDetailPanel = new PurchaseOrdersDetailPanel()
 
-        firePurchaseOrderAddedOrRemoved()
-
         DefaultListSelectionModel selection = new DefaultListSelectionModel()
         selection.addListSelectionListener({ e ->
             if (!e.getValueIsAdjusting()) {
@@ -62,10 +59,6 @@ class PurchaseOrdersOverviewPanel extends JPanel {
         add(purchaseOrdersDetailPanel, BorderLayout.EAST)
     }
 
-    void firePurchaseOrderAddedOrRemoved() {
-        overviewTableModel.fireTableDataChanged()
-    }
-
     void selectOrder(PurchaseOrder purchaseOrder) {
         int row = overviewTableModel.getRow(purchaseOrder)
         if(row!=-1){
@@ -75,9 +68,8 @@ class PurchaseOrdersOverviewPanel extends JPanel {
         }
     }
 
-    void setAccounting(Accounting accounting) {
-        overviewTableModel.accounting = accounting
-//        popup.accounting = accounting
-        purchaseOrdersDetailPanel.accounting = accounting
+    void refresh(){
+        overviewTableModel.fireTableDataChanged()
+        detailsTableModel.fireTableDataChanged()
     }
 }

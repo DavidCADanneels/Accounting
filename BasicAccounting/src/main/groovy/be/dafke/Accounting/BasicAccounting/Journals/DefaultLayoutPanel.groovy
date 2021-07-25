@@ -37,7 +37,7 @@ class DefaultLayoutPanel extends JPanel {
     void setAccounting(Accounting accounting) {
         accountGuiLeft.setAccounting(accounting, true)
         accountGuiRight.setAccounting(accounting, false)
-        mortgagesPanel.setMortgages(accounting ? accounting.mortgages : null)
+        mortgagesPanel.refresh()
     }
 
     void fireShowInputChanged(boolean enabled) {
@@ -90,8 +90,8 @@ class DefaultLayoutPanel extends JPanel {
         }
     }
 
-    void setMortgages(Mortgages mortgages) {
-        mortgagesPanel.setMortgages(mortgages)
+    void refresh() {
+        mortgagesPanel.refresh()
     }
 
     void enableMortgagePayButton(Mortgage mortgage) {

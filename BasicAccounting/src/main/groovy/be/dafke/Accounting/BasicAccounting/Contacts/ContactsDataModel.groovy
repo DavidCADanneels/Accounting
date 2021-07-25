@@ -1,11 +1,11 @@
 package be.dafke.Accounting.BasicAccounting.Contacts
 
-import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BasicAccounting.Trade.StockUtils
 import be.dafke.Accounting.BusinessModel.Account
 import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Contact
 import be.dafke.Accounting.BusinessModel.Contacts
+import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.ComponentModel.SelectableTableModel
 
 import static java.util.ResourceBundle.getBundle
@@ -32,25 +32,11 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
     Contact.ContactType contactType
     HashMap<Integer,String> columnNames = new HashMap<>()
     HashMap<Integer,Class> columnClasses = new HashMap<>()
-    List<Contact> contacts
     ArrayList<Integer> nonEditableColumns = new ArrayList<>()
-    Accounting accounting
 
     ContactsDataModel(Contact.ContactType contactType) {
         this.contactType = contactType
         initialize()
-    }
-
-    void setAccounting(Accounting accounting) {
-        this.accounting = accounting
-        if(contactType == Contact.ContactType.ALL) {
-            this.contacts = accounting.contacts.businessObjects
-        } else if (contactType == Contact.ContactType.CUSTOMERS){
-            this.contacts = accounting.contacts.getBusinessObjects{it.customer}
-        } else if (contactType == Contact.ContactType.SUPPLIERS) {
-            this.contacts = accounting.contacts.getBusinessObjects{it.supplier}
-        }
-//        initialize()
     }
 
     void initialize() {
@@ -108,7 +94,6 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
         nonEditableColumns.add(TURNOVER_COL)
     }
 
-
     void setColumnClasses() {
         columnClasses.put(NAME_COL, String.class)
         columnClasses.put(OFFICIAL_COL, String.class)
@@ -141,11 +126,10 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
         columnNames.put(VAT_TOTAL_COL, getBundle("Contacts").getString("VAT_TOTAL"))
     }
 
-
     // DE GET METHODEN
 // ===============
     Object getValueAt(int row, int col) {
-        Contact contact = contacts.get(row)
+        Contact contact = Session.activeAccounting.contacts.businessObjects.get(row)
         if (col == NAME_COL) {
             return contact.name
         } else if (col == OFFICIAL_COL) {
@@ -181,10 +165,7 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
     }
 
     int getRowCount() {
-        if(contacts == null){
-            return 0
-        }
-        contacts.size()
+        Session.activeAccounting.contacts.businessObjects.size()?:0
     }
 
     @Override
@@ -206,7 +187,8 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
 // ===============
     @Override
     void setValueAt(Object value, int row, int col) {
-        Contact contact = contacts.get(row)
+        Accounting accounting = Session.activeAccounting
+        Contact contact = accounting.contacts.businessObjects.get(row)
         if(isCellEditable(row, col)){
             if(col== CUSTOMER_COL) {
                 Boolean customer = (Boolean) value
@@ -216,7 +198,6 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
                 } else {
                     contact.setCustomerAccount(null)
                 }
-                Main.fireCustomerAddedOrRemoved(accounting)
             } else if(col== SUPPLIER_COL) {
                 Boolean supplier = (Boolean) value
                 if(supplier) {
@@ -225,7 +206,6 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
                 } else {
                     contact.setSupplierAccount(null)
                 }
-                Main.fireSupplierAddedOrRemoved(accounting)
             } else {
                 String stringValue = (String) value
                 if (col == NAME_COL) {
@@ -247,31 +227,24 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
                 } else if (col == EMAIL_COL) {
                     contact.email = stringValue
                 }
-                Main.fireContactDataChanged()
             }
         }
     }
 
-    void setContacts(Contacts contacts) {
+    ArrayList<Contact> filter(Contacts contacts){
         if(contactType == Contact.ContactType.ALL) {
-            this.contacts = contacts.businessObjects
+            contacts.businessObjects
         } else if (contactType == Contact.ContactType.CUSTOMERS){
-            setCustomers(contacts)
+            contacts.getBusinessObjects{it.customer}
         } else if (contactType == Contact.ContactType.SUPPLIERS){
-            setSuppliers(contacts)
+            contacts.getBusinessObjects{it.supplier}
         }
-        fireTableDataChanged()
-    }
-    void setCustomers(Contacts contacts) {
-        this.contacts = contacts.getBusinessObjects{it.customer}
-    }
-    void setSuppliers(Contacts contacts) {
-        this.contacts = contacts.getBusinessObjects{it.supplier}
     }
 
     @Override
     Contact getObject(int row, int col) {
-        contacts.get(row)
+        ArrayList<Contact> list = filter(Session.activeAccounting.contacts)
+        list.get(row)
     }
 
 }

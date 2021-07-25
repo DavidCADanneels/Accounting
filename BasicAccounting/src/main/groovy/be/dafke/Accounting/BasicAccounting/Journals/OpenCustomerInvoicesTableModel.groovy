@@ -3,13 +3,12 @@ package be.dafke.Accounting.BasicAccounting.Journals
 import be.dafke.Accounting.BusinessModel.Contact
 import be.dafke.Accounting.BusinessModel.SalesOrder
 import be.dafke.Accounting.BusinessModel.SalesOrders
+import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.ComponentModel.SelectableTableModel
 
 import static java.util.ResourceBundle.getBundle
 
 class OpenCustomerInvoicesTableModel extends SelectableTableModel<SalesOrder> {
-
-    SalesOrders salesOrders
 
     static int ORDER_NR_COL = 0
     static int CONTACT_NAME_COL = 1
@@ -36,22 +35,22 @@ class OpenCustomerInvoicesTableModel extends SelectableTableModel<SalesOrder> {
         columnNames.put(AMOUNT_COL, getBundle("Accounting").getString("AMOUNT"))
     }
 
-    void setSalesOrders(SalesOrders salesOrders) {
-        this.salesOrders = salesOrders
-    }
+//    void setSalesOrders(SalesOrders salesOrders) {
+////        this.salesOrders = salesOrders
+//    }
 
     List<SalesOrder> getSalesOrders(){
-        salesOrders.getBusinessObjects(SalesOrder.unPayed())
+        Session.activeAccounting.salesOrders.getBusinessObjects(SalesOrder.unPayed())
     }
 
     @Override
     SalesOrder getObject(int row, int col) {
-        salesOrders?getSalesOrders().get(row):null
+        Session.activeAccounting.salesOrders?getSalesOrders().get(row):null
     }
 
     @Override
     int getRowCount() {
-        return salesOrders?getSalesOrders().size():0
+        return Session.activeAccounting.salesOrders?getSalesOrders().size():0
     }
 
     @Override

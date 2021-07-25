@@ -2,6 +2,7 @@ package be.dafke.Accounting.BasicAccounting.Balances
 
 import be.dafke.Accounting.BusinessModel.*
 import be.dafke.Accounting.BusinessModelDao.BalancesIO
+import be.dafke.Accounting.BusinessModelDao.Session
 
 import javax.swing.*
 
@@ -13,7 +14,6 @@ class BalancesMenu extends JMenu {
     Journals journals
     Accounts accounts
     Balances balances
-    Accounting accounting
     AccountTypes accountTypes
 
     BalancesMenu(){
@@ -25,13 +25,12 @@ class BalancesMenu extends JMenu {
             balancesManagementGUI.visible = true
         })
         pdfGeneration = new JMenuItem(getBundle("BusinessModel").getString("GENERATE_PDF"))
-        pdfGeneration.addActionListener({ e -> BalancesIO.writeBalancePdfFiles(accounting) })
+        pdfGeneration.addActionListener({ e -> BalancesIO.writeBalancePdfFiles(Session.activeAccounting) })
         add(manage)
         add(pdfGeneration)
     }
 
     void setAccounting(Accounting accounting) {
-        this.accounting = accounting
         journals = accounting?accounting.journals:null
         accounts = accounting?accounting.accounts:null
         balances = accounting?accounting.balances:null
@@ -47,7 +46,7 @@ class BalancesMenu extends JMenu {
                 String name = balance.name
                 JMenuItem item = new JMenuItem(name)
                 item.addActionListener({ e ->
-                    BalanceGUI balanceGUI = BalanceGUI.getBalance(accounting, balances.getBusinessObject(name))
+                    BalanceGUI balanceGUI = BalanceGUI.getBalance(balances.getBusinessObject(name))
                     balanceGUI.setLocation(getLocationOnScreen())
                     balanceGUI.visible = true
                 })

@@ -31,11 +31,6 @@ class JournalActions {
             Main.fireVATFieldsUpdated(/*vatFields*/)
         }
 
-        Contact contact = transaction.contact
-        if(contact){
-            Main.fireCustomerDataChanged()
-        }
-
         Main.fireJournalDataChanged(journal)
         for (Account account : transaction.accounts) {
             Main.fireAccountDataChanged(account)

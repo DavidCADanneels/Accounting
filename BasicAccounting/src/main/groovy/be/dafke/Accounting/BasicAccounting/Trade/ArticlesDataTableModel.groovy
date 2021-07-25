@@ -2,10 +2,10 @@ package be.dafke.Accounting.BasicAccounting.Trade
 
 import be.dafke.Accounting.BasicAccounting.MainApplication.ActionUtils
 import be.dafke.Accounting.BusinessModel.Article
-import be.dafke.Accounting.BusinessModel.Articles
 import be.dafke.Accounting.BusinessModel.Contact
 import be.dafke.Accounting.BusinessModel.Good
 import be.dafke.Accounting.BusinessModel.Ingredient
+import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException
 import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException
 import be.dafke.ComponentModel.SelectableTableModel
@@ -16,7 +16,6 @@ import java.util.List
 import static java.util.ResourceBundle.getBundle
 
 class ArticlesDataTableModel extends SelectableTableModel<Article> {
-    final Articles articles
     static int UNIT_NAME_COL = 0
     static int INGREDIENT_COL = 1
     static int AMOUNT_COL = 2
@@ -34,9 +33,8 @@ class ArticlesDataTableModel extends SelectableTableModel<Article> {
     HashMap<Integer,Class> columnClasses = new HashMap<>()
     List<Integer> editableColumns = new ArrayList<>()
 
-    ArticlesDataTableModel(Component parent, Articles articles) {
+    ArticlesDataTableModel(Component parent) {
         this.parent = parent
-        this.articles = articles
         setColumnNames()
         setColumnClasses()
         setEditableColumns()
@@ -118,7 +116,7 @@ class ArticlesDataTableModel extends SelectableTableModel<Article> {
     }
 
     int getRowCount() {
-        articles?articles.businessObjects.size():0
+        Session.activeAccounting.articles.businessObjects.size()?:0
     }
 
     @Override
@@ -176,12 +174,11 @@ class ArticlesDataTableModel extends SelectableTableModel<Article> {
             article.setSalesPriceItemWithVat(amount.setScale(2))
         }
         if(col == UNIT_NAME_COL) {
-//            article.setName((String) value)
             String oldName = article.name
             String newName = (String) value
             if (newName != null && !oldName.trim().equals(newName.trim())) {
                 try {
-                    articles.modifyName(oldName, newName)
+                    Session.activeAccounting.articles.modifyName(oldName, newName)
                 } catch (DuplicateNameException e) {
                     ActionUtils.showErrorMessage(parent, ActionUtils.ARTICLE_DUPLICATE_NAME, newName.trim())
                 } catch (EmptyNameException e) {
@@ -194,6 +191,6 @@ class ArticlesDataTableModel extends SelectableTableModel<Article> {
 
     @Override
     Article getObject(int row, int col) {
-        articles.businessObjects.get(row)
+        Session.activeAccounting.articles.businessObjects.get(row)
     }
 }

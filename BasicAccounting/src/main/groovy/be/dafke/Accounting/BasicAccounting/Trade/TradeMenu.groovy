@@ -1,8 +1,6 @@
 package be.dafke.Accounting.BasicAccounting.Trade
 
 import be.dafke.Accounting.BusinessModel.Accounting
-import be.dafke.Accounting.BusinessModel.Articles
-import be.dafke.Accounting.BusinessModel.Contacts
 
 import javax.swing.JMenu
 import javax.swing.JMenuItem
@@ -13,10 +11,6 @@ import static java.util.ResourceBundle.getBundle
 class TradeMenu extends JMenu {
     JMenuItem articlesTable, stockTable, salesOrders, purchaseOrders, promoOrders, ingredientsOrders, stockHistoryTable
 
-    Articles articles
-    Contacts contacts
-    Accounting accounting
-
     TradeMenu() {
         super(getBundle("Accounting").getString("TRADE"))
         setMnemonic(KeyEvent.VK_T)
@@ -24,7 +18,7 @@ class TradeMenu extends JMenu {
         articlesTable = new JMenuItem(getBundle("Accounting").getString("ARTICLES"))
         articlesTable.setMnemonic(KeyEvent.VK_A)
         articlesTable.addActionListener({ e ->
-            ArticlesGUI articlesGUI = ArticlesGUI.showArticles(accounting)
+            ArticlesGUI articlesGUI = ArticlesGUI.showArticles()
             articlesGUI.setLocation(getLocationOnScreen())
             articlesGUI.visible = true
         })
@@ -33,7 +27,7 @@ class TradeMenu extends JMenu {
         stockTable = new JMenuItem(getBundle("Accounting").getString("STOCK"))
         stockTable.setMnemonic(KeyEvent.VK_S)
         stockTable.addActionListener({ e ->
-            StockGUI stockGUI = StockGUI.showStock(accounting)
+            StockGUI stockGUI = StockGUI.showStock()
             stockGUI.setLocation(getLocationOnScreen())
             stockGUI.visible = true
         })
@@ -42,7 +36,7 @@ class TradeMenu extends JMenu {
         stockHistoryTable = new JMenuItem(getBundle("Accounting").getString("STOCK_HISTORY"))
         stockHistoryTable.setMnemonic(KeyEvent.VK_H)
         stockHistoryTable.addActionListener({ e ->
-            StockHistoryGUI stockGUI = StockHistoryGUI.showStockHistory(accounting)
+            StockHistoryGUI stockGUI = StockHistoryGUI.showStockHistory()
             stockGUI.setLocation(getLocationOnScreen())
             stockGUI.visible = true
         })
@@ -51,7 +45,7 @@ class TradeMenu extends JMenu {
         purchaseOrders = new JMenuItem(getBundle("Accounting").getString("POS"))
         purchaseOrders.setMnemonic(KeyEvent.VK_P)
         purchaseOrders.addActionListener({ e ->
-            PurchaseOrdersOverviewGUI purchaseOrdersOverviewGUI = PurchaseOrdersOverviewGUI.showPurchaseOrderGUI(accounting)
+            PurchaseOrdersOverviewGUI purchaseOrdersOverviewGUI = PurchaseOrdersOverviewGUI.showPurchaseOrderGUI()
             purchaseOrdersOverviewGUI.setLocation(getLocationOnScreen())
             purchaseOrdersOverviewGUI.visible = true
         })
@@ -60,7 +54,7 @@ class TradeMenu extends JMenu {
         salesOrders = new JMenuItem(getBundle("Accounting").getString("SOS"))
         salesOrders.setMnemonic(KeyEvent.VK_S)
         salesOrders.addActionListener({ e ->
-            SalesOrdersOverviewGUI salesOrdersGUI = SalesOrdersOverviewGUI.showSalesOrderGUI(accounting)
+            SalesOrdersOverviewGUI salesOrdersGUI = SalesOrdersOverviewGUI.showSalesOrderGUI()
             salesOrdersGUI.setLocation(getLocationOnScreen())
             salesOrdersGUI.visible = true
         })
@@ -69,7 +63,7 @@ class TradeMenu extends JMenu {
         promoOrders = new JMenuItem(getBundle("Accounting").getString("PROMO_ORDERS"))
         promoOrders.setMnemonic(KeyEvent.VK_R)
         promoOrders.addActionListener({ e ->
-            PromoOrdersOverviewGUI promoOrdersGUI = PromoOrdersOverviewGUI.showPromoOrderGUI(accounting)
+            PromoOrdersOverviewGUI promoOrdersGUI = PromoOrdersOverviewGUI.showPromoOrderGUI()
             promoOrdersGUI.setLocation(getLocationOnScreen())
             promoOrdersGUI.visible = true
         })
@@ -78,7 +72,7 @@ class TradeMenu extends JMenu {
         ingredientsOrders = new JMenuItem(getBundle("Accounting").getString("INGREDIENTS_ORDERS"))
         ingredientsOrders.setMnemonic(KeyEvent.VK_I)
         ingredientsOrders.addActionListener({ e ->
-            IngredientOrdersOverviewGUI ingredientOrdersOverviewGUI = IngredientOrdersOverviewGUI.showIngredientOrdersGUI(accounting)
+            IngredientOrdersOverviewGUI ingredientOrdersOverviewGUI = IngredientOrdersOverviewGUI.showIngredientOrdersGUI()
             ingredientOrdersOverviewGUI.setLocation(getLocationOnScreen())
             ingredientOrdersOverviewGUI.visible = true
         })
@@ -94,23 +88,12 @@ class TradeMenu extends JMenu {
     }
 
     void setAccounting(Accounting accounting) {
-        this.accounting = accounting
-        setContacts(accounting?accounting.contacts:null)
-        setArticles(accounting?accounting.articles:null)
+        articlesTable.enabled = accounting?.articles!=null
         stockTable.enabled = accounting!=null
         stockHistoryTable.enabled = accounting!=null
         purchaseOrders.enabled = accounting!=null
         salesOrders.enabled = accounting!=null
         promoOrders.enabled = accounting!=null
         ingredientsOrders.enabled = accounting!=null
-    }
-
-    void setContacts(Contacts contacts) {
-        this.contacts = contacts
-    }
-
-    void setArticles(Articles articles){
-        this.articles = articles
-        articlesTable.enabled = articles!=null
     }
 }

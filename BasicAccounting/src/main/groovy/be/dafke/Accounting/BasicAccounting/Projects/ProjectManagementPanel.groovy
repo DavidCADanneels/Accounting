@@ -52,7 +52,7 @@ class ProjectManagementPanel extends JPanel implements ListSelectionListener {
         //
         JButton addAccount = new JButton("Add Account")
         addAccount.addActionListener({ e ->
-            NewAccountDialog newAccountDialog = new NewAccountDialog(accounting.accounts, accounting.accountTypes.businessObjects)
+            NewAccountDialog newAccountDialog = new NewAccountDialog()
             newAccountDialog.setLocation(getLocationOnScreen())
             newAccountDialog.visible = true
         })
@@ -153,7 +153,6 @@ class ProjectManagementPanel extends JPanel implements ListSelectionListener {
             }
             ((DefaultComboBoxModel<Project>) combo.getModel()).addElement(project)
             (combo.getModel()).setSelectedItem(project)
-            ProjectGUI.refreshAll()
         }
     }
 

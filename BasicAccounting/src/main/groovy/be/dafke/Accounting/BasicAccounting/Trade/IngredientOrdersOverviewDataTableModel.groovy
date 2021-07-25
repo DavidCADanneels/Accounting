@@ -1,8 +1,7 @@
 package be.dafke.Accounting.BasicAccounting.Trade
 
-import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.IngredientOrder
-import be.dafke.Accounting.BusinessModel.IngredientOrders
+import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.ComponentModel.SelectableTableModel
 
 import static java.util.ResourceBundle.getBundle 
@@ -13,8 +12,6 @@ class IngredientOrdersOverviewDataTableModel  extends SelectableTableModel<Ingre
     static int NR_OF_COL = 2
     protected HashMap<Integer,String> columnNames = new HashMap<>()
     protected HashMap<Integer,Class> columnClasses = new HashMap<>()
-
-    IngredientOrders ingredientOrders
 
     IngredientOrdersOverviewDataTableModel() {
         setColumnNames()
@@ -60,7 +57,7 @@ class IngredientOrdersOverviewDataTableModel  extends SelectableTableModel<Ingre
     // DE GET METHODEN
 // ===============
     Object getValueAt(int row, int col) {
-        if (ingredientOrders == null) return null
+        if (Session.activeAccounting.ingredientOrders == null) return null
         IngredientOrder ingredientOrder = getObject(row, col)
         if(ingredientOrder == null) return null
         if (col == ORDER_NR_COL) return ingredientOrder.name
@@ -70,22 +67,13 @@ class IngredientOrdersOverviewDataTableModel  extends SelectableTableModel<Ingre
 
     @Override
     int getRowCount() {
-        ingredientOrders?ingredientOrders.businessObjects.size():0
+        Session.activeAccounting.ingredientOrders?.businessObjects?.size()?:0
     }
 
     @Override
     IngredientOrder getObject(int row, int col) {
-        List<IngredientOrder> businessObjects = ingredientOrders.businessObjects
+        List<IngredientOrder> businessObjects = Session.activeAccounting.ingredientOrders.businessObjects
         if(businessObjects == null || businessObjects.size() == 0) null
         businessObjects.get(row)
-    }
-
-    void setAccounting(Accounting accounting) {
-        setIngredientsOrders(accounting == null ? null : accounting.ingredientOrders)
-    }
-
-    void setIngredientsOrders(IngredientOrders ingredientsOrders){
-        this.ingredientOrders=ingredientsOrders
-        fireTableDataChanged()
     }
 }

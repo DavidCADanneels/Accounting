@@ -2,6 +2,7 @@ package be.dafke.Accounting.BasicAccounting.Projects
 
 
 import be.dafke.Accounting.BusinessModel.Accounting
+import be.dafke.Accounting.BusinessModelDao.Session
 
 import javax.swing.*
 
@@ -9,7 +10,6 @@ import static java.util.ResourceBundle.getBundle
 
 class ProjectsMenu extends JMenu {
     JMenuItem manage, project
-    Accounting accounting
 
     ProjectsMenu() {
         super(getBundle("Projects").getString("PROJECTS"))
@@ -27,19 +27,19 @@ class ProjectsMenu extends JMenu {
     }
 
     void showProjectManagement(){
-        ProjectManagementGUI projectManagementGUI = ProjectManagementGUI.showManager(accounting)
+        ProjectManagementGUI projectManagementGUI = ProjectManagementGUI.showManager(Session.activeAccounting)
         projectManagementGUI.setLocation(getLocationOnScreen())
         projectManagementGUI.visible = true
     }
 
     void showProjects(){
-        ProjectGUI projectGUI = ProjectGUI.showProjects(accounting)
+        ProjectGUI projectGUI = ProjectGUI.showProjects()
         projectGUI.setLocation(getLocationOnScreen())
         projectGUI.visible = true
     }
 
-    void setAccounting(Accounting accounting) {
-        this.accounting = accounting
+    void refresh() {
+        Accounting accounting = Session.activeAccounting
         manage.enabled = accounting&&accounting.projects
         project.enabled = accounting&&accounting.projects
     }

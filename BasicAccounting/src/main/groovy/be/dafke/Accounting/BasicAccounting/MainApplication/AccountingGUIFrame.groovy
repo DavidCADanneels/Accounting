@@ -2,6 +2,7 @@ package be.dafke.Accounting.BasicAccounting.MainApplication
 
 import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Journal
+import be.dafke.Accounting.BusinessModelDao.Session
 
 import javax.swing.*
 
@@ -15,7 +16,8 @@ class AccountingGUIFrame extends JFrame {
         super(title)
     }
 
-    void setAccounting(Accounting accounting){
+    void refresh(){
+        Accounting accounting = Session.activeAccounting
         this.accounting = accounting
         journal = null
         fireDataChanged()

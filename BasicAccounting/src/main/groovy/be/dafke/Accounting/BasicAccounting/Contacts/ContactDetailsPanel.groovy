@@ -1,12 +1,10 @@
 package be.dafke.Accounting.BasicAccounting.Contacts
 
 import be.dafke.Accounting.BasicAccounting.MainApplication.ActionUtils
-import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BasicAccounting.Trade.StockUtils
 import be.dafke.Accounting.BusinessModel.Account
-import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Contact
-import be.dafke.Accounting.BusinessModel.Contacts
+import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException
 import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException
 
@@ -32,8 +30,6 @@ class ContactDetailsPanel extends JPanel {
     final JCheckBox customer, supplier
     final JTextField customerAccountName, supplierAccountName
     final JTextField contactName, contactVAT, contactStreet, contactPostalCode, contactCity, contactCountry, contactPhone, contactEmail, officialName
-    Accounting accounting
-    Contacts contacts
     Contact contact
     boolean newContact
 
@@ -59,13 +55,13 @@ class ContactDetailsPanel extends JPanel {
 
         customer.addActionListener({ e ->
             if (customer.selected && contact) {
-                StockUtils.getCustomerAccount(contact, accounting)
+                StockUtils.getCustomerAccount(contact, Session.activeAccounting)
             }
 
         })
         supplier.addActionListener({ e ->
             if (supplier.selected && contact){
-                StockUtils.getSupplierAccount(contact, accounting)
+                StockUtils.getSupplierAccount(contact, Session.activeAccounting)
             }
         })
 
@@ -93,15 +89,6 @@ class ContactDetailsPanel extends JPanel {
         add(customerAccountName)
         add(new JLabel(getBundle("Contacts").getString(SUPPLIER_LABEL)))
         add(supplierAccountName)
-    }
-
-    void setAccounting(Accounting accounting) {
-        this.accounting = accounting
-        setContacts(accounting?accounting.contacts:null)
-    }
-
-    void setContacts(Contacts contacts) {
-        this.contacts = contacts
     }
 
     void setEnabled(boolean enabled){
@@ -163,8 +150,7 @@ class ContactDetailsPanel extends JPanel {
 //        contact.setSupplier(supplier.selected)
         if(newContact) {
             try {
-                contacts.addBusinessObject(contact)
-                Main.fireContactAdded(accounting, contact)
+                Session.activeAccounting.contacts.addBusinessObject(contact)
             } catch (DuplicateNameException e) {
                 ActionUtils.showErrorMessage(this, ActionUtils.ACCOUNT_DUPLICATE_NAME, name)
             } catch (EmptyNameException e) {

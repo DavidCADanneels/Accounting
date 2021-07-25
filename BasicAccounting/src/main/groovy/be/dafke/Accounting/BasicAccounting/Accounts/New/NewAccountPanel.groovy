@@ -4,7 +4,7 @@ import be.dafke.Accounting.BasicAccounting.MainApplication.ActionUtils
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.Account
 import be.dafke.Accounting.BusinessModel.AccountType
-import be.dafke.Accounting.BusinessModel.Accounts
+import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException
 import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException
 
@@ -17,12 +17,9 @@ class NewAccountPanel extends JPanel {
     JTextField nameField, numberField, defaultAmountField
     JComboBox<AccountType> type
     JButton addButton
-    Accounts accounts
     Account account
 
-    NewAccountPanel(Accounts accounts, ArrayList<AccountType> accountTypes) {
-        this.accounts = accounts
-
+    NewAccountPanel() {
         setLayout(new GridLayout(0,2))
         add(new JLabel(getBundle("Accounting").getString("NAME_LABEL")))
         nameField = new JTextField(20)
@@ -36,7 +33,7 @@ class NewAccountPanel extends JPanel {
         add(new JLabel(getBundle("Accounting").getString("TYPE_LABEL")))
         type = new JComboBox<>()
         DefaultComboBoxModel<AccountType> model = new DefaultComboBoxModel<>()
-        for (AccountType accountType : accountTypes) {
+        for (AccountType accountType : Session.activeAccounting.accountTypes.businessObjects) {
             model.addElement(accountType)
         }
         type.setModel(model)
@@ -61,14 +58,14 @@ class NewAccountPanel extends JPanel {
         try {
             if (account == null) {
                 account = new Account(newName.trim())
-                accounts.addBusinessObject(account)
+                Session.activeAccounting.accounts.addBusinessObject(account)
                 Main.fireAccountDataChanged(account)
                 saveOtherProperties()
                 account = null
                 clearFields()
             } else {
                 String oldName = account.name
-                accounts.modifyName(oldName, newName)
+                Session.activeAccounting.accounts.modifyName(oldName, newName)
                 saveOtherProperties()
             }
         } catch (DuplicateNameException e) {

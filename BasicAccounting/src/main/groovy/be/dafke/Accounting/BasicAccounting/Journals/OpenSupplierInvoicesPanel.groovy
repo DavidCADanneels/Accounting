@@ -2,7 +2,6 @@ package be.dafke.Accounting.BasicAccounting.Journals
 
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountActions
 import be.dafke.Accounting.BusinessModel.Account
-import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.PurchaseOrder
 import be.dafke.ComponentModel.SelectableTable
 
@@ -14,7 +13,6 @@ class OpenSupplierInvoicesPanel extends JPanel {
     final JButton pay, receive
     final SelectableTable<PurchaseOrder> tabel
     OpenSupplierInvoicesTableModel openSupplierInvoicesTableModel
-    Accounting accounting
 
     OpenSupplierInvoicesPanel() {
         openSupplierInvoicesTableModel = new OpenSupplierInvoicesTableModel()
@@ -33,7 +31,7 @@ class OpenSupplierInvoicesPanel extends JPanel {
         pay.addActionListener({ e ->
             PurchaseOrder purchaseOrder = tabel.getSelectedObject()
             if(purchaseOrder) {
-                AccountActions.book selectedAccount, true, null, accounting, this, purchaseOrder
+                AccountActions.book selectedAccount, true, null, this, purchaseOrder
                 // Too early: not booked yet
 //                purchaseOrder.setPurchaseTransaction()
             }
@@ -42,7 +40,7 @@ class OpenSupplierInvoicesPanel extends JPanel {
         receive.addActionListener({ e ->
             PurchaseOrder purchaseOrder = tabel.getSelectedObject()
             if(purchaseOrder) {
-                AccountActions.book selectedAccount, false, null, accounting, this, purchaseOrder
+                AccountActions.book selectedAccount, false, null, this, purchaseOrder
             }
         })
 
@@ -58,20 +56,5 @@ class OpenSupplierInvoicesPanel extends JPanel {
     Account getSelectedAccount(){
         PurchaseOrder purchaseOrder = tabel.getSelectedObject()
         purchaseOrder?purchaseOrder.supplier.supplierAccount:null
-    }
-
-    void fireOrderPayed() {
-        openSupplierInvoicesTableModel.fireTableDataChanged()
-    }
-
-//    BigDecimal getOrderAmount(){
-//        PurchaseOrder purchaseOrder = tabel.getSelectedObject()
-//        if (purchaseOrder == null) return null
-//        purchaseOrder.getTotalPurchasePriceInclVat()
-//    }
-
-    void setAccounting(Accounting accounting) {
-        this.accounting = accounting
-        openSupplierInvoicesTableModel.setPurchaseOrders accounting?accounting.purchaseOrders:null
     }
 }

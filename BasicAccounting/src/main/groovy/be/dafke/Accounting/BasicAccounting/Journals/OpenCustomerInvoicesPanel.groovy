@@ -2,7 +2,6 @@ package be.dafke.Accounting.BasicAccounting.Journals
 
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountActions
 import be.dafke.Accounting.BusinessModel.Account
-import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.SalesOrder
 import be.dafke.ComponentModel.SelectableTable
 
@@ -14,7 +13,6 @@ class OpenCustomerInvoicesPanel extends JPanel {
     final JButton pay, receive
     final SelectableTable<SalesOrder> tabel
     OpenCustomerInvoicesTableModel openCustomerInvoicesTableModel
-    Accounting accounting
 
     OpenCustomerInvoicesPanel() {
         openCustomerInvoicesTableModel = new OpenCustomerInvoicesTableModel()
@@ -33,14 +31,14 @@ class OpenCustomerInvoicesPanel extends JPanel {
         pay.addActionListener({ e ->
             SalesOrder salesOrder = tabel.getSelectedObject()
             if(salesOrder) {
-                AccountActions.book selectedAccount, true, null, accounting, this, salesOrder
+                AccountActions.book selectedAccount, true, null, this, salesOrder
             }
         })
 
         receive.addActionListener({ e ->
             SalesOrder salesOrder = tabel.getSelectedObject()
             if(salesOrder) {
-                AccountActions.book selectedAccount, false, null, accounting, this, salesOrder
+                AccountActions.book selectedAccount, false, null, this, salesOrder
             }
         })
 
@@ -56,20 +54,5 @@ class OpenCustomerInvoicesPanel extends JPanel {
     Account getSelectedAccount(){
         SalesOrder salesOrder = tabel.getSelectedObject()
         salesOrder?salesOrder.customer.customerAccount:null
-    }
-
-    void fireOrderPayed() {
-        openCustomerInvoicesTableModel.fireTableDataChanged()
-    }
-
-//    BigDecimal getOrderAmount(){
-//        SalesOrder salesOrder = tabel.getSelectedObject()
-//        if (salesOrder == null) return null
-//        salesOrder.getTotalSalesPriceInclVat()
-//    }
-
-    void setAccounting(Accounting accounting) {
-        this.accounting = accounting
-        openCustomerInvoicesTableModel.setSalesOrders accounting?accounting.salesOrders:null
     }
 }

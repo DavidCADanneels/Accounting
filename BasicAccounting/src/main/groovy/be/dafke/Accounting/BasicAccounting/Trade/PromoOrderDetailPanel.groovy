@@ -11,6 +11,7 @@ import be.dafke.Accounting.BusinessModel.PromoOrder
 import be.dafke.Accounting.BusinessModel.StockTransactions
 import be.dafke.Accounting.BusinessModel.Transaction
 import be.dafke.Accounting.BusinessModel.Transactions
+import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.Utils.Utils
 
 import javax.swing.BoxLayout
@@ -30,12 +31,11 @@ class PromoOrderDetailPanel extends JPanel {
     JButton createPromoOrder
     JCheckBox delivered, placed
     PromoOrder promoOrder
-    Accounting accounting
 
     PromoOrderDetailPanel() {
         createPromoOrder = new JButton(getBundle("Accounting").getString("CREATE_PR"))
         createPromoOrder.addActionListener({ e ->
-            PromoOrderCreateGUI promoOrderCreateGUI = PromoOrderCreateGUI.showPromoOrderGUI(accounting)
+            PromoOrderCreateGUI promoOrderCreateGUI = PromoOrderCreateGUI.showPromoOrderGUI()
             promoOrderCreateGUI.setLocation(getLocationOnScreen())
             promoOrderCreateGUI.visible = true
         })
@@ -43,7 +43,7 @@ class PromoOrderDetailPanel extends JPanel {
 
         editPromoOrder = new JButton(getBundle("Accounting").getString("EDIT_ORDER"))
         editPromoOrder.addActionListener({ e ->
-            PromoOrderCreateGUI promoOrderCreateGUI = PromoOrderCreateGUI.showPromoOrderGUI(accounting)
+            PromoOrderCreateGUI promoOrderCreateGUI = PromoOrderCreateGUI.showPromoOrderGUI()
             promoOrderCreateGUI.setPromoOrder(promoOrder)
             promoOrderCreateGUI.setLocation(getLocationOnScreen())
             promoOrderCreateGUI.visible = true
@@ -126,25 +126,25 @@ class PromoOrderDetailPanel extends JPanel {
             promoOrder.deliveryDate = Utils.toString(date)
             promoOrder.deliveryDescription = description
         }
-        StockTransactions stockTransactions = accounting.stockTransactions
+        StockTransactions stockTransactions = Session.activeAccounting.stockTransactions
         stockTransactions.addOrder(promoOrder)
 
-        StockGUI.fireStockContentChanged()
-        StockHistoryGUI.fireStockContentChanged()
+//        StockGUI.fireStockContentChanged()
+//        StockHistoryGUI.fireStockContentChanged()
 
         updateButtonsAndCheckBoxes()
     }
 
     void placeOrder() {
         createPromoTransaction()
-        StockHistoryGUI.fireStockContentChanged()
+//        StockHistoryGUI.fireStockContentChanged()
         updateButtonsAndCheckBoxes()
     }
 
     void updateButtonsAndCheckBoxes() {
         Transaction paymentTransaction = promoOrder?.paymentTransaction
 
-        StockTransactions stockTransactions = accounting.stockTransactions
+        StockTransactions stockTransactions = Session.activeAccounting.stockTransactions
         ArrayList<Order> orders = stockTransactions.getOrders()
         boolean orderDelivered = promoOrder && orders.contains(promoOrder)
         boolean toBeDelivered = promoOrder && !orders.contains(promoOrder)
@@ -168,6 +168,7 @@ class PromoOrderDetailPanel extends JPanel {
     }
 
     void createPromoTransaction() {
+        Accounting accounting = Session.activeAccounting
         Transaction transaction = createTransaction()
 
         Account promoCost = StockUtils.getPromoAccount(accounting)
@@ -198,9 +199,4 @@ class PromoOrderDetailPanel extends JPanel {
         this.promoOrder = promoOrder
         updateButtonsAndCheckBoxes()
     }
-
-    void setAccounting(Accounting accounting) {
-        this.accounting = accounting
-    }
-
 }

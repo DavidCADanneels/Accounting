@@ -30,9 +30,14 @@ class JournalSwitchPanel extends JPanel {
         add journalSwitchInputPanel, BorderLayout.WEST
     }
 
-    void setAccounting(Accounting accounting) {
-        journalSwitchViewPanel.accounting = accounting
-        journalSwitchInputPanel.accounting = accounting
+//    void setAccounting(Accounting accounting) {
+////        journalSwitchViewPanel.accounting = accounting
+////        journalSwitchInputPanel.accounting = accounting
+//    }
+
+    void refresh(){
+        journalSwitchViewPanel.refresh()
+        journalSwitchInputPanel.refresh()
     }
 
     void fireShowInputChanged(boolean enabled) {
@@ -82,12 +87,12 @@ class JournalSwitchPanel extends JPanel {
 
     // MORTGAGES
 
-    void fireOrderPayed(){
-        journalSwitchInputPanel.fireOrderPayed()
-    }
+//    void fireOrderPayed(){
+//        journalSwitchInputPanel.fireOrderPayed()
+//    }
 
     void setMortgages(Mortgages mortgages) {
-        journalSwitchInputPanel.setMortgages(mortgages)
+//        journalSwitchInputPanel.setMortgages(mortgages)
     }
 
     void enableMortgagePayButton(Mortgage mortgage) {

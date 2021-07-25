@@ -6,6 +6,7 @@ import be.dafke.Accounting.BasicAccounting.Contacts.ContactDetailsPanel
 import be.dafke.Accounting.BasicAccounting.Journals.Edit.DateAndDescriptionDialog
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.*
+import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.Utils.Utils
 
 import javax.swing.*
@@ -22,7 +23,6 @@ class PurchaseOrdersDetailPanel extends JPanel {
     final JButton createPurchaseOrder
     JCheckBox payed, delivered, placed
     PurchaseOrder purchaseOrder
-    Accounting accounting
     ContactDetailsPanel contactDetailsPanel
 
 
@@ -30,7 +30,7 @@ class PurchaseOrdersDetailPanel extends JPanel {
 
         createPurchaseOrder = new JButton(getBundle("Accounting").getString("CREATE_PO"))
         createPurchaseOrder.addActionListener({ e ->
-            PurchaseOrderCreateGUI purchaseOrderCreateGUI = PurchaseOrderCreateGUI.showPurchaseOrderGUI(accounting)
+            PurchaseOrderCreateGUI purchaseOrderCreateGUI = PurchaseOrderCreateGUI.showPurchaseOrderGUI(Session.activeAccounting)
             purchaseOrderCreateGUI.setLocation(getLocationOnScreen())
             purchaseOrderCreateGUI.visible = true
         })
@@ -118,7 +118,7 @@ class PurchaseOrdersDetailPanel extends JPanel {
     void placeOrder(){
         createPurchaseTransaction()
 
-        StockHistoryGUI.fireStockContentChanged()
+//        StockHistoryGUI.fireStockContentChanged()
 
         updateButtonsAndCheckBoxes()
     }
@@ -136,17 +136,17 @@ class PurchaseOrdersDetailPanel extends JPanel {
         purchaseOrder.deliveryDate = Utils.toString date
         purchaseOrder.deliveryDescription = description
 
-        StockTransactions stockTransactions = accounting.stockTransactions
+        StockTransactions stockTransactions = Session.activeAccounting.stockTransactions
         stockTransactions.addOrder purchaseOrder
 
-        StockGUI.fireStockContentChanged()
-        StockHistoryGUI.fireStockContentChanged()
+//        StockGUI.fireStockContentChanged()
+//        StockHistoryGUI.fireStockContentChanged()
 
         updateButtonsAndCheckBoxes()
     }
 
     void updateButtonsAndCheckBoxes() {
-        StockTransactions stockTransactions = accounting.stockTransactions
+        StockTransactions stockTransactions = Session.activeAccounting.stockTransactions
         ArrayList<Order> orders = stockTransactions.getOrders()
         Transaction purchaseTransaction = purchaseOrder?.purchaseTransaction
         payed.setSelected(purchaseOrder && purchaseOrder.paymentTransaction)
@@ -163,6 +163,8 @@ class PurchaseOrdersDetailPanel extends JPanel {
     }
 
     void createPurchaseTransaction() {
+        Accounting accounting = Session.activeAccounting
+
         DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog()
         dateAndDescriptionDialog.enableDescription(true)
         dateAndDescriptionDialog.description = purchaseOrder.name
@@ -270,23 +272,17 @@ class PurchaseOrdersDetailPanel extends JPanel {
 //        Main.journal = journal
     }
 
-    Account getCostAccount(Service service){
+    static Account getCostAccount(Service service){
         Account result = service.costAccount
         if(result==null) {
-            AccountType accountType = accounting.accountTypes.getBusinessObject(AccountTypes.COST)
+            AccountType accountType = Session.activeAccounting.accountTypes.getBusinessObject(AccountTypes.COST)
             ArrayList<AccountType> list = new ArrayList<>()
             list.add accountType
-            AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.accounts, list, "Select Cost account for Service: ${service.name}")
+            AccountSelectorDialog dialog = new AccountSelectorDialog(Session.activeAccounting.accounts, list, "Select Cost account for Service: ${service.name}")
             dialog.visible = true
             result = dialog.getSelection()
             service.costAccount = result
         }
         result
     }
-
-    void setAccounting(Accounting accounting) {
-        this.accounting = accounting
-        contactDetailsPanel.accounting = accounting
-    }
-
 }

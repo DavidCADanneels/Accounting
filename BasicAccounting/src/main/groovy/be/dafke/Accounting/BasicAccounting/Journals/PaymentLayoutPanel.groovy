@@ -16,7 +16,6 @@ class PaymentLayoutPanel extends JPanel {
 
     OpenCustomerInvoicesPanel openCustomerInvoices
     OpenSupplierInvoicesPanel openSupplierInvoices
-    Accounting accounting
     Journal journal
     JTextField accountNameField
     JTextField saldoField
@@ -50,12 +49,12 @@ class PaymentLayoutPanel extends JPanel {
         accountPanel.add accountReceive
         accountPay.addActionListener({ e ->
             def account = StockUtils.getJournalBaseAccount(journal)
-            AccountActions.book account, false, null, accounting, this
+            AccountActions.book account, false, null, this
             saldoField.setText(journal?.baseAccount?.saldo?.toString())
         })
         accountReceive.addActionListener({ e ->
             def account = StockUtils.getJournalBaseAccount(journal)
-            AccountActions.book account, true, null, accounting, this
+            AccountActions.book account, true, null, this
             saldoField.setText(journal?.baseAccount?.saldo?.toString())
         })
 
@@ -67,10 +66,9 @@ class PaymentLayoutPanel extends JPanel {
     }
 
     void setAccounting(Accounting accounting){
-        this.accounting = accounting
-        mortgagesPanel.setMortgages(accounting?.mortgages)
-        openCustomerInvoices.accounting = accounting
-        openSupplierInvoices.accounting = accounting
+//        mortgagesPanel.setMortgages(accounting?.mortgages)
+//        openCustomerInvoices.accounting = accounting
+//        openSupplierInvoices.accounting = accounting
     }
 
     void setJournal(Journal journal){
@@ -79,10 +77,10 @@ class PaymentLayoutPanel extends JPanel {
         saldoField.setText(journal?.baseAccount?.saldo?.toString())
     }
 
-    void fireOrderPayed() {
-        openCustomerInvoices.fireOrderPayed()
-        openSupplierInvoices.fireOrderPayed()
-    }
+//    void fireOrderPayed() {
+//        openCustomerInvoices.fireOrderPayed()
+//        openSupplierInvoices.fireOrderPayed()
+//    }
 
     void fireShowInputChanged(boolean enabled) {
         mortgagesPanel.visible = enabled
@@ -91,8 +89,8 @@ class PaymentLayoutPanel extends JPanel {
         accountPanel.visible = enabled
     }
 
-    void setMortgages(Mortgages mortgages) {
-        mortgagesPanel.setMortgages(mortgages)
+    void refresh() {
+        mortgagesPanel.refresh()
     }
 
     void enableMortgagePayButton(Mortgage mortgage) {

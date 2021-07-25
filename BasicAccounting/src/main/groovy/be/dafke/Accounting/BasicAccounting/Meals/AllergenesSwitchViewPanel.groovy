@@ -1,6 +1,7 @@
 package be.dafke.Accounting.BasicAccounting.Meals
 
 import be.dafke.Accounting.BusinessModel.Accounting
+import be.dafke.Accounting.BusinessModelDao.Session
 
 import javax.swing.*
 import java.awt.*
@@ -39,7 +40,8 @@ class AllergenesSwitchViewPanel extends JPanel {
         add(switchButton,BorderLayout.NORTH)
     }
 
-    void setAccounting(Accounting accounting){
+    void refresh(){
+        Accounting accounting = Session.activeAccounting
         allergenesViewPanel.allergenes = accounting.allergenes
         allergenesEditPanel.accounting = accounting
     }

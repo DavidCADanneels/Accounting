@@ -40,7 +40,7 @@ class AccountsListConfigPanel extends JPanel {
 
         accountsList = new AccountsList()
         accountTypesFilterPanel = new AccountsListAccountTypesFilterPanel(accountTypes, left)
-        accountSelectorPanel = new AccountsListSingleAccountSelectorPanel(accounts,accountTypes)
+        accountSelectorPanel = new AccountsListSingleAccountSelectorPanel(accounts)
         add(north,BorderLayout.NORTH)
         JPanel center = new JPanel(new BorderLayout())
         center.add(accountSelectorPanel, BorderLayout.NORTH)

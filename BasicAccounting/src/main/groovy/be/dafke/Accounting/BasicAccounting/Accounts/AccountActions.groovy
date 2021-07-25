@@ -5,6 +5,7 @@ import be.dafke.Accounting.BasicAccounting.Contacts.ContactSelectorDialog
 import be.dafke.Accounting.BasicAccounting.MainApplication.ActionUtils
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.*
+import be.dafke.Accounting.BusinessModelDao.Session
 
 import javax.swing.*
 import java.awt.*
@@ -19,7 +20,8 @@ class AccountActions {
     static final String SELECT_TAX_DEBIT_CN_ACCOUNT = "Select VAT Account for Sales CN's"
 
     // TODO: return Transaction ? (or Booking only?) or both in a map ?
-    static void book(Account account, boolean debit, VATTransaction.VATType vatType, Accounting accounting, Component component, Order order = null) { //BigDecimal amount = null, Order order = null){
+    static void book(Account account, boolean debit, VATTransaction.VATType vatType, Component component, Order order = null) { //BigDecimal amount = null, Order order = null){
+        Accounting accounting = Session.activeAccounting
         if (account == null) return
         Transaction transaction = Main.transaction
         BigDecimal amount = null
@@ -42,7 +44,7 @@ class AccountActions {
             if (vatType == VATTransaction.VATType.PURCHASE) {
                 purchaseAny(booking, accounting, component)
             } else if (vatType == VATTransaction.VATType.CUSTOMER) {
-                Contact contact = getContact(account, accounting, Contact.ContactType.CUSTOMERS, component)
+                Contact contact = getContact(account, Contact.ContactType.CUSTOMERS, component)
                 transaction.contact = contact
             } else if (vatType == VATTransaction.VATType.SALE) {
                 saleAny(transaction, booking, accounting, component)
@@ -389,12 +391,12 @@ class AccountActions {
         creditCNAccount
     }
 
-    static Contact getContact(Account account, Accounting accounting, Contact.ContactType contactType, Component component){
+    static Contact getContact(Account account, Contact.ContactType contactType, Component component){
         Contact contact = account.contact
         if(contact){
             contact
         } else {
-            ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(accounting, contactType)
+            ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(contactType)
             contactSelectorDialog.setLocation(component.getLocationOnScreen())
             contactSelectorDialog.visible = true
             contact = contactSelectorDialog.getSelection()

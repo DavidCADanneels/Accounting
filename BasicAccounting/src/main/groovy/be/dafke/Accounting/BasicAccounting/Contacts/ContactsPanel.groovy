@@ -2,8 +2,8 @@ package be.dafke.Accounting.BasicAccounting.Contacts
 
 import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Contact
-import be.dafke.Accounting.BusinessModel.Contacts
 import be.dafke.Accounting.BusinessModelDao.LabelWriter
+import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.Accounting.BusinessModelDao.VATWriter
 
 import javax.swing.*
@@ -17,8 +17,6 @@ import static java.awt.BorderLayout.SOUTH
 import static java.util.ResourceBundle.getBundle
 
 class ContactsPanel extends JPanel implements ListSelectionListener {
-    Contacts contacts
-    Accounting accounting
 
     JTable table
     ContactsDataModel contactsDataModel
@@ -27,7 +25,7 @@ class ContactsPanel extends JPanel implements ListSelectionListener {
     ContactsPanel(Contact.ContactType contactType) {
         JButton create = new JButton(getBundle("Contacts").getString("NEW_CONTACT"))
         create.addActionListener({ e ->
-            NewContactDialog newContactDialog = new NewContactDialog(accounting)
+            NewContactDialog newContactDialog = new NewContactDialog()
             newContactDialog.setLocation(getLocationOnScreen())
             newContactDialog.visible = true
         })
@@ -43,7 +41,7 @@ class ContactsPanel extends JPanel implements ListSelectionListener {
             int selectedRow = table.getSelectedRow()
             if (selectedRow != -1) {
                 Contact contact = contactsDataModel.getObject(selectedRow, 0)
-                NewContactDialog newContactDialog = new NewContactDialog(accounting)
+                NewContactDialog newContactDialog = new NewContactDialog()
                 newContactDialog.setContact(contact)
                 newContactDialog.visible = true
             }
@@ -70,19 +68,12 @@ class ContactsPanel extends JPanel implements ListSelectionListener {
         add(south, SOUTH)
     }
 
-    void setAccounting(Accounting accounting) {
-        this.accounting = accounting
-        contacts = accounting.contacts
-        contactsDataModel.accounting = accounting
-    }
-
-    void printCustomerLabels(){
-        Accounting accounting = contacts.accounting
-        LabelWriter.printLabels(accounting)
+    static void printCustomerLabels(){
+        LabelWriter.printLabels(Session.activeAccounting)
     }
 
     void createCustomerListing() {
-        Accounting accounting = contacts.accounting
+        Accounting accounting = Session.activeAccounting
         Contact companyContact = accounting.getCompanyContact()
         if (companyContact == null) {
             setCompanyContact(accounting)
@@ -94,24 +85,20 @@ class ContactsPanel extends JPanel implements ListSelectionListener {
         if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile()
 
-            VATWriter.writeCustomerListing(selectedFile, year, companyContact, contacts)
+            VATWriter.writeCustomerListing(selectedFile, year, companyContact, accounting.contacts)
         }
     }
 
     static void setCompanyContact(Accounting accounting){
         // TODO: replace companyContact by Contact of type 'OWN'
-        ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(accounting, Contact.ContactType.ALL)
+        ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(Contact.ContactType.ALL)
         contactSelectorDialog.visible = true
         Contact companyContact = contactSelectorDialog.selection
         accounting.companyContact = companyContact
     }
 
-    void fireTableUpdate(){
+    void refresh(){
         contactsDataModel.fireTableDataChanged()
-    }
-
-    void setContacts(){
-        contactsDataModel.contacts = contacts
     }
 
     @Override

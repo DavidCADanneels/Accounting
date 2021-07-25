@@ -57,7 +57,6 @@ class IngredientOrderCreatePanel extends JPanel {
                 ingredientOrder = new IngredientOrder()
                 ingredientOrder.setIngredients(ingredients)
                 ingredientOrderCreateDataTableModel.setOrder(ingredientOrder)
-                SalesOrdersOverviewGUI.fireSalesOrderAddedOrRemovedForAccounting(accounting)
             } catch (EmptyNameException | DuplicateNameException e1) {
                 e1.printStackTrace()
             }

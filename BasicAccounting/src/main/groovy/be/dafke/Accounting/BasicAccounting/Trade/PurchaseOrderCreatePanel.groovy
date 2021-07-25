@@ -75,7 +75,7 @@ class PurchaseOrderCreatePanel extends JPanel {
             purchaseOrder.articles = articles
             purchaseOrderCreateDataTableModel.order = purchaseOrder
             // TODO: pass view panel and call directly
-            PurchaseOrdersOverviewGUI.firePurchaseOrderAddedOrRemovedForAccounting accounting
+//            PurchaseOrdersOverviewGUI.firePurchaseOrderAddedOrRemovedForAccounting accounting
             totalsPanel.fireOrderContentChanged purchaseOrder
         } catch (EmptyNameException e1) {
             e1.printStackTrace()
@@ -84,9 +84,9 @@ class PurchaseOrderCreatePanel extends JPanel {
         }
     }
 
-    void fireSupplierAddedOrRemoved() {
-        comboBox.removeAllItems()
-        contacts.getBusinessObjects(filter).forEach({ contact -> comboBox.addItem(contact) })
-//        purchaseOrderDataTableModel.fireTableDataChanged()
-    }
+//    void fireSupplierAddedOrRemoved() {
+//        comboBox.removeAllItems()
+//        contacts.getBusinessObjects(filter).forEach({ contact -> comboBox.addItem(contact) })
+////        purchaseOrderDataTableModel.fireTableDataChanged()
+//    }
 }

@@ -10,7 +10,7 @@ import static java.util.ResourceBundle.getBundle
 class SalesOrdersOverviewGUI extends JFrame {
     final SalesOrdersOverviewPanel ordersOverViewPanel
 
-    static HashMap<Accounting,SalesOrdersOverviewGUI> map = new HashMap<>()
+    static SalesOrdersOverviewGUI gui = null
 
     SalesOrdersOverviewGUI(){
         super(getBundle("Accounting").getString("SO_OVERVIEW"))
@@ -19,29 +19,11 @@ class SalesOrdersOverviewGUI extends JFrame {
         pack()
     }
 
-    static SalesOrdersOverviewGUI showSalesOrderGUI(Accounting accounting) {
-        SalesOrdersOverviewGUI gui = map.get(accounting)
+    static SalesOrdersOverviewGUI showSalesOrderGUI() {
         if (gui == null) {
             gui = new SalesOrdersOverviewGUI()
-            gui.accounting = accounting
-            map.put(accounting, gui)
             Main.addFrame(gui)
         }
         gui
-    }
-
-    void setAccounting(Accounting accounting) {
-        ordersOverViewPanel.accounting = accounting
-    }
-
-    static void fireSalesOrderAddedOrRemovedForAccounting(Accounting accounting){
-        SalesOrdersOverviewGUI gui = map.get(accounting)
-        if (gui){
-            gui.fireSalesOrderAddedOrRemoved()
-        }
-    }
-
-    void fireSalesOrderAddedOrRemoved() {
-        ordersOverViewPanel.fireSalesOrderAddedOrRemoved()
     }
 }

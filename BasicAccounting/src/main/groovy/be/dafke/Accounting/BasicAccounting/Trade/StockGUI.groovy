@@ -12,28 +12,18 @@ class StockGUI extends JFrame {
 
     static StockGUI gui = null
 
-    StockGUI(Accounting accounting) {
+    StockGUI() {
         super(getBundle("Accounting").getString("STOCK"))
-        stockPanel = new StockPanel(accounting)
+        stockPanel = new StockPanel()
         setContentPane(stockPanel)
         pack()
     }
 
-    static StockGUI showStock(Accounting accounting) {
+    static StockGUI showStock() {
         if (gui == null) {
-            gui = new StockGUI(accounting)
+            gui = new StockGUI()
             Main.addFrame(gui)
         }
         gui
-    }
-
-    static void fireStockContentChanged(){
-        if(gui){
-            gui.updateStockContent()
-        }
-    }
-
-    void updateStockContent() {
-        stockPanel.fireStockContentChanged()
     }
 }

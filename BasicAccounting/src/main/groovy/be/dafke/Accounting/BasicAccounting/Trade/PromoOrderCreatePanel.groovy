@@ -5,6 +5,7 @@ import be.dafke.Accounting.BusinessModel.Articles
 import be.dafke.Accounting.BusinessModel.OrderItem
 import be.dafke.Accounting.BusinessModel.PromoOrder
 import be.dafke.Accounting.BusinessModel.PromoOrders
+import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException
 import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException
 import be.dafke.ComponentModel.SelectableTable
@@ -17,17 +18,14 @@ import java.awt.Dimension
 
 class PromoOrderCreatePanel extends JPanel {
     PromoOrder promoOrder
-    Articles articles
     final PromoOrderCreateDataTableModel promoOrderCreateDataTableModel
 
-    PromoOrderCreatePanel(Accounting accounting) {
-
-        this.articles = accounting.articles
+    PromoOrderCreatePanel() {
         promoOrder = new PromoOrder()
-        promoOrder.articles = this.articles
+        promoOrder.articles = Session.activeAccounting.articles
 
         TotalsPanel totalsPanel = new TotalsPanel()
-        promoOrderCreateDataTableModel = new PromoOrderCreateDataTableModel(accounting, promoOrder, totalsPanel)
+        promoOrderCreateDataTableModel = new PromoOrderCreateDataTableModel(promoOrder, totalsPanel)
         SelectableTable<OrderItem> table = new SelectableTable<>(promoOrderCreateDataTableModel)
         table.setPreferredScrollableViewportSize(new Dimension(1000, 400))
 
@@ -36,17 +34,17 @@ class PromoOrderCreatePanel extends JPanel {
 
         JButton orderButton = new JButton("Add Promo Order")
         orderButton.addActionListener({ e ->
-            PromoOrders promoOrders = accounting.promoOrders
+            PromoOrders promoOrders = Session.activeAccounting.promoOrders
 
             try {
                 promoOrder.removeEmptyOrderItems()
 
                 promoOrders.addBusinessObject promoOrder
                 promoOrder = new PromoOrder()
-                promoOrder.articles = this.articles
+                promoOrder.articles = Session.activeAccounting.articles
                 promoOrderCreateDataTableModel.order = promoOrder
                 totalsPanel.fireOrderContentChanged promoOrder
-                PromoOrdersOverviewGUI.firePromoOrderAddedOrRemovedForAccounting accounting
+//                PromoOrdersOverviewGUI.firePromoOrderAddedOrRemovedForAccounting accounting
             } catch (EmptyNameException e1) {
                 e1.printStackTrace()
             } catch (DuplicateNameException e1) {

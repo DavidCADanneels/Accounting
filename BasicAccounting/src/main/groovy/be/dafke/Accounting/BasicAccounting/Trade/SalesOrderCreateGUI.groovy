@@ -37,18 +37,18 @@ class SalesOrderCreateGUI extends JFrame {
         salesEditCreateGui
     }
 
-    static void fireCustomerAddedOrRemovedForAll() {
-        if(salesOrderCreateGui){
-            salesOrderCreateGui.fireCustomerAddedOrRemoved()
-        }
-        if(salesEditCreateGui){
-            salesEditCreateGui.fireCustomerAddedOrRemoved()
-        }
-    }
+//    static void fireCustomerAddedOrRemovedForAll() {
+//        if(salesOrderCreateGui){
+//            salesOrderCreateGui.fireCustomerAddedOrRemoved()
+//        }
+//        if(salesEditCreateGui){
+//            salesEditCreateGui.fireCustomerAddedOrRemoved()
+//        }
+//    }
 
-    void fireCustomerAddedOrRemoved() {
-        orderPanel.fireCustomerAddedOrRemoved()
-    }
+//    void fireCustomerAddedOrRemoved() {
+////        orderPanel.fireCustomerAddedOrRemoved()
+//    }
 
     void setSalesOrder(SalesOrder salesOrder) {
         orderPanel.setSalesOrder(salesOrder)

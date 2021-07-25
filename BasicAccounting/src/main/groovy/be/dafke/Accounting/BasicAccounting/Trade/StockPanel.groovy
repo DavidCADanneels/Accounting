@@ -20,8 +20,8 @@ class StockPanel extends JPanel {
     final SelectableTable<Article> table
     final StockDataTableModel stockDataTableModel
 
-    StockPanel(Accounting accounting) {
-        stockDataTableModel = new StockDataTableModel(accounting)
+    StockPanel() {
+        stockDataTableModel = new StockDataTableModel()
         table = new SelectableTable<>(stockDataTableModel)
         table.setPreferredScrollableViewportSize(new Dimension(1000, 400))
         JScrollPane scrollPane = new JScrollPane(table)
@@ -30,14 +30,14 @@ class StockPanel extends JPanel {
 
         viewPurchaseOrder = new JButton(getBundle("Accounting").getString("VIEW_PO"))
         viewPurchaseOrder.addActionListener({ e ->
-            PurchaseOrdersOverviewGUI purchaseOrdersViewGUI = PurchaseOrdersOverviewGUI.showPurchaseOrderGUI(accounting)
+            PurchaseOrdersOverviewGUI purchaseOrdersViewGUI = PurchaseOrdersOverviewGUI.showPurchaseOrderGUI()
             purchaseOrdersViewGUI.setLocation(getLocationOnScreen())
             purchaseOrdersViewGUI.visible = true
         })
 
         viewSalesOrder = new JButton(getBundle("Accounting").getString("VIEW_SO"))
         viewSalesOrder.addActionListener({ e ->
-            SalesOrdersOverviewGUI salesOrdersViewGUI = SalesOrdersOverviewGUI.showSalesOrderGUI(accounting)
+            SalesOrdersOverviewGUI salesOrdersViewGUI = SalesOrdersOverviewGUI.showSalesOrderGUI()
             salesOrdersViewGUI.setLocation(getLocationOnScreen())
             salesOrdersViewGUI.visible = true
         })
@@ -66,9 +66,5 @@ class StockPanel extends JPanel {
         panel.add(viewPurchaseOrder)
         panel.add(viewSalesOrder)
         panel
-    }
-
-    void fireStockContentChanged(){
-        stockDataTableModel.fireTableDataChanged()
     }
 }

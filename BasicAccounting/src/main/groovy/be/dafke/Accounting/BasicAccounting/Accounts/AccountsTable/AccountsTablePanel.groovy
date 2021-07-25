@@ -87,8 +87,7 @@ class AccountsTablePanel extends JPanel {
 
     void addAccount(){
         popup.visible = false
-        ArrayList<AccountType> accountTypes = accountsList.accountTypes
-        NewAccountDialog newAccountDialog = new NewAccountDialog(accounting.accounts, accountTypes)
+        NewAccountDialog newAccountDialog = new NewAccountDialog()
         newAccountDialog.setLocation(getLocation())
         newAccountDialog.visible = true
     }
@@ -97,8 +96,7 @@ class AccountsTablePanel extends JPanel {
         popup.visible = false
         Account account = table.selectedObject
         if(account) {
-            ArrayList<AccountType> accountTypes = accountsList.accountTypes
-            NewAccountDialog newAccountDialog = new NewAccountDialog(accounting.accounts, accountTypes)
+            NewAccountDialog newAccountDialog = new NewAccountDialog()
             newAccountDialog.account = account
             newAccountDialog.visible = true
         }
@@ -183,7 +181,7 @@ class AccountsTablePanel extends JPanel {
     void book(boolean debit) {
         popup.visible = false
         for(Account account : table.selectedObjects){
-            AccountActions.book account, debit, vatType, accounting, this
+            AccountActions.book account, debit, vatType, this
         }
     }
 

@@ -6,6 +6,7 @@ import be.dafke.Accounting.BasicAccounting.Journals.New.NewJournalDialog
 import be.dafke.Accounting.BasicAccounting.Journals.View.SingleView.JournalDetailsGUI
 import be.dafke.Accounting.BusinessModel.*
 import be.dafke.Accounting.BusinessModelDao.JournalsIO
+import be.dafke.Accounting.BusinessModelDao.Session
 
 import javax.swing.*
 import java.awt.*
@@ -20,8 +21,6 @@ class JournalsMenu extends JMenu {
     JournalTypes journalTypes
     Accounts accounts
     AccountTypes accountTypes
-//    JournalEditPanel journalEditPanel
-    Transactions transactions
 
     JournalsMenu() {
         super(getBundle("Accounting").getString("JOURNALS"))
@@ -30,7 +29,7 @@ class JournalsMenu extends JMenu {
         add = new JMenuItem(getBundle("Accounting").getString("ADD_JOURNAL"))
         add.addActionListener({ e ->
             Point locationOnScreen = getLocationOnScreen()
-            NewJournalDialog newJournalDialog = new NewJournalDialog(accounts, journals, journalTypes, accountTypes)
+            NewJournalDialog newJournalDialog = new NewJournalDialog(Session.activeAccounting.accounts, Session.activeAccounting.journals, Session.activeAccounting.journalTypes, Session.activeAccounting.accountTypes)
             newJournalDialog.setLocation(locationOnScreen)
             newJournalDialog.visible = true
         })
@@ -67,7 +66,7 @@ class JournalsMenu extends JMenu {
     void setAccounting(Accounting accounting) {
         this.accounting = accounting
         setJournals(accounting?accounting.journals:null)
-        transactions = accounting?accounting.transactions:null
+//        transactions = accounting?accounting.transactions:null
         journalTypes = accounting?accounting.journalTypes:null
         accountTypes = accounting?accounting.accountTypes:null
         accounts = accounting?accounting.accounts:null
@@ -106,7 +105,7 @@ class JournalsMenu extends JMenu {
             // (or use BusinessCollection<Transaction> iso Journal in JournalDetailsGUI)
             master.addActionListener({ e ->
                 Point locationOnScreen = getLocationOnScreen()
-                JournalDetailsGUI.getJournalDetails locationOnScreen, transactions
+                JournalDetailsGUI.getJournalDetails locationOnScreen, Session.activeAccounting.transactions
             })
             add(master)
         }

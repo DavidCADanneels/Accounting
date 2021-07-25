@@ -1,25 +1,22 @@
 package be.dafke.Accounting.BasicAccounting.Trade
 
-import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Article
 import be.dafke.Accounting.BusinessModel.OrderItem
 import be.dafke.Accounting.BusinessModel.PromoOrder
-import be.dafke.Accounting.BusinessModel.StockTransactions
+import be.dafke.Accounting.BusinessModelDao.Session
 
 class PromoOrderCreateDataTableModel extends PromoOrderViewDataTableModel {
-    final StockTransactions stockTransactions
     TotalsPanel totalsPanel
 
-    PromoOrderCreateDataTableModel(Accounting accounting, PromoOrder order, TotalsPanel totalsPanel) {
+    PromoOrderCreateDataTableModel(PromoOrder order, TotalsPanel totalsPanel) {
         super()
-        stockTransactions = accounting.stockTransactions
         this.totalsPanel = totalsPanel
         this.order = order
     }
 
 
     int getRowCount() {
-        stockTransactions.stock.keySet().size()
+        Session.activeAccounting.stockTransactions.stock.keySet().size()
     }
 
     @Override
@@ -46,7 +43,7 @@ class PromoOrderCreateDataTableModel extends PromoOrderViewDataTableModel {
 
     @Override
     OrderItem getObject(int row, int col) {
-        List<Article> articleList = stockTransactions.stock.keySet().collect()
+        List<Article> articleList = Session.activeAccounting.stockTransactions.stock.keySet().collect()
         if(articleList == null) return null
         Article article = articleList.get(row)
         order.getBusinessObject(article.name)

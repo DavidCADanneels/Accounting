@@ -27,13 +27,13 @@ class PurchaseOrderCreateGUI extends JFrame {
         purchaseOrderCreateGui
     }
 
-    static void fireSupplierAddedOrRemovedForAll() {
-        if (purchaseOrderCreateGui != null) {
-            purchaseOrderCreateGui.fireSupplierAddedOrRemoved()
-        }
-    }
+//    static void fireSupplierAddedOrRemovedForAll() {
+//        if (purchaseOrderCreateGui != null) {
+//            purchaseOrderCreateGui.fireSupplierAddedOrRemoved()
+//        }
+//    }
 
-    void fireSupplierAddedOrRemoved() {
-        orderPanel.fireSupplierAddedOrRemoved()
-    }
+//    void fireSupplierAddedOrRemoved() {
+//        orderPanel.fireSupplierAddedOrRemoved()
+//    }
 }

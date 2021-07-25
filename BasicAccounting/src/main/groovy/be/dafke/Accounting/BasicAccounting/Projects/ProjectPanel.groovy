@@ -6,6 +6,7 @@ import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Booking
 import be.dafke.Accounting.BusinessModel.Project
 import be.dafke.Accounting.BusinessModel.Projects
+import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.ComponentModel.SelectableTable
 
 import javax.swing.*
@@ -23,12 +24,8 @@ class ProjectPanel extends JPanel implements ActionListener{
     Project project
     JournalDetailsDataModel journalDetailsDataModel
     BalancePanel resultBalance, relationsBalance
-    Projects projects
-    Accounting accounting
 
-    ProjectPanel(Accounting accounting) {
-        this.accounting = accounting
-        projects = accounting.projects
+    ProjectPanel() {
         setLayout(new BorderLayout())
 
         JPanel noord = new JPanel()
@@ -38,7 +35,7 @@ class ProjectPanel extends JPanel implements ActionListener{
         //
         manage = new JButton(getBundle("Projects").getString("PROJECTMANAGER"))
         manage.addActionListener({ e ->
-            ProjectManagementGUI projectManagementGUI = ProjectManagementGUI.showManager(accounting)
+            ProjectManagementGUI projectManagementGUI = ProjectManagementGUI.showManager(Session.activeAccounting)
             projectManagementGUI.setLocation(getLocationOnScreen())
             projectManagementGUI.visible = true
         })
@@ -48,17 +45,17 @@ class ProjectPanel extends JPanel implements ActionListener{
         add(noord, BorderLayout.NORTH)
 
 //        Projects projects1 = accounting.projects
-        ArrayList<Project> projects = projects.getBusinessObjects()
+        ArrayList<Project> projects = Session.activeAccounting.projects.getBusinessObjects()
         if(projects.isEmpty()){
-            project = new Project('all', accounting.accounts, accounting.accountTypes)
+            project = new Project('all', Session.activeAccounting.accounts, Session.activeAccounting.accountTypes)
         } else {
             project = projects[0]
         }
 //------------------------------------------------------------------------------------------
-        resultBalance = new BalancePanel(accounting, project.resultBalance, true, false)
+        resultBalance = new BalancePanel(project.resultBalance, true, false)
         resultBalance.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle("BusinessModel").getString("RESULTBALANCE")))
 //------------------------------------------------------------------------------------------
-        relationsBalance = new BalancePanel(accounting, project.relationsBalance, true, false)
+        relationsBalance = new BalancePanel(project.relationsBalance, true, false)
         relationsBalance.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle("BusinessModel").getString("RELATIONSBALANCE")))
 //------------------------------------------------------------------------------------------
         JScrollPane transactionsPanel = createTransactionsPanel()
@@ -91,12 +88,12 @@ class ProjectPanel extends JPanel implements ActionListener{
     void refresh() {
         combo.removeActionListener(this)
         combo.removeAllItems()
-        for(Project project : projects.businessObjects) {
+        for(Project project : Session.activeAccounting.projects.businessObjects) {
             ((DefaultComboBoxModel<Project>) combo.getModel()).addElement(project)
         }
 //        combo.addActionListener(this)
-        if (!projects.businessObjects.isEmpty()) {
-            if(project==null) project = projects.businessObjects.get(0)
+        if (!Session.activeAccounting.projects.businessObjects.isEmpty()) {
+            if(project==null) project = Session.activeAccounting.projects.businessObjects.get(0)
             combo.setSelectedItem(project)
         }
         combo.addActionListener(this)

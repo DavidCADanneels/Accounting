@@ -12,11 +12,10 @@ class NewContactDialog extends RefreshableDialog {
     final JButton addButton
     final ContactDetailsPanel contactDetailsPanel
 
-    NewContactDialog(Accounting accounting) {
+    NewContactDialog() {
         super(getBundle("Contacts").getString("NEW_CONTACT_GUI_TITLE"))
 
         contactDetailsPanel = new ContactDetailsPanel()
-        contactDetailsPanel.accounting = accounting
 
         addButton = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_CONTACT"))
         addButton.addActionListener({ e -> contactDetailsPanel.saveAccount() })

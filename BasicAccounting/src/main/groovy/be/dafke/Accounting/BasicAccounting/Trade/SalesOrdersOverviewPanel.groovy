@@ -2,7 +2,6 @@ package be.dafke.Accounting.BasicAccounting.Trade
 
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BasicAccounting.MainApplication.PopupForTableActivator
-import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Contact
 import be.dafke.Accounting.BusinessModel.OrderItem
 import be.dafke.Accounting.BusinessModel.SalesOrder
@@ -30,7 +29,7 @@ class SalesOrdersOverviewPanel extends JPanel {
     final SalesOrderDetailsPopupMenu popup
     boolean multiSelection
 
-    SalesOrdersOverviewPanel(){
+    SalesOrdersOverviewPanel() {
         overviewTableModel = new SalesOrdersOverviewDataTableModel()
         overviewTable = new SelectableTable<>(overviewTableModel)
         overviewTable.setPreferredScrollableViewportSize(new Dimension(1000, 400))
@@ -46,12 +45,10 @@ class SalesOrdersOverviewPanel extends JPanel {
         detailsTable.setPreferredScrollableViewportSize(new Dimension(1000, 200))
         //
         popup = new SalesOrderDetailsPopupMenu(detailsTable)
-        detailsTable.addMouseListener(PopupForTableActivator.getInstance(popup,detailsTable))
+        detailsTable.addMouseListener(PopupForTableActivator.getInstance(popup, detailsTable))
 
         totalsPanel = new TotalsPanel()
         salesOrderDetailPanel = new SalesOrderDetailPanel()
-
-        fireSalesOrderAddedOrRemoved()
 
         DefaultListSelectionModel selectionModel = new DefaultListSelectionModel()
         selectionModel.addListSelectionListener({ e ->
@@ -76,7 +73,7 @@ class SalesOrdersOverviewPanel extends JPanel {
     }
 
     void updateSelection() {
-        if(multiSelection) {
+        if (multiSelection) {
             ArrayList<SalesOrder> selectedObjects = overviewTable.selectedObjects
             SalesOrder combinedOrder = SalesOrders.mergeOrders(selectedObjects)
             detailsTableModel.setOrder(combinedOrder)
@@ -138,13 +135,8 @@ class SalesOrdersOverviewPanel extends JPanel {
         panel
     }
 
-    void fireSalesOrderAddedOrRemoved() {
+    void refresh(){
         overviewTableModel.fireTableDataChanged()
-    }
-
-    void setAccounting(Accounting accounting) {
-        overviewTableModel.accounting = accounting
-        popup.accounting = accounting
-        salesOrderDetailPanel.accounting = accounting
+        detailsTableModel.fireTableDataChanged()
     }
 }

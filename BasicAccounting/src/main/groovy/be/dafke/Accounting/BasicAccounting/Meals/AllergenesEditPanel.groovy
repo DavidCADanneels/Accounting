@@ -43,7 +43,6 @@ class AllergenesEditPanel extends JPanel {
             try {
                 allergenes.addBusinessObject(new Allergene(name, "", ""))
                 allergenesDataTableModel.fireTableDataChanged()
-                Main.fireAllergeneAddedOrRemoved()
             } catch (EmptyNameException ex) {
                 ActionUtils.showErrorMessage(this, ActionUtils.INGREDIENT_NAME_EMPTY)
             } catch (DuplicateNameException ex) {

@@ -15,12 +15,12 @@ class StockHistoryPanel extends JPanel {
     StockBalanceDataTableModel stockBalanceDataTableModel
     StockTransactionsDataTableModel stockTransactionsDataTableModel
 
-    StockHistoryPanel(Accounting accounting) {
-        stockBalanceDataTableModel = new StockBalanceDataTableModel(accounting)
+    StockHistoryPanel() {
+        stockBalanceDataTableModel = new StockBalanceDataTableModel()
         balanceTable = new SelectableTable<>(stockBalanceDataTableModel)
         balanceTable.setPreferredScrollableViewportSize(new Dimension(1000, 400))
 
-        stockTransactionsDataTableModel = new StockTransactionsDataTableModel(accounting.stockTransactions)
+        stockTransactionsDataTableModel = new StockTransactionsDataTableModel()
         transactionsTable = new SelectableTable<>(stockTransactionsDataTableModel)
         transactionsTable.setPreferredScrollableViewportSize(new Dimension(1000, 400))
 
@@ -31,10 +31,5 @@ class StockHistoryPanel extends JPanel {
 
         setLayout(new BorderLayout())
         add(splitPane, BorderLayout.CENTER)
-    }
-
-    void fireStockContentChanged() {
-        stockBalanceDataTableModel.fireTableDataChanged()
-        stockTransactionsDataTableModel.fireTableDataChanged()
     }
 }

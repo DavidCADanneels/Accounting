@@ -12,28 +12,18 @@ class StockHistoryGUI extends JFrame {
 
     static StockHistoryGUI gui = null
 
-    StockHistoryGUI(Accounting accounting) {
+    StockHistoryGUI() {
         super(getBundle("Accounting").getString("STOCK_HISTORY"))
-        stockPanel = new StockHistoryPanel(accounting)
+        stockPanel = new StockHistoryPanel()
         setContentPane(stockPanel)
         pack()
     }
 
-    static StockHistoryGUI showStockHistory(Accounting accounting) {
+    static StockHistoryGUI showStockHistory() {
         if (gui == null) {
-            gui = new StockHistoryGUI(accounting)
+            gui = new StockHistoryGUI()
             Main.addFrame(gui)
         }
         gui
-    }
-
-    static void fireStockContentChanged(){
-        if(gui){
-            gui.updateStockContent()
-        }
-    }
-
-    void updateStockContent() {
-        stockPanel.fireStockContentChanged()
     }
 }

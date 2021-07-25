@@ -31,8 +31,6 @@ class IngredientOrdersOverviewPanel extends JPanel {
         detailsTable = new SelectableTable<>(detailsTableModel)
         detailsTable.setPreferredScrollableViewportSize(new Dimension(1000, 200))
 
-        fireIngredientAddedOrRemoved()
-
         DefaultListSelectionModel selectionModel = new DefaultListSelectionModel()
         selectionModel.addListSelectionListener({ e ->
             if (!e.getValueIsAdjusting()) {
@@ -55,14 +53,6 @@ class IngredientOrdersOverviewPanel extends JPanel {
         })
     }
 
-    void setAccounting(Accounting accounting) {
-        this.accounting = accounting
-        overviewTableModel.accounting = accounting
-//        detailsTableModel.accounting = accounting
-//        overviewTableModel.fireTableDataChanged()
-    }
-
-
     void updateSelection() {
 //        if(multiSelection) {
 //            ArrayList<IngredientOrder> selectedObjects = overviewTable.selectedObjects
@@ -73,11 +63,4 @@ class IngredientOrdersOverviewPanel extends JPanel {
         detailsTableModel.setOrder(ingredientOrder)
 //        }
     }
-
-
-    void fireIngredientAddedOrRemoved() {
-        overviewTableModel.fireTableDataChanged()
-    }
-
-
 }

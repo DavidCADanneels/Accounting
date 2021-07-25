@@ -14,13 +14,13 @@ class AccountsListSingleAccountSelectorPanel extends JPanel {
     DefaultComboBoxModel<Account> model
     AccountsList accountsList
 
-    AccountsListSingleAccountSelectorPanel(Accounts accounts, AccountTypes accountTypes) {
+    AccountsListSingleAccountSelectorPanel(Accounts accounts) {
         model = new DefaultComboBoxModel<>()
         combo = new JComboBox<>(model)
         combo.addActionListener({ e -> selectionChanged() })
         create = new JButton("Add account(s) ...")
         create.addActionListener({ e ->
-            NewAccountDialog newAccountDialog = new NewAccountDialog(accounts, accountTypes.businessObjects)
+            NewAccountDialog newAccountDialog = new NewAccountDialog()
             newAccountDialog.setLocation(getLocationOnScreen())
             newAccountDialog.visible = true
         })

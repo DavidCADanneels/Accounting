@@ -3,8 +3,7 @@ package be.dafke.Accounting.BasicAccounting.Balances
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountDetails.AccountDetailsGUI
 import be.dafke.Accounting.BasicAccounting.Accounts.New.NewAccountDialog
 import be.dafke.Accounting.BusinessModel.Account
-import be.dafke.Accounting.BusinessModel.AccountTypes
-import be.dafke.Accounting.BusinessModel.Accounting
+import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.ComponentModel.SelectableTable
 
 import javax.swing.*
@@ -14,11 +13,9 @@ import static java.util.ResourceBundle.getBundle
 
 class BalancePopupMenu extends JPopupMenu {
     final JMenuItem details, edit
-    Accounting accounting
     SelectableTable<Account> gui
 
-    BalancePopupMenu(Accounting accounting, SelectableTable<Account> gui) {
-        this.accounting = accounting
+    BalancePopupMenu(SelectableTable<Account> gui) {
         this.gui = gui
 
         details = new JMenuItem(getBundle("Accounting").getString("GO_TO_ACCOUNT_DETAILS"))
@@ -34,16 +31,15 @@ class BalancePopupMenu extends JPopupMenu {
         ArrayList<Account> accounts = gui.selectedObjects
         for(Account account: accounts) {
             Point locationOnScreen = getLocationOnScreen()
-            AccountDetailsGUI.getAccountDetails(locationOnScreen, account, accounting.journals)
+            AccountDetailsGUI.getAccountDetails(locationOnScreen, account, Session.activeAccounting.journals)
         }
         setVisible(false)
     }
 
     void editAccount(){
-        AccountTypes accountTypes = accounting.accountTypes
         ArrayList<Account> accounts = gui.selectedObjects
         for(Account account: accounts) {
-            NewAccountDialog newAccountDialog = new NewAccountDialog(accounting.accounts, accountTypes.businessObjects)
+            NewAccountDialog newAccountDialog = new NewAccountDialog()
             newAccountDialog.setAccount(account)
             newAccountDialog.visible = true
         }

@@ -8,32 +8,24 @@ import javax.swing.*
 import static java.util.ResourceBundle.getBundle
 
 class ProjectGUI extends JFrame {
-    static final HashMap<Accounting, ProjectGUI> projectGuis = [:]
+    static ProjectGUI gui = null
     final ProjectPanel projectPanel
 
-    ProjectGUI(Accounting accounting) {
+    ProjectGUI() {
         super(getBundle("Projects").getString("PROJECTS"))
-        projectPanel = new ProjectPanel(accounting)
+        projectPanel = new ProjectPanel()
         setContentPane(projectPanel)
         pack()
         refresh()
     }
 
 
-    static ProjectGUI showProjects(Accounting accounting) {
-        ProjectGUI gui = projectGuis.get(accounting)
+    static ProjectGUI showProjects() {
         if (gui == null) {
-            gui = new ProjectGUI(accounting)
-            projectGuis.put(accounting, gui)
+            gui = new ProjectGUI()
             Main.addFrame(gui)
         }
         gui
-    }
-
-    static void refreshAll(){
-        for (ProjectGUI gui : projectGuis.values()){
-            gui.refresh()
-        }
     }
 
     void refresh() {

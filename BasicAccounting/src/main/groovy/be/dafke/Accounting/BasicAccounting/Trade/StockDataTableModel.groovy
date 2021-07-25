@@ -2,16 +2,13 @@ package be.dafke.Accounting.BasicAccounting.Trade
 
 import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Article
-import be.dafke.Accounting.BusinessModel.Articles
 import be.dafke.Accounting.BusinessModel.Contact
-import be.dafke.Accounting.BusinessModel.StockTransactions
+import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.ComponentModel.SelectableTableModel
 
 import static java.util.ResourceBundle.getBundle
 
 class StockDataTableModel extends SelectableTableModel<Article> {
-    final Articles articles
-    final StockTransactions stockTransactions
     static int UNITS_IN_STOCK_COL = 0
     static int ITEMS_PER_UNIT_COL = 1
     static int ITEMS_IN_STOCK_COL = 2
@@ -21,9 +18,7 @@ class StockDataTableModel extends SelectableTableModel<Article> {
     HashMap<Integer,Class> columnClasses = new HashMap<>()
     boolean withOrders
 
-    StockDataTableModel(Accounting accounting) {
-        articles = accounting.articles
-        stockTransactions = accounting.stockTransactions
+    StockDataTableModel() {
         setColumnNames()
         setColumnClasses()
     }
@@ -48,8 +43,8 @@ class StockDataTableModel extends SelectableTableModel<Article> {
     Object getValueAt(int row, int col) {
         Article article = getObject(row,col)
         if(article == null) return null
-        if (col == UNITS_IN_STOCK_COL) return Math.floor(stockTransactions.getNrInStock(article)/article.itemsPerUnit).intValue()
-        if (col == ITEMS_IN_STOCK_COL) return stockTransactions.getNrInStock(article)
+        if (col == UNITS_IN_STOCK_COL) return Math.floor(Session.activeAccounting.stockTransactions.getNrInStock(article)/article.itemsPerUnit).intValue()
+        if (col == ITEMS_IN_STOCK_COL) return Session.activeAccounting.stockTransactions.getNrInStock(article)
         if (col == ITEMS_PER_UNIT_COL) return article.itemsPerUnit
         if (col == ARTIKEL_COL) return article
         if (col == SUPPLIER_COL) return article.supplier
@@ -62,8 +57,8 @@ class StockDataTableModel extends SelectableTableModel<Article> {
 
     int getRowCount() {
         if(withOrders) {
-            articles.getBusinessObjects(Article.withOrders()).size()
-        } else stockTransactions.stock.keySet().size()
+            Session.activeAccounting.articles.getBusinessObjects(Article.withOrders()).size()
+        } else Session.activeAccounting.stockTransactions.stock.keySet().size()
     }
 
     @Override
@@ -92,8 +87,8 @@ class StockDataTableModel extends SelectableTableModel<Article> {
     Article getObject(int row, int col) {
         List<Article> articleList
         if(withOrders) {
-            articleList = articles.getBusinessObjects(Article.withOrders())
-        } else articleList = stockTransactions.stock.keySet().collect()
+            articleList = Session.activeAccounting.articles.getBusinessObjects(Article.withOrders())
+        } else articleList = Session.activeAccounting.stockTransactions.stock.keySet().collect()
         if(articleList == null) return null
         articleList.get(row)
     }

@@ -3,6 +3,7 @@ package be.dafke.Accounting.BasicAccounting.Trade
 import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.SalesOrder
 import be.dafke.Accounting.BusinessModel.SalesOrders
+import be.dafke.Accounting.BusinessModelDao.Session
 
 import java.util.function.Predicate
 
@@ -10,7 +11,6 @@ import static java.util.ResourceBundle.getBundle
 
 class SalesOrdersOverviewDataTableModel extends OrdersOverviewDataTableModel<SalesOrder> {
 
-    SalesOrders salesOrders
     Predicate<SalesOrder> filter
 
     SalesOrdersOverviewDataTableModel(){
@@ -21,6 +21,7 @@ class SalesOrdersOverviewDataTableModel extends OrdersOverviewDataTableModel<Sal
     // DE GET METHODEN
 // ===============
     Object getValueAt(int row, int col) {
+        SalesOrders salesOrders = Session.activeAccounting.salesOrders
         if (salesOrders == null) return null
         SalesOrder salesOrder = getObject row, col
         if(salesOrder == null) return null
@@ -35,6 +36,7 @@ class SalesOrdersOverviewDataTableModel extends OrdersOverviewDataTableModel<Sal
 
     @Override
     int getRowCount() {
+        SalesOrders salesOrders = Session.activeAccounting.salesOrders
         if(salesOrders == null) return 0
         List<SalesOrder> businessObjects = filter?salesOrders.getBusinessObjects(filter):salesOrders.businessObjects
         if(businessObjects == null || businessObjects.size() == 0) return 0
@@ -43,14 +45,10 @@ class SalesOrdersOverviewDataTableModel extends OrdersOverviewDataTableModel<Sal
 
     @Override
     SalesOrder getObject(int row, int col) {
+        SalesOrders salesOrders = Session.activeAccounting.salesOrders
         List<SalesOrder> businessObjects = filter?salesOrders.getBusinessObjects(filter):salesOrders.businessObjects
         if(businessObjects == null || businessObjects.size() == 0) return null
         businessObjects.get(row)
-    }
-
-    void setAccounting(Accounting accounting) {
-        salesOrders = accounting.salesOrders
-        fireTableDataChanged()
     }
 
     void setFilter(Predicate<SalesOrder> filter) {

@@ -8,6 +8,7 @@ import be.dafke.Accounting.BusinessModel.Contacts
 import be.dafke.Accounting.BusinessModel.OrderItem
 import be.dafke.Accounting.BusinessModel.SalesOrder
 import be.dafke.Accounting.BusinessModel.SalesOrders
+import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException
 import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException
 import be.dafke.ComponentModel.SelectableTable
@@ -64,7 +65,7 @@ class SalesOrderCreatePanel extends JPanel {
                 model.selectedItem = contact
             } else {
                 if (noInvoice == null) {
-                    ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(accounting, Contact.ContactType.CUSTOMERS)
+                    ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(Contact.ContactType.CUSTOMERS)
                     contactSelectorDialog.setLocation getLocationOnScreen()
                     contactSelectorDialog.visible = true
                     noInvoice = contactSelectorDialog.selection
@@ -105,7 +106,7 @@ class SalesOrderCreatePanel extends JPanel {
     }
 
     void orderAction(){
-        SalesOrders salesOrders = accounting.salesOrders
+        SalesOrders salesOrders = Session.activeAccounting.salesOrders
         if (invoice.selected) {
             salesOrder.customer = contact
         } else {
@@ -120,7 +121,7 @@ class SalesOrderCreatePanel extends JPanel {
             salesOrder.articles = articles
             salesOrderCreateDataTableModel.order = salesOrder
             saleTotalsPanel.fireOrderContentChanged salesOrder
-            SalesOrdersOverviewGUI.fireSalesOrderAddedOrRemovedForAccounting accounting
+//            SalesOrdersOverviewGUI.fireSalesOrderAddedOrRemovedForAccounting accounting
         } catch (EmptyNameException e1) {
             e1.printStackTrace()
         } catch (DuplicateNameException e1) {
@@ -151,9 +152,9 @@ class SalesOrderCreatePanel extends JPanel {
         salesOrderCreateDataTableModel.fireTableDataChanged()
     }
 
-    void fireCustomerAddedOrRemoved() {
-        comboBox.removeAllItems()
-        contacts.getBusinessObjects(filter).forEach({ contact -> comboBox.addItem(contact) })
-//        salesOrderDataTableModel.fireTableDataChanged()
-    }
+//    void fireCustomerAddedOrRemoved() {
+//        comboBox.removeAllItems()
+//        contacts.getBusinessObjects(filter).forEach({ contact -> comboBox.addItem(contact) })
+////        salesOrderDataTableModel.fireTableDataChanged()
+//    }
 }

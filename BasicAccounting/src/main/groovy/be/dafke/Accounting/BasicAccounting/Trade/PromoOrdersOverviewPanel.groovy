@@ -94,10 +94,4 @@ class PromoOrdersOverviewPanel extends JPanel {
     void firePromoOrderAddedOrRemoved() {
         overviewTableModel.fireTableDataChanged()
     }
-
-    void setAccounting(Accounting accounting) {
-        overviewTableModel.accounting = accounting
-        popup.accounting = accounting
-        promoOrderDetailPanel.accounting = accounting
-    }
 }

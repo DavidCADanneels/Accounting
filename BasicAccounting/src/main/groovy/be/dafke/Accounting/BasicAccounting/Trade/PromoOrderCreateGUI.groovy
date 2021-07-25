@@ -12,18 +12,17 @@ class PromoOrderCreateGUI extends JFrame {
     final PromoOrderCreatePanel orderPanel
 
     static PromoOrderCreateGUI salesOrderCreateGui = null
-//    PromoOrder promoOrder
 
-    PromoOrderCreateGUI(Accounting accounting) {
+    PromoOrderCreateGUI() {
         super(getBundle("Accounting").getString("CREATE_PR"))
-        orderPanel = new PromoOrderCreatePanel(accounting)
+        orderPanel = new PromoOrderCreatePanel()
         setContentPane(orderPanel)
         pack()
     }
 
-    static PromoOrderCreateGUI showPromoOrderGUI(Accounting accounting) {
+    static PromoOrderCreateGUI showPromoOrderGUI() {
         if (salesOrderCreateGui == null) {
-            salesOrderCreateGui = new PromoOrderCreateGUI(accounting)
+            salesOrderCreateGui = new PromoOrderCreateGUI()
             Main.addFrame(salesOrderCreateGui)
         }
         salesOrderCreateGui

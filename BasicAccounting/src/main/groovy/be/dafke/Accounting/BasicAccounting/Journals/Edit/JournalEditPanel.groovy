@@ -114,7 +114,6 @@ class JournalEditPanel extends JPanel implements ActionListener {
                 Main.selectTransaction(transaction)
                 if(transaction.order){
                     transaction.order.setPaymentTransaction(transaction)
-                    Main.fireOrderPayed(Session.activeAccounting)
                 }
                 Mortgage mortgage = transaction.mortgage
                 if(mortgage){
@@ -159,8 +158,8 @@ class JournalEditPanel extends JPanel implements ActionListener {
         comboBox
     }
 
-    void setAccounting(Accounting accounting){
-//        this.accounting = accounting
+    void refresh(){
+        Accounting accounting = Session.activeAccounting
         AccountingSession accountingSession = Session.getAccountingSession(accounting)
         setJournal(accountingSession?accountingSession.activeJournal:null)
 

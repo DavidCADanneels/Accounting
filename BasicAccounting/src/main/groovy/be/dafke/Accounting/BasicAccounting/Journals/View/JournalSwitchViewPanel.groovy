@@ -88,9 +88,9 @@ class JournalSwitchViewPanel extends JPanel {
         setSelection()
     }
 
-    void setAccounting(Accounting accounting){
-        singleView.accounting = accounting
-        dualView.accounting = accounting
+    void refresh() {
+        singleView.refresh()
+        dualView.refresh()
     }
 
     void setJournal(Journal journal){

@@ -50,10 +50,6 @@ class JournalSwitchInputPanel extends JPanel{
         }
     }
 
-    void fireOrderPayed() {
-        paymentLayoutPanel.fireOrderPayed()
-    }
-
     void fireAccountDataChanged() {
         defaultLayoutPanel.fireAccountDataChanged()
     }
@@ -73,15 +69,16 @@ class JournalSwitchInputPanel extends JPanel{
         defaultLayoutPanel.fireGlobalShowNumbersChanged(enabled)
     }
 
-    void setAccounting(Accounting accounting){
-        defaultLayoutPanel.accounting = accounting
-        paymentLayoutPanel.accounting = accounting
-        setMortgages(accounting?.mortgages)
-    }
+//    void setAccounting(Accounting accounting){
+//        defaultLayoutPanel.accounting = accounting
+//        paymentLayoutPanel.accounting = accounting
+////        refresh()
+////        setMortgages(accounting?.mortgages)
+//    }
 
-    void setMortgages(Mortgages mortgages) {
-        defaultLayoutPanel.setMortgages(mortgages)
-        paymentLayoutPanel.setMortgages(mortgages)
+    void refresh() {
+        defaultLayoutPanel.refresh()
+        paymentLayoutPanel.refresh()
     }
 
     void enableMortgagePayButton(Mortgage mortgage) {

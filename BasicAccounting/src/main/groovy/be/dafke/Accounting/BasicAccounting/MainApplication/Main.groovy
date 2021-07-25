@@ -9,7 +9,6 @@ import be.dafke.Accounting.BasicAccounting.Balances.BalancesMenu
 import be.dafke.Accounting.BasicAccounting.Balances.TestBalanceGUI
 import be.dafke.Accounting.BasicAccounting.Coda.CodaMenu
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactSelectorDialog
-import be.dafke.Accounting.BasicAccounting.Contacts.ContactsGUI
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactsMenu
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactsPanel
 import be.dafke.Accounting.BasicAccounting.Journals.Edit.JournalEditPanel
@@ -231,16 +230,15 @@ class Main {
         if (readDetails) XMLReader.readAccountingDetails(accounting)
         Session.activeAccounting = accounting // only need to write to XML, call this only when writing XML files?
 
-        frame.accounting = accounting
-
-        journalEditPanel.accounting = accounting
-        journalSwitchPanel.accounting = accounting
-        journalSelectorPanel.accounting = accounting
-        salesOrdersOverViewPanel.accounting = accounting
-        purchaseOrdersOverviewPanel.accounting = accounting
-        ingredientsSwitchViewPanel.accounting = accounting
-        allergenesSwitchViewPanel.accounting = accounting
-        contactsPanel.accounting = accounting
+        frame.refresh()
+        journalEditPanel.refresh()
+        journalSwitchPanel.refresh()
+        journalSelectorPanel.refresh()
+        salesOrdersOverViewPanel.refresh()
+        purchaseOrdersOverviewPanel.refresh()
+        ingredientsSwitchViewPanel.refresh()
+        allergenesSwitchViewPanel.refresh()
+        contactsPanel.refresh()
 
         setMenuAccounting(accounting)
         if (accounting != null) {
@@ -251,13 +249,13 @@ class Main {
     }
 
     static void setMenuAccounting(Accounting accounting) {
-        projectsMenu.accounting = accounting
+        projectsMenu.refresh()
         morgagesMenu.accounting = accounting
         tradeMenu.accounting = accounting
         mealsMenu.accounting = accounting
         codaMenu.accounting = accounting
-        contactsMenu.accounting = accounting
-        accountsMenu.accounting = accounting
+        contactsMenu.refresh()
+        accountsMenu.refresh()
         journalsMenu.accounting = accounting
         balancesMenu.accounting = accounting
         accountingMenu.accounting = accounting
@@ -390,10 +388,10 @@ ${transaction.journal} has an open transaction, which will be lost if click Y
         journalEditPanel.addBooking(booking)
     }
 
-    static void fireOrderPayed(Accounting accounting){
-        journalSwitchPanel.fireOrderPayed()
-        PurchaseOrdersOverviewGUI.firePurchaseOrderAddedOrRemovedForAccounting(accounting)
-    }
+//    static void fireOrderPayed(Accounting accounting){
+//        journalSwitchPanel.fireOrderPayed()
+////        PurchaseOrdersOverviewGUI.firePurchaseOrderAddedOrRemovedForAccounting(accounting)
+//    }
 
     static void fireJournalDataChanged(Journal journal){
         JournalDetailsGUI.fireJournalDataChangedForAll(journal)
@@ -427,61 +425,61 @@ ${transaction.journal} has an open transaction, which will be lost if click Y
 
     static void fireContactAdded(Accounting accounting, Contact contact) {
         ContactSelectorDialog.fireContactDataChangedForAll()
-        ContactsGUI.fireTableUpdateForAccounting(accounting)
+//        ContactsGUI.fireTableUpdateForAccounting(accounting)
 
         if(contact.isCustomer()){
-            SalesOrderCreateGUI.fireCustomerAddedOrRemovedForAll()
+//            SalesOrderCreateGUI.fireCustomerAddedOrRemovedForAll()
 //         } else if(contact.isSupplier()){
             // TODO: implement below method
 //        PromoOrderCreateGUI.fireCustomerAddedOrRemovedForAccounting()
         }
     }
 
-    static void fireCustomerDataChanged() {
-        ContactsGUI.fireCustomerDataChanged()
-    }
+//    static void fireCustomerDataChanged() {
+//        ContactsGUI.fireCustomerDataChanged()
+//    }
+//
+//    static void fireContactDataChanged() {
+//        // TODO: do we need to refresh the Contact Selector
+//        // What are Contact Selectors used for. Only Customers? ...
+//        ContactSelectorDialog.fireContactDataChangedForAll()
+////        ContactsGUI.fireContactDataChangedForAll()
+//    }
 
-    static void fireContactDataChanged() {
-        // TODO: do we need to refresh the Contact Selector
-        // What are Contact Selectors used for. Only Customers? ...
-        ContactSelectorDialog.fireContactDataChangedForAll()
-        ContactsGUI.fireContactDataChangedForAll()
-    }
+//    static void fireCustomerAddedOrRemoved(Accounting accounting) {
+////        ContactsGUI.fireCustomerAddedOrRemovedForAccounting(accounting)
+////        SalesOrderCreateGUI.fireCustomerAddedOrRemovedForAll()
+//    }
 
-    static void fireCustomerAddedOrRemoved(Accounting accounting) {
-        ContactsGUI.fireCustomerAddedOrRemovedForAccounting(accounting)
-        SalesOrderCreateGUI.fireCustomerAddedOrRemovedForAll()
-    }
+//    static void fireIngredientsAddedOrRemoved(Accounting accounting) {
+////        ArticlesGUI.fireIngredientAddedOrRemovedForAccounting(accounting)
+////        ArticlesGUI.fireTableUpdateForAccounting(accounting)
+//    }
 
-    static void fireIngredientsAddedOrRemoved(Accounting accounting) {
-        ArticlesGUI.fireIngredientAddedOrRemovedForAccounting(accounting)
-        ArticlesGUI.fireTableUpdateForAccounting(accounting)
-    }
+//    static void fireAllergeneAddedOrRemoved() {
+//    }
 
-    static void fireAllergeneAddedOrRemoved() {
-    }
+//    static void fireRecipeDataUpdated(Accounting accounting) {
+//        MealRecipeViewGUI.fireTableUpdateForAccounting(accounting)
+//        MealRecipeEditGUI.fireTableUpdateForAccounting(accounting)
+//        MealIngredientsViewGUI.fireTableUpdateForAccounting(accounting)
+//    }
 
-    static void fireRecipeDataUpdated(Accounting accounting) {
-        MealRecipeViewGUI.fireTableUpdateForAccounting(accounting)
-        MealRecipeEditGUI.fireTableUpdateForAccounting(accounting)
-        MealIngredientsViewGUI.fireTableUpdateForAccounting(accounting)
-    }
-
-    static void fireArticleAddedOrRemoved(Accounting accounting) {
-        ArticlesGUI.fireTableUpdateForAccounting(accounting)
-    }
+//    static void fireArticleAddedOrRemoved(Accounting accounting) {
+////        ArticlesGUI.fireTableUpdateForAccounting(accounting)
+//    }
 
     static void fireMealCountUpdated(Accounting accounting) {
         MealRecipeViewGUI.fireTableUpdateForAccounting(accounting)
         MealRecipeEditGUI.fireTableUpdateForAccounting(accounting)
     }
 
-    static void fireSupplierAddedOrRemoved(Accounting accounting) {
-        ContactsGUI.fireTableUpdateForAccounting(accounting)
-        ArticlesGUI.fireSupplierAddedOrRemovedForAccounting(accounting)
-        ArticlesGUI.fireTableUpdateForAccounting(accounting)
-        PurchaseOrderCreateGUI.fireSupplierAddedOrRemovedForAll()
-    }
+//    static void fireSupplierAddedOrRemoved(Accounting accounting) {
+////        ContactsGUI.fireTableUpdateForAccounting(accounting)
+////        ArticlesGUI.fireSupplierAddedOrRemovedForAccounting(accounting)
+////        ArticlesGUI.fireTableUpdateForAccounting(accounting)
+//        PurchaseOrderCreateGUI.fireSupplierAddedOrRemovedForAll()
+//    }
 
     static void saveData(boolean writeHtml) {
         XMLWriter.writeAccountings(accountings, writeHtml)
@@ -522,10 +520,10 @@ ${transaction.journal} has an open transaction, which will be lost if click Y
         journalSwitchPanel.fireJournalTypeChanges(journal, journalType)
     }
 
-    static void fireMortgageAddedOrRemoved(Mortgages mortgages) {
-        MortgageGUI.refreshAllFrames()
-        journalSwitchPanel.setMortgages(mortgages)
-    }
+//    static void fireMortgageAddedOrRemoved(Mortgages mortgages) {
+//        MortgageGUI.refreshAllFrames()
+////        journalSwitchPanel.setMortgages(mortgages)
+//    }
 
     static void fireMortgageEditedPayButton(Mortgage mortgage) {
         journalSwitchPanel.enableMortgagePayButton(mortgage)

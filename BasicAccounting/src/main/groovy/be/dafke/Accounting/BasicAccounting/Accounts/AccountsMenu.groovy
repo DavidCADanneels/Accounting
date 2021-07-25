@@ -3,11 +3,8 @@ package be.dafke.Accounting.BasicAccounting.Accounts
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountManagement.AccountManagementGUI
 import be.dafke.Accounting.BasicAccounting.Accounts.New.NewAccountDialog
 import be.dafke.Accounting.BasicAccounting.Balances.TestBalanceGUI
-import be.dafke.Accounting.BusinessModel.AccountTypes
-import be.dafke.Accounting.BusinessModel.Accounting
-import be.dafke.Accounting.BusinessModel.Accounts
-import be.dafke.Accounting.BusinessModel.Journals
 import be.dafke.Accounting.BusinessModelDao.AccountsIO
+import be.dafke.Accounting.BusinessModelDao.Session
 
 import javax.swing.*
 import java.awt.*
@@ -16,11 +13,6 @@ import static java.util.ResourceBundle.getBundle
 
 class AccountsMenu extends JMenu {
     static JMenuItem add, manage, testBalance, generatePdf
-    Accounting accounting
-
-    Journals journals
-    Accounts accounts
-    AccountTypes accountTypes
 
     AccountsMenu() {
         super(getBundle("BusinessModel").getString("ACCOUNTS"))
@@ -28,7 +20,7 @@ class AccountsMenu extends JMenu {
         add = new JMenuItem(getBundle("Accounting").getString("ADD_ACCOUNT"))
         add.addActionListener({ e ->
             Point locationOnScreen = getLocationOnScreen()
-            NewAccountDialog newAccountDialog = new NewAccountDialog(accounts, accountTypes.businessObjects)
+            NewAccountDialog newAccountDialog = new NewAccountDialog()
             newAccountDialog.setLocation(locationOnScreen)
             newAccountDialog.visible = true
         })
@@ -36,7 +28,7 @@ class AccountsMenu extends JMenu {
 
         manage = new JMenuItem(getBundle("Accounting").getString("MANAGE_ACCOUNT"))
         manage.addActionListener({ e ->
-            AccountManagementGUI accountManagementGUI = AccountManagementGUI.getInstance(accounts, accountTypes.businessObjects)
+            AccountManagementGUI accountManagementGUI = AccountManagementGUI.getInstance(Session.activeAccounting.accounts, Session.activeAccounting.accountTypes.businessObjects)
             accountManagementGUI.setLocation(getLocationOnScreen())
             accountManagementGUI.visible = true
         })
@@ -44,14 +36,14 @@ class AccountsMenu extends JMenu {
 
         testBalance = new JMenuItem(getBundle("BusinessModel").getString("TESTBALANCE"))
         testBalance.addActionListener({ e ->
-            TestBalanceGUI testBalanceGUI = TestBalanceGUI.getInstance(accounting)
+            TestBalanceGUI testBalanceGUI = TestBalanceGUI.getInstance(Session.activeAccounting)
             testBalanceGUI.setLocation(getLocationOnScreen())
             testBalanceGUI.visible = true
         })
         testBalance.enabled = false
 
         generatePdf = new JMenuItem(getBundle("BusinessModel").getString("GENERATE_PDF"))
-        generatePdf.addActionListener({ e -> AccountsIO.writeAccountPdfFiles(accounting) })
+        generatePdf.addActionListener({ e -> AccountsIO.writeAccountPdfFiles(Session.activeAccounting) })
         generatePdf.enabled = false
 
         add(add)
@@ -60,14 +52,11 @@ class AccountsMenu extends JMenu {
         add(generatePdf)
     }
 
-    void setAccounting(Accounting accounting) {
-        this.accounting = accounting
-        journals = accounting?accounting.journals:null
-        accounts = accounting?accounting.accounts:null
-        accountTypes = accounting?accounting.accountTypes:null
-        add.enabled = accounts!=null
-        manage.enabled = accounts!=null
-        testBalance.enabled = accounts!=null
-        generatePdf.enabled = accounts!=null
+    void refresh() {
+        boolean enabledMenu = Session.activeAccounting.accounts!=null
+        add.enabled = enabledMenu
+        manage.enabled = enabledMenu
+        testBalance.enabled = enabledMenu
+        generatePdf.enabled = enabledMenu
     }
 }

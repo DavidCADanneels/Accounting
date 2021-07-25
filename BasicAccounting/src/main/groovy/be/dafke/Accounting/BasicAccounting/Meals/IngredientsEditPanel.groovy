@@ -1,7 +1,6 @@
 package be.dafke.Accounting.BasicAccounting.Meals
 
 import be.dafke.Accounting.BasicAccounting.MainApplication.ActionUtils
-import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.*
 import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException
 import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException
@@ -89,7 +88,6 @@ class IngredientsEditPanel extends JPanel {
             try {
                 ingredients.addBusinessObject(new Ingredient(name, Unit.PIECE))
                 allergenesViewPanel.updateTable()
-                Main.fireIngredientsAddedOrRemoved(accounting)
             } catch (EmptyNameException ex) {
                 ActionUtils.showErrorMessage(this, ActionUtils.INGREDIENT_NAME_EMPTY)
             } catch (DuplicateNameException ex) {

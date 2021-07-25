@@ -137,7 +137,7 @@ class MortgagePanel extends JPanel implements ActionListener {
             if (selectedMortgage != null) {
                 try {
                     mortgages.removeBusinessObject(selectedMortgage)
-                    Main.fireMortgageAddedOrRemoved(mortgages)
+//                    Main.fireMortgageAddedOrRemoved(mortgages)
                 } catch (NotEmptyException e1) {
                     System.err.println("This mortgage is in use !")
                     e1.printStackTrace()

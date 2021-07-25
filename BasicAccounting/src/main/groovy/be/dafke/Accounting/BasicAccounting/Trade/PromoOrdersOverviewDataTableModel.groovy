@@ -3,6 +3,7 @@ package be.dafke.Accounting.BasicAccounting.Trade
 import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.PromoOrder
 import be.dafke.Accounting.BusinessModel.PromoOrders
+import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.ComponentModel.SelectableTableModel
 
 import static java.util.ResourceBundle.getBundle 
@@ -14,8 +15,6 @@ class PromoOrdersOverviewDataTableModel extends SelectableTableModel<PromoOrder>
     static int NR_OF_COL = 3
     protected HashMap<Integer,String> columnNames = new HashMap<>()
     protected HashMap<Integer,Class> columnClasses = new HashMap<>()
-
-    PromoOrders promoOrders
 
     PromoOrdersOverviewDataTableModel() {
         setColumnNames()
@@ -63,7 +62,7 @@ class PromoOrdersOverviewDataTableModel extends SelectableTableModel<PromoOrder>
     // DE GET METHODEN
 // ===============
     Object getValueAt(int row, int col) {
-        if (promoOrders == null) return null
+        if (Session.activeAccounting.promoOrders == null) return null
         PromoOrder promoOrder = getObject(row, col)
         if(promoOrder == null) return null
         if (col == TOTAL_VALUE_COL) return promoOrder.totalStockValue
@@ -74,18 +73,13 @@ class PromoOrdersOverviewDataTableModel extends SelectableTableModel<PromoOrder>
 
     @Override
     int getRowCount() {
-        promoOrders?promoOrders.businessObjects.size():0
+        Session.activeAccounting.promoOrders?.businessObjects?.size()?:0
     }
 
     @Override
     PromoOrder getObject(int row, int col) {
-        List<PromoOrder> businessObjects = this.promoOrders.businessObjects
+        List<PromoOrder> businessObjects = Session.activeAccounting.promoOrders.businessObjects
         if(businessObjects == null || businessObjects.size() == 0) return null
         businessObjects.get(row)
-    }
-
-    void setAccounting(Accounting accounting) {
-        promoOrders = accounting.promoOrders
-        fireTableDataChanged()
     }
 }

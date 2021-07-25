@@ -10,19 +10,19 @@ class BalanceGUI extends JFrame {
     static HashMap<Balance,BalanceGUI> otherBalanceMap = new HashMap<>()
     final BalancePanel balancePanel
 
-    BalanceGUI(Accounting accounting, Balance balance) {
+    BalanceGUI(Balance balance) {
         super(balance.name)
-        balancePanel = new BalancePanel(accounting, balance, false, true)
+        balancePanel = new BalancePanel(balance, false, true)
 //		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE)
         setContentPane(balancePanel)
         pack()
 
     }
 
-    static BalanceGUI getBalance(Accounting accounting, Balance balance) {
+    static BalanceGUI getBalance(Balance balance) {
         BalanceGUI balanceGUI = otherBalanceMap.get(balance)
         if(balanceGUI==null){
-            balanceGUI = new BalanceGUI(accounting, balance)
+            balanceGUI = new BalanceGUI(balance)
             otherBalanceMap.put(balance,balanceGUI)
             Main.addFrame(balanceGUI)
         }

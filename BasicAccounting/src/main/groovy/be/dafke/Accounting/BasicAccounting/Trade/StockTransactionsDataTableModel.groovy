@@ -1,12 +1,12 @@
 package be.dafke.Accounting.BasicAccounting.Trade
 
 import be.dafke.Accounting.BusinessModel.*
+import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.ComponentModel.SelectableTableModel
 
 import static java.util.ResourceBundle.getBundle 
 
 class StockTransactionsDataTableModel extends SelectableTableModel<OrderItem> {
-    final StockTransactions stockTransactions
     static int ORDER_COL = 0
     static int ARTIKEL_COL = 1
     static int ADDED_COL = 2
@@ -15,8 +15,7 @@ class StockTransactionsDataTableModel extends SelectableTableModel<OrderItem> {
     HashMap<Integer,String> columnNames = new HashMap<>()
     HashMap<Integer,Class> columnClasses = new HashMap<>()
 
-    StockTransactionsDataTableModel(StockTransactions stockTransactions) {
-        this.stockTransactions = stockTransactions
+    StockTransactionsDataTableModel() {
         setColumnNames()
         setColumnClasses()
     }
@@ -69,11 +68,11 @@ class StockTransactionsDataTableModel extends SelectableTableModel<OrderItem> {
     }
 
     int getRowCount() {
-        if(stockTransactions == null){
+        if(Session.activeAccounting.stockTransactions == null){
             return 0
         }
         int size = 0
-        for(Order order:stockTransactions.getOrders()){
+        for(Order order:Session.activeAccounting.stockTransactions.getOrders()){
             size += order.businessObjects.size()
         }
         size
@@ -103,7 +102,7 @@ class StockTransactionsDataTableModel extends SelectableTableModel<OrderItem> {
 
     ArrayList<OrderItem> getAllItems(){
         ArrayList<OrderItem> orderItems = new ArrayList<>()
-        for(Order order : stockTransactions.getOrders()){
+        for(Order order : Session.activeAccounting.stockTransactions.getOrders()){
             orderItems.addAll(order.businessObjects)
         }
         orderItems
@@ -111,7 +110,7 @@ class StockTransactionsDataTableModel extends SelectableTableModel<OrderItem> {
 
     @Override
     OrderItem getObject(int row, int col) {
-        if(stockTransactions == null) null
+        if(Session.activeAccounting.stockTransactions == null) null
         ArrayList<OrderItem> orderItems = getAllItems()
         orderItems.get(row)
     }
@@ -129,7 +128,7 @@ class StockTransactionsDataTableModel extends SelectableTableModel<OrderItem> {
     }
 
     int getRow(OrderItem orderItem) {
-        if(stockTransactions == null) -1
+        if(Session.activeAccounting.stockTransactions == null) -1
         ArrayList<OrderItem> orderItems = getAllItems()
         getRowInList(orderItems, orderItem)
     }

@@ -123,7 +123,8 @@ class TransactionOverviewPanel extends JPanel {
         credit.setText(transaction == null ? "" : transaction.creditTotal.toString())
     }
 
-    void setAccounting(Accounting accounting) {
+    void refresh() {
+        Accounting accounting = Session.activeAccounting
         setJournals(accounting == null ? null : accounting.journals)
         AccountingSession accountingSession = Session.getAccountingSession(accounting)
         setJournal(accountingSession?accountingSession.activeJournal:null)

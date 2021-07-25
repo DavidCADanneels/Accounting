@@ -3,12 +3,12 @@ package be.dafke.Accounting.BasicAccounting.Trade
 import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Article
 import be.dafke.Accounting.BusinessModel.StockTransactions
+import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.ComponentModel.SelectableTableModel
 
 import static java.util.ResourceBundle.getBundle 
 
 class StockBalanceDataTableModel extends SelectableTableModel<Article> {
-    final Accounting accounting
     static int ARTIKEL_COL = 0
     static int PURCHASE_COL = 1
     static int PURCHASE_CN_COL = 2
@@ -20,8 +20,7 @@ class StockBalanceDataTableModel extends SelectableTableModel<Article> {
     HashMap<Integer,String> columnNames = new HashMap<>()
     HashMap<Integer,Class> columnClasses = new HashMap<>()
 
-    StockBalanceDataTableModel(Accounting accounting) {
-        this.accounting = accounting
+    StockBalanceDataTableModel() {
         setColumnNames()
         setColumnClasses()
     }
@@ -49,7 +48,7 @@ class StockBalanceDataTableModel extends SelectableTableModel<Article> {
 // ===============
     Object getValueAt(int row, int col) {
         Article article = getObject(row,col)
-        StockTransactions stockTransactions = accounting.stockTransactions
+        StockTransactions stockTransactions = Session.activeAccounting.stockTransactions
         if (col == ARTIKEL_COL) return article
         if (col == PURCHASE_COL) return stockTransactions.getNrPurchase(article)
         if (col == PURCHASE_CN_COL) return stockTransactions.getNrPurchaseCn(article)
@@ -65,7 +64,7 @@ class StockBalanceDataTableModel extends SelectableTableModel<Article> {
     }
 
     int getRowCount() {
-        accounting.articles?accounting.articles.getBusinessObjects(Article.withOrders()).size():0
+        Session.activeAccounting.articles?.getBusinessObjects(Article.withOrders())?.size()?:0
     }
 
     @Override
@@ -92,7 +91,7 @@ class StockBalanceDataTableModel extends SelectableTableModel<Article> {
 
     @Override
     Article getObject(int row, int col) {
-        List<Article> businessObjects = accounting.articles.getBusinessObjects(Article.withOrders())
+        List<Article> businessObjects = Session.activeAccounting.articles.getBusinessObjects(Article.withOrders())
         businessObjects.get(row)
     }
 }

@@ -67,7 +67,8 @@ class JournalSingleViewPanel extends JPanel {
         }
     }
 
-    void setAccounting(Accounting accounting) {
+    void refresh() {
+        Accounting accounting = Session.activeAccounting
 //        popup.accounting = accounting
         setJournals(accounting == null ? null : accounting.journals)
         AccountingSession accountingSession = Session.getAccountingSession(accounting)

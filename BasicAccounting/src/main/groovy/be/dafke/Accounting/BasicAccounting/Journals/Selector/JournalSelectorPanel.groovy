@@ -49,7 +49,8 @@ class JournalSelectorPanel extends JPanel implements ActionListener{
         }
     }
 
-    void setAccounting(Accounting accounting) {
+    void refresh() {
+        Accounting accounting = Session.activeAccounting
         setJournals(accounting?accounting.journals:null)
         AccountingSession accountingSession = Session.getAccountingSession(accounting)
         setJournal(accountingSession?accountingSession.activeJournal:null)

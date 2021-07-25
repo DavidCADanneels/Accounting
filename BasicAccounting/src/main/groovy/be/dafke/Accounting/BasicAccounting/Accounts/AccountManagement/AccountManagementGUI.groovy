@@ -83,14 +83,14 @@ class AccountManagementGUI extends JFrame implements ListSelectionListener {
         edit.addActionListener({ e ->
             Account account = tabel.selectedObject
             if (account != null) {
-                NewAccountDialog newAccountDialog = new NewAccountDialog(accounts, accountTypes)
+                NewAccountDialog newAccountDialog = new NewAccountDialog()
                 newAccountDialog.setLocation(getLocationOnScreen())
                 newAccountDialog.setAccount(account)
                 newAccountDialog.visible = true
             }
         })
         newAccount.addActionListener({ e ->
-            NewAccountDialog newAccountDialog = new NewAccountDialog(accounts, accountTypes)
+            NewAccountDialog newAccountDialog = new NewAccountDialog()
             newAccountDialog.setLocation(getLocationOnScreen())
             newAccountDialog.visible = true
         })

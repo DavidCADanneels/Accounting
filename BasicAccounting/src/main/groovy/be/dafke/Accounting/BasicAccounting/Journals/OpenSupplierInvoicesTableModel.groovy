@@ -3,13 +3,12 @@ package be.dafke.Accounting.BasicAccounting.Journals
 import be.dafke.Accounting.BusinessModel.Contact
 import be.dafke.Accounting.BusinessModel.PurchaseOrder
 import be.dafke.Accounting.BusinessModel.PurchaseOrders
+import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.ComponentModel.SelectableTableModel
 
 import static java.util.ResourceBundle.getBundle
 
 class OpenSupplierInvoicesTableModel extends SelectableTableModel<PurchaseOrder> {
-
-    PurchaseOrders purchaseOrders
 
     static int ORDER_NR_COL = 0
     static int CONTACT_NAME_COL = 1
@@ -36,22 +35,18 @@ class OpenSupplierInvoicesTableModel extends SelectableTableModel<PurchaseOrder>
         columnNames.put(AMOUNT_COL, getBundle("Accounting").getString("AMOUNT"))
     }
 
-    void setPurchaseOrders(PurchaseOrders purchaseOrders) {
-        this.purchaseOrders = purchaseOrders
-    }
-
     List<PurchaseOrder> getPurchaseOrders(){
-        purchaseOrders.getBusinessObjects(PurchaseOrder.unPayed())
+        Session.activeAccounting.purchaseOrders.getBusinessObjects(PurchaseOrder.unPayed())
     }
 
     @Override
     PurchaseOrder getObject(int row, int col) {
-        purchaseOrders?getPurchaseOrders().get(row):null
+        Session.activeAccounting.purchaseOrders?getPurchaseOrders().get(row):null
     }
 
     @Override
     int getRowCount() {
-        return purchaseOrders?getPurchaseOrders().size():0
+        return Session.activeAccounting.purchaseOrders?getPurchaseOrders().size():0
     }
 
     @Override

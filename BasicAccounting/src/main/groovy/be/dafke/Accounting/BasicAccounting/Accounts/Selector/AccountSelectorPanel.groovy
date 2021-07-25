@@ -21,7 +21,7 @@ class AccountSelectorPanel extends JPanel {
         combo.addActionListener({ e -> account = (Account) combo.selectedItem })
         JButton create = new JButton("Add account(s) ...")
         create.addActionListener({ e ->
-            NewAccountDialog newAccountDialog = new NewAccountDialog(accounts, accountTypes)
+            NewAccountDialog newAccountDialog = new NewAccountDialog()
             newAccountDialog.setLocation(getLocationOnScreen())
             newAccountDialog.visible = true
         })

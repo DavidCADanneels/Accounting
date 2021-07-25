@@ -2,7 +2,7 @@ package be.dafke.Accounting.BasicAccounting.Mortgages
 
 import be.dafke.Accounting.BasicAccounting.Journals.Edit.JournalEditPanel
 import be.dafke.Accounting.BusinessModel.Mortgage
-import be.dafke.Accounting.BusinessModel.Mortgages
+import be.dafke.Accounting.BusinessModelDao.Session
 
 import javax.swing.*
 import javax.swing.border.LineBorder
@@ -15,7 +15,6 @@ class MortgagesPanel extends JPanel {
     final JList<Mortgage> list
     final JButton pay// , newMortgage, details
     final JCheckBox hidePayedOff
-    Mortgages mortgages
     final DefaultListModel<Mortgage> listModel
     Mortgage selectedMortgage
     JournalEditPanel journalEditPanel
@@ -42,7 +41,7 @@ class MortgagesPanel extends JPanel {
 
         hidePayedOff = new JCheckBox("Hide Payed Off")
         hidePayedOff.selected = true
-        hidePayedOff.addActionListener({ e -> refreshList() })
+        hidePayedOff.addActionListener({ e -> refresh() })
 
         add(hidePayedOff, BorderLayout.NORTH)
         add(list, BorderLayout.CENTER)
@@ -62,19 +61,14 @@ class MortgagesPanel extends JPanel {
         }
     }
 
-    void setMortgages(Mortgages mortgages) {
-        this.mortgages = mortgages
-        refreshList()
-    }
-
-    void refreshList(){
+    void refresh(){
         listModel.clear()
-        if (mortgages != null) {
+        if (Session.activeAccounting.mortgages != null) {
             List<Mortgage> businessObjects
             if(hidePayedOff.selected) {
-                businessObjects = mortgages.getBusinessObjects({ mortgage -> !mortgage.isPayedOff() })
+                businessObjects = Session.activeAccounting.mortgages.getBusinessObjects({ mortgage -> !mortgage.isPayedOff() })
             } else {
-                businessObjects = mortgages.businessObjects
+                businessObjects = Session.activeAccounting.mortgages.businessObjects
             }
             for (Mortgage mortgage : businessObjects) {
                 if (!listModel.contains(mortgage)) {

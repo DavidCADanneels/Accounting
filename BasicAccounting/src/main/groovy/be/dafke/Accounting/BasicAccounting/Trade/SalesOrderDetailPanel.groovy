@@ -10,6 +10,7 @@ import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BasicAccounting.PDFGeneration.InvoicePDF
 import be.dafke.Accounting.BusinessModel.*
 import be.dafke.Accounting.BusinessModelDao.SalesOrderIO
+import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.Utils.Utils
 
 import javax.swing.*
@@ -29,20 +30,19 @@ class SalesOrderDetailPanel extends JPanel {
     JTextField invoiceNr
     JCheckBox payed, delivered, placed, creditNote, promoOrder
     SalesOrder salesOrder
-    Accounting accounting
     ContactDetailsPanel contactDetailsPanel
 
     SalesOrderDetailPanel() {
         createSalesOrder = new JButton(getBundle("Accounting").getString("CREATE_SO"))
         createSalesOrder.addActionListener({ e ->
-            SalesOrderCreateGUI salesOrderCreateGUI = SalesOrderCreateGUI.showSalesOrderGUI(accounting)
+            SalesOrderCreateGUI salesOrderCreateGUI = SalesOrderCreateGUI.showSalesOrderGUI(Session.activeAccounting)
             salesOrderCreateGUI.setLocation(getLocationOnScreen())
             salesOrderCreateGUI.visible = true
         })
 
         editSalesOrder = new JButton(getBundle("Accounting").getString("EDIT_ORDER"))
         editSalesOrder.addActionListener({ e ->
-            SalesOrderCreateGUI salesOrderCreateGUI = SalesOrderCreateGUI.showSalesOrderEditGUI(accounting)
+            SalesOrderCreateGUI salesOrderCreateGUI = SalesOrderCreateGUI.showSalesOrderEditGUI(Session.activeAccounting)
             salesOrderCreateGUI.setSalesOrder(salesOrder)
             salesOrderCreateGUI.setLocation(getLocationOnScreen())
             salesOrderCreateGUI.visible = true
@@ -188,10 +188,10 @@ class SalesOrderDetailPanel extends JPanel {
     }
 
     Transaction askId(String abbr) {
-        Journals journals = accounting.journals
+        Journals journals = Session.activeAccounting.journals
         Journal journal = journals.getJournal(abbr)
 
-        JournalSelectorDialog journalSelectorDialog = new JournalSelectorDialog(accounting.journals)
+        JournalSelectorDialog journalSelectorDialog = new JournalSelectorDialog(journals)
         journalSelectorDialog.setSelectedJournal(journal)
         journalSelectorDialog.visible = true
         journal = journalSelectorDialog.getSelection()
@@ -220,11 +220,11 @@ class SalesOrderDetailPanel extends JPanel {
             salesOrder.deliveryDate = Utils.toString(date)
             salesOrder.deliveryDescription = description
         }
-        StockTransactions stockTransactions = accounting.stockTransactions
+        StockTransactions stockTransactions = Session.activeAccounting.stockTransactions
         stockTransactions.addOrder(salesOrder)
 
-        StockGUI.fireStockContentChanged()
-        StockHistoryGUI.fireStockContentChanged()
+//        StockGUI.fireStockContentChanged()
+//        StockHistoryGUI.fireStockContentChanged()
 
         updateButtonsAndCheckBoxes()
     }
@@ -237,11 +237,12 @@ class SalesOrderDetailPanel extends JPanel {
             createSalesTransaction(salesTransaction)
             createGainTransaction(salesTransaction.date)
         }
-        StockHistoryGUI.fireStockContentChanged()
+//        StockHistoryGUI.fireStockContentChanged()
         updateButtonsAndCheckBoxes()
     }
 
     void createInvoice(){
+        Accounting accounting = Session.activeAccounting
         if (salesOrder.customer == null) {
             // should not occur
         }
@@ -283,7 +284,7 @@ class SalesOrderDetailPanel extends JPanel {
         Transaction salesTransaction = salesOrder?salesOrder.salesTransaction:null
         Transaction paymentTransaction = salesOrder?salesOrder.paymentTransaction:null
 
-        StockTransactions stockTransactions = accounting.stockTransactions
+        StockTransactions stockTransactions = Session.activeAccounting.stockTransactions
         ArrayList<Order> orders = stockTransactions.getOrders()
         boolean orderDelivered = salesOrder && orders.contains(salesOrder)
         boolean toBeDelivered = salesOrder && !orders.contains(salesOrder)
@@ -333,14 +334,14 @@ class SalesOrderDetailPanel extends JPanel {
     Contact getCustomer(){
         Contact customer = salesOrder.customer
         if(customer == null){
-            ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(accounting, Contact.ContactType.CUSTOMERS)
+            ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(Contact.ContactType.CUSTOMERS)
             contactSelectorDialog.visible = true
             customer = contactSelectorDialog.getSelection()
         }
         customer
     }
 
-    Transaction createTransaction(Calendar date, String description){
+    static Transaction createTransaction(Calendar date, String description){
         if (date == null || description == null) {
             DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog()
             dateAndDescriptionDialog.enableDescription(true)
@@ -358,6 +359,7 @@ class SalesOrderDetailPanel extends JPanel {
     }
 
     void createPromoTransaction() {
+        Accounting accounting = Session.activeAccounting
         Transaction transaction = createTransaction(null, salesOrder.name)
 
         Account promoCost = StockUtils.getPromoAccount accounting
@@ -387,6 +389,7 @@ class SalesOrderDetailPanel extends JPanel {
     }
 
     void createSalesTransaction(Transaction transaction){
+        Accounting accounting = Session.activeAccounting
 
         Contact customer = getCustomer()
         transaction.contact = customer
@@ -459,6 +462,8 @@ class SalesOrderDetailPanel extends JPanel {
     }
 
     void createGainTransaction(Calendar date){
+        Accounting accounting = Session.activeAccounting
+
         Account salesGainAccount = StockUtils.getSalesGainAccount accounting
         Account stockAccount = StockUtils.getStockAccount accounting
         Account gainAccount = StockUtils.getGainAccount accounting
@@ -498,10 +503,5 @@ class SalesOrderDetailPanel extends JPanel {
 
     void setOrder(SalesOrder salesOrder){
         this.salesOrder = salesOrder
-    }
-
-    void setAccounting(Accounting accounting) {
-        this.accounting = accounting
-        contactDetailsPanel.accounting = accounting
     }
 }

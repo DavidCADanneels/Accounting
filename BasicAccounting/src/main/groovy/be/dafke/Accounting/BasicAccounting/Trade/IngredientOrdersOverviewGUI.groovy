@@ -1,7 +1,6 @@
 package be.dafke.Accounting.BasicAccounting.Trade
 
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
-import be.dafke.Accounting.BusinessModel.Accounting
 
 import javax.swing.*
 
@@ -20,26 +19,11 @@ class IngredientOrdersOverviewGUI extends JFrame {
         pack()
     }
 
-    static IngredientOrdersOverviewGUI showIngredientOrdersGUI(Accounting accounting) {
+    static IngredientOrdersOverviewGUI showIngredientOrdersGUI() {
         if (gui == null) {
             gui = new IngredientOrdersOverviewGUI()
-            gui.accounting = accounting
             Main.addFrame(gui)
         }
         gui
-    }
-
-    void setAccounting(Accounting accounting) {
-        overviewPanel.accounting = accounting
-    }
-
-    static void fireIngredientAddedOrRemovedForAll(){
-        if (gui != null){
-            gui.fireIngredientAddedOrRemoved()
-        }
-    }
-
-    void fireIngredientAddedOrRemoved() {
-        overviewPanel.fireIngredientAddedOrRemoved()
     }
 }
