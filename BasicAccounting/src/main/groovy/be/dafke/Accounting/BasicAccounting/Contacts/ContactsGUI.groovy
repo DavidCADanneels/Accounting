@@ -40,7 +40,8 @@ class ContactsGUI extends JFrame {
 
     ContactsGUI(Contact.ContactType contactType) {
         super("Contacts")
-        contactsPanel = new ContactsPanel(contactType)
+        ContactsDataModel contactsDataModel = new ContactsDataModel(contactType)
+        contactsPanel = new ContactsPanel(contactsDataModel)
         setContentPane(contactsPanel)
         setPreferredSize(new Dimension(1000,400))
         pack()

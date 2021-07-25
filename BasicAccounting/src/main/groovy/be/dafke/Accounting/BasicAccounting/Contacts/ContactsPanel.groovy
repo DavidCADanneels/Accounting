@@ -23,7 +23,8 @@ class ContactsPanel extends JPanel implements ListSelectionListener {
     ContactsDataModel contactsDataModel
     JButton details
 
-    ContactsPanel(Contact.ContactType contactType) {
+    ContactsPanel(ContactsDataModel contactsDataModel) {
+        this.contactsDataModel = contactsDataModel
         JButton create = new JButton(getBundle("Contacts").getString("NEW_CONTACT"))
         create.addActionListener({ e ->
             NewContactDialog newContactDialog = new NewContactDialog()
@@ -57,7 +58,6 @@ class ContactsPanel extends JPanel implements ListSelectionListener {
             south.add(printLabels)
 //        }
 
-        contactsDataModel = new ContactsDataModel(contactType)
         table = new JTable(contactsDataModel)
         DefaultListSelectionModel selection = new DefaultListSelectionModel()
         selection.addListSelectionListener(this)
@@ -67,10 +67,6 @@ class ContactsPanel extends JPanel implements ListSelectionListener {
         setLayout(new BorderLayout())
         add(scroll, CENTER)
         add(south, SOUTH)
-    }
-
-    void setContactType(ContactType contactType){
-        contactsDataModel.contactType = contactType
     }
 
     static void printCustomerLabels(){

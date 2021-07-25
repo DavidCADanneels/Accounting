@@ -1,6 +1,6 @@
 package be.dafke.Accounting.BasicAccounting.MainApplication
 
-import be.dafke.Accounting.BasicAccounting.Contacts.ContactsPanel
+import be.dafke.Accounting.BasicAccounting.Contacts.ContactsDataModel
 import be.dafke.Accounting.BusinessModel.Contact
 
 import javax.swing.*
@@ -10,10 +10,10 @@ class ContactsSelectorPanel extends JPanel {
     JToggleButton customers, suppliers, all
 
     ButtonGroup buttonGroup
-    ContactsPanel contactsPanel
+    ContactsDataModel dataModel
 
-    ContactsSelectorPanel(ContactsPanel contactsPanel) {
-        this.contactsPanel = contactsPanel
+    ContactsSelectorPanel(ContactsDataModel contactsDataModel) {
+        dataModel = contactsDataModel
         customers = new JToggleButton('Customers only')
         suppliers = new JToggleButton('Supplier only')
         all = new JToggleButton('All', true)
@@ -30,15 +30,15 @@ class ContactsSelectorPanel extends JPanel {
 
         customers.addActionListener( {
             Main.switchView(Main.CONTACTS_CENTER_VIEW)
-            contactsPanel.setContactType(Contact.ContactType.CUSTOMERS)
+            dataModel.setContactType(Contact.ContactType.CUSTOMERS)
         })
         suppliers.addActionListener( {
             Main.switchView(Main.CONTACTS_CENTER_VIEW)
-            contactsPanel.setContactType(Contact.ContactType.SUPPLIERS)
+            dataModel.setContactType(Contact.ContactType.SUPPLIERS)
         })
         all.addActionListener( {
             Main.switchView(Main.CONTACTS_CENTER_VIEW)
-            contactsPanel.setContactType(Contact.ContactType.ALL)
+            dataModel.setContactType(Contact.ContactType.ALL)
         })
     }
 }

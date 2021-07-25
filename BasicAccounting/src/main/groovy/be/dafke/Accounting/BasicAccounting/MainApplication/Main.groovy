@@ -9,6 +9,7 @@ import be.dafke.Accounting.BasicAccounting.Balances.BalancesMenu
 import be.dafke.Accounting.BasicAccounting.Balances.TestBalanceGUI
 import be.dafke.Accounting.BasicAccounting.Coda.CodaMenu
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactSelectorDialog
+import be.dafke.Accounting.BasicAccounting.Contacts.ContactsDataModel
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactsMenu
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactsPanel
 import be.dafke.Accounting.BasicAccounting.Journals.Edit.JournalEditPanel
@@ -96,7 +97,8 @@ class Main {
         purchaseOrdersOverviewPanel = new PurchaseOrdersOverviewPanel()
         ingredientsSwitchViewPanel = new IngredientsSwitchViewPanel()
         allergenesSwitchViewPanel = new AllergenesSwitchViewPanel()
-        contactsPanel = new ContactsPanel(Contact.ContactType.ALL)
+        ContactsDataModel contactsDataModel = new ContactsDataModel(Contact.ContactType.ALL)
+        contactsPanel = new ContactsPanel(contactsDataModel)
 
         center.add journalSwitchPanel, JOURNALS_CENTER_VIEW
         center.add salesOrdersOverViewPanel, SO_CENTER_VIEW
@@ -108,7 +110,7 @@ class Main {
         mealViewSelectorPanel = new MealViewSelectorPanel()
         ordersViewSelectorPanel = new OrdersViewSelectorPanel()
         journalSelectorPanel = new JournalSelectorPanel()
-        contactsSelectorPanel = new ContactsSelectorPanel(contactsPanel)
+        contactsSelectorPanel = new ContactsSelectorPanel(contactsDataModel)
 
         topRightPanel.add journalSelectorPanel, JOURNALS_CENTER_VIEW
         topRightPanel.add ordersViewSelectorPanel, ORDERS_MENU_VIEW
