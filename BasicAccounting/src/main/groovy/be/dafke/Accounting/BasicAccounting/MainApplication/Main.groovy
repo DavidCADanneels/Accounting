@@ -97,7 +97,7 @@ class Main {
         purchaseOrdersOverviewPanel = new PurchaseOrdersOverviewPanel()
         ingredientsSwitchViewPanel = new IngredientsSwitchViewPanel()
         allergenesSwitchViewPanel = new AllergenesSwitchViewPanel()
-        ContactsDataModel contactsDataModel = new ContactsDataModel(Contact.ContactType.ALL)
+        ContactsDataModel contactsDataModel = new ContactsDataModel()
         contactsPanel = new ContactsPanel(contactsDataModel)
 
         center.add journalSwitchPanel, JOURNALS_CENTER_VIEW

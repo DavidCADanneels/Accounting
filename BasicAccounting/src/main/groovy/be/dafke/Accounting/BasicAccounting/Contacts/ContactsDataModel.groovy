@@ -34,15 +34,14 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
     HashMap<Integer,Class> columnClasses = new HashMap<>()
     ArrayList<Integer> nonEditableColumns = new ArrayList<>()
 
-    ContactsDataModel(Contact.ContactType contactType) {
-        this.contactType = contactType
+    ContactsDataModel() {
         initialize()
     }
 
     void setContactType(Contact.ContactType contactType) {
         this.contactType = contactType
         initialize()
-        fireTableDataChanged()
+        fireTableStructureChanged()
     }
 
     void initialize() {
@@ -64,8 +63,9 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
             TURNOVER_COL = 8
             VAT_TOTAL_COL = 9
             NR_OF_COL = 10
-            CUSTOMER_COL = 11
-            SUPPLIER_COL = 12
+            OFFICIAL_COL = -1
+            CUSTOMER_COL = -1
+            SUPPLIER_COL = -1
         } else if(contactType == Contact.ContactType.SUPPLIERS){
             NAME_COL = 0
             VAT_NUMBER_COL = 1
@@ -75,11 +75,12 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
             COUNTRY_COL = 5
             PHONE_COL = 6
             EMAIL_COL = 7
-            TURNOVER_COL = 8
-            VAT_TOTAL_COL = 9
-            NR_OF_COL = 10
-            CUSTOMER_COL = 11
-            SUPPLIER_COL = 12
+            NR_OF_COL = 8
+            OFFICIAL_COL = -1
+            TURNOVER_COL = -1
+            VAT_TOTAL_COL = -1
+            CUSTOMER_COL = -1
+            SUPPLIER_COL = -1
         } else if(contactType == Contact.ContactType.ALL){
             NAME_COL = 0
             OFFICIAL_COL = 1
