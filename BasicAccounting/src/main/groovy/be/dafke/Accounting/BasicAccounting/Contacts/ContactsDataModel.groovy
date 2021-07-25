@@ -29,7 +29,7 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
     int TURNOVER_COL
     int VAT_TOTAL_COL
     int NR_OF_COL
-    Contact.ContactType contactType
+    Contact.ContactType contactType = Contact.ContactType.ALL
     HashMap<Integer,String> columnNames = new HashMap<>()
     HashMap<Integer,Class> columnClasses = new HashMap<>()
     ArrayList<Integer> nonEditableColumns = new ArrayList<>()
@@ -37,6 +37,12 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
     ContactsDataModel(Contact.ContactType contactType) {
         this.contactType = contactType
         initialize()
+    }
+
+    void setContactType(Contact.ContactType contactType) {
+        this.contactType = contactType
+        initialize()
+        fireTableDataChanged()
     }
 
     void initialize() {
@@ -129,7 +135,8 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
     // DE GET METHODEN
 // ===============
     Object getValueAt(int row, int col) {
-        Contact contact = Session.activeAccounting.contacts.businessObjects.get(row)
+        ArrayList<Contact> list = filter(Session.activeAccounting.contacts)
+        Contact contact = list.get(row)
         if (col == NAME_COL) {
             return contact.name
         } else if (col == OFFICIAL_COL) {
@@ -165,7 +172,8 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
     }
 
     int getRowCount() {
-        Session.activeAccounting.contacts.businessObjects.size()?:0
+        ArrayList<Contact> list = filter(Session.activeAccounting.contacts)
+        list.size()?:0
     }
 
     @Override
@@ -188,7 +196,8 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
     @Override
     void setValueAt(Object value, int row, int col) {
         Accounting accounting = Session.activeAccounting
-        Contact contact = accounting.contacts.businessObjects.get(row)
+        ArrayList<Contact> list = filter(Session.activeAccounting.contacts)
+        Contact contact = list.get(row)
         if(isCellEditable(row, col)){
             if(col== CUSTOMER_COL) {
                 Boolean customer = (Boolean) value

@@ -67,6 +67,7 @@ class Main {
     static MealViewSelectorPanel mealViewSelectorPanel
     static OrdersViewSelectorPanel ordersViewSelectorPanel
     static JournalSelectorPanel journalSelectorPanel
+    static ContactsSelectorPanel contactsSelectorPanel
     static ContactsPanel contactsPanel
 
     static final String JOURNALS_CENTER_VIEW = 'Journals'
@@ -79,6 +80,7 @@ class Main {
     static final String EMPTY_MENU_VIEW = 'empty'
     static final String ORDERS_MENU_VIEW = 'Orders'
     static final String MEALS_MENU_VIEW = 'Meals'
+    static final String CONTACTS_MENU_VIEW = 'ContactSwitch'
 
     static void main(String[] args) {
         readXmlData()
@@ -106,10 +108,12 @@ class Main {
         mealViewSelectorPanel = new MealViewSelectorPanel()
         ordersViewSelectorPanel = new OrdersViewSelectorPanel()
         journalSelectorPanel = new JournalSelectorPanel()
+        contactsSelectorPanel = new ContactsSelectorPanel(contactsPanel)
 
         topRightPanel.add journalSelectorPanel, JOURNALS_CENTER_VIEW
         topRightPanel.add ordersViewSelectorPanel, ORDERS_MENU_VIEW
         topRightPanel.add mealViewSelectorPanel, MEALS_MENU_VIEW
+        topRightPanel.add contactsSelectorPanel, CONTACTS_MENU_VIEW
         topRightPanel.add(new JPanel(), EMPTY_MENU_VIEW)
 
         JPanel top = new JPanel(new BorderLayout())

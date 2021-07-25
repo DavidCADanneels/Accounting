@@ -40,7 +40,7 @@ class MainViewSelectorPanel extends JPanel {
         })
         contacts.addActionListener( {
             Main.switchView(Main.CONTACTS_CENTER_VIEW)
-            Main.switchSubView(Main.EMPTY_MENU_VIEW)
+            Main.switchSubView(Main.CONTACTS_MENU_VIEW)
         })
         meals.addActionListener( {
             Main.switchSubView(Main.MEALS_MENU_VIEW)

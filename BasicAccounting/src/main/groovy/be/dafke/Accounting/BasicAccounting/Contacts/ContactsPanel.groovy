@@ -2,6 +2,7 @@ package be.dafke.Accounting.BasicAccounting.Contacts
 
 import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Contact
+import be.dafke.Accounting.BusinessModel.Contact.ContactType
 import be.dafke.Accounting.BusinessModelDao.LabelWriter
 import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.Accounting.BusinessModelDao.VATWriter
@@ -66,6 +67,10 @@ class ContactsPanel extends JPanel implements ListSelectionListener {
         setLayout(new BorderLayout())
         add(scroll, CENTER)
         add(south, SOUTH)
+    }
+
+    void setContactType(ContactType contactType){
+        contactsDataModel.contactType = contactType
     }
 
     static void printCustomerLabels(){
