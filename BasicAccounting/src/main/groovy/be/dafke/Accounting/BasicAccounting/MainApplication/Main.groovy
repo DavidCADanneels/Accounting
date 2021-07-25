@@ -8,7 +8,6 @@ import be.dafke.Accounting.BasicAccounting.Balances.BalanceGUI
 import be.dafke.Accounting.BasicAccounting.Balances.BalancesMenu
 import be.dafke.Accounting.BasicAccounting.Balances.TestBalanceGUI
 import be.dafke.Accounting.BasicAccounting.Coda.CodaMenu
-import be.dafke.Accounting.BasicAccounting.Contacts.ContactSelectorDialog
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactsDataModel
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactsPanel
 import be.dafke.Accounting.BasicAccounting.Journals.Edit.JournalEditPanel
@@ -59,6 +58,7 @@ class Main {
     static VATMenu vatMenu
     static CardLayout cardLayoutCenter, cardLayoutTop
     static JPanel center, topRightPanel
+    static MainViewSelectorPanel mainViewSelectorPanel
     static SalesOrdersOverviewPanel salesOrdersOverViewPanel
     static PurchaseOrdersOverviewPanel purchaseOrdersOverviewPanel
     static IngredientsSwitchViewPanel ingredientsSwitchViewPanel
@@ -117,7 +117,9 @@ class Main {
         topRightPanel.add(new JPanel(), EMPTY_MENU_VIEW)
 
         JPanel top = new JPanel(new BorderLayout())
-        top.add new MainViewSelectorPanel(), BorderLayout.WEST
+
+        mainViewSelectorPanel = new MainViewSelectorPanel()
+        top.add mainViewSelectorPanel, BorderLayout.WEST
         top.add topRightPanel, BorderLayout.CENTER
 
         JPanel contentPanel = new JPanel(new BorderLayout())
@@ -241,6 +243,7 @@ class Main {
         ingredientsSwitchViewPanel.refresh()
         allergenesSwitchViewPanel.refresh()
         contactsPanel.refresh()
+        mainViewSelectorPanel.enableButtons()
 
         setMenuAccounting(accounting)
         if (accounting != null) {
@@ -387,7 +390,7 @@ ${transaction.journal} has an open transaction, which will be lost if click Y
     static void addBooking(Booking booking){
         journalEditPanel.addBooking(booking)
     }
-    
+
     static void fireJournalDataChanged(Journal journal){
         JournalDetailsGUI.fireJournalDataChangedForAll(journal)
         JournalManagementGUI.fireJournalDataChangedForAll()

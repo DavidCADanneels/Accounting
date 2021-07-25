@@ -1,6 +1,7 @@
 package be.dafke.Accounting.BasicAccounting.MainApplication
 
-import javax.swing.BoxLayout
+import be.dafke.Accounting.BusinessModelDao.Session
+
 import javax.swing.ButtonGroup
 import javax.swing.JPanel
 import javax.swing.JToggleButton
@@ -45,5 +46,11 @@ class MainViewSelectorPanel extends JPanel {
         meals.addActionListener( {
             Main.switchSubView(Main.MEALS_MENU_VIEW)
         })
+    }
+
+    void enableButtons(){
+        contacts.enabled = Session.activeAccounting.contactsAccounting
+        meals.enabled = Session.activeAccounting.mealsAccounting
+        orders.enabled = Session.activeAccounting.tradeAccounting
     }
 }
