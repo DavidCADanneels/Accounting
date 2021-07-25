@@ -20,11 +20,6 @@ class TransactionOverviewPopupMenu extends JPopupMenu {
     Journals journals
     Accounting accounting
 
-    TransactionOverviewPopupMenu(Journals journals, SelectableTable<Transaction> gui) {
-        this(gui)
-        this.journals=journals
-    }
-
     TransactionOverviewPopupMenu(SelectableTable<Transaction> gui) {
         this.gui = gui
         delete = new JMenuItem(getBundle("Accounting").getString("DELETE"))
@@ -36,29 +31,20 @@ class TransactionOverviewPopupMenu extends JPopupMenu {
         delete.addActionListener({ e -> deleteTransaction() })
         move.addActionListener({ e -> moveTransaction() })
         edit.addActionListener({ e -> editTransaction() })
-        balance.addActionListener({ e -> showBalance() })
-        vatCalculation.addActionListener({ e -> book() })
+//        balance.addActionListener({ e -> showBalance() })
+//        vatCalculation.addActionListener({ e -> book() })
 
         add(delete)
         add(move)
         add(edit)
-        addSeparator()
-        add(balance)
-        add(vatCalculation)
+//        addSeparator()
+//        add(balance)
+//        add(vatCalculation)
     }
 
     void setAccounting(Accounting accounting) {
         this.accounting = accounting
         setJournals(accounting?accounting.journals:null)
-    }
-
-    void book() {
-        Point locationOnScreen = getLocationOnScreen()
-        setVisible(false)
-        ArrayList<Transaction> transactions = gui.selectedObjects
-        VATFieldsGUI vatFieldsGUI = VATFieldsGUI.getInstance(transactions, accounting)
-        vatFieldsGUI.setLocation(locationOnScreen)
-        vatFieldsGUI.visible = true
     }
 
     void showBalance() {
@@ -87,9 +73,9 @@ class TransactionOverviewPopupMenu extends JPopupMenu {
         Balance relationsBalance = balances.createRelationsBalance(subAccounts)
         Balance resultBalance = balances.createResultBalance(subAccounts)
 
-        BalanceGUI.getBalance(accounting, closingBalance).visible = true
-        BalanceGUI.getBalance(accounting, resultBalance).visible = true
-        BalanceGUI.getBalance(accounting, relationsBalance).visible = true
+        BalanceGUI.getBalance(closingBalance).visible = true
+        BalanceGUI.getBalance(resultBalance).visible = true
+        BalanceGUI.getBalance(relationsBalance).visible = true
 
         // choice 2: year=year of selected transaction
 //        Accounting accounting = Session.activeAccounting

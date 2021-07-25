@@ -30,7 +30,8 @@ class BalancesMenu extends JMenu {
         add(pdfGeneration)
     }
 
-    void setAccounting(Accounting accounting) {
+    void refresh(){
+        Accounting accounting = Session.activeAccounting
         journals = accounting?accounting.journals:null
         accounts = accounting?accounting.accounts:null
         balances = accounting?accounting.balances:null

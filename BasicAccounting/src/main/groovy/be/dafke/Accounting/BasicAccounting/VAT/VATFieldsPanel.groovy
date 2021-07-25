@@ -3,6 +3,7 @@ package be.dafke.Accounting.BasicAccounting.VAT
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactsPanel
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.*
+import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.Accounting.BusinessModelDao.VATWriter
 
 import javax.swing.*
@@ -32,15 +33,11 @@ class VATFieldsPanel extends JPanel {
     static final String PURCHASE_ICL = "Purchase ICL"
     static final String TAX_ON_PURCHASES_81_83 = "Tax on Purchases (81-83)"
     static final String CN_ON_PURCHASES = "CN on Purchases"
-    Accounting accounting
-    VATFields vatFields
     HashMap<String, JTextField> textFields = new HashMap<>()
     List<Transaction> selectedVatTransactions
 
-    VATFieldsPanel(VATFields vatFields, Accounting accounting, List<Transaction> selectedVatTransactions) {
-        this.accounting = accounting
+    VATFieldsPanel(List<Transaction> selectedVatTransactions) {
         this.selectedVatTransactions = selectedVatTransactions
-        this.vatFields = vatFields
         JPanel left = createSalesPanel()
         JPanel right = createPurchasePanel()
         JPanel totals = createTotalsPanel()
@@ -71,21 +68,6 @@ class VATFieldsPanel extends JPanel {
         panel.add(line2)
         panel.add(line1)
         panel
-    }
-
-    void updateVATFields(){
-        for (String nr: textFields.keySet()){
-            JTextField textField = textFields.get(nr)
-            VATField vatField = vatFields.getBusinessObject(nr)
-            BigDecimal amount = vatField.saldo
-            if (textField != null){
-                if(amount != null) {
-                    textField.setText(amount.toString())
-                } else {
-                    textField.setText("")
-                }
-            }
-        }
     }
 
     JPanel createSalesPanel() {
@@ -196,16 +178,16 @@ class VATFieldsPanel extends JPanel {
         panel.add(nr)
         JButton button = new JButton(CREATE_FILE)
         button.addActionListener({ e ->
-            Contact companyContact = accounting.getCompanyContact()
+            Contact companyContact = Session.activeAccounting.getCompanyContact()
             if (companyContact == null) {
-                ContactsPanel.setCompanyContact(accounting)
+                ContactsPanel.setCompanyContact(Session.activeAccounting)
             }
             JFileChooser fileChooser = new JFileChooser()
             fileChooser.setFileFilter(new FileNameExtensionFilter("XML_EXTENSION files", "xml"))
             if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = fileChooser.getSelectedFile()
-                VATWriter.writeVATFields(vatFields, selectedFile, year.getText(), nr.getText(), companyContact, QUARTER)
-                VATTransactions vatTransactions = accounting.vatTransactions
+                VATWriter.writeVATFields(Session.activeAccounting.vatFields, selectedFile, year.getText(), nr.getText(), companyContact, QUARTER)
+                VATTransactions vatTransactions = Session.activeAccounting.vatTransactions
                 vatTransactions.registerVATTransactions(selectedVatTransactions)
                 Main.fireVATFieldsUpdated()
             }

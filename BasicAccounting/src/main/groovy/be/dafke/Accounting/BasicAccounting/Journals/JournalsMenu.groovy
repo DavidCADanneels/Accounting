@@ -14,13 +14,7 @@ import java.awt.*
 import static java.util.ResourceBundle.getBundle
 
 class JournalsMenu extends JMenu {
-    Accounting accounting
     JMenuItem add, manage, types, generatePdf
-
-    Journals journals
-    JournalTypes journalTypes
-    Accounts accounts
-    AccountTypes accountTypes
 
     JournalsMenu() {
         super(getBundle("Accounting").getString("JOURNALS"))
@@ -38,7 +32,7 @@ class JournalsMenu extends JMenu {
         manage = new JMenuItem(getBundle("Accounting").getString("MANAGE_JOURNALS"))
         manage.addActionListener({ e ->
             Point locationOnScreen = getLocationOnScreen()
-            JournalManagementGUI journalManagementGUI = JournalManagementGUI.getInstance(accounts, journals, journalTypes, accountTypes)
+            JournalManagementGUI journalManagementGUI = JournalManagementGUI.getInstance(Session.activeAccounting.accounts, Session.activeAccounting.journals, Session.activeAccounting.journalTypes, Session.activeAccounting.accountTypes)
             journalManagementGUI.setLocation(locationOnScreen)
             journalManagementGUI.visible = true
         })
@@ -47,14 +41,14 @@ class JournalsMenu extends JMenu {
         types = new JMenuItem(getBundle("Accounting").getString("MANAGE_JOURNAL_TYPES"))
         types.addActionListener({ e ->
             Point locationOnScreen = getLocationOnScreen()
-            JournalTypeManagementGUI journalTypeManagementGUI = JournalTypeManagementGUI.getInstance(accounts, journalTypes, accountTypes)
+            JournalTypeManagementGUI journalTypeManagementGUI = JournalTypeManagementGUI.getInstance(Session.activeAccounting.accounts, Session.activeAccounting.journalTypes, Session.activeAccounting.accountTypes)
             journalTypeManagementGUI.setLocation(locationOnScreen)
             journalTypeManagementGUI.visible = true
         })
         types.enabled = false
 
         generatePdf = new JMenuItem(getBundle("BusinessModel").getString("GENERATE_PDF"))
-        generatePdf.addActionListener({ e -> JournalsIO.writeJournalPdfFiles(accounting) })
+        generatePdf.addActionListener({ e -> JournalsIO.writeJournalPdfFiles(Session.activeAccounting) })
         generatePdf.enabled = false
 
         add(add)
@@ -63,22 +57,12 @@ class JournalsMenu extends JMenu {
         add(generatePdf)
     }
 
-    void setAccounting(Accounting accounting) {
-        this.accounting = accounting
-        setJournals(accounting?accounting.journals:null)
-//        transactions = accounting?accounting.transactions:null
-        journalTypes = accounting?accounting.journalTypes:null
-        accountTypes = accounting?accounting.accountTypes:null
-        accounts = accounting?accounting.accounts:null
-        add.enabled = journals!=null
-        manage.enabled = journals!=null
-        types.enabled = journals!=null
-        generatePdf.enabled = journals!=null
-        fireJournalDataChanged()
-    }
-
-    void setJournals(Journals journals) {
-        this.journals = journals
+    void refresh() {
+        boolean enabledButton = Session.activeAccounting.journals!=null
+        add.enabled = enabledButton
+        manage.enabled = enabledButton
+        types.enabled = enabledButton
+        generatePdf.enabled = enabledButton
         fireJournalDataChanged()
     }
 
@@ -88,9 +72,9 @@ class JournalsMenu extends JMenu {
         add(manage)
         add(types)
         add(generatePdf)
-        if(journals){
+        if(Session.activeAccounting.journals){
             addSeparator()
-            journals.businessObjects.stream()
+            Session.activeAccounting.journals.businessObjects.stream()
                     .forEach({ journal ->
                         JMenuItem details = new JMenuItem(journal.name)
                         details.addActionListener({ e ->

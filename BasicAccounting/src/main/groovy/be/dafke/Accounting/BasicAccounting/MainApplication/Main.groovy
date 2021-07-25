@@ -260,10 +260,10 @@ class Main {
         mealsMenu.accounting = accounting
         codaMenu.accounting = accounting
         accountsMenu.refresh()
-        journalsMenu.accounting = accounting
-        balancesMenu.accounting = accounting
+        journalsMenu.refresh()
+        balancesMenu.refresh()
         accountingMenu.accounting = accounting
-        vatMenu.accounting = accounting
+        vatMenu.refresh()
 
         if (accounting != null) {
             vatMenu.visible = accounting.vatAccounting
@@ -284,7 +284,7 @@ class Main {
     }
 
     static void fireVATFieldsUpdated(/*VATFields vatFields*/){
-        VATFieldsGUI.fireVATFieldsUpdated(/*vatFields*/)
+//        VATFieldsGUI.fireVATFieldsUpdated(/*vatFields*/)
     }
 
     static Journal getCurrentJournal(){

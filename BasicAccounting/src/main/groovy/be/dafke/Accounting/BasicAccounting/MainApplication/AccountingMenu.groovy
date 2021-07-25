@@ -15,7 +15,6 @@ class AccountingMenu extends JMenu {
     JMenuItem settings
     JMenuItem saveHtml
     Accountings accountings
-    Accounting accounting
 
     AccountingMenu(final Accountings accountings) {
         super(getBundle("Accounting").getString("ACCOUNTING"))
@@ -28,7 +27,7 @@ class AccountingMenu extends JMenu {
         })
         settings = new JMenuItem(getBundle("Accounting").getString("SETTINGS_MENU"))
         settings.addActionListener({ e ->
-            AccountingSettingsGUI accountingSettingsPanel = AccountingSettingsGUI.showPanel(accounting)
+            AccountingSettingsGUI accountingSettingsPanel = AccountingSettingsGUI.showPanel()
             accountingSettingsPanel.setLocation(getLocationOnScreen())
             accountingSettingsPanel.visible = true
         })
@@ -43,7 +42,6 @@ class AccountingMenu extends JMenu {
         add(settings)
         add(saveHtml)
         addSeparator()
-        this.accounting=accounting
 
         accountings.businessObjects.stream()
                 .filter({ acc -> acc != accounting })

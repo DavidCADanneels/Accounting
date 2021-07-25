@@ -8,60 +8,21 @@ import javax.swing.*
 import static java.util.ResourceBundle.getBundle
 
 class VATFieldsGUI extends JFrame {
-    static final HashMap<VATFields, VATFieldsGUI> vatGuis = new HashMap<>()
+    static VATFieldsGUI gui1 = null
     final VATFieldsPanel vatFieldsPanel
 
-    static VATFieldsGUI getInstance(VATFields vatFields, Accounting accounting) {
-        VATFieldsGUI gui
-        gui = vatGuis.get(vatFields)
-        if(gui==null){
-            gui = new VATFieldsGUI(vatFields, accounting, null)
-            vatGuis.put(vatFields,gui)
-            Main.addFrame(gui)
+    static VATFieldsGUI getInstance() {
+        if(gui1==null){
+            gui1 = new VATFieldsGUI(null)
+            Main.addFrame(gui1)
         }
-        gui
+        gui1
     }
 
-    static VATFieldsGUI getInstance(List<Transaction> transactions, Accounting accounting) {
-        VATFieldsGUI gui
-        VATFields vatFields = new VATFields()
-        vatFields.addDefaultFields()
-        for(Transaction transaction : transactions) {
-            ArrayList<VATBooking> vatBookings = transaction.vatBookings
-            for (VATBooking vatBooking : vatBookings) {
-                VATField originalVatField = vatBooking.vatField
-                String name = originalVatField.name
-                VATField newVatField = vatFields.getBusinessObject(name)
-                VATMovement vatMovement = vatBooking.vatMovement
-                newVatField.addBusinessObject(vatMovement)
-            }
-        }
-        gui = vatGuis.get(vatFields)
-        if(gui==null){
-            gui = new VATFieldsGUI(vatFields, accounting, transactions)
-            vatGuis.put(vatFields,gui)
-            Main.addFrame(gui)
-        }
-        gui
-    }
-
-    VATFieldsGUI(VATFields vatFields, Accounting accounting, List<Transaction> transactions) {
+    VATFieldsGUI(List<Transaction> transactions) {
         super(getBundle("VAT").getString("VAT_FIELDS"))
-        vatFieldsPanel = new VATFieldsPanel(vatFields, accounting, transactions)
+        vatFieldsPanel = new VATFieldsPanel(transactions)
         setContentPane(vatFieldsPanel)
-        updateVATFields()
         pack()
-    }
-
-    static void fireVATFieldsUpdated(){
-        for(VATFieldsGUI vatFieldsGUI : vatGuis.values()) {
-            if (vatFieldsGUI != null) {
-                vatFieldsGUI.updateVATFields()
-            }
-        }
-    }
-
-    void updateVATFields(){
-        vatFieldsPanel.updateVATFields()
     }
 }
