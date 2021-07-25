@@ -1,8 +1,10 @@
 package be.dafke.Accounting.BasicAccounting.Mortgages
 
+import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.Calculate
 import be.dafke.Accounting.BusinessModel.Mortgage
 import be.dafke.Accounting.BusinessModel.Mortgages
+import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.Utils.Utils
 
 import javax.swing.BoxLayout
@@ -21,7 +23,6 @@ class MortgageCalculatorPanel extends JPanel implements FocusListener {
                              totalToPayFixed, totalIntrestDegres, totalToPayDegres, totalIntrestDifference, totalToPayDifference
     final JButton converter, create
     final JRadioButton fix, degres
-    final Mortgages mortgages
 
     BigDecimal jaarPercentage = null
     BigDecimal maandPercentage = null
@@ -34,9 +35,8 @@ class MortgageCalculatorPanel extends JPanel implements FocusListener {
     static int counter = 1
     final int nr
 
-    MortgageCalculatorPanel(Mortgages mortgages) {
+    MortgageCalculatorPanel() {
         nr = counter++
-        this.mortgages = mortgages
 
         amountField = new JTextField(10)
         months = new JTextField(10)
@@ -151,7 +151,7 @@ class MortgageCalculatorPanel extends JPanel implements FocusListener {
             }
             newMortgage.setName("new Mortgage Table")
             newMortgage.setStartCapital(startKapitaal)
-            MortgageTable gui = new MortgageTable(newMortgage, startKapitaal, mortgages)
+            MortgageTable gui = new MortgageTable(newMortgage, startKapitaal, Session.activeAccounting.mortgages)
             Main.addFrame(gui)
             gui.setLocation(getLocationOnScreen())
             gui.visible = true

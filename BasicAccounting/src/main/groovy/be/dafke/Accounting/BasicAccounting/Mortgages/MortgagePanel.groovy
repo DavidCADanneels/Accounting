@@ -5,6 +5,7 @@ import be.dafke.Accounting.BusinessModel.Account
 import be.dafke.Accounting.BusinessModel.Accounts
 import be.dafke.Accounting.BusinessModel.Mortgage
 import be.dafke.Accounting.BusinessModel.Mortgages
+import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.Accounting.ObjectModel.Exceptions.NotEmptyException
 import be.dafke.Utils.Utils
 
@@ -17,8 +18,6 @@ class MortgagePanel extends JPanel implements ActionListener {
     final JList<Mortgage> mortgagesList
     final JButton create
     final JTextField nrPayed
-    Mortgages mortgages
-    Accounts accounts
     boolean init = true
     final JComboBox<Account> comboIntrest, comboCapital
     Mortgage selectedMortgage = null
@@ -29,9 +28,7 @@ class MortgagePanel extends JPanel implements ActionListener {
     final JTable table
     final JButton save, delete
 
-    MortgagePanel(Mortgages mortgages, Accounts accounts) {
-        this.mortgages = mortgages
-        this.accounts = accounts
+    MortgagePanel() {
         mortgagesList = new JList<>()
         mortgagesList.setModel(new DefaultListModel<>())
         mortgagesList.addListSelectionListener({ e ->
@@ -44,7 +41,7 @@ class MortgagePanel extends JPanel implements ActionListener {
         })
         create = new JButton("Create new Mortgage table")
         create.addActionListener({ e ->
-            MortgageCalculatorGUI mortgageCalculatorGUI = MortgageCalculatorGUI.showCalculator(mortgages)
+            MortgageCalculatorGUI mortgageCalculatorGUI = MortgageCalculatorGUI.showCalculator()
             mortgageCalculatorGUI.setLocation(getLocationOnScreen())
             mortgageCalculatorGUI.visible = true
         })
@@ -136,7 +133,7 @@ class MortgagePanel extends JPanel implements ActionListener {
         } else if (e.getSource() == delete) {
             if (selectedMortgage != null) {
                 try {
-                    mortgages.removeBusinessObject(selectedMortgage)
+                    Session.activeAccounting.mortgages.removeBusinessObject(selectedMortgage)
 //                    Main.fireMortgageAddedOrRemoved(mortgages)
                 } catch (NotEmptyException e1) {
                     System.err.println("This mortgage is in use !")
@@ -166,7 +163,7 @@ class MortgagePanel extends JPanel implements ActionListener {
 
     void refresh() {
         listModel = new DefaultListModel<>()
-        for(Mortgage mortgage :mortgages.businessObjects) {
+        for(Mortgage mortgage : Session.activeAccounting.mortgages.businessObjects) {
             if (!listModel.contains(mortgage)) {
                 listModel.addElement(mortgage)
             }
@@ -176,7 +173,7 @@ class MortgagePanel extends JPanel implements ActionListener {
 
         intrestModel = new DefaultComboBoxModel<>()
         capitalModel = new DefaultComboBoxModel<>()
-        for(Account account : accounts.businessObjects){
+        for(Account account : Session.activeAccounting.accounts.businessObjects){
             intrestModel.addElement(account)
             capitalModel.addElement(account)
         }

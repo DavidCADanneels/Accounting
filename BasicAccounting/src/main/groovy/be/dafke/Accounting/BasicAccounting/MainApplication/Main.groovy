@@ -255,7 +255,7 @@ class Main {
 
     static void setMenuAccounting(Accounting accounting) {
         projectsMenu.refresh()
-        morgagesMenu.accounting = accounting
+        morgagesMenu.refresh()
         tradeMenu.accounting = accounting
         mealsMenu.accounting = accounting
         codaMenu.accounting = accounting

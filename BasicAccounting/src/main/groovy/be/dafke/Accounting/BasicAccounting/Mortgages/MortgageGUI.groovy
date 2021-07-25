@@ -1,44 +1,32 @@
 package be.dafke.Accounting.BasicAccounting.Mortgages
 
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
-import be.dafke.Accounting.BusinessModel.Accounts
 import be.dafke.Accounting.BusinessModel.Mortgage
-import be.dafke.Accounting.BusinessModel.Mortgages
 
 import javax.swing.*
 
 class MortgageGUI extends JFrame  {
-    static final HashMap<Mortgages, MortgageGUI> mortgageGuis = new HashMap<>()
+    static MortgageGUI gui = null
     final MortgagePanel mortgagePanel
 
-    MortgageGUI(Mortgages mortgages, Accounts accounts) {
+    MortgageGUI() {
         super("Mortgages")
-        mortgagePanel = new MortgagePanel(mortgages, accounts)
+        mortgagePanel = new MortgagePanel()
         setContentPane(mortgagePanel)
         pack()
         refresh()
     }
 
-    static MortgageGUI showMortgages(Mortgages mortgages, Accounts accounts) {
-        MortgageGUI gui = mortgageGuis.get(mortgages)
+    static MortgageGUI showMortgages() {
         if(gui == null){
-            gui = new MortgageGUI(mortgages, accounts)
-            mortgageGuis.put(mortgages,gui)
+            gui = new MortgageGUI()
             Main.addFrame(gui)
         }
         gui
     }
 
-    static void refreshAllFrames(){
-        for (MortgageGUI mortgageGUI:mortgageGuis.values()) {
-            mortgageGUI.refresh()
-        }
-    }
-
-    static void selectMortgage(Mortgage mortgage){
-        for (MortgageGUI mortgageGUI:mortgageGuis.values()) {
-            mortgageGUI.reselect(mortgage)
-        }
+    static void selectMortgage(Mortgage mortgage) {
+        gui.reselect(mortgage)
     }
 
     void refresh() {

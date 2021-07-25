@@ -7,21 +7,19 @@ import javax.swing.*
 
 class MortgageCalculatorGUI extends JFrame {
 
-    static final HashMap<Mortgages, MortgageCalculatorGUI> mortgageCalculatorGuis = new HashMap<>()
+    static MortgageCalculatorGUI gui = null
     MortgageCalculatorPanel mortgageCalculatorPanel
 
-    MortgageCalculatorGUI(Mortgages mortgages) {
+    MortgageCalculatorGUI() {
         super("Mortgage Calculator")
-        mortgageCalculatorPanel = new MortgageCalculatorPanel(mortgages)
+        mortgageCalculatorPanel = new MortgageCalculatorPanel()
         setContentPane(mortgageCalculatorPanel)
         pack()
     }
 
-    static MortgageCalculatorGUI showCalculator(Mortgages mortgages) {
-        MortgageCalculatorGUI gui = mortgageCalculatorGuis.get(mortgages)
+    static MortgageCalculatorGUI showCalculator() {
         if (gui == null) {
-            gui = new MortgageCalculatorGUI(mortgages)
-            mortgageCalculatorGuis.put(mortgages, gui)
+            gui = new MortgageCalculatorGUI()
             Main.addFrame(gui)
         }
         gui
