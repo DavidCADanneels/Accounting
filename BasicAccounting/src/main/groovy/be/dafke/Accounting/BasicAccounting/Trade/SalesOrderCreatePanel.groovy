@@ -87,7 +87,7 @@ class SalesOrderCreatePanel extends JPanel {
         north.add(creditNote)
 
         filter = {it.customer}
-        fireCustomerAddedOrRemoved()
+        contacts.getBusinessObjects(filter).forEach({ contact -> comboBox.addItem(contact) })
         comboBox.setSelectedItem(noInvoice)
         comboBox.enabled = false
 
@@ -151,10 +151,4 @@ class SalesOrderCreatePanel extends JPanel {
         salesOrderCreateDataTableModel.order = salesOrder
         salesOrderCreateDataTableModel.fireTableDataChanged()
     }
-
-//    void fireCustomerAddedOrRemoved() {
-//        comboBox.removeAllItems()
-//        contacts.getBusinessObjects(filter).forEach({ contact -> comboBox.addItem(contact) })
-////        salesOrderDataTableModel.fireTableDataChanged()
-//    }
 }
