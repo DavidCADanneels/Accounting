@@ -7,6 +7,7 @@ import be.dafke.Accounting.BusinessModel.AccountType
 import be.dafke.Accounting.BusinessModel.AccountTypes
 import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Contact
+import be.dafke.Accounting.BusinessModel.Customer
 import be.dafke.Accounting.BusinessModel.Journal
 import be.dafke.Accounting.BusinessModel.StockTransactions
 
@@ -86,7 +87,12 @@ class StockUtils {
         account
     }
 
-    static Account getCustomerAccount(Contact customer, Accounting accounting){
+    static Account getCustomerAccount(Contact contact, Accounting accounting){
+        Customer customer = contact.getCustomer()
+        if(!customer){
+            customer = new Customer()
+            contact.setCustomer(customer)
+        }
         Account customerAccount = customer.customerAccount
         if (customerAccount == null){
             AccountType accountType = accounting.accountTypes.getBusinessObject(AccountTypes.CREDIT)

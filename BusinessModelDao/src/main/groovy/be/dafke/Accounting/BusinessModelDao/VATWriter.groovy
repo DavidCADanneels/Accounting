@@ -101,13 +101,13 @@ class VATWriter {
             int nrOfCustomers=0
             StringBuffer buffer=new StringBuffer()
             for(Contact contact:contacts.businessObjects){
-                BigDecimal turnOver = contact.turnOver
+                BigDecimal turnOver = contact.customer?.turnOver
                 String vatNumber = contact.vatNumber
-                BigDecimal vatTotal = contact.VATTotal
+                BigDecimal vatTotal = contact.customer?.VATTotal
                 String countryCode = contact.countryCode
-                if(contact.isCustomer() && vatNumber && turnOver.compareTo(BigDecimal.ZERO)>0) {
-                    totalTurnover = totalTurnover.add(contact.turnOver)
-                    totalVatTotal = totalVatTotal.add(contact.VATTotal)
+                if(contact.customer!=null && vatNumber && turnOver.compareTo(BigDecimal.ZERO)>0) {
+                    totalTurnover = totalTurnover.add(contact.customer.turnOver)
+                    totalVatTotal = totalVatTotal.add(contact.customer.VATTotal)
                     nrOfCustomers++
                     buffer.append(
                             "        <ns2:Client SequenceNumber=\"1\">\n" +

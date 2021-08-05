@@ -11,10 +11,10 @@ class Contact extends BusinessObject{
     String email = ""
     String phone = ""
     String officialName = ""
-    BigDecimal turnOver = BigDecimal.ZERO
-    BigDecimal VATTotal = BigDecimal.ZERO
-    Account customerAccount = null
+
     Account supplierAccount = null
+
+    Customer customer = null
 
     Contact() {
 
@@ -29,16 +29,24 @@ class Contact extends BusinessObject{
         email = contact.email
         phone = contact.phone
         officialName = contact.officialName
-        Account otherCustomerAccount = contact.customerAccount
-        if(otherCustomerAccount){
-            String accountName = otherCustomerAccount.name
-            customerAccount = accounts.getBusinessObject(accountName)
+        if(contact.customer){
+            customer = new Customer()
+            String accountName = contact.customer.customerAccount
+            customer.customerAccount = accounts.getBusinessObject(accountName)
         }
         Account otherSupplierAccount = contact.supplierAccount
         if(otherSupplierAccount){
             String accountName = otherSupplierAccount.name
             supplierAccount = accounts.getBusinessObject(accountName)
         }
+    }
+
+    Customer getCustomer() {
+        return customer
+    }
+
+    void setCustomer(Customer customer) {
+        this.customer = customer
     }
 
     enum ContactType{
@@ -50,50 +58,9 @@ class Contact extends BusinessObject{
         supplierAccount!=null
     }
 
-    boolean isCustomer() {
-        customerAccount!=null
-    }
-
-    boolean withDebts(){
-        // Customer
-        isCustomer() && customerAccount.saldo != 0
-    }
-
-    boolean withCredits(){
-        // Supplier
-        isSupplier() && supplierAccount.saldo != 0
-    }
-
-    void increaseTurnOver(BigDecimal amount){
-        turnOver = turnOver.add(amount)
-        turnOver = turnOver.setScale(2)
-    }
-
-    void increaseVATTotal(BigDecimal amount){
-        VATTotal = VATTotal.add(amount)
-        VATTotal = VATTotal.setScale(2)
-    }
-
-    void decreaseTurnOver(BigDecimal amount){
-        turnOver = turnOver.subtract(amount)
-        turnOver = turnOver.setScale(2)
-    }
-
-    void decreaseVATTotal(BigDecimal amount){
-        VATTotal = VATTotal.subtract(amount)
-        VATTotal = VATTotal.setScale(2)
-    }
-
-    void setTurnOver(BigDecimal turnOver) {
-        this.turnOver = turnOver
-    }
-
-    void setVATTotal(BigDecimal VATTotal) {
-        this.VATTotal = VATTotal
-    }
-
     void setCustomerAccount(Account customerAccount) {
-        this.customerAccount = customerAccount
+        if(!customer) customer = new Customer()
+        customer.customerAccount = customerAccount
     }
 
     void setSupplierAccount(Account supplierAccount) {

@@ -86,7 +86,7 @@ class SalesOrderCreatePanel extends JPanel {
         north.add(comboBox)
         north.add(creditNote)
 
-        filter = {it.customer}
+        filter = {it.customer != null}
         contacts.getBusinessObjects(filter).forEach({ contact -> comboBox.addItem(contact) })
         comboBox.setSelectedItem(noInvoice)
         comboBox.enabled = false

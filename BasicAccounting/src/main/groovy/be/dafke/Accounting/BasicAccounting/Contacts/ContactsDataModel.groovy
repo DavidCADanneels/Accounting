@@ -157,13 +157,13 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
         } else if (col == EMAIL_COL) {
             return contact.email
         } else if (col == CUSTOMER_COL) {
-            return contact.customer
+            return contact.customer!=null
         } else if (col == SUPPLIER_COL) {
             return contact.supplier
         } else if (col == TURNOVER_COL) {
-            return contact.turnOver
+            return contact.getCustomer()?.turnOver
         } else if (col == VAT_TOTAL_COL) {
-            return contact.VATTotal
+            return contact.getCustomer()?.VATTotal
         }
         null
     }
@@ -245,7 +245,7 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
         if(contactType == Contact.ContactType.ALL) {
             contacts.businessObjects
         } else if (contactType == Contact.ContactType.CUSTOMERS){
-            contacts.getBusinessObjects{it.customer}
+            contacts.getBusinessObjects{it.customer != null}
         } else if (contactType == Contact.ContactType.SUPPLIERS){
             contacts.getBusinessObjects{it.supplier}
         }

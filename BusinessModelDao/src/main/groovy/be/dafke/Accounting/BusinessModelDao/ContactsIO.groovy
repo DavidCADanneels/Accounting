@@ -3,6 +3,7 @@ package be.dafke.Accounting.BusinessModelDao
 import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Contact
 import be.dafke.Accounting.BusinessModel.Contacts
+import be.dafke.Accounting.BusinessModel.Customer
 import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException
 import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException
 import be.dafke.Utils.Utils
@@ -32,11 +33,13 @@ class ContactsIO {
             contact.email = getValue(element, EMAIL_ADDRESS)
             contact.phone = getValue(element, PHONE_NUMBER)
             contact.vatNumber = getValue(element, VAT_NUMBER)
-            contact.VATTotal = Utils.parseBigDecimal(getValue(element, VAT_TOTAL))
-            contact.turnOver = Utils.parseBigDecimal(getValue(element, TURNOVER))
             String customerAccountName = getValue(element, CUSTOMER_ACCOUNT)
             if(customerAccountName){
-                contact.customerAccount = accounting.accounts.getBusinessObject(customerAccountName)
+                Customer customer = new Customer()
+                customer.customerAccount = accounting.accounts.getBusinessObject(customerAccountName)
+                customer.VATTotal = Utils.parseBigDecimal(getValue(element, VAT_TOTAL))
+                customer.turnOver = Utils.parseBigDecimal(getValue(element, TURNOVER))
+                contact.customer = customer
             }
             String supplierAccountName = getValue(element, SUPPLIER_ACCOUNT)
             if(supplierAccountName) {
@@ -79,9 +82,10 @@ class ContactsIO {
     <$EMAIL_ADDRESS>$contact.email</$EMAIL_ADDRESS>
     <$PHONE_NUMBER>$contact.phone</$PHONE_NUMBER>
     <$VAT_NUMBER>$contact.vatNumber</$VAT_NUMBER>
-    <$VAT_TOTAL>$contact.VATTotal</$VAT_TOTAL>
-    <$TURNOVER>$contact.turnOver</$TURNOVER>
-    <$CUSTOMER_ACCOUNT>$contact.customerAccount</$CUSTOMER_ACCOUNT>
+${contact.customer?"""\
+    <$VAT_TOTAL>$contact.customer.VATTotal</$VAT_TOTAL>
+    <$TURNOVER>$contact.customer.turnOver</$TURNOVER>
+    <$CUSTOMER_ACCOUNT>$contact.customer.customerAccount</$CUSTOMER_ACCOUNT>""":''}\
     <$SUPPLIER_ACCOUNT>$contact.supplierAccount</$SUPPLIER_ACCOUNT>
   </$CONTACT>
 """

@@ -53,6 +53,6 @@ class OpenCustomerInvoicesPanel extends JPanel {
 
     Account getSelectedAccount(){
         SalesOrder salesOrder = tabel.getSelectedObject()
-        salesOrder?salesOrder.customer.customerAccount:null
+        salesOrder?.customer?.customer?.customerAccount?:null
     }
 }

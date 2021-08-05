@@ -116,9 +116,9 @@ class ContactDetailsPanel extends JPanel {
         contactEmail.setText(contact.email)
         contactPhone.setText(contact.phone)
         officialName.setText(contact.officialName)
-        customer.setSelected(contact.customer)
-        supplier.setSelected(contact.supplier)
-        Account customerAccount = contact.customerAccount
+        customer.setSelected(contact.customer!=null)
+        supplier.setSelected(contact.isSupplier())
+        Account customerAccount = contact.customer?.customerAccount
         if (customerAccount){
             customerAccountName.setText(customerAccount.toString())
         } else {

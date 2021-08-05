@@ -38,14 +38,14 @@ class Transactions extends Journal {
 ////                    vatBookings.setId(transactionId)
 //                    vatTransactions.addBusinessObject(vatBookings)
 //                }
-                Contact contact = transaction.contact
                 BigDecimal turnOverAmount = transaction.turnOverAmount
                 BigDecimal vatAmount = transaction.VATAmount
-                if (contact != null){
+                Customer customer = transaction.contact?.customer
+                if (customer != null){
                     if(turnOverAmount != null)
-                        contact.increaseTurnOver turnOverAmount
+                        customer.increaseTurnOver turnOverAmount
                     if(vatAmount != null)
-                        contact.increaseVATTotal vatAmount
+                        customer.increaseVATTotal vatAmount
                 }
             }
         }
@@ -73,14 +73,14 @@ class Transactions extends Journal {
 //                VATTransactions vatTransactions = accounting.vatTransactions
 //                vatTransactions.removeBusinessObject(vatTransaction)
 //            }
-            Contact contact = transaction.contact
             BigDecimal turnOverAmount = transaction.turnOverAmount
             BigDecimal vatAmount = transaction.VATAmount
-            if (contact != null){
+            Customer customer = transaction.contact?.customer
+            if (customer != null){
                 if(turnOverAmount != null)
-                    contact.decreaseTurnOver turnOverAmount
+                    customer.decreaseTurnOver turnOverAmount
                 if(vatAmount != null)
-                    contact.decreaseVATTotal vatAmount
+                    customer.decreaseVATTotal vatAmount
             }
         }
         // do not remove transactions from master, just remove Journal link
