@@ -46,6 +46,25 @@ class Transactions extends Journal {
                         customer.increaseTurnOver turnOverAmount
                     if(vatAmount != null)
                         customer.increaseVATTotal vatAmount
+                    // TODO: add SalesOrder to Customer
+                    Order order = transaction.order
+                    if(order instanceof SalesOrder){
+                        SalesOrder salesOrder = (SalesOrder)order
+                        customer.salesOrders.add(salesOrder)
+                    } else{
+                        // error?
+                    }
+                }
+                Supplier supplier = transaction.contact?.supplier
+                if(supplier){
+                    // TODO: add PurchaseOrder to Supplier
+                    Order order = transaction.order
+                    if(order instanceof PurchaseOrder){
+                        PurchaseOrder purchaseOrder = (PurchaseOrder)order
+                        supplier.purchaseOrders.add(purchaseOrder)
+                    } else {
+                        // error?
+                    }
                 }
             }
         }

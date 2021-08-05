@@ -71,10 +71,12 @@ class PurchaseOrderIO {
             int purchaseTransactionId = parseInt(getValue(orderElement, PURCHASE_TRANSACTION))
             Transaction purchaseTransaction = transactions.getBusinessObject(purchaseTransactionId)
             order.purchaseTransaction = purchaseTransaction
+            purchaseTransaction?.order = order
 
             int paymentTransactionId = parseInt(getValue(orderElement, PAYMENT_TRANSACTION))
             Transaction paymentTransaction = transactions.getBusinessObject(paymentTransactionId)
             order.paymentTransaction = paymentTransaction
+            paymentTransaction?.order = order
 
             try {
                 purchaseOrders.addBusinessObject(order)

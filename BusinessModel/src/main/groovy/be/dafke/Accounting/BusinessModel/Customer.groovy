@@ -5,6 +5,8 @@ class Customer {
     BigDecimal VATTotal = BigDecimal.ZERO
     Account customerAccount = null
 
+    ArrayList<SalesOrder> salesOrders = new ArrayList<>()
+
     void increaseTurnOver(BigDecimal amount){
         turnOver = turnOver.add(amount)
         turnOver = turnOver.setScale(2)
@@ -23,17 +25,5 @@ class Customer {
     void decreaseVATTotal(BigDecimal amount){
         VATTotal = VATTotal.subtract(amount)
         VATTotal = VATTotal.setScale(2)
-    }
-
-    void setTurnOver(BigDecimal turnOver) {
-        this.turnOver = turnOver
-    }
-
-    void setVATTotal(BigDecimal VATTotal) {
-        this.VATTotal = VATTotal
-    }
-
-    void setCustomerAccount(Account customerAccount) {
-        this.customerAccount = customerAccount
     }
 }

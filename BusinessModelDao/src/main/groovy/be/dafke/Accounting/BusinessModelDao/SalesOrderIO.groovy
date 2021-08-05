@@ -91,17 +91,21 @@ class SalesOrderIO {
                 order.addBusinessObject(orderItem)
             }
             Transactions transactions = accounting.transactions
+
             int salesTransactionId = parseInt(getValue(orderElement, SALES_TRANSACTION))
             Transaction salesTransaction = transactions.getBusinessObject salesTransactionId
             order.salesTransaction = salesTransaction
+            salesTransaction?.order = order
 
             int paymentTransactionId = parseInt(getValue(orderElement, PAYMENT_TRANSACTION))
             Transaction paymentTransaction = transactions.getBusinessObject(paymentTransactionId)
             order.paymentTransaction = paymentTransaction
+            paymentTransaction?.order = order
 
             int gainTransactionId = parseInt(getValue(orderElement, GAIN_TRANSACTION))
             Transaction gainTransaction = transactions.getBusinessObject(gainTransactionId)
             order.gainTransaction = gainTransaction
+            gainTransaction?.order = order
 
             try {
                 salesOrders.addBusinessObject(order)

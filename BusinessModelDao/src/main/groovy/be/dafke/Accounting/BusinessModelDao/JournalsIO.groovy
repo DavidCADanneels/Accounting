@@ -176,6 +176,19 @@ class JournalsIO {
             }
             transaction.transactionId = transactionId
 
+            // Not needed here: links are set while parsing PurchaseOrders and SalesOrders
+//            String purchaseOrder = getValue(element, PURCHASE_ORDER)
+//            if(purchaseOrder){
+//                PurchaseOrder order = accounting.purchaseOrders.getBusinessObject(purchaseOrder)
+//                transaction.order = order
+//            }
+//
+//            String salesOrder = getValue(element, SALES_ORDER)
+//            if(salesOrder) {
+//                SalesOrder order = accounting.salesOrders.getBusinessObject(salesOrder)
+//                transaction.order = order
+//            }
+
             String journalAbbr = getValue(element, JOURNAL)
             if (!journalAbbr.equals("NULL")) {
                 Journals journals = accounting.journals
@@ -484,7 +497,14 @@ class JournalsIO {
     <$DESCRIPTION>$transaction.description</$DESCRIPTION>
     <$JOURNAL>$transaction.abbreviation</$JOURNAL>
     <$JOURNAL_ID>$transaction.id</$JOURNAL_ID>"""
-
+                if(transaction.order){
+                    if(transaction.order instanceof PurchaseOrder)
+                    writer.write """
+    <$PURCHASE_ORDER>$transaction.order</$PURCHASE_ORDER>"""
+                    if(transaction.order instanceof SalesOrder)
+                    writer.write """
+    <$SALES_ORDER>$transaction.order</$SALES_ORDER>"""
+                }
                 for(Journal journal : transaction.duplicateJournals) writer.write """
     <$DUPLICATE_JOURNAL>$journal.abbreviation</$DUPLICATE_JOURNAL>
         <$DUPLICATE_JOURNAL_ID>${journal.getId(transaction)}</$DUPLICATE_JOURNAL_ID>"""
