@@ -78,6 +78,10 @@ class PurchaseOrderIO {
             order.paymentTransaction = paymentTransaction
             paymentTransaction?.order = order
 
+            if(order.supplier?.supplier) {
+                order.supplier.supplier.purchaseOrders.add(order)
+            }
+
             try {
                 purchaseOrders.addBusinessObject(order)
             } catch (EmptyNameException | DuplicateNameException e) {

@@ -4,6 +4,9 @@ import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Contact
 import be.dafke.Accounting.BusinessModel.Contacts
 import be.dafke.Accounting.BusinessModel.Customer
+import be.dafke.Accounting.BusinessModel.PurchaseOrder
+import be.dafke.Accounting.BusinessModel.SalesOrder
+import be.dafke.Accounting.BusinessModel.Supplier
 import be.dafke.Accounting.ObjectModel.Exceptions.DuplicateNameException
 import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException
 import be.dafke.Utils.Utils
@@ -43,7 +46,9 @@ class ContactsIO {
             }
             String supplierAccountName = getValue(element, SUPPLIER_ACCOUNT)
             if(supplierAccountName) {
-                contact.supplierAccount = accounting.accounts.getBusinessObject(supplierAccountName)
+                Supplier supplier = new Supplier()
+                supplier.supplierAccount = accounting.accounts.getBusinessObject(supplierAccountName)
+                contact.supplier = supplier
             }
             try {
                 contacts.addBusinessObject(contact)
@@ -71,7 +76,8 @@ class ContactsIO {
         try{
             Writer writer = new FileWriter(accountsFile)
             writer.write getXmlHeader(CONTACTS, 2)
-            for(Contact contact: contacts.businessObjects) writer.write """\
+            for(Contact contact: contacts.businessObjects) {
+                writer.write """\
   <$CONTACT>
     <$NAME>$contact.name</$NAME>
     <$OFFICIAL_NAME>$contact.officialName</$OFFICIAL_NAME>
@@ -81,17 +87,29 @@ class ContactsIO {
     <$COUNTRY_CODE>$contact.countryCode</$COUNTRY_CODE>
     <$EMAIL_ADDRESS>$contact.email</$EMAIL_ADDRESS>
     <$PHONE_NUMBER>$contact.phone</$PHONE_NUMBER>
-    <$VAT_NUMBER>$contact.vatNumber</$VAT_NUMBER>
-${contact.customer?"""\
+    <$VAT_NUMBER>$contact.vatNumber</$VAT_NUMBER>"""
+                if (contact.customer) {
+                    writer.write """
     <$VAT_TOTAL>$contact.customer.VATTotal</$VAT_TOTAL>
     <$TURNOVER>$contact.customer.turnOver</$TURNOVER>
-    <$CUSTOMER_ACCOUNT>$contact.customer.customerAccount</$CUSTOMER_ACCOUNT>
-""":''}\
-${contact.supplier?"""\
-    <$SUPPLIER_ACCOUNT>$contact.supplier.supplierAccount</$SUPPLIER_ACCOUNT>
-""":''}\
+    <$CUSTOMER_ACCOUNT>$contact.customer.customerAccount</$CUSTOMER_ACCOUNT>"""
+                    for (SalesOrder salesOrder : contact.customer.salesOrders) {
+                        writer.write """
+    <$SALES_ORDER>$salesOrder</$SALES_ORDER>"""
+                    }
+                }
+                if (contact.supplier) {
+                    writer.write """
+    <$SUPPLIER_ACCOUNT>$contact.supplier.supplierAccount</$SUPPLIER_ACCOUNT>"""
+                    for (PurchaseOrder purchaseOrder : contact.supplier.purchaseOrders) {
+                        writer.write """
+    <$PURCHASE_ORDER>$purchaseOrder</$PURCHASE_ORDER>"""
+                    }
+                }
+                writer.write """
   </$CONTACT>
 """
+            }
             
             writer.write """\
   <$COMPANY_CONTACT>${(companyContact==null?"null":companyContact.name)}</$COMPANY_CONTACT>

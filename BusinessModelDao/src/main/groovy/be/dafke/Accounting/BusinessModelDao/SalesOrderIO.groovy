@@ -107,6 +107,10 @@ class SalesOrderIO {
             order.gainTransaction = gainTransaction
             gainTransaction?.order = order
 
+            if(order.customer?.customer) {
+                order.customer.customer.salesOrders.add(order)
+            }
+
             try {
                 salesOrders.addBusinessObject(order)
             } catch (EmptyNameException | DuplicateNameException e) {
