@@ -68,7 +68,6 @@ class Main {
     static JournalSelectorPanel journalSelectorPanel
     static ContactsSelectorPanel contactsSelectorPanel
     static ContactsPanel contactsPanel
-    static PDFViewerPanel pdfViewer
 
     static final String JOURNALS_CENTER_VIEW = 'Journals'
     static final String SO_CENTER_VIEW = 'SalesOrders'
@@ -76,7 +75,6 @@ class Main {
     static final String INGREDIENTS_CENTER_VIEW = 'Ingredients'
     static final String ALLERGENES_CENTER_VIEW = 'Allergenes'
     static final String CONTACTS_CENTER_VIEW = 'Contacts'
-    static final String PDF_CENTER_VIEW = 'PDF'
 
     static final String EMPTY_MENU_VIEW = 'empty'
     static final String ORDERS_MENU_VIEW = 'Orders'
@@ -99,7 +97,6 @@ class Main {
         allergenesSwitchViewPanel = new AllergenesSwitchViewPanel()
         ContactsDataModel contactsDataModel = new ContactsDataModel()
         contactsPanel = new ContactsPanel(contactsDataModel)
-        pdfViewer = new PDFViewerPanel()
 
         center.add journalSwitchPanel, JOURNALS_CENTER_VIEW
         center.add salesOrdersOverViewPanel, SO_CENTER_VIEW
@@ -107,7 +104,6 @@ class Main {
         center.add ingredientsSwitchViewPanel, INGREDIENTS_CENTER_VIEW
         center.add allergenesSwitchViewPanel, ALLERGENES_CENTER_VIEW
         center.add contactsPanel, CONTACTS_CENTER_VIEW
-        center.add pdfViewer, PDF_CENTER_VIEW
 
         mealViewSelectorPanel = new MealViewSelectorPanel()
         ordersViewSelectorPanel = new OrdersViewSelectorPanel()

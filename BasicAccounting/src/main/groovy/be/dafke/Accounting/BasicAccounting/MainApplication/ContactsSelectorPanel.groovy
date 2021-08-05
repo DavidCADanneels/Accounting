@@ -15,7 +15,7 @@ class ContactsSelectorPanel extends JPanel {
     ContactsSelectorPanel(ContactsDataModel contactsDataModel) {
         dataModel = contactsDataModel
         customers = new JToggleButton('Customers only')
-        suppliers = new JToggleButton('Supplier only')
+        suppliers = new JToggleButton('Suppliers only')
         all = new JToggleButton('All', true)
 
         buttonGroup = new ButtonGroup()

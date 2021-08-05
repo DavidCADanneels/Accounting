@@ -9,7 +9,7 @@ import java.awt.GridLayout
 
 class MainViewSelectorPanel extends JPanel {
 
-    JToggleButton journals, orders, meals, contacts, pdf
+    JToggleButton journals, orders, meals, contacts
 
     ButtonGroup buttonGroup
 
@@ -18,7 +18,6 @@ class MainViewSelectorPanel extends JPanel {
         orders = new JToggleButton('Orders')
         meals = new JToggleButton('Meals')
         contacts = new JToggleButton('Contacts')
-        pdf = new JToggleButton('PDF')
 
         buttonGroup = new ButtonGroup()
 
@@ -26,14 +25,12 @@ class MainViewSelectorPanel extends JPanel {
         buttonGroup.add orders
         buttonGroup.add meals
         buttonGroup.add contacts
-        buttonGroup.add pdf
 
         setLayout(new GridLayout(0,1))
         add journals
         add orders
         add meals
         add contacts
-        add pdf
 
         journals.addActionListener( {
             Main.switchView(Main.JOURNALS_CENTER_VIEW)
@@ -48,9 +45,6 @@ class MainViewSelectorPanel extends JPanel {
         })
         meals.addActionListener( {
             Main.switchSubView(Main.MEALS_MENU_VIEW)
-        })
-        pdf.addActionListener({
-            Main.switchView(Main.PDF_CENTER_VIEW)
         })
     }
 

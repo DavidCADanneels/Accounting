@@ -29,6 +29,7 @@ class SalesOrderDetailPanel extends JPanel {
     JButton createSalesOrder
     JButton editSalesOrder
     JTextField invoiceNr
+    JPanel invoiceLine
     JCheckBox payed, delivered, placed, creditNote, promoOrder
     SalesOrder salesOrder
     ContactDetailsPanel contactDetailsPanel
@@ -144,16 +145,16 @@ class SalesOrderDetailPanel extends JPanel {
 
         JPanel panel = new JPanel()
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS))
-        JPanel line1 = new JPanel()
+        invoiceLine = new JPanel()
         JPanel line2 = new JPanel()
         JPanel line3 = new JPanel()
 
         invoiceNr = new JTextField(10)
         invoiceNr.enabled = false
-        line1.add(new JLabel("Invoice:"))
-        line1.add(invoiceNr)
-        line1.add(viewInvoiceButton)
-        line1.add(createInvoiceButton)
+        invoiceLine.add(new JLabel("Invoice:"))
+        invoiceLine.add(invoiceNr)
+        invoiceLine.add(viewInvoiceButton)
+        invoiceLine.add(createInvoiceButton)
 
         line2.add(editSalesOrder)
         line2.add(placeOrderButton)
@@ -163,7 +164,7 @@ class SalesOrderDetailPanel extends JPanel {
         line3.add(gainTransactionButton)
         line3.add(paymentTransactionButton)
 
-        panel.add(line1)
+        panel.add(invoiceLine)
         panel.add(line2)
         panel.add(line3)
         panel
@@ -331,11 +332,12 @@ class SalesOrderDetailPanel extends JPanel {
     }
 
     void updateInvoiceButtonAndField() {
+        invoiceLine.visible = salesOrder?.invoice
         createInvoiceButton.enabled = salesOrder?.invoice
-        createInvoiceButton.visible = salesOrder?.invoice
+//        createInvoiceButton.visible = salesOrder?.invoice
         viewInvoiceButton.enabled = (salesOrder?.invoicePath != null)
         invoiceNr.setText(salesOrder?.invoiceNumber ?: '')
-        invoiceNr.visible = salesOrder?.invoice
+//        invoiceNr.visible = salesOrder?.invoice
     }
 
     void updateContactDetails(SalesOrder salesOrder){
