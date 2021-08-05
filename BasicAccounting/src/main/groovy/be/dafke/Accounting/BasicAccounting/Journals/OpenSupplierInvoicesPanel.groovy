@@ -55,6 +55,6 @@ class OpenSupplierInvoicesPanel extends JPanel {
 
     Account getSelectedAccount(){
         PurchaseOrder purchaseOrder = tabel.getSelectedObject()
-        purchaseOrder?purchaseOrder.supplier.supplierAccount:null
+        purchaseOrder?.supplier?.supplier?.supplierAccount?:null
     }
 }

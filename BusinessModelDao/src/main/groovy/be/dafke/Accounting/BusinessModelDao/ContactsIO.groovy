@@ -85,8 +85,11 @@ class ContactsIO {
 ${contact.customer?"""\
     <$VAT_TOTAL>$contact.customer.VATTotal</$VAT_TOTAL>
     <$TURNOVER>$contact.customer.turnOver</$TURNOVER>
-    <$CUSTOMER_ACCOUNT>$contact.customer.customerAccount</$CUSTOMER_ACCOUNT>""":''}\
-    <$SUPPLIER_ACCOUNT>$contact.supplierAccount</$SUPPLIER_ACCOUNT>
+    <$CUSTOMER_ACCOUNT>$contact.customer.customerAccount</$CUSTOMER_ACCOUNT>
+""":''}\
+${contact.supplier?"""\
+    <$SUPPLIER_ACCOUNT>$contact.supplier.supplierAccount</$SUPPLIER_ACCOUNT>
+""":''}\
   </$CONTACT>
 """
             

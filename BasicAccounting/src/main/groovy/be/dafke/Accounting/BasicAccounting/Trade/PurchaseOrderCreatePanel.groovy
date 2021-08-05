@@ -49,7 +49,7 @@ class PurchaseOrderCreatePanel extends JPanel {
             contact = (Contact) comboBox.selectedItem
             purchaseOrderCreateDataTableModel.setContact(contact)
         })
-        filter = {it.supplier}
+        filter = {it.supplier != null}
         fireSupplierAddedOrRemoved()
 
         orderButton = new JButton("Add Purchase Order")

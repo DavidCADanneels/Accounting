@@ -10,6 +10,7 @@ import be.dafke.Accounting.BusinessModel.Contact
 import be.dafke.Accounting.BusinessModel.Customer
 import be.dafke.Accounting.BusinessModel.Journal
 import be.dafke.Accounting.BusinessModel.StockTransactions
+import be.dafke.Accounting.BusinessModel.Supplier
 
 class StockUtils {
     static Account getJournalBaseAccount(Journal journal){
@@ -106,7 +107,12 @@ class StockUtils {
         customerAccount
     }
 
-    static Account getSupplierAccount(Contact supplier, Accounting accounting){
+    static Account getSupplierAccount(Contact contact, Accounting accounting){
+        Supplier supplier = contact.getSupplier()
+        if(!supplier){
+            supplier = new Supplier()
+            contact.setSupplier(supplier)
+        }
         Account supplierAccount = supplier.supplierAccount
         if (supplierAccount == null){
             AccountType accountType = accounting.accountTypes.getBusinessObject(AccountTypes.DEBIT)

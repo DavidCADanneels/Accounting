@@ -12,9 +12,8 @@ class Contact extends BusinessObject{
     String phone = ""
     String officialName = ""
 
-    Account supplierAccount = null
-
     Customer customer = null
+    Supplier supplier = null
 
     Contact() {
 
@@ -34,10 +33,10 @@ class Contact extends BusinessObject{
             String accountName = contact.customer.customerAccount
             customer.customerAccount = accounts.getBusinessObject(accountName)
         }
-        Account otherSupplierAccount = contact.supplierAccount
-        if(otherSupplierAccount){
-            String accountName = otherSupplierAccount.name
-            supplierAccount = accounts.getBusinessObject(accountName)
+        if(contact.supplier){
+            supplier = new Supplier()
+            String accountName = contact.supplier.supplierAccount
+            supplier.supplierAccount = accounts.getBusinessObject(accountName)
         }
     }
 
@@ -54,16 +53,13 @@ class Contact extends BusinessObject{
         ALL, CUSTOMERS, SUPPLIERS
     }
 
-    boolean isSupplier() {
-        supplierAccount!=null
-    }
-
     void setCustomerAccount(Account customerAccount) {
         if(!customer) customer = new Customer()
         customer.customerAccount = customerAccount
     }
 
     void setSupplierAccount(Account supplierAccount) {
-        this.supplierAccount = supplierAccount
+        if(!supplier) supplier = new Supplier()
+        supplier.supplierAccount = supplierAccount
     }
 }

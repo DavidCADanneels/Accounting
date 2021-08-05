@@ -117,14 +117,14 @@ class ContactDetailsPanel extends JPanel {
         contactPhone.setText(contact.phone)
         officialName.setText(contact.officialName)
         customer.setSelected(contact.customer!=null)
-        supplier.setSelected(contact.isSupplier())
+        supplier.setSelected(contact.supplier!=null)
         Account customerAccount = contact.customer?.customerAccount
         if (customerAccount){
             customerAccountName.setText(customerAccount.toString())
         } else {
             customerAccountName.setText("")
         }
-        Account supplierAccount = contact.supplierAccount
+        Account supplierAccount = contact.supplier?.supplierAccount
         if(supplierAccount) {
             supplierAccountName.setText(supplierAccount.toString())
         } else {
