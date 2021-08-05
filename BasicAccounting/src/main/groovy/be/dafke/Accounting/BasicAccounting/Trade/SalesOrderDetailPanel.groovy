@@ -24,7 +24,7 @@ import static be.dafke.Utils.Utils.parseInt
 import static java.util.ResourceBundle.getBundle
 
 class SalesOrderDetailPanel extends JPanel {
-    JButton placeOrderButton, deliveredButton, createInvoiceButton
+    JButton placeOrderButton, deliveredButton, viewInvoiceButton, createInvoiceButton
     JButton salesTransactionButton, gainTransactionButton, paymentTransactionButton
     JButton createSalesOrder
     JButton editSalesOrder
@@ -112,6 +112,7 @@ class SalesOrderDetailPanel extends JPanel {
         placeOrderButton.enabled = false
         deliveredButton.enabled = false
         createInvoiceButton.enabled = false
+        viewInvoiceButton.enabled = false
         salesTransactionButton.enabled = false
         gainTransactionButton.enabled = false
         paymentTransactionButton.enabled = false
@@ -121,6 +122,10 @@ class SalesOrderDetailPanel extends JPanel {
         createInvoiceButton = new JButton("Create Invoice")
         createInvoiceButton.enabled = false
         createInvoiceButton.addActionListener({ e -> createInvoice() })
+
+        viewInvoiceButton = new JButton("View Invoice")
+        viewInvoiceButton.enabled = false
+        viewInvoiceButton.addActionListener( { e -> viewInvoice()})
 
         placeOrderButton = new JButton("Place Order")
         placeOrderButton.addActionListener({ e -> placeOrder() })
@@ -147,6 +152,7 @@ class SalesOrderDetailPanel extends JPanel {
         invoiceNr.enabled = false
         line1.add(new JLabel("Invoice:"))
         line1.add(invoiceNr)
+        line1.add(viewInvoiceButton)
         line1.add(createInvoiceButton)
 
         line2.add(editSalesOrder)
@@ -242,6 +248,13 @@ class SalesOrderDetailPanel extends JPanel {
         updateButtonsAndCheckBoxes()
     }
 
+    void viewInvoice(){
+        if(salesOrder.invoicePath) {
+            PDFViewerFrame viewerFrame = PDFViewerFrame.showInvoice(salesOrder.invoicePath, salesOrder.invoiceNumber)
+            viewerFrame.visible = true
+        }
+    }
+
     void createInvoice(){
         Accounting accounting = Session.activeAccounting
         if (salesOrder.customer == null) {
@@ -279,6 +292,7 @@ class SalesOrderDetailPanel extends JPanel {
         } else {
             InvoicePDF.createInvoice xmlPath, pdfPath
         }
+        salesOrder.invoicePath = pdfPath
         PDFViewerFrame viewerFrame = PDFViewerFrame.showInvoice(pdfPath, invoiceNumber)
         viewerFrame.visible = true
     }
@@ -317,13 +331,11 @@ class SalesOrderDetailPanel extends JPanel {
     }
 
     void updateInvoiceButtonAndField() {
-        if(salesOrder&&salesOrder.invoice){
-            createInvoiceButton.enabled = true
-            invoiceNr.setText(salesOrder.invoiceNumber)
-        } else {
-            createInvoiceButton.enabled = false
-            invoiceNr.setText("")
-        }
+        createInvoiceButton.enabled = salesOrder?.invoice
+        createInvoiceButton.visible = salesOrder?.invoice
+        viewInvoiceButton.enabled = (salesOrder?.invoicePath != null)
+        invoiceNr.setText(salesOrder?.invoiceNumber ?: '')
+        invoiceNr.visible = salesOrder?.invoice
     }
 
     void updateContactDetails(SalesOrder salesOrder){

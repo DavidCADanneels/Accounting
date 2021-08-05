@@ -42,6 +42,10 @@ class SalesOrderIO {
 
             order.invoice = getBooleanValue(orderElement, INVOICE)
             order.invoiceNumber = getValue(orderElement, INVOICE_NUMBER)
+            String invoicePath = getValue(orderElement, INVOICE_PATH)
+            if(invoicePath){
+                order.invoicePath = invoicePath
+            }
 
             for (Element element : getChildren(orderElement, ARTICLE)) {
 
@@ -125,6 +129,8 @@ class SalesOrderIO {
     <$CREDIT_NOTE>$salesOrder.creditNote</$CREDIT_NOTE>"""
                 if(salesOrder.invoiceNumber) writer.write """
     <$INVOICE_NUMBER>$salesOrder.invoiceNumber</$INVOICE_NUMBER>"""
+                if(salesOrder.invoicePath) writer.write """
+    <$INVOICE_PATH>$salesOrder.invoicePath</$INVOICE_PATH>"""
                 Transaction salesTransaction = salesOrder.salesTransaction
                 if(salesTransaction) writer.write """
     <$SALES_TRANSACTION>$salesTransaction.transactionId</$SALES_TRANSACTION>"""
