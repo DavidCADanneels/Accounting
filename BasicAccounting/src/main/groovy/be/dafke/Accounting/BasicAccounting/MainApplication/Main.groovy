@@ -20,7 +20,7 @@ import be.dafke.Accounting.BasicAccounting.Journals.View.SingleView.JournalDetai
 import be.dafke.Accounting.BasicAccounting.Meals.*
 import be.dafke.Accounting.BasicAccounting.Mortgages.MortgageGUI
 import be.dafke.Accounting.BasicAccounting.Mortgages.MortgagesMenu
-import be.dafke.Accounting.BasicAccounting.PDFGeneration.PDFViewer
+import be.dafke.Accounting.BasicAccounting.PDFGeneration.PDFViewerPanel
 import be.dafke.Accounting.BasicAccounting.Projects.ProjectsMenu
 import be.dafke.Accounting.BasicAccounting.Trade.*
 import be.dafke.Accounting.BasicAccounting.VAT.VATMenu
@@ -68,7 +68,7 @@ class Main {
     static JournalSelectorPanel journalSelectorPanel
     static ContactsSelectorPanel contactsSelectorPanel
     static ContactsPanel contactsPanel
-    static PDFViewer pdfViewer
+    static PDFViewerPanel pdfViewer
 
     static final String JOURNALS_CENTER_VIEW = 'Journals'
     static final String SO_CENTER_VIEW = 'SalesOrders'
@@ -99,7 +99,7 @@ class Main {
         allergenesSwitchViewPanel = new AllergenesSwitchViewPanel()
         ContactsDataModel contactsDataModel = new ContactsDataModel()
         contactsPanel = new ContactsPanel(contactsDataModel)
-        pdfViewer = new PDFViewer()
+        pdfViewer = new PDFViewerPanel()
 
         center.add journalSwitchPanel, JOURNALS_CENTER_VIEW
         center.add salesOrdersOverViewPanel, SO_CENTER_VIEW

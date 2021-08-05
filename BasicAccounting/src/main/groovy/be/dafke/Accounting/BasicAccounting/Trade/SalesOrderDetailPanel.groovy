@@ -8,6 +8,7 @@ import be.dafke.Accounting.BasicAccounting.Journals.Edit.DateAndDescriptionDialo
 import be.dafke.Accounting.BasicAccounting.Journals.Selector.JournalSelectorDialog
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BasicAccounting.PDFGeneration.InvoicePDF
+import be.dafke.Accounting.BasicAccounting.PDFGeneration.PDFViewerFrame
 import be.dafke.Accounting.BusinessModel.*
 import be.dafke.Accounting.BusinessModelDao.SalesOrderIO
 import be.dafke.Accounting.BusinessModelDao.Session
@@ -278,6 +279,8 @@ class SalesOrderDetailPanel extends JPanel {
         } else {
             InvoicePDF.createInvoice xmlPath, pdfPath
         }
+        PDFViewerFrame viewerFrame = PDFViewerFrame.showInvoice(pdfPath, invoiceNumber)
+        viewerFrame.visible = true
     }
 
     void updateButtonsAndCheckBoxes() {

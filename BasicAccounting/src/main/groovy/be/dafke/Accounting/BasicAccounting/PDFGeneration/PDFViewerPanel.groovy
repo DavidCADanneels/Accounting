@@ -9,11 +9,13 @@ import org.icepdf.ri.common.SwingViewBuilder
 import javax.swing.JScrollPane
 import java.awt.BorderLayout
 
-class PDFViewer extends JPanel {
+class PDFViewerPanel extends JPanel {
 
-    PDFViewer() {
+    SwingController controller
+
+    PDFViewerPanel() {
         setLayout(new BorderLayout())
-        SwingController controller = new SwingController()
+        controller = new SwingController()
         SwingViewBuilder factory = new SwingViewBuilder(controller)
         JPanel panel = factory.buildViewerPanel()
         JScrollPane scrollPane = new JScrollPane(panel)
@@ -28,5 +30,9 @@ class PDFViewer extends JPanel {
             }
         })
         add(openButton, BorderLayout.NORTH)
+    }
+
+    void openFile(String filePath){
+        controller.openDocument(filePath)
     }
 }
