@@ -21,7 +21,7 @@ class ContactsPanel extends JPanel implements ListSelectionListener {
 
     JTable table
     ContactsDataModel contactsDataModel
-    JButton details
+    JButton details, purchaseOrders, salesOrders
 
     ContactsPanel(ContactsDataModel contactsDataModel) {
         this.contactsDataModel = contactsDataModel
@@ -50,9 +50,33 @@ class ContactsPanel extends JPanel implements ListSelectionListener {
         })
         details.enabled = false
 
+        purchaseOrders = new JButton(getBundle("Contacts").getString("PURCHASE_ORDERS"))
+        purchaseOrders.addActionListener({ e ->
+            int selectedRow = table.getSelectedRow()
+            if (selectedRow != -1) {
+                Contact contact = contactsDataModel.getObject(selectedRow, 0)
+                SupplierOrdersGUI gui = SupplierOrdersGUI.showOrders(contact.supplier)
+                gui.visible = true
+            }
+        })
+        purchaseOrders.enabled = false
+
+        salesOrders = new JButton(getBundle("Contacts").getString("SALE_ORDERS"))
+        salesOrders.addActionListener({ e ->
+            int selectedRow = table.getSelectedRow()
+            if (selectedRow != -1) {
+                Contact contact = contactsDataModel.getObject(selectedRow, 0)
+                CustomerOrdersGUI gui = CustomerOrdersGUI.showOrders(contact.customer)
+                gui.visible = true
+            }
+        })
+        salesOrders.enabled = false
+
         JPanel south = new JPanel()
         south.add(create)
         south.add(details)
+        south.add(salesOrders)
+        south.add(purchaseOrders)
 //        if(contactType == Contact.ContactType.CUSTOMERS) {
             south.add(createList)
             south.add(printLabels)
@@ -105,12 +129,12 @@ class ContactsPanel extends JPanel implements ListSelectionListener {
     @Override
     void valueChanged(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting()) {
-            int[] rows = table.selectedRows
-            if (rows.length != 0) {
-                details.enabled = true
-            } else {
-                details.enabled = false
-            }
+            Contact contact = null
+            int row = table.selectedRow
+            if (row != -1) contact = contactsDataModel.getObject(row, 0)
+            details.enabled = contact!=null
+            salesOrders.enabled = contact.customer != null
+            purchaseOrders.enabled = contact.supplier != null
         }
     }
 }
