@@ -26,7 +26,7 @@ class MainViewSelectorPanel extends JPanel {
         buttonGroup.add meals
         buttonGroup.add contacts
 
-        setLayout(new GridLayout(0,1))
+        setLayout(new GridLayout(2,0))
         add journals
         add orders
         add meals
