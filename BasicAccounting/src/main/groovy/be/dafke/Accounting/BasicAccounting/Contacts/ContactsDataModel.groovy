@@ -29,6 +29,7 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
     int TURNOVER_COL
     int VAT_TOTAL_COL
     int NR_OF_COL
+    boolean withOrdersOnly = false
     Contact.ContactType contactType = Contact.ContactType.ALL
     HashMap<Integer,String> columnNames = new HashMap<>()
     HashMap<Integer,Class> columnClasses = new HashMap<>()
@@ -36,6 +37,11 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
 
     ContactsDataModel() {
         initialize()
+    }
+
+    void setWithOrdersOnly(boolean withOrdersOnly) {
+        this.withOrdersOnly = withOrdersOnly
+        fireTableStructureChanged()
     }
 
     void setContactType(Contact.ContactType contactType) {
@@ -243,11 +249,23 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
 
     ArrayList<Contact> filter(Contacts contacts){
         if(contactType == Contact.ContactType.ALL) {
-            contacts.businessObjects
-        } else if (contactType == Contact.ContactType.CUSTOMERS){
-            contacts.getBusinessObjects{it.customer != null}
-        } else if (contactType == Contact.ContactType.SUPPLIERS){
-            contacts.getBusinessObjects{it.supplier != null}
+            if(withOrdersOnly){
+                contacts.getBusinessObjects{it.customer?.salesOrders || it.supplier?.purchaseOrders }
+            } else {
+                contacts.businessObjects
+            }
+        } else if (contactType == Contact.ContactType.CUSTOMERS) {
+            if(withOrdersOnly) {
+                contacts.getBusinessObjects { it.customer != null && it.customer.salesOrders }
+            } else {
+                contacts.getBusinessObjects { it.customer != null }
+            }
+        } else if (contactType == Contact.ContactType.SUPPLIERS) {
+            if(withOrdersOnly) {
+                contacts.getBusinessObjects { it.supplier != null && it.supplier.purchaseOrders }
+            } else {
+                contacts.getBusinessObjects { it.supplier != null }
+            }
         }
     }
 

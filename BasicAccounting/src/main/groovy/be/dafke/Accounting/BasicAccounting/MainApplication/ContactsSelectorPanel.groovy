@@ -8,6 +8,7 @@ import javax.swing.*
 class ContactsSelectorPanel extends JPanel {
 
     JToggleButton customers, suppliers, all
+    JCheckBox withOrdersOnly
 
     ButtonGroup buttonGroup
     ContactsDataModel dataModel
@@ -18,6 +19,8 @@ class ContactsSelectorPanel extends JPanel {
         suppliers = new JToggleButton('Suppliers only')
         all = new JToggleButton('All', true)
 
+        withOrdersOnly = new JCheckBox("With Orders only")
+
         buttonGroup = new ButtonGroup()
 
         buttonGroup.add all
@@ -27,6 +30,7 @@ class ContactsSelectorPanel extends JPanel {
         add all
         add customers
         add suppliers
+        add withOrdersOnly
 
         customers.addActionListener( {
             Main.switchView(Main.CONTACTS_CENTER_VIEW)
@@ -39,6 +43,9 @@ class ContactsSelectorPanel extends JPanel {
         all.addActionListener( {
             Main.switchView(Main.CONTACTS_CENTER_VIEW)
             dataModel.setContactType(Contact.ContactType.ALL)
+        })
+        withOrdersOnly.addActionListener( {
+            dataModel.setWithOrdersOnly(withOrdersOnly.isSelected())
         })
     }
 }
