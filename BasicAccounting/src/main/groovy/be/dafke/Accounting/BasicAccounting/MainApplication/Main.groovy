@@ -144,6 +144,19 @@ class Main {
 
     static void switchView(String view) {
         cardLayoutCenter.show(center, view)
+        if(view == JOURNALS_CENTER_VIEW) {
+            journalSwitchPanel.refresh()
+        } else if(view == SO_CENTER_VIEW) {
+            salesOrdersOverViewPanel.refresh()
+        } else if(view == PO_CENTER_VIEW) {
+            purchaseOrdersOverviewPanel.refresh()
+        } else if(view == INGREDIENTS_CENTER_VIEW) {
+            ingredientsSwitchViewPanel.refresh()
+        } else if(view == ALLERGENES_CENTER_VIEW) {
+            allergenesSwitchViewPanel.refresh()
+        } else if(view == CONTACTS_CENTER_VIEW) {
+            contactsPanel.refresh()
+        }
     }
 
     static void setCloseOperation() {
