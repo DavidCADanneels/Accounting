@@ -140,6 +140,9 @@ class Main {
 
     static void switchSubView(String view) {
         cardLayoutTop.show(topRightPanel, view)
+        if(view == ORDERS_MENU_VIEW){
+            ordersViewSelectorPanel.refresh()
+        }
     }
 
     static void switchView(String view) {

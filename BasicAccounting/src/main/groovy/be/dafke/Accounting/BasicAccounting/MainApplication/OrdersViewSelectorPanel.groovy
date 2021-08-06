@@ -8,6 +8,8 @@ class OrdersViewSelectorPanel extends JPanel {
 
     ButtonGroup buttonGroup
 
+    String selection = Main.SO_CENTER_VIEW
+
     OrdersViewSelectorPanel() {
         salesOrders = new JToggleButton('Sales Orders', true)
         purchaseOrders = new JToggleButton('Purchase Orders')
@@ -21,10 +23,16 @@ class OrdersViewSelectorPanel extends JPanel {
         add purchaseOrders
 
         salesOrders.addActionListener( {
-            Main.switchView(Main.SO_CENTER_VIEW)
+            selection = Main.SO_CENTER_VIEW
+            refresh()
         })
         purchaseOrders.addActionListener( {
-            Main.switchView(Main.PO_CENTER_VIEW)
+            selection = Main.PO_CENTER_VIEW
+            refresh()
         })
+    }
+
+    void refresh(){
+        Main.switchView(selection)
     }
 }
