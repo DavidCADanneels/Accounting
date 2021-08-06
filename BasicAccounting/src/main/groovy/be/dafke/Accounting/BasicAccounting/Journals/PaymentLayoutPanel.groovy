@@ -50,12 +50,14 @@ class PaymentLayoutPanel extends JPanel {
         accountPay.addActionListener({ e ->
             def account = StockUtils.getJournalBaseAccount(journal)
             AccountActions.book account, false, null, this
-            saldoField.setText(journal?.baseAccount?.saldo?.toString())
+            refresh()
+//            saldoField.setText(journal?.baseAccount?.saldo?.toString())
         })
         accountReceive.addActionListener({ e ->
             def account = StockUtils.getJournalBaseAccount(journal)
             AccountActions.book account, true, null, this
-            saldoField.setText(journal?.baseAccount?.saldo?.toString())
+            refresh()
+//            saldoField.setText(journal?.baseAccount?.saldo?.toString())
         })
 
         setLayout(new BorderLayout())
@@ -74,7 +76,8 @@ class PaymentLayoutPanel extends JPanel {
     void setJournal(Journal journal){
         this.journal = journal
         accountNameField.setText(journal?.baseAccount?.name)
-        saldoField.setText(journal?.baseAccount?.saldo?.toString())
+        refresh()
+//        saldoField.setText(journal?.baseAccount?.saldo?.toString())
     }
 
 //    void fireOrderPayed() {
@@ -90,6 +93,10 @@ class PaymentLayoutPanel extends JPanel {
     }
 
     void refresh() {
+        saldoField.setText(journal?.baseAccount?.saldo?.toString())
+        openCustomerInvoices.refresh()
+        openSupplierInvoices.refresh()
+
         mortgagesPanel.refresh()
     }
 

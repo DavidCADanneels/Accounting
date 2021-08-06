@@ -17,11 +17,6 @@ class OpenCustomerInvoicesPanel extends JPanel {
     OpenCustomerInvoicesPanel() {
         openCustomerInvoicesTableModel = new OpenCustomerInvoicesTableModel()
         tabel = new SelectableTable<>(openCustomerInvoicesTableModel)
-//        tabel.setPreferredScrollableViewportSize(new Dimension(500, 200))
-
-//        DefaultListSelectionModel selection = new DefaultListSelectionModel()
-//        selection.addListSelectionListener(this)
-//        tabel.setSelectionModel(selection)
 
         JScrollPane scrollPane = new JScrollPane(tabel)
 
@@ -32,6 +27,7 @@ class OpenCustomerInvoicesPanel extends JPanel {
             SalesOrder salesOrder = tabel.getSelectedObject()
             if(salesOrder) {
                 AccountActions.book selectedAccount, true, null, this, salesOrder
+//                refresh()
             }
         })
 
@@ -39,6 +35,7 @@ class OpenCustomerInvoicesPanel extends JPanel {
             SalesOrder salesOrder = tabel.getSelectedObject()
             if(salesOrder) {
                 AccountActions.book selectedAccount, false, null, this, salesOrder
+//                refresh()
             }
         })
 
@@ -49,6 +46,10 @@ class OpenCustomerInvoicesPanel extends JPanel {
         setLayout(new BorderLayout())
         add scrollPane, BorderLayout.CENTER
         add buttonPanel, BorderLayout.SOUTH
+    }
+
+    void refresh(){
+        openCustomerInvoicesTableModel.fireTableDataChanged()
     }
 
     Account getSelectedAccount(){

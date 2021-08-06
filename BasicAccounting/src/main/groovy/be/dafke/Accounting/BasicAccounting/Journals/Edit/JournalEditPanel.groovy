@@ -122,6 +122,7 @@ class JournalEditPanel extends JPanel implements ActionListener {
                 }
                 clear()
             }
+            Main.fireTransactionBooked()
         }
     }
 

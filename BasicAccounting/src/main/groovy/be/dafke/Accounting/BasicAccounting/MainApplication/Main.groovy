@@ -369,6 +369,11 @@ WARNING: ${newJournal} also has an open transactions, which will be lost if you 
 
     static void fireTransactionInputDataChanged(){
         journalEditPanel.fireTransactionDataChanged()
+//        journalSwitchPanel.refresh()
+    }
+
+    static void fireTransactionBooked(){
+        journalSwitchPanel.refresh()
     }
 
     static void editTransaction(Transaction transaction){

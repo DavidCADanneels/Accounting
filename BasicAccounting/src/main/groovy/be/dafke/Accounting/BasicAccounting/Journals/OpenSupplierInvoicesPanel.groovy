@@ -17,11 +17,6 @@ class OpenSupplierInvoicesPanel extends JPanel {
     OpenSupplierInvoicesPanel() {
         openSupplierInvoicesTableModel = new OpenSupplierInvoicesTableModel()
         tabel = new SelectableTable<>(openSupplierInvoicesTableModel)
-//        tabel.setPreferredScrollableViewportSize(new Dimension(500, 200))
-
-//        DefaultListSelectionModel selection = new DefaultListSelectionModel()
-//        selection.addListSelectionListener(this)
-//        tabel.setSelectionModel(selection)
 
         JScrollPane scrollPane = new JScrollPane(tabel)
 
@@ -32,8 +27,7 @@ class OpenSupplierInvoicesPanel extends JPanel {
             PurchaseOrder purchaseOrder = tabel.getSelectedObject()
             if(purchaseOrder) {
                 AccountActions.book selectedAccount, true, null, this, purchaseOrder
-                // Too early: not booked yet
-//                purchaseOrder.setPurchaseTransaction()
+//                refresh()
             }
         })
 
@@ -41,6 +35,7 @@ class OpenSupplierInvoicesPanel extends JPanel {
             PurchaseOrder purchaseOrder = tabel.getSelectedObject()
             if(purchaseOrder) {
                 AccountActions.book selectedAccount, false, null, this, purchaseOrder
+//                refresh()
             }
         })
 
@@ -51,6 +46,10 @@ class OpenSupplierInvoicesPanel extends JPanel {
         setLayout new BorderLayout()
         add scrollPane, BorderLayout.CENTER
         add buttonPanel, BorderLayout.SOUTH
+    }
+
+    void refresh(){
+        openSupplierInvoicesTableModel.fireTableDataChanged()
     }
 
     Account getSelectedAccount(){
