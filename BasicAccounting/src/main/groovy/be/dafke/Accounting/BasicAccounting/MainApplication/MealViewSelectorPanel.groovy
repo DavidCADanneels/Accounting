@@ -8,6 +8,8 @@ class MealViewSelectorPanel extends JPanel {
 
     ButtonGroup buttonGroup
 
+    String selection = Main.INGREDIENTS_CENTER_VIEW
+
     MealViewSelectorPanel() {
         ingredients = new JToggleButton('Ingredients', true)
         allergenes = new JToggleButton('Allergenes')
@@ -21,10 +23,16 @@ class MealViewSelectorPanel extends JPanel {
         add allergenes
 
         ingredients.addActionListener( {
-            Main.switchView(Main.INGREDIENTS_CENTER_VIEW)
+            selection = Main.INGREDIENTS_CENTER_VIEW
+            refresh()
         })
         allergenes.addActionListener( {
-            Main.switchView(Main.ALLERGENES_CENTER_VIEW)
+            selection = Main.ALLERGENES_CENTER_VIEW
+            refresh()
         })
+    }
+
+    void refresh(){
+        Main.switchView(selection)
     }
 }

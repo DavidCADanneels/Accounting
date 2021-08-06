@@ -142,6 +142,8 @@ class Main {
         cardLayoutTop.show(topRightPanel, view)
         if(view == ORDERS_MENU_VIEW){
             ordersViewSelectorPanel.refresh()
+        } else if(view == MEALS_MENU_VIEW){
+            mealViewSelectorPanel.refresh()
         }
     }
 
