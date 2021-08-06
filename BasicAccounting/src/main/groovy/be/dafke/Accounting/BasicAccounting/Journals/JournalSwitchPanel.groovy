@@ -7,6 +7,8 @@ import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.*
 
 import javax.swing.*
+import javax.swing.border.LineBorder
+import javax.swing.border.TitledBorder
 import java.awt.*
 
 import static javax.swing.JSplitPane.VERTICAL_SPLIT
@@ -17,6 +19,7 @@ class JournalSwitchPanel extends JPanel {
     final JournalSwitchInputPanel journalSwitchInputPanel
 
     JournalSwitchPanel(JournalEditPanel journalEditPanel) {
+//        setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Journals"))
         setLayout(new BorderLayout())
         journalSwitchInputPanel = new JournalSwitchInputPanel(journalEditPanel)
         journalSwitchViewPanel = new JournalSwitchViewPanel()

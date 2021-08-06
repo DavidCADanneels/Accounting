@@ -4,6 +4,8 @@ import be.dafke.Accounting.BasicAccounting.Journals.Edit.JournalEditPanel
 import be.dafke.Accounting.BusinessModel.*
 
 import javax.swing.*
+import javax.swing.border.LineBorder
+import javax.swing.border.TitledBorder
 import java.awt.*
 
 class JournalSwitchInputPanel extends JPanel{
@@ -20,6 +22,7 @@ class JournalSwitchInputPanel extends JPanel{
     JPanel center
 
     JournalSwitchInputPanel(JournalEditPanel journalEditPanel) {
+        setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Input"))
         cardLayout = new CardLayout()
         center = new JPanel(cardLayout)
 

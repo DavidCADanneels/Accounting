@@ -1,6 +1,9 @@
 package be.dafke.Accounting.BasicAccounting.MainApplication
 
 import javax.swing.*
+import javax.swing.border.LineBorder
+import javax.swing.border.TitledBorder
+import java.awt.Color
 
 class OrdersViewSelectorPanel extends JPanel {
 
@@ -11,6 +14,7 @@ class OrdersViewSelectorPanel extends JPanel {
     String selection = Main.SO_CENTER_VIEW
 
     OrdersViewSelectorPanel() {
+        setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Orders"))
         salesOrders = new JToggleButton('Sales Orders', true)
         purchaseOrders = new JToggleButton('Purchase Orders')
 

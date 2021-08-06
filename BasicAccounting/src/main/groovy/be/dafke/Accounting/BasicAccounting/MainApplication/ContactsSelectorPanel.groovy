@@ -4,6 +4,9 @@ import be.dafke.Accounting.BasicAccounting.Contacts.ContactsDataModel
 import be.dafke.Accounting.BusinessModel.Contact
 
 import javax.swing.*
+import javax.swing.border.LineBorder
+import javax.swing.border.TitledBorder
+import java.awt.Color
 
 class ContactsSelectorPanel extends JPanel {
 
@@ -14,6 +17,7 @@ class ContactsSelectorPanel extends JPanel {
     ContactsDataModel dataModel
 
     ContactsSelectorPanel(ContactsDataModel contactsDataModel) {
+        setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Contacts"))
         dataModel = contactsDataModel
         customers = new JToggleButton('Customers only')
         suppliers = new JToggleButton('Suppliers only')

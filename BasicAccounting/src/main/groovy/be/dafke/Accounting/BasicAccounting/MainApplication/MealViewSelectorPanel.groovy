@@ -1,6 +1,9 @@
 package be.dafke.Accounting.BasicAccounting.MainApplication
 
 import javax.swing.*
+import javax.swing.border.LineBorder
+import javax.swing.border.TitledBorder
+import java.awt.Color
 
 class MealViewSelectorPanel extends JPanel {
 
@@ -11,6 +14,7 @@ class MealViewSelectorPanel extends JPanel {
     String selection = Main.INGREDIENTS_CENTER_VIEW
 
     MealViewSelectorPanel() {
+        setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Meals"))
         ingredients = new JToggleButton('Ingredients', true)
         allergenes = new JToggleButton('Allergenes')
 

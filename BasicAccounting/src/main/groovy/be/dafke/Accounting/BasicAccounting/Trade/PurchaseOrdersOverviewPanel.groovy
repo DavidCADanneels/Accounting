@@ -9,7 +9,10 @@ import javax.swing.DefaultListSelectionModel
 import javax.swing.JPanel
 import javax.swing.JScrollPane
 import javax.swing.JSplitPane
+import javax.swing.border.LineBorder
+import javax.swing.border.TitledBorder
 import java.awt.BorderLayout
+import java.awt.Color
 import java.awt.Dimension
 import java.awt.Rectangle
 
@@ -23,6 +26,7 @@ class PurchaseOrdersOverviewPanel extends JPanel {
     final PurchaseOrdersDetailPanel purchaseOrdersDetailPanel
 
     PurchaseOrdersOverviewPanel() {
+        setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Purchase Orders"))
         overviewTableModel = new PurchaseOrdersOverviewDataTableModel()
         overviewTable = new SelectableTable<>(overviewTableModel)
         overviewTable.setPreferredScrollableViewportSize(new Dimension(1000, 400))
@@ -47,7 +51,9 @@ class PurchaseOrdersOverviewPanel extends JPanel {
         overviewTable.setSelectionModel(selection)
 
         JScrollPane overviewScroll = new JScrollPane(overviewTable)
+        overviewScroll.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Overview"))
         JScrollPane detailScroll = new JScrollPane(detailsTable)
+        detailScroll.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Details"))
         JSplitPane splitPane = Main.createSplitPane(overviewScroll, detailScroll, JSplitPane.VERTICAL_SPLIT)
 
         JPanel center = new JPanel(new BorderLayout())

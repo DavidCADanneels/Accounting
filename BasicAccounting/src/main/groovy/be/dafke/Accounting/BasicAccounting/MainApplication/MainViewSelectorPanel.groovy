@@ -5,6 +5,9 @@ import be.dafke.Accounting.BusinessModelDao.Session
 import javax.swing.ButtonGroup
 import javax.swing.JPanel
 import javax.swing.JToggleButton
+import javax.swing.border.LineBorder
+import javax.swing.border.TitledBorder
+import java.awt.Color
 import java.awt.GridLayout
 
 class MainViewSelectorPanel extends JPanel {
@@ -14,6 +17,7 @@ class MainViewSelectorPanel extends JPanel {
     ButtonGroup buttonGroup
 
     MainViewSelectorPanel() {
+        setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Main"))
         journals = new JToggleButton('Journals', true)
         orders = new JToggleButton('Orders')
         meals = new JToggleButton('Meals')

@@ -6,6 +6,8 @@ import be.dafke.Accounting.BusinessModel.SalesOrder
 import be.dafke.ComponentModel.SelectableTable
 
 import javax.swing.*
+import javax.swing.border.LineBorder
+import javax.swing.border.TitledBorder
 import java.awt.*
 
 class OpenCustomerInvoicesPanel extends JPanel {
@@ -15,6 +17,7 @@ class OpenCustomerInvoicesPanel extends JPanel {
     OpenCustomerInvoicesTableModel openCustomerInvoicesTableModel
 
     OpenCustomerInvoicesPanel() {
+        setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Open Sales Orders"))
         openCustomerInvoicesTableModel = new OpenCustomerInvoicesTableModel()
         tabel = new SelectableTable<>(openCustomerInvoicesTableModel)
 

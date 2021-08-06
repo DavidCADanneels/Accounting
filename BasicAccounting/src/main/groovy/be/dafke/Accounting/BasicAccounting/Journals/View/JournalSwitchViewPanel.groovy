@@ -8,6 +8,8 @@ import be.dafke.Accounting.BusinessModel.Journal
 import be.dafke.Accounting.BusinessModel.Transaction
 
 import javax.swing.*
+import javax.swing.border.LineBorder
+import javax.swing.border.TitledBorder
 import java.awt.*
 
 class JournalSwitchViewPanel extends JPanel {
@@ -24,6 +26,7 @@ class JournalSwitchViewPanel extends JPanel {
     String view = VIEW1
 
     JournalSwitchViewPanel() {
+        setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Journal History"))
         cardLayout = new CardLayout()
         center = new JPanel(cardLayout)
 

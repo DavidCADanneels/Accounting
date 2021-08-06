@@ -4,6 +4,8 @@ import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModelDao.Session
 
 import javax.swing.*
+import javax.swing.border.LineBorder
+import javax.swing.border.TitledBorder
 import java.awt.*
 
 class IngredientsSwitchViewPanel extends JPanel {
@@ -20,6 +22,7 @@ class IngredientsSwitchViewPanel extends JPanel {
     final IngredientsEditPanel ingredientsEditPanel
 
     IngredientsSwitchViewPanel() {
+        setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Ingredients"))
         cardLayout = new CardLayout()
         center = new JPanel(cardLayout)
 

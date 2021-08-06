@@ -10,6 +10,8 @@ import be.dafke.Accounting.BusinessModel.Mortgage
 import be.dafke.Accounting.BusinessModel.Mortgages
 
 import javax.swing.*
+import javax.swing.border.LineBorder
+import javax.swing.border.TitledBorder
 import java.awt.*
 
 class PaymentLayoutPanel extends JPanel {
@@ -35,18 +37,27 @@ class PaymentLayoutPanel extends JPanel {
         boxPanel.add openSupplierInvoices
 //        if(mortgagesPanel)boxPanel.add mortgagesPanel
 
-        accountPanel = new JPanel()
-        accountPanel.add new JLabel('Account to book against: ')
+        JPanel line1 = new JPanel()
+        line1.add new JLabel('Account to book against: ')
         accountNameField = new JTextField(15)
         accountNameField.editable = false
         saldoField = new JTextField(5)
         saldoField.editable = false
-        accountPanel.add accountNameField
-        accountPanel.add saldoField
+        line1.add accountNameField
+        line1.add saldoField
+
+        JPanel line2 = new JPanel()
         JButton accountPay = new JButton("Pay")
         JButton accountReceive = new JButton("Receive")
-        accountPanel.add accountPay
-        accountPanel.add accountReceive
+        line2.add accountPay
+        line2.add accountReceive
+
+        accountPanel = new JPanel()
+        accountPanel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Payment Account"))
+        accountPanel.setLayout(new BoxLayout(accountPanel, BoxLayout.Y_AXIS))
+        accountPanel.add line1
+        accountPanel.add line2
+
         accountPay.addActionListener({ e ->
             def account = StockUtils.getJournalBaseAccount(journal)
             AccountActions.book account, false, null, this

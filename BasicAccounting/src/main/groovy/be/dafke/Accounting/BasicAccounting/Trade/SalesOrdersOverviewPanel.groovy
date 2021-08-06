@@ -15,7 +15,10 @@ import javax.swing.JPanel
 import javax.swing.JRadioButton
 import javax.swing.JScrollPane
 import javax.swing.JSplitPane
+import javax.swing.border.LineBorder
+import javax.swing.border.TitledBorder
 import java.awt.BorderLayout
+import java.awt.Color
 import java.awt.Dimension
 
 class SalesOrdersOverviewPanel extends JPanel {
@@ -30,6 +33,7 @@ class SalesOrdersOverviewPanel extends JPanel {
     boolean multiSelection
 
     SalesOrdersOverviewPanel() {
+        setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Sales Orders"))
         overviewTableModel = new SalesOrdersOverviewDataTableModel()
         overviewTable = new SelectableTable<>(overviewTableModel)
         overviewTable.setPreferredScrollableViewportSize(new Dimension(1000, 400))
@@ -59,7 +63,9 @@ class SalesOrdersOverviewPanel extends JPanel {
         overviewTable.setSelectionModel(selectionModel)
 
         JScrollPane overviewScroll = new JScrollPane(overviewTable)
+        overviewScroll.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Overview"))
         JScrollPane detailScroll = new JScrollPane(detailsTable)
+        detailScroll.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Details"))
         JSplitPane splitPane = Main.createSplitPane(overviewScroll, detailScroll, JSplitPane.VERTICAL_SPLIT)
 
         JPanel center = new JPanel(new BorderLayout())
