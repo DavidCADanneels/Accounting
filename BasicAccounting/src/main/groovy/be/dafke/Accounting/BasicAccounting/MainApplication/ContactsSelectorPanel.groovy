@@ -33,15 +33,15 @@ class ContactsSelectorPanel extends JPanel {
         add withOrdersOnly
 
         customers.addActionListener( {
-            Main.switchView(Main.CONTACTS_CENTER_VIEW)
+//            Main.switchView(Main.CONTACTS_CENTER_VIEW)
             dataModel.setContactType(Contact.ContactType.CUSTOMERS)
         })
         suppliers.addActionListener( {
-            Main.switchView(Main.CONTACTS_CENTER_VIEW)
+//            Main.switchView(Main.CONTACTS_CENTER_VIEW)
             dataModel.setContactType(Contact.ContactType.SUPPLIERS)
         })
         all.addActionListener( {
-            Main.switchView(Main.CONTACTS_CENTER_VIEW)
+//            Main.switchView(Main.CONTACTS_CENTER_VIEW)
             dataModel.setContactType(Contact.ContactType.ALL)
         })
         withOrdersOnly.addActionListener( {
