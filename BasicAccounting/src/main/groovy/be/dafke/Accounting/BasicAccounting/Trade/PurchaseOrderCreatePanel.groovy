@@ -50,7 +50,7 @@ class PurchaseOrderCreatePanel extends JPanel {
             purchaseOrderCreateDataTableModel.setContact(contact)
         })
         filter = {it.supplier != null}
-        fireSupplierAddedOrRemoved()
+        contacts.getBusinessObjects(filter).forEach({ contact -> comboBox.addItem(contact) })
 
         orderButton = new JButton("Add Purchase Order")
         orderButton.addActionListener({ e -> order() })
@@ -83,10 +83,4 @@ class PurchaseOrderCreatePanel extends JPanel {
             e1.printStackTrace()
         }
     }
-
-//    void fireSupplierAddedOrRemoved() {
-//        comboBox.removeAllItems()
-//        contacts.getBusinessObjects(filter).forEach({ contact -> comboBox.addItem(contact) })
-////        purchaseOrderDataTableModel.fireTableDataChanged()
-//    }
 }
