@@ -100,7 +100,7 @@ class TransactionOverviewPopupMenu extends JPopupMenu {
         setVisible(false)
         ArrayList<Transaction> transactions = gui.selectedObjects
         Set<Transaction> set = new HashSet<>(transactions)
-        JournalActions.deleteTransactions(transactions)
+        JournalActions.deleteTransactions(set)
 //        Main.deleteTransactions(set)
     }
 
