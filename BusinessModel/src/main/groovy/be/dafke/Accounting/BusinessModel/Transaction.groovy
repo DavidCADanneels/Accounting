@@ -62,6 +62,10 @@ class Transaction extends BusinessCollection<Booking> implements Comparable<Tran
         (description==null)?"":description
     }
 
+    @Override
+    String toString(){
+        "$abbreviation-$id"
+    }
 
     @Override
     ArrayList<Booking> getBusinessObjects(){

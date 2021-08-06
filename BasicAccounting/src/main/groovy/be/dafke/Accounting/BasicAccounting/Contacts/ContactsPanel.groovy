@@ -55,7 +55,7 @@ class ContactsPanel extends JPanel implements ListSelectionListener {
             int selectedRow = table.getSelectedRow()
             if (selectedRow != -1) {
                 Contact contact = contactsDataModel.getObject(selectedRow, 0)
-                SupplierOrdersGUI gui = SupplierOrdersGUI.showOrders(contact.supplier)
+                SupplierOrdersGUI gui = SupplierOrdersGUI.showOrders(contact)
                 gui.visible = true
             }
         })
@@ -66,7 +66,7 @@ class ContactsPanel extends JPanel implements ListSelectionListener {
             int selectedRow = table.getSelectedRow()
             if (selectedRow != -1) {
                 Contact contact = contactsDataModel.getObject(selectedRow, 0)
-                CustomerOrdersGUI gui = CustomerOrdersGUI.showOrders(contact.customer)
+                CustomerOrdersGUI gui = CustomerOrdersGUI.showOrders(contact)
                 gui.visible = true
             }
         })
@@ -133,8 +133,8 @@ class ContactsPanel extends JPanel implements ListSelectionListener {
             int row = table.selectedRow
             if (row != -1) contact = contactsDataModel.getObject(row, 0)
             details.enabled = contact!=null
-            salesOrders.enabled = contact.customer != null
-            purchaseOrders.enabled = contact.supplier != null
+            salesOrders.enabled = contact?.customer != null
+            purchaseOrders.enabled = contact?.supplier != null
         }
     }
 }
