@@ -102,12 +102,4 @@ class PurchaseOrder extends Order {
     void setPurchaseTransaction(Transaction purchaseTransaction) {
         this.purchaseTransaction = purchaseTransaction
     }
-
-    static Predicate<PurchaseOrder> payed() {
-        { order -> order.paymentTransaction != null }
-    }
-
-    static Predicate<PurchaseOrder> unPayed() {
-        { order -> order.paymentTransaction == null }
-    }
 }

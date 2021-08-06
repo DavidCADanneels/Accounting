@@ -2,7 +2,6 @@ package be.dafke.Accounting.BasicAccounting.Journals
 
 import be.dafke.Accounting.BusinessModel.Contact
 import be.dafke.Accounting.BusinessModel.SalesOrder
-import be.dafke.Accounting.BusinessModel.SalesOrders
 import be.dafke.Accounting.BusinessModelDao.Session
 import be.dafke.ComponentModel.SelectableTableModel
 
@@ -35,12 +34,10 @@ class OpenCustomerInvoicesTableModel extends SelectableTableModel<SalesOrder> {
         columnNames.put(AMOUNT_COL, getBundle("Accounting").getString("AMOUNT"))
     }
 
-//    void setSalesOrders(SalesOrders salesOrders) {
-////        this.salesOrders = salesOrders
-//    }
-
-    List<SalesOrder> getSalesOrders(){
-        Session.activeAccounting.salesOrders.getBusinessObjects(SalesOrder.unPayed())
+    static List<SalesOrder> getSalesOrders(){
+        Session.activeAccounting.salesOrders.getBusinessObjects({ order ->
+            order.salesTransaction != null && order.paymentTransaction == null
+        })
     }
 
     @Override
