@@ -34,12 +34,6 @@ class DefaultLayoutPanel extends JPanel {
         add(links, BorderLayout.WEST)
     }
 
-    void setAccounting(Accounting accounting) {
-        accountGuiLeft.setAccounting(accounting, true)
-        accountGuiRight.setAccounting(accounting, false)
-        mortgagesPanel.refresh()
-    }
-
     void fireShowInputChanged(boolean enabled) {
         accountGuiLeft.visible = enabled
         accountGuiRight.visible = enabled
@@ -91,6 +85,9 @@ class DefaultLayoutPanel extends JPanel {
     }
 
     void refresh() {
+        mortgagesPanel.refresh()
+        accountGuiLeft.refresh(true)
+        accountGuiRight.refresh(false)
         mortgagesPanel.refresh()
     }
 

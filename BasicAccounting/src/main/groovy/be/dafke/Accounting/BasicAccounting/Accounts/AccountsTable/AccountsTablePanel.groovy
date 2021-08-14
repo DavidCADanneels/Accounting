@@ -25,7 +25,6 @@ class AccountsTablePanel extends JPanel {
     final AccountFilterPanel filterPanel
 
     AccountsTablePopupMenu popup
-    Accounting accounting
     Journal journal
     JournalType journalType
     AccountsList accountsList
@@ -71,6 +70,7 @@ class AccountsTablePanel extends JPanel {
 
     void showDetails(){
         popup.visible = false
+        Accounting accounting = Session.activeAccounting
         for(Account account : table.selectedObjects){
             Point location = getLocationOnScreen()
             AccountDetailsGUI.getAccountDetails(location, account, accounting.journals)
@@ -79,6 +79,7 @@ class AccountsTablePanel extends JPanel {
 
     void manageAccounts(){
         popup.visible = false
+        Accounting accounting = Session.activeAccounting
         ArrayList<AccountType> accountTypes = accountsList.accountTypes
         AccountManagementGUI accountManagementGUI = AccountManagementGUI.getInstance(accounting.accounts, accountTypes)
         accountManagementGUI.setLocation(getLocationOnScreen())
@@ -106,9 +107,8 @@ class AccountsTablePanel extends JPanel {
         this.popup = popup
     }
 
-    void setAccounting(Accounting accounting, boolean left) {
-        this.accounting = accounting
-
+    void refresh(boolean left) {
+        Accounting accounting = Session.activeAccounting
         // FIXME: enable buttons if something is selected (Listener) or make sure always something is selected
         // for info: the buttons can be used if nothing is selected, their listeners can deal with non-selections
         accountsTableButtons.setActive(accounting!=null)
