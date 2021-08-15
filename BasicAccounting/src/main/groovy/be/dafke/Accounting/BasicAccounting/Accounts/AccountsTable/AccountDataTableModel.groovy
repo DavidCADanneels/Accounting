@@ -125,6 +125,7 @@ class AccountDataTableModel extends SelectableTableModel<Account> {
     }
 
     int getRowCount() {
+
         if(accounting == null) return 0
         def accounts = accounting.getAccounts()
         if(accounts == null) return 0

@@ -10,14 +10,12 @@ import java.awt.*
 
 class JournalSwitchInputPanel extends JPanel{
 
-    static final String DEFAULT_VIEW = "default"
-    static final String PAYMENTS_VIEW = "Payments"
-
-    String currentView = DEFAULT_VIEW
+    String currentView = JournalType.DEFAULT_TYPE
     CardLayout cardLayout
 
     DefaultLayoutPanel defaultLayoutPanel
     PaymentLayoutPanel paymentLayoutPanel
+    PurchaseLayoutPanel purchaseLayoutPanel
 
     JPanel center
 
@@ -28,9 +26,11 @@ class JournalSwitchInputPanel extends JPanel{
 
         defaultLayoutPanel = new DefaultLayoutPanel(journalEditPanel)
         paymentLayoutPanel = new PaymentLayoutPanel(journalEditPanel)
+        purchaseLayoutPanel = new PurchaseLayoutPanel()
 
-        center.add(defaultLayoutPanel, DEFAULT_VIEW)
-        center.add(paymentLayoutPanel, PAYMENTS_VIEW)
+        center.add(defaultLayoutPanel, JournalType.DEFAULT_TYPE)
+        center.add(paymentLayoutPanel, JournalType.PAYMENT_TYPE)
+        center.add(purchaseLayoutPanel, JournalType.PURCHASE_TYPE)
 
         setLayout(new BorderLayout())
         add(center, BorderLayout.CENTER)
@@ -45,10 +45,10 @@ class JournalSwitchInputPanel extends JPanel{
 
     void setJournal(Journal journal){
         if (journal && journal.type.name == "Payments"){
-            switchView(JournalSwitchInputPanel.PAYMENTS_VIEW)
+            switchView(JournalType.PAYMENT_TYPE)
             paymentLayoutPanel.setJournal(journal)
         } else {
-            switchView(JournalSwitchInputPanel.DEFAULT_VIEW)
+            switchView(JournalType.DEFAULT_TYPE)
             defaultLayoutPanel.setJournal(journal)
         }
     }

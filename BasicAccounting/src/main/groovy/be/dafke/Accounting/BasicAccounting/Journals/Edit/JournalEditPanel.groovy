@@ -112,8 +112,18 @@ class JournalEditPanel extends JPanel implements ActionListener {
             if(journal && transaction && transaction.bookable){
                 JournalActions.addTransactionToJournal(transaction, journal)
                 Main.selectTransaction(transaction)
+                // FIXME: add 'purchaseOrder' and 'salesOrder' iso using 'order' + casting ???
+                // The JournalType is more relevant
                 if(transaction.order){
-                    transaction.order.setPaymentTransaction(transaction)
+                    if(journal.type.name == JournalType.PAYMENT_TYPE) {
+                        transaction.order.paymentTransaction = transaction
+                    } else if(journal.type.name == JournalType.PURCHASE_TYPE){
+                        PurchaseOrder purchaseOrder = (PurchaseOrder)transaction.order
+                        purchaseOrder.purchaseTransaction = transaction
+                    } else if(journal.type.name == JournalType.SALE_TYPE){
+                        SalesOrder salesOrder = (SalesOrder)transaction.order
+                        salesOrder.salesTransaction = transaction
+                    }
                 }
                 Mortgage mortgage = transaction.mortgage
                 if(mortgage){

@@ -30,4 +30,16 @@ class JournalTypes extends BusinessCollection<JournalType> {
             e.printStackTrace()  //To change body of catch statement use File | Settings | File Templates.
         }
     }
+
+//    void addAllTypes(AccountTypes accountTypes){
+//        JournalType defaultType = new JournalTypes(JournalType.DEFAULT_TYPE)
+//        defaultType.addAllAccountTypes(accountTypes)
+//
+//        AccountTypes paymentAccounts
+//
+//        JournalType paymentType = new JournalTypes(JournalType.PAYMENT_TYPE)
+//        JournalType salesType = new JournalTypes(JournalType.SALE_TYPE)
+//        JournalType purchasesType = new JournalTypes(JournalType.PURCHASE_TYPE)
+//
+//    }
 }

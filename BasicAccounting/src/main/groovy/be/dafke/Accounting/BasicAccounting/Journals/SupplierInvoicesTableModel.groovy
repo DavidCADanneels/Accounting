@@ -7,7 +7,7 @@ import be.dafke.ComponentModel.SelectableTableModel
 
 import static java.util.ResourceBundle.getBundle
 
-class OpenSupplierInvoicesTableModel extends SelectableTableModel<PurchaseOrder> {
+abstract class SupplierInvoicesTableModel extends SelectableTableModel<PurchaseOrder> {
 
     static int ORDER_NR_COL = 0
     static int CONTACT_NAME_COL = 1
@@ -17,7 +17,7 @@ class OpenSupplierInvoicesTableModel extends SelectableTableModel<PurchaseOrder>
     HashMap<Integer,String> columnNames = new HashMap<>()
     HashMap<Integer,Class> columnClasses = new HashMap<>()
 
-    OpenSupplierInvoicesTableModel() {
+    SupplierInvoicesTableModel() {
         setColumnNames()
         setColumnClasses()
     }
@@ -34,11 +34,7 @@ class OpenSupplierInvoicesTableModel extends SelectableTableModel<PurchaseOrder>
         columnNames.put(AMOUNT_COL, getBundle("Accounting").getString("AMOUNT"))
     }
 
-    static List<PurchaseOrder> getPurchaseOrders(){
-        Session.activeAccounting.purchaseOrders.getBusinessObjects({ order ->
-            order.purchaseTransaction != null && order.paymentTransaction == null
-        })
-    }
+    abstract List<PurchaseOrder> getPurchaseOrders()
 
     @Override
     PurchaseOrder getObject(int row, int col) {

@@ -83,6 +83,7 @@ class XMLReader {
             Accounting accounting = new Accounting(name)
 
             accounting.accountTypes.addDefaultTypes()
+//            accounting.journalTypes.addDefaultType(accounting.accountTypes)
 
             String vatAccountingString = getValue(element, VAT_ACCOUNTING)
             boolean vatAccounting = Boolean.valueOf(vatAccountingString)

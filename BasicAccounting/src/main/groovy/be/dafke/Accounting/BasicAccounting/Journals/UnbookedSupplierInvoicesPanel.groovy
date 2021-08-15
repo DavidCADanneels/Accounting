@@ -1,8 +1,10 @@
 package be.dafke.Accounting.BasicAccounting.Journals
 
-import be.dafke.Accounting.BasicAccounting.Accounts.AccountActions
+
+import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.Account
 import be.dafke.Accounting.BusinessModel.PurchaseOrder
+import be.dafke.Accounting.BusinessModel.Transaction
 import be.dafke.ComponentModel.SelectableTable
 
 import javax.swing.*
@@ -10,41 +12,34 @@ import javax.swing.border.LineBorder
 import javax.swing.border.TitledBorder
 import java.awt.*
 
-class OpenSupplierInvoicesPanel extends JPanel {
+class UnbookedSupplierInvoicesPanel extends JPanel {
 
-    final JButton pay, receive
+    final JButton book
     final SelectableTable<PurchaseOrder> tabel
-    OpenSupplierInvoicesTableModel openSupplierInvoicesTableModel
+    UnbookedSupplierInvoicesTableModel tableModel
 
-    OpenSupplierInvoicesPanel() {
+    UnbookedSupplierInvoicesPanel() {
         setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Open Purchase Orders"))
-        openSupplierInvoicesTableModel = new OpenSupplierInvoicesTableModel()
-        tabel = new SelectableTable<>(openSupplierInvoicesTableModel)
+        tableModel = new UnbookedSupplierInvoicesTableModel()
+        tabel = new SelectableTable<>(tableModel)
 
         JScrollPane scrollPane = new JScrollPane(tabel)
 
-        pay = new JButton("Pay")
-        receive = new JButton("Receive (CN)")
+        book = new JButton("Book")
 
-        pay.addActionListener({ e ->
+        book.addActionListener({ e ->
             PurchaseOrder purchaseOrder = tabel.getSelectedObject()
             if(purchaseOrder) {
-                AccountActions.book selectedAccount, true, null, this, purchaseOrder
-//                refresh()
-            }
-        })
-
-        receive.addActionListener({ e ->
-            PurchaseOrder purchaseOrder = tabel.getSelectedObject()
-            if(purchaseOrder) {
-                AccountActions.book selectedAccount, false, null, this, purchaseOrder
+                Transaction transaction = Main.createPurchaseOrder purchaseOrder
+//                Transaction transaction = Main.bookPurchaseOrder purchaseOrder
+//                Redundant: setTransaction is call in createPurchaseTransaction
+                Main.displayTransaction(transaction)
 //                refresh()
             }
         })
 
         JPanel buttonPanel = new JPanel()
-        buttonPanel.add pay
-        buttonPanel.add receive
+        buttonPanel.add book
 
         setLayout new BorderLayout()
         add scrollPane, BorderLayout.CENTER
@@ -52,7 +47,7 @@ class OpenSupplierInvoicesPanel extends JPanel {
     }
 
     void refresh(){
-        openSupplierInvoicesTableModel.fireTableDataChanged()
+        tableModel.fireTableDataChanged()
     }
 
     Account getSelectedAccount(){

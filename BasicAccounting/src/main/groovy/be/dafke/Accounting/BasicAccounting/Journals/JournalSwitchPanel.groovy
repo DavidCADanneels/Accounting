@@ -50,10 +50,12 @@ class JournalSwitchPanel extends JPanel {
     void setJournal(Journal journal) {
         journalSwitchViewPanel.journal = journal
         journalSwitchInputPanel.journal = journal
-        if (journal && journal.type.name == "Payments"){
-            journalSwitchInputPanel.switchView(JournalSwitchInputPanel.PAYMENTS_VIEW)
+        if (journal && journal.type.name == JournalType.PAYMENT_TYPE) {
+            journalSwitchInputPanel.switchView(JournalType.PAYMENT_TYPE)
+        } else if (journal && journal.type.name == JournalType.PURCHASE_TYPE){
+            journalSwitchInputPanel.switchView(JournalType.PURCHASE_TYPE)
         } else {
-            journalSwitchInputPanel.switchView(JournalSwitchInputPanel.DEFAULT_VIEW)
+            journalSwitchInputPanel.switchView(JournalType.DEFAULT_TYPE)
         }
     }
 

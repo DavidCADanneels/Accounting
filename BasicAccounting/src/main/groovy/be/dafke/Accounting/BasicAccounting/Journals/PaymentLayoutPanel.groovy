@@ -7,7 +7,6 @@ import be.dafke.Accounting.BasicAccounting.Trade.StockUtils
 import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Journal
 import be.dafke.Accounting.BusinessModel.Mortgage
-import be.dafke.Accounting.BusinessModel.Mortgages
 
 import javax.swing.*
 import javax.swing.border.LineBorder
@@ -17,7 +16,7 @@ import java.awt.*
 class PaymentLayoutPanel extends JPanel {
 
     OpenCustomerInvoicesPanel openCustomerInvoices
-    OpenSupplierInvoicesPanel openSupplierInvoices
+    UnpayedSupplierInvoicesPanel openSupplierInvoices
     Journal journal
     JTextField accountNameField
     JTextField saldoField
@@ -28,7 +27,7 @@ class PaymentLayoutPanel extends JPanel {
     PaymentLayoutPanel(JournalEditPanel journalEditPanel) {
 
         openCustomerInvoices = new OpenCustomerInvoicesPanel()
-        openSupplierInvoices = new OpenSupplierInvoicesPanel()
+        openSupplierInvoices = new UnpayedSupplierInvoicesPanel()
         mortgagesPanel = new MortgagesPanel(journalEditPanel)
 
         JPanel boxPanel = new JPanel()

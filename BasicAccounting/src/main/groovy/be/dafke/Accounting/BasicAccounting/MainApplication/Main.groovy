@@ -1,5 +1,6 @@
 package be.dafke.Accounting.BasicAccounting.MainApplication
 
+import be.dafke.Accounting.BasicAccounting.Accounts.AccountActions
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountDetails.AccountDetailsGUI
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountManagement.AccountManagementGUI
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountsMenu
@@ -10,6 +11,7 @@ import be.dafke.Accounting.BasicAccounting.Balances.TestBalanceGUI
 import be.dafke.Accounting.BasicAccounting.Coda.CodaMenu
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactsDataModel
 import be.dafke.Accounting.BasicAccounting.Contacts.ContactsPanel
+import be.dafke.Accounting.BasicAccounting.Journals.Edit.DateAndDescriptionDialog
 import be.dafke.Accounting.BasicAccounting.Journals.Edit.JournalEditPanel
 import be.dafke.Accounting.BasicAccounting.Journals.JournalActions
 import be.dafke.Accounting.BasicAccounting.Journals.JournalSwitchPanel
@@ -34,6 +36,7 @@ import javax.swing.*
 import java.awt.*
 import java.awt.event.WindowAdapter
 import java.awt.event.WindowEvent
+import java.math.RoundingMode
 
 import static javax.swing.JSplitPane.*
 
@@ -404,6 +407,146 @@ ${transaction.journal} has an open transaction, which will be lost if click Y
                 journalEditPanel.setTransaction(transaction)
             }
         }
+    }
+
+    static void displayTransaction(Transaction transaction){
+        // TODO: when calling setTransaction we need to check if the currentTransaction is empty (see switchJournal() -> checkTransfer)
+        journalEditPanel.setTransaction(transaction)
+    }
+
+//    static void setPu
+
+    static Transaction createPurchaseOrder(PurchaseOrder purchaseOrder) {
+        Accounting accounting = Session.activeAccounting
+
+        DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog()
+        dateAndDescriptionDialog.enableDescription(true)
+        dateAndDescriptionDialog.description = purchaseOrder.name
+        dateAndDescriptionDialog.visible = true
+
+        Calendar date = dateAndDescriptionDialog.date
+        String description = dateAndDescriptionDialog.description
+
+        Transaction transaction = new Transaction(date, description)
+
+        Contact supplier = purchaseOrder.supplier
+        if (supplier == null) {
+            // TODO
+        }
+
+        boolean creditNote = purchaseOrder.creditNote
+
+
+        java.util.List<OrderItem> goodItems = purchaseOrder.getBusinessObjects(OrderItem.isGood())
+        java.util.List<OrderItem> serviceItems = purchaseOrder.getBusinessObjects(OrderItem.isService())
+
+        BigDecimal goodsAmount = BigDecimal.ZERO
+
+        if (!goodItems.empty) {
+            goodItems.forEach { goodItem ->
+                goodsAmount = goodsAmount.add(goodItem.purchasePriceWithoutVat)
+            }
+            goodsAmount = goodsAmount.setScale(2, BigDecimal.ROUND_HALF_DOWN)
+        }
+
+        if (goodsAmount.compareTo(BigDecimal.ZERO) > 0) {
+            PurchaseType purchaseType = PurchaseType.VAT_81
+            Account stockAccount = StockUtils.getStockAccount accounting
+            Booking purchaseBooking = new Booking(stockAccount, goodsAmount, !creditNote)
+            BigDecimal vatAmount = purchaseOrder.getTotalPurchaseVat(OrderItem.isGood()).setScale(2, RoundingMode.HALF_UP)
+            Booking bookingVat
+            if (!creditNote) {
+                // Cost excl VAT
+                //
+                AccountActions.addPurchaseVatTransaction purchaseBooking, purchaseType
+                // VAT
+                //
+                bookingVat = AccountActions.createPurchaseVatBooking accounting, vatAmount
+            } else {
+                // CN excl VAT
+                //
+                AccountActions.addPurchaseCnVatTransaction purchaseBooking, purchaseType
+                // VAT
+                //
+                bookingVat = AccountActions.createPurchaseCnVatBooking accounting, vatAmount
+            }
+            transaction.addBusinessObject purchaseBooking
+            transaction.addBusinessObject bookingVat
+        }
+
+        if (!serviceItems.empty) {
+            PurchaseType purchaseType = PurchaseType.VAT_82
+            serviceItems.forEach { serviceOrderItem ->
+                BigDecimal purchasePriceWithoutVat = serviceOrderItem.getPurchasePriceWithoutVat().setScale(2, RoundingMode.HALF_UP)
+                Service service = (Service) serviceOrderItem.article
+
+                Account costAccount = getCostAccount(service) // FIXME: will be 'null' initially
+                Booking costBooking = new Booking(costAccount, purchasePriceWithoutVat, !creditNote)
+                BigDecimal vatAmount = serviceOrderItem.getPurchaseVatAmount().setScale(2, RoundingMode.HALF_UP)
+                Booking bookingVat
+                if (!creditNote) {
+                    // Cost excl VAT
+                    //
+                    AccountActions.addPurchaseVatTransaction costBooking, purchaseType
+                    // VAT
+                    //
+                    bookingVat = AccountActions.createPurchaseVatBooking accounting, vatAmount
+
+                } else {
+                    // CN excl VAT
+                    //
+                    AccountActions.addPurchaseCnVatTransaction costBooking, purchaseType
+                    // VAT
+                    //
+                    bookingVat = AccountActions.createPurchaseCnVatBooking accounting, vatAmount
+                }
+                transaction.addBusinessObject costBooking
+                transaction.addBusinessObject bookingVat
+            }
+        }
+        // Supplier booking is common
+        //
+        Account supplierAccount = StockUtils.getSupplierAccount supplier, accounting
+        BigDecimal supplierAmount = purchaseOrder.totalPurchasePriceInclVat
+        Booking supplierBooking = new Booking(supplierAccount, supplierAmount, creditNote)
+        // (no VAT Booking for Supplier)
+        transaction.addBusinessObject(supplierBooking)
+
+        transaction.order = purchaseOrder
+        // TODO: ask for Date and Description
+
+        transaction
+    }
+
+    static Transaction bookPurchaseOrder(PurchaseOrder purchaseOrder, Transaction transaction) {
+        Accounting accounting = Session.activeAccounting
+
+        Journal journal = StockUtils.getPurchaseJournal accounting
+        transaction.journal = journal
+        purchaseOrder.purchaseTransaction = transaction
+
+        Transactions transactions = accounting.transactions
+        transactions.setId(transaction)
+        transactions.addBusinessObject transaction
+        journal.addBusinessObject transaction
+//        Main.journal = journal
+
+        transaction
+    }
+
+
+    static Account getCostAccount(Service service){
+        Account result = service.costAccount
+        if(result==null) {
+            AccountType accountType = Session.activeAccounting.accountTypes.getBusinessObject(AccountTypes.COST)
+            ArrayList<AccountType> list = new ArrayList<>()
+            list.add accountType
+            AccountSelectorDialog dialog = new AccountSelectorDialog(Session.activeAccounting.accounts, list, "Select Cost account for Service: ${service.name}")
+            dialog.visible = true
+            result = dialog.getSelection()
+            service.costAccount = result
+        }
+        result
     }
 
     static Transaction getTransaction(){

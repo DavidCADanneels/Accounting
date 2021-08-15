@@ -2,7 +2,18 @@ package be.dafke.Accounting.BusinessModel
 
 import be.dafke.Accounting.ObjectModel.BusinessObject
 
+//enum JournalTypeName{
+//
+//}
+
+
 class JournalType extends BusinessObject {
+
+    static String DEFAULT_TYPE = "default"
+    static String PAYMENT_TYPE = "Payments"
+    static String SALE_TYPE = "Sale"
+    static String PURCHASE_TYPE = "Purchase"
+
     VATTransaction.VATType vatType = null
     AccountsList left, right
 
