@@ -59,7 +59,8 @@ class JournalActions {
 
     static void moveBookings(ArrayList<Booking> bookings, Journals journals) {
         Set<Transaction> transactions = getTransactions(bookings)
-        moveTransaction(transactions, journals)
+        Journal newJournal = getNewJournal(transactions.first(), journals)
+        moveTransaction(transactions, newJournal)
     }
 
     static void moveTransaction(Set<Transaction> transactions, Journal newJournal) {
