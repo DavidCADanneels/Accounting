@@ -31,6 +31,14 @@ class ArticlesPanel extends JPanel {
         supplierComboBox = new JComboBox<>()
         ingredientComboBox = new JComboBox<>()
 
+        Accounting accounting = Session.activeAccounting
+
+        Contacts contacts = accounting.contacts
+        contacts.getBusinessObjects{it.supplier != null }.forEach({ contact -> supplierComboBox.addItem(contact) })
+
+        Ingredients ingredients = accounting.ingredients
+        ingredients.businessObjects.forEach({ ingredient -> ingredientComboBox.addItem(ingredient) })
+
         TableColumnModel columnModel = table.getColumnModel()
         TableColumn supplierColumn = columnModel.getColumn(ArticlesDataTableModel.SUPPLIER_COL)
         TableColumn ingredientColumn = columnModel.getColumn(ArticlesDataTableModel.INGREDIENT_COL)
