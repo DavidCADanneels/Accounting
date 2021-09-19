@@ -25,7 +25,7 @@ class TestBalancePanel extends JPanel{
 //        tabel.setRowSorter(null)
         JScrollPane scrollPane = new JScrollPane(tabel)
 
-        popup = new BalancePopupMenu(accounting, tabel)
+        popup = new BalancePopupMenu(tabel)
         tabel.addMouseListener(PopupForTableActivator.getInstance(popup,tabel))
 
         add(scrollPane, BorderLayout.CENTER)
