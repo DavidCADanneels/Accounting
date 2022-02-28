@@ -9,11 +9,13 @@ class MealsPDF {
     static String xslPathWithAllergenes = "data/accounting/xsl/meals/withAllergenes.xsl"
     static String xslPathWithInstructions = "data/accounting/xsl/meals/withInstructions.xsl"
     static String xslPathWithIngredients = "data/accounting/xsl/meals/withIngredients.xsl"
+    static String xslPathOverview = "data/accounting/xsl/meals/overview.xsl"
 
     static void main(String[] args) {
         String xmlPath = "data/accounting/xml/Accountings/Thai_NK-2019/MealDetails.xml"
         createPdf(xmlPath, "data/accounting/xml/MealsWithAllergenesTest.pdf", xslPathWithAllergenes)
         createPdf(xmlPath, "data/accounting/xml/MealsWithInstructionsTest.pdf", xslPathWithInstructions)
+        createPdf(xmlPath, "data/accounting/xml/MealsOverview.pdf", xslPathOverview)
     }
 
     static void createPdf(String xmlPath, String pdfPath, String xslPath){
