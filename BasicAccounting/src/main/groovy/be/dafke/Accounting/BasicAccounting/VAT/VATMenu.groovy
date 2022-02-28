@@ -1,7 +1,5 @@
 package be.dafke.Accounting.BasicAccounting.VAT
 
-import be.dafke.Accounting.BusinessModel.Accounting
-import be.dafke.Accounting.BusinessModel.VATFields
 import be.dafke.Accounting.BusinessModelDao.Session
 
 import javax.swing.JMenu

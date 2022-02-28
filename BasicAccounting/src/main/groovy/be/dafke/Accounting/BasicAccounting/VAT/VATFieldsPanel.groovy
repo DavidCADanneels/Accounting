@@ -34,10 +34,10 @@ class VATFieldsPanel extends JPanel {
     static final String TAX_ON_PURCHASES_81_83 = "Tax on Purchases (81-83)"
     static final String CN_ON_PURCHASES = "CN on Purchases"
     HashMap<String, JTextField> textFields = new HashMap<>()
-    List<Transaction> selectedVatTransactions
+    VATFields vatFields
 
-    VATFieldsPanel(List<Transaction> selectedVatTransactions) {
-        this.selectedVatTransactions = selectedVatTransactions
+    VATFieldsPanel(VATFields vatFields) {
+        this.vatFields = vatFields
         JPanel left = createSalesPanel()
         JPanel right = createPurchasePanel()
         JPanel totals = createTotalsPanel()
@@ -55,7 +55,7 @@ class VATFieldsPanel extends JPanel {
         JPanel line1 = new JPanel()
 
         line1.add(new JLabel(nr))
-        JTextField textField = new JTextField(10)
+        JTextField textField = new JTextField(vatFields.getBusinessObject(nr).amount.toString())
         textField.setEditable(false)
         textField.setHorizontalAlignment(JTextField.RIGHT)
         textFields.put(nr,textField)
@@ -186,9 +186,9 @@ class VATFieldsPanel extends JPanel {
             fileChooser.setFileFilter(new FileNameExtensionFilter("XML_EXTENSION files", "xml"))
             if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = fileChooser.getSelectedFile()
-                VATWriter.writeVATFields(Session.activeAccounting.vatFields, selectedFile, year.getText(), nr.getText(), companyContact, QUARTER)
-                VATTransactions vatTransactions = Session.activeAccounting.vatTransactions
-                vatTransactions.registerVATTransactions(selectedVatTransactions)
+                VATWriter.writeVATFields(vatFields, selectedFile, year.getText(), nr.getText(), companyContact, QUARTER)
+//                VATTransactions vatTransactions = Session.activeAccounting.vatTransactions
+//                vatTransactions.registerVATTransactions(selectedVatTransactions)
                 Main.fireVATFieldsUpdated()
             }
         })
