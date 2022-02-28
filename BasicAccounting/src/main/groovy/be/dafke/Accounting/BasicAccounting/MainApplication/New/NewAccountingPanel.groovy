@@ -1,6 +1,7 @@
 package be.dafke.Accounting.BasicAccounting.MainApplication.New
 
 import be.dafke.Accounting.BasicAccounting.MainApplication.ActionUtils
+import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BasicAccounting.MainApplication.Settings.AccountingCopyPanel
 import be.dafke.Accounting.BasicAccounting.MainApplication.Settings.AccountingSettingsPanel
 import be.dafke.Accounting.BusinessModel.Accounting
@@ -115,7 +116,7 @@ class NewAccountingPanel extends RefreshableDialog {
 //        Accountings.setActiveAccounting(accounting)
         XMLWriter.writeAccounting(accounting, false)
 //        XMLReader.readAccountingSkeleton(accounting)
-        setAccounting(accounting, false)
+        Main.setAccounting(accounting, false)
 //        do not clear yet, check details
 //        accountingCopyPanel.createAccounting()
     }

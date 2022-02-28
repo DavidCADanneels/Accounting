@@ -117,7 +117,12 @@ class PurchaseOrdersDetailPanel extends JPanel {
 
         // Either book directly or display only,
         // if display only the bookPurchase order method should be call when clicking the Book Transaction button
-        Main.bookPurchaseOrder(purchaseOrder, transaction)
+        Accounting accounting = Session.activeAccounting
+        Journal journal = StockUtils.getPurchaseJournal accounting
+        Main.bookPurchaseOrder(purchaseOrder, transaction, journal)
+//        Main.switchView(JournalType.PURCHASE_TYPE)
+        Main.setJournal(journal)
+        Main.selectTransaction(transaction)
 //        Main.displayTransaction(transaction)
 
 //        StockHistoryGUI.fireStockContentChanged()

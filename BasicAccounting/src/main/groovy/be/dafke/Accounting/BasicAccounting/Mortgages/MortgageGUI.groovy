@@ -26,7 +26,7 @@ class MortgageGUI extends JFrame  {
     }
 
     static void selectMortgage(Mortgage mortgage) {
-        gui.reselect(mortgage)
+        if(gui != null) gui.reselect(mortgage)
     }
 
     void refresh() {

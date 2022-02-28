@@ -321,7 +321,7 @@ class Main {
     }
 
     static Journal switchJournal(Journal newJournal){
-        if (!currentTransaction.businessObjects.empty && currentJournal != newJournal) {
+        if (currentTransaction!=null && !currentTransaction.businessObjects.empty && currentJournal != newJournal) {
             newJournal = askInputMove(newJournal)
         }
         if (currentJournal != newJournal) {
@@ -518,10 +518,9 @@ ${transaction.journal} has an open transaction, which will be lost if click Y
         transaction
     }
 
-    static Transaction bookPurchaseOrder(PurchaseOrder purchaseOrder, Transaction transaction) {
+    static Transaction bookPurchaseOrder(PurchaseOrder purchaseOrder, Transaction transaction, Journal journal) {
         Accounting accounting = Session.activeAccounting
 
-        Journal journal = StockUtils.getPurchaseJournal accounting
         transaction.journal = journal
         purchaseOrder.purchaseTransaction = transaction
 
