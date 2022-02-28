@@ -49,9 +49,4 @@ class UnbookedSupplierInvoicesPanel extends JPanel {
     void refresh(){
         tableModel.fireTableDataChanged()
     }
-
-    Account getSelectedAccount(){
-        PurchaseOrder purchaseOrder = tabel.getSelectedObject()
-        purchaseOrder?.supplier?.supplier?.supplierAccount?:null
-    }
 }
