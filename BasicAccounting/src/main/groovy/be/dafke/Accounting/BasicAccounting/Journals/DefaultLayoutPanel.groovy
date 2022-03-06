@@ -91,6 +91,13 @@ class DefaultLayoutPanel extends JPanel {
         mortgagesPanel.refresh()
     }
 
+    void setAccounting() {
+        mortgagesPanel.refresh()
+        accountGuiLeft.setAccounting(true)
+        accountGuiRight.setAccounting(false)
+        mortgagesPanel.refresh()
+    }
+
     void enableMortgagePayButton(Mortgage mortgage) {
         mortgagesPanel.enablePayButton(mortgage)
     }

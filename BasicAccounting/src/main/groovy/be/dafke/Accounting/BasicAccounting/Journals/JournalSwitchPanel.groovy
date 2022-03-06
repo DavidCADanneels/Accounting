@@ -43,6 +43,11 @@ class JournalSwitchPanel extends JPanel {
         journalSwitchInputPanel.refresh()
     }
 
+    void setAccounting(){
+        journalSwitchViewPanel.refresh()
+        journalSwitchInputPanel.setAccounting()
+    }
+
     void fireShowInputChanged(boolean enabled) {
         journalSwitchInputPanel.fireShowInputChanged(enabled)
     }

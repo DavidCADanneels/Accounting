@@ -2,7 +2,6 @@ package be.dafke.Accounting.BasicAccounting.Journals
 
 
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
-import be.dafke.Accounting.BusinessModel.Account
 import be.dafke.Accounting.BusinessModel.PurchaseOrder
 import be.dafke.Accounting.BusinessModel.Transaction
 import be.dafke.ComponentModel.SelectableTable
@@ -33,6 +32,8 @@ class UnbookedSupplierInvoicesPanel extends JPanel {
                 Transaction transaction = Main.createPurchaseOrder purchaseOrder
 //                Transaction transaction = Main.bookPurchaseOrder purchaseOrder
 //                Redundant: setTransaction is call in createPurchaseTransaction
+//                Journal journal = StockUtils.getPurchaseJournal accounting
+//                Main.setJournal(journal)
                 Main.displayTransaction(transaction)
 //                refresh()
             }

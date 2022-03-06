@@ -44,12 +44,10 @@ class JournalSwitchInputPanel extends JPanel{
     }
 
     void setJournal(Journal journal){
-        if (journal && journal.type.name == "Payments"){
-            switchView(JournalType.PAYMENT_TYPE)
-            paymentLayoutPanel.setJournal(journal)
+        if (journal && journal.type.name == JournalType.PAYMENT_TYPE) {
+            paymentLayoutPanel.journal = journal
         } else {
-            switchView(JournalType.DEFAULT_TYPE)
-            defaultLayoutPanel.setJournal(journal)
+            defaultLayoutPanel.journal = journal
         }
         if (journal && journal.type.name == JournalType.PAYMENT_TYPE) {
             switchView(JournalType.PAYMENT_TYPE)
@@ -88,6 +86,11 @@ class JournalSwitchInputPanel extends JPanel{
 
     void refresh() {
         defaultLayoutPanel.refresh()
+        paymentLayoutPanel.refresh()
+    }
+
+    void setAccounting() {
+        defaultLayoutPanel.setAccounting()
         paymentLayoutPanel.refresh()
     }
 

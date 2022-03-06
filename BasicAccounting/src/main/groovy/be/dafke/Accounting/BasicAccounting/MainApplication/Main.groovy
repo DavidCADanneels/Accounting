@@ -257,7 +257,7 @@ class Main {
 
         frame.refresh()
         journalEditPanel.refresh()
-        journalSwitchPanel.refresh()
+        journalSwitchPanel.setAccounting()
         journalSelectorPanel.refresh()
         salesOrdersOverViewPanel.refresh()
         purchaseOrdersOverviewPanel.refresh()

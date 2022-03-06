@@ -108,6 +108,9 @@ class AccountsTablePanel extends JPanel {
     }
 
     void refresh(boolean left) {
+        fireAccountDataChanged()
+    }
+    void setAccounting(boolean left){
         Accounting accounting = Session.activeAccounting
         // FIXME: enable buttons if something is selected (Listener) or make sure always something is selected
         // for info: the buttons can be used if nothing is selected, their listeners can deal with non-selections
