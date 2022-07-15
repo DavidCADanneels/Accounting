@@ -388,24 +388,28 @@ WARNING: ${newJournal} also has an open transactions, which will be lost if you 
         saveCurrentTransaction()
         Journal journal = transaction?.journal
         Transaction currentTransaction = journal?.currentTransaction
-        if (!currentTransaction.businessObjects.empty) {
-            Accounting accounting = journal.accounting
+        boolean continueEditing = currentTransaction.businessObjects.empty
+        if (!continueEditing) {
             String text = """\
 ${transaction.journal} has an open transaction, which will be lost if click Y
 """
             int answer = JOptionPane.showConfirmDialog(null, text, "Continue ?", JOptionPane.OK_CANCEL_OPTION)
             if (answer == JOptionPane.OK_OPTION) {
-                JournalActions.deleteTransaction(transaction)
-                //TODO: GUI with question where to open the transaction? (only usefull if multiple input GUIs are open)
-                // set Journal before Transaction: setJournal sets transaction to currentObject !!!
-
-                setAccounting(accounting)
-                setJournal(journal)
-                Main.journal = journal
-                journal.currentTransaction = transaction
-                // TODO: when calling setTransaction we need to check if the currentTransaction is empty (see switchJournal() -> checkTransfer)
-                journalEditPanel.setTransaction(transaction)
+                continueEditing = true
             }
+        }
+        if(continueEditing) {
+            Accounting accounting = journal.accounting
+            JournalActions.deleteTransaction(transaction)
+            //TODO: GUI with question where to open the transaction? (only usefull if multiple input GUIs are open)
+            // set Journal before Transaction: setJournal sets transaction to currentObject !!!
+
+            setAccounting(accounting)
+            setJournal(journal)
+            Main.journal = journal
+            journal.currentTransaction = transaction
+            // TODO: when calling setTransaction we need to check if the currentTransaction is empty (see switchJournal() -> checkTransfer)
+            journalEditPanel.setTransaction(transaction)
         }
     }
 
