@@ -12,6 +12,7 @@ import static be.dafke.Accounting.BusinessModelDao.XMLConstants.*
 import static be.dafke.Accounting.BusinessModelDao.XMLReader.*
 import static be.dafke.Accounting.BusinessModelDao.XMLWriter.getXmlHeader
 import static be.dafke.Utils.Utils.parseBigDecimal
+import static be.dafke.Utils.Utils.parseInt
 
 class ServicesIO {
     static void readServices(Accounting accounting){
@@ -43,6 +44,10 @@ class ServicesIO {
                 } else service.costAccount = null
             }
 
+            String purchaseVatRate = getValue(element, PURCHASE_VAT_RATE)
+            if(purchaseVatRate)
+                service.setPurchaseVatRate(parseInt(purchaseVatRate))
+
             try {
                 accounting.services.addBusinessObject(service)
                 accounting.articles.addBusinessObject(service)
@@ -65,6 +70,7 @@ class ServicesIO {
     <$UNIT_PRICE>$service.purchasePrice</$UNIT_PRICE>
     <$SUPPLIER>$service.supplier</$SUPPLIER>
     <$COST_ACCOUNT>$service.costAccount</$COST_ACCOUNT>
+    <$PURCHASE_VAT_RATE>$service.purchaseVatRate</$PURCHASE_VAT_RATE>
   </$SERVICE>
 """
             }
