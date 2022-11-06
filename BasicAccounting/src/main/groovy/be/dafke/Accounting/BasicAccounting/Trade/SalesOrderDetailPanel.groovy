@@ -332,8 +332,8 @@ class SalesOrderDetailPanel extends JPanel {
     }
 
     void updateInvoiceButtonAndField() {
-        invoiceLine.visible = salesOrder?.invoice
-        createInvoiceButton.enabled = salesOrder?.invoice
+        invoiceLine.visible = salesOrder?.invoice?:false
+        createInvoiceButton.enabled = salesOrder?.invoice?:false
 //        createInvoiceButton.visible = salesOrder?.invoice
         viewInvoiceButton.enabled = (salesOrder?.invoicePath != null)
         invoiceNr.setText(salesOrder?.invoiceNumber ?: '')
