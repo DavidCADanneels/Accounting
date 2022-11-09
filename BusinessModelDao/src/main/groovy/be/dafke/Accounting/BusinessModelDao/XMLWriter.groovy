@@ -92,7 +92,7 @@ xsi:noNamespaceSchemaLocation=\""""
         <h1>${accounting.name}</h1>
         <a href="${accounting.name}/Accounts.html">Accounts</a>
         <a href="${accounting.name}/Journals.html">Journals</a>
-    </body
+    </body>
 <html>
 """
                     htmlFile.write(text)
