@@ -90,8 +90,8 @@ xsi:noNamespaceSchemaLocation=\""""
     </head>
     <body>
         <h1>${accounting.name}</h1>
-        <a href="Accounts.html">Accounts</a>
-        <a href="Journals.html">Journals</a>
+        <a href="${accounting.name}/Accounts.html">Accounts</a>
+        <a href="${accounting.name}/Journals.html">Journals</a>
     </body
 <html>
 """
