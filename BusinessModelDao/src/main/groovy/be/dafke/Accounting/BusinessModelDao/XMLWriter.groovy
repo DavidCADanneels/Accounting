@@ -78,6 +78,25 @@ xsi:noNamespaceSchemaLocation=\""""
         for(Accounting accounting:accountings.businessObjects){
             if(accounting.read)
                 writeAccounting(accounting, writeHtml)
+                if(writeHtml){
+                    File htmlFile = new File(ACCOUNTINGS_HTML_PATH + "/${accounting.name}.html")
+                    String text = """\
+<html>
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>
+            ${accounting.name}
+        </title>
+    </head>
+    <body>
+        <h1>${accounting.name}</h1>
+        <a href="Accounts.html">Accounts</a>
+        <a href="Journals.html">Journals</a>
+    </body
+<html>
+"""
+                    htmlFile.write(text)
+                }
         }
 
         writeActiveAccountings()
