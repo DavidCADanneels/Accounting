@@ -174,7 +174,7 @@ class Main {
             void windowClosing(WindowEvent e) {
                 PopupForTableActivator.closeAllPopups()
                 Main.closeAllFrames()
-                Main.saveData(false)
+                Main.saveData(true)
             }
         })
     }

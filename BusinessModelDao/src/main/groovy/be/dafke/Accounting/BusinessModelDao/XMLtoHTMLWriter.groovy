@@ -10,7 +10,7 @@ class XMLtoHTMLWriter {
             if (!htmlFile.exists()) {
 //                htmlFile.getParentFile().mkdirs()
                 if(htmlFile.createNewFile()){
-                    System.out.println(htmlFile + " has been created")
+                    System.out.println("${htmlFile} has been created")
                 }
             }
             OutputStream out = new BufferedOutputStream(new FileOutputStream(htmlFile))
