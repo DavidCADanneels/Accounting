@@ -31,6 +31,9 @@ class PurchaseOrdersOverviewPanel extends JPanel {
         overviewTable = new SelectableTable<>(overviewTableModel)
         overviewTable.setPreferredScrollableViewportSize(new Dimension(1000, 400))
 
+        OrderPayedColorRenderer payed = new OrderPayedColorRenderer()
+        overviewTable.setDefaultRenderer(BigDecimal.class, payed)
+
         detailsTableModel = new PurchaseOrderViewDataTableModel()
         detailsTable = new SelectableTable<>(detailsTableModel)
         detailsTable.setPreferredScrollableViewportSize(new Dimension(1000, 200))

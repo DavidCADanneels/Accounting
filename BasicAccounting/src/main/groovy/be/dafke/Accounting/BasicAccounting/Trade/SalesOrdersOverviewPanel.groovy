@@ -39,7 +39,7 @@ class SalesOrdersOverviewPanel extends JPanel {
         overviewTable.setPreferredScrollableViewportSize(new Dimension(1000, 400))
 
         SalesOrderInvoiceColorRenderer invoice = new SalesOrderInvoiceColorRenderer()
-        SalesOrderPayedColorRenderer payed = new SalesOrderPayedColorRenderer()
+        OrderPayedColorRenderer payed = new OrderPayedColorRenderer()
         overviewTable.setDefaultRenderer(BigDecimal.class, payed)
         overviewTable.setDefaultRenderer(Contact.class, invoice)
         overviewTable.setDefaultRenderer(String.class, invoice)

@@ -1,11 +1,12 @@
 package be.dafke.Accounting.BasicAccounting.Trade
 
 import be.dafke.Accounting.BusinessModel.Contact
+import be.dafke.Accounting.BusinessModel.Order
 import be.dafke.ComponentModel.SelectableTableModel
 
 import static java.util.ResourceBundle.getBundle
 
-abstract class OrdersOverviewDataTableModel <T> extends SelectableTableModel<T> {
+abstract class OrdersOverviewDataTableModel <T extends Order> extends SelectableTableModel<T> {
     static int ORDER_NR_COL = 0
     static int DATE_COL = 1
     static int CONTACT_COL = 2
