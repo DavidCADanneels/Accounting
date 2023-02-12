@@ -183,8 +183,13 @@ class SalesOrderIO {
         }
     }
 
-    static String calculatePdfPath(Accounting accounting, SalesOrder salesOrder){
+    static String calculateOInvoicePdfPath(Accounting accounting, SalesOrder salesOrder){
         "$PDFPATH/$accounting.name/$INVOICES/${salesOrder.creditNote?'Creditnota':'Factuur'}-$salesOrder.invoiceNumber$PDF_EXTENSION"
+    }
+
+    static String calculateTicketPdfPath(Accounting accounting, SalesOrder salesOrder){
+        "$PDFPATH/$accounting.name/$INVOICES/Ticket-$salesOrder.ticketNumber$PDF_EXTENSION"
+//        "$PDFPATH/$accounting.name/$INVOICES/Ticket-$salesOrder.invoiceNumber$PDF_EXTENSION"
     }
 
     static String writeInvoiceXmlInputFile(Accounting accounting, SalesOrder salesOrder){
@@ -226,6 +231,87 @@ class SalesOrderIO {
     <$COUNTRY_CODE>$customer.countryCode</$COUNTRY_CODE>
     <$VAT_NUMBER>$customer.vatNumber</$VAT_NUMBER>
   </$CUSTOMER>"""
+
+            ArrayList<Integer> vatRates = new ArrayList<>()
+
+            writer.write """
+  <$SALE>"""
+            writer.write """
+  <TotalPrice>$salesOrder.totalSalesPriceInclVat</TotalPrice>"""
+
+            for (OrderItem orderItem : salesOrder.businessObjects) {
+                Article article = orderItem.article
+                Integer salesVatRate = article.salesVatRate
+                if(!vatRates.contains(salesVatRate)){
+                    vatRates.add(salesVatRate)
+                }
+
+                writer.write """
+    <$ARTICLE>
+          <$NAME>$article.name</$NAME>
+          <$NUMBER>$orderItem.numberOfItems</$NUMBER>
+          <$ITEM_PRICE>$orderItem.salesPriceForItem</$ITEM_PRICE>
+          <$TAX_RATE>$salesVatRate</$TAX_RATE>
+          <$TOTAL_PRICE>$orderItem.salesPriceWithVat</$TOTAL_PRICE>
+        </$ARTICLE>"""
+            }
+            writer.write """
+  </$SALE>"""
+
+            writer.write """
+  <$TOTALS>"""
+            for (Integer vatRate:vatRates) {
+                writer.write """
+    <$TOTALS_LINE>
+      <$TOTALS_LINE_EXCL>${salesOrder.getTotalSalesPriceExclVat(OrderItem.withSalesVatRate(vatRate))}</$TOTALS_LINE_EXCL>
+      <$TOTALS_LINE_VAT_AMOUNT>${salesOrder.getTotalSalesVat(OrderItem.withSalesVatRate(vatRate))}</$TOTALS_LINE_VAT_AMOUNT>
+      <$TOTALS_LINE_VAT_PCT>$vatRate</$TOTALS_LINE_VAT_PCT>
+      <$TOTALS_LINE_INCL>${salesOrder.getTotalSalesPriceInclVat(OrderItem.withSalesVatRate(vatRate))}</$TOTALS_LINE_INCL>
+    </$TOTALS_LINE>"""
+            }
+            writer.write """
+    <$TOTAL_EXCL_VAT>$salesOrder.totalSalesPriceExclVat</$TOTAL_EXCL_VAT>
+    <$TOTAL_VAT>$salesOrder.totalSalesVat</$TOTAL_VAT>
+    <$TOTAL_INCL_VAT>$salesOrder.totalSalesPriceInclVat</$TOTAL_INCL_VAT>
+  </$TOTALS>
+</$INVOICE>"""
+
+            writer.flush()
+            writer.close()
+        } catch (IOException ex) {
+            Logger.getLogger(Accounts.class.name).log(Level.SEVERE, null, ex)
+        } finally {
+            return path
+        }
+    }
+
+    static String writeTicketXmlInputFile(Accounting accounting, SalesOrder salesOrder){
+        Integer id = salesOrder.id
+        String idString = Utils.toIDString("SO", id, 6)
+
+        String folderPath = "$ACCOUNTINGS_XML_PATH/$accounting.name/$INVOICES"
+        File folder = new File(folderPath)
+        folder.mkdirs()
+        String path = "$folderPath/$idString$XML_EXTENSION"
+        File file = new File(path)
+        try {
+            Writer writer = new FileWriter(file)
+            writer.write getXmlHeader(INVOICE, 3)
+
+            Contact supplier = salesOrder.supplier
+            writer.write """\
+  <InvoiceNumber>$salesOrder.invoiceNumber</InvoiceNumber>
+  <$DATE>$salesOrder.invoiceDate</$DATE>
+  <$DESCRIPTION>$salesOrder.invoiceDescription</$DESCRIPTION>
+  <$SUPPLIER>
+    <$NAME>$supplier.name</$NAME>
+    <$OFFICIAL_NAME>$supplier.officialName</$OFFICIAL_NAME>
+    <$STREET_AND_NUMBER>$supplier.streetAndNumber</$STREET_AND_NUMBER>
+    <$POSTAL_CODE>$supplier.postalCode</$POSTAL_CODE>
+    <$CITY>$supplier.city</$CITY>
+    <$COUNTRY_CODE>$supplier.countryCode</$COUNTRY_CODE>
+    <$VAT_NUMBER>$supplier.vatNumber</$VAT_NUMBER>
+  </$SUPPLIER>"""
 
             ArrayList<Integer> vatRates = new ArrayList<>()
 

@@ -7,6 +7,7 @@ import javax.xml.transform.TransformerException
 
 class InvoicePDF {
     static String xslPathInvoice = "data/accounting/xsl/invoice.xsl"
+    static String xslPathTicket = "data/accounting/xsl/ticket.xsl"
     static String xslPathCreditNote = "data/accounting/xsl/cn.xsl"
 
     static void main(String[] args) {
@@ -22,6 +23,15 @@ class InvoicePDF {
             e.printStackTrace()
         }
     }
+
+    static void createTicket(String xmlPath, String pdfPath){
+        try {
+            PDFCreator.convertToPDF(xmlPath, xslPathTicket, pdfPath)
+        } catch (IOException | FOPException | TransformerException e) {
+            e.printStackTrace()
+        }
+    }
+
 
     static void createCreditNote(String xmlPath, String pdfPath){
         try {

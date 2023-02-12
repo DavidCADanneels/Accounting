@@ -7,6 +7,7 @@ class SalesOrder extends Order {
 
     Transaction salesTransaction, gainTransaction
     String invoiceNumber = ""
+    String ticketNumber = ""
     boolean invoice = false
     String invoicePath = null
     boolean promoOrder = false

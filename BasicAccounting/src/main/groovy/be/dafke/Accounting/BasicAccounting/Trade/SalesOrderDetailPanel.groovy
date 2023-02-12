@@ -269,10 +269,21 @@ class SalesOrderDetailPanel extends JPanel {
             }
             salesOrder.supplier = companyContact
         }
-        String invoiceNumber = salesOrder.invoiceNumber
-        if (invoiceNumber==null || "".equals(invoiceNumber)){
-            invoiceNumber = JOptionPane.showInputDialog(this, "Enter Invoice Number")
-            salesOrder.invoiceNumber = invoiceNumber
+        String displayName
+        if(salesOrder.invoice) {
+            String invoiceNumber = salesOrder.invoiceNumber
+            if (invoiceNumber == null || "".equals(invoiceNumber)) {
+                invoiceNumber = JOptionPane.showInputDialog(this, "Enter Invoice Number")
+                salesOrder.invoiceNumber = invoiceNumber
+            }
+            displayName = salesOrder.invoiceNumber
+        } else {
+            String ticketNumber = salesOrder.ticketNumber
+            if (ticketNumber == null || "".equals(ticketNumber)) {
+                ticketNumber = JOptionPane.showInputDialog(this, "Enter Ticket Number")
+                salesOrder.ticketNumber = ticketNumber
+            }
+            displayName = salesOrder.ticketNumber
         }
 
         DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog()
@@ -286,15 +297,23 @@ class SalesOrderDetailPanel extends JPanel {
         salesOrder.invoiceDate = Utils.toString(date)
         salesOrder.invoiceDescription = description
 
-        String xmlPath = SalesOrderIO.writeInvoiceXmlInputFile accounting, salesOrder
-        String pdfPath = SalesOrderIO.calculatePdfPath accounting, salesOrder
-        if(salesOrder.creditNote){
-            InvoicePDF.createCreditNote xmlPath, pdfPath
+        String xmlPath
+        String pdfPath
+        if(salesOrder.invoice) {
+            xmlPath = SalesOrderIO.writeInvoiceXmlInputFile accounting, salesOrder
+            pdfPath = SalesOrderIO.calculateOInvoicePdfPath accounting, salesOrder
+            if (salesOrder.creditNote) {
+                InvoicePDF.createCreditNote xmlPath, pdfPath
+            } else {
+                InvoicePDF.createInvoice xmlPath, pdfPath
+            }
         } else {
-            InvoicePDF.createInvoice xmlPath, pdfPath
+            xmlPath = SalesOrderIO.writeTicketXmlInputFile accounting, salesOrder
+            pdfPath = SalesOrderIO.calculateTicketPdfPath accounting, salesOrder
+            InvoicePDF.createTicket xmlPath, pdfPath
         }
         salesOrder.invoicePath = pdfPath
-        PDFViewerFrame viewerFrame = PDFViewerFrame.showInvoice(pdfPath, invoiceNumber)
+        PDFViewerFrame viewerFrame = PDFViewerFrame.showInvoice(pdfPath, displayName)
         viewerFrame.visible = true
     }
 
@@ -332,12 +351,18 @@ class SalesOrderDetailPanel extends JPanel {
     }
 
     void updateInvoiceButtonAndField() {
-        invoiceLine.visible = salesOrder?.invoice?:false
-        createInvoiceButton.enabled = salesOrder?.invoice?:false
-//        createInvoiceButton.visible = salesOrder?.invoice
+        invoiceLine.visible = salesOrder!=null
+        createInvoiceButton.enabled = salesOrder!=null
+        if(salesOrder.invoice) {
+            createInvoiceButton.text = "Create Invoice"
+            viewInvoiceButton.text = "View Invoice"
+            invoiceNr.text = salesOrder?.invoiceNumber ?: ''
+        } else {
+            createInvoiceButton.text = "Create Ticket"
+            viewInvoiceButton.text = "View Ticket"
+            invoiceNr.text = salesOrder?.ticketNumber ?: ''
+        }
         viewInvoiceButton.enabled = (salesOrder?.invoicePath != null)
-        invoiceNr.setText(salesOrder?.invoiceNumber ?: '')
-//        invoiceNr.visible = salesOrder?.invoice
     }
 
     void updateContactDetails(SalesOrder salesOrder){
