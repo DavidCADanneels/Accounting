@@ -296,11 +296,11 @@ class SalesOrderIO {
         File file = new File(path)
         try {
             Writer writer = new FileWriter(file)
-            writer.write getXmlHeader(INVOICE, 3)
+            writer.write getXmlHeader(TICKET, 3)
 
             Contact supplier = salesOrder.supplier
             writer.write """\
-  <InvoiceNumber>$salesOrder.invoiceNumber</InvoiceNumber>
+  <TicketNumber>$salesOrder.ticketNumber</TicketNumber>
   <$DATE>$salesOrder.invoiceDate</$DATE>
   <$DESCRIPTION>$salesOrder.invoiceDescription</$DESCRIPTION>
   <$SUPPLIER>
@@ -332,30 +332,12 @@ class SalesOrderIO {
           <$NAME>$article.name</$NAME>
           <$NUMBER>$orderItem.numberOfItems</$NUMBER>
           <$ITEM_PRICE>$orderItem.salesPriceForItem</$ITEM_PRICE>
-          <$TAX_RATE>$salesVatRate</$TAX_RATE>
           <$TOTAL_PRICE>$orderItem.salesPriceWithVat</$TOTAL_PRICE>
         </$ARTICLE>"""
             }
             writer.write """
-  </$SALE>"""
-
-            writer.write """
-  <$TOTALS>"""
-            for (Integer vatRate:vatRates) {
-                writer.write """
-    <$TOTALS_LINE>
-      <$TOTALS_LINE_EXCL>${salesOrder.getTotalSalesPriceExclVat(OrderItem.withSalesVatRate(vatRate))}</$TOTALS_LINE_EXCL>
-      <$TOTALS_LINE_VAT_AMOUNT>${salesOrder.getTotalSalesVat(OrderItem.withSalesVatRate(vatRate))}</$TOTALS_LINE_VAT_AMOUNT>
-      <$TOTALS_LINE_VAT_PCT>$vatRate</$TOTALS_LINE_VAT_PCT>
-      <$TOTALS_LINE_INCL>${salesOrder.getTotalSalesPriceInclVat(OrderItem.withSalesVatRate(vatRate))}</$TOTALS_LINE_INCL>
-    </$TOTALS_LINE>"""
-            }
-            writer.write """
-    <$TOTAL_EXCL_VAT>$salesOrder.totalSalesPriceExclVat</$TOTAL_EXCL_VAT>
-    <$TOTAL_VAT>$salesOrder.totalSalesVat</$TOTAL_VAT>
-    <$TOTAL_INCL_VAT>$salesOrder.totalSalesPriceInclVat</$TOTAL_INCL_VAT>
-  </$TOTALS>
-</$INVOICE>"""
+  </$SALE>
+</$TICKET>"""
 
             writer.flush()
             writer.close()

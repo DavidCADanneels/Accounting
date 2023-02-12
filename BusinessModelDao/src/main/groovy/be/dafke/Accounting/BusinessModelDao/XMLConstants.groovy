@@ -203,6 +203,7 @@ class XMLConstants {
     public static final String TOTAL_PRICE = "TotalPrice"
     public static final String TAX_RATE = "TaxRate"
     public static final String INVOICES = "Invoices"
+    public static final String TICKET = "Ticket"
     public static final String INVOICE = "Invoice"
     public static final String INVOICE_NUMBER = "InvoiceNumber"
     public static final String INVOICE_PATH = "InvoicePath"
