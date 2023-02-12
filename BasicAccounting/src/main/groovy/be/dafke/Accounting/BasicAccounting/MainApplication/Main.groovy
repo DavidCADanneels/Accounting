@@ -173,8 +173,8 @@ class Main {
             @Override
             void windowClosing(WindowEvent e) {
                 PopupForTableActivator.closeAllPopups()
-                Main.closeAllFrames()
                 Main.saveData(true)
+                Main.closeAllFrames()
             }
         })
     }
