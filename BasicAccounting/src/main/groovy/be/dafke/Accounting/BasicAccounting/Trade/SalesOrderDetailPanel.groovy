@@ -243,7 +243,7 @@ class SalesOrderDetailPanel extends JPanel {
         } else {
             Transaction salesTransaction = createTransaction(null, salesOrder.name)
             createSalesTransaction(salesTransaction)
-            createGainTransaction(salesTransaction.date)
+//            createGainTransaction(salesTransaction.date)
         }
 //        StockHistoryGUI.fireStockContentChanged()
         updateButtonsAndCheckBoxes()
