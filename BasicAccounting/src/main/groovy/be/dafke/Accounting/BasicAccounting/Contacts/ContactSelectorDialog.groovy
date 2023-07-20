@@ -5,6 +5,7 @@ import be.dafke.ComponentModel.RefreshableDialog
 
 import javax.swing.*
 import java.awt.*
+import java.util.List
 
 class ContactSelectorDialog extends RefreshableDialog {
     final JButton create, ok
@@ -12,6 +13,7 @@ class ContactSelectorDialog extends RefreshableDialog {
     Contact.ContactType contactType
     final JComboBox<Contact> combo
     final DefaultComboBoxModel<Contact> model
+    Contacts contacts
     static ContactSelectorDialog contactSelectorDialog = null
 
     ContactSelectorDialog(Contact.ContactType contactType) {
@@ -44,5 +46,40 @@ class ContactSelectorDialog extends RefreshableDialog {
 
     Contact getSelection() {
         contact
+    }
+
+//    void setAccounting(Accounting accounting){
+////		this.accounting = accounting
+//        setContacts(accounting?accounting.contacts:null)
+//    }
+
+    void setContacts(Contacts contacts) {
+        this.contacts = contacts
+        fireContactDataChanged()
+    }
+
+//    static void fireContactDataChangedForAll() {
+//        if(contactSelectorDialog ){
+//            contactSelectorDialog.fireContactDataChanged()
+//        }
+//    }
+
+    void fireContactDataChanged() {
+        model.removeAllElements()
+        List<Contact> list = null
+        if(contactType == Contact.ContactType.ALL){
+            list = contacts.businessObjects
+        } else if (contactType == Contact.ContactType.CUSTOMERS){
+            list = contacts.getBusinessObjects{it.customer}
+        } else if (contactType == Contact.ContactType.SUPPLIERS){
+            list = contacts.getBusinessObjects{it.supplier}
+        }
+        if (list) {
+            for (Contact contact : list) {
+                model.addElement(contact)
+            }
+        }
+        invalidate()
+        combo.invalidate()
     }
 }

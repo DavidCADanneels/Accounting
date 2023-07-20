@@ -44,7 +44,7 @@ class AccountActions {
             if (vatType == VATTransaction.VATType.PURCHASE) {
                 purchaseAny(booking, accounting, component)
             } else if (vatType == VATTransaction.VATType.CUSTOMER) {
-                Contact contact = getContact(account, Contact.ContactType.CUSTOMERS, component)
+                Contact contact = getContact(accounting, account, Contact.ContactType.CUSTOMERS, component)
                 transaction.contact = contact
             } else if (vatType == VATTransaction.VATType.SALE) {
                 saleAny(transaction, booking, accounting, component)
@@ -391,12 +391,13 @@ class AccountActions {
         creditCNAccount
     }
 
-    static Contact getContact(Account account, Contact.ContactType contactType, Component component){
+    static Contact getContact(Accounting accounting, Account account, Contact.ContactType contactType, Component component){
         Contact contact = account.contact
         if(contact){
             contact
         } else {
             ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(contactType)
+            contactSelectorDialog.setContacts(accounting.contacts)
             contactSelectorDialog.setLocation(component.getLocationOnScreen())
             contactSelectorDialog.visible = true
             contact = contactSelectorDialog.getSelection()
