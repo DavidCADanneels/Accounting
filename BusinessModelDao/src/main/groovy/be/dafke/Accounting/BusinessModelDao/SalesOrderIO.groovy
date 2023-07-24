@@ -184,11 +184,11 @@ class SalesOrderIO {
     }
 
     static String calculateOInvoicePdfPath(Accounting accounting, SalesOrder salesOrder){
-        "$PDFPATH/$accounting.name/$INVOICES/${salesOrder.creditNote?'Creditnota':'Factuur'}-$salesOrder.invoiceNumber$PDF_EXTENSION"
+        "$PDFPATH/$accounting.name/$INVOICES/${OUT}/${salesOrder.creditNote?'Creditnota':'Factuur'}-$salesOrder.invoiceNumber$PDF_EXTENSION"
     }
 
     static String calculateTicketPdfPath(Accounting accounting, SalesOrder salesOrder){
-        "$PDFPATH/$accounting.name/$INVOICES/Ticket-$salesOrder.ticketNumber$PDF_EXTENSION"
+        "$PDFPATH/$accounting.name/$INVOICES/${OUT}/Ticket-$salesOrder.ticketNumber$PDF_EXTENSION"
 //        "$PDFPATH/$accounting.name/$INVOICES/Ticket-$salesOrder.invoiceNumber$PDF_EXTENSION"
     }
 
