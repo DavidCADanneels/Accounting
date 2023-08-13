@@ -35,6 +35,14 @@ class PurchaseOrderIO {
             Contact supplier = contacts.getBusinessObject(supplierString)
             order.supplier = supplier
 
+            boolean cn = getBooleanValue(orderElement, CREDIT_NOTE)
+            order.creditNote = cn
+
+            String invoicePath = getValue(orderElement, INVOICE_PATH)
+            if(invoicePath){
+                order.invoicePath = invoicePath
+            }
+
             for (Element element : getChildren(orderElement, ARTICLE)) {
                 String name = getValue(element, NAME)
                 Article article = articles.getBusinessObject(name)
