@@ -12,7 +12,6 @@ class Order extends OrderItems {
     String deliveryDescription
     String invoiceDescription
     String invoiceNumber = ""
-    boolean invoice = false
     String invoicePath = null
     boolean creditNote
 

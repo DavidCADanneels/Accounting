@@ -7,6 +7,7 @@ class SalesOrder extends Order {
 
     Transaction salesTransaction, gainTransaction
     String ticketNumber = ""
+    boolean invoice = false
     boolean promoOrder = false
 
     BigDecimal getTotalSalesPriceExclVat() {
