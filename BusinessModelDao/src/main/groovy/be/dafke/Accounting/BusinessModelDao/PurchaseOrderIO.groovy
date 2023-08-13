@@ -102,6 +102,10 @@ class PurchaseOrderIO {
     <$ID>$order.id</$ID>
     <$NAME>$order.name</$NAME>
     <$SUPPLIER>$order.supplier</$SUPPLIER>"""
+                if(order.creditNote) writer.write """
+    <$CREDIT_NOTE>$order.creditNote</$CREDIT_NOTE>"""
+                if(order.invoicePath) writer.write """
+    <$INVOICE_PATH>$order.invoicePath</$INVOICE_PATH>"""
                 Transaction purchaseTransaction = order.purchaseTransaction
                 if(purchaseTransaction) writer.write"""
     <$PURCHASE_TRANSACTION>$purchaseTransaction.transactionId</$PURCHASE_TRANSACTION>"""
