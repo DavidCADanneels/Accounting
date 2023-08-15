@@ -13,7 +13,8 @@ abstract class OrdersOverviewDataTableModel <T extends Order> extends Selectable
     static int PRICE_TOTAL_EXCL_COL = 3
     static int VAT_AMOUNT_COL = 4
     static int PRICE_TOTAL_INCL_COL = 5
-    static int NR_OF_COL = 6
+    static int INVOICE_PATH_COL = 6
+    static int NR_OF_COL = 7
     protected HashMap<Integer,String> columnNames = new HashMap<>()
     protected HashMap<Integer,Class> columnClasses = new HashMap<>()
 
@@ -29,6 +30,7 @@ abstract class OrdersOverviewDataTableModel <T extends Order> extends Selectable
         columnClasses.put(PRICE_TOTAL_EXCL_COL, BigDecimal.class)
         columnClasses.put(VAT_AMOUNT_COL, BigDecimal.class)
         columnClasses.put(PRICE_TOTAL_INCL_COL, BigDecimal.class)
+        columnClasses.put(INVOICE_PATH_COL, String.class)
     }
 
     protected void setColumnNames() {
@@ -38,6 +40,7 @@ abstract class OrdersOverviewDataTableModel <T extends Order> extends Selectable
         columnNames.put(PRICE_TOTAL_EXCL_COL, getBundle("Accounting").getString("TOTAL_VAT_EXCL"))
         columnNames.put(VAT_AMOUNT_COL, getBundle("Accounting").getString("TOTAL_VAT"))
         columnNames.put(PRICE_TOTAL_INCL_COL, getBundle("Accounting").getString("TOTAL_VAT_INCL"))
+        columnNames.put(INVOICE_PATH_COL, getBundle("Accounting").getString("INVOICE"))
     }
 
     int getColumnCount() {

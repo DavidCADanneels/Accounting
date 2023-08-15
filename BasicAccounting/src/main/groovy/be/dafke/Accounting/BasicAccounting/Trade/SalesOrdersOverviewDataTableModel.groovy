@@ -29,6 +29,14 @@ class SalesOrdersOverviewDataTableModel extends OrdersOverviewDataTableModel<Sal
         if (col == PRICE_TOTAL_EXCL_COL) return salesOrder.totalSalesPriceExclVat
         if (col == VAT_AMOUNT_COL) return salesOrder.totalSalesVat
         if (col == PRICE_TOTAL_INCL_COL) return salesOrder.totalSalesPriceInclVat
+        if (col == INVOICE_PATH_COL) {
+            if(salesOrder?.invoicePath != null) {
+                String path = salesOrder.invoicePath
+                int index = path.lastIndexOf('/')
+                return path.substring(index+1)
+            }
+            return null
+        }
         if (col == ORDER_NR_COL) return salesOrder.name
         if (col == DATE_COL) return salesOrder.deliveryDate
         null

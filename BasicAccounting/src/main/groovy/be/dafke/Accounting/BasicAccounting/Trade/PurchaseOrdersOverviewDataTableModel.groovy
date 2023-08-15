@@ -25,6 +25,14 @@ class PurchaseOrdersOverviewDataTableModel extends OrdersOverviewDataTableModel<
         if (col == PRICE_TOTAL_EXCL_COL) return purchaseOrder.totalPurchasePriceExclVat
         if (col == VAT_AMOUNT_COL) return purchaseOrder.totalPurchaseVat
         if (col == PRICE_TOTAL_INCL_COL) return purchaseOrder.totalPurchasePriceInclVat
+        if (col == INVOICE_PATH_COL) {
+            if(purchaseOrder?.invoicePath != null) {
+                String path = purchaseOrder.invoicePath
+                int index = path.lastIndexOf('\\')
+                return path.substring(index+1)
+            }
+            return null
+        }
         if (col == ORDER_NR_COL) return purchaseOrder.name
         if (col == DATE_COL) return purchaseOrder.deliveryDate
         null

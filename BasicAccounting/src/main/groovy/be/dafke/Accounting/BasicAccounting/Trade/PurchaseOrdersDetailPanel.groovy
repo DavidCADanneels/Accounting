@@ -134,7 +134,6 @@ class PurchaseOrdersDetailPanel extends JPanel {
         payedButton.enabled = false
         viewInvoiceButton.enabled = false
         selectInvoiceButton.enabled = false
-        createPurchaseOrder.enabled = false
     }
 
     void setOrder(PurchaseOrder purchaseOrder){
