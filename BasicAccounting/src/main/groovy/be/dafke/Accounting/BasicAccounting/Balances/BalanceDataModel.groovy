@@ -44,7 +44,7 @@ class BalanceDataModel extends SelectableTableModel<Account> {
     void setColumnNames() {
         columnNames.clear()
         if (nrCol > -1) columnNames.put(nrCol, getBundle("Accounting").getString("NR"))
-        columnNames.put(accountCol, balance.leftName)
+        columnNames.put(accountCol, left?balance.leftName:balance.rightName)
         columnNames.put(saldoCol, getBundle("Accounting").getString("AMOUNT"))
     }
 
