@@ -95,12 +95,12 @@ class PaymentLayoutPanel extends JPanel {
 //        openSupplierInvoices.fireOrderPayed()
 //    }
 
-    void fireShowInputChanged(boolean enabled) {
-        mortgagesPanel.visible = enabled
-        openCustomerInvoices.visible = enabled
-        openSupplierInvoices.visible = enabled
-        accountPanel.visible = enabled
-    }
+//    void fireShowInputChanged(boolean enabled) {
+//        mortgagesPanel.visible = enabled
+//        openCustomerInvoices.visible = enabled
+//        openSupplierInvoices.visible = enabled
+//        accountPanel.visible = enabled
+//    }
 
     void refresh() {
         saldoField.setText(journal?.baseAccount?.saldo?.toString())

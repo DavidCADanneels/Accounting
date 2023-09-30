@@ -34,11 +34,11 @@ class DefaultLayoutPanel extends JPanel {
         add(links, BorderLayout.WEST)
     }
 
-    void fireShowInputChanged(boolean enabled) {
-        accountGuiLeft.visible = enabled
-        accountGuiRight.visible = enabled
-        mortgagesPanel.visible = enabled
-    }
+//    void fireShowInputChanged(boolean enabled) {
+//        accountGuiLeft.visible = enabled
+//        accountGuiRight.visible = enabled
+//        mortgagesPanel.visible = enabled
+//    }
 
     void setJournal(Journal journal) {
         Accounting activeAccounting = Session.activeAccounting

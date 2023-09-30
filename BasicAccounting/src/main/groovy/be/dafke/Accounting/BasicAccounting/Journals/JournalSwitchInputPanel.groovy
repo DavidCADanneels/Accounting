@@ -100,7 +100,9 @@ class JournalSwitchInputPanel extends JPanel{
     }
 
     void fireShowInputChanged(boolean enabled) {
-        defaultLayoutPanel.fireShowInputChanged(enabled)
-        paymentLayoutPanel.fireShowInputChanged(enabled)
+        center.visible = enabled
+//        paymentLayoutPanel.visible = enabled
+//        defaultLayoutPanel.fireShowInputChanged(enabled)
+//        paymentLayoutPanel.fireShowInputChanged(enabled)
     }
 }
