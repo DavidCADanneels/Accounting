@@ -59,7 +59,7 @@ class SalesOrderViewDataTableModel extends SelectableTableModel<OrderItem> {
         if (article == null) return  null
         if (col == NAME_COL) return article.name
         if (col == ITEMS_PER_UNIT_COL) return orderItem.itemsPerUnit
-        if (col == PRICE_ITEM_COL) return orderItem.salesPriceForItem
+        if (col == PRICE_ITEM_COL) return orderItem.salesPriceForItem?:orderItem.article.salesPriceItemWithVat
         if (col == SUPPLIER_COL) return article.supplier
         if (col == VAT_RATE_COL) return orderItem.salesVatRate
         if (col == TOTAL_EXCL_COL) return orderItem.salesPriceWithoutVat

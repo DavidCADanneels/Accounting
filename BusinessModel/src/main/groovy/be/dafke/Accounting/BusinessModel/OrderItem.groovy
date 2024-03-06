@@ -100,9 +100,10 @@ class OrderItem extends BusinessObject{
         this.salesPriceForItem = salesPriceForItem
     }
 
-    BigDecimal getSalesPriceForItem() {
-        salesPriceForItem?:article.getSalesPriceItemWithVat()
-    }
+//    BigDecimal getSalesPriceForItem() {
+//        salesPriceForItem
+////        salesPriceForItem?:article.getSalesPriceItemWithVat()
+//    }
 
     BigDecimal getSalesPriceWithoutVat() {
         getSalesPriceWithoutVat(getSalesPriceForItem())
