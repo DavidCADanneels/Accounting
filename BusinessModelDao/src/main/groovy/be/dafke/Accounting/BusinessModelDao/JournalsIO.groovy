@@ -83,15 +83,15 @@ class JournalsIO {
         VATTransaction.VATType vatType = vatString==null?null:VATTransaction.VATType.valueOf(vatString)
         accountsList.setVatType(vatType)
 
-        String singleString = getValue(element, SINGLE_ACCOUNT)
-        boolean single = Boolean.valueOf(singleString)
-        accountsList.setSingleAccount(single)
+//        String singleString = getValue(element, SINGLE_ACCOUNT)
+//        boolean single = Boolean.valueOf(singleString)
+//        accountsList.setSingleAccount(single)
 
-        String accountString = getValue(element, ACCOUNT)
-        if (accountString != null){
-            Account account = accounts.getBusinessObject(accountString)
-            accountsList.setAccount(account)
-        }
+//        String accountString = getValue(element, ACCOUNT)
+//        if (accountString != null){
+//            Account account = accounts.getBusinessObject(accountString)
+//            accountsList.setAccount(account)
+//        }
 
         accountsList
     }
@@ -288,8 +288,6 @@ class JournalsIO {
       <$RIGHT_ACTION>$left.rightAction</$RIGHT_ACTION>
       <$RIGHT_BUTTON>$left.rightButton</$RIGHT_BUTTON>
       <$VATTYPE>$journalType.leftVatType</$VATTYPE>
-      <$SINGLE_ACCOUNT>$left.singleAccount</$SINGLE_ACCOUNT>
-      <$ACCOUNT>$left.account</$ACCOUNT>
       <$TYPES>$leftStream</$TYPES>
     </$LEFT_LIST>
     <$RIGHT_LIST>
@@ -298,8 +296,6 @@ class JournalsIO {
       <$RIGHT_ACTION>$right.rightAction</$RIGHT_ACTION>
       <$RIGHT_BUTTON>$right.rightButton</$RIGHT_BUTTON>
       <$VATTYPE>$journalType.rightVatType</$VATTYPE>
-      <$SINGLE_ACCOUNT>$right.singleAccount</$SINGLE_ACCOUNT>
-      <$ACCOUNT>$right.account</$ACCOUNT>
       <$TYPES>$rightStream</$TYPES>
     </$RIGHT_LIST>
   </$JOURNAL_TYPE>
