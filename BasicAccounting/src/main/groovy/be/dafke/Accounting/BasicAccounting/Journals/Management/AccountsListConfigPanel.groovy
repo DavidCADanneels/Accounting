@@ -11,7 +11,6 @@ import java.awt.*
 class AccountsListConfigPanel extends JPanel {
     final ButtonConfigPanel buttonConfigPanel
     JRadioButton byType, singleAccount
-    AccountsListSingleAccountSelectorPanel accountSelectorPanel
     JPanel north
     AccountsList accountsList
     JTextField taxType
@@ -40,10 +39,8 @@ class AccountsListConfigPanel extends JPanel {
 
         accountsList = new AccountsList()
         accountTypesFilterPanel = new AccountsListAccountTypesFilterPanel(accountTypes, left)
-        accountSelectorPanel = new AccountsListSingleAccountSelectorPanel(accounts)
         add(north,BorderLayout.NORTH)
         JPanel center = new JPanel(new BorderLayout())
-        center.add(accountSelectorPanel, BorderLayout.NORTH)
         center.add(accountTypesFilterPanel, BorderLayout.CENTER)
         add(center,BorderLayout.CENTER)
 //
@@ -57,14 +54,11 @@ class AccountsListConfigPanel extends JPanel {
         buttonConfigPanel.setAccountsList(accountsList)
         singleAccount.setSelected(accountsList.isSingleAccount())
         accountTypesFilterPanel.setAccountsList(accountsList)
-        accountSelectorPanel.setAccountsList(accountsList)
     }
 
     void refresh(){
         boolean singleAccountSelected = singleAccount.selected
         accountsList.setSingleAccount singleAccountSelected
-        accountSelectorPanel.enabled = singleAccountSelected
-        accountSelectorPanel.refresh()
 
         boolean byTypeSelected = byType.selected
         accountTypesFilterPanel.enabled = byTypeSelected
