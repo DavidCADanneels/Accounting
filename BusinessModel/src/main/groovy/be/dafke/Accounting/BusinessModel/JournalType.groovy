@@ -34,6 +34,16 @@ class JournalType extends BusinessObject {
         right = new AccountsList()
     }
 
+    static JournalType createJournalType(String name, String type, AccountTypes accountTypes){
+//        if(type == JournalType.DEFAULT_TYPE) {
+            JournalType journalType = new JournalType(name)
+            journalType.addAllAccountTypes(accountTypes)
+            return journalType
+//        } else if(type == JournalType.PURCHASE_TYPE){
+//
+//        }
+    }
+
     void addAllAccountTypes(AccountTypes accountTypes){
         left.addAllTypes(accountTypes, false)
         right.addAllTypes(accountTypes, false)

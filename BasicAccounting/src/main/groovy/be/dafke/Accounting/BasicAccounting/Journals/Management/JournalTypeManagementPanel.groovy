@@ -112,20 +112,29 @@ class JournalTypeManagementPanel extends JPanel implements ActionListener {
         String name = JOptionPane.showInputDialog(this, getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"))
         while (name != null) {
             name = name.trim()
-            JournalType journalType = new JournalType(name)
-            journalType.addAllAccountTypes(accountTypes)
-            try {
-                journalTypes.addBusinessObject(journalType)
-                JournalManagementGUI.fireJournalTypeDataChangedForAll(journalTypes)
-                ((DefaultComboBoxModel<JournalType>) combo.getModel()).addElement(journalType)
-                (combo.getModel()).setSelectedItem(journalType)
-                name = null
-            } catch (DuplicateNameException e) {
-                ActionUtils.showErrorMessage(this, ActionUtils.JOURNAL_TYPE_DUPLICATE_NAME, name)
-                name = JOptionPane.showInputDialog(this, getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"))
-            } catch (EmptyNameException e) {
-                ActionUtils.showErrorMessage(this, ActionUtils.JOURNAL_TYPE_NAME_EMPTY)
-                name = JOptionPane.showInputDialog(this, getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"))
+//            Object[] journalsList = journalTypes.businessObjects.toArray()
+            ArrayList<String> journalsList = []
+            journalsList.add(JournalType.DEFAULT_TYPE)
+//            journalsList.add(JournalType.PURCHASE_TYPE)
+            journalsList.add(JournalType.PAYMENT_TYPE)
+//            journalsList.add(JournalType.SALE_TYPE)
+            String type = JOptionPane.showInputDialog(this, "Select Journal Type", "Select journal type",
+                    JOptionPane.INFORMATION_MESSAGE, null, journalsList.toArray(), null)
+            if(type!=null) {
+                JournalType journalType = JournalType.createJournalType(name, type, accountTypes)
+                try {
+                    journalTypes.addBusinessObject(journalType)
+                    JournalManagementGUI.fireJournalTypeDataChangedForAll(journalTypes)
+                    ((DefaultComboBoxModel<JournalType>) combo.getModel()).addElement(journalType)
+                    (combo.getModel()).setSelectedItem(journalType)
+                    name = null
+                } catch (DuplicateNameException e) {
+                    ActionUtils.showErrorMessage(this, ActionUtils.JOURNAL_TYPE_DUPLICATE_NAME, name)
+                    name = JOptionPane.showInputDialog(this, getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"))
+                } catch (EmptyNameException e) {
+                    ActionUtils.showErrorMessage(this, ActionUtils.JOURNAL_TYPE_NAME_EMPTY)
+                    name = JOptionPane.showInputDialog(this, getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"))
+                }
             }
         }
     }
