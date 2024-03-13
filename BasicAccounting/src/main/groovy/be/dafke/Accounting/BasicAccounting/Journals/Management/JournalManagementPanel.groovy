@@ -24,8 +24,9 @@ class JournalManagementPanel extends JPanel implements ListSelectionListener {
     JournalTypes journalTypes
     Accounts accounts
     AccountTypes accountTypes
-    JComboBox<JournalType> comboBox
-    TableColumn column
+    JComboBox<JournalType> typeComboBox
+    JComboBox<Account> baseAccountComboBox
+    TableColumn typeColumn, baseAccountColumn
 
     JournalManagementPanel(Accounts accounts, Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
         setLayout(new BorderLayout())
@@ -42,10 +43,15 @@ class JournalManagementPanel extends JPanel implements ListSelectionListener {
         selection.addListSelectionListener(this)
         tabel.setSelectionModel(selection)
 
-        comboBox=createComboBox()
+        typeComboBox=createTypeComboBox()
 
-        column = tabel.getColumnModel().getColumn(JournalManagementTableModel.TYPE_COL)
-        column.setCellEditor(new DefaultCellEditor(comboBox))
+        typeColumn = tabel.getColumnModel().getColumn(JournalManagementTableModel.TYPE_COL)
+        typeColumn.setCellEditor(new DefaultCellEditor(typeComboBox))
+
+        baseAccountComboBox=createBaseAccountComboBox()
+
+        baseAccountColumn = tabel.getColumnModel().getColumn(JournalManagementTableModel.BASE_ACCOUNT_COL)
+        baseAccountColumn.setCellEditor(new DefaultCellEditor(baseAccountComboBox))
 
         JScrollPane scrollPane = new JScrollPane(tabel)
         add(scrollPane, BorderLayout.CENTER)
@@ -54,7 +60,15 @@ class JournalManagementPanel extends JPanel implements ListSelectionListener {
         add(south, BorderLayout.SOUTH)
     }
 
-    JComboBox<JournalType> createComboBox() {
+    JComboBox<Account> createBaseAccountComboBox() {
+        JComboBox<Account> comboBox = new JComboBox<>()
+        comboBox.removeAllItems()
+        comboBox.addItem(null)
+        accounts.businessObjects.forEach({ account -> comboBox.addItem(account) })
+        comboBox
+    }
+
+    JComboBox<JournalType> createTypeComboBox() {
         JComboBox<JournalType> comboBox = new JComboBox<>()
         comboBox.removeAllItems()
         journalTypes.businessObjects.forEach({ journalType -> comboBox.addItem(journalType) })
@@ -131,8 +145,10 @@ class JournalManagementPanel extends JPanel implements ListSelectionListener {
 
     void fireJournalTypeDataChanged(JournalTypes journalTypes){
         this.journalTypes = journalTypes
-        comboBox = createComboBox()
-        column.setCellEditor(new DefaultCellEditor(comboBox))
+        typeComboBox = createTypeComboBox()
+        typeColumn.setCellEditor(new DefaultCellEditor(typeComboBox))
+        baseAccountComboBox = createBaseAccountComboBox()
+        baseAccountColumn.setCellEditor(new DefaultCellEditor(baseAccountComboBox))
 //        fireJournalDataChanged()
         revalidate()
     }

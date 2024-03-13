@@ -2,6 +2,7 @@ package be.dafke.Accounting.BasicAccounting.Journals.Management
 
 import be.dafke.Accounting.BasicAccounting.MainApplication.ActionUtils
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
+import be.dafke.Accounting.BusinessModel.Account
 import be.dafke.Accounting.BusinessModel.Journal
 import be.dafke.Accounting.BusinessModel.JournalType
 import be.dafke.Accounting.BusinessModel.Journals
@@ -17,7 +18,8 @@ class JournalManagementTableModel extends SelectableTableModel<Journal> {
     static final int NAME_COL = 0
     static final int ABBR_COL = 1
     static final int TYPE_COL = 2
-    static final int NEXT_ID_COL = 3
+    static final int BASE_ACCOUNT_COL = 3
+    static final int NEXT_ID_COL = 4
     HashMap<Integer, String> columnNames = new HashMap<>()
     HashMap<Integer, Class> columnClasses = new HashMap<>()
     final Journals journals
@@ -34,6 +36,7 @@ class JournalManagementTableModel extends SelectableTableModel<Journal> {
         columnClasses.put(NAME_COL, String.class)
         columnClasses.put(ABBR_COL, String.class)
         columnClasses.put(TYPE_COL, String.class)
+        columnClasses.put(BASE_ACCOUNT_COL, Account.class)
         columnClasses.put(NEXT_ID_COL, Integer.class)
     }
 
@@ -41,6 +44,7 @@ class JournalManagementTableModel extends SelectableTableModel<Journal> {
         columnNames.put(NAME_COL, getBundle("Accounting").getString("NAME"))
         columnNames.put(ABBR_COL, getBundle("Accounting").getString("ABBR"))
         columnNames.put(TYPE_COL, getBundle("Accounting").getString("TYPE"))
+        columnNames.put(BASE_ACCOUNT_COL, getBundle("Accounting").getString("BASE_ACCOUNT"))
         columnNames.put(NEXT_ID_COL, getBundle("Accounting").getString("NEXT_INDEX"))
     }
 
@@ -60,6 +64,8 @@ class JournalManagementTableModel extends SelectableTableModel<Journal> {
             return journal.abbreviation
         } else if (col == TYPE_COL) {
             return journal.type
+        } else if (col == BASE_ACCOUNT_COL) {
+            return journal.baseAccount
         } else if (col == NEXT_ID_COL) {
             return journal.id
         }
@@ -99,6 +105,9 @@ class JournalManagementTableModel extends SelectableTableModel<Journal> {
                     ActionUtils.showErrorMessage(parent, ActionUtils.JOURNAL_DUPLICATE_NAME, newName.trim())
                 }
             }
+        } else if (col == BASE_ACCOUNT_COL) {
+            Account baseAccount = (Account)value
+            journal.baseAccount = baseAccount
         } else if (col == ABBR_COL) {
             String oldAbbreviation = journal.abbreviation
             String newAbbreviation = (String)value
