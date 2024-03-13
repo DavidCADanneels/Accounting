@@ -23,7 +23,7 @@ class JournalTypeManagementPanel extends JPanel implements ActionListener {
     JournalType journalType
     Accounts accounts
     AccountTypes accountTypes
-    JComboBox<VATTransaction.VATType> taxType
+    JComboBox<VATTransaction.TransactionType> taxType
     //	JPanel left, right
     AccountsListConfigPanel accountsListConfigPanelLeft, accountsListConfigPanelRight
 //	AccountsListConfigPanel left, right
@@ -50,8 +50,8 @@ class JournalTypeManagementPanel extends JPanel implements ActionListener {
         combo.addActionListener({ e -> comboAction() })
         taxType = new JComboBox<>()
         taxType.addItem(null)
-        taxType.addItem(VATTransaction.VATType.PURCHASE)
-        taxType.addItem(VATTransaction.VATType.SALE)
+        taxType.addItem(VATTransaction.TransactionType.PURCHASE)
+        taxType.addItem(VATTransaction.TransactionType.SALE)
         taxType.setSelectedItem(null)
         taxType.addActionListener(this)
         JButton switchButton = new JButton("Switch VAT Types")
@@ -81,7 +81,7 @@ class JournalTypeManagementPanel extends JPanel implements ActionListener {
     }
 
     void switchVatType(){
-        VATTransaction.VATType vatType = (VATTransaction.VATType) taxType.selectedItem
+        VATTransaction.TransactionType vatType = (VATTransaction.TransactionType) taxType.selectedItem
         journalType.setVatType(vatType)
         VATTransaction.VATType vatTypeLeft = JournalType.calculateLeftVatType(vatType)
         VATTransaction.VATType vatTypeRight = JournalType.calculateRightVatType(vatType)

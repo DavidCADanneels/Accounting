@@ -27,6 +27,10 @@ class VATTransaction extends BusinessCollection<VATBooking>{
         registered
     }
 
+    enum TransactionType{
+        SALE, PURCHASE, PAYMENT
+    }
+
     enum VATType{
         SALE, PURCHASE, CUSTOMER
     }

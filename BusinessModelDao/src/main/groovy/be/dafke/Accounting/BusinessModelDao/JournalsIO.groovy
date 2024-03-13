@@ -33,7 +33,7 @@ class JournalsIO {
             // Do not add default types here, they are read, right below
 
             String taxString = getValue(element, VATTYPE)
-            if(taxString) journalType.setVatType(VATTransaction.VATType.valueOf(taxString))
+            if(taxString) journalType.setVatType(VATTransaction.TransactionType.valueOf(taxString))
 
             Element leftElement = getChildren(element, LEFT_LIST).get(0)
             Element rightElement = getChildren(element, RIGHT_LIST).get(0)
