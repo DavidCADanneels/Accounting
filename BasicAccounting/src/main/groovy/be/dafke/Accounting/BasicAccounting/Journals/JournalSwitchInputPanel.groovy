@@ -16,6 +16,7 @@ class JournalSwitchInputPanel extends JPanel{
     DefaultLayoutPanel defaultLayoutPanel
     PaymentLayoutPanel paymentLayoutPanel
     PurchaseLayoutPanel purchaseLayoutPanel
+    JPanel blankPanel
 
     JPanel center
 
@@ -27,10 +28,12 @@ class JournalSwitchInputPanel extends JPanel{
         defaultLayoutPanel = new DefaultLayoutPanel(journalEditPanel)
         paymentLayoutPanel = new PaymentLayoutPanel(journalEditPanel)
         purchaseLayoutPanel = new PurchaseLayoutPanel()
+        blankPanel = new JPanel()
 
         center.add(defaultLayoutPanel, JournalType.DEFAULT_TYPE)
         center.add(paymentLayoutPanel, JournalType.PAYMENT_TYPE)
         center.add(purchaseLayoutPanel, JournalType.PURCHASE_TYPE)
+        center.add(blankPanel, 'BLANK')
 
         setLayout(new BorderLayout())
         add(center, BorderLayout.CENTER)
@@ -44,16 +47,19 @@ class JournalSwitchInputPanel extends JPanel{
     }
 
     void setJournal(Journal journal){
-        if (journal && journal.type.name == JournalType.PAYMENT_TYPE) {
+        if(journal == null) {
+            switchView('BLANK')
+        } else if(journal.type.name == JournalType.PAYMENT_TYPE) {
             paymentLayoutPanel.journal = journal
+            switchView(JournalType.PAYMENT_TYPE)
+        } else if (journal.type.name == JournalType.PURCHASE_TYPE) {
+//            purchaseLayoutPanel.set
+            switchView(JournalType.PURCHASE_TYPE)
+        } else if (journal.type.name == JournalType.DEFAULT_TYPE){
+            defaultLayoutPanel.journal = journal
+            switchView(JournalType.DEFAULT_TYPE)
         } else {
             defaultLayoutPanel.journal = journal
-        }
-        if (journal && journal.type.name == JournalType.PAYMENT_TYPE) {
-            switchView(JournalType.PAYMENT_TYPE)
-        } else if (journal && journal.type.name == JournalType.PURCHASE_TYPE){
-            switchView(JournalType.PURCHASE_TYPE)
-        } else {
             switchView(JournalType.DEFAULT_TYPE)
         }
     }
