@@ -14,12 +14,12 @@ class JournalType extends BusinessObject {
     static String SALE_TYPE = "Sale"
     static String PURCHASE_TYPE = "Purchase"
 
-    VATTransaction.TransactionType vatType = null
+    VATTransaction.TransactionType transactionType = null
     AccountsList left, right
 
     JournalType(JournalType journalType){
         this(journalType.name)
-        vatType = journalType.getVatType()
+        transactionType = journalType.getTransactionType()
         for(AccountType accountType:journalType.left.accountTypes){
             left.setTypeAvailable(accountType, Boolean.TRUE)
         }
@@ -65,12 +65,12 @@ class JournalType extends BusinessObject {
         this.right = right
     }
 
-    VATTransaction.TransactionType getVatType() {
-        vatType
+    VATTransaction.TransactionType getTransactionType() {
+        transactionType
     }
 
-    void setVatType(VATTransaction.TransactionType vatType) {
-        this.vatType = vatType
+    void setTransactionType(VATTransaction.TransactionType vatType) {
+        this.transactionType = vatType
     }
 
     void switchVatTypes(){

@@ -82,7 +82,7 @@ class JournalTypeManagementPanel extends JPanel implements ActionListener {
 
     void switchVatType(){
         VATTransaction.TransactionType vatType = (VATTransaction.TransactionType) taxType.selectedItem
-        journalType.setVatType(vatType)
+        journalType.setTransactionType(vatType)
         VATTransaction.VATType vatTypeLeft = JournalType.calculateLeftVatType(vatType)
         VATTransaction.VATType vatTypeRight = JournalType.calculateRightVatType(vatType)
         journalType.getLeft().setVatType(vatTypeLeft)
@@ -94,7 +94,7 @@ class JournalTypeManagementPanel extends JPanel implements ActionListener {
     void comboAction() {
         journalType = (JournalType) combo.selectedItem
         taxType.removeActionListener(this)
-        taxType.setSelectedItem(journalType.getVatType())
+        taxType.setSelectedItem(journalType.getTransactionType())
         taxType.addActionListener(this)
         AccountsList leftList = journalType.getLeft()
         accountsListConfigPanelLeft.setAccountsList(leftList)
