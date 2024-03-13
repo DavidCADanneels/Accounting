@@ -17,8 +17,8 @@ class JournalSwitchInputPanel extends JPanel{
     PaymentLayoutPanel paymentLayoutPanel
     PurchaseLayoutPanel purchaseLayoutPanel
     JPanel blankPanel
-
     JPanel center
+    JRadioButton defaultView, paymentView, purchaseView
 
     JournalSwitchInputPanel(JournalEditPanel journalEditPanel) {
         setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Input"))
@@ -35,7 +35,33 @@ class JournalSwitchInputPanel extends JPanel{
         center.add(purchaseLayoutPanel, JournalType.PURCHASE_TYPE)
         center.add(blankPanel, 'BLANK')
 
+        defaultView = new JRadioButton('default')
+        paymentView = new JRadioButton('payment')
+        purchaseView = new JRadioButton('purchase')
+        ButtonGroup group = new ButtonGroup()
+        group.add(defaultView)
+        group.add(paymentView)
+        group.add(purchaseView)
+
+        defaultView.addActionListener({e ->
+            switchView(JournalType.DEFAULT_TYPE)
+        })
+        paymentView.addActionListener({e ->
+            switchView(JournalType.PAYMENT_TYPE)
+        })
+        purchaseView.addActionListener({e ->
+            switchView(JournalType.PURCHASE_TYPE)
+        })
+        defaultView.selected = true
+
+        JPanel north = new JPanel()
+        north.add(new JLabel("View:"))
+        north.add(defaultView)
+        north.add(paymentView)
+        north.add(purchaseView)
+
         setLayout(new BorderLayout())
+        add(north, BorderLayout.NORTH)
         add(center, BorderLayout.CENTER)
     }
 
@@ -49,18 +75,22 @@ class JournalSwitchInputPanel extends JPanel{
     void setJournal(Journal journal){
         if(journal == null) {
             switchView('BLANK')
-        } else if(journal.type.name == JournalType.PAYMENT_TYPE) {
-            paymentLayoutPanel.journal = journal
-            switchView(JournalType.PAYMENT_TYPE)
-        } else if (journal.type.name == JournalType.PURCHASE_TYPE) {
-//            purchaseLayoutPanel.set
-            switchView(JournalType.PURCHASE_TYPE)
-        } else if (journal.type.name == JournalType.DEFAULT_TYPE){
-            defaultLayoutPanel.journal = journal
-            switchView(JournalType.DEFAULT_TYPE)
         } else {
+            paymentLayoutPanel.journal = journal
             defaultLayoutPanel.journal = journal
-            switchView(JournalType.DEFAULT_TYPE)
+            if(journal.type.name == JournalType.PAYMENT_TYPE) {
+                paymentView.selected = true
+                switchView(JournalType.PAYMENT_TYPE)
+            } else if (journal.type.name == JournalType.PURCHASE_TYPE) {
+                purchaseView.selected = true
+                switchView(JournalType.PURCHASE_TYPE)
+//            } else if (journal.type.name == JournalType.DEFAULT_TYPE){
+//                defaultView.selected = true
+//                switchView(JournalType.DEFAULT_TYPE)
+            } else {
+                defaultView.selected = true
+                switchView(JournalType.DEFAULT_TYPE)
+            }
         }
     }
 
