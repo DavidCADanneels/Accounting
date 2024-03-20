@@ -25,6 +25,7 @@ class XMLConstants {
     public static final String CHECKED_RIGHT = "checkedRight"
     public static final String SINGLE_ACCOUNT = "singleAccount"
     public static final String VATTYPE = "vatType"
+    public static final String TRANSACTIONTYPE = "transactionType"
     public static final String ABBREVIATION = "abbr"// TODO: 'abbr' or 'abbreviation'
     public static final String JOURNALS = "Journals"
     public static final String JOURNAL = "Journal"

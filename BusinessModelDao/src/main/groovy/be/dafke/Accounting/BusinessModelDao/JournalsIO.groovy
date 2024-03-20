@@ -32,8 +32,8 @@ class JournalsIO {
             JournalType journalType = new JournalType(name)
             // Do not add default types here, they are read, right below
 
-            String taxString = getValue(element, VATTYPE)
-            if(taxString) journalType.setVatType(VATTransaction.TransactionType.valueOf(taxString))
+            String taxString = getValue(element, TRANSACTIONTYPE)
+            if(taxString) journalType.setTransactionType(VATTransaction.TransactionType.valueOf(taxString))
 
             Element leftElement = getChildren(element, LEFT_LIST).get(0)
             Element rightElement = getChildren(element, RIGHT_LIST).get(0)
@@ -281,7 +281,7 @@ class JournalsIO {
                 writer.write """\
   <$JOURNAL_TYPE>
     <$NAME>$journalType.name</$NAME>
-    <$VATTYPE>${(journalType.getVatType()==null?"null":journalType.getVatType().toString())}</$VATTYPE>
+    <$TRANSACTIONTYPE>${(journalType.getTransactionType()==null?"null":journalType.getTransactionType().toString())}</$TRANSACTIONTYPE>
     <$LEFT_LIST>
       <$LEFT_ACTION>$left.leftAction</$LEFT_ACTION>
       <$LEFT_BUTTON>$left.leftButton</$LEFT_BUTTON>
