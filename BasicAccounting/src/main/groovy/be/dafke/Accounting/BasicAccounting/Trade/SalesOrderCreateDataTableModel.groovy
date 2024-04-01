@@ -34,6 +34,9 @@ class SalesOrderCreateDataTableModel extends SalesOrderViewDataTableModel {
         if(col == NR_OF_ITEMS_COL){
             int nr = (Integer) value
             orderItem.setNumberOfItems(nr)
+            if(orderItem.salesPriceForItem == null){
+                orderItem.salesPriceForItem = orderItem.article.salesPriceItemWithVat
+            }
         } else if (col == PRICE_ITEM_COL){
             BigDecimal amount = (BigDecimal) value
             orderItem.setSalesPriceForItem(amount)
