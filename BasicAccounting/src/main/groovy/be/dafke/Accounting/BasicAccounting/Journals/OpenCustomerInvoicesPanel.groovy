@@ -3,7 +3,9 @@ package be.dafke.Accounting.BasicAccounting.Journals
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountActions
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.Account
+import be.dafke.Accounting.BusinessModel.Booking
 import be.dafke.Accounting.BusinessModel.SalesOrder
+import be.dafke.Accounting.BusinessModel.Transaction
 import be.dafke.ComponentModel.SelectableTable
 
 import javax.swing.*
@@ -31,7 +33,12 @@ class OpenCustomerInvoicesPanel extends JPanel {
             SalesOrder salesOrder = tabel.getSelectedObject()
             if(salesOrder) {
                 Main.setTransactionDescription(salesOrder.name)
-                AccountActions.book selectedAccount, true, null, this, salesOrder
+                Booking booking = AccountActions.book selectedAccount, true, this, salesOrder.amountLeftToPay
+                if(booking) {
+                    Transaction transaction = Main.transaction
+                    transaction.setOrder salesOrder
+                    salesOrder.decreaseAmountLeftToPay(booking.amount)
+                }
 //                refresh()
             }
         })
@@ -40,7 +47,12 @@ class OpenCustomerInvoicesPanel extends JPanel {
             SalesOrder salesOrder = tabel.getSelectedObject()
             if(salesOrder) {
                 Main.setTransactionDescription(salesOrder.name)
-                AccountActions.book selectedAccount, false, null, this, salesOrder
+                Booking booking = AccountActions.book selectedAccount, false, this, salesOrder.amountLeftToPay
+                if(booking) {
+                    Transaction transaction = Main.transaction
+                    transaction.setOrder salesOrder
+                    salesOrder.decreaseAmountLeftToPay(booking.amount)
+                }
 //                refresh()
             }
         })

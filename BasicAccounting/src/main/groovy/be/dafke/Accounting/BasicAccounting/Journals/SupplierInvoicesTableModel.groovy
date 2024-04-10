@@ -60,7 +60,7 @@ abstract class SupplierInvoicesTableModel extends SelectableTableModel<PurchaseO
         } else if (col == ORDER_NR_COL){
             purchaseOrder.name
         } else if (col == AMOUNT_COL){
-            purchaseOrder.getTotalPurchasePriceInclVat()
+            purchaseOrder.amountLeftToPay
         } else null
     }
 

@@ -64,7 +64,7 @@ class OpenCustomerInvoicesTableModel extends SelectableTableModel<SalesOrder> {
         } else if (col == ORDER_NR_COL){
             salesOrder.name
         } else if (col == AMOUNT_COL){
-            salesOrder.getTotalSalesPriceInclVat()
+            salesOrder.amountLeftToPay
         } else null
     }
 

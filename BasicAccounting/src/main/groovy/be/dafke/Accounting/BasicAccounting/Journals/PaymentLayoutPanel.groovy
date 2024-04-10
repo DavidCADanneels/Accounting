@@ -59,13 +59,13 @@ class PaymentLayoutPanel extends JPanel {
 
         accountPay.addActionListener({ e ->
             def account = StockUtils.getJournalBaseAccount(journal)
-            AccountActions.book account, false, null, this
+            AccountActions.book account, false, this
             refresh()
 //            saldoField.setText(journal?.baseAccount?.saldo?.toString())
         })
         accountReceive.addActionListener({ e ->
             def account = StockUtils.getJournalBaseAccount(journal)
-            AccountActions.book account, true, null, this
+            AccountActions.book account, true, this
             refresh()
 //            saldoField.setText(journal?.baseAccount?.saldo?.toString())
         })

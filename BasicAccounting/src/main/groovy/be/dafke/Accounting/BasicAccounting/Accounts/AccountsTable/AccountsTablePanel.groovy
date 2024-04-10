@@ -5,6 +5,7 @@ import be.dafke.Accounting.BasicAccounting.Accounts.AccountDetails.AccountDetail
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountManagement.AccountManagementGUI
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountsFilter.AccountFilterPanel
 import be.dafke.Accounting.BasicAccounting.Accounts.New.NewAccountDialog
+import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BasicAccounting.MainApplication.PopupForTableActivator
 import be.dafke.Accounting.BusinessModel.*
 import be.dafke.Accounting.BusinessModelDao.AccountingSession
@@ -184,7 +185,18 @@ class AccountsTablePanel extends JPanel {
     void book(boolean debit) {
         popup.visible = false
         for(Account account : table.selectedObjects){
-            AccountActions.book account, debit, vatType, this
+            Accounting accounting = Session.activeAccounting
+            Transaction transaction = Main.transaction
+            Booking booking = AccountActions.book account, debit, this
+            if (vatType == VATTransaction.VATType.PURCHASE) {
+                AccountActions.purchaseAny(booking, accounting, this)
+            } else if (vatType == VATTransaction.VATType.CUSTOMER) {
+                Contact contact = AccountActions.getContact(accounting, account, Contact.ContactType.CUSTOMERS, this)
+                transaction.contact = contact
+            } else if (vatType == VATTransaction.VATType.SALE) {
+                AccountActions.saleAny(transaction, booking, accounting, this)
+            }
+            Main.fireTransactionInputDataChanged()
         }
     }
 

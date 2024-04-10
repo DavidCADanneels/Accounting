@@ -3,7 +3,9 @@ package be.dafke.Accounting.BasicAccounting.Journals
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountActions
 import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.Account
+import be.dafke.Accounting.BusinessModel.Booking
 import be.dafke.Accounting.BusinessModel.PurchaseOrder
+import be.dafke.Accounting.BusinessModel.Transaction
 import be.dafke.ComponentModel.SelectableTable
 
 import javax.swing.*
@@ -31,7 +33,12 @@ class UnpayedSupplierInvoicesPanel extends JPanel {
             PurchaseOrder purchaseOrder = tabel.getSelectedObject()
             if(purchaseOrder) {
                 Main.setTransactionDescription(purchaseOrder.name)
-                AccountActions.book selectedAccount, true, null, this, purchaseOrder
+                Booking booking = AccountActions.book selectedAccount, true, this, purchaseOrder.amountLeftToPay
+                if(booking){
+                    Transaction transaction = Main.transaction
+                    transaction.setOrder purchaseOrder
+                    purchaseOrder.decreaseAmountLeftToPay(booking.amount)
+                }
 //                refresh()
             }
         })
@@ -40,7 +47,12 @@ class UnpayedSupplierInvoicesPanel extends JPanel {
             PurchaseOrder purchaseOrder = tabel.getSelectedObject()
             if(purchaseOrder) {
                 Main.setTransactionDescription(purchaseOrder.name)
-                AccountActions.book selectedAccount, false, null, this, purchaseOrder
+                Booking booking = AccountActions.book selectedAccount, false, this, purchaseOrder.amountLeftToPay
+                if(booking){
+                    Transaction transaction = Main.transaction
+                    transaction.setOrder purchaseOrder
+                    purchaseOrder.decreaseAmountLeftToPay(booking.amount)
+                }
 //                refresh()
             }
         })
