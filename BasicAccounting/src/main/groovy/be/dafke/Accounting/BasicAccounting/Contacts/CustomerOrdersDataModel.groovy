@@ -71,7 +71,8 @@ class CustomerOrdersDataModel extends SelectableTableModel<SalesOrder> {
         } else if (col==SALE_COL){
             salesOrder.salesTransaction?.toString()
         } else if (col==PAY_COL){
-            salesOrder.paymentTransaction?.toString()
+            "TODO: multiValue"
+//            salesOrder.paymentTransaction?.toString()
         } else if (col==GAIN_COL){
             salesOrder.gainTransaction?.toString()
         } else null

@@ -116,7 +116,7 @@ class JournalEditPanel extends JPanel implements ActionListener {
                 // The JournalType is more relevant
                 if(transaction.order){
                     if(journal.type.name == JournalType.PAYMENT_TYPE) {
-                        transaction.order.paymentTransaction = transaction
+                        transaction.order.paymentTransactions.add transaction
                     } else if(journal.type.name == JournalType.PURCHASE_TYPE){
                         PurchaseOrder purchaseOrder = (PurchaseOrder)transaction.order
                         purchaseOrder.purchaseTransaction = transaction

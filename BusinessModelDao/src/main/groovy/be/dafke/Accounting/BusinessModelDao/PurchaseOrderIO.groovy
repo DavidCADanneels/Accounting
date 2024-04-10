@@ -74,6 +74,16 @@ class PurchaseOrderIO {
                 orderItem.setName(name)
                 order.addBusinessObject(orderItem)
             }
+            // Init
+//            order.initializeAmountLeftToPay()
+
+            String amountLeftString = getValue(orderElement, AMOUNT_LEFT)
+            if(amountLeftString){
+                BigDecimal amountLeft = parseBigDecimal(amountLeftString)
+                if(amountLeft){
+                    order.amountLeftToPay = amountLeft
+                }
+            }
 
             Transactions transactions = accounting.transactions
             int purchaseTransactionId = parseInt(getValue(orderElement, PURCHASE_TRANSACTION))
@@ -81,10 +91,20 @@ class PurchaseOrderIO {
             order.purchaseTransaction = purchaseTransaction
             purchaseTransaction?.order = order
 
-            int paymentTransactionId = parseInt(getValue(orderElement, PAYMENT_TRANSACTION))
-            Transaction paymentTransaction = transactions.getBusinessObject(paymentTransactionId)
-            order.paymentTransaction = paymentTransaction
-            paymentTransaction?.order = order
+            String paymentTransactionIds = getValue(orderElement, PAYMENT_TRANSACTION)
+            if(paymentTransactionIds) {
+                paymentTransactionIds.split().each { String paymentTransactionIdString ->
+                    int paymentTransactionId = parseInt(paymentTransactionIdString)
+                    if (paymentTransactionId != 0) {
+                        Transaction paymentTransaction = transactions.getBusinessObject(paymentTransactionId)
+                        if (paymentTransaction != null) {
+                            order.paymentTransactions.add paymentTransaction
+                            paymentTransaction.order = order
+//                            order.amountLeftToPay = order.amountLeftToPay.subtract(paymentTransaction.debitTotal)
+                        }
+                    }
+                }
+            }
 
             if(order.supplier?.supplier) {
                 order.supplier.supplier.purchaseOrders.add(order)
@@ -117,10 +137,15 @@ class PurchaseOrderIO {
                 Transaction purchaseTransaction = order.purchaseTransaction
                 if(purchaseTransaction) writer.write"""
     <$PURCHASE_TRANSACTION>$purchaseTransaction.transactionId</$PURCHASE_TRANSACTION>"""
-                Transaction paymentTransaction = order.paymentTransaction
-                if(paymentTransaction) writer.write"""
-    <$PAYMENT_TRANSACTION>$paymentTransaction.transactionId</$PAYMENT_TRANSACTION>"""
-
+                if(order.paymentTransactions){
+                    String ids = order.paymentTransactions.collect{it.transactionId}.join(',')
+                    writer.write """
+    <$PAYMENT_TRANSACTION>$ids</$PAYMENT_TRANSACTION>"""
+                }
+                if(order.amountLeftToPay != BigDecimal.ZERO) {
+                    writer.write """
+    <$AMOUNT_LEFT>$order.amountLeftToPay</$AMOUNT_LEFT>"""
+                }
                 for (OrderItem orderItem : order.businessObjects) {
                     Article article = orderItem.article
                     writer.write """

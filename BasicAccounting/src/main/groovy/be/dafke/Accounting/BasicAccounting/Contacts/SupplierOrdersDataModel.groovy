@@ -69,7 +69,8 @@ class SupplierOrdersDataModel extends SelectableTableModel<PurchaseOrder> {
         } else if (col==PURCHASE_COL){
             purchaseOrder.purchaseTransaction?.toString()
         } else if (col==PAY_COL){
-            purchaseOrder.paymentTransaction?.toString()
+            "TODO: multiValue"
+//            purchaseOrder.paymentTransaction?.toString()
         } else null
     }
 }

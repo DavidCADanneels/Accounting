@@ -55,10 +55,6 @@ class StockOrderIO {
             Transaction balanceTransaction = transactions.getBusinessObject(balanceTransactionId)
             order.balanceTransaction = balanceTransaction
 
-            int paymentTransactionId = parseInt getValue(orderElement, PAYMENT_TRANSACTION)
-            Transaction paymentTransaction = transactions.getBusinessObject paymentTransactionId
-            order.paymentTransaction = paymentTransaction
-
             try {
                 stockOrders.addBusinessObject(order)
             } catch (EmptyNameException | DuplicateNameException e) {
@@ -81,9 +77,6 @@ class StockOrderIO {
                 Transaction balanceTransaction = order.balanceTransaction
                 if(balanceTransaction) writer.write """
     <$BALANCE_TRANSACTION>$balanceTransaction.transactionId</$BALANCE_TRANSACTION>"""
-                if(order.paymentTransaction) writer.write """
-    <$PAYMENT_TRANSACTION>$order.paymentTransaction.transactionId</$PAYMENT_TRANSACTION>"""
-
                 for (OrderItem orderItem : order.businessObjects) {
                     Article article = orderItem.article
                     writer.write """

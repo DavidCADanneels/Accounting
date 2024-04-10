@@ -173,9 +173,9 @@ class SalesOrderDetailPanel extends JPanel {
     void selectPaymentTransaction() {
         Contact customer = salesOrder.customer
         if("Daginkomsten".equals(customer.name)) {
-            salesOrder.paymentTransaction = askId("CASH")
+            salesOrder.paymentTransactions.add askId("CASH")
         } else {
-            salesOrder.paymentTransaction = askId("BE")
+            salesOrder.paymentTransactions.add askId("BE")
         }
         updateButtonsAndCheckBoxes()
     }
@@ -319,7 +319,6 @@ class SalesOrderDetailPanel extends JPanel {
 
     void updateButtonsAndCheckBoxes() {
         Transaction salesTransaction = salesOrder?salesOrder.salesTransaction:null
-        Transaction paymentTransaction = salesOrder?salesOrder.paymentTransaction:null
 
         StockTransactions stockTransactions = Session.activeAccounting.stockTransactions
         ArrayList<Order> orders = stockTransactions.getOrders()
@@ -332,7 +331,7 @@ class SalesOrderDetailPanel extends JPanel {
 
         placed.setSelected(salesTransaction?true:false)
         delivered.setSelected(orderDelivered)
-        payed.setSelected(paymentTransaction?true:false)
+        payed.setSelected(salesOrder.amountLeftToPay == BigDecimal.ZERO)
         creditNote.setSelected(isCreditNote)
         promoOrder.setSelected(isPromoOrder)
 
@@ -347,7 +346,7 @@ class SalesOrderDetailPanel extends JPanel {
 
         salesTransactionButton.enabled = salesOrder && salesOrder.salesTransaction==null
         gainTransactionButton.enabled = salesOrder  && salesOrder.gainTransaction==null
-        paymentTransactionButton.enabled = salesOrder  && paymentTransaction ==null
+        paymentTransactionButton.enabled = salesOrder && salesOrder.amountLeftToPay != BigDecimal.ZERO
     }
 
     void updateInvoiceButtonAndField() {

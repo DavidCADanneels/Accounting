@@ -30,6 +30,10 @@ class PurchaseOrder extends Order {
         total
     }
 
+    void initializeAmountLeftToPay(){
+        amountLeftToPay = getTotalPurchasePriceInclVat()
+    }
+
     BigDecimal getTotalPurchasePriceInclVat() {
         BigDecimal total = BigDecimal.ZERO.setScale(2)
         for (OrderItem orderItem : getBusinessObjects()) {

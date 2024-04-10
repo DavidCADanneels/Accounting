@@ -69,11 +69,6 @@ class PromoOrderIO {
                 orderItem.setName(name)
                 order.addBusinessObject(orderItem)
             }
-            Transactions transactions = accounting.transactions
-            int paymentTransactionId = parseInt(getValue(orderElement, PAYMENT_TRANSACTION))
-            Transaction paymentTransaction = transactions.getBusinessObject(paymentTransactionId)
-            order.paymentTransaction = paymentTransaction
-
             try {
                 promoOrders.addBusinessObject(order)
             } catch (EmptyNameException | DuplicateNameException e) {
@@ -93,11 +88,6 @@ class PromoOrderIO {
   <$PROMO_ORDER>
     <$ID>$promoOrder.id</$ID>
     <$NAME>$promoOrder.name</$NAME>"""
-                Transaction paymentTransaction = promoOrder.paymentTransaction
-                if(paymentTransaction) writer.write """
-    <$PAYMENT_TRANSACTION>$paymentTransaction.transactionId</$PAYMENT_TRANSACTION>"""
-                else writer.write """
-    <$PAYMENT_TRANSACTION>null</$PAYMENT_TRANSACTION>"""
                 for (OrderItem orderItem : promoOrder.businessObjects) {
                     writer.write """
     <$ARTICLE>

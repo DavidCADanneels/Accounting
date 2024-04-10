@@ -142,20 +142,20 @@ class PromoOrderDetailPanel extends JPanel {
     }
 
     void updateButtonsAndCheckBoxes() {
-        Transaction paymentTransaction = promoOrder?.paymentTransaction
+//        Transaction paymentTransaction = promoOrder?.paymentTransaction
 
         StockTransactions stockTransactions = Session.activeAccounting.stockTransactions
         ArrayList<Order> orders = stockTransactions.getOrders()
         boolean orderDelivered = promoOrder && orders.contains(promoOrder)
         boolean toBeDelivered = promoOrder && !orders.contains(promoOrder)
 
-        placed.setSelected(paymentTransaction!=null)  // FIXME: is not correct
+        placed.setSelected(false)  // FIXME: is not correct
         delivered.setSelected(orderDelivered)
 
         deliveredButton.enabled = toBeDelivered
-        placeOrderButton.enabled = paymentTransaction==null
+        placeOrderButton.enabled = true
 
-        editPromoOrder.enabled = !orderDelivered && paymentTransaction==null
+        editPromoOrder.enabled = !orderDelivered
     }
 
     static Transaction createTransaction(){
@@ -187,7 +187,7 @@ class PromoOrderDetailPanel extends JPanel {
         transactions.setId(transaction)
         transactions.addBusinessObject transaction
         journal.addBusinessObject transaction
-        promoOrder.paymentTransaction = transaction
+        promoOrder.paymentTransactions.add transaction
 //        Main.journal = journal
 //        Main.fireJournalDataChanged journal
 //        for (Account account : transaction.accounts) {

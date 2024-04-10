@@ -5,7 +5,7 @@ import java.util.function.Predicate
 
 class Order extends OrderItems {
     Contact customer, supplier
-    Transaction paymentTransaction
+    ArrayList<Transaction> paymentTransactions
     Integer id
     String deliveryDate = null
     String invoiceDate = null
@@ -13,6 +13,20 @@ class Order extends OrderItems {
     String invoiceDescription
     String invoicePath = null
     boolean creditNote
+    BigDecimal amountLeftToPay
+
+    Order() {
+        paymentTransactions = new ArrayList<>()
+        amountLeftToPay = BigDecimal.ZERO
+    }
+
+    void increaseAmountLeftToPay(BigDecimal amount){
+        amountLeftToPay = amountLeftToPay.add(amount)
+    }
+
+    void decreaseAmountLeftToPay(BigDecimal amount){
+        amountLeftToPay = amountLeftToPay.subtract(amount)
+    }
 
     void setArticles(Articles articles) {
         articles.businessObjects.forEach({ article ->
@@ -44,11 +58,11 @@ class Order extends OrderItems {
     }
 
     static Predicate<Order> payed() {
-        { order -> order.paymentTransaction != null }
+        { order -> (order.amountLeftToPay == BigDecimal.ZERO) }
     }
 
     static Predicate<Order> unPayed() {
-        { order -> order.paymentTransaction == null }
+        { order -> (order.amountLeftToPay != BigDecimal.ZERO) }
     }
 
 //

@@ -18,7 +18,7 @@ class OrderPayedColorRenderer extends DefaultTableCellRenderer {
             cell.setBackground(Color.WHITE)
         }
         if (purchaseOrder != null) {
-            if (purchaseOrder.paymentTransaction!= null) {
+            if (purchaseOrder.amountLeftToPay == BigDecimal.ZERO) {
                 cell.setForeground(Color.BLACK)
             } else {
                 cell.setForeground(Color.RED)

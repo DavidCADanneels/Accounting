@@ -9,7 +9,7 @@ class UnpayedSupplierInvoicesTableModel extends SupplierInvoicesTableModel {
     @Override
     List<PurchaseOrder> getPurchaseOrders(){
         Session.activeAccounting.purchaseOrders.getBusinessObjects({ order ->
-            order.purchaseTransaction != null && order.paymentTransaction == null
+            order.purchaseTransaction != null && order.amountLeftToPay != BigDecimal.ZERO
         })
     }
 }

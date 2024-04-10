@@ -204,7 +204,7 @@ class PurchaseOrdersDetailPanel extends JPanel {
         StockTransactions stockTransactions = Session.activeAccounting.stockTransactions
         ArrayList<Order> orders = stockTransactions.getOrders()
         Transaction purchaseTransaction = purchaseOrder?.purchaseTransaction
-        payed.setSelected(purchaseOrder && purchaseOrder.paymentTransaction)
+        payed.setSelected(purchaseOrder && purchaseOrder.amountLeftToPay == BigDecimal.ZERO)
         placed.setSelected(purchaseOrder && purchaseOrder.purchaseTransaction)
         delivered.setSelected(purchaseOrder && orders.contains(purchaseOrder))
         deliveredButton.enabled = purchaseOrder && !orders.contains(purchaseOrder)

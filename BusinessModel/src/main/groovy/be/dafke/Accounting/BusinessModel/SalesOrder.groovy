@@ -43,6 +43,10 @@ class SalesOrder extends Order {
         totalSalesExcl
     }
 
+    void initializeAmountLeftToPay(){
+        amountLeftToPay = getTotalSalesPriceInclVat()
+    }
+
     BigDecimal getTotalSalesPriceInclVat() {
         BigDecimal totalSalesExcl = BigDecimal.ZERO.setScale(2)
         for (OrderItem orderItem : getBusinessObjects()) {
@@ -58,6 +62,7 @@ class SalesOrder extends Order {
         }
         totalSalesExcl
     }
+
     void setSalesTransaction(Transaction salesTransaction) {
         this.salesTransaction = salesTransaction
     }

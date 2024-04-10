@@ -90,6 +90,17 @@ class SalesOrderIO {
                 orderItem.setName(name)
                 order.addBusinessObject(orderItem)
             }
+            // Init
+//            order.initializeAmountLeftToPay()
+
+            String amountLeftString = getValue(orderElement, AMOUNT_LEFT)
+            if(amountLeftString){
+                BigDecimal amountLeft = parseBigDecimal(amountLeftString)
+                if(amountLeft){
+                    order.amountLeftToPay = amountLeft
+                }
+            }
+
             Transactions transactions = accounting.transactions
 
             int salesTransactionId = parseInt(getValue(orderElement, SALES_TRANSACTION))
@@ -97,11 +108,20 @@ class SalesOrderIO {
             order.salesTransaction = salesTransaction
             salesTransaction?.order = order
 
-            int paymentTransactionId = parseInt(getValue(orderElement, PAYMENT_TRANSACTION))
-            Transaction paymentTransaction = transactions.getBusinessObject(paymentTransactionId)
-            order.paymentTransaction = paymentTransaction
-            paymentTransaction?.order = order
-
+            String paymentTransactionIds = getValue(orderElement, PAYMENT_TRANSACTION)
+            if(paymentTransactionIds) {
+                paymentTransactionIds.split().each { String paymentTransactionIdString ->
+                    int paymentTransactionId = parseInt(paymentTransactionIdString)
+                    if (paymentTransactionId != 0) {
+                        Transaction paymentTransaction = transactions.getBusinessObject(paymentTransactionId)
+                        if (paymentTransaction != null) {
+                            order.paymentTransactions.add paymentTransaction
+                            paymentTransaction.order = order
+//                            order.amountLeftToPay = order.amountLeftToPay.subtract(paymentTransaction.creditTotal)
+                        }
+                    }
+                }
+            }
             int gainTransactionId = parseInt(getValue(orderElement, GAIN_TRANSACTION))
             Transaction gainTransaction = transactions.getBusinessObject(gainTransactionId)
             order.gainTransaction = gainTransaction
@@ -125,36 +145,36 @@ class SalesOrderIO {
         try {
             Writer writer = new FileWriter(file)
             writer.write getXmlHeader(SALES_ORDERS, 2)
-            for (SalesOrder salesOrder : salesOrders.businessObjects) {
+            for (SalesOrder order : salesOrders.businessObjects) {
                 writer.write """\
   <$SALES_ORDER>
-    <$ID>$salesOrder.id</$ID>
-    <$NAME>$salesOrder.name</$NAME>
-    <$CUSTOMER>$salesOrder.customer</$CUSTOMER>
-    <$INVOICE>$salesOrder.invoice</$INVOICE>"""
+    <$ID>$order.id</$ID>
+    <$NAME>$order.name</$NAME>
+    <$CUSTOMER>$order.customer</$CUSTOMER>
+    <$INVOICE>$order.invoice</$INVOICE>"""
                 // only write if 'true' ('false' is default value)
-                if(salesOrder.creditNote) writer.write """
-    <$CREDIT_NOTE>$salesOrder.creditNote</$CREDIT_NOTE>"""
-                if(salesOrder.invoiceNumber) writer.write """
-    <$INVOICE_NUMBER>$salesOrder.invoiceNumber</$INVOICE_NUMBER>"""
-                if(salesOrder.invoicePath) writer.write """
-    <$INVOICE_PATH>$salesOrder.invoicePath</$INVOICE_PATH>"""
-                Transaction salesTransaction = salesOrder.salesTransaction
+                if(order.creditNote) writer.write """
+    <$CREDIT_NOTE>$order.creditNote</$CREDIT_NOTE>"""
+                if(order.invoiceNumber) writer.write """
+    <$INVOICE_NUMBER>$order.invoiceNumber</$INVOICE_NUMBER>"""
+                if(order.invoicePath) writer.write """
+    <$INVOICE_PATH>$order.invoicePath</$INVOICE_PATH>"""
+                Transaction salesTransaction = order.salesTransaction
                 if(salesTransaction) writer.write """
     <$SALES_TRANSACTION>$salesTransaction.transactionId</$SALES_TRANSACTION>"""
-                else writer.write """
-    <$SALES_TRANSACTION>null</$SALES_TRANSACTION>"""
-                Transaction gainTransaction = salesOrder.gainTransaction
+                Transaction gainTransaction = order.gainTransaction
                 if(gainTransaction) writer.write """
     <$GAIN_TRANSACTION>$gainTransaction.transactionId</$GAIN_TRANSACTION>"""
-                else writer.write """
-    <$GAIN_TRANSACTION>null</$GAIN_TRANSACTION>"""
-                Transaction paymentTransaction = salesOrder.paymentTransaction
-                if(paymentTransaction) writer.write """
-    <$PAYMENT_TRANSACTION>$paymentTransaction.transactionId</$PAYMENT_TRANSACTION>"""
-                else writer.write """
-    <$PAYMENT_TRANSACTION>null</$PAYMENT_TRANSACTION>"""
-                for (OrderItem orderItem : salesOrder.businessObjects) {
+                if(order.paymentTransactions){
+                    String ids = order.paymentTransactions.collect{it.transactionId}.join(',')
+                    writer.write """
+    <$PAYMENT_TRANSACTION>$ids</$PAYMENT_TRANSACTION>"""
+                }
+                if(order.amountLeftToPay != BigDecimal.ZERO) {
+                    writer.write """
+    <$AMOUNT_LEFT>$order.amountLeftToPay</$AMOUNT_LEFT>"""
+                }
+                for (OrderItem orderItem : order.businessObjects) {
                     Article article = orderItem.article
 
                     // TODO: 1/ save OrderItem fields (I/O): itemsPerUnit, salesVatRate
