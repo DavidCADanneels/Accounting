@@ -1,6 +1,7 @@
 package be.dafke.Accounting.BasicAccounting.Journals
 
 import be.dafke.Accounting.BasicAccounting.Accounts.AccountActions
+import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.Account
 import be.dafke.Accounting.BusinessModel.PurchaseOrder
 import be.dafke.ComponentModel.SelectableTable
@@ -29,6 +30,7 @@ class UnpayedSupplierInvoicesPanel extends JPanel {
         pay.addActionListener({ e ->
             PurchaseOrder purchaseOrder = tabel.getSelectedObject()
             if(purchaseOrder) {
+                Main.setTransactionDescription(purchaseOrder.name)
                 AccountActions.book selectedAccount, true, null, this, purchaseOrder
 //                refresh()
             }
@@ -37,6 +39,7 @@ class UnpayedSupplierInvoicesPanel extends JPanel {
         receive.addActionListener({ e ->
             PurchaseOrder purchaseOrder = tabel.getSelectedObject()
             if(purchaseOrder) {
+                Main.setTransactionDescription(purchaseOrder.name)
                 AccountActions.book selectedAccount, false, null, this, purchaseOrder
 //                refresh()
             }

@@ -560,6 +560,10 @@ ${transaction.journal} has an open transaction, which will be lost if click Y
         journalEditPanel.addBooking(booking)
     }
 
+    static void setTransactionDescription(String description) {
+        journalEditPanel.setTransactionDescription(description)
+    }
+
     static void fireJournalDataChanged(Journal journal){
         JournalDetailsGUI.fireJournalDataChangedForAll(journal)
         JournalManagementGUI.fireJournalDataChangedForAll()

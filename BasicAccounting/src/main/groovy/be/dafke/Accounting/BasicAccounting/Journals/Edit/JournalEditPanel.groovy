@@ -202,6 +202,11 @@ class JournalEditPanel extends JPanel implements ActionListener {
         fireTransactionDataChanged()
     }
 
+    void setTransactionDescription(String description){
+        transaction.description = description
+        fireTransactionDataChanged()
+    }
+
     Transaction getTransaction() {
         transaction
     }
