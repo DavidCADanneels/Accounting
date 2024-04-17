@@ -116,6 +116,7 @@ class SalesOrderCreatePanel extends JPanel {
         try {
             salesOrder.removeEmptyOrderItems()
             if (!salesOrder.name) {
+                salesOrder.amountLeftToPay = salesOrder.getTotalSalesPriceInclVat()
                 salesOrders.addBusinessObject salesOrder
             }
             salesOrder = new SalesOrder()

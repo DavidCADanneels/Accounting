@@ -70,6 +70,7 @@ class PurchaseOrderCreatePanel extends JPanel {
         purchaseOrder.supplier = contact
         try {
             purchaseOrder.removeEmptyOrderItems()
+            purchaseOrder.amountLeftToPay = purchaseOrder.getTotalPurchasePriceInclVat()
             purchaseOrders.addBusinessObject purchaseOrder
             purchaseOrder = new PurchaseOrder()
             purchaseOrder.articles = articles
