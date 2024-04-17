@@ -36,7 +36,7 @@ class OpenCustomerInvoicesTableModel extends SelectableTableModel<SalesOrder> {
 
     static List<SalesOrder> getSalesOrders(){
         Session.activeAccounting.salesOrders.getBusinessObjects({ order ->
-            order.salesTransaction != null && order.amountLeftToPay != BigDecimal.ZERO
+            order.salesTransaction != null && (order.paymentTransactions.isEmpty() || order.amountLeftToPay != BigDecimal.ZERO)
         })
     }
 
