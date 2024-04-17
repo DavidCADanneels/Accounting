@@ -110,7 +110,7 @@ class SalesOrderIO {
 
             String paymentTransactionIds = getValue(orderElement, PAYMENT_TRANSACTION)
             if(paymentTransactionIds) {
-                paymentTransactionIds.split().each { String paymentTransactionIdString ->
+                paymentTransactionIds.split(',').each { String paymentTransactionIdString ->
                     int paymentTransactionId = parseInt(paymentTransactionIdString)
                     if (paymentTransactionId != 0) {
                         Transaction paymentTransaction = transactions.getBusinessObject(paymentTransactionId)
