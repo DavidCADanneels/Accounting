@@ -11,8 +11,9 @@ abstract class SupplierInvoicesTableModel extends SelectableTableModel<PurchaseO
 
     static int ORDER_NR_COL = 0
     static int CONTACT_NAME_COL = 1
-    static int AMOUNT_COL = 2
-    static int NR_OF_COL = 3
+    static int TOTAL_AMOUNT_COL = 2
+    static int LEFT_AMOUNT_COL = 3
+    static int NR_OF_COL = 4
 
     HashMap<Integer,String> columnNames = new HashMap<>()
     HashMap<Integer,Class> columnClasses = new HashMap<>()
@@ -25,13 +26,15 @@ abstract class SupplierInvoicesTableModel extends SelectableTableModel<PurchaseO
     void setColumnClasses() {
         columnClasses.put(ORDER_NR_COL, String.class)
         columnClasses.put(CONTACT_NAME_COL, Contact.class)
-        columnClasses.put(AMOUNT_COL, BigDecimal.class)
+        columnClasses.put(TOTAL_AMOUNT_COL, BigDecimal.class)
+        columnClasses.put(LEFT_AMOUNT_COL, BigDecimal.class)
     }
 
     void setColumnNames() {
         columnNames.put(ORDER_NR_COL, getBundle("Accounting").getString("PURCHASE_ORDER_NR"))
         columnNames.put(CONTACT_NAME_COL, getBundle("Accounting").getString("SUPPLIER"))
-        columnNames.put(AMOUNT_COL, getBundle("Accounting").getString("AMOUNT"))
+        columnNames.put(TOTAL_AMOUNT_COL, getBundle("Accounting").getString("TOTAL_AMOUNT"))
+        columnNames.put(LEFT_AMOUNT_COL, getBundle("Accounting").getString("LEFT_AMOUNT"))
     }
 
     abstract List<PurchaseOrder> getPurchaseOrders()
@@ -59,7 +62,9 @@ abstract class SupplierInvoicesTableModel extends SelectableTableModel<PurchaseO
             purchaseOrder.supplier.name
         } else if (col == ORDER_NR_COL){
             purchaseOrder.name
-        } else if (col == AMOUNT_COL){
+        } else if (col == TOTAL_AMOUNT_COL){
+            purchaseOrder.getTotalPurchasePriceInclVat()
+        } else if (col == LEFT_AMOUNT_COL){
             purchaseOrder.amountLeftToPay
         } else null
     }

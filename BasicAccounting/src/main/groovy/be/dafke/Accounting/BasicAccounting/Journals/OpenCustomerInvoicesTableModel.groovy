@@ -11,8 +11,9 @@ class OpenCustomerInvoicesTableModel extends SelectableTableModel<SalesOrder> {
 
     static int ORDER_NR_COL = 0
     static int CONTACT_NAME_COL = 1
-    static int AMOUNT_COL = 2
-    static int NR_OF_COL = 3
+    static int TOTAL_AMOUNT_COL = 2
+    static int LEFT_AMOUNT_COL = 3
+    static int NR_OF_COL = 4
 
     HashMap<Integer,String> columnNames = new HashMap<>()
     HashMap<Integer,Class> columnClasses = new HashMap<>()
@@ -25,13 +26,15 @@ class OpenCustomerInvoicesTableModel extends SelectableTableModel<SalesOrder> {
     void setColumnClasses() {
         columnClasses.put(ORDER_NR_COL, String.class)
         columnClasses.put(CONTACT_NAME_COL, Contact.class)
-        columnClasses.put(AMOUNT_COL, BigDecimal.class)
+        columnClasses.put(TOTAL_AMOUNT_COL, BigDecimal.class)
+        columnClasses.put(LEFT_AMOUNT_COL, BigDecimal.class)
     }
 
     void setColumnNames() {
         columnNames.put(ORDER_NR_COL, getBundle("Accounting").getString("SALES_ORDER_NR"))
         columnNames.put(CONTACT_NAME_COL, getBundle("Accounting").getString("CUSTOMER"))
-        columnNames.put(AMOUNT_COL, getBundle("Accounting").getString("AMOUNT"))
+        columnNames.put(TOTAL_AMOUNT_COL, getBundle("Accounting").getString("TOTAL_AMOUNT"))
+        columnNames.put(LEFT_AMOUNT_COL, getBundle("Accounting").getString("LEFT_AMOUNT"))
     }
 
     static List<SalesOrder> getSalesOrders(){
@@ -63,7 +66,9 @@ class OpenCustomerInvoicesTableModel extends SelectableTableModel<SalesOrder> {
             salesOrder.customer.name
         } else if (col == ORDER_NR_COL){
             salesOrder.name
-        } else if (col == AMOUNT_COL){
+        } else if (col == TOTAL_AMOUNT_COL){
+            salesOrder.getTotalSalesPriceInclVat()
+        } else if (col == LEFT_AMOUNT_COL){
             salesOrder.amountLeftToPay
         } else null
     }
