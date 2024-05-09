@@ -331,7 +331,7 @@ class SalesOrderDetailPanel extends JPanel {
 
         placed.setSelected(salesTransaction?true:false)
         delivered.setSelected(orderDelivered)
-        payed.setSelected(salesOrder.amountLeftToPay == BigDecimal.ZERO)
+        payed.setSelected(salesOrder?.amountLeftToPay == BigDecimal.ZERO)
         creditNote.setSelected(isCreditNote)
         promoOrder.setSelected(isPromoOrder)
 
