@@ -24,9 +24,10 @@ class PurchaseOrdersDetailPanel extends JPanel {
     ContactDetailsPanel contactDetailsPanel
     JTextField invoiceNr
     JFileChooser fileChooser = new JFileChooser()
+    PurchaseOrdersOverviewPanel parent
 
-    PurchaseOrdersDetailPanel() {
-
+    PurchaseOrdersDetailPanel(PurchaseOrdersOverviewPanel parent) {
+        this.parent = parent
         createPurchaseOrder = new JButton(getBundle("Accounting").getString("CREATE_PO"))
         createPurchaseOrder.addActionListener({ e ->
             PurchaseOrderCreateGUI purchaseOrderCreateGUI = PurchaseOrderCreateGUI.showPurchaseOrderGUI(Session.activeAccounting)
@@ -175,6 +176,7 @@ class PurchaseOrdersDetailPanel extends JPanel {
             File file = fileChooser.getSelectedFile()
             fileChooser.setCurrentDirectory(file.parentFile)
             purchaseOrder.invoicePath = file.getPath()
+            parent.refresh()
         }
     }
 

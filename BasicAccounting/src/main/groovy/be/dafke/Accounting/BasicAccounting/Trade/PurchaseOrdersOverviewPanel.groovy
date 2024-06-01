@@ -40,7 +40,7 @@ class PurchaseOrdersOverviewPanel extends JPanel {
 
         totalsPanel = new TotalsPanel()
 
-        purchaseOrdersDetailPanel = new PurchaseOrdersDetailPanel()
+        purchaseOrdersDetailPanel = new PurchaseOrdersDetailPanel(this)
 
         DefaultListSelectionModel selection = new DefaultListSelectionModel()
         selection.addListSelectionListener({ e ->
