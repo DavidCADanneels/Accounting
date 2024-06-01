@@ -1,5 +1,6 @@
 .idea/
 *.iml
+*.jpeg
 target/
 data/
 Accounting*.jar
