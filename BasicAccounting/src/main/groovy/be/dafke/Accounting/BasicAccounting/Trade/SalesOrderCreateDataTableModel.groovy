@@ -9,12 +9,22 @@ import be.dafke.Accounting.BusinessModel.StockTransactions
 class SalesOrderCreateDataTableModel extends SalesOrderViewDataTableModel {
     final StockTransactions stockTransactions
     TotalsPanel totalsPanel
+    ArrayList<Integer> editableColumns = []
 
     SalesOrderCreateDataTableModel(Accounting accounting, SalesOrder order, TotalsPanel totalsPanel) {
         super()
         this.totalsPanel = totalsPanel
         stockTransactions = accounting.stockTransactions
         this.order = order
+        defineEditableColumns()
+    }
+
+    void defineEditableColumns() {
+        editableColumns = [
+                NR_OF_ITEMS_COL,
+                PRICE_ITEM_COL,
+                VAT_RATE_COL
+        ]
     }
 
     int getRowCount() {
@@ -23,7 +33,7 @@ class SalesOrderCreateDataTableModel extends SalesOrderViewDataTableModel {
 
     @Override
     boolean isCellEditable(int row, int col) {
-        col==NR_OF_ITEMS_COL || col == PRICE_ITEM_COL || col == VAT_RATE_COL
+        editableColumns.contains(col)
     }
 
 // DE SET METHODEN
