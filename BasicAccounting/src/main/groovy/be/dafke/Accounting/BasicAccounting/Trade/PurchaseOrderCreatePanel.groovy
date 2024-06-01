@@ -31,9 +31,11 @@ class PurchaseOrderCreatePanel extends JPanel {
     Predicate<Contact> filter
     Accounting accounting
     final PurchaseOrderCreateDataTableModel purchaseOrderCreateDataTableModel
+    PurchaseOrdersOverviewPanel parentOverviewPanel
 
-    PurchaseOrderCreatePanel(Accounting accounting) {
+    PurchaseOrderCreatePanel(Accounting accounting, PurchaseOrdersOverviewPanel parentOverviewPanel) {
         this.accounting = accounting
+        this.parentOverviewPanel = parentOverviewPanel
         this.contacts = accounting.contacts
         this.articles = accounting.articles
         purchaseOrder = new PurchaseOrder()
@@ -72,6 +74,7 @@ class PurchaseOrderCreatePanel extends JPanel {
             purchaseOrder.removeEmptyOrderItems()
             purchaseOrder.amountLeftToPay = purchaseOrder.getTotalPurchasePriceInclVat()
             purchaseOrders.addBusinessObject purchaseOrder
+            parentOverviewPanel.refresh()
             purchaseOrder = new PurchaseOrder()
             purchaseOrder.articles = articles
             purchaseOrderCreateDataTableModel.order = purchaseOrder

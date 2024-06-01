@@ -12,16 +12,16 @@ class PurchaseOrderCreateGUI extends JFrame {
 
     static PurchaseOrderCreateGUI purchaseOrderCreateGui = null
 
-    PurchaseOrderCreateGUI(Accounting accounting) {
+    PurchaseOrderCreateGUI(Accounting accounting, PurchaseOrdersOverviewPanel parent) {
         super(getBundle("Accounting").getString("CREATE_PO"))
-        orderPanel = new PurchaseOrderCreatePanel(accounting)
+        orderPanel = new PurchaseOrderCreatePanel(accounting, parent)
         setContentPane(orderPanel)
         pack()
     }
 
-    static PurchaseOrderCreateGUI showPurchaseOrderGUI(Accounting accounting) {
+    static PurchaseOrderCreateGUI showPurchaseOrderGUI(Accounting accounting, PurchaseOrdersOverviewPanel parent) {
         if (purchaseOrderCreateGui == null) {
-            purchaseOrderCreateGui = new PurchaseOrderCreateGUI(accounting)
+            purchaseOrderCreateGui = new PurchaseOrderCreateGUI(accounting, parent)
             Main.addFrame(purchaseOrderCreateGui)
         }
         purchaseOrderCreateGui
