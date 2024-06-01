@@ -22,8 +22,8 @@ class PurchaseOrderViewDataTableModel  extends SelectableTableModel<OrderItem> {
     static int VAT_AMOUNT_COL = 9
     static int PRICE_TOTAL_INCL_COL = 10
     static int NR_OF_COL = 11
-    HashMap<Integer,String> columnNames = new HashMap<>()
-    HashMap<Integer,Class> columnClasses = new HashMap<>()
+    HashMap<Integer,String> columnNames = [:]
+    HashMap<Integer,Class> columnClasses = [:]
     protected PurchaseOrder order
 
     PurchaseOrderViewDataTableModel() {

@@ -13,6 +13,7 @@ class PurchaseOrderCreateDataTableModel extends PurchaseOrderViewDataTableModel 
     Contact contact
     Predicate<Article> filter
     TotalsPanel purchaseTotalsPanel
+    ArrayList<Integer> editableColumns = []
 
     PurchaseOrderCreateDataTableModel(Articles articles, Contact contact, PurchaseOrder order, TotalsPanel purchaseTotalsPanel) {
         super()
@@ -20,10 +21,21 @@ class PurchaseOrderCreateDataTableModel extends PurchaseOrderViewDataTableModel 
         this.order = order
         this.articles = articles
         this.contact = contact
+        defineEditableColumns()
     }
+
+    void defineEditableColumns() {
+        editableColumns = [
+                NR_OF_UNITS_COL,
+                PRICE_UNIT_COL,
+                ITEMS_PER_UNIT_COL,
+                VAT_RATE_COL
+        ]
+    }
+
     @Override
     boolean isCellEditable(int row, int col) {
-        (col == NR_OF_UNITS_COL || col == PRICE_UNIT_COL || col == ITEMS_PER_UNIT_COL)
+        editableColumns.contains(col)
     }
 
 // DE SET METHODEN
@@ -39,9 +51,12 @@ class PurchaseOrderCreateDataTableModel extends PurchaseOrderViewDataTableModel 
             int nr = (Integer) value
             orderItem.setItemsPerUnit(nr)
             orderItem.calculateNumberOfItems()
-        } else if(col == PRICE_UNIT_COL){
+        } else if(col == PRICE_UNIT_COL) {
             BigDecimal purchasePriceForUnit = (BigDecimal) value
             orderItem.setPurchasePriceForUnit(purchasePriceForUnit)
+        } else if(col == VAT_RATE_COL){
+            Integer vatRate = (Integer) value
+            orderItem.setPurchaseVatRate(vatRate)
         }
         order.setOrderItem(orderItem)
         purchaseTotalsPanel.fireOrderContentChanged(order)
