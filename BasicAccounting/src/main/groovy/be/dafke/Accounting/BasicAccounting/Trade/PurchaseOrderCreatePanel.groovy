@@ -1,5 +1,6 @@
 package be.dafke.Accounting.BasicAccounting.Trade
 
+import be.dafke.Accounting.BasicAccounting.MainApplication.Main
 import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModel.Articles
 import be.dafke.Accounting.BusinessModel.Contact
@@ -12,6 +13,7 @@ import be.dafke.Accounting.ObjectModel.Exceptions.EmptyNameException
 import be.dafke.ComponentModel.SelectableTable
 
 import javax.swing.JButton
+import javax.swing.JCheckBox
 import javax.swing.JComboBox
 import javax.swing.JPanel
 import javax.swing.JScrollPane
@@ -25,6 +27,7 @@ class PurchaseOrderCreatePanel extends JPanel {
     final TotalsPanel totalsPanel
     PurchaseOrder purchaseOrder
     JComboBox<Contact> comboBox
+    JCheckBox bookDirect
     Contacts contacts
     Articles articles
     Contact contact
@@ -54,10 +57,15 @@ class PurchaseOrderCreatePanel extends JPanel {
         filter = {it.supplier != null}
         contacts.getBusinessObjects(filter).forEach({ contact -> comboBox.addItem(contact) })
 
+        bookDirect = new JCheckBox("Book Immediately")
         orderButton = new JButton("Add Purchase Order")
         orderButton.addActionListener({ e -> order() })
+        JPanel buttonPanel = new JPanel()
+        buttonPanel.add bookDirect
+        buttonPanel.add orderButton
+
         JPanel south = new JPanel(new BorderLayout())
-        south.add(orderButton, BorderLayout.SOUTH)
+        south.add(buttonPanel, BorderLayout.SOUTH)
         south.add(totalsPanel, BorderLayout.CENTER)
 
         JScrollPane scrollPane = new JScrollPane(table)
@@ -81,10 +89,25 @@ class PurchaseOrderCreatePanel extends JPanel {
             // TODO: pass view panel and call directly
 //            PurchaseOrdersOverviewGUI.firePurchaseOrderAddedOrRemovedForAccounting accounting
             totalsPanel.fireOrderContentChanged purchaseOrder
+            if(bookDirect.isSelected()){
+                // TODO: this is partial copy-paste from PurchaseOrdersDetailPanel.placeOrder()
+                // FIXME: refactoring needed
+//                Transaction transaction =
+                Main.createAndBookPurchaseOrder(purchaseOrder)
+
+
+
+//                Main.switchView(JournalType.PURCHASE_TYPE)
+//                Main.setJournal(journal)
+//                Main.selectTransaction(transaction)
+//                Main.displayTransaction(transaction)
+//                StockHistoryGUI.fireStockContentChanged()
+            }
         } catch (EmptyNameException e1) {
             e1.printStackTrace()
         } catch (DuplicateNameException e1) {
             e1.printStackTrace()
         }
+
     }
 }

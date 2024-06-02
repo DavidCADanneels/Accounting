@@ -29,6 +29,7 @@ class UnbookedSupplierInvoicesPanel extends JPanel {
         book.addActionListener({ e ->
             PurchaseOrder purchaseOrder = tabel.getSelectedObject()
             if(purchaseOrder) {
+                // FIXME: call createAndBookPurchaseOrder() iso createPurchaseOrder() ?
                 Transaction transaction = Main.createPurchaseOrder purchaseOrder
 //                Transaction transaction = Main.bookPurchaseOrder purchaseOrder
 //                Redundant: setTransaction is call in createPurchaseTransaction

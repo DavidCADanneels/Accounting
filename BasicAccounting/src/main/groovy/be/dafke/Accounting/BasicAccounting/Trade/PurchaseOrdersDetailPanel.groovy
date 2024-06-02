@@ -147,18 +147,18 @@ class PurchaseOrdersDetailPanel extends JPanel {
     }
 
     void placeOrder(){
-        Transaction transaction = Main.createPurchaseOrder(purchaseOrder)
-
+        Transaction transaction = Main.createAndBookPurchaseOrder(purchaseOrder)
+        // TODO: review this comment
         // Either book directly or display only,
         // if display only the bookPurchase order method should be call when clicking the Book Transaction button
+//        Main.switchView(JournalType.PURCHASE_TYPE)
+
+        // FIXME: review selection of transaction after booking PO / SO?
         Accounting accounting = Session.activeAccounting
         Journal journal = StockUtils.getPurchaseJournal accounting
-        Main.bookPurchaseOrder(purchaseOrder, transaction, journal)
-//        Main.switchView(JournalType.PURCHASE_TYPE)
         Main.setJournal(journal)
         Main.selectTransaction(transaction)
 //        Main.displayTransaction(transaction)
-
 //        StockHistoryGUI.fireStockContentChanged()
 
         updateButtonsAndCheckBoxes()

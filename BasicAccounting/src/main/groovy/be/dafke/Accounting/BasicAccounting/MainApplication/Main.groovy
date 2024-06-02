@@ -522,8 +522,10 @@ ${transaction.journal} has an open transaction, which will be lost if click Y
         transaction
     }
 
-    static Transaction bookPurchaseOrder(PurchaseOrder purchaseOrder, Transaction transaction, Journal journal) {
+    static Transaction createAndBookPurchaseOrder(PurchaseOrder purchaseOrder){
+        Transaction transaction = createPurchaseOrder(purchaseOrder)
         Accounting accounting = Session.activeAccounting
+        Journal journal = StockUtils.getPurchaseJournal accounting
 
         transaction.journal = journal
         purchaseOrder.purchaseTransaction = transaction
