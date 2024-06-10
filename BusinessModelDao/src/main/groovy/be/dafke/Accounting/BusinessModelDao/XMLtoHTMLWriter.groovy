@@ -8,7 +8,7 @@ class XMLtoHTMLWriter {
         InputHandler inputHandler = new InputHandler(xmlFile, xslFile, params)
         try {
             if (!htmlFile.exists()) {
-//                htmlFile.getParentFile().mkdirs()
+                htmlFile.getParentFile().mkdirs()
                 if(htmlFile.createNewFile()){
                     System.out.println("${htmlFile} has been created")
                 }
