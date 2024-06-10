@@ -45,7 +45,7 @@ class IngredientsSwitchViewPanel extends JPanel {
 
     void refresh(){
         Accounting accounting = Session.activeAccounting
-        ingredientsViewPanel.ingredients = accounting.ingredients
+        ingredientsViewPanel.ingredients = accounting?.ingredients
         ingredientsEditPanel.accounting = accounting
     }
 

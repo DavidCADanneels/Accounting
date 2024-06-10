@@ -163,7 +163,8 @@ xsi:noNamespaceSchemaLocation=\""""
 
 
     static void writeAccounting(Accounting accounting, boolean writeHtml) {
-        File accountingFolder = new File("$ACCOUNTINGS_XML_PATH/$accounting.name")
+        String path = "$ACCOUNTINGS_XML_PATH/$accounting.name"
+        File accountingFolder = new File(path)
         accountingFolder.mkdirs()
         writeAccounts accounting, writeHtml
         writeTransactions accounting

@@ -50,7 +50,7 @@ class OpenCustomerInvoicesTableModel extends SelectableTableModel<SalesOrder> {
 
     @Override
     int getRowCount() {
-        return Session.activeAccounting.salesOrders?getSalesOrders().size():0
+        return Session.activeAccounting?.salesOrders?getSalesOrders().size():0
     }
 
     @Override

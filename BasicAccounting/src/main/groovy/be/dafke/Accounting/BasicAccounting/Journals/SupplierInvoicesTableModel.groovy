@@ -46,7 +46,7 @@ abstract class SupplierInvoicesTableModel extends SelectableTableModel<PurchaseO
 
     @Override
     int getRowCount() {
-        return Session.activeAccounting.purchaseOrders?getPurchaseOrders().size():0
+        return Session.activeAccounting?.purchaseOrders?getPurchaseOrders().size():0
     }
 
     @Override

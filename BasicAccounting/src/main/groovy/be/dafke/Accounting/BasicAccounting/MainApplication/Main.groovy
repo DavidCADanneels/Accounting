@@ -248,11 +248,11 @@ class Main {
     static void setAccounting(Accounting accounting, boolean readDetails) {
 
         Accounting activeAccounting = Session.activeAccounting
-        if(activeAccounting!=accounting) {
+        if(activeAccounting && activeAccounting!=accounting) {
             XMLWriter.writeAccounting(activeAccounting, false)
         }
 
-        if (readDetails) XMLReader.readAccountingDetails(accounting)
+        if (accounting && readDetails) XMLReader.readAccountingDetails(accounting)
         Session.activeAccounting = accounting // only need to write to XML, call this only when writing XML files?
 
         frame.refresh()

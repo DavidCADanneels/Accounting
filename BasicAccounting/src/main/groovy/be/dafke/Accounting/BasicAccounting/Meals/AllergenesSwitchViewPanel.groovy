@@ -45,7 +45,7 @@ class AllergenesSwitchViewPanel extends JPanel {
 
     void refresh(){
         Accounting accounting = Session.activeAccounting
-        allergenesViewPanel.allergenes = accounting.allergenes
+        allergenesViewPanel.allergenes = accounting?.allergenes
         allergenesEditPanel.accounting = accounting
     }
 

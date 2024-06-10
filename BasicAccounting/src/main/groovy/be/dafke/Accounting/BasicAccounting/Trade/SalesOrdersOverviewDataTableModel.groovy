@@ -45,7 +45,7 @@ class SalesOrdersOverviewDataTableModel extends OrdersOverviewDataTableModel<Sal
 
     @Override
     int getRowCount() {
-        SalesOrders salesOrders = Session.activeAccounting.salesOrders
+        SalesOrders salesOrders = Session.activeAccounting?.salesOrders
         if(salesOrders == null) return 0
         List<SalesOrder> businessObjects = filter?salesOrders.getBusinessObjects(filter):salesOrders.businessObjects
         if(businessObjects == null || businessObjects.size() == 0) return 0
@@ -54,7 +54,7 @@ class SalesOrdersOverviewDataTableModel extends OrdersOverviewDataTableModel<Sal
 
     @Override
     SalesOrder getObject(int row, int col) {
-        SalesOrders salesOrders = Session.activeAccounting.salesOrders
+        SalesOrders salesOrders = Session.activeAccounting?.salesOrders
         List<SalesOrder> businessObjects = filter?salesOrders.getBusinessObjects(filter):salesOrders.businessObjects
         if(businessObjects == null || businessObjects.size() == 0) return null
         businessObjects.get(row)

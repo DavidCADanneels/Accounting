@@ -26,6 +26,6 @@ class VATMenu extends JMenu {
     }
 
     void refresh() {
-        vatFieldsMenuItem.enabled = Session.activeAccounting.vatAccounting!=null
+        vatFieldsMenuItem.enabled = Session.activeAccounting?.vatAccounting!=null
     }
 }
