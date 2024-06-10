@@ -63,12 +63,12 @@ class MortgagesPanel extends JPanel {
 
     void refresh(){
         listModel.clear()
-        if (Session.activeAccounting.mortgages != null) {
+        if (Session.activeAccounting?.mortgages != null) {
             List<Mortgage> businessObjects
             if(hidePayedOff.selected) {
-                businessObjects = Session.activeAccounting.mortgages.getBusinessObjects({ mortgage -> !mortgage.isPayedOff() })
+                businessObjects = Session.activeAccounting?.mortgages?.getBusinessObjects({ mortgage -> !mortgage.isPayedOff() })
             } else {
-                businessObjects = Session.activeAccounting.mortgages.businessObjects
+                businessObjects = Session.activeAccounting?.mortgages?.businessObjects
             }
             for (Mortgage mortgage : businessObjects) {
                 if (!listModel.contains(mortgage)) {

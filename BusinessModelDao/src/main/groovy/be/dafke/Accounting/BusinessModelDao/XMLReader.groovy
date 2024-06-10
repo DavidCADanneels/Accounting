@@ -134,7 +134,7 @@ class XMLReader {
             String accountingName = getValue(accountingElement, NAME)
             String activeJournalName = getValue(accountingElement, ACTIVE_JOURNAL)
             Accounting accounting = accountings.getBusinessObject(accountingName)
-            Journals journals = accounting.journals
+            Journals journals = accounting?.journals
             Journal activeJournal = activeJournalName==null?null:journals?.getBusinessObject(activeJournalName)
 //            accounting.setActiveJournal(activeJournal)
             boolean showNumbers = getBooleanValue(accountingElement, SHOW_NUMBERS)
@@ -148,7 +148,7 @@ class XMLReader {
 
 
                 String journalName = getValue(journalElement, NAME)
-                Journal journal = journals.getBusinessObject(journalName)
+                Journal journal = journals?.getBusinessObject(journalName)
 
 
                 ArrayList<String> checkedTypesLeft = new ArrayList<>()
@@ -164,7 +164,7 @@ class XMLReader {
                     checkedTypesRight.addAll(Arrays.asList(checkedList))
                 }
 
-                AccountTypes accountTypes = accounting.accountTypes
+                AccountTypes accountTypes = accounting?.accountTypes
 
                 JournalSession journalSession = new JournalSession()
                 boolean showNumbersLeftJournal = getBooleanValue(journalElement, SHOW_NUMBERS_LEFT)
@@ -173,11 +173,11 @@ class XMLReader {
                 journalSession.showNumbersRight = showNumbersRightJournal
 
                 checkedTypesLeft.forEach({ typeName ->
-                    AccountType type = accountTypes.getBusinessObject(typeName)
+                    AccountType type = accountTypes?.getBusinessObject(typeName)
                     journalSession.setTypeCheckedLeft(type, true)
                 })
                 checkedTypesRight.forEach({ typeName ->
-                    AccountType type = accountTypes.getBusinessObject(typeName)
+                    AccountType type = accountTypes?.getBusinessObject(typeName)
                     journalSession.setTypeCheckedRight(type, true)
                 })
 

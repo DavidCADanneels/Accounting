@@ -53,7 +53,7 @@ class AccountsMenu extends JMenu {
     }
 
     void refresh() {
-        boolean enabledMenu = Session.activeAccounting.accounts!=null
+        boolean enabledMenu = Session.activeAccounting?.accounts!=null
         add.enabled = enabledMenu
         manage.enabled = enabledMenu
         testBalance.enabled = enabledMenu

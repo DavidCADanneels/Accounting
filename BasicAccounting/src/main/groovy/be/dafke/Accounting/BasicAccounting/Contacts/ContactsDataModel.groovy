@@ -179,7 +179,7 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
     }
 
     int getRowCount() {
-        ArrayList<Contact> list = filter(Session.activeAccounting.contacts)
+        ArrayList<Contact> list = filter(Session.activeAccounting?.contacts)
         list.size()?:0
     }
 
@@ -248,6 +248,9 @@ class ContactsDataModel extends SelectableTableModel<Contact> {
     }
 
     ArrayList<Contact> filter(Contacts contacts){
+        if(contacts == null){
+            return new ArrayList<Contact>()
+        }
         if(contactType == Contact.ContactType.ALL) {
             if(withOrdersOnly){
                 contacts.getBusinessObjects{it.customer?.salesOrders || it.supplier?.purchaseOrders }

@@ -58,7 +58,7 @@ class JournalsMenu extends JMenu {
     }
 
     void refresh() {
-        boolean enabledButton = Session.activeAccounting.journals!=null
+        boolean enabledButton = Session.activeAccounting?.journals!=null
         add.enabled = enabledButton
         manage.enabled = enabledButton
         types.enabled = enabledButton
@@ -72,7 +72,7 @@ class JournalsMenu extends JMenu {
         add(manage)
         add(types)
         add(generatePdf)
-        if(Session.activeAccounting.journals){
+        if(Session.activeAccounting?.journals){
             addSeparator()
             Session.activeAccounting.journals.businessObjects.stream()
                     .forEach({ journal ->

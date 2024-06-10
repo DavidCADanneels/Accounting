@@ -1,5 +1,7 @@
 package be.dafke.Accounting.BasicAccounting.MainApplication
 
+import be.dafke.Accounting.BusinessModel.Account
+import be.dafke.Accounting.BusinessModel.Accounting
 import be.dafke.Accounting.BusinessModelDao.Session
 
 import javax.swing.ButtonGroup
@@ -55,8 +57,9 @@ class MainViewSelectorPanel extends JPanel {
     }
 
     void enableButtons(){
-        contacts.enabled = Session.activeAccounting.contactsAccounting
-        meals.enabled = Session.activeAccounting.mealsAccounting
-        orders.enabled = Session.activeAccounting.tradeAccounting
+        Accounting accounting = Session.activeAccounting
+        contacts.enabled = accounting?accounting.contactsAccounting:false
+        meals.enabled = accounting?accounting.mealsAccounting:false
+        orders.enabled = accounting?accounting.tradeAccounting:false
     }
 }

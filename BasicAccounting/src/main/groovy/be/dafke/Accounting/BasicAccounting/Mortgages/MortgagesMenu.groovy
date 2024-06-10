@@ -24,6 +24,6 @@ class MortgagesMenu extends JMenu {
     }
 
     void refresh() {
-        mortgage.enabled = Session.activeAccounting.mortgages!=null
+        mortgage.enabled = Session.activeAccounting?.mortgages!=null
     }
 }

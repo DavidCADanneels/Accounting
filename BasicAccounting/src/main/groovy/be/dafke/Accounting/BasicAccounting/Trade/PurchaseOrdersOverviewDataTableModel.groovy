@@ -41,18 +41,18 @@ class PurchaseOrdersOverviewDataTableModel extends OrdersOverviewDataTableModel<
 
     @Override
     int getRowCount() {
-        Session.activeAccounting.purchaseOrders?.businessObjects?.size()?:0
+        Session.activeAccounting?.purchaseOrders?.businessObjects?.size()?:0
     }
 
     @Override
     PurchaseOrder getObject(int row, int col) {
-        List<PurchaseOrder> purchaseOrders = Session.activeAccounting.purchaseOrders.businessObjects
+        List<PurchaseOrder> purchaseOrders = Session.activeAccounting?.purchaseOrders.businessObjects
         if(purchaseOrders == null || purchaseOrders.size() == 0) return null
         purchaseOrders.get(row)
     }
 
     int getRow(PurchaseOrder order) {
-        PurchaseOrders purchaseOrders = Session.activeAccounting.purchaseOrders
+        PurchaseOrders purchaseOrders = Session.activeAccounting?.purchaseOrders
         if(purchaseOrders == null) return -1
         ArrayList<PurchaseOrder> businessObjects = purchaseOrders.businessObjects
         for(int row=0;row<businessObjects.size();row++){
