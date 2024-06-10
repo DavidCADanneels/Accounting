@@ -195,9 +195,11 @@ class Main {
     static void setAccounting(Accounting accounting, boolean readDetails) {
 
         Accounting activeAccounting = Session.activeAccounting
-        XMLWriter.writeAccounting(activeAccounting, false)
+        if(activeAccounting) {
+            XMLWriter.writeAccounting(activeAccounting, false)
+        }
 
-        if (readDetails) XMLReader.readAccountingDetails(accounting)
+        if (accounting && readDetails) XMLReader.readAccountingDetails(accounting)
         Session.activeAccounting = accounting // only need to write to XML, call this only when writing XML files?
 
         frame.accounting = accounting
@@ -272,10 +274,12 @@ class Main {
         frame.journal = journal
         Accounting activeAccounting = Session.activeAccounting
         AccountingSession accountingSession = Session.getAccountingSession(activeAccounting)
-        Journal activeJournal = accountingSession.activeJournal
-        JournalSession journalSession = accountingSession.getJournalSession(activeJournal)
-        accountGuiLeft.setJournalSession(journalSession)
-        accountGuiRight.setJournalSession(journalSession)
+        if(accountingSession) {
+            Journal activeJournal = accountingSession.activeJournal
+            JournalSession journalSession = accountingSession.getJournalSession(activeJournal)
+            accountGuiLeft.setJournalSession(journalSession)
+            accountGuiRight.setJournalSession(journalSession)
+        }
         accountGuiLeft.setJournal(journal, true)
         accountGuiRight.setJournal(journal, false)
 //        journalEditPanel.setJournalSession(journalSession)

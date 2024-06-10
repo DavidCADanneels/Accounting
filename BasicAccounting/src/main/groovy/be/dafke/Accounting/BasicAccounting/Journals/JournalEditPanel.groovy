@@ -284,7 +284,9 @@ class JournalEditPanel extends JPanel implements ActionListener {
     JComboBox<Account> createComboBox() {
         JComboBox<Account> comboBox = new JComboBox<>()
         comboBox.removeAllItems()
-        accounts.businessObjects.forEach({ account -> comboBox.addItem(account) })
+        if(accounts) {
+            accounts.businessObjects.forEach({ account -> comboBox.addItem(account) })
+        }
         comboBox
     }
 

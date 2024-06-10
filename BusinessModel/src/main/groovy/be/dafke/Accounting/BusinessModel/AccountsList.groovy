@@ -21,9 +21,11 @@ class AccountsList {
 //        addAllTypes(accountTypes, false)
 //    }
     void addAllTypes(AccountTypes accountTypes, boolean enabled){
-        accountTypes.businessObjects.forEach({ accountType ->
-            availableAccountTypes.put(accountType, enabled)
-        })
+        if(accountTypes) {
+            accountTypes.businessObjects.forEach({ accountType ->
+                availableAccountTypes.put(accountType, enabled)
+            })
+        }
     }
 
     void setTypeAvailable(AccountType accountType, boolean available){
