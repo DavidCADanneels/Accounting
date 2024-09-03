@@ -56,8 +56,8 @@ class GoodsDataTableModel extends SelectableTableModel<Good> {
         columnClasses.put(ITEMS_PER_UNIT_COL, Integer.class)
         columnClasses.put(HS_COL, String.class)
         columnClasses.put(PURCHASE_PRICE_COL, BigDecimal.class)
-        columnClasses.put(PURCHASE_VAT_COL, Integer.class)
-        columnClasses.put(SALES_VAT_COL, Integer.class)
+        columnClasses.put(PURCHASE_VAT_COL, Double.class)
+        columnClasses.put(SALES_VAT_COL, Double.class)
         columnClasses.put(SUPPLIER_COL, Contact.class)
         columnClasses.put(INGREDIENT_COL, Ingredient.class)
         columnClasses.put(AMOUNT_COL, BigDecimal.class)
@@ -150,7 +150,7 @@ class GoodsDataTableModel extends SelectableTableModel<Good> {
             good.setPurchaseVatRate((Integer) value)
         }
         if(col == SALES_VAT_COL){
-            good.setSalesVatRate((Integer) value)
+            good.setSalesVatRate((Double) value)
         }
         if(col == SUPPLIER_COL){
             good.setSupplier((Contact) value)

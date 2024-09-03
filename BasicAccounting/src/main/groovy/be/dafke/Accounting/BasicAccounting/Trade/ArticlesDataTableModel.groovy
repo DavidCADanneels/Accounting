@@ -58,8 +58,8 @@ class ArticlesDataTableModel extends SelectableTableModel<Article> {
         columnClasses.put(ITEMS_PER_UNIT_COL, Integer.class)
         columnClasses.put(HS_COL, String.class)
         columnClasses.put(PURCHASE_PRICE_COL, BigDecimal.class)
-        columnClasses.put(PURCHASE_VAT_COL, Integer.class)
-        columnClasses.put(SALES_VAT_COL, Integer.class)
+        columnClasses.put(PURCHASE_VAT_COL, Double.class)
+        columnClasses.put(SALES_VAT_COL, Double.class)
         columnClasses.put(SUPPLIER_COL, Contact.class)
         columnClasses.put(INGREDIENT_COL, Ingredient.class)
         columnClasses.put(AMOUNT_COL, BigDecimal.class)
@@ -152,10 +152,10 @@ class ArticlesDataTableModel extends SelectableTableModel<Article> {
             }
         }
         if(col == PURCHASE_VAT_COL){
-            article.setPurchaseVatRate((Integer) value)
+            article.setPurchaseVatRate((Double) value)
         }
         if(col == SALES_VAT_COL){
-            article.setSalesVatRate((Integer) value)
+            article.setSalesVatRate((Double) value)
         }
         if(col == SUPPLIER_COL){
             article.setSupplier((Contact) value)

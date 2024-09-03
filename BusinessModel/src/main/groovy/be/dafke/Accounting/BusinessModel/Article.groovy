@@ -6,8 +6,8 @@ import be.dafke.Utils.Utils
 import java.util.function.Predicate
 
 abstract class Article extends BusinessObject{
-    Integer purchaseVatRate = 0
-    Integer salesVatRate = 6
+    Double purchaseVatRate = 0
+    Double salesVatRate = 6
     Integer itemsPerUnit = 1
     BigDecimal purchasePrice = null
     BigDecimal salesPriceItemWithVat = null
@@ -20,11 +20,11 @@ abstract class Article extends BusinessObject{
     ArrayList<PurchaseOrder> purchaseOrders = new ArrayList()
     ArrayList<SalesOrder> salesOrders = new ArrayList()
 
-    void setSalesVatRate(Integer salesVatRate) {
+    void setSalesVatRate(Double salesVatRate) {
         this.salesVatRate = salesVatRate
     }
 
-    void setPurchaseVatRate(Integer purchaseVatRate) {
+    void setPurchaseVatRate(Double purchaseVatRate) {
         this.purchaseVatRate = purchaseVatRate
     }
 
@@ -72,7 +72,7 @@ abstract class Article extends BusinessObject{
         purchasePrice
     }
 
-    Integer getSalesVatRate() {
+    Double getSalesVatRate() {
         salesVatRate
     }
 
@@ -84,7 +84,7 @@ abstract class Article extends BusinessObject{
         salesPriceItemWithVat?salesPriceItemWithVat.divide(getSalesFactor(),BigDecimal.ROUND_HALF_DOWN):null
     }
 
-    Integer getPurchaseVatRate() {
+    Double getPurchaseVatRate() {
         purchaseVatRate
     }
 

@@ -55,7 +55,7 @@ class PurchaseOrderCreateDataTableModel extends PurchaseOrderViewDataTableModel 
             BigDecimal purchasePriceForUnit = (BigDecimal) value
             orderItem.setPurchasePriceForUnit(purchasePriceForUnit)
         } else if(col == VAT_RATE_COL){
-            Integer vatRate = (Integer) value
+            Double vatRate = (Double) value
             orderItem.setPurchaseVatRate(vatRate)
         }
         order.setOrderItem(orderItem)

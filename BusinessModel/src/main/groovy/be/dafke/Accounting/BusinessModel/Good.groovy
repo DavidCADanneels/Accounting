@@ -7,8 +7,8 @@ import java.util.function.Predicate
 
 class Good extends Article{
     String HSCode = ""
-    Integer purchaseVatRate = 0
-    Integer salesVatRate = 6
+    Double purchaseVatRate = 0
+    Double salesVatRate = 6
     Integer itemsPerUnit = 1
     BigDecimal purchasePrice = null
     BigDecimal salesPriceItemWithVat = null
@@ -41,11 +41,11 @@ class Good extends Article{
         this.HSCode = HSCode
     }
 
-    void setSalesVatRate(Integer salesVatRate) {
+    void setSalesVatRate(Double salesVatRate) {
         this.salesVatRate = salesVatRate
     }
 
-    void setPurchaseVatRate(Integer purchaseVatRate) {
+    void setPurchaseVatRate(Double purchaseVatRate) {
         this.purchaseVatRate = purchaseVatRate
     }
 
@@ -97,7 +97,7 @@ class Good extends Article{
         HSCode
     }
 
-    Integer getSalesVatRate() {
+    Double getSalesVatRate() {
         salesVatRate
     }
 
@@ -109,7 +109,7 @@ class Good extends Article{
         salesPriceItemWithVat?salesPriceItemWithVat.divide(getSalesFactor(),BigDecimal.ROUND_HALF_DOWN):null
     }
 
-    Integer getPurchaseVatRate() {
+    Double getPurchaseVatRate() {
         purchaseVatRate
     }
 

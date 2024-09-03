@@ -90,12 +90,12 @@ class Utils {
     }
 
     // 6 -> 0.06
-    static BigDecimal getPercentage(int pct){
+    static BigDecimal getPercentage(double pct){
         new BigDecimal(pct).divide(new BigDecimal(100))
     }
 
     // 6 -> 1.06
-    static BigDecimal getFactor(int pct){
+    static BigDecimal getFactor(double pct){
         BigDecimal.ONE.add(getPercentage(pct))
     }
 
@@ -119,6 +119,15 @@ class Utils {
         if(s==null) 0
         try {
             Integer.parseInt(s)
+        } catch (NumberFormatException nfe) {
+            0
+        }
+    }
+
+    static int parseDouble(String s) {
+        if(s==null) 0
+        try {
+            Double.parseDouble(s)
         } catch (NumberFormatException nfe) {
             0
         }

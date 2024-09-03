@@ -13,6 +13,7 @@ import static be.dafke.Accounting.BusinessModelDao.XMLReader.*
 import static be.dafke.Accounting.BusinessModelDao.XMLWriter.getXmlHeader
 import static be.dafke.Utils.Utils.parseBigDecimal
 import static be.dafke.Utils.Utils.parseInt 
+import static be.dafke.Utils.Utils.parseDouble
 
 class PurchaseOrderIO {
     static void readPurchaseOrders(Accounting accounting){
@@ -57,7 +58,7 @@ class PurchaseOrderIO {
                 int itemsPerUnit = parseInt(itemsPerUnitString)
 
                 String purchaseVatRateString = getValue(element, PURCHASE_VAT_RATE)
-                int purchaseVatRate = parseInt(purchaseVatRateString)
+                int purchaseVatRate = parseDouble(purchaseVatRateString)
 
                 String purchasePriceString = getValue(element, PURCHASE_PRICE)
                 BigDecimal purchasePrice = parseBigDecimal(purchasePriceString)

@@ -39,7 +39,7 @@ class PurchaseOrderViewDataTableModel  extends SelectableTableModel<OrderItem> {
         columnClasses.put(INGREDIENT_COL, Ingredient.class)
         columnClasses.put(HS_COL, String.class)
         columnClasses.put(PRICE_UNIT_COL, BigDecimal.class)
-        columnClasses.put(VAT_RATE_COL, Integer.class)
+        columnClasses.put(VAT_RATE_COL, Double.class)
         columnClasses.put(PRICE_TOTAL_EXCL_COL, BigDecimal.class)
         columnClasses.put(VAT_AMOUNT_COL, BigDecimal.class)
         columnClasses.put(PRICE_TOTAL_INCL_COL, BigDecimal.class)

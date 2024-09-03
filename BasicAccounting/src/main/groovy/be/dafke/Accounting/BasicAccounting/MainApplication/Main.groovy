@@ -388,6 +388,10 @@ WARNING: ${newJournal} also has an open transactions, which will be lost if you 
         saveCurrentTransaction()
         Journal journal = transaction?.journal
         Transaction currentTransaction = journal?.currentTransaction
+        if(currentTransaction == null){
+//            TODO: avoid NPE in below line,
+//            continueEditing = true or false ?
+        }
         boolean continueEditing = currentTransaction.businessObjects.empty
         if (!continueEditing) {
             String text = """\

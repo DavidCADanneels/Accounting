@@ -12,8 +12,8 @@ class OrderItem extends BusinessObject{
     BigDecimal purchasePriceForUnit
     BigDecimal salesPriceForItem
     int itemsPerUnit = 0
-    Integer salesVatRate = null
-    Integer purchaseVatRate = null
+    Double salesVatRate = null
+    Double purchaseVatRate = null
     PurchaseOrder purchaseOrder
     Order order
 
@@ -216,7 +216,7 @@ class OrderItem extends BusinessObject{
         purchasePercentage?BigDecimal.ONE.add(purchasePercentage):BigDecimal.ONE
     }
 
-    Integer getPurchaseVatRate() {
+    Double getPurchaseVatRate() {
 //		Contact supplier = article.supplier
 //		if(supplier.isIntraCommun() && supplier.isInternational){
 //			0
@@ -229,7 +229,7 @@ class OrderItem extends BusinessObject{
         else null
     }
 
-    void setPurchaseVatRate(Integer purchaseVatRate) {
+    void setPurchaseVatRate(Double purchaseVatRate) {
         this.purchaseVatRate = purchaseVatRate
     }
 

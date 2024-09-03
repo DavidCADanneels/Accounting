@@ -13,6 +13,7 @@ import static be.dafke.Accounting.BusinessModelDao.XMLReader.*
 import static be.dafke.Accounting.BusinessModelDao.XMLWriter.getXmlHeader
 import static be.dafke.Utils.Utils.parseBigDecimal
 import static be.dafke.Utils.Utils.parseInt
+import static be.dafke.Utils.Utils.parseDouble
 
 class GoodsIO {
     static void readGoods(Accounting accounting){
@@ -38,9 +39,9 @@ class GoodsIO {
                 good.setIngredient(ingredient)
             }
 
-            String ingredientAmountSrting = getValue(element, AMOUNT)
-            if(ingredientAmountSrting){
-                good.setIngredientAmount(parseBigDecimal(ingredientAmountSrting))
+            String ingredientAmountString = getValue(element, AMOUNT)
+            if(ingredientAmountString){
+                good.setIngredientAmount(parseBigDecimal(ingredientAmountString))
             }
 
             String purchasePrice = getValue(element, PURCHASE_PRICE)
@@ -53,11 +54,11 @@ class GoodsIO {
 
             String purchaseVatRate = getValue(element, PURCHASE_VAT_RATE)
             if(purchaseVatRate)
-                good.setPurchaseVatRate(parseInt(purchaseVatRate))
+                good.setPurchaseVatRate(parseDouble(purchaseVatRate))
 
             String salesVatRate = getValue(element, SALES_VAT_RATE)
             if(salesVatRate)
-                good.setSalesVatRate(parseInt(salesVatRate))
+                good.setSalesVatRate(parseDouble(salesVatRate))
 
             String itemsPerUnit = getValue(element, ITEMS_PER_UNIT)
             if(itemsPerUnit)

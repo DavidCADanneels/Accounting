@@ -4,7 +4,7 @@ class Service extends Article {
 
     Contact supplier
     Account costAccount
-    Integer purchaseVatRate = 0
+    Double purchaseVatRate = 0
 
     Service(String name) {
         setName(name)
@@ -32,11 +32,11 @@ class Service extends Article {
         this.costAccount = costAccount
     }
 
-    Integer getPurchaseVatRate() {
+    Double getPurchaseVatRate() {
         return purchaseVatRate
     }
 
-    void setPurchaseVatRate(Integer purchaseVatRate) {
+    void setPurchaseVatRate(Double purchaseVatRate) {
         this.purchaseVatRate = purchaseVatRate
     }
 }
