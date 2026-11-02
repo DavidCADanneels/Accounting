@@ -8,8 +8,17 @@ class UnbookedSupplierInvoicesTableModel extends SupplierInvoicesTableModel {
 
     @Override
     List<PurchaseOrder> getPurchaseOrders(){
-        Session.activeAccounting.purchaseOrders.getBusinessObjects({ order ->
-            order.purchaseTransaction == null
-        })
+        if(Session?.activeAccounting?.purchaseOrders) {
+            return Session.activeAccounting.purchaseOrders.getBusinessObjects({ order ->
+                order.purchaseTransaction == null
+            })
+        } else {
+            return []
+        }
+    }
+
+    @Override
+    int getRowCount() {
+        return getPurchaseOrders().size()
     }
 }
